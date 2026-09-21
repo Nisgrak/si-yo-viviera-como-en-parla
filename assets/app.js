@@ -154,6 +154,14 @@
       '-.3-.3-.5-.7-.5-1.2 0-1 .8-1.8 2-1.8h1.5c3 0 5.5-2.4 5.5-5.3 0-3.9-4.2-7.1-10-7.1z"/>' +
       '<circle cx="7.5" cy="10.6" r="1.1"/><circle cx="11" cy="7.5" r="1.1"/>' +
       '<circle cx="15.5" cy="8.4" r="1.1"/>',
+    hacienda:
+      '<path d="M6 3.2h7.4L19 8.8V20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4.2a1 1 0 0 1 1-1z"/>' +
+      '<path d="M13.2 3.4v5.5h5.5"/>' +
+      '<path d="M14.6 13.2a2.9 2.9 0 1 0 0 4.4"/><path d="M8.4 14.3h4.2M8.4 16.2h4.2"/>',
+    ventanilla:
+      '<path d="M2.4 9.8 12 4.1l9.6 5.7"/>' +
+      '<path d="M5.4 9.8v8M9.8 9.8v8M14.2 9.8v8M18.6 9.8v8"/>' +
+      '<path d="M3.2 17.8h17.6"/><path d="M1.8 21h20.4"/>',
     residencia:
       '<path d="M3.6 10.4 12 3.4l8.4 7v9.1a1 1 0 0 1-1 1H4.6a1 1 0 0 1-1-1z"/>' +
       '<path d="M12 18.3c-.6-.5-3.1-2.1-3.1-4a1.85 1.85 0 0 1 3.1-1.35 1.85 1.85 0 0 1 3.1 1.35' +
@@ -165,7 +173,8 @@
     farmacias: 'farmacia', bibliotecas: 'biblioteca', 'centros-salud': 'salud',
     'escuelas-infantiles': 'bebe', colegios: 'colegio', institutos: 'instituto',
     universidad: 'universidad', conservatorio: 'musica',
-    'plazas-residencia': 'residencia', camas: 'cama', artes: 'paleta'
+    'plazas-residencia': 'residencia', camas: 'cama', artes: 'paleta',
+    hacienda: 'hacienda', 'seguridad-social': 'ventanilla'
   };
 
   function icono(clave, cls) {

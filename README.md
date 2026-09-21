@@ -5,16 +5,16 @@ Web reivindicativa que responde a una pregunta muy concreta:
 > **¿Cuántos servicios públicos desaparecerían de mi ciudad si estuviera dotada exactamente
 > igual que Parla?**
 
-Cinco ciudades del sur de Madrid comparadas contra Parla, con nombre y apellidos:
+Siete ciudades del área metropolitana de Madrid comparadas contra Parla, con nombre y apellidos:
 
 | Ciudad | Habitantes | Equipamientos que perdería |
 |---|---:|---:|
-| Leganés | 195.734 | **67** |
-| Fuenlabrada | 190.076 | **61** |
-| Móstoles | 214.817 | **59** |
-| Alcorcón | 175.719 | **58** |
-| Getafe | 193.238 | **47** |
-| Alcobendas | 123.342 | **21** |
+| Leganés | 195.734 | **69** |
+| Fuenlabrada | 190.076 | **63** |
+| Móstoles | 214.817 | **61** |
+| Alcorcón | 175.719 | **61** |
+| Getafe | 193.238 | **50** |
+| Alcobendas | 123.342 | **24** |
 | Pinto | 56.651 | **9** |
 
 **Pinto y Alcobendas** pierden poco, y por motivos opuestos. Pinto ya está casi tan mal dotado
@@ -121,6 +121,8 @@ Todas oficiales y enlazadas una por una en el apartado «Cómo está hecho esto�
   bruta municipal
 - **Metro de Madrid** (línea 12), **Renfe Cercanías** (C-3, C-4, C-5), **CRTM** (ML-4)
 - **UC3M** y **URJC** · campus oficiales
+- **Agencia Tributaria** y **Seguridad Social** · sus propios buscadores de oficinas
+- **Ministerio de Sanidad** · Catálogo Nacional de Hospitales 2025
 
 ### Lo que todavía no está
 
@@ -153,6 +155,13 @@ incorporarlos:
   municipio.
 - **Limpieza viaria.** Descartado, pero por una razón distinta: el dato existe y es bueno, y es
   la clasificación la que no aguanta la comparación. Ver abajo.
+- **Oficinas de empleo.** Hay dato bueno —el buscador de la Comunidad de Madrid lista las 43 de
+  la región— pero no hay historia: Getafe, Leganés, Alcorcón y Móstoles tienen dos; Parla,
+  Fuenlabrada, Alcobendas y Pinto, una. Por habitante Parla sale séptima de ocho, y Fuenlabrada
+  peor. Además el denominador correcto no es la población sino el paro registrado, y por ahí
+  Parla queda segunda por la cola: 7.041 parados por oficina frente a los 4.094 de Getafe, pero
+  Fuenlabrada aguanta 9.355. Con recuentos de uno o dos, una oficina de más o de menos le da la
+  vuelta a la tabla. Queda descartado por lumpy, no por falta de fuente.
 - **Accesos a autovías y autopistas.** No hay estadística municipal oficial. Contar enlaces sobre
   un mapa sería un constructo propio.
 - **Escuelas deportivas municipales.** Sin registro, el mismo muro que los polideportivos.
@@ -180,32 +189,33 @@ consolidadas, que eliminan las transferencias internas entre un ayuntamiento y s
 autónomos. Los ocho municipios están los cuatro ejercicios.
 
 **Limpieza viaria (programa 163) no sirve, y el dato lo demuestra.** Parla aparece como la que
-más gasta de las ocho: 92,07 € por habitante en 2024, frente a 54,24 de Getafe y 44,51 de
+más gasta de las ocho: 90,30 € por habitante en 2024, frente a 53,30 de Getafe y 43,79 de
 Alcobendas. Pinto aparece con cero. No es que Parla barra más ni que Pinto no barra: cada
 ayuntamiento reparte el gasto entre el 163 y el 162 (recogida de residuos) como quiere. Parla
-declara 17,77 €/hab en el 162 y Getafe 64,23. Sumando los dos programas, Parla queda en 109,84 y
-Getafe en 118,47, y el orden se da la vuelta. Lo mismo pasa con instalaciones deportivas —el
+declara 17,43 €/hab en el 162 y Getafe 63,12. Sumando los dos programas, Parla queda en 107,73 y
+Getafe en 116,42, y el orden se da la vuelta. Lo mismo pasa con instalaciones deportivas —el
 programa 342 sale a cero en Parla, Alcorcón y Móstoles, que lo imputan al 340 o al 341— y con
 seguridad. El desglose por programa de esta fuente sirve para leer un ayuntamiento, no para
 comparar ocho.
 
 **Lo que sí aguanta la comparación es el capítulo económico**, que no depende de cómo cada quien
-etiquete sus programas. Consolidado, por habitante y con la población de 2025 en todos los años:
+etiquete sus programas. Consolidado, por habitante —con las cifras oficiales del INE a 1 de enero de 2025, las mismas
+que usa la web— y en todos los ejercicios:
 
-| € por habitante        | 2021 | 2022 | 2023 | 2024 | media |
-|------------------------|-----:|-----:|-----:|-----:|------:|
-| **Inversión real de Parla** |    9 |   18 |   58 |    8 |  **23** |
-| Móstoles               |  109 |   52 |   27 |   21 |    52 |
-| Pinto                  |   16 |   35 |  119 |   53 |    56 |
-| Alcorcón               |   57 |   49 |   40 |   90 |    59 |
-| Alcobendas             |   47 |   64 |  188 |   80 |    95 |
-| Fuenlabrada            |   55 |   61 |  131 |  145 |    98 |
-| Leganés                |  130 |  202 |   74 |   26 |   108 |
-| Getafe                 |   94 |  179 |  270 |   94 |   159 |
+| Inversión real, € por habitante | 2021 | 2022 | 2023 | 2024 | media |
+|---------------------------------|-----:|-----:|-----:|-----:|------:|
+| **Parla**                       |    8 |   18 |   57 |    8 | **23** |
+| Móstoles                        |  109 |   51 |   27 |   21 |    52 |
+| Pinto                           |   16 |   35 |  117 |   53 |    55 |
+| Alcorcón                        |   56 |   48 |   40 |   89 |    58 |
+| Alcobendas                      |   46 |   63 |  185 |   79 |    93 |
+| Fuenlabrada                     |   55 |   61 |  132 |  146 |    98 |
+| Leganés                         |  129 |  200 |   73 |   26 |   107 |
+| Getafe                          |   93 |  175 |  265 |   92 |   156 |
 
 Parla invierte una séptima parte que Getafe por habitante, y es la última de las ocho en tres de
-los cuatro ejercicios. El gasto total por habitante también la deja abajo (media de 795 €), pero
-ahí Leganés está a un pelo (789 €) y 2022 fue un año raro en Parla, así que no es un dato
+los cuatro ejercicios. El gasto total por habitante también la deja abajo (media de 780 €), pero
+ahí Leganés está a un pelo (782 €) y 2022 fue un año raro en Parla, así que no es un dato
 redondo. El de inversión sí.
 
 No está en la web. Es dinero, no equipamientos, y metería una tesis causal que la web hoy no
@@ -217,7 +227,10 @@ su plan de ajuste, y separar las dos cosas no se puede hacer con esta fuente.
 Es una web pública, así que la copia sigue tres reglas:
 
 1. **Ninguna afirmación sin respaldo.** Los superlativos van acotados a los municipios
-   comparados, no a «la comarca» ni «el sur metropolitano», que no se han medido enteros. El
+   comparados, no a «la comarca» ni «el sur metropolitano», que no se han medido enteros. La
+   única excepción son las dos notas de oficinas del Estado, que afirman algo de toda la
+   Comunidad de Madrid: ahí el listado completo de la fuente se cruzó con los 180 municipios de
+   la región, uno a uno, antes de escribir la frase. El
    número va como `{N}` en los textos y lo rellena `texto()` a partir de `MUNICIPIOS.length`,
    así que añadir una ciudad no deja ninguna frase desfasada.
 2. **Las tesis se distinguen de los datos.** Las cifras se enseñan; las lecturas se escriben
@@ -225,7 +238,7 @@ Es una web pública, así que la copia sigue tres reglas:
 3. **Nada de jerga de desarrollo en la cara pública.** Para avisar de un error se enlaza el
    repositorio, no un nombre de archivo.
 4. **Las frases con fuerza también salen de los datos.** El golpe de la portada («Parla es la
-   última en renta por habitante y en 7 de los 14 servicios») no está escrito a mano:
+   última en renta por habitante y en 9 de los 16 servicios») no está escrito a mano:
    `golpe()` recorre los indicadores en cada carga y cuenta en cuántos la tasa de Parla es la
    mínima. Si cambian los datos, cambia la frase.
 5. **Nada de antítesis.** La construcción «no es X: es Y» estaba doce veces y es lo que hacía

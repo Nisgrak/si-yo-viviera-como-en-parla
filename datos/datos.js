@@ -167,6 +167,14 @@ window.DATOS = (function () {
     alumnado: {
       t: 'Comunidad de Madrid · Alumnos matriculados por tipo de centro y régimen, 2024',
       url: 'https://datos.comunidad.madrid/catalogo/dataset/alumnos_no_universitarios_por_tipo_y_regimen'
+    },
+    aeat: {
+      t: 'Agencia Tributaria · Buscador de oficinas, provincia de Madrid',
+      url: 'https://sede.agenciatributaria.gob.es/Sede/buscador-oficinas/madrid.html'
+    },
+    segsocial: {
+      t: 'Seguridad Social · Buscador de oficinas, provincia de Madrid',
+      url: 'https://www.seg-social.es/wps/portal/wss/internet/OficinaSeguridadSocial'
     }
   };
 
@@ -769,6 +777,48 @@ window.DATOS = (function () {
         alcorcon: { n: 0, lista: [] },
         alcobendas: { n: 0, lista: [] },
         mostoles: { n: 0, lista: [] }
+      }
+    },
+
+    {
+      id: 'hacienda',
+      sing: 'oficina de la Agencia Tributaria',
+      gen: 'f',
+      base: 'total',
+      grupo: 'Administración',
+      titulo: 'Oficinas de la Agencia Tributaria',
+      fuenteId: 'aeat',
+      nota: 'La Agencia Tributaria tiene trece administraciones en la Comunidad de Madrid fuera de la capital. Parla no es una de ellas, y es el municipio más poblado de la región que no la tiene: todos los que le ganan en población —Móstoles, Alcalá de Henares, Leganés, Getafe, Fuenlabrada, Alcorcón, Torrejón de Ardoz y Madrid— cuentan con la suya. La de El Escorial atiende a 17.171 vecinos. La Oficina Nacional de Gestión Tributaria comparte edificio con la administración de Alcorcón, pero es una unidad estatal y no se cuenta aquí.',
+      datos: {
+        getafe: { n: 1, lista: ['Administración de Getafe'] },
+        parla: { n: 0, lista: [] },
+        pinto: { n: 0, lista: [] },
+        fuenlabrada: { n: 1, lista: ['Administración de Fuenlabrada'] },
+        leganes: { n: 1, lista: ['Administración de Leganés'] },
+        alcorcon: { n: 1, lista: ['Administración de Alcorcón'] },
+        alcobendas: { n: 1, lista: ['Administración de Alcobendas'] },
+        mostoles: { n: 1, lista: ['Administración de Móstoles'] }
+      }
+    },
+
+    {
+      id: 'seguridad-social',
+      sing: 'oficina de la Seguridad Social',
+      gen: 'f',
+      base: 'total',
+      grupo: 'Administración',
+      titulo: 'Oficinas de la Seguridad Social',
+      fuenteId: 'segsocial',
+      nota: 'El buscador de la Seguridad Social lista dieciséis municipios con oficina en la Comunidad de Madrid, y Parla no está entre ellos. San Martín de Valdeiglesias, con 9.324 habitantes, sí. Se cuentan direcciones distintas: donde el centro de atención del INSS y la administración de la Tesorería comparten edificio, cuenta una sola oficina.',
+      datos: {
+        getafe: { n: 2, lista: ['Avda. de los Ángeles, 53', 'C/ San Isidro, 2'] },
+        parla: { n: 0, lista: [] },
+        pinto: { n: 0, lista: [] },
+        fuenlabrada: { n: 1, lista: ['C/ Portugal, 33'] },
+        leganes: { n: 1, lista: ['Avda. Dos de Mayo, 29'] },
+        alcorcon: { n: 2, lista: ['Paseo de Extremadura, 17', 'C/ Inspector Juan Antonio Bueno'] },
+        alcobendas: { n: 2, lista: ['C/ Marqués de la Valdavia, 75', 'C/ Marqués de la Valdavia, 30'] },
+        mostoles: { n: 1, lista: ['Paseo de Arroyomolinos, 59'] }
       }
     }
   ];
