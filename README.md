@@ -151,8 +151,66 @@ incorporarlos:
   más pequeña. Lo que cuenta de una comisaría es su plantilla, que es justo lo que no se publica.
 - **Tarjetas sanitarias por médico de familia.** La Comunidad de Madrid no lo publica por
   municipio.
+- **Limpieza viaria.** Descartado, pero por una razón distinta: el dato existe y es bueno, y es
+  la clasificación la que no aguanta la comparación. Ver abajo.
+- **Accesos a autovías y autopistas.** No hay estadística municipal oficial. Contar enlaces sobre
+  un mapa sería un constructo propio.
+- **Escuelas deportivas municipales.** Sin registro, el mismo muro que los polideportivos.
+- **Autobuses urbanos e interurbanos.** El GTFS del CRTM trae los horarios reales, y el id de
+  línea lleva dentro el código INE del municipio (`9__1__065_` es Getafe). Pero ese atajo miente:
+  Fuenlabrada sale con cero líneas urbanas y Leganés con una, porque sus servicios urbanos están
+  clasificados dentro de la red interurbana. Hacerlo bien exige cruzar las coordenadas de cada
+  parada con los límites municipales del IGN. Es viable, pero es un día de trabajo.
 
-Cada uno aparece en la web con su motivo al lado, no solo con el nombre.
+### CONPREL: qué se puede sacar de los presupuestos municipales
+
+La aplicación de Hacienda para consultar presupuestos y liquidaciones de las entidades locales
+—[CONPREL](https://serviciostelematicosext.hacienda.gob.es/SGFAL/CONPREL)— parece interactiva,
+pero publica un volcado descargable con el máximo desglose, una base Access por ejercicio y unos
+50 MB comprimidos:
+
+```
+https://serviciostelematicosext.hacienda.gob.es/SGFAL/CONPREL/Consulta/DescargaFichero
+    ?CCAA=&TipoDato=Liquidaciones&Ejercicio=2024&TipoPublicacion=Access
+```
+
+Se lee con `mdbtools`. Dentro: `tb_inventario` (entidades y población), `tb_funcional`
+(gasto por entidad × capítulo económico × programa), `tb_economica` y sus dos versiones
+consolidadas, que eliminan las transferencias internas entre un ayuntamiento y sus organismos
+autónomos. Los ocho municipios están los cuatro ejercicios.
+
+**Limpieza viaria (programa 163) no sirve, y el dato lo demuestra.** Parla aparece como la que
+más gasta de las ocho: 92,07 € por habitante en 2024, frente a 54,24 de Getafe y 44,51 de
+Alcobendas. Pinto aparece con cero. No es que Parla barra más ni que Pinto no barra: cada
+ayuntamiento reparte el gasto entre el 163 y el 162 (recogida de residuos) como quiere. Parla
+declara 17,77 €/hab en el 162 y Getafe 64,23. Sumando los dos programas, Parla queda en 109,84 y
+Getafe en 118,47, y el orden se da la vuelta. Lo mismo pasa con instalaciones deportivas —el
+programa 342 sale a cero en Parla, Alcorcón y Móstoles, que lo imputan al 340 o al 341— y con
+seguridad. El desglose por programa de esta fuente sirve para leer un ayuntamiento, no para
+comparar ocho.
+
+**Lo que sí aguanta la comparación es el capítulo económico**, que no depende de cómo cada quien
+etiquete sus programas. Consolidado, por habitante y con la población de 2025 en todos los años:
+
+| € por habitante        | 2021 | 2022 | 2023 | 2024 | media |
+|------------------------|-----:|-----:|-----:|-----:|------:|
+| **Inversión real de Parla** |    9 |   18 |   58 |    8 |  **23** |
+| Móstoles               |  109 |   52 |   27 |   21 |    52 |
+| Pinto                  |   16 |   35 |  119 |   53 |    56 |
+| Alcorcón               |   57 |   49 |   40 |   90 |    59 |
+| Alcobendas             |   47 |   64 |  188 |   80 |    95 |
+| Fuenlabrada            |   55 |   61 |  131 |  145 |    98 |
+| Leganés                |  130 |  202 |   74 |   26 |   108 |
+| Getafe                 |   94 |  179 |  270 |   94 |   159 |
+
+Parla invierte una séptima parte que Getafe por habitante, y es la última de las ocho en tres de
+los cuatro ejercicios. El gasto total por habitante también la deja abajo (media de 795 €), pero
+ahí Leganés está a un pelo (789 €) y 2022 fue un año raro en Parla, así que no es un dato
+redondo. El de inversión sí.
+
+No está en la web. Es dinero, no equipamientos, y metería una tesis causal que la web hoy no
+hace: parte de esa cifra es infrafinanciación y parte es la deuda heredada que Parla arrastra en
+su plan de ajuste, y separar las dos cosas no se puede hacer con esta fuente.
 
 ## Cómo está escrita
 
@@ -167,7 +225,7 @@ Es una web pública, así que la copia sigue tres reglas:
 3. **Nada de jerga de desarrollo en la cara pública.** Para avisar de un error se enlaza el
    repositorio, no un nombre de archivo.
 4. **Las frases con fuerza también salen de los datos.** El golpe de la portada («Parla es la
-   última en renta por habitante y en 7 de los 12 servicios») no está escrito a mano:
+   última en renta por habitante y en 7 de los 14 servicios») no está escrito a mano:
    `golpe()` recorre los indicadores en cada carga y cuenta en cuántos la tasa de Parla es la
    mínima. Si cambian los datos, cambia la frase.
 5. **Nada de antítesis.** La construcción «no es X: es Y» estaba doce veces y es lo que hacía
