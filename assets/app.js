@@ -51,6 +51,33 @@
 
   function vaciar(n) { while (n.firstChild) n.removeChild(n.firstChild); }
 
+  /* "Una biblioteca pública por cada 32.206 habitantes" */
+  const UNO = { f: 'Una', m: 'Un' };
+  const uno = { f: 'una', m: 'uno' };
+  const ninguno = { f: 'ninguna', m: 'ninguno' };
+
+  function cadaCuantos(n, base) {
+    return n > 0 ? entero(Math.round(base / n)) : null;
+  }
+
+  function enCristiano(c) {
+    const g = c.ind.gen || 'm';
+    const aqui = cadaCuantos(c.n, c.baseA);
+    const ref = cadaCuantos(c.nRef, c.baseB);
+    const quien = c.base.etiqueta;
+    if (!aqui && !ref) return '';
+    if (!ref) {
+      return UNO[g] + ' ' + c.ind.sing + ' por cada ' + aqui + ' ' + quien + ' en ' +
+        NOMBRE[AQUI] + '. En ' + NOMBRE_REF + ' no hay ' + ninguno[g] + '.';
+    }
+    if (!aqui) {
+      return 'En ' + NOMBRE[AQUI] + ' no hay ' + ninguno[g] + '. ' + UNO[g] + ' ' +
+        c.ind.sing + ' por cada ' + ref + ' ' + quien + ' en ' + NOMBRE_REF + '.';
+    }
+    return UNO[g] + ' ' + c.ind.sing + ' por cada ' + aqui + ' ' + quien + ' en ' +
+      NOMBRE[AQUI] + '; ' + uno[g] + ' por cada ' + ref + ' en ' + NOMBRE_REF + '.';
+  }
+
   function pieFuente(ids) {
     const vistas = {};
     const trozos = [];
@@ -150,9 +177,12 @@
       cont.appendChild(fila);
     });
 
-    const unidad = 'por cada ' + entero(c.base.por) + ' ' + c.base.etiqueta;
+    cont.appendChild(el('p', 'tasas__llano', enCristiano(c)));
+
+    const unidad = num(c.tasaA, 2) + ' y ' + num(c.tasaB, 2) + ' por cada ' +
+      entero(c.base.por) + ' ' + c.base.etiqueta;
     cont.appendChild(el('p', 'tasas__pie', modo === 'gana'
-      ? unidad + ' · con la tasa de ' + NOMBRE_REF + ' habria ' + num(c.equivalente, 2) +
+      ? unidad + ' · con la tasa de ' + NOMBRE_REF + ' habría ' + num(c.equivalente, 2) +
         ' en ' + NOMBRE[AQUI]
       : unidad + ' · con la tasa de ' + NOMBRE_REF + ' quedarían ' + num(c.equivalente, 2) +
         ' de ' + c.n));
@@ -323,7 +353,43 @@
     return li;
   }
 
+  /* Un ejemplo con números reales vale más que cualquier explicación */
+  function comoSeLee() {
+    const caja = $('#como-se-lee');
+    vaciar(caja);
+    let c = null;
+    for (let i = 0; i < perdidas.length; i++) {
+      if (perdidas[i].ind.id === 'bibliotecas') { c = perdidas[i]; break; }
+    }
+    if (!c) c = perdidas.filter(function (x) { return x.nRef > 0 && x.n > 1; })[0];
+    if (!c) { caja.hidden = true; return; }
+    caja.hidden = false;
+
+    const g = c.ind.gen || 'm';
+    const paso = function (n, txt) {
+      const li = el('li', 'lee__paso');
+      li.appendChild(el('span', 'lee__n', n));
+      li.appendChild(el('span', 'lee__t', txt));
+      return li;
+    };
+
+    caja.appendChild(el('p', 'lee__rot', 'Cómo se lee esto'));
+    const ol = el('ol', 'lee__pasos');
+    ol.appendChild(paso('1', NOMBRE_REF + ' tiene <b>' + c.nRef + '</b> ' +
+      c.ind.titulo.toLowerCase() + ' para ' + entero(c.baseB) + ' ' + c.base.etiqueta +
+      ': ' + uno[g] + ' por cada <b>' + cadaCuantos(c.nRef, c.baseB) + '</b>.'));
+    ol.appendChild(paso('2', NOMBRE[AQUI] + ' tiene ' + entero(c.baseA) + ' ' +
+      c.base.etiqueta + '. A ese ritmo le tocarían <b>' + num(c.equivalente, 1) + '</b>.'));
+    ol.appendChild(paso('3', 'Pero tiene <b>' + c.n + '</b>. La diferencia, ' +
+      '<b class="lee__dif">' + num(c.delta) + '</b>, es lo que verás en rojo aquí abajo.'));
+    caja.appendChild(ol);
+    caja.appendChild(el('p', 'lee__cierre',
+      'Eso es todo. Ni una cifra de esta web sale de otro sitio: se divide, se compara y se ' +
+      'enseña de dónde viene cada número.'));
+  }
+
   function resumen() {
+    comoSeLee();
     const ol = $('#recuento');
     vaciar(ol);
 

@@ -153,6 +153,8 @@ window.DATOS = (function () {
   const indicadores = [
     {
       id: 'metro',
+      sing: 'estación de Metro',
+      gen: 'f',
       base: 'total',
       grupo: 'Transporte',
       titulo: 'Estaciones de Metro',
@@ -188,6 +190,8 @@ window.DATOS = (function () {
 
     {
       id: 'cercanias',
+      sing: 'estación de Cercanías',
+      gen: 'f',
       base: 'total',
       grupo: 'Transporte',
       titulo: 'Estaciones de Cercanías',
@@ -211,6 +215,8 @@ window.DATOS = (function () {
 
     {
       id: 'farmacias',
+      sing: 'farmacia',
+      gen: 'f',
       base: 'total',
       grupo: 'Sanidad',
       titulo: 'Oficinas de farmacia',
@@ -228,6 +234,8 @@ window.DATOS = (function () {
 
     {
       id: 'bibliotecas',
+      sing: 'biblioteca pública',
+      gen: 'f',
       base: 'total',
       grupo: 'Cultura',
       titulo: 'Bibliotecas públicas',
@@ -270,6 +278,8 @@ window.DATOS = (function () {
 
     {
       id: 'centros-salud',
+      sing: 'centro de salud',
+      gen: 'm',
       base: 'total',
       grupo: 'Sanidad',
       titulo: 'Centros de salud',
@@ -312,6 +322,8 @@ window.DATOS = (function () {
 
     {
       id: 'escuelas-infantiles',
+      sing: 'escuela infantil pública',
+      gen: 'f',
       base: 'infantil',
       grupo: 'Educación',
       titulo: 'Escuelas infantiles públicas y casas de niños',
@@ -368,6 +380,8 @@ window.DATOS = (function () {
 
     {
       id: 'colegios',
+      sing: 'colegio público',
+      gen: 'm',
       base: 'primaria',
       grupo: 'Educación',
       titulo: 'Colegios públicos de infantil y primaria',
@@ -450,6 +464,8 @@ window.DATOS = (function () {
 
     {
       id: 'institutos',
+      sing: 'instituto público',
+      gen: 'm',
       base: 'secundaria',
       grupo: 'Educación',
       titulo: 'Institutos públicos de secundaria',
@@ -505,6 +521,8 @@ window.DATOS = (function () {
 
     {
       id: 'universidad',
+      sing: 'campus universitario público',
+      gen: 'm',
       base: 'total',
       grupo: 'Educación',
       titulo: 'Campus universitario público',
@@ -522,6 +540,8 @@ window.DATOS = (function () {
 
     {
       id: 'conservatorio',
+      sing: 'conservatorio profesional',
+      gen: 'm',
       base: 'total',
       grupo: 'Educación',
       titulo: 'Conservatorio profesional de música',
@@ -539,6 +559,8 @@ window.DATOS = (function () {
 
     {
       id: 'plazas-residencia',
+      sing: 'plaza residencial pública',
+      gen: 'f',
       base: 'mayores',
       grupo: 'Servicios sociales',
       titulo: 'Plazas en residencias públicas de mayores',
@@ -563,6 +585,8 @@ window.DATOS = (function () {
 
     {
       id: 'tranvia',
+      sing: 'parada de tranvía',
+      gen: 'f',
       base: 'total',
       grupo: 'Transporte',
       titulo: 'Paradas de tranvía',

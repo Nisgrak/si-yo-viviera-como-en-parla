@@ -46,6 +46,12 @@ Poblaciones totales: cifras oficiales del INE a 1 de enero de 2025.
 Tramos de edad: INE, población por edad año a año, misma fecha (tabla 68543). Los totales de
 las dos operaciones difieren en unos miles; ningún cálculo mezcla las dos.
 
+La web abre el recuento con un ejemplo resuelto con números reales del municipio elegido
+(«Parla tiene 2 bibliotecas para 137.471 habitantes: una por cada 68.736; a ese ritmo a Getafe
+le tocarían 2,8 y tiene 6»), y cada indicador enseña su ratio en lenguaje llano —«una
+biblioteca pública por cada 32.206 habitantes en Getafe; una por cada 68.736 en Parla»— además
+de la cifra por 100.000.
+
 Cuando el cálculo dice que sobran tres bibliotecas, la web tacha tres nombres concretos.
 **Qué tres es ilustrativo** — no hay criterio técnico para decidir cuál cierra — y la web lo
 dice en su apartado de método. Lo que no es ilustrativo es *cuántas*.
