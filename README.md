@@ -131,8 +131,16 @@ No se han incluido por no tener una fuente oficial comparable entre municipios:
   Indicadores Urbanos, pero deja vacíos los porcentajes de uso del suelo para todos ellos. La
   única vía sería calcularlo yo sobre el Copernicus Urban Atlas, y eso sería una estimación
   mía, no una cifra oficial citable.
-- **Plantilla de Policía Local.** Ningún organismo publica los efectivos por municipio en
-  Madrid. Castilla y León sí publica los suyos; la Comunidad de Madrid no.
+- **Plantilla policial, local y nacional.** Ningún organismo publica efectivos por municipio.
+  Castilla y León sí publica los de su policía local; la Comunidad de Madrid no. Y el Ministerio
+  del Interior da los de la Policía Nacional **por provincia**, nunca por comisaría: su catálogo
+  de datos abiertos no tiene ningún conjunto municipal.
+
+  Las comisarías sí se pueden localizar —los siete municipios grandes tienen una, Pinto no—, pero
+  como indicador es inservible: es binario, la de Alcobendas es compartida con San Sebastián de
+  los Reyes, y por habitante se invierte. Parla saldría con 1 comisaría cada 137.471 vecinos y
+  Móstoles con 1 cada 214.817, o sea que la web diría que Parla está mejor servida sólo por ser
+  más pequeña. Lo que cuenta de una comisaría es su plantilla, que es justo lo que no se publica.
 - **Tarjetas sanitarias por médico de familia.** La Comunidad de Madrid no lo publica por
   municipio.
 

@@ -930,7 +930,7 @@ window.DATOS = (function () {
     'Teatros y espacios escénicos municipales — cada ayuntamiento los cuenta con un criterio distinto',
     'Instalaciones deportivas municipales — el último censo nacional es de 2005',
     'Zonas verdes por habitante — el INE publica la superficie total de cada municipio pero deja vacíos los usos del suelo',
-    'Plantilla de Policía Local — ninguna administración publica los efectivos por municipio en Madrid',
+    'Plantilla policial — ni la Policía Local ni la Nacional publican efectivos por municipio; Interior solo da cifras por provincia',
     'Tarjetas sanitarias por médico de familia — la Comunidad de Madrid no publica ese dato por municipio'
   ];
 
