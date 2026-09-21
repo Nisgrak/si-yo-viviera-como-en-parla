@@ -11,12 +11,19 @@ Cinco ciudades del sur de Madrid comparadas contra Parla, con nombre y apellidos
 |---|---:|---:|
 | Leganés | 195.734 | **67** |
 | Fuenlabrada | 190.076 | **61** |
+| Móstoles | 214.817 | **59** |
 | Alcorcón | 175.719 | **58** |
 | Getafe | 193.238 | **47** |
+| Alcobendas | 123.342 | **21** |
 | Pinto | 56.651 | **9** |
 
-Pinto es el caso interesante: pierde poco porque ya está casi tan mal dotado como Parla, y en
-sanidad hospitalaria está **peor** (no tiene hospital; Parla sí). La web lo dice.
+**Pinto y Alcobendas** pierden poco, y por motivos opuestos. Pinto ya está casi tan mal dotado
+como Parla. Alcobendas es rica —29.659 € de renta por habitante, más del doble que Parla— pero
+pequeña, y tampoco tiene universidad ni conservatorio. Ninguno de los dos tiene hospital público
+propio, así que en sanidad hospitalaria están **por debajo** de Parla. La web lo dice.
+
+**Móstoles** es el único con dos hospitales públicos (el Universitario de Móstoles y el Rey Juan
+Carlos); se compara la unión de sus dos carteras, 79 unidades frente a las 54 de Parla.
 
 ## Cómo funciona
 
@@ -41,6 +48,9 @@ usar la población total en educación la favorecería sin motivo:
 
 Con la población total como base, los colegios de Parla salían por encima de los de Getafe;
 con los niños en edad escolar, salen por debajo.
+
+Alcobendas no es del sur: está al norte de Madrid. Entró para tener un contraste de renta alta
+en la comparación, y por eso los textos hablan de «área metropolitana» y no de «el sur».
 
 Poblaciones totales: cifras oficiales del INE a 1 de enero de 2025.
 Tramos de edad: INE, población por edad año a año, misma fecha (tabla 68543). Los totales de
@@ -118,7 +128,7 @@ No se han incluido por no tener una fuente oficial comparable entre municipios:
 - **Instalaciones deportivas municipales.** El último Censo Nacional de Instalaciones
   Deportivas del CSD es de 2005 y la Comunidad de Madrid no publica un registro municipal.
 - **Zonas verdes por habitante.** El INE publica la superficie total de cada municipio en sus
-  Indicadores Urbanos, pero deja vacíos los porcentajes de uso del suelo para los seis. La
+  Indicadores Urbanos, pero deja vacíos los porcentajes de uso del suelo para todos ellos. La
   única vía sería calcularlo yo sobre el Copernicus Urban Atlas, y eso sería una estimación
   mía, no una cifra oficial citable.
 - **Plantilla de Policía Local.** Ningún organismo publica los efectivos por municipio en
@@ -132,8 +142,10 @@ Cada uno aparece en la web con su motivo al lado, no solo con el nombre.
 
 Es una web pública, así que la copia sigue tres reglas:
 
-1. **Ninguna afirmación sin respaldo.** Los superlativos van acotados a los seis municipios
-   comparados, no a «la comarca» ni «el sur metropolitano», que no se han medido enteros.
+1. **Ninguna afirmación sin respaldo.** Los superlativos van acotados a los municipios
+   comparados, no a «la comarca» ni «el sur metropolitano», que no se han medido enteros. El
+   número va como `{N}` en los textos y lo rellena `texto()` a partir de `MUNICIPIOS.length`,
+   así que añadir una ciudad no deja ninguna frase desfasada.
 2. **Las tesis se distinguen de los datos.** Las cifras se enseñan; las lecturas se escriben
    como lecturas y van en las notas, no en los titulares.
 3. **Nada de jerga de desarrollo en la cara pública.** Para avisar de un error se enlaza el

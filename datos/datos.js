@@ -21,7 +21,9 @@ window.DATOS = (function () {
     { id: 'pinto', nombre: 'Pinto', activo: true },
     { id: 'fuenlabrada', nombre: 'Fuenlabrada', activo: true },
     { id: 'leganes', nombre: 'Leganés', activo: true },
-    { id: 'alcorcon', nombre: 'Alcorcón', activo: true }
+    { id: 'alcorcon', nombre: 'Alcorcón', activo: true },
+    { id: 'alcobendas', nombre: 'Alcobendas', activo: true },
+    { id: 'mostoles', nombre: 'Móstoles', activo: true }
   ];
 
   /* Contra qué población se mide cada indicador. Un colegio no se mide contra
@@ -38,7 +40,9 @@ window.DATOS = (function () {
         pinto: 56651,
         fuenlabrada: 190076,
         leganes: 195734,
-        alcorcon: 175719
+        alcorcon: 175719,
+        alcobendas: 123342,
+        mostoles: 214817
       }
     },
     infantil: {
@@ -52,7 +56,9 @@ window.DATOS = (function () {
         pinto: 1278,
         fuenlabrada: 3634,
         leganes: 3573,
-        alcorcon: 3226
+        alcorcon: 3226,
+        alcobendas: 2631,
+        mostoles: 4219
       }
     },
     primaria: {
@@ -66,7 +72,9 @@ window.DATOS = (function () {
         pinto: 5322,
         fuenlabrada: 14531,
         leganes: 14771,
-        alcorcon: 13351
+        alcorcon: 13351,
+        alcobendas: 10914,
+        mostoles: 17039
       }
     },
     secundaria: {
@@ -80,7 +88,9 @@ window.DATOS = (function () {
         pinto: 4456,
         fuenlabrada: 12772,
         leganes: 12991,
-        alcorcon: 11288
+        alcorcon: 11288,
+        alcobendas: 9160,
+        mostoles: 12992
       }
     },
     mayores: {
@@ -94,7 +104,9 @@ window.DATOS = (function () {
         pinto: 8130,
         fuenlabrada: 36611,
         leganes: 44465,
-        alcorcon: 40010
+        alcorcon: 40010,
+        alcobendas: 21998,
+        mostoles: 49845
       }
     }
   };
@@ -184,7 +196,18 @@ window.DATOS = (function () {
             'Leganés Central', 'San Nicasio'
           ]
         },
-        alcorcon: { n: 4, lista: ['Puerta del Sur', 'Parque Lisboa', 'Alcorcón Central', 'Parque Oeste'] }
+        alcorcon: { n: 4, lista: ['Puerta del Sur', 'Parque Lisboa', 'Alcorcón Central', 'Parque Oeste'] },
+        alcobendas: {
+          n: 5,
+          lista: ['La Granja', 'La Moraleja', 'Marqués de la Valdavia', 'Manuel de Falla', 'Baunatal']
+        },
+        mostoles: {
+          n: 5,
+          lista: [
+            'Universidad Rey Juan Carlos', 'Móstoles Central', 'Pradillo',
+            'Hospital de Móstoles', 'Manuela Malasaña'
+          ]
+        }
       }
     },
 
@@ -209,7 +232,12 @@ window.DATOS = (function () {
         pinto: { n: 1, lista: ['Pinto (C-3)'] },
         fuenlabrada: { n: 2, lista: ['Fuenlabrada (C-5)', 'La Serna (C-5)'] },
         leganes: { n: 3, lista: ['Leganés (C-5)', 'Zarzaquemada (C-5)', 'Parque Polvoranca (C-5)'] },
-        alcorcon: { n: 3, lista: ['Alcorcón (C-5)', 'San José de Valderas (C-5)', 'Las Retamas (C-5)'] }
+        alcorcon: { n: 3, lista: ['Alcorcón (C-5)', 'San José de Valderas (C-5)', 'Las Retamas (C-5)'] },
+        alcobendas: {
+          n: 2,
+          lista: ['Alcobendas-San Sebastián de los Reyes (C-4)', 'Valdelasfuentes (C-4)']
+        },
+        mostoles: { n: 2, lista: ['Móstoles (C-5)', 'Móstoles-El Soto (C-5)'] }
       }
     },
 
@@ -228,7 +256,9 @@ window.DATOS = (function () {
         pinto: { n: 17, lista: [] },
         fuenlabrada: { n: 65, lista: [] },
         leganes: { n: 68, lista: [] },
-        alcorcon: { n: 69, lista: [] }
+        alcorcon: { n: 69, lista: [] },
+        alcobendas: { n: 37, lista: [] },
+        mostoles: { n: 73, lista: [] }
       }
     },
 
@@ -240,7 +270,7 @@ window.DATOS = (function () {
       grupo: 'Cultura',
       titulo: 'Bibliotecas públicas',
       fuenteId: 'bibliotecas',
-      nota: 'Dos bibliotecas públicas para 137.471 habitantes. Es la ratio más baja de los seis municipios comparados aquí.',
+      nota: 'Dos bibliotecas públicas para 137.471 habitantes. Es la ratio más baja de los {N} municipios comparados aquí.',
       datos: {
         getafe: {
           n: 6,
@@ -271,6 +301,14 @@ window.DATOS = (function () {
           lista: [
             'José Hierro', 'Ciudad de Nejapa', 'Almudena Grandes', 'Alcalde Jesús Salvador',
             'Joaquín Vilumbrales', 'Fuente Cisneros', 'Miguel Delibes'
+          ]
+        },
+        alcobendas: { n: 4, lista: ['Anabel Segura', 'Centro de Arte', 'Miguel Delibes', 'Pablo Iglesias'] },
+        mostoles: {
+          n: 6,
+          lista: [
+            'Almudena Grandes', 'Norte-Universidad', 'Parque Coimbra', 'El Soto', 'Joan Miró',
+            'Caleidoscopio'
           ]
         }
       }
@@ -315,6 +353,21 @@ window.DATOS = (function () {
           lista: [
             'Ramón y Cajal', 'Gregorio Marañón', 'Miguel Servet', 'Los Castillos',
             'Doctor Pedro Laín Entralgo', 'Doctor Trueta', 'La Rivota', 'Parque Oeste'
+          ]
+        },
+        alcobendas: {
+          n: 5,
+          lista: [
+            'Arroyo de la Vega', 'La Chopera', 'Marqués de la Valdavia', 'Miraflores',
+            'Valdelasfuentes'
+          ]
+        },
+        mostoles: {
+          n: 10,
+          lista: [
+            'Alcalde Bartolomé González', 'Barcelona', 'Doctor Luengo Rodríguez', 'Dos de Mayo',
+            'El Soto', 'Enfermera Carmen Vázquez', 'Felipe II', 'La Princesa', 'Parque Coimbra',
+            'Presentación Sabio'
           ]
         }
       }
@@ -374,6 +427,18 @@ window.DATOS = (function () {
             'Gloria Fuertes', 'La Princesa', 'Las Flores', 'Los Pingüinos',
             'Los Pinos de Maeve', 'Mago de Oz', 'Nanas', 'Rodari', 'Sol y Luna', 'Sueños'
           ]
+        },
+        alcobendas: {
+          n: 6,
+          lista: ['Cascabeles', 'El Cuquillo', 'Fuentelucha', 'La Chopera', 'Pío Pío', 'Valdelaparra']
+        },
+        mostoles: {
+          n: 12,
+          lista: [
+            'Antusana', 'Caleidoscopio', 'Colores', 'El Columpio', 'El Juglar',
+            'El Pequeño Sauce', 'El Soto', 'Fabulas y Leyendas', 'Joan Miró', 'Osa Mayor',
+            'Parque Coimbra', 'Villaamil'
+          ]
         }
       }
     },
@@ -386,7 +451,7 @@ window.DATOS = (function () {
       grupo: 'Educación',
       titulo: 'Colegios públicos de infantil y primaria',
       fuenteId: 'educacion',
-      nota: 'Con la población total como divisor, Parla saldría bien parada. Al dividir entre los niños en edad escolar deja de estarlo, porque es el municipio más joven de los seis.',
+      nota: 'Con la población total como divisor, Parla saldría bien parada. Al dividir entre los niños en edad escolar deja de estarlo, porque es el municipio más joven de los {N}.',
       datos: {
         getafe: {
           n: 29,
@@ -458,6 +523,29 @@ window.DATOS = (function () {
             'Párroco D. Víctoriano', 'San José de Valderas', 'Santiago Ramón y Cajal',
             'Santo Domingo', 'Vicente Aleixandre'
           ]
+        },
+        alcobendas: {
+          n: 14,
+          lista: [
+            'Antonio Machado', 'Bachiller Alonso López', 'Castilla', 'Daoiz y Velarde',
+            'Emilio Casado', 'Federico García Lorca', 'Gabriel y Galan', 'Luis Buñuel',
+            'Miguel Hernández', 'Miraflores', 'Parque de Cataluña', 'Profesor Tierno Galván',
+            'Seis de Diciembre', 'Valdepalitos'
+          ]
+        },
+        mostoles: {
+          n: 36,
+          lista: [
+            'Alfonso R. Castelao', 'Alonso Cano', 'Andrés Segovia', 'Andrés Torrejon',
+            'Antonio Hernández', 'Antusana', 'Beato Simón de Rojas', 'Benito Pérez Galdós',
+            'Blas de Otero', 'Celso Emilio Ferreiro', 'Ciudad de Roma', 'Federico García Lorca',
+            'Gabriel Celaya', 'Joan Miró', 'Jorge Guillén', 'Juan Ocaña',
+            'Juan Pérez Villaamil', 'Julián Besteiro', 'Las Cumbres', 'Leonardo Da Vinci',
+            'León Felipe', 'Luis Álvarez Lencero', 'Margarita Xirgu', 'Maruja Mallo',
+            'María Montessori', 'Miguel Delibes', 'Pablo Sarasate', 'Pablo Sorozabal',
+            'Principe de Asturias', 'Pío Baroja', 'Rafael Alberti', 'Rio Bidasoa',
+            'Rosalía de Castro', 'Salzillo-valle Inclán', 'Severo Ochoa', 'Vicente Aleixandre'
+          ]
         }
       }
     },
@@ -515,6 +603,22 @@ window.DATOS = (function () {
             'Los Castillos', 'Luis Buñuel', 'Parque de Lisboa', 'Prado de Santo Domingo',
             'Ítaca'
           ]
+        },
+        alcobendas: {
+          n: 6,
+          lista: [
+            'Agora', 'Aldebaran', 'Francisco Giner de los Ríos', 'Gloria Fuertes',
+            'Severo Ochoa', 'Virgen de la Paz'
+          ]
+        },
+        mostoles: {
+          n: 17,
+          lista: [
+            'Antonio Gala', 'Antonio de Nebrija', 'Benjamin Rua', 'Clara Campoamor',
+            'El Cañaveral', 'Europa', 'Felipe Trigo', 'Gabriel Cisneros', 'Juan Gris',
+            'Los Rosales', 'Luis Buñuel', 'Manuel de Falla', 'Manuela Malasaña',
+            'Miguel Hernández', 'Miguel de Cervantes', 'Rayuela', 'Velázquez'
+          ]
         }
       }
     },
@@ -534,7 +638,9 @@ window.DATOS = (function () {
         pinto: { n: 0, lista: [] },
         fuenlabrada: { n: 1, lista: ['Universidad Rey Juan Carlos · Campus de Fuenlabrada'] },
         leganes: { n: 1, lista: ['Universidad Carlos III · Campus de Leganés'] },
-        alcorcon: { n: 1, lista: ['Universidad Rey Juan Carlos · Campus de Alcorcón'] }
+        alcorcon: { n: 1, lista: ['Universidad Rey Juan Carlos · Campus de Alcorcón'] },
+        alcobendas: { n: 0, lista: [] },
+        mostoles: { n: 1, lista: ['Universidad Rey Juan Carlos · Campus de Móstoles'] }
       }
     },
 
@@ -553,7 +659,9 @@ window.DATOS = (function () {
         pinto: { n: 0, lista: [] },
         fuenlabrada: { n: 0, lista: [] },
         leganes: { n: 1, lista: ['Conservatorio Profesional Manuel Rodríguez Sales'] },
-        alcorcon: { n: 1, lista: ['Conservatorio Profesional Manuel de Falla'] }
+        alcorcon: { n: 1, lista: ['Conservatorio Profesional Manuel de Falla'] },
+        alcobendas: { n: 0, lista: [] },
+        mostoles: { n: 1, lista: ['Conservatorio Profesional Rodolfo Halffter'] }
       }
     },
 
@@ -579,7 +687,9 @@ window.DATOS = (function () {
         pinto: { n: 0, lista: [] },
         fuenlabrada: { n: 63, lista: ['Residencia Municipal de Fuenlabrada · 63 plazas'] },
         leganes: { n: 220, lista: ['Parque de los Frailes · 220 plazas'] },
-        alcorcon: { n: 208, lista: ['Residencia de Personas Mayores de Alcorcón · 208 plazas'] }
+        alcorcon: { n: 208, lista: ['Residencia de Personas Mayores de Alcorcón · 208 plazas'] },
+        alcobendas: { n: 201, lista: ['Gastón Baquero · 201 plazas'] },
+        mostoles: { n: 249, lista: ['Parque Coimbra · 220 plazas', 'Juan XXIII · 29 plazas'] }
       }
     },
 
@@ -591,17 +701,18 @@ window.DATOS = (function () {
       grupo: 'Transporte',
       titulo: 'Paradas de tranvía',
       fuenteId: 'tranvia',
-      nota: 'Parla es la única de las seis ciudades con tranvía: el ML-4, con 15 paradas. Es una línea circular dentro del municipio, así que para ir a Madrid hay que cambiar al Cercanías.',
+      nota: 'Parla es la única de las {N} ciudades con tranvía: el ML-4, con 15 paradas. Es una línea circular dentro del municipio, así que para ir a Madrid hay que cambiar al Cercanías.',
       datos: {
         getafe: { n: 0, lista: [] },
         parla: { n: 15, lista: [] },
         pinto: { n: 0, lista: [] },
         fuenlabrada: { n: 0, lista: [] },
         leganes: { n: 0, lista: [] },
-        alcorcon: { n: 0, lista: [] }
+        alcorcon: { n: 0, lista: [] },
+        alcobendas: { n: 0, lista: [] },
+        mostoles: { n: 0, lista: [] }
       }
-    },
-
+    }
   ];
 
   /* Los hospitales no se reparten por habitante: se compara su cartera de servicios. */
@@ -684,13 +795,48 @@ window.DATOS = (function () {
         'Planificación familiar', 'Recuperación de oocitos', 'Vacunación'
       ],
       faltanAqui: ['Atención sanitaria domiciliaria', 'Bioquímica clínica', 'Cuidados paliativos']
+    },
+    alcobendas: {
+      nombre: null,
+      unidades: 0,
+      faltanEnReferencia: [],
+      faltanAqui: [
+        'Alergología', 'Anatomía patológica', 'Anestesia y Reanimación', 'Aparato digestivo',
+        'Atención Continuada en Atención Primaria', 'Atención sanitaria domiciliaria',
+        'Bioquímica clínica', 'Cardiología', 'Cirugía general y digestivo',
+        'Cirugía mayor ambulatoria', 'Cirugía menor ambulatoria',
+        'Cirugía ortopédica y Traumatología', 'Cuidados intermedios neonatales',
+        'Cuidados paliativos', 'Dermatología', 'Diálisis', 'Endocrinología', 'Enfermería',
+        'Enfermería obstétrico-ginecológica (matrona)', 'Extracción de sangre para donación',
+        'Extracción de órganos', 'Farmacia', 'Fisioterapia', 'Geriatría', 'Ginecología',
+        'Hematología clínica', 'Hospital de día', 'Implantación de tejidos',
+        'Laboratorio de hematología', 'Medicina del trabajo', 'Medicina intensiva',
+        'Medicina interna', 'Medicina preventiva', 'Microbiología y Parasitología',
+        'Nefrología', 'Neumología', 'Neurología', 'Nutrición y Dietética', 'Obstetricia',
+        'Obtención de muestras', 'Obtención de tejidos', 'Oftalmología', 'Oncología',
+        'Otorrinolaringología', 'Pediatría', 'Psicología clínica', 'Psiquiatría',
+        'Radiodiagnóstico', 'Rehabilitación', 'Reumatología', 'Servicio de transfusión',
+        'Terapia ocupacional', 'Tratamiento del dolor', 'Urología'
+      ]
+    },
+    mostoles: {
+      nombre: 'Hospital Universitario de Móstoles y Hospital Universitario Rey Juan Carlos',
+      unidades: 79,
+      faltanEnReferencia: [
+        'Angiología y Cirugía Vascular', 'Banco de embriones', 'Banco de oocitos',
+        'Banco de semen', 'Cirugía cardiaca', 'Cirugía maxilofacial', 'Cirugía pediátrica',
+        'Cirugía plástica y reparadora', 'Cirugía torácica', 'Cuidados intensivos neonatales',
+        'Fecundación in vitro', 'Genética', 'Hemodinámica', 'Inseminación artificial',
+        'Laboratorio Clínico', 'Laboratorio de semen para capacitación espermática',
+        'Logopedia', 'Medicina nuclear', 'Neurocirugía', 'Neurofisiología',
+        'Otras unidades asistenciales', 'Planificación familiar', 'Radioterapia',
+        'Recuperación de oocitos', 'Vacunación'
+      ],
+      faltanAqui: []
     }
   };
 
-  const cautelaHospital =
-    'Son las unidades asistenciales que el Registro de Centros de la Comunidad de Madrid tiene '
-    + 'declaradas en un hospital y no en el otro. Algunas diferencias menores pueden deberse a '
-    + 'cómo declara cada centro su cartera.';
+  const cautelaHospital = 'Son las unidades asistenciales que el Registro de Centros de la Comunidad de Madrid tiene declaradas en un hospital y no en el otro. Algunas diferencias menores pueden deberse a cómo declara cada centro su cartera.';
 
   const contexto = {
     renta: {
@@ -703,9 +849,11 @@ window.DATOS = (function () {
         pinto: 18803,
         fuenlabrada: 15909,
         leganes: 17438,
-        alcorcon: 19055
+        alcorcon: 19055,
+        alcobendas: 29659,
+        mostoles: 16710
       },
-      nota: 'Parla vive con el 58,4 % de la renta media de la Comunidad de Madrid, la más baja de los seis municipios comparados. Menos servicios públicos donde menos dinero hay para pagárselos por fuera.'
+      nota: 'Parla vive con el 58,4 % de la renta media de la Comunidad de Madrid, la más baja de los {N} municipios comparados. Menos servicios públicos donde menos dinero hay para pagárselos por fuera.'
     },
     edades: {
       fuenteId: 'edades',
@@ -715,7 +863,9 @@ window.DATOS = (function () {
         pinto: 56592,
         fuenlabrada: 189814,
         leganes: 195946,
-        alcorcon: 176806
+        alcorcon: 176806,
+        alcobendas: 123222,
+        mostoles: 214293
       },
       tramos: [
         {
@@ -726,7 +876,9 @@ window.DATOS = (function () {
             pinto: 1278,
             fuenlabrada: 3634,
             leganes: 3573,
-            alcorcon: 3226
+            alcorcon: 3226,
+            alcobendas: 2631,
+            mostoles: 4219
           }
         },
         {
@@ -737,7 +889,9 @@ window.DATOS = (function () {
             pinto: 5322,
             fuenlabrada: 14531,
             leganes: 14771,
-            alcorcon: 13351
+            alcorcon: 13351,
+            alcobendas: 10914,
+            mostoles: 17039
           }
         },
         {
@@ -748,7 +902,9 @@ window.DATOS = (function () {
             pinto: 4456,
             fuenlabrada: 12772,
             leganes: 12991,
-            alcorcon: 11288
+            alcorcon: 11288,
+            alcobendas: 9160,
+            mostoles: 12992
           }
         },
         {
@@ -759,20 +915,23 @@ window.DATOS = (function () {
             pinto: 8130,
             fuenlabrada: 36611,
             leganes: 44465,
-            alcorcon: 40010
+            alcorcon: 40010,
+            alcobendas: 21998,
+            mostoles: 49845
           }
         }
       ],
-      nota: 'Parla es el municipio más joven de los seis comparados. De ahí que los colegios, los institutos y las escuelas infantiles se midan contra los niños de esa edad y no contra el total de vecinos.'
+      nota: 'Parla es el municipio más joven de los {N} comparados. De ahí que los colegios, los institutos y las escuelas infantiles se midan contra los niños de esa edad y no contra el total de vecinos.'
     }
   };
 
   const pendientes = [
+
     'Teatros y espacios escénicos municipales — cada ayuntamiento los cuenta con un criterio distinto',
     'Instalaciones deportivas municipales — el último censo nacional es de 2005',
     'Zonas verdes por habitante — el INE publica la superficie total de cada municipio pero deja vacíos los usos del suelo',
     'Plantilla de Policía Local — ninguna administración publica los efectivos por municipio en Madrid',
-    'Tarjetas sanitarias por médico de familia — la Comunidad de Madrid no publica ese dato por municipio',
+    'Tarjetas sanitarias por médico de familia — la Comunidad de Madrid no publica ese dato por municipio'
   ];
 
   return {

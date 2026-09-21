@@ -81,10 +81,11 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 
 ## Estado
 
-v2: cinco ciudades contra Parla —Leganés 67, Fuenlabrada 61, Alcorcón 58, Getafe 47, Pinto 9—
+v3: siete ciudades contra Parla —Leganés 67, Fuenlabrada 61, Móstoles 59, Alcorcón 58,
+Getafe 47, Alcobendas 21, Pinto 9—
 con 12 indicadores, más las plazas residenciales públicas y la cartera del hospital, que se
 cuentan aparte. Pinto es el contraejemplo que sostiene la credibilidad: pierde poco y en
 hospital está por debajo de Parla, y la web lo dice en su propia portada.
 
-Siguiente: Móstoles y distritos de Madrid; después, deporte, zonas verdes y teatros cuando
-haya una fuente comparable entre municipios.
+Siguiente: distritos de Madrid; después, deporte, zonas verdes y teatros cuando haya una fuente
+comparable entre municipios.

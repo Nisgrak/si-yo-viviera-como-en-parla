@@ -51,6 +51,15 @@
 
   function vaciar(n) { while (n.firstChild) n.removeChild(n.firstChild); }
 
+  /* Los textos dicen "de los {N} municipios": el número lo pone el propio
+     listado, así que añadir una ciudad no deja ninguna frase desfasada. */
+  const CIFRA_LETRA = ['cero', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis',
+    'siete', 'ocho', 'nueve', 'diez', 'once', 'doce'];
+  function letra(n) { return CIFRA_LETRA[n] || String(n); }
+  function texto(t) {
+    return (t || '').replace(/\{N\}/g, letra(D.MUNICIPIOS.length));
+  }
+
   /* "Una biblioteca pública por cada 32.206 habitantes" */
   const UNO = { f: 'Una', m: 'Un' };
   const uno = { f: 'una', m: 'uno' };
@@ -363,7 +372,7 @@
       if (lista) art.appendChild(lista);
     }
 
-    if (i.nota) art.appendChild(el('p', 'ind__nota', i.nota));
+    if (i.nota) art.appendChild(el('p', 'ind__nota', texto(i.nota)));
     art.appendChild(pieFuente([i.fuenteId, c.base.fuenteId]));
     return art;
   }
@@ -607,7 +616,7 @@
       cont.appendChild(fila);
     });
 
-    cont.appendChild(el('p', 'renta__nota', r.nota));
+    cont.appendChild(el('p', 'renta__nota', texto(r.nota)));
     cont.appendChild(pieFuente([r.fuenteId]));
   }
 
@@ -660,7 +669,7 @@
       NOMBRE[AQUI] + ': esa es la línea del centro. Las barras hacia la derecha son tramos de ' +
       'edad en los que ' + NOMBRE_REF + ' pesa más de lo que le tocaría por tamaño; hacia la ' +
       'izquierda, menos.'));
-    cont.appendChild(el('p', 'renta__nota', e.nota));
+    cont.appendChild(el('p', 'renta__nota', texto(e.nota)));
     cont.appendChild(pieFuente([e.fuenteId]));
   }
 
@@ -786,6 +795,9 @@
       NOMBRE_REF + ' ' + entero(D.BASES.total.valores[REF]);
     Array.prototype.forEach.call(document.querySelectorAll('[data-aqui]'), function (n) {
       n.textContent = NOMBRE[AQUI];
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-n]'), function (n) {
+      n.textContent = letra(D.MUNICIPIOS.length);
     });
   }
 
