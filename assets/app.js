@@ -528,6 +528,86 @@
     cont.appendChild(pieFuente(['sanitarios']));
   }
 
+  /* ── Contrastes: lo que miré esperando otra cosa ──────────────────── */
+
+  function contrastes() {
+    const cont = $('#lista-contrastes');
+    vaciar(cont);
+    const env = el('div', 'env');
+    const estados = [];
+
+    D.contrastes.forEach(function (c) {
+      const vA = c.valores[AQUI];
+      const vB = c.valores[REF];
+      if (vA == null || vB == null) return;
+
+      const orden = Object.keys(c.valores).sort(function (x, y) {
+        return c.mejor === 'alto' ? c.valores[y] - c.valores[x] : c.valores[x] - c.valores[y];
+      });
+      const puesto = orden.indexOf(REF) + 1;
+      /* Diferencias por debajo del 5 % son ruido, no ventaja de nadie */
+      const rel = Math.abs(vB - vA) / Math.max(Math.abs(vA), 1e-9);
+      let estado;
+      if (rel < 0.05) estado = 'igual';
+      else if (c.mejor === 'alto') estado = vB > vA ? 'mejor' : 'peor';
+      else estado = vB < vA ? 'mejor' : 'peor';
+      estados.push(estado);
+
+      const art = el('article', 'contraste contraste--' + estado);
+      art.appendChild(el('p', 'contraste__veredicto-etiqueta',
+        estado === 'peor' ? 'Aquí ' + NOMBRE_REF + ' sí está peor'
+        : estado === 'mejor' ? 'Aquí ' + NOMBRE_REF + ' está mejor'
+        : 'Prácticamente igual'));
+      art.appendChild(el('h3', 'contraste__h', c.titulo));
+      art.appendChild(el('p', 'contraste__detalle', c.detalle));
+
+      const max = Math.max.apply(null, Object.keys(c.valores).map(function (k) { return c.valores[k]; }));
+      const tabla = el('div', 'contraste__tabla');
+      D.MUNICIPIOS.forEach(function (m) {
+        const v = c.valores[m.id];
+        if (v == null) return;
+        const fila = el('div', 'contraste__fila');
+        if (m.id === REF) fila.dataset.quien = 'referencia';
+        else if (m.id === AQUI) fila.dataset.quien = 'aqui';
+        fila.appendChild(el('span', 'contraste__q', m.nombre));
+        const pista = el('span', 'contraste__pista');
+        const barra = el('i');
+        barra.style.setProperty('--v', (v / max).toFixed(4));
+        pista.appendChild(barra);
+        fila.appendChild(pista);
+        fila.appendChild(el('span', 'contraste__v',
+          num(v, c.dec) + (c.unidad ? ' ' + c.unidad : '')));
+        tabla.appendChild(fila);
+      });
+      art.appendChild(tabla);
+
+      art.appendChild(el('p', 'contraste__puesto',
+        NOMBRE_REF + ' queda ' + (puesto === 1 ? 'la primera' : puesto + '.ª') + ' de ' +
+        orden.length + ' en este dato.'));
+      art.appendChild(el('p', 'ind__nota', c.veredicto));
+      art.appendChild(pieFuente([c.fuenteId]));
+      env.appendChild(art);
+    });
+
+    cont.appendChild(env);
+
+    const LETRA = ['cero', 'una', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho'];
+    const letra = function (n) { return LETRA[n] || String(n); };
+    const peor = estados.filter(function (e) { return e === 'peor'; }).length;
+    const resto = estados.length - peor;
+    $('#contrastes-intro').textContent =
+      letra(estados.length).replace(/^una$/, 'Una').charAt(0).toUpperCase() +
+      letra(estados.length).slice(1) + ' comprobaciones que hice dando por hecho que ' +
+      'confirmarían el agravio. ' +
+      (peor === 0 ? 'Ninguna lo hace.'
+        : peor === 1 ? 'Solo una lo confirma; las otras ' + letra(resto) + ' no.'
+        : resto === 0 ? 'Las ' + letra(peor) + ' lo confirman.'
+        : letra(peor).charAt(0).toUpperCase() + letra(peor).slice(1) + ' lo confirman y ' +
+          letra(resto) + ' no.') +
+      ' Están aquí porque una comparación que solo enseña lo que le conviene no vale nada, y ' +
+      'porque afinan cuál es de verdad el problema de ' + NOMBRE_REF + '.';
+  }
+
   /* ── Método ───────────────────────────────────────────────────────── */
 
   function metodo() {
@@ -648,6 +728,7 @@
     edades();
     listas();
     hospital();
+    contrastes();
     metodo();
     movimiento();
     document.title = 'Si yo viviera como en Parla · ' + NOMBRE[AQUI];
