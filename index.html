@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Si yo viviera como en Parla</title>
+<meta name="description" content="Cuántos servicios públicos desaparecerían de tu ciudad si tuviera los mismos que Parla por habitante. Con datos oficiales y con nombre y apellidos.">
+<meta name="theme-color" content="#0a0a0a">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Si yo viviera como en Parla">
+<meta property="og:description" content="Si Getafe tuviera los servicios públicos que tiene Parla por habitante, desaparecerían 47. Estos son sus nombres.">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Cpath d='M6 6 L26 26 M26 6 L6 26' stroke='%23f44f3c' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap">
+<link rel="stylesheet" href="assets/estilos.css">
+</head>
+<body>
+
+<a class="saltar" href="#perdidas">Saltar al recuento</a>
+
+<noscript>
+  <p class="sin-js">
+    Esta página calcula las comparaciones en tu navegador y necesita JavaScript.
+    Los datos en bruto, con sus fuentes, están en el archivo
+    <code>datos/datos.js</code> del repositorio.
+  </p>
+</noscript>
+
+<!-- ── Contador pegajoso ─────────────────────────────────────────────── -->
+<div class="contador" id="contador" aria-live="polite" aria-atomic="true" data-visible="0">
+  <span class="contador__x" aria-hidden="true"></span>
+  <span class="contador__txt">Llevas perdidos <b id="contador-n">0</b></span>
+</div>
+
+<!-- ── Portada ───────────────────────────────────────────────────────── -->
+<header class="portada" id="portada">
+  <div class="env">
+
+    <p class="portada__donde">
+      <label for="sel-municipio">Yo vivo en</label>
+      <span class="selector">
+        <span class="selector__eco" id="sel-texto" aria-hidden="true">Getafe</span>
+        <select id="sel-municipio" aria-describedby="sel-ayuda"></select>
+      </span>
+    </p>
+    <p class="portada__ayuda" id="sel-ayuda">De momento solo Getafe. Los demás llegan pronto.</p>
+
+    <h1 class="portada__titulo">
+      <span class="t1">Si yo viviera</span>
+      <span class="t2">como en</span>
+      <span class="t3">Parla</span>
+    </h1>
+
+    <p class="portada__entrada">
+      Getafe tiene <b id="pob-a">193.238</b> habitantes. Parla, <b id="pob-b">137.471</b>.
+      Si Getafe tuviera exactamente los mismos servicios públicos por habitante que tiene Parla,
+      esto es lo que se borraría del mapa.
+    </p>
+
+    <div class="marcador">
+      <p class="marcador__n"><span id="total-n">0</span></p>
+      <p class="marcador__u">equipamientos y servicios públicos menos.<br><span>Uno por uno, con su nombre.</span></p>
+      <div class="marcador__rejilla" id="rejilla" aria-hidden="true"></div>
+    </div>
+
+    <a class="bajar" href="#perdidas">
+      <span>Ver el recuento</span>
+      <svg width="14" height="22" viewBox="0 0 14 22" fill="none" aria-hidden="true">
+        <path d="M7 0v19M1 13l6 7 6-7" stroke="currentColor" stroke-width="1.6"/>
+      </svg>
+    </a>
+
+  </div>
+</header>
+
+<main>
+
+<!-- ── El recuento, de un vistazo ─────────────────────────────────────── -->
+<section class="bloque bloque--resumen" id="resumen">
+  <div class="env">
+    <h2 class="bloque__h">El recuento</h2>
+    <p class="bloque__intro">
+      Todo lo que desaparecería, con su nombre, de un vistazo.
+      Las dos últimas líneas no suman al total porque no se cuentan en equipamientos:
+      una va en plazas y la otra en servicios de un hospital.
+    </p>
+    <ol class="recuento" id="recuento"></ol>
+    <p class="recuento__pie">
+      <b><span id="resumen-n">47</span> equipamientos</b> menos, sin contar las dos últimas líneas.
+      Cada una tiene abajo su cuenta, su fuente y la lista completa.
+    </p>
+  </div>
+</section>
+
+<!-- ── El punto de partida ───────────────────────────────────────────── -->
+<section class="bloque bloque--partida" id="partida">
+  <div class="env">
+    <h2 class="bloque__h">El punto de partida</h2>
+    <p class="bloque__intro">
+      Dos ciudades del sur de Madrid a doce kilómetros la una de la otra. Una tiene 56.000 vecinos
+      más que la otra, así que no vale con contar equipamientos: hay que contarlos por habitante.
+      Lo que sí se compara directamente es el dinero con el que vive cada una.
+    </p>
+
+    <div class="renta" id="renta"></div>
+
+    <h3 class="bloque__h3" id="h-edades">Y tampoco tienen la misma edad</h3>
+    <p class="bloque__intro">
+      Esto cambia la cuenta. Un colegio no se mide contra los habitantes de una ciudad:
+      se mide contra los niños que tienen edad de ir al colegio.
+    </p>
+    <div class="edades" id="edades"></div>
+  </div>
+</section>
+
+<!-- ── Lo que perderías ──────────────────────────────────────────────── -->
+<section class="bloque bloque--perdidas" id="perdidas">
+  <div class="env">
+    <h2 class="bloque__h">Lo que perderías</h2>
+    <p class="bloque__intro">
+      Cada apartado aplica a Getafe la tasa que tiene Parla hoy. Casi siempre por habitante;
+      en educación y en residencias, por persona de la edad que corresponde. Lo tachado en rojo
+      es lo que sobra respecto a esa tasa: lo que dejaría de existir.
+    </p>
+  </div>
+  <div id="lista-perdidas"></div>
+</section>
+
+<!-- ── El hospital ───────────────────────────────────────────────────── -->
+<section class="bloque bloque--hospital" id="hospital">
+  <div class="env">
+    <h2 class="bloque__h">Y luego está el hospital</h2>
+    <p class="bloque__intro">
+      Los hospitales no se cuentan por habitante: cada ciudad tiene el suyo. Lo que se compara es
+      lo que hay dentro. El Registro de Centros Sanitarios de la Comunidad de Madrid declara
+      <b id="hosp-a">74</b> unidades asistenciales en el Hospital Universitario de Getafe y
+      <b id="hosp-b">54</b> en el Hospital Universitario Infanta Cristina de Parla.
+    </p>
+    <p class="hospital__golpe">
+      Ninguna unidad existe en Parla y no en Getafe. La cartera de Parla cabe entera dentro de la
+      de Getafe. Estas <b>20</b> se quedan fuera:
+    </p>
+    <ul class="unidades" id="unidades"></ul>
+    <p class="cautela" id="hosp-cautela"></p>
+  </div>
+</section>
+
+<!-- ── Lo que ganarías ───────────────────────────────────────────────── -->
+<section class="bloque bloque--ganancias" id="ganancias">
+  <div class="env">
+    <h2 class="bloque__h">Y esto lo ganarías</h2>
+    <p class="bloque__intro">
+      Parla no está peor en todo, y una web que dijera lo contrario no serviría de nada.
+      Estos son los servicios en los que Parla está por encima de Getafe una vez ajustada la
+      población de referencia.
+    </p>
+  </div>
+  <div id="lista-ganancias"></div>
+</section>
+
+<!-- ── Método ────────────────────────────────────────────────────────── -->
+<section class="bloque bloque--metodo" id="metodo">
+  <div class="env">
+    <h2 class="bloque__h">Cómo está hecho esto</h2>
+
+    <div class="metodo__cuerpo">
+      <h3>La cuenta que hace esta web</h3>
+      <p>
+        Para cada servicio se calcula la tasa de Parla por 100.000 habitantes y se aplica a la
+        población de Getafe. La diferencia con lo que Getafe tiene hoy es lo que aparece en rojo.
+      </p>
+      <p class="formula">
+        <span>lo que quedaría</span> = <span>servicios de Parla</span> ÷
+        <span>población de Parla</span> × <span>población de Getafe</span>
+      </p>
+      <p>
+        Los decimales son reales y se muestran tal cual. Medio centro de salud no existe en la vida
+        real, pero medio centro de salud de diferencia sí: significa turnos más largos, listas más
+        largas y gente que no entra.
+      </p>
+
+      <h3>Contra qué población se mide cada cosa</h3>
+      <p>
+        No todo se divide entre la población total. Una farmacia o una estación de Metro sirven a
+        todo el mundo, así que se miden por habitante. Un colegio no: se mide contra los niños que
+        tienen edad de ir al colegio.
+      </p>
+      <p>
+        Esto importa mucho aquí, porque Parla es bastante más joven que Getafe. Si los colegios se
+        dividieran entre la población total, Parla saldría por encima; dividiéndolos entre los niños
+        de 3 a 11 años, sale por debajo. La base que se usa en cada apartado está escrita en el
+        propio apartado.
+      </p>
+      <ul class="pendientes">
+        <li>Escuelas infantiles y casas de niños → población de 0 a 2 años</li>
+        <li>Colegios públicos → población de 3 a 11 años</li>
+        <li>Institutos públicos → población de 12 a 17 años</li>
+        <li>Residencias de mayores → población de 65 años o más</li>
+        <li>Todo lo demás → población total</li>
+      </ul>
+      <p>
+        Los tramos de edad salen de la estadística del INE año a año a 1 de enero de 2025. Sus
+        totales difieren unos pocos miles de las cifras oficiales del Padrón porque son dos
+        operaciones estadísticas distintas; cada cálculo usa una sola de las dos, nunca las mezcla.
+      </p>
+
+      <h3>Qué nombres se tachan</h3>
+      <p>
+        Cuando el cálculo dice que sobran tres bibliotecas, la web tacha tres nombres concretos.
+        <b>Qué tres es ilustrativo</b>: no hay ningún criterio técnico para decidir cuál cierra.
+        Lo que no es ilustrativo es cuántas.
+      </p>
+
+      <h3>De dónde sale la población</h3>
+      <p>
+        Cifras oficiales del INE a 1 de enero de 2025: Getafe 193.238 habitantes, Parla 137.471.
+        Los indicadores por habitante usan siempre estas dos cifras.
+      </p>
+
+      <h3>Lo que todavía no está</h3>
+      <p>
+        Hay datos que no he podido obtener de una fuente oficial comparable entre municipios.
+        Antes que inventarlos, faltan:
+      </p>
+      <ul class="pendientes" id="pendientes"></ul>
+
+      <h3>Fuentes, una por una</h3>
+      <ul class="fuentes" id="fuentes"></ul>
+      <p class="cautela">
+        Datos consultados en <span id="actualizado">septiembre de 2026</span>. Si encuentras un
+        error, es un error: los datos están en <code>datos/datos.js</code> y se pueden corregir.
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="env">
+    <p class="pie__frase">Parla no es un caso raro.<br>Es lo que pasa cuando el reparto lo decide otro.</p>
+    <p class="pie__meta">
+      Hecho con datos abiertos del INE y de la Comunidad de Madrid.
+      Sin publicidad, sin cookies, sin seguimiento.
+    </p>
+  </div>
+</footer>
+
+<script src="datos/datos.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
