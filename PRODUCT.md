@@ -23,7 +23,9 @@ treinta segundos y a la vez auditable hasta la fuente.
 
 ## Voz
 
-Municipal, seca, exacta. Un acta, no un panfleto. La web nunca grita: enumera. La fuerza viene de
+Municipal, seca, exacta. Y con una prohibición concreta: **nada de antítesis**. La construcción
+«no es X: es Y» es adictiva y, repetida, delata a una máquina. Los datos se enuncian y se dejan
+estar; la interpretación va aparte y se nota que es interpretación. Un acta, no un panfleto. La web nunca grita: enumera. La fuerza viene de
 que cada afirmación lleva pegado su origen y de que admite en voz alta los casos en los que Parla
 está mejor. Un dato que no aguanta una réplica no entra.
 
@@ -41,12 +43,13 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 ## Sistema visual
 
 - **Registro:** aviso de obra pública / señalética de transporte, no revista editorial.
-- **Fondo:** negro neutro `#0a0a0a`, croma cero. La emoción la llevan los tres acentos.
+- **Fondo:** blanco puro por defecto, con tema oscuro automático según el sistema. Se lee de día,
+  se comparte en capturas y se parece más a un aviso público que a un panel de control.
 - **Papeles semánticos** (validados para daltonismo y contraste antes de escribir una línea):
-  - rojo `#f44f3c` — lo que desaparece
-  - azul `#3f93f9` — Parla, la vara de medir
-  - verde `#26a55a` — lo que se ganaría
-  - hueso `#f5f5f5` — lo que sobrevive
+  - rojo `#c02719` — lo que desaparece
+  - azul `#1a67c2` — Parla, la vara de medir
+  - verde `#1d7635` — lo que se ganaría
+  - tinta `#161616` — lo que sobrevive
 - **Tipografía:** Archivo variable, una sola familia, servida desde el propio dominio para que
   abrir la web no genere ni una petición a terceros. Titulares en ancho condensado y peso 800;
   texto en ancho normal. El contraste lo dan el peso y el ancho, no una segunda fuente.
@@ -55,6 +58,9 @@ La credibilidad es el producto; sin ella esto es un cartel más.
   sabiendo qué desaparece y cómo se llama.
 - **Regla de los nombres:** lo que se pierde se ve siempre; lo que sobrevive se pliega. Nunca
   al revés.
+- **Iconos:** un glifo de trazo por indicador, dibujados con la misma rejilla y el mismo grosor
+  para que ninguno pese más que otro. Aparecen en el recuento y en la cabecera de cada apartado,
+  nunca grandes ni decorativos.
 - **Marca recurrente:** la unidad tachada. Un cuadrado que se convierte en contorno rojo con una
   diagonal. Es el único pictograma del sistema y aparece en todas las escalas.
 - **Movimiento:** el tachado entra escalonado cuando la sección se ve, y el contador de cabecera

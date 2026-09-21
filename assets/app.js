@@ -91,6 +91,69 @@
     return el('p', 'ind__fuente', trozos.join('. '));
   }
 
+
+  /* ── Iconos ───────────────────────────────────────────────────────────
+     Trazo de 1.7, rejilla de 24, currentColor. Dibujados a mano para que
+     todos pesen lo mismo: ninguno más grueso ni más detallado que el resto. */
+
+  const TRAZOS = {
+    metro:
+      '<rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 10h14"/>' +
+      '<path d="M9.5 21 11 17M14.5 21 13 17"/>' +
+      '<circle cx="9.2" cy="13.5" r=".9"/><circle cx="14.8" cy="13.5" r=".9"/>',
+    cercanias:
+      '<rect x="4" y="4" width="16" height="10" rx="2.5"/><path d="M4 9h16"/>' +
+      '<circle cx="8" cy="17.5" r="1.6"/><circle cx="16" cy="17.5" r="1.6"/>' +
+      '<path d="M2.5 21h19"/>',
+    tranvia:
+      '<path d="M12 2v3"/><rect x="5.5" y="5" width="13" height="12" rx="2.5"/>' +
+      '<path d="M5.5 11h13"/><path d="M8.5 21 10 17.5M15.5 21 14 17.5"/>',
+    farmacia:
+      '<path d="M9.6 3h4.8v6.6H21v4.8h-6.6V21H9.6v-6.6H3V9.6h6.6z"/>',
+    biblioteca:
+      '<path d="M12 6.8C10.4 5.2 7.9 4.6 4 4.6v12.8c3.9 0 6.4.6 8 2.2 1.6-1.6 4.1-2.2 8-2.2V4.6c-3.9 0-6.4.6-8 2.2z"/>' +
+      '<path d="M12 6.8v12.8"/>',
+    salud:
+      '<path d="M3.6 10.4 12 3.4l8.4 7v9.1a1 1 0 0 1-1 1H4.6a1 1 0 0 1-1-1z"/>' +
+      '<path d="M12 11v5.4M9.3 13.7h5.4"/>',
+    hospital:
+      '<path d="M4.5 21V6.4a1 1 0 0 1 1-1h13a1 1 0 0 1 1 1V21"/><path d="M2.5 21h19"/>' +
+      '<path d="M12 8.6v6M9 11.6h6"/>',
+    bebe:
+      '<circle cx="9.6" cy="9.6" r="5.1"/><path d="M13.3 13.3 19 19"/>' +
+      '<path d="M17.4 17.4 21 21"/>',
+    colegio:
+      '<path d="M4 20.2 5 16 16.4 4.6a2.2 2.2 0 0 1 3 3L8 19z"/><path d="M14.4 6.6l3 3"/>',
+    instituto:
+      '<path d="M5 3.5v17h16z"/><path d="M8.5 17h3M8.5 13.6h1.6"/>',
+    universidad:
+      '<path d="M2.5 9 12 4.6 21.5 9 12 13.4z"/>' +
+      '<path d="M6.4 11.2v4.9c0 1.5 2.5 2.7 5.6 2.7s5.6-1.2 5.6-2.7v-4.9"/>',
+    musica:
+      '<path d="M9.2 17.6V5.2l9.6-2v11.4"/><circle cx="6.7" cy="17.8" r="2.6"/>' +
+      '<circle cx="16.3" cy="16.1" r="2.6"/>',
+    cama:
+      '<path d="M3 19.5V9"/><path d="M3 13h11.5a6.5 6.5 0 0 1 6.5 6.5"/>' +
+      '<path d="M21 19.5v-1"/><circle cx="7.4" cy="9.6" r="2.3"/>'
+  };
+
+  const ICONO = {
+    metro: 'metro', cercanias: 'cercanias', tranvia: 'tranvia',
+    farmacias: 'farmacia', bibliotecas: 'biblioteca', 'centros-salud': 'salud',
+    'escuelas-infantiles': 'bebe', colegios: 'colegio', institutos: 'instituto',
+    universidad: 'universidad', conservatorio: 'musica', 'plazas-residencia': 'cama'
+  };
+
+  function icono(clave, cls) {
+    const d = TRAZOS[clave];
+    if (!d) return el('span', cls || 'ico');
+    const w = el('span', cls || 'ico');
+    w.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" ' +
+      'aria-hidden="true" focusable="false">' + d + '</svg>';
+    return w;
+  }
+
   /* ── Cálculo ──────────────────────────────────────────────────────── */
 
   function calcular() {
@@ -256,7 +319,10 @@
     art.id = 'ind-' + i.id;
     if (i.enTotal !== false) art.dataset.delta = c.delta.toFixed(4);
 
-    art.appendChild(el('p', 'ind__grupo', i.grupo));
+    const cab = el('p', 'ind__grupo');
+    cab.appendChild(icono(ICONO[i.id], 'ind__ico'));
+    cab.appendChild(el('span', null, i.grupo));
+    art.appendChild(cab);
     art.appendChild(el('h3', 'ind__h', i.titulo));
 
     let titular;
@@ -337,29 +403,8 @@
 
   /* ── El recuento ──────────────────────────────────────────────────── */
 
-  function frase(ns) {
-    if (!ns.length) return '';
-    if (ns.length === 1) return ns[0];
-    return ns.slice(0, -1).join(', ') + ' y ' + ns[ns.length - 1];
-  }
 
-  function filaRecuento(href, signo, cifra, titulo, detalle, cls, etiqueta) {
-    const li = el('li', 'rec' + (cls ? ' ' + cls : ''));
-    const a = el('a', 'rec__a');
-    a.href = href;
-    a.appendChild(el('span', 'rec__n', signo + cifra));
-    const cuerpo = el('span', 'rec__cuerpo');
-    cuerpo.appendChild(el('span', 'rec__q', titulo));
-    const d = el('span', 'rec__d');
-    if (etiqueta) d.appendChild(el('span', 'rec__tag', etiqueta));
-    d.appendChild(document.createTextNode(detalle));
-    cuerpo.appendChild(d);
-    a.appendChild(cuerpo);
-    li.appendChild(a);
-    return li;
-  }
-
-  /* Un ejemplo con números reales vale más que cualquier explicación */
+  /* Un ejemplo con números reales explica la cuenta mejor que un párrafo */
   function comoSeLee() {
     const caja = $('#como-se-lee');
     vaciar(caja);
@@ -371,62 +416,104 @@
     if (!c) { caja.hidden = true; return; }
     caja.hidden = false;
 
-    const g = c.ind.gen || 'm';
-    const paso = function (n, txt) {
-      const li = el('li', 'lee__paso');
-      li.appendChild(el('span', 'lee__n', n));
-      li.appendChild(el('span', 'lee__t', txt));
-      return li;
-    };
+    caja.appendChild(el('p', 'lee__rot', 'Un ejemplo'));
+    caja.appendChild(el('p', 'lee__txt',
+      NOMBRE_REF + ' tiene <b>' + c.nRef + '</b> ' + c.ind.titulo.toLowerCase() + ' para ' +
+      entero(c.baseB) + ' ' + c.base.etiqueta + '. A ese ritmo, a ' + NOMBRE[AQUI] +
+      ' le tocarían <b>' + num(c.equivalente, 1) + '</b>. Tiene <b>' + c.n +
+      '</b>, así que abajo aparece <b class="lee__dif">−' + num(c.delta) + '</b>.'));
+  }
 
-    caja.appendChild(el('p', 'lee__rot', 'Cómo se lee esto'));
-    const ol = el('ol', 'lee__pasos');
-    ol.appendChild(paso('1', NOMBRE_REF + ' tiene <b>' + c.nRef + '</b> ' +
-      c.ind.titulo.toLowerCase() + ' para ' + entero(c.baseB) + ' ' + c.base.etiqueta +
-      ': ' + uno[g] + ' por cada <b>' + cadaCuantos(c.nRef, c.baseB) + '</b>.'));
-    ol.appendChild(paso('2', NOMBRE[AQUI] + ' tiene ' + entero(c.baseA) + ' ' +
-      c.base.etiqueta + '. A ese ritmo le tocarían <b>' + num(c.equivalente, 1) + '</b>.'));
-    ol.appendChild(paso('3', 'Pero tiene <b>' + c.n + '</b>. La diferencia, ' +
-      '<b class="lee__dif">' + num(c.delta) + '</b>, es lo que verás en rojo aquí abajo.'));
-    caja.appendChild(ol);
-    caja.appendChild(el('p', 'lee__cierre',
-      'Eso es todo: una división y una resta. Cada cifra lleva debajo la fuente oficial de la ' +
-      'que sale.'));
+  function filaRecuento(c, modo) {
+    const i = c.ind;
+    const li = el('li', 'rec' + (modo ? ' rec--' + modo : ''));
+    const a = el('a', 'rec__a');
+    a.href = '#ind-' + i.id;
+    a.appendChild(icono(ICONO[i.id], 'rec__ico'));
+    a.appendChild(el('span', 'rec__q', i.titulo));
+    a.appendChild(el('span', 'rec__n',
+      (modo === 'gana' ? '+' : '−') + num(Math.abs(c.delta))));
+    li.appendChild(a);
+    return li;
   }
 
   function resumen() {
     comoSeLee();
-    const ol = $('#recuento');
-    vaciar(ol);
+    const cont = $('#recuento');
+    vaciar(cont);
 
+    /* Agrupado por área, con su subtotal: un recuento se lee por bloques,
+       no como una lista de doce cosas seguidas. */
+    const areas = [];
+    const porArea = {};
     perdidas.forEach(function (c) {
-      let detalle;
-      if (c.lista && c.lista.length === c.n) {
-        const r = reparto(c);
-        const trozos = r.caen.slice();
-        if (r.parcial) trozos.push(r.parcial.nombre + ' (al ' + num(r.parcial.queda, 0) + ' %)');
-        detalle = frase(trozos);
-      } else {
-        detalle = 'el ' + num(c.pct * 100, 0) + ' % de ' +
-          ((c.ind.gen || 'm') === 'f' ? 'las' : 'los') + ' que hay en la ciudad';
-      }
-      ol.appendChild(filaRecuento('#ind-' + c.ind.id, '−', num(c.delta), c.ind.titulo, detalle,
-        c.ind.enTotal === false ? 'rec--aparte' : '',
-        c.ind.enTotal === false ? 'aparte' : null));
+      if (c.ind.enTotal === false) return;   /* estos van al final, aparte */
+      const k = c.ind.grupo;
+      if (!porArea[k]) { porArea[k] = []; areas.push(k); }
+      porArea[k].push(c);
     });
 
+    areas.sort(function (x, y) { return suma(porArea[y]) - suma(porArea[x]); });
+
+    function suma(lista) {
+      return lista.reduce(function (t, c) {
+        return t + (c.ind.enTotal === false ? 0 : c.delta);
+      }, 0);
+    }
+
+    areas.forEach(function (k) {
+      const lista = porArea[k];
+      const t = suma(lista);
+      const bloque = el('div', 'area');
+      const cab = el('div', 'area__cab');
+      cab.appendChild(el('h3', 'area__q', k));
+      cab.appendChild(el('span', 'area__n', '−' + num(t)));
+      bloque.appendChild(cab);
+      const ul = el('ul', 'area__filas');
+      lista.forEach(function (c) { ul.appendChild(filaRecuento(c, null)); });
+      bloque.appendChild(ul);
+      cont.appendChild(bloque);
+    });
+
+    /* El hospital y, si toca, lo que sale ganando */
     const h = D.hospitales[AQUI];
     const hr = D.hospitales[REF];
+    const extra = [];
+    perdidas.forEach(function (c) {
+      if (c.ind.enTotal !== false) return;
+      extra.push({ ico: ICONO[c.ind.id], q: c.ind.titulo, n: '−' + num(c.delta),
+        modo: 'aparte', href: '#ind-' + c.ind.id });
+    });
     if (h.unidades > 0 && h.faltanEnReferencia.length) {
-      const m = h.faltanEnReferencia.slice(0, 6);
-      ol.appendChild(filaRecuento('#hospital', '−', h.faltanEnReferencia.length,
-        'Unidades del hospital público',
-        m.join(', ') + (h.faltanEnReferencia.length > 6
-          ? ' y ' + (h.faltanEnReferencia.length - 6) + ' más' : ''), 'rec--aparte', 'aparte'));
+      extra.push({ ico: 'hospital', q: 'Unidades del hospital público',
+        n: '−' + h.faltanEnReferencia.length, modo: 'aparte' });
     } else if (h.unidades === 0) {
-      ol.appendChild(filaRecuento('#hospital', '+', hr.unidades, 'Unidades de hospital público',
-        NOMBRE[AQUI] + ' no tiene hospital y ' + NOMBRE_REF + ' sí. Aquí ganarías.',
-        'rec--gana', 'a favor'));
+      extra.push({ ico: 'hospital', q: 'Unidades de hospital público',
+        n: '+' + hr.unidades, modo: 'gana' });
+    }
+    ganancias.forEach(function (c) {
+      extra.push({ ico: ICONO[c.ind.id], q: c.ind.titulo,
+        n: '+' + num(-c.delta), modo: 'gana', href: '#ind-' + c.ind.id });
+    });
+
+    if (extra.length) {
+      const bloque = el('div', 'area area--extra');
+      const cab = el('div', 'area__cab');
+      cab.appendChild(el('h3', 'area__q', 'Fuera del recuento'));
+      bloque.appendChild(cab);
+      const ul = el('ul', 'area__filas');
+      extra.forEach(function (x) {
+        const li = el('li', 'rec rec--' + x.modo);
+        const a = el('a', 'rec__a');
+        a.href = x.href || '#hospital';
+        a.appendChild(icono(x.ico, 'rec__ico'));
+        a.appendChild(el('span', 'rec__q', x.q));
+        a.appendChild(el('span', 'rec__n', x.n));
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+      bloque.appendChild(ul);
+      cont.appendChild(bloque);
     }
 
     $('#resumen-n').textContent = Math.round(TOTAL);
@@ -542,7 +629,7 @@
     const env2 = el('div', 'env');
     if (!ganancias.length) {
       env2.appendChild(el('p', 'bloque__intro',
-        'Nada. No hay ni un solo servicio de los medidos en el que ' + NOMBRE_REF +
+        'Ninguno. De todos los servicios medidos, no hay uno solo en el que ' + NOMBRE_REF +
         ' esté por encima de ' + NOMBRE[AQUI] + '.'));
     }
     ganancias.forEach(function (c) { env2.appendChild(bloqueIndicador(c, 'gana')); });
@@ -561,7 +648,7 @@
       cont.appendChild(el('p', 'bloque__intro',
         NOMBRE[AQUI] + ' no tiene hospital. ' + NOMBRE_REF + ' sí: el ' + hr.nombre + ', con ' +
         hr.unidades + ' unidades asistenciales declaradas. Así que en sanidad hospitalaria ' +
-        NOMBRE[AQUI] + ' no está por encima de ' + NOMBRE_REF + ': está por debajo.'));
+        NOMBRE[AQUI] + ' queda por debajo de ' + NOMBRE_REF + '.'));
       cont.appendChild(el('p', 'hospital__golpe hospital__golpe--gana',
         'Estas <b>' + hr.faltanAqui.length + '</b> unidades existen en ' + NOMBRE_REF + ' y no en ' +
         NOMBRE[AQUI] + ', porque aquí no hay hospital donde ponerlas:'));
@@ -576,8 +663,9 @@
     }
 
     cont.appendChild(el('p', 'bloque__intro',
-      'Los hospitales no se cuentan por habitante: cada ciudad tiene el suyo. Lo que se compara es ' +
-      'lo que hay dentro. El Registro de Centros Sanitarios de la Comunidad de Madrid declara <b>' +
+      'Cada ciudad tiene su hospital, así que contarlos por habitante no dice nada. Lo que se ' +
+      'compara aquí es su cartera de servicios. El Registro de Centros Sanitarios de la Comunidad ' +
+      'de Madrid declara <b>' +
       h.unidades + '</b> unidades asistenciales en el ' + h.nombre + ' y <b>' + hr.unidades +
       '</b> en el ' + hr.nombre + '.'));
 
@@ -600,7 +688,7 @@
       cont.appendChild(ul);
     } else {
       cont.appendChild(el('p', 'hospital__golpe hospital__golpe--gana',
-        'No hay ninguna al revés: la cartera de ' + NOMBRE_REF + ' cabe entera dentro de la de ' +
+        'Al revés no hay ninguna. La cartera de ' + NOMBRE_REF + ' cabe entera dentro de la de ' +
         NOMBRE[AQUI] + '.'));
     }
 

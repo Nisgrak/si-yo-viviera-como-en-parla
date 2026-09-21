@@ -196,7 +196,7 @@ window.DATOS = (function () {
       grupo: 'Transporte',
       titulo: 'Estaciones de Cercanías',
       fuenteId: 'cercanias',
-      nota: 'Parla tiene una sola estación de Cercanías, final de la línea C-4, para todo el municipio.',
+      nota: 'Una sola estación para todo el municipio, y además es final de línea de la C-4.',
       datos: {
         getafe: {
           n: 5,
@@ -221,7 +221,7 @@ window.DATOS = (function () {
       grupo: 'Sanidad',
       titulo: 'Oficinas de farmacia',
       fuenteId: 'farmacias',
-      nota: 'La apertura de oficinas de farmacia no es libre: la planifica la Comunidad de Madrid con módulos de población por zona farmacéutica.',
+      nota: 'La Comunidad de Madrid planifica la apertura de oficinas de farmacia con módulos de población por zona farmacéutica.',
       datos: {
         getafe: { n: 61, lista: [] },
         parla: { n: 28, lista: [] },
@@ -240,7 +240,7 @@ window.DATOS = (function () {
       grupo: 'Cultura',
       titulo: 'Bibliotecas públicas',
       fuenteId: 'bibliotecas',
-      nota: 'Parla tiene dos bibliotecas públicas para 137.471 habitantes. Es la ratio más baja de los seis municipios comparados aquí.',
+      nota: 'Dos bibliotecas públicas para 137.471 habitantes. Es la ratio más baja de los seis municipios comparados aquí.',
       datos: {
         getafe: {
           n: 6,
@@ -284,7 +284,7 @@ window.DATOS = (function () {
       grupo: 'Sanidad',
       titulo: 'Centros de salud',
       fuenteId: 'sanitarios',
-      nota: 'Atención primaria del Servicio Madrileño de Salud. Parla abrió el centro de Parla Este en 2026 y aun así sigue a la cola por habitante.',
+      nota: 'Atención primaria del Servicio Madrileño de Salud. Parla abrió el centro de Parla Este en 2026 y sigue a la cola por habitante.',
       datos: {
         getafe: {
           n: 9,
@@ -386,7 +386,7 @@ window.DATOS = (function () {
       grupo: 'Educación',
       titulo: 'Colegios públicos de infantil y primaria',
       fuenteId: 'educacion',
-      nota: 'Medido sobre la población total, Parla aparentaría estar bien. Medido sobre los niños que tienen edad de ir al colegio, que es lo que corresponde, no lo está: es el más joven de los seis municipios comparados y eso se le come la ventaja.',
+      nota: 'Con la población total como divisor, Parla saldría bien parada. Al dividir entre los niños en edad escolar deja de estarlo, porque es el municipio más joven de los seis.',
       datos: {
         getafe: {
           n: 29,
@@ -546,7 +546,7 @@ window.DATOS = (function () {
       grupo: 'Educación',
       titulo: 'Conservatorio profesional de música',
       fuenteId: 'educacion',
-      nota: 'Parla tiene escuela municipal de música, pero no conservatorio profesional: las enseñanzas regladas que dan titulación oficial hay que ir a buscarlas fuera.',
+      nota: 'Parla tiene escuela municipal de música. Las enseñanzas regladas que dan titulación oficial hay que cursarlas fuera del municipio.',
       datos: {
         getafe: { n: 1, lista: ['Conservatorio Profesional de Música de Getafe'] },
         parla: { n: 0, lista: [] },
@@ -566,7 +566,7 @@ window.DATOS = (function () {
       titulo: 'Plazas en residencias públicas de mayores',
       enTotal: false,
       fuenteId: 'atencionSocial',
-      nota: 'Este apartado cuenta plazas, no centros: es la unidad que de verdad se ocupa. Solo residencias de titularidad pública. Al medirse en plazas y no en equipamientos, no suma al recuento de la portada.',
+      nota: 'Se cuentan plazas y no centros, que es la unidad que se ocupa. Solo residencias de titularidad pública. Al medirse en plazas, queda fuera del recuento de la portada.',
       datos: {
         getafe: {
           n: 134,
@@ -591,7 +591,7 @@ window.DATOS = (function () {
       grupo: 'Transporte',
       titulo: 'Paradas de tranvía',
       fuenteId: 'tranvia',
-      nota: 'Parla tiene lo que no tiene ninguno de los otros cinco: un tranvía, el ML-4, con 15 paradas. Es una línea circular que no sale del municipio; para ir a Madrid hay que cambiar al Cercanías.',
+      nota: 'Parla es la única de las seis ciudades con tranvía: el ML-4, con 15 paradas. Es una línea circular dentro del municipio, así que para ir a Madrid hay que cambiar al Cercanías.',
       datos: {
         getafe: { n: 0, lista: [] },
         parla: { n: 15, lista: [] },
@@ -763,7 +763,7 @@ window.DATOS = (function () {
           }
         }
       ],
-      nota: 'Parla es el más joven de los seis municipios comparados. Por eso los colegios, los institutos y las escuelas infantiles no se comparan aquí por habitante, sino contra los niños que tienen esa edad. Con la población total, Parla saldría mejor de lo que está.'
+      nota: 'Parla es el municipio más joven de los seis comparados. De ahí que los colegios, los institutos y las escuelas infantiles se midan contra los niños de esa edad y no contra el total de vecinos.'
     }
   };
 

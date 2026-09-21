@@ -57,13 +57,13 @@
 
     <p class="portada__entrada">
       <b data-aqui>Getafe</b> tiene <b id="pob-a">—</b> habitantes. Parla, <b id="pob-b">—</b>.
-      Si <span data-aqui>Getafe</span> estuviera dotada exactamente igual que Parla,
-      esto es lo que se borraría del mapa.
+      Con la dotación de servicios públicos que tiene Parla, a <span data-aqui>Getafe</span>
+      le faltarían:
     </p>
 
     <div class="marcador">
       <p class="marcador__n"><span id="total-n">0</span></p>
-      <p class="marcador__u">equipamientos y servicios públicos menos.<br><span>Uno por uno, con su nombre.</span></p>
+      <p class="marcador__u">equipamientos y servicios públicos.<br><span>Listados abajo, uno a uno.</span></p>
       <div class="marcador__rejilla" id="rejilla" aria-hidden="true"></div>
     </div>
 
@@ -84,16 +84,15 @@
   <div class="env">
     <h2 class="bloque__h">El recuento</h2>
     <p class="bloque__intro">
-      Todo lo que cambiaría en <span data-aqui>Getafe</span>, con su nombre y de un vistazo.
-      En rojo lo que desaparece; en verde, lo que saldría ganando.
+      El balance de <span data-aqui>Getafe</span> frente a Parla, por áreas. Cada línea lleva a
+      su apartado, donde están los nombres y la fuente.
     </p>
     <aside class="lee" id="como-se-lee"></aside>
 
-    <ol class="recuento" id="recuento"></ol>
+    <div class="recuento" id="recuento"></div>
     <p class="recuento__pie">
-      <b><span id="resumen-n">0</span> equipamientos</b> menos. Las líneas marcadas «aparte» y
-      «a favor» no suman a esa cifra: se miden en plazas o en servicios de un hospital, no en
-      equipamientos. Cada línea tiene abajo su cuenta, su fuente y la lista completa.
+      <b><span id="resumen-n">0</span> equipamientos</b> en total. Lo que aparece bajo «fuera del
+      recuento» no suma a esa cifra, porque se mide en plazas o en servicios de un hospital.
     </p>
   </div>
 </section>
@@ -103,17 +102,16 @@
   <div class="env">
     <h2 class="bloque__h">El punto de partida</h2>
     <p class="bloque__intro">
-      Dos ciudades del sur de Madrid. No tienen el mismo tamaño, así que no vale con contar
-      equipamientos: hay que contarlos por habitante. Lo que sí se compara directamente es el
-      dinero con el que vive cada una.
+      Dos ciudades del sur de Madrid con tamaños distintos. Por eso los equipamientos se cuentan
+      por habitante y no en bruto. El dinero con el que vive cada una sí se compara directamente.
     </p>
 
     <div class="renta" id="renta"></div>
 
     <h3 class="bloque__h3">Y tampoco tienen la misma edad</h3>
     <p class="bloque__intro">
-      Esto cambia la cuenta. Un colegio no se mide contra los habitantes de una ciudad:
-      se mide contra los niños que tienen edad de ir al colegio.
+      Los colegios se miden contra los niños en edad escolar. Y en eso las dos ciudades tienen
+      perfiles bastante distintos.
     </p>
     <div class="edades" id="edades"></div>
   </div>
@@ -124,9 +122,9 @@
   <div class="env">
     <h2 class="bloque__h">Lo que perderías</h2>
     <p class="bloque__intro">
-      Cada apartado aplica a <span data-aqui>Getafe</span> la tasa que tiene Parla hoy.
-      Casi siempre por habitante; en educación y en residencias, por persona de la edad que
-      corresponde. Lo tachado en rojo es lo que sobra respecto a esa tasa: lo que dejaría de existir.
+      Cada apartado aplica a <span data-aqui>Getafe</span> la tasa de Parla: por habitante casi
+      siempre, y por tramo de edad en educación y residencias. En rojo, lo que sobra respecto a
+      esa tasa.
     </p>
   </div>
   <div id="lista-perdidas"></div>
@@ -145,8 +143,8 @@
   <div class="env">
     <h2 class="bloque__h">Y esto lo ganarías</h2>
     <p class="bloque__intro">
-      Parla no está peor en todo. Estos son los servicios en los que está por encima de
-      <span data-aqui>Getafe</span> una vez ajustada la población de referencia.
+      Hay servicios en los que Parla está por encima de <span data-aqui>Getafe</span> una vez
+      ajustada la población de referencia. Estos son.
     </p>
   </div>
   <div id="lista-ganancias"></div>
@@ -168,16 +166,15 @@
         <span>base de Parla</span> × <span>base de tu ciudad</span>
       </p>
       <p>
-        Los decimales son reales y se muestran tal cual. Medio centro de salud no existe como
-        edificio, pero sí como diferencia: es la distancia que separa a una ciudad de la otra en
-        ese servicio, y redondearla sería esconderla.
+        Los decimales se muestran sin redondear. Miden la distancia exacta entre una ciudad y
+        otra en ese servicio, y redondearlos la escondería.
       </p>
 
       <h3>Contra qué población se mide cada cosa</h3>
       <p>
-        No todo se divide entre la población total. Una farmacia o una estación de Metro sirven a
-        todo el mundo. Un colegio no: se mide contra los niños que tienen edad de ir al colegio.
-        Esto importa mucho aquí, porque Parla es la ciudad más joven de la comarca.
+        No todo se divide entre la población total. Una farmacia atiende a cualquiera; un colegio,
+        solo a los niños en edad escolar. Y Parla es el más joven de los seis municipios
+        comparados, así que la diferencia pesa.
       </p>
       <ul class="pendientes" id="tabla-bases"></ul>
       <p>
@@ -188,9 +185,9 @@
 
       <h3>Qué nombres se tachan</h3>
       <p>
-        Cuando el cálculo dice que sobran tres bibliotecas, la web tacha tres nombres concretos.
-        <b>Qué tres es ilustrativo</b>: no hay ningún criterio técnico para decidir cuál cierra.
-        Lo que no es ilustrativo es cuántas.
+        Cuando el cálculo dice que sobran tres bibliotecas, se tachan tres nombres concretos.
+        <b>Cuáles es ilustrativo</b>, porque no hay criterio técnico para decidir qué centro
+        cerraría. El número sí es exacto.
       </p>
 
       <h3>De dónde sale la población</h3>

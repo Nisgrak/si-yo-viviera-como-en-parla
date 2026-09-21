@@ -138,6 +138,8 @@ Es una web pública, así que la copia sigue tres reglas:
    como lecturas y van en las notas, no en los titulares.
 3. **Nada de jerga de desarrollo en la cara pública.** Para avisar de un error se enlaza el
    repositorio, no un nombre de archivo.
+4. **Nada de antítesis.** La construcción «no es X: es Y» estaba doce veces y es lo que hacía
+   que la web sonara a texto generado. Los datos se enuncian y punto.
 
 Antes que inventar una cifra, la web dice que falta.
 
