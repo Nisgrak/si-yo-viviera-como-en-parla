@@ -925,18 +925,9 @@ window.DATOS = (function () {
     }
   };
 
-  const pendientes = [
-
-    'Teatros y espacios escénicos municipales — cada ayuntamiento los cuenta con un criterio distinto',
-    'Instalaciones deportivas municipales — el último censo nacional es de 2005',
-    'Zonas verdes por habitante — el INE publica la superficie total de cada municipio pero deja vacíos los usos del suelo',
-    'Plantilla policial — ni la Policía Local ni la Nacional publican efectivos por municipio; Interior solo da cifras por provincia',
-    'Tarjetas sanitarias por médico de familia — la Comunidad de Madrid no publica ese dato por municipio'
-  ];
-
   return {
     ACTUALIZADO, REFERENCIA, MUNICIPIOS, BASES,
-    indicadores, hospitales, cautelaHospital, contexto, pendientes,
+    indicadores, hospitales, cautelaHospital, contexto,
     fuentes: F,
   };
 })();

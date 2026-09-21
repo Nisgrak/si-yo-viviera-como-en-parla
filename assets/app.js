@@ -777,10 +777,6 @@
     });
     tb.appendChild(el('li', null, 'Todo lo demás → población total'));
 
-    const p = $('#pendientes');
-    vaciar(p);
-    D.pendientes.forEach(function (t) { p.appendChild(el('li', null, t)); });
-
     const f = $('#fuentes');
     vaciar(f);
     Object.keys(D.fuentes).forEach(function (k) {

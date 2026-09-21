@@ -118,7 +118,9 @@ Todas oficiales y enlazadas una por una en el apartado «Cómo está hecho esto�
 
 ### Lo que todavía no está
 
-No se han incluido por no tener una fuente oficial comparable entre municipios:
+**Esto es nota interna, no sale en la web.** Son los indicadores que se han mirado y descartado,
+con el motivo. Sirve para no volver a investigarlos desde cero y para saber qué haría falta para
+incorporarlos:
 
 - **Teatros y espacios escénicos municipales.** Cada ayuntamiento cuenta con criterios
   distintos: Fuenlabrada lista cinco espacios incluyendo salas pequeñas, Alcorcón uno,
@@ -165,7 +167,15 @@ Es una web pública, así que la copia sigue tres reglas:
 5. **Nada de antítesis.** La construcción «no es X: es Y» estaba doce veces y es lo que hacía
    que la web sonara a texto generado. Los datos se enuncian y punto.
 
-Antes que inventar una cifra, la web dice que falta.
+También se descartó **la población de referencia de cada hospital**, y por un motivo distinto:
+el dato existe pero desmonta la hipótesis. El SERMAS publica que el Infanta Cristina de Parla
+cubre ocho municipios (Parla, Torrejón de Velasco, Torrejón de la Calzada, Batres, Cubas de la
+Sagra, Casarrubuelos, Serranillos del Valle y Griñón), que suman 182.030 habitantes, mientras
+que el de Getafe cubre Getafe y Pinto, 249.889. El hospital de Parla atiende a más municipios
+pero a 68.000 personas menos. La lista de espera quirúrgica de la Comunidad de Madrid lo
+confirma: en 2025, 88 días de demora media en Getafe frente a 64 en Parla. Además, ni
+Fuenlabrada ni el Severo Ochoa publican su cobertura, así que tampoco sería un indicador
+uniforme.
 
 ## Desplegar
 
