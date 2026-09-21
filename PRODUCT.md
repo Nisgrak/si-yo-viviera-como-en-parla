@@ -63,9 +63,8 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 
 - No es un dashboard. No hay filtros, ni selectores de rango, ni tooltips.
 - No es una revista. Nada de serif italic, capitulares ni rejilla de broadsheet.
-- No es neutral, pero tampoco es tramposa: las secciones «Y esto lo ganarías» y «Lo que miré
-  esperando otra cosa» existen precisamente para que la parte reivindicativa se sostenga. La
-  segunda enseña las comprobaciones que hice esperando confirmar el agravio y que dicen que no.
+- No es neutral, pero tampoco es tramposa: la sección «Y esto lo ganarías» existe precisamente
+  para que la parte reivindicativa se sostenga.
 
 ## Estado
 

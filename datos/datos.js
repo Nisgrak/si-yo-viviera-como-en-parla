@@ -144,14 +144,6 @@ window.DATOS = (function () {
       t: 'Comunidad de Madrid · Registro de centros de atención social',
       url: 'https://datos.comunidad.madrid/catalogo/dataset/atencion_social_registro_centros'
     },
-    renfe: {
-      t: 'Renfe · Horarios de Cercanías en formato GTFS, feed de septiembre de 2026',
-      url: 'https://data.renfe.com/dataset/horarios-cercanias',
-    },
-    observatorio: {
-      t: 'Comunidad de Madrid · Observatorio de Resultados del Servicio Madrileño de Salud, Atención Primaria 2024',
-      url: 'https://observatorioresultados.sanidadmadrid.org/AtencionPrimariaResultados.aspx',
-    },
     renta: {
       t: 'Comunidad de Madrid · Indicador de Renta Disponible Bruta Municipal, 2023',
       url: 'https://datos.comunidad.madrid/catalogo/dataset/irpf_indicador_renta'
@@ -751,76 +743,18 @@ window.DATOS = (function () {
     }
   };
 
-  /* Comprobaciones que hice esperando que confirmaran el agravio y no lo hacen,
-     o que lo confirman por una vía distinta. Van en la web porque una comparación
-     que solo enseña lo que le conviene no vale nada. */
-  const contrastes = [
-    {
-      id: 'trenes',
-      titulo: 'Trenes al día hasta Madrid',
-      detalle: 'Desde la estación principal de cada municipio hasta Madrid-Atocha, un miércoles laborable.',
-      unidad: 'trenes',
-      dec: 0,
-      mejor: 'alto',
-      fuenteId: 'renfe',
-      valores: { getafe: 123, parla: 121, pinto: 59, fuenlabrada: 146, leganes: 146, alcorcon: 146 },
-      veredicto:
-        'Parla tiene prácticamente la misma frecuencia de Cercanías que sus vecinos grandes. ' +
-        'Su problema no es cada cuánto pasa el tren: es que solo hay una estación para todo el ' +
-        'municipio, y que está al final de la línea.',
-    },
-    {
-      id: 'minutos',
-      titulo: 'Minutos hasta Atocha',
-      detalle: 'Duración mediana del trayecto desde la estación principal, en día laborable.',
-      unidad: 'min',
-      dec: 0,
-      mejor: 'bajo',
-      fuenteId: 'renfe',
-      valores: { getafe: 19, parla: 28, pinto: 25, fuenlabrada: 27, leganes: 20, alcorcon: 22 },
-      veredicto:
-        'Aquí sí. Parla es el final de la C-4 y paga nueve minutos más que Getafe en cada viaje, ' +
-        'ida y vuelta, todos los días. Aunque Fuenlabrada está a solo un minuto de Parla.',
-    },
-    {
-      id: 'presion',
-      titulo: 'Consultas por médico de familia y día',
-      detalle: 'Presión asistencial ajustada, ponderada por la población asignada a cada centro de salud.',
-      unidad: '',
-      dec: 1,
-      mejor: 'bajo',
-      fuenteId: 'observatorio',
-      valores: { getafe: 33.9, parla: 32.7, pinto: 32.3, fuenlabrada: 34.2, leganes: 33.9, alcorcon: 34.9 },
-      veredicto:
-        'La carga que soporta cada médico de familia es prácticamente igual en los seis municipios, ' +
-        'y en Parla es de las más bajas. La falta de centros de salud en Parla no se traduce en ' +
-        'médicos más saturados: se traduce en menos sitios a los que ir.',
-    },
-    {
-      id: 'cita',
-      titulo: 'Satisfacción al pedir cita',
-      detalle: 'Porcentaje de pacientes satisfechos con la facilidad para conseguir cita con su médico.',
-      unidad: '%',
-      dec: 1,
-      mejor: 'alto',
-      fuenteId: 'observatorio',
-      valores: { getafe: 57.0, parla: 59.2, pinto: 48.9, fuenlabrada: 46.7, leganes: 58.6, alcorcon: 57.0 },
-      veredicto:
-        'Parla es la mejor valorada de las seis en lo más cotidiano de la sanidad pública: conseguir ' +
-        'una cita. Los que salen mal parados aquí son Fuenlabrada y Pinto.',
-    },
-  ];
-
   const pendientes = [
     'Teatros y espacios escénicos municipales — cada ayuntamiento los cuenta con un criterio distinto',
     'Instalaciones deportivas municipales — el último censo nacional es de 2005',
     'Zonas verdes por habitante — el INE publica la superficie total de cada municipio pero deja vacíos los usos del suelo',
     'Plantilla de Policía Local — ninguna administración publica los efectivos por municipio en Madrid',
+    'Tarjetas sanitarias por médico de familia',
+    'Frecuencia real del transporte público hasta Madrid',
   ];
 
   return {
     ACTUALIZADO, REFERENCIA, MUNICIPIOS, BASES,
-    indicadores, hospitales, cautelaHospital, contexto, contrastes, pendientes,
+    indicadores, hospitales, cautelaHospital, contexto, pendientes,
     fuentes: F,
   };
 })();

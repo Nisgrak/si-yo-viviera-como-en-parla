@@ -50,23 +50,6 @@ Cuando el cálculo dice que sobran tres bibliotecas, la web tacha tres nombres c
 **Qué tres es ilustrativo** — no hay criterio técnico para decidir cuál cierra — y la web lo
 dice en su apartado de método. Lo que no es ilustrativo es *cuántas*.
 
-## Lo que miré esperando otra cosa
-
-Una sección propia de la web con las comprobaciones que hice dando por hecho que confirmarían
-el agravio, y que en su mayoría dicen que no. Están porque una comparación que solo enseña lo
-que le conviene no vale nada:
-
-| Comprobación | Parla | Resto | Fuente |
-|---|---:|---|---|
-| Trenes/día a Madrid desde la estación principal | 121 | Getafe 123 · Leganés, Alcorcón y Fuenlabrada 146 · Pinto 59 | GTFS de Renfe |
-| Minutos hasta Atocha | 28 | Getafe 19 · Leganés 20 · Alcorcón 22 · Pinto 25 · Fuenlabrada 27 | GTFS de Renfe |
-| Consultas por médico de familia y día | 32,7 | 32,3 a 34,9 | Observatorio de Resultados |
-| Satisfacción al pedir cita | 59,2 % | 46,7 % a 58,6 % | Observatorio de Resultados |
-
-Conclusión: el problema de Parla **no** es la frecuencia del Cercanías ni la carga de trabajo
-de sus médicos. Es el número de estaciones y de centros para su población, y los 28 minutos
-hasta Atocha por estar al final de la línea.
-
 ## Lo que no suma al total de portada
 
 Dos indicadores se calculan igual pero se muestran aparte, porque no se cuentan en
@@ -114,8 +97,6 @@ Todas oficiales y enlazadas una por una en el apartado «Cómo está hecho esto�
   bibliotecas públicas, farmacias, registro de centros de atención social, renta disponible
   bruta municipal
 - **Metro de Madrid** (línea 12), **Renfe Cercanías** (C-3, C-4, C-5), **CRTM** (ML-4)
-- **Renfe** · horarios de Cercanías en formato GTFS (frecuencias y tiempos calculados sobre el feed)
-- **Comunidad de Madrid** · Observatorio de Resultados del SERMAS, Atención Primaria 2024
 - **UC3M** y **URJC** · campus oficiales
 
 ### Lo que todavía no está
@@ -135,6 +116,8 @@ No se han incluido por no tener una fuente oficial comparable entre municipios:
   mía, no una cifra oficial citable.
 - **Plantilla de Policía Local.** Ningún organismo publica los efectivos por municipio en
   Madrid. Castilla y León sí publica los suyos; la Comunidad de Madrid no.
+- Tarjetas sanitarias por médico de familia y frecuencia real del transporte público hasta
+  Madrid.
 
 Antes que inventar una cifra, la web dice que falta.
 
