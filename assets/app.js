@@ -226,8 +226,10 @@
 
     const r = reparto(c);
     if (r.caen.length || r.parcial) {
+      const g = c.ind.gen || 'm';
       cont.appendChild(el('p', 'nombres__rot nombres__rot--cae',
-        r.caen.length === c.n ? 'Desaparecen todas' : 'Lo que desaparece'));
+        r.caen.length !== c.n ? 'Lo que desaparece'
+        : c.n === 1 ? 'Desaparece' : 'Desaparecen tod' + (g === 'f' ? 'as' : 'os')));
       const ul = el('ul', 'nombres');
       r.caen.forEach(function (n) { ul.appendChild(filaNombre(n, 'nombre--cae', 'desaparece')); });
       if (r.parcial) {
@@ -262,8 +264,12 @@
       titular = 'Ganarías <span class="cifra">' + num(-c.delta) + '</span> <span class="resto">' +
         (c.n === 0 ? 'donde ahora no hay nada' : 'más de las que hay ahora') + '</span>';
     } else if (c.nRef === 0) {
-      titular = 'Perderías <span class="cifra">' + num(c.n) + '</span> <span class="resto">de ' +
-        c.n + '. Sin excepción.</span>';
+      const g = i.gen || 'm';
+      const cola = c.n === 1
+        ? 'de 1: ' + (g === 'f' ? 'la única' : 'el único') + ' que hay.'
+        : 'de ' + c.n + '. Sin excepción.';
+      titular = 'Perderías <span class="cifra">' + num(c.n) + '</span> <span class="resto">' +
+        cola + '</span>';
     } else {
       titular = 'Perderías <span class="cifra">' + num(c.delta) + '</span> <span class="resto">de ' +
         c.n + '</span>';
@@ -384,8 +390,8 @@
       '<b class="lee__dif">' + num(c.delta) + '</b>, es lo que verás en rojo aquí abajo.'));
     caja.appendChild(ol);
     caja.appendChild(el('p', 'lee__cierre',
-      'Eso es todo. Ni una cifra de esta web sale de otro sitio: se divide, se compara y se ' +
-      'enseña de dónde viene cada número.'));
+      'Eso es todo: una división y una resta. Cada cifra lleva debajo la fuente oficial de la ' +
+      'que sale.'));
   }
 
   function resumen() {
@@ -401,7 +407,8 @@
         if (r.parcial) trozos.push(r.parcial.nombre + ' (al ' + num(r.parcial.queda, 0) + ' %)');
         detalle = frase(trozos);
       } else {
-        detalle = 'el ' + num(c.pct * 100, 0) + ' % del total de la ciudad';
+        detalle = 'el ' + num(c.pct * 100, 0) + ' % de ' +
+          ((c.ind.gen || 'm') === 'f' ? 'las' : 'los') + ' que hay en la ciudad';
       }
       ol.appendChild(filaRecuento('#ind-' + c.ind.id, '−', num(c.delta), c.ind.titulo, detalle,
         c.ind.enTotal === false ? 'rec--aparte' : '',
@@ -463,41 +470,48 @@
     const refPct = (e.total[REF] / e.total[AQUI]) * 100;
 
     cont.appendChild(el('p', 'edades__ley',
-      'Población de ' + NOMBRE_REF + ' como porcentaje de la de ' + NOMBRE[AQUI] +
-      ', por tramo de edad'));
+      'Cuánto se desvía cada tramo de edad del tamaño que ' + NOMBRE_REF + ' tiene respecto a ' +
+      NOMBRE[AQUI] + ' contando a todo el mundo'));
 
-    const filas = e.tramos.concat([{ etiqueta: 'Todas las edades', valores: e.total, esTotal: true }]);
-    /* La escala se estira hasta el valor mayor: en ciudades más pequeñas que Parla
-       los porcentajes pasan del 100 % y no cabrían en una pista fija. */
+    const filas = e.tramos.map(function (t) {
+      const pct = (t.valores[REF] / t.valores[AQUI]) * 100;
+      return { etiqueta: t.etiqueta, pct: pct, dev: pct - refPct };
+    });
+    /* La escala es la desviación máxima: así el gráfico funciona igual en ciudades
+       más grandes y más pequeñas que la de referencia. */
     let tope = 0;
-    filas.forEach(function (t) { tope = Math.max(tope, (t.valores[REF] / t.valores[AQUI]) * 100); });
-    tope = tope * 1.04;
+    filas.forEach(function (f) { tope = Math.max(tope, Math.abs(f.dev)); });
+    tope = tope * 1.12 || 1;
 
     const graf = el('div', 'edades__grafico');
-    graf.style.setProperty('--linea', ((refPct / tope) * 100).toFixed(2) + '%');
-
-    filas.forEach(function (t) {
-        const A = t.valores[AQUI], B = t.valores[REF];
-        const pct = (B / A) * 100;
-        const fila = el('div', 'edad' + (t.esTotal ? ' edad--total' : ''));
-        fila.appendChild(el('span', 'edad__q', t.etiqueta));
-        const pista = el('span', 'edad__pista');
-        const barra = el('i');
-        barra.style.setProperty('--v', (pct / tope).toFixed(4));
-        pista.appendChild(barra);
-        fila.appendChild(pista);
-        fila.appendChild(el('span', 'edad__v', num(pct, 0) + ' %'));
-        const sr = el('span', 'oculto');
-        sr.textContent = NOMBRE[AQUI] + ' ' + entero(A) + ', ' + NOMBRE_REF + ' ' + entero(B);
-        fila.appendChild(sr);
-        graf.appendChild(fila);
-      });
+    filas.forEach(function (f) {
+      const fila = el('div', 'edad' + (f.dev >= 0 ? ' edad--mas' : ' edad--menos'));
+      fila.appendChild(el('span', 'edad__q', f.etiqueta));
+      const pista = el('span', 'edad__pista');
+      const barra = el('i');
+      barra.style.setProperty('--w', (Math.abs(f.dev) / tope * 50).toFixed(2) + '%');
+      pista.appendChild(barra);
+      fila.appendChild(pista);
+      fila.appendChild(el('span', 'edad__v', num(f.pct, 0) + ' %'));
+      const sr = el('span', 'oculto');
+      sr.textContent = NOMBRE_REF + ' tiene en este tramo el ' + num(f.pct, 0) +
+        ' % de la población de ' + NOMBRE[AQUI] + ', ' + num(Math.abs(f.dev), 0) +
+        ' puntos ' + (f.dev >= 0 ? 'por encima' : 'por debajo') + ' de su tamaño general.';
+      fila.appendChild(sr);
+      graf.appendChild(fila);
+    });
     cont.appendChild(graf);
 
+    const base = el('div', 'edades__base');
+    base.appendChild(el('span', 'edades__base-q', 'Todas las edades'));
+    base.appendChild(el('span', 'edades__base-v', num(refPct, 0) + ' %'));
+    cont.appendChild(base);
+
     cont.appendChild(el('p', 'edades__marca',
-      'La línea gris marca el ' + num(refPct, 0) + ' %: el tamaño de ' + NOMBRE_REF +
-      ' respecto a ' + NOMBRE[AQUI] + ' contando a todo el mundo. Todo lo que la pasa es un tramo ' +
-      'de edad en el que ' + NOMBRE_REF + ' pesa más de lo que le tocaría.'));
+      'Contando a todo el mundo, ' + NOMBRE_REF + ' es el ' + num(refPct, 0) + ' % de ' +
+      NOMBRE[AQUI] + ': esa es la línea del centro. Las barras hacia la derecha son tramos de ' +
+      'edad en los que ' + NOMBRE_REF + ' pesa más de lo que le tocaría por tamaño; hacia la ' +
+      'izquierda, menos.'));
     cont.appendChild(el('p', 'renta__nota', e.nota));
     cont.appendChild(pieFuente([e.fuenteId]));
   }

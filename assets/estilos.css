@@ -1,3 +1,28 @@
+/* Archivo, de Omnibus-Type, bajo SIL Open Font License 1.1 (assets/fuentes/OFL.txt).
+   Se sirve desde este mismo dominio: la web no hace ni una petición a terceros. */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url('fuentes/archivo-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url('fuentes/archivo-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 /* ═══════════════════════════════════════════════════════════════════════
    SI YO VIVIERA COMO EN PARLA
    Paleta: near-black neutro (chroma 0) + tres colores con papel semántico.
@@ -461,38 +486,65 @@ a:hover { text-decoration-color: var(--ref); }
   max-width: 24rem;
 }
 
-.edades__grafico { display: grid; gap: .7rem; }
+.edades__grafico { display: grid; gap: .55rem; }
 
 .edad {
   display: grid;
-  grid-template-columns: 7.25rem 1fr 2.6rem;
-  align-items: center; gap: .7rem;
+  grid-template-columns: 7.25rem 1fr 3rem;
+  align-items: center; gap: .6rem;
 }
 .edad__q { font-size: .8125rem; font-weight: 600; color: var(--ink-2); }
+
 .edad__pista {
   position: relative;
-  height: 14px; border-radius: 3px;
+  height: 15px; border-radius: 3px;
   background: var(--surface-2);
   overflow: hidden;
 }
-.edad__pista i {
-  display: block; height: 100%; border-radius: 3px;
-  background: var(--ref);
-  transform: scaleX(var(--v, 0)); transform-origin: left;
-  transition: transform .8s var(--sal) .15s;
-}
+/* la línea del centro es el tamaño general del municipio de referencia */
 .edad__pista::after {
-  content: ''; position: absolute; left: var(--linea, 70%);
-  top: 0; bottom: 0; width: 2px;
-  background: var(--ink-3);
+  content: ''; position: absolute; left: 50%;
+  top: 0; bottom: 0; width: 2px; margin-left: -1px;
+  background: var(--line-alta);
+  z-index: 1;
 }
+.edad__pista i {
+  position: absolute; top: 2px; bottom: 2px;
+  width: var(--w, 0%);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transition: transform .7s var(--sal) .15s;
+}
+.edad--mas .edad__pista i {
+  left: 50%;
+  background: var(--ref);
+  transform-origin: left;
+}
+.edad--menos .edad__pista i {
+  right: 50%;
+  background: var(--ink-3);
+  transform-origin: right;
+}
+.edades .visto .edad__pista i,
+.edades__grafico .edad__pista i { transform: scaleX(1); }
+
 .edad__v {
   font-size: .8125rem; font-weight: 700; color: var(--ink);
   text-align: right;
 }
-.edad--total .edad__q,
-.edad--total .edad__v { color: var(--ink-3); font-weight: 600; }
-.edad--total .edad__pista i { background: var(--line-alta); }
+.edad--menos .edad__v { color: var(--ink-3); }
+
+.edades__base {
+  display: grid;
+  grid-template-columns: 7.25rem 1fr 3rem;
+  gap: .6rem;
+  margin-top: .7rem;
+  padding-top: .6rem;
+  border-top: 1px solid var(--line);
+  font-size: .75rem; color: var(--ink-3);
+}
+.edades__base-q { font-weight: 700; }
+.edades__base-v { grid-column: 3; text-align: right; font-weight: 700; }
 
 .edades__marca {
   margin-top: 1rem;

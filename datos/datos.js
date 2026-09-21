@@ -159,7 +159,7 @@ window.DATOS = (function () {
       grupo: 'Transporte',
       titulo: 'Estaciones de Metro',
       fuenteId: 'metro',
-      nota: 'Parla no tiene Metro. Es el municipio más grande del sur metropolitano que se quedó fuera de MetroSur cuando la línea 12 abrió en 2003.',
+      nota: 'La línea 12 (MetroSur) abrió en 2003 rodeando Alcorcón, Móstoles, Fuenlabrada, Leganés y Getafe. Parla se quedó fuera del trazado y sigue sin Metro.',
       datos: {
         getafe: {
           n: 8,
@@ -221,7 +221,7 @@ window.DATOS = (function () {
       grupo: 'Sanidad',
       titulo: 'Oficinas de farmacia',
       fuenteId: 'farmacias',
-      nota: 'La apertura de farmacias la planifica la Comunidad de Madrid en función de la población, así que la diferencia por habitante no es casualidad: es reparto.',
+      nota: 'La apertura de oficinas de farmacia no es libre: la planifica la Comunidad de Madrid con módulos de población por zona farmacéutica.',
       datos: {
         getafe: { n: 61, lista: [] },
         parla: { n: 28, lista: [] },
@@ -240,7 +240,7 @@ window.DATOS = (function () {
       grupo: 'Cultura',
       titulo: 'Bibliotecas públicas',
       fuenteId: 'bibliotecas',
-      nota: 'Parla tiene dos bibliotecas públicas para 137.471 personas. Es la ratio más baja de todo el sur metropolitano.',
+      nota: 'Parla tiene dos bibliotecas públicas para 137.471 habitantes. Es la ratio más baja de los seis municipios comparados aquí.',
       datos: {
         getafe: {
           n: 6,
@@ -386,7 +386,7 @@ window.DATOS = (function () {
       grupo: 'Educación',
       titulo: 'Colegios públicos de infantil y primaria',
       fuenteId: 'educacion',
-      nota: 'Medido sobre la población total, Parla aparentaría estar bien. Medido sobre los niños que tienen edad de ir al colegio, que es lo que importa, no lo está: Parla es la ciudad más joven de la comarca y eso se le come la ventaja.',
+      nota: 'Medido sobre la población total, Parla aparentaría estar bien. Medido sobre los niños que tienen edad de ir al colegio, que es lo que corresponde, no lo está: es el más joven de los seis municipios comparados y eso se le come la ventaja.',
       datos: {
         getafe: {
           n: 29,
@@ -470,7 +470,7 @@ window.DATOS = (function () {
       grupo: 'Educación',
       titulo: 'Institutos públicos de secundaria',
       fuenteId: 'educacion',
-      nota: 'El tramo más sangrante. Parla tiene 11.919 adolescentes, casi tantos como ciudades con 55.000 habitantes más, y nueve institutos públicos.',
+      nota: 'Es la mayor diferencia de los tres tramos educativos. Parla tiene 11.919 chicos y chicas de 12 a 17 años, casi los mismos que Leganés (12.991), que tiene 58.000 habitantes más.',
       datos: {
         getafe: {
           n: 13,
@@ -527,7 +527,7 @@ window.DATOS = (function () {
       grupo: 'Educación',
       titulo: 'Campus universitario público',
       fuenteId: 'universidades',
-      nota: 'En Parla no hay universidad. Estudiar una carrera pública sin salir de tu ciudad no es una comodidad: es dinero, tiempo y probabilidad de terminarla.',
+      nota: 'En Parla no hay campus universitario público. Quien estudia una carrera pública la cursa fuera del municipio.',
       datos: {
         getafe: { n: 1, lista: ['Universidad Carlos III · Campus de Getafe'] },
         parla: { n: 0, lista: [] },
@@ -566,7 +566,7 @@ window.DATOS = (function () {
       titulo: 'Plazas en residencias públicas de mayores',
       enTotal: false,
       fuenteId: 'atencionSocial',
-      nota: 'Aquí no se cuentan centros, se cuentan camas, que es lo que de verdad se ocupa. Solo residencias de titularidad pública. Este apartado se mide en plazas, no en equipamientos, así que no suma al recuento de la portada.',
+      nota: 'Este apartado cuenta plazas, no centros: es la unidad que de verdad se ocupa. Solo residencias de titularidad pública. Al medirse en plazas y no en equipamientos, no suma al recuento de la portada.',
       datos: {
         getafe: {
           n: 134,
@@ -591,7 +591,7 @@ window.DATOS = (function () {
       grupo: 'Transporte',
       titulo: 'Paradas de tranvía',
       fuenteId: 'tranvia',
-      nota: 'Parla sí tiene lo que no tiene ningún vecino: un tranvía, el ML-4, con 15 paradas. Es una línea circular que no sale del municipio, y su construcción dejó al ayuntamiento una deuda de unos 256 millones de euros.',
+      nota: 'Parla tiene lo que no tiene ninguno de los otros cinco: un tranvía, el ML-4, con 15 paradas. Es una línea circular que no sale del municipio; para ir a Madrid hay que cambiar al Cercanías.',
       datos: {
         getafe: { n: 0, lista: [] },
         parla: { n: 15, lista: [] },
@@ -705,7 +705,7 @@ window.DATOS = (function () {
         leganes: 17438,
         alcorcon: 19055
       },
-      nota: 'Parla vive con el 58,4 % de la renta media de la Comunidad de Madrid. Menos servicios públicos justo donde menos dinero hay para pagárselos por fuera.'
+      nota: 'Parla vive con el 58,4 % de la renta media de la Comunidad de Madrid, la más baja de los seis municipios comparados. Menos servicios públicos donde menos dinero hay para pagárselos por fuera.'
     },
     edades: {
       fuenteId: 'edades',
@@ -763,7 +763,7 @@ window.DATOS = (function () {
           }
         }
       ],
-      nota: 'Parla es la ciudad más joven de la comarca. Por eso los colegios, los institutos y las escuelas infantiles no se comparan aquí por habitante, sino contra los niños que tienen esa edad. Con la población total, Parla saldría mejor de lo que está.'
+      nota: 'Parla es el más joven de los seis municipios comparados. Por eso los colegios, los institutos y las escuelas infantiles no se comparan aquí por habitante, sino contra los niños que tienen esa edad. Con la población total, Parla saldría mejor de lo que está.'
     }
   };
 
@@ -772,8 +772,7 @@ window.DATOS = (function () {
     'Instalaciones deportivas municipales — el último censo nacional es de 2005',
     'Zonas verdes por habitante — el INE publica la superficie total de cada municipio pero deja vacíos los usos del suelo',
     'Plantilla de Policía Local — ninguna administración publica los efectivos por municipio en Madrid',
-    'Tarjetas sanitarias por médico de familia',
-    'Frecuencia real del transporte público hasta Madrid',
+    'Tarjetas sanitarias por médico de familia — la Comunidad de Madrid no publica ese dato por municipio',
   ];
 
   return {

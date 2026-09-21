@@ -15,9 +15,7 @@
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Cpath d='M6 6 L26 26 M26 6 L6 26' stroke='%23f44f3c' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap">
+<link rel="preload" href="assets/fuentes/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/estilos.css">
 </head>
 <body>
@@ -27,8 +25,8 @@
 <noscript>
   <p class="sin-js">
     Esta página calcula las comparaciones en tu navegador y necesita JavaScript.
-    Los datos en bruto, con sus fuentes, están en el archivo
-    <code>datos/datos.js</code> del repositorio.
+    Los datos en bruto, con todas sus fuentes, son públicos:
+    <a href="https://github.com/Nisgrak/si-yo-viviera-como-en-parla">github.com/Nisgrak/si-yo-viviera-como-en-parla</a>.
   </p>
 </noscript>
 
@@ -105,9 +103,9 @@
   <div class="env">
     <h2 class="bloque__h">El punto de partida</h2>
     <p class="bloque__intro">
-      Dos ciudades del sur de Madrid, a un rato en coche la una de la otra. No tienen el mismo
-      tamaño, así que no vale con contar equipamientos: hay que contarlos por habitante.
-      Lo que sí se compara directamente es el dinero con el que vive cada una.
+      Dos ciudades del sur de Madrid. No tienen el mismo tamaño, así que no vale con contar
+      equipamientos: hay que contarlos por habitante. Lo que sí se compara directamente es el
+      dinero con el que vive cada una.
     </p>
 
     <div class="renta" id="renta"></div>
@@ -147,9 +145,8 @@
   <div class="env">
     <h2 class="bloque__h">Y esto lo ganarías</h2>
     <p class="bloque__intro">
-      Parla no está peor en todo, y una web que dijera lo contrario no serviría de nada.
-      Estos son los servicios en los que Parla está por encima de <span data-aqui>Getafe</span>
-      una vez ajustada la población de referencia.
+      Parla no está peor en todo. Estos son los servicios en los que está por encima de
+      <span data-aqui>Getafe</span> una vez ajustada la población de referencia.
     </p>
   </div>
   <div id="lista-ganancias"></div>
@@ -171,9 +168,9 @@
         <span>base de Parla</span> × <span>base de tu ciudad</span>
       </p>
       <p>
-        Los decimales son reales y se muestran tal cual. Medio centro de salud no existe en la vida
-        real, pero medio centro de salud de diferencia sí: significa turnos más largos, listas más
-        largas y gente que no entra.
+        Los decimales son reales y se muestran tal cual. Medio centro de salud no existe como
+        edificio, pero sí como diferencia: es la distancia que separa a una ciudad de la otra en
+        ese servicio, y redondearla sería esconderla.
       </p>
 
       <h3>Contra qué población se mide cada cosa</h3>
@@ -203,16 +200,18 @@
 
       <h3>Lo que todavía no está</h3>
       <p>
-        Hay datos que no he podido obtener de una fuente oficial comparable entre municipios.
-        Antes que inventarlos, faltan:
+        Estos datos no tienen una fuente oficial que permita compararlos entre municipios.
+        Antes que inventarlos, faltan, con el motivo al lado:
       </p>
       <ul class="pendientes" id="pendientes"></ul>
 
       <h3>Fuentes, una por una</h3>
       <ul class="fuentes" id="fuentes"></ul>
       <p class="cautela">
-        Datos consultados en <span id="actualizado">—</span>. Si encuentras un
-        error, es un error: los datos están en <code>datos/datos.js</code> y se pueden corregir.
+        Datos consultados en <span id="actualizado">—</span>. Todas las cifras de esta página,
+        con sus fuentes, son públicas y se pueden revisar y corregir en
+        <a href="https://github.com/Nisgrak/si-yo-viviera-como-en-parla">el repositorio del
+        proyecto</a>.
       </p>
     </div>
   </div>
@@ -225,7 +224,7 @@
     <p class="pie__frase">Parla no es un caso raro.<br>Es lo que pasa cuando el reparto lo decide otro.</p>
     <p class="pie__meta">
       Hecho con datos abiertos del INE y de la Comunidad de Madrid.
-      Sin publicidad, sin cookies, sin seguimiento.
+      Sin publicidad, sin cookies y sin una sola petición a servidores de terceros.
     </p>
   </div>
 </footer>

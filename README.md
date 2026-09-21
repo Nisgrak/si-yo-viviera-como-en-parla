@@ -74,6 +74,7 @@ Se marcan con `enTotal: false` en `datos/datos.js`.
 index.html            estructura y textos fijos
 assets/estilos.css    todo el diseño
 assets/app.js         el cálculo y el render
+assets/fuentes/       la tipografía Archivo, servida desde aquí (OFL 1.1)
 datos/datos.js        LOS DATOS  ←  lo único que hay que tocar
 ```
 
@@ -122,8 +123,21 @@ No se han incluido por no tener una fuente oficial comparable entre municipios:
   mía, no una cifra oficial citable.
 - **Plantilla de Policía Local.** Ningún organismo publica los efectivos por municipio en
   Madrid. Castilla y León sí publica los suyos; la Comunidad de Madrid no.
-- Tarjetas sanitarias por médico de familia y frecuencia real del transporte público hasta
-  Madrid.
+- **Tarjetas sanitarias por médico de familia.** La Comunidad de Madrid no lo publica por
+  municipio.
+
+Cada uno aparece en la web con su motivo al lado, no solo con el nombre.
+
+## Cómo está escrita
+
+Es una web pública, así que la copia sigue tres reglas:
+
+1. **Ninguna afirmación sin respaldo.** Los superlativos van acotados a los seis municipios
+   comparados, no a «la comarca» ni «el sur metropolitano», que no se han medido enteros.
+2. **Las tesis se distinguen de los datos.** Las cifras se enseñan; las lecturas se escriben
+   como lecturas y van en las notas, no en los titulares.
+3. **Nada de jerga de desarrollo en la cara pública.** Para avisar de un error se enlaza el
+   repositorio, no un nombre de archivo.
 
 Antes que inventar una cifra, la web dice que falta.
 
@@ -148,4 +162,7 @@ visualizaciones (cada indicador incluye su recuento en texto para lectores de pa
 respeto a `prefers-reduced-motion`. La paleta está validada para daltonismo: el rojo y el
 verde nunca aparecen juntos como única diferencia, siempre van con etiqueta.
 
-Sin cookies, sin analítica, sin recursos de terceros salvo la tipografía (Google Fonts).
+Sin cookies, sin analítica y **sin una sola petición a servidores de terceros**: la tipografía
+Archivo se sirve desde el propio dominio (`assets/fuentes/`, bajo SIL Open Font License 1.1, con
+su licencia incluida). Eso significa que abrir la web no manda la IP de nadie a Google ni a nadie
+más.

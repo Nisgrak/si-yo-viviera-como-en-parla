@@ -47,7 +47,8 @@ La credibilidad es el producto; sin ella esto es un cartel más.
   - azul `#3f93f9` — Parla, la vara de medir
   - verde `#26a55a` — lo que se ganaría
   - hueso `#f5f5f5` — lo que sobrevive
-- **Tipografía:** Archivo variable, una sola familia. Titulares en ancho condensado y peso 800;
+- **Tipografía:** Archivo variable, una sola familia, servida desde el propio dominio para que
+  abrir la web no genere ni una petición a terceros. Titulares en ancho condensado y peso 800;
   texto en ancho normal. El contraste lo dan el peso y el ancho, no una segunda fuente.
 - **Jerarquía de lectura:** portada → «El recuento» (todo lo que cae, con nombre, en una
   pantalla) → contexto → el detalle de cada cosa. Quien solo lea una sección tiene que salir
