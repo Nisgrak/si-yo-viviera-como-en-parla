@@ -139,7 +139,7 @@ Es una web pública, así que la copia sigue tres reglas:
 3. **Nada de jerga de desarrollo en la cara pública.** Para avisar de un error se enlaza el
    repositorio, no un nombre de archivo.
 4. **Las frases con fuerza también salen de los datos.** El golpe de la portada («Parla es la
-   última de las seis en renta por habitante y en 7 de los 12 servicios») no está escrito a mano:
+   última en renta por habitante y en 7 de los 12 servicios») no está escrito a mano:
    `golpe()` recorre los indicadores en cada carga y cuenta en cuántos la tasa de Parla es la
    mínima. Si cambian los datos, cambia la frase.
 5. **Nada de antítesis.** La construcción «no es X: es Y» estaba doce veces y es lo que hacía

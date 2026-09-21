@@ -424,14 +424,15 @@
     const trozos = [];
     if (masPobre) trozos.push('en renta por habitante');
     if (ultimos) {
-      trozos.push('en <b>' + ultimos + ' de los ' + D.indicadores.length +
-        '</b> servicios que se comparan aquí');
+      trozos.push('en <b>' + ultimos + ' de los ' + D.indicadores.length + '</b> servicios');
     }
     if (!trozos.length) { $('#golpe').hidden = true; return; }
 
     $('#golpe').hidden = false;
+    /* "Da igual la ciudad que elijas" ya acota de qué conjunto es la última:
+       las que hay en el desplegable. No hace falta repetirlo. */
     $('#golpe').innerHTML = 'Da igual la ciudad que elijas: ' + NOMBRE_REF +
-      ' es <b>la última de las seis</b> ' + trozos.join(' y ') + '.';
+      ' es <b>la última</b> ' + trozos.join(' y ') + '.';
   }
 
   /* ── El recuento ──────────────────────────────────────────────────── */
