@@ -67,7 +67,9 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 - **Iconos:** un glifo de trazo por indicador, dibujados con la misma rejilla y el mismo grosor
   para que ninguno pese más que otro. Aparecen en el recuento y en la cabecera de cada apartado,
   nunca grandes ni decorativos.
-- **Marca recurrente:** la unidad tachada. Un cuadrado que se convierte en contorno rojo con una
+- **Marca recurrente:** la unidad tachada, que es también el icono de la web (`assets/icono.svg`):
+  un cuadrado de contorno rojo con una diagonal, sobre fondo blanco para que se lea en pestañas
+  claras y oscuras. Un cuadrado que se convierte en contorno rojo con una
   diagonal. Es el único pictograma del sistema y aparece en todas las escalas.
 - **Movimiento:** el tachado entra escalonado cuando la sección se ve, y el contador de cabecera
   acumula pérdidas según bajas. Nada más. Todo se apaga con `prefers-reduced-motion`.
@@ -81,7 +83,7 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 
 ## Estado
 
-v3: siete ciudades contra Parla —Leganés 67, Fuenlabrada 61, Móstoles 59, Alcorcón 58,
+v4: siete ciudades contra Parla —Leganés 67, Fuenlabrada 61, Móstoles 59, Alcorcón 58,
 Getafe 47, Alcobendas 21, Pinto 9—
 con 12 indicadores, más las plazas residenciales públicas y la cartera del hospital, que se
 cuentan aparte. Pinto es el contraejemplo que sostiene la credibilidad: pierde poco y en

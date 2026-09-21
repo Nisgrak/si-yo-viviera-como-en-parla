@@ -1,0 +1,7 @@
+<!-- La unidad tachada: el mismo signo que la web usa para cada equipamiento
+     que desaparece. Fondo blanco para que se lea en pestañas claras y oscuras. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="7" fill="#ffffff"/>
+  <rect x="5.6" y="5.6" width="20.8" height="20.8" rx="5" fill="none" stroke="#c02719" stroke-width="3.6"/>
+  <path d="M9.6 22.4 22.4 9.6" stroke="#c02719" stroke-width="3.6" stroke-linecap="round"/>
+</svg>

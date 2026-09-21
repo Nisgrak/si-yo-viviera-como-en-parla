@@ -42,6 +42,11 @@
     return n.toLocaleString('es-ES', { minimumFractionDigits: dec, maximumFractionDigits: dec });
   }
 
+  /* Dos decimales sobre 281 es ruido; sobre 1,45 es información. */
+  function numTasa(v) {
+    return num(v, v >= 100 ? 0 : v >= 10 ? 1 : 2);
+  }
+
   function el(tag, cls, html) {
     const n = document.createElement(tag);
     if (cls) n.className = cls;
@@ -143,14 +148,19 @@
       '<circle cx="16.3" cy="16.1" r="2.6"/>',
     cama:
       '<path d="M3 19.5V9"/><path d="M3 13h11.5a6.5 6.5 0 0 1 6.5 6.5"/>' +
-      '<path d="M21 19.5v-1"/><circle cx="7.4" cy="9.6" r="2.3"/>'
+      '<path d="M21 19.5v-1"/><circle cx="7.4" cy="9.6" r="2.3"/>',
+    residencia:
+      '<path d="M3.6 10.4 12 3.4l8.4 7v9.1a1 1 0 0 1-1 1H4.6a1 1 0 0 1-1-1z"/>' +
+      '<path d="M12 18.3c-.6-.5-3.1-2.1-3.1-4a1.85 1.85 0 0 1 3.1-1.35 1.85 1.85 0 0 1 3.1 1.35' +
+      'c0 1.9-2.5 3.5-3.1 4z"/>'
   };
 
   const ICONO = {
     metro: 'metro', cercanias: 'cercanias', tranvia: 'tranvia',
     farmacias: 'farmacia', bibliotecas: 'biblioteca', 'centros-salud': 'salud',
     'escuelas-infantiles': 'bebe', colegios: 'colegio', institutos: 'instituto',
-    universidad: 'universidad', conservatorio: 'musica', 'plazas-residencia': 'cama'
+    universidad: 'universidad', conservatorio: 'musica',
+    'plazas-residencia': 'residencia', camas: 'cama'
   };
 
   function icono(clave, cls) {
@@ -245,18 +255,18 @@
       barra.style.setProperty('--v', (f.v / max).toFixed(4));
       pista.appendChild(barra);
       fila.appendChild(pista);
-      fila.appendChild(el('span', 'tasa__valor', num(f.v, 2)));
+      fila.appendChild(el('span', 'tasa__valor', numTasa(f.v)));
       cont.appendChild(fila);
     });
 
     cont.appendChild(el('p', 'tasas__llano', enCristiano(c)));
 
-    const unidad = num(c.tasaA, 2) + ' y ' + num(c.tasaB, 2) + ' por cada ' +
+    const unidad = numTasa(c.tasaA) + ' y ' + numTasa(c.tasaB) + ' por cada ' +
       entero(c.base.por) + ' ' + c.base.etiqueta;
     cont.appendChild(el('p', 'tasas__pie', modo === 'gana'
-      ? unidad + ' · con la tasa de ' + NOMBRE_REF + ' habría ' + num(c.equivalente, 2) +
+      ? unidad + ' · con la tasa de ' + NOMBRE_REF + ' habría ' + numTasa(c.equivalente) +
         ' en ' + NOMBRE[AQUI]
-      : unidad + ' · con la tasa de ' + NOMBRE_REF + ' quedarían ' + num(c.equivalente, 2) +
+      : unidad + ' · con la tasa de ' + NOMBRE_REF + ' quedarían ' + numTasa(c.equivalente) +
         ' de ' + c.n));
     return cont;
   }

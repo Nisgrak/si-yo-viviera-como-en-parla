@@ -167,8 +167,10 @@ Es una web pública, así que la copia sigue tres reglas:
 5. **Nada de antítesis.** La construcción «no es X: es Y» estaba doce veces y es lo que hacía
    que la web sonara a texto generado. Los datos se enuncian y punto.
 
-También se descartó **la población de referencia de cada hospital**, y por un motivo distinto:
-el dato existe pero desmonta la hipótesis. El SERMAS publica que el Infanta Cristina de Parla
+**La población de referencia de cada hospital** se descartó como indicador, pero la búsqueda dio
+fruto por otro lado: el Catálogo Nacional de Hospitales sí publica camas instaladas por centro,
+y eso sí entró. El motivo de descartar la población de referencia es que el dato existe pero
+desmonta la hipótesis de partida. El SERMAS publica que el Infanta Cristina de Parla
 cubre ocho municipios (Parla, Torrejón de Velasco, Torrejón de la Calzada, Batres, Cubas de la
 Sagra, Casarrubuelos, Serranillos del Valle y Griñón), que suman 182.030 habitantes, mientras
 que el de Getafe cubre Getafe y Pinto, 249.889. El hospital de Parla atiende a más municipios

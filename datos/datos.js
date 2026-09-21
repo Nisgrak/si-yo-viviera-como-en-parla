@@ -159,6 +159,10 @@ window.DATOS = (function () {
     renta: {
       t: 'Comunidad de Madrid · Indicador de Renta Disponible Bruta Municipal, 2023',
       url: 'https://datos.comunidad.madrid/catalogo/dataset/irpf_indicador_renta'
+    },
+    camas: {
+      t: 'Ministerio de Sanidad · Catálogo Nacional de Hospitales 2025, camas instaladas',
+      url: 'https://www.sanidad.gob.es/estadEstudios/estadisticas/sisInfSanSNS/ofertaRecursos/hospitales/home.htm'
     }
   };
 
@@ -368,6 +372,34 @@ window.DATOS = (function () {
             'Alcalde Bartolomé González', 'Barcelona', 'Doctor Luengo Rodríguez', 'Dos de Mayo',
             'El Soto', 'Enfermera Carmen Vázquez', 'Felipe II', 'La Princesa', 'Parque Coimbra',
             'Presentación Sabio'
+          ]
+        }
+      }
+    },
+
+    {
+      id: 'camas',
+      sing: 'cama de hospital público',
+      gen: 'f',
+      base: 'total',
+      enTotal: false,
+      grupo: 'Sanidad',
+      titulo: 'Camas de hospital público',
+      fuenteId: 'camas',
+      nota: 'Camas instaladas en los hospitales públicos generales del municipio. Se dividen entre sus habitantes, aunque cada hospital atiende también a municipios vecinos. En los dos casos en que la Comunidad de Madrid publica la cobertura sale casi lo mismo: el de Parla atiende a ocho municipios y 182.030 personas, el de Getafe a dos y 249.889. Quedan fuera los hospitales privados y los psiquiátricos. Al medirse en camas, esto no suma al recuento de la portada.',
+      datos: {
+        getafe: { n: 543, lista: ['Hospital Universitario de Getafe · 543 camas'] },
+        parla: { n: 188, lista: ['Hospital Universitario Infanta Cristina · 188 camas'] },
+        pinto: { n: 0, lista: [] },
+        fuenlabrada: { n: 413, lista: ['Hospital Universitario de Fuenlabrada · 413 camas'] },
+        leganes: { n: 386, lista: ['Hospital Universitario Severo Ochoa · 386 camas'] },
+        alcorcon: { n: 401, lista: ['Hospital Universitario Fundación Alcorcón · 401 camas'] },
+        alcobendas: { n: 0, lista: [] },
+        mostoles: {
+          n: 690,
+          lista: [
+            'Hospital Universitario de Móstoles · 328 camas',
+            'Hospital Universitario Rey Juan Carlos · 362 camas'
           ]
         }
       }
