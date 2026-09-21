@@ -279,9 +279,16 @@ a:hover { text-decoration-color: var(--ref); }
   margin-top: -.02em;
 }
 
-.portada__ayuda {
-  margin-top: clamp(.9rem, 3vw, 1.2rem);
-  font-size: .8125rem; color: var(--ink-3);
+.portada__golpe {
+  margin-top: clamp(1rem, 3.5vw, 1.4rem);
+  max-width: 30rem;
+  font-size: clamp(.9375rem, 3.6vw, 1.0625rem);
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.portada__golpe b {
+  color: var(--loss);
+  font-weight: 800;
 }
 
 /* marcador de la portada: remata la frase del titular */
@@ -941,7 +948,7 @@ code {
       'bajar    marcador';
   }
   .portada__titulo { grid-area: titulo; }
-  .portada__ayuda  { grid-area: ayuda; }
+  .portada__golpe  { grid-area: ayuda; }
   .portada__pie    { grid-area: pie; }
   .bajar           { grid-area: bajar; }
   .marcador {

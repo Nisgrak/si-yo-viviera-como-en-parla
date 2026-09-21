@@ -53,6 +53,8 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 - **Tipografía:** Archivo variable, una sola familia, servida desde el propio dominio para que
   abrir la web no genere ni una petición a terceros. Titulares en ancho condensado y peso 800;
   texto en ancho normal. El contraste lo dan el peso y el ancho, no una segunda fuente.
+- **El golpe se calcula, no se escribe.** La frase de la portada que resume el agravio sale de
+  contar posiciones en los datos. Así no puede quedarse obsoleta ni decir más de lo que hay.
 - **El selector es la frase.** Elegir municipio no es un control aparte: es la primera palabra
   del titular. «Vivo en [Getafe] y si viviera como en Parla… me faltarían 47». El desplegable
   lleva el mismo tipo y el mismo peso que el resto del titular, en azul y subrayado para que se

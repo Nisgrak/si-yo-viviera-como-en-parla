@@ -401,6 +401,39 @@
     })(ini);
   }
 
+  /* ── El golpe de la portada ───────────────────────────────────────────
+     Se calcula en vivo: si cambian los datos, cambia la frase. */
+
+  function golpe() {
+    const ids = Object.keys(NOMBRE);
+    let ultimos = 0;
+    D.indicadores.forEach(function (ind) {
+      const base = D.BASES[ind.base || 'total'];
+      let min = Infinity;
+      ids.forEach(function (m) {
+        const t = ind.datos[m].n / base.valores[m];
+        if (t < min) min = t;
+      });
+      const tRef = ind.datos[REF].n / base.valores[REF];
+      if (tRef <= min + 1e-12) ultimos++;
+    });
+
+    const r = D.contexto.renta.valores;
+    const masPobre = ids.every(function (m) { return r[REF] <= r[m]; });
+
+    const trozos = [];
+    if (masPobre) trozos.push('en renta por habitante');
+    if (ultimos) {
+      trozos.push('en <b>' + ultimos + ' de los ' + D.indicadores.length +
+        '</b> servicios que se comparan aquí');
+    }
+    if (!trozos.length) { $('#golpe').hidden = true; return; }
+
+    $('#golpe').hidden = false;
+    $('#golpe').innerHTML = 'Da igual la ciudad que elijas: ' + NOMBRE_REF +
+      ' es <b>la última de las seis</b> ' + trozos.join(' y ') + '.';
+  }
+
   /* ── El recuento ──────────────────────────────────────────────────── */
 
 
@@ -838,6 +871,7 @@
   function pintar() {
     calcular();
     portada();
+    golpe();
     resumen();
     renta();
     edades();
