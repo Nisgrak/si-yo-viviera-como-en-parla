@@ -121,16 +121,12 @@ window.DATOS = (function () {
       url: 'https://www.ine.es/jaxiT3/Tabla.htm?t=68543'
     },
     metro: {
-      t: 'Metro de Madrid · Línea 12 (MetroSur)',
-      url: 'https://www.comunidad.madrid/transporte/linea-12-metrosur-metro-madrid'
+      t: 'Metro de Madrid · Estaciones por línea (líneas 10 y 12)',
+      url: 'https://www.metromadrid.es/es/viaja-en-metro/lineas-y-horarios'
     },
     cercanias: {
       t: 'Renfe Cercanías Madrid · líneas C-3, C-4 y C-5',
       url: 'https://www.renfe.com/es/es/cercanias/cercanias-madrid'
-    },
-    tranvia: {
-      t: 'Consorcio Regional de Transportes de Madrid · Metro Ligero ML-4',
-      url: 'https://www.crtm.es/tu-transporte-publico/metro-ligero/'
     },
     sanitarios: {
       t: 'Comunidad de Madrid · Registro de centros, servicios y establecimientos sanitarios',
@@ -187,7 +183,7 @@ window.DATOS = (function () {
       grupo: 'Transporte',
       titulo: 'Estaciones de Metro',
       fuenteId: 'metro',
-      nota: 'La línea 12 (MetroSur) abrió en 2003 rodeando Alcorcón, Móstoles, Fuenlabrada, Leganés y Getafe. Parla se quedó fuera del trazado y sigue sin Metro.',
+      nota: 'MetroSur (línea 12) abrió en 2003 rodeando Alcorcón, Móstoles, Fuenlabrada, Leganés y Getafe con 28 estaciones, y Alcobendas tiene las suyas en la línea 10. Parla se quedó fuera de las dos. Lo que tiene es el tranvía ML-4: 15 paradas en un anillo de 8,3 kilómetros que no sale del municipio, así que desde cualquiera de ellas se llega a las otras catorce, todas en Parla. Desde una estación de MetroSur se llega sin cambiar de vehículo a las otras veintisiete, repartidas por cinco municipios. Por eso las paradas de tranvía no se cuentan junto a las de Metro.',
       datos: {
         getafe: {
           n: 8,
@@ -756,27 +752,6 @@ window.DATOS = (function () {
         alcorcon: { n: 208, lista: ['Residencia de Personas Mayores de Alcorcón · 208 plazas'] },
         alcobendas: { n: 201, lista: ['Gastón Baquero · 201 plazas'] },
         mostoles: { n: 249, lista: ['Parque Coimbra · 220 plazas', 'Juan XXIII · 29 plazas'] }
-      }
-    },
-
-    {
-      id: 'tranvia',
-      sing: 'parada de tranvía',
-      gen: 'f',
-      base: 'total',
-      grupo: 'Transporte',
-      titulo: 'Paradas de tranvía',
-      fuenteId: 'tranvia',
-      nota: 'Parla es la única de las {N} ciudades con tranvía: el ML-4, con 15 paradas. Es una línea circular dentro del municipio, así que para ir a Madrid hay que cambiar al Cercanías.',
-      datos: {
-        getafe: { n: 0, lista: [] },
-        parla: { n: 15, lista: [] },
-        pinto: { n: 0, lista: [] },
-        fuenlabrada: { n: 0, lista: [] },
-        leganes: { n: 0, lista: [] },
-        alcorcon: { n: 0, lista: [] },
-        alcobendas: { n: 0, lista: [] },
-        mostoles: { n: 0, lista: [] }
       }
     },
 

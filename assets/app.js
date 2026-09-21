@@ -119,9 +119,6 @@
       '<rect x="4" y="4" width="16" height="10" rx="2.5"/><path d="M4 9h16"/>' +
       '<circle cx="8" cy="17.5" r="1.6"/><circle cx="16" cy="17.5" r="1.6"/>' +
       '<path d="M2.5 21h19"/>',
-    tranvia:
-      '<path d="M12 2v3"/><rect x="5.5" y="5" width="13" height="12" rx="2.5"/>' +
-      '<path d="M5.5 11h13"/><path d="M8.5 21 10 17.5M15.5 21 14 17.5"/>',
     farmacia:
       '<path d="M9.6 3h4.8v6.6H21v4.8h-6.6V21H9.6v-6.6H3V9.6h6.6z"/>',
     biblioteca:
@@ -169,7 +166,7 @@
   };
 
   const ICONO = {
-    metro: 'metro', cercanias: 'cercanias', tranvia: 'tranvia',
+    metro: 'metro', cercanias: 'cercanias',
     farmacias: 'farmacia', bibliotecas: 'biblioteca', 'centros-salud': 'salud',
     'escuelas-infantiles': 'bebe', colegios: 'colegio', institutos: 'instituto',
     universidad: 'universidad', conservatorio: 'musica',

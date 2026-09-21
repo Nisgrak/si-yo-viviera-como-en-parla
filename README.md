@@ -119,7 +119,7 @@ Todas oficiales y enlazadas una por una en el apartado «Cómo está hecho esto�
 - **Comunidad de Madrid, datos abiertos** · registro de centros sanitarios, centros educativos,
   bibliotecas públicas, farmacias, registro de centros de atención social, renta disponible
   bruta municipal
-- **Metro de Madrid** (línea 12), **Renfe Cercanías** (C-3, C-4, C-5), **CRTM** (ML-4)
+- **Metro de Madrid** (líneas 10 y 12), **Renfe Cercanías** (C-3, C-4, C-5)
 - **UC3M** y **URJC** · campus oficiales
 - **Agencia Tributaria** y **Seguridad Social** · sus propios buscadores de oficinas
 - **Ministerio de Sanidad** · Catálogo Nacional de Hospitales 2025
@@ -155,6 +155,15 @@ incorporarlos:
   municipio.
 - **Limpieza viaria.** Descartado, pero por una razón distinta: el dato existe y es bueno, y es
   la clasificación la que no aguanta la comparación. Ver abajo.
+- **Paradas de tranvía.** Estuvo como indicador propio y se quitó. Parla es la única de las ocho
+  con tranvía, así que el cálculo le daba a todas las demás una «ganancia» de unas veintiuna
+  paradas que no dice nada de ellas: es un artefacto de que sólo una ciudad tiene la cosa que se
+  cuenta, el mismo defecto por el que se descartaron las comisarías. Y sumar las 15 paradas del
+  ML-4 a las estaciones de Metro dejaría a Parla primera de las ocho en transporte ferroviario,
+  que es falso en cualquier sentido práctico: el ML-4 es un anillo de 8,3 km que no sale del
+  municipio. La comparación honesta no es cuántas paradas hay sino a dónde llevan, y esa va ahora
+  en la nota del bloque de Metro: catorce paradas alcanzables desde el tranvía, todas en Parla,
+  frente a veintisiete estaciones en cinco municipios desde cualquier estación de MetroSur.
 - **Oficinas de empleo.** Hay dato bueno —el buscador de la Comunidad de Madrid lista las 43 de
   la región— pero no hay historia: Getafe, Leganés, Alcorcón y Móstoles tienen dos; Parla,
   Fuenlabrada, Alcobendas y Pinto, una. Por habitante Parla sale séptima de ocho, y Fuenlabrada
