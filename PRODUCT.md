@@ -53,6 +53,10 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 - **Tipografía:** Archivo variable, una sola familia, servida desde el propio dominio para que
   abrir la web no genere ni una petición a terceros. Titulares en ancho condensado y peso 800;
   texto en ancho normal. El contraste lo dan el peso y el ancho, no una segunda fuente.
+- **El selector es la frase.** Elegir municipio no es un control aparte: es la primera palabra
+  del titular. «Vivo en [Getafe] y si viviera como en Parla… me faltarían 47». El desplegable
+  lleva el mismo tipo y el mismo peso que el resto del titular, en azul y subrayado para que se
+  vea que se toca.
 - **Jerarquía de lectura:** portada → «El recuento» (todo lo que cae, con nombre, en una
   pantalla) → contexto → el detalle de cada cosa. Quien solo lea una sección tiene que salir
   sabiendo qué desaparece y cómo se llama.
