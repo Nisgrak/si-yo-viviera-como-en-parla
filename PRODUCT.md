@@ -10,7 +10,7 @@ texto: lo pone el recuento.
 
 ## A quién va dirigida
 
-Vecinos del sur de Madrid, en el móvil, probablemente en el bus o el Cercanías. Gente que ya
+Vecinos de las ciudades del sur de Madrid —el municipio se elige en la portada—, en el móvil, probablemente en el bus o el Cercanías. Gente que ya
 intuye el agravio y necesita munición verificable para discutirlo. Secundariamente: periodistas
 locales, concejales de la oposición, plataformas vecinales.
 
@@ -68,7 +68,10 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 
 ## Estado
 
-v1: Getafe contra Parla, 14 indicadores, 47 equipamientos perdidos, más 7,7 plazas
-residenciales públicas y 20 unidades de hospital que se cuentan aparte.
-Siguiente: Fuenlabrada, Leganés, Alcorcón, Móstoles y distritos de Madrid; después, deporte y
-zonas verdes cuando haya fuente comparable.
+v2: cinco ciudades contra Parla —Leganés 67, Fuenlabrada 61, Alcorcón 58, Getafe 47, Pinto 9—
+con 12 indicadores, más las plazas residenciales públicas y la cartera del hospital, que se
+cuentan aparte. Pinto es el contraejemplo que sostiene la credibilidad: pierde poco y en
+hospital está por debajo de Parla, y la web lo dice en su propia portada.
+
+Siguiente: Móstoles y distritos de Madrid; después, deporte, zonas verdes y teatros cuando
+haya una fuente comparable entre municipios.

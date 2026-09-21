@@ -319,9 +319,9 @@ a:hover { text-decoration-color: var(--ref); }
   background: var(--line-alta);
   transform-origin: left;
 }
-.renta__fila[data-destacar='parla'] .renta__cuanto { color: var(--loss); }
-.renta__fila[data-destacar='parla'] .renta__barra i { background: var(--loss); }
-.renta__fila[data-destacar='getafe'] .renta__barra i { background: var(--ref); }
+.renta__fila[data-destacar='referencia'] .renta__cuanto { color: var(--loss); }
+.renta__fila[data-destacar='referencia'] .renta__barra i { background: var(--loss); }
+.renta__fila[data-destacar='aqui'] .renta__barra i { background: var(--ref); }
 .renta__pct { font-size: .8125rem; color: var(--ink-3); grid-column: 1 / -1; margin-top: -.15rem; }
 
 .renta__nota {
@@ -373,13 +373,21 @@ a:hover { text-decoration-color: var(--ref); }
   color: var(--ink-3);
 }
 .rec--aparte .rec__n { color: var(--loss-deep); }
-.rec--aparte .rec__q::after {
-  content: '·  aparte';
-  margin-left: .5rem;
-  font-size: .6875rem; font-weight: 700;
+.rec--gana .rec__n { color: var(--gain-ink); }
+.rec--gana .rec__a:hover .rec__q { color: var(--gain-ink); }
+
+.rec__tag {
+  display: inline-block;
+  margin-right: .5rem;
+  padding: .05rem .4rem;
+  border: 1px solid var(--line-alta); border-radius: 3px;
+  font-size: .625rem; font-weight: 700;
   letter-spacing: .1em; text-transform: uppercase;
   color: var(--ink-3);
+  vertical-align: 1px;
+  white-space: nowrap;
 }
+.rec--gana .rec__tag { border-color: var(--gain); color: var(--gain-ink); }
 
 .recuento__pie {
   margin-top: 1.5rem;
@@ -417,6 +425,7 @@ a:hover { text-decoration-color: var(--ref); }
   position: relative;
   height: 14px; border-radius: 3px;
   background: var(--surface-2);
+  overflow: hidden;
 }
 .edad__pista i {
   display: block; height: 100%; border-radius: 3px;
@@ -426,7 +435,7 @@ a:hover { text-decoration-color: var(--ref); }
 }
 .edad__pista::after {
   content: ''; position: absolute; left: var(--linea, 70%);
-  top: -4px; bottom: -4px; width: 2px;
+  top: 0; bottom: 0; width: 2px;
   background: var(--ink-3);
 }
 .edad__v {
@@ -534,7 +543,7 @@ a:hover { text-decoration-color: var(--ref); }
   transform: scaleX(var(--v, 0)); transform-origin: left;
   transition: transform .7s var(--sal) .1s;
 }
-.tasa[data-quien='parla'] .tasa__pista i { background: var(--ref); }
+.tasa[data-quien='referencia'] .tasa__pista i { background: var(--ref); }
 .tasa__valor { font-size: .8125rem; font-weight: 700; color: var(--ink); min-width: 2.6rem; text-align: right; }
 .tasas__pie { font-size: .75rem; color: var(--ink-3); margin-top: .1rem; }
 .tasas__base {
@@ -635,6 +644,9 @@ details.plegable[open] > summary { margin-bottom: .2rem; }
   margin-top: 1.5rem;
   display: grid; gap: 0;
 }
+.unidades--gana .unidad::before { content: '✓'; color: var(--gain-ink); }
+.hospital__golpe--gana { margin-top: 2.25rem; }
+.hospital__golpe--gana b { color: var(--gain-ink); }
 .unidad {
   display: grid; grid-template-columns: 18px 1fr; align-items: baseline; gap: .7rem;
   padding-block: .6rem;

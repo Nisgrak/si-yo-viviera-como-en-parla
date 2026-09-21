@@ -1,237 +1,313 @@
 /* ─────────────────────────────────────────────────────────────────────────
    SI YO VIVIERA COMO EN PARLA · datos
    ─────────────────────────────────────────────────────────────────────────
-   Todas las cifras proceden de fuentes oficiales y llevan su fuente y fecha.
-   Para añadir un municipio nuevo:
-     1. añade su población en POBLACIONES
-     2. añade su bloque en `datos` dentro de cada indicador
-     3. añádelo a MUNICIPIOS con activo: true
+   Este archivo es el único sitio donde hay que tocar para actualizar la web.
+   Todas las cifras proceden de fuentes oficiales, y cada indicador lleva
+   enlazada la suya en la propia página.
+
+   Poblaciones totales: INE, cifras oficiales del Padrón a 1-1-2025.
+   Tramos de edad:      INE, población por edad año a año a 1-1-2025.
+   Equipamientos:       registros oficiales de la Comunidad de Madrid,
+                        Metro de Madrid, Renfe Cercanías y CRTM.
    ───────────────────────────────────────────────────────────────────────── */
 
 window.DATOS = (function () {
   const ACTUALIZADO = 'septiembre de 2026';
+  const REFERENCIA = 'parla';
 
-  /* Cifras oficiales de población a 1 de enero de 2025 (INE, Padrón) */
-  const POBLACIONES = {
-    getafe: 193238,
-    parla: 137471,
-    fuenlabrada: 190076,
-    leganes: 195734,
-    alcorcon: 175719,
-    mostoles: 214817,
-  };
+  const MUNICIPIOS = [
+    { id: 'getafe', nombre: 'Getafe', activo: true },
+    { id: 'parla', nombre: 'Parla', activo: true },
+    { id: 'pinto', nombre: 'Pinto', activo: true },
+    { id: 'fuenlabrada', nombre: 'Fuenlabrada', activo: true },
+    { id: 'leganes', nombre: 'Leganés', activo: true },
+    { id: 'alcorcon', nombre: 'Alcorcón', activo: true }
+  ];
 
-  /* Bases de comparación.
-     No todo se mide contra la población total: un colegio se mide contra los
-     niños que tienen edad de ir al colegio. Parla es mucho más joven que Getafe,
-     así que usar la población total le daría una ventaja que no es real.
-     Tramos de edad: INE, año a año, 1 de enero de 2025. */
+  /* Contra qué población se mide cada indicador. Un colegio no se mide contra
+     los habitantes de una ciudad, sino contra los niños que tienen edad de ir. */
   const BASES = {
     total: {
       etiqueta: 'habitantes',
       corto: 'población total',
       por: 100000,
-      valores: { getafe: 193238, parla: 137471 },
       fuenteId: 'ine',
+      valores: {
+        getafe: 193238,
+        parla: 137471,
+        pinto: 56651,
+        fuenlabrada: 190076,
+        leganes: 195734,
+        alcorcon: 175719
+      }
     },
     infantil: {
       etiqueta: 'niños y niñas de 0 a 2 años',
       corto: 'población de 0 a 2 años',
       por: 10000,
-      valores: { getafe: 4497, parla: 3315 },
       fuenteId: 'edades',
+      valores: {
+        getafe: 4497,
+        parla: 3315,
+        pinto: 1278,
+        fuenlabrada: 3634,
+        leganes: 3573,
+        alcorcon: 3226
+      }
     },
     primaria: {
       etiqueta: 'niños y niñas de 3 a 11 años',
       corto: 'población de 3 a 11 años',
       por: 10000,
-      valores: { getafe: 17671, parla: 14212 },
       fuenteId: 'edades',
+      valores: {
+        getafe: 17671,
+        parla: 14212,
+        pinto: 5322,
+        fuenlabrada: 14531,
+        leganes: 14771,
+        alcorcon: 13351
+      }
     },
     secundaria: {
       etiqueta: 'chicos y chicas de 12 a 17 años',
       corto: 'población de 12 a 17 años',
       por: 10000,
-      valores: { getafe: 12760, parla: 11919 },
       fuenteId: 'edades',
+      valores: {
+        getafe: 12760,
+        parla: 11919,
+        pinto: 4456,
+        fuenlabrada: 12772,
+        leganes: 12991,
+        alcorcon: 11288
+      }
     },
     mayores: {
       etiqueta: 'personas de 65 años o más',
       corto: 'población de 65 años o más',
       por: 10000,
-      valores: { getafe: 38119, parla: 19323 },
       fuenteId: 'edades',
-    },
+      valores: {
+        getafe: 38119,
+        parla: 19323,
+        pinto: 8130,
+        fuenlabrada: 36611,
+        leganes: 44465,
+        alcorcon: 40010
+      }
+    }
   };
-
-  const MUNICIPIOS = [
-    { id: 'getafe', nombre: 'Getafe', activo: true },
-    { id: 'fuenlabrada', nombre: 'Fuenlabrada', activo: false },
-    { id: 'leganes', nombre: 'Leganés', activo: false },
-    { id: 'alcorcon', nombre: 'Alcorcón', activo: false },
-    { id: 'mostoles', nombre: 'Móstoles', activo: false },
-    { id: 'madrid-distritos', nombre: 'Distritos de Madrid', activo: false },
-  ];
 
   const F = {
     ine: {
       t: 'INE · Cifras oficiales de población de los municipios españoles, 1 enero 2025',
-      url: 'https://www.ine.es/jaxiT3/Tabla.htm?t=2881',
+      url: 'https://www.ine.es/jaxiT3/Tabla.htm?t=2881'
     },
     edades: {
       t: 'INE · Población por sexo, edad año a año y nacionalidad, 1 enero 2025',
-      url: 'https://www.ine.es/jaxiT3/Tabla.htm?t=68543',
+      url: 'https://www.ine.es/jaxiT3/Tabla.htm?t=68543'
     },
     metro: {
-      t: 'Metro de Madrid · Línea 12 (MetroSur) y Ayuntamiento de Getafe',
-      url: 'https://getafe.es/la-ciudad/comunicaciones-2/metro/',
+      t: 'Metro de Madrid · Línea 12 (MetroSur)',
+      url: 'https://www.comunidad.madrid/transporte/linea-12-metrosur-metro-madrid'
     },
     cercanias: {
-      t: 'Renfe Cercanías Madrid · líneas C-3 y C-4',
-      url: 'https://www.renfe.com/es/es/cercanias/cercanias-madrid',
+      t: 'Renfe Cercanías Madrid · líneas C-3, C-4 y C-5',
+      url: 'https://www.renfe.com/es/es/cercanias/cercanias-madrid'
     },
     tranvia: {
       t: 'Consorcio Regional de Transportes de Madrid · Metro Ligero ML-4',
-      url: 'https://www.crtm.es/tu-transporte-publico/metro-ligero/',
+      url: 'https://www.crtm.es/tu-transporte-publico/metro-ligero/'
     },
     sanitarios: {
-      t: 'Comunidad de Madrid · Registro de centros, servicios y establecimientos sanitarios (datos abiertos)',
-      url: 'https://datos.comunidad.madrid/catalogo/dataset/centros_servicios_establecimientos_sanitarios',
+      t: 'Comunidad de Madrid · Registro de centros, servicios y establecimientos sanitarios',
+      url: 'https://datos.comunidad.madrid/catalogo/dataset/centros_servicios_establecimientos_sanitarios'
     },
     farmacias: {
       t: 'Comunidad de Madrid · Recursos sanitarios: farmacias por municipio, 2025',
-      url: 'https://datos.comunidad.madrid/catalogo/dataset/farmacias',
+      url: 'https://datos.comunidad.madrid/catalogo/dataset/farmacias'
     },
     educacion: {
-      t: 'Comunidad de Madrid · Centros educativos (datos abiertos), centros públicos en alta',
-      url: 'https://datos.comunidad.madrid/catalogo/dataset/centros_educativos',
+      t: 'Comunidad de Madrid · Centros educativos, centros públicos en alta',
+      url: 'https://datos.comunidad.madrid/catalogo/dataset/centros_educativos'
+    },
+    universidades: {
+      t: 'Universidad Carlos III y Universidad Rey Juan Carlos · campus oficiales',
+      url: 'https://www.urjc.es/universidad/campus'
     },
     bibliotecas: {
       t: 'Comunidad de Madrid · Total bibliotecas públicas por municipio, 2025',
-      url: 'https://datos.comunidad.madrid/catalogo/dataset/701042',
+      url: 'https://datos.comunidad.madrid/catalogo/dataset/701042'
     },
-    sociales: {
-      t: 'Comunidad de Madrid · Centros de servicios sociales por tipo y municipio, 2025',
-      url: 'https://datos.comunidad.madrid/catalogo/dataset/centros_servicios_sociales_por_tipo',
+    atencionSocial: {
+      t: 'Comunidad de Madrid · Registro de centros de atención social',
+      url: 'https://datos.comunidad.madrid/catalogo/dataset/atencion_social_registro_centros'
     },
     renta: {
       t: 'Comunidad de Madrid · Indicador de Renta Disponible Bruta Municipal, 2023',
-      url: 'https://datos.comunidad.madrid/catalogo/dataset/irpf_indicador_renta',
-    },
-    atencionSocial: {
-      t: 'Comunidad de Madrid · Registro de centros de atención social (datos abiertos)',
-      url: 'https://datos.comunidad.madrid/catalogo/dataset/atencion_social_registro_centros',
-    },
-    teatros: {
-      t: 'Red de Teatros de la Comunidad de Madrid · Ayuntamientos de Getafe y Parla',
-      url: 'https://www.madrid.org/clas_artes/red/',
-    },
+      url: 'https://datos.comunidad.madrid/catalogo/dataset/irpf_indicador_renta'
+    }
   };
 
-  /* ── Indicadores ─────────────────────────────────────────────────────── */
   const indicadores = [
     {
       id: 'metro',
+      base: 'total',
       grupo: 'Transporte',
       titulo: 'Estaciones de Metro',
-      sing: 'estación de Metro',
-      plur: 'estaciones de Metro',
-      forma: 'linea',
-      fuente: F.metro,
-      nota:
-        'Parla no tiene Metro. Es el único municipio de más de 100.000 habitantes del sur ' +
-        'metropolitano que se quedó fuera de MetroSur cuando la línea 12 se abrió en 2003.',
+      fuenteId: 'metro',
+      nota: 'Parla no tiene Metro. Es el municipio más grande del sur metropolitano que se quedó fuera de MetroSur cuando la línea 12 abrió en 2003.',
       datos: {
         getafe: {
           n: 8,
-          lista: ['El Bercial', 'Los Espartales', 'El Casar', 'Juan de la Cierva',
-                  'Getafe Central', 'Alonso de Mendoza', 'Conservatorio', 'Arroyo Culebro'],
+          lista: [
+            'El Bercial', 'Los Espartales', 'El Casar', 'Juan de la Cierva', 'Getafe Central',
+            'Alonso de Mendoza', 'Conservatorio', 'Arroyo Culebro'
+          ]
         },
         parla: { n: 0, lista: [] },
-      },
+        pinto: { n: 0, lista: [] },
+        fuenlabrada: {
+          n: 5,
+          lista: [
+            'Loranca', 'Hospital de Fuenlabrada', 'Parque Europa', 'Fuenlabrada Central',
+            'Parque de los Estados'
+          ]
+        },
+        leganes: {
+          n: 6,
+          lista: [
+            'El Carrascal', 'Julián Besteiro', 'Casa del Reloj', 'Hospital Severo Ochoa',
+            'Leganés Central', 'San Nicasio'
+          ]
+        },
+        alcorcon: { n: 4, lista: ['Puerta del Sur', 'Parque Lisboa', 'Alcorcón Central', 'Parque Oeste'] }
+      }
     },
 
     {
       id: 'cercanias',
+      base: 'total',
       grupo: 'Transporte',
       titulo: 'Estaciones de Cercanías',
-      sing: 'estación de Cercanías',
-      plur: 'estaciones de Cercanías',
-      forma: 'linea',
-      fuente: F.cercanias,
-      nota:
-        'Parla tiene una sola estación de Cercanías, final de la línea C-4, para todo el municipio. ' +
-        'Getafe tiene cinco repartidas entre las líneas C-3 y C-4.',
+      fuenteId: 'cercanias',
+      nota: 'Parla tiene una sola estación de Cercanías, final de la línea C-4, para todo el municipio.',
       datos: {
         getafe: {
           n: 5,
-          lista: ['Getafe Centro (C-4)', 'Las Margaritas-Universidad (C-4)',
-                  'Getafe Industrial (C-3)', 'El Casar (C-3)', 'Getafe Sector 3 (C-4)'],
+          lista: [
+            'Getafe Centro (C-4)', 'Las Margaritas-Universidad (C-4)',
+            'Getafe Industrial (C-3)', 'El Casar (C-3)', 'Getafe Sector 3 (C-4)'
+          ]
         },
         parla: { n: 1, lista: ['Parla (C-4)'] },
-      },
+        pinto: { n: 1, lista: ['Pinto (C-3)'] },
+        fuenlabrada: { n: 2, lista: ['Fuenlabrada (C-5)', 'La Serna (C-5)'] },
+        leganes: { n: 3, lista: ['Leganés (C-5)', 'Zarzaquemada (C-5)', 'Parque Polvoranca (C-5)'] },
+        alcorcon: { n: 3, lista: ['Alcorcón (C-5)', 'San José de Valderas (C-5)', 'Las Retamas (C-5)'] }
+      }
     },
 
     {
       id: 'farmacias',
+      base: 'total',
       grupo: 'Sanidad',
       titulo: 'Oficinas de farmacia',
-      sing: 'farmacia',
-      plur: 'farmacias',
-      forma: 'puntos',
-      fuente: F.farmacias,
-      nota:
-        'La apertura de farmacias está planificada por la Comunidad de Madrid en función de la ' +
-        'población, así que la diferencia por habitante no es casualidad: es reparto.',
+      fuenteId: 'farmacias',
+      nota: 'La apertura de farmacias la planifica la Comunidad de Madrid en función de la población, así que la diferencia por habitante no es casualidad: es reparto.',
       datos: {
         getafe: { n: 61, lista: [] },
         parla: { n: 28, lista: [] },
-      },
+        pinto: { n: 17, lista: [] },
+        fuenlabrada: { n: 65, lista: [] },
+        leganes: { n: 68, lista: [] },
+        alcorcon: { n: 69, lista: [] }
+      }
     },
 
     {
       id: 'bibliotecas',
+      base: 'total',
       grupo: 'Cultura',
       titulo: 'Bibliotecas públicas',
-      sing: 'biblioteca pública',
-      plur: 'bibliotecas públicas',
-      forma: 'lista',
-      fuente: F.bibliotecas,
-      nota:
-        'Getafe tiene una biblioteca central y cinco de barrio. Parla tiene dos para 137.471 personas.',
+      fuenteId: 'bibliotecas',
+      nota: 'Parla tiene dos bibliotecas públicas para 137.471 personas. Es la ratio más baja de todo el sur metropolitano.',
       datos: {
         getafe: {
           n: 6,
-          lista: ['Ricardo de la Vega · Centro', 'José Luis Sampedro · Juan de la Cierva',
-                  'Jorge Luis Borges · Sector III', 'Carmen Martín Gaite · El Bercial',
-                  'Almudena Grandes · La Alhóndiga', 'Lorenzo Silva · Getafe Norte'],
+          lista: [
+            'Ricardo de la Vega · Centro', 'José Luis Sampedro · Juan de la Cierva',
+            'Jorge Luis Borges · Sector III', 'Carmen Martín Gaite · El Bercial',
+            'Almudena Grandes · La Alhóndiga', 'Lorenzo Silva · Getafe Norte'
+          ]
         },
         parla: { n: 2, lista: ['Gloria Fuertes', 'Isaac Albéniz'] },
-      },
+        pinto: { n: 2, lista: ['Casa de la Cadena', 'Javier Lapeña'] },
+        fuenlabrada: {
+          n: 7,
+          lista: [
+            'Tomás y Valiente', 'Antonio Machado', 'El Arroyo', 'Fernando de los Ríos',
+            'José Manuel Caballero Bonald', 'Parque de la Paz', 'Loranca'
+          ]
+        },
+        leganes: {
+          n: 6,
+          lista: [
+            'Biblioteca Central', 'Julio Caro Baroja', 'Centro Cultural Julián Besteiro',
+            'Enrique Tierno Galván', 'Rigoberta Menchú', 'Santiago Amón'
+          ]
+        },
+        alcorcon: {
+          n: 7,
+          lista: [
+            'José Hierro', 'Ciudad de Nejapa', 'Almudena Grandes', 'Alcalde Jesús Salvador',
+            'Joaquín Vilumbrales', 'Fuente Cisneros', 'Miguel Delibes'
+          ]
+        }
+      }
     },
 
     {
       id: 'centros-salud',
+      base: 'total',
       grupo: 'Sanidad',
       titulo: 'Centros de salud',
-      sing: 'centro de salud',
-      plur: 'centros de salud',
-      forma: 'lista',
-      fuente: F.sanitarios,
-      nota:
-        'Atención primaria del Servicio Madrileño de Salud. Parla abrió el centro de Parla Este ' +
-        'en 2026 y aun así sigue por debajo de Getafe por habitante.',
+      fuenteId: 'sanitarios',
+      nota: 'Atención primaria del Servicio Madrileño de Salud. Parla abrió el centro de Parla Este en 2026 y aun así sigue a la cola por habitante.',
       datos: {
         getafe: {
           n: 9,
-          lista: ['Las Ciudades', 'Juan de la Cierva', 'Getafe Norte', 'Las Margaritas',
-                  'El Greco', 'El Bercial', 'Perales del Río', 'Sánchez Morate', 'Sector III'],
+          lista: [
+            'Las Ciudades', 'Juan de la Cierva', 'Getafe Norte', 'Las Margaritas', 'El Greco',
+            'El Bercial', 'Perales del Río', 'Sánchez Morate', 'Sector III'
+          ]
         },
-        parla: {
-          n: 5,
-          lista: ['Isabel II', 'Los Pintores', 'Las Américas', 'San Blas', 'Parla Este'],
+        parla: { n: 5, lista: ['Isabel II', 'Los Pintores', 'Las Américas', 'San Blas', 'Parla Este'] },
+        pinto: { n: 2, lista: ['Pinto', 'Parque Europa'] },
+        fuenlabrada: {
+          n: 7,
+          lista: [
+            'Alicante', 'Castilla la Nueva', 'Cuzco', 'Francia', 'Panaderas', 'Parque Loranca',
+            'El Naranjo'
+          ]
         },
-      },
+        leganes: {
+          n: 9,
+          lista: [
+            'Doctor Mendiguchía Carriche', 'Huerta de los Frailes', 'Jaime Vera',
+            'Leganés Norte', 'María Ángeles López Gómez', 'María Jesús Hereza',
+            'María Montessori', 'Marie Curie · La Fortuna', 'Santa Isabel'
+          ]
+        },
+        alcorcon: {
+          n: 8,
+          lista: [
+            'Ramón y Cajal', 'Gregorio Marañón', 'Miguel Servet', 'Los Castillos',
+            'Doctor Pedro Laín Entralgo', 'Doctor Trueta', 'La Rivota', 'Parque Oeste'
+          ]
+        }
+      }
     },
 
     {
@@ -239,117 +315,55 @@ window.DATOS = (function () {
       base: 'infantil',
       grupo: 'Educación',
       titulo: 'Escuelas infantiles públicas y casas de niños',
-      sing: 'escuela infantil pública',
-      plur: 'escuelas infantiles públicas',
-      forma: 'lista',
-      fuente: F.educacion,
-      nota:
-        'Centros públicos de 0 a 3 años y casas de niños, en alta en el registro autonómico. ' +
-        'Se compara contra los niños de 0 a 2 años de cada ciudad, no contra la población total.',
+      fuenteId: 'educacion',
+      nota: 'Centros públicos de 0 a 3 años. Se comparan contra los niños de 0 a 2 años de cada ciudad, no contra la población total.',
       datos: {
         getafe: {
           n: 14,
-          lista: ['Acuarela', 'Arcoíris', 'Arte', 'Cancionero', 'Casa de los Niños',
-                  'Cascanueces', 'Casiopea', 'Colorines', 'El Duende', 'El Prado',
-                  'La Luna', 'Mafalda', 'Marta Mata', 'Santa Madre Maravillas'],
+          lista: [
+            'Acuarela', 'Arcoíris', 'Arte', 'Cancionero', 'Casa de los Niños', 'Cascanueces',
+            'Casiopea', 'Colorines', 'El Duende', 'El Prado', 'La Luna', 'Mafalda',
+            'Marta Mata', 'Santa Madre Maravillas'
+          ]
         },
         parla: {
           n: 9,
-          lista: ['El Bosque', 'El Limonero', 'El Manzano', 'El Naranjo', 'Los Abetos',
-                  'Momo', 'Pilocha', 'Tris-Tras', 'Zarabanda'],
+          lista: [
+            'El Bosque', 'El Limonero', 'El Manzano', 'El Naranjo', 'Los Abetos', 'Momo',
+            'Pilocha', 'Tris-Tras', 'Zarabanda'
+          ]
         },
-      },
-    },
-
-    {
-      id: 'universidad',
-      grupo: 'Educación',
-      titulo: 'Universidad pública',
-      sing: 'campus universitario público',
-      plur: 'campus universitarios públicos',
-      forma: 'lista',
-      fuente: F.educacion,
-      nota:
-        'En Parla no hay universidad. Estudiar una carrera pública sin salir de tu ciudad no es ' +
-        'una comodidad: es dinero, tiempo y probabilidad de terminarla.',
-      datos: {
-        getafe: { n: 1, lista: ['Universidad Carlos III · Campus de Getafe'] },
-        parla: { n: 0, lista: [] },
-      },
-    },
-
-    {
-      id: 'conservatorio',
-      grupo: 'Educación',
-      titulo: 'Conservatorio profesional de música',
-      sing: 'conservatorio profesional',
-      plur: 'conservatorios profesionales',
-      forma: 'lista',
-      fuente: F.educacion,
-      nota:
-        'Parla tiene escuela municipal de música, pero no conservatorio profesional: las enseñanzas ' +
-        'regladas que dan titulación oficial hay que ir a buscarlas fuera.',
-      datos: {
-        getafe: { n: 1, lista: ['Conservatorio Profesional de Música de Getafe'] },
-        parla: { n: 0, lista: [] },
-      },
-    },
-
-    {
-      id: 'institutos',
-      base: 'secundaria',
-      grupo: 'Educación',
-      titulo: 'Institutos públicos de secundaria',
-      sing: 'instituto público',
-      plur: 'institutos públicos',
-      forma: 'lista',
-      fuente: F.educacion,
-      nota:
-        'El tramo más sangrante. Parla tiene casi tantos adolescentes como Getafe —11.919 frente a ' +
-        '12.760, un 93 %— y cuatro institutos públicos menos. Es la comparación en la que la ' +
-        'estructura de edad más cambia el resultado.',
-      datos: {
-        getafe: {
-          n: 13,
-          lista: ['Alarnes', 'Altaír', 'Antonio López García', 'Elisa Soriano Fischer', 'Ícaro',
-                  'Ignacio Aldecoa', 'José Hierro', 'La Senda', 'Laguna de Joatzel', 'León Felipe',
-                  'Matemático Puig Adam', 'Menéndez Pelayo', 'Satafi'],
+        pinto: {
+          n: 5,
+          lista: ['Pimpollitos', 'Tragaluz', 'Triángulo', 'Trébol', 'Virgen de la Asunción']
         },
-        parla: {
-          n: 9,
-          lista: ['El Olivo', 'Enrique Tierno Galván', 'Humanejos', 'José Pedro Pérez Llorca',
-                  'La Laguna', 'Las Américas', 'Manuel Elkin Patarroyo', 'Narcís Monturiol',
-                  'Nicolás Copérnico'],
+        fuenlabrada: {
+          n: 16,
+          lista: [
+            'El Bonsái', 'El Cocherito Leré', 'El Escondite', 'El Lago', 'El Molino',
+            'El Naranjo', 'El Sacapuntas', 'Gallipatos', 'La Alameda', 'La Linterna Mágica',
+            'La Mimosa', 'La Piñata', 'Las Cigüeñas', 'Los Gorriones', 'Pablo Picasso',
+            'Valle de Ordesa'
+          ]
         },
-      },
-    },
-
-    {
-      id: 'plazas-residencia',
-      base: 'mayores',
-      enTotal: false,
-      grupo: 'Servicios sociales',
-      titulo: 'Plazas en residencias públicas de mayores',
-      sing: 'plaza residencial pública',
-      plur: 'plazas residenciales públicas',
-      forma: 'puntos',
-      fuente: F.atencionSocial,
-      nota:
-        'Aquí no se cuentan centros, se cuentan camas, que es lo que de verdad se ocupa. Solo ' +
-        'residencias de titularidad pública: Getafe tiene dos y Parla una. Contando también las ' +
-        'privadas, Getafe suma 843 plazas en 7 centros y Parla 493 en 5, pero esas plazas se pagan. ' +
-        'Este apartado se mide en plazas, no en equipamientos, así que no suma al recuento de la portada.',
-      datos: {
-        getafe: {
-          n: 134,
-          lista: ['Residencia de Personas Mayores de Getafe · 64 plazas · gestión directa',
-                  'Getafe Alzheimer · 70 plazas · gestión indirecta'],
+        leganes: {
+          n: 18,
+          lista: [
+            'Aventuras', 'Burbujas', 'Dulcinea', 'El Cuco', 'El Romancero', 'Fortuna',
+            'Jeromín', 'Koala', 'La Comba', 'La Noria', 'Las Flores de la Fortuna',
+            'Lope de Vega', 'Los Pinos', 'Pandora', 'Primeros Pasos', 'Rincón Infantil',
+            'Rosa Caramelo', 'Valle Inclán'
+          ]
         },
-        parla: {
-          n: 64,
-          lista: ['Residencia de Personas Mayores de Parla · 64 plazas · gestión directa'],
-        },
-      },
+        alcorcon: {
+          n: 15,
+          lista: [
+            'Adivinanzas', 'Andersen', 'Arco Iris', 'Campanilla', 'El Corro de la Patata',
+            'Gloria Fuertes', 'La Princesa', 'Las Flores', 'Los Pingüinos',
+            'Los Pinos de Maeve', 'Mago de Oz', 'Nanas', 'Rodari', 'Sol y Luna', 'Sueños'
+          ]
+        }
+      }
     },
 
     {
@@ -357,168 +371,388 @@ window.DATOS = (function () {
       base: 'primaria',
       grupo: 'Educación',
       titulo: 'Colegios públicos de infantil y primaria',
-      sing: 'colegio público',
-      plur: 'colegios públicos',
-      forma: 'lista',
-      fuente: F.educacion,
-      nota:
-        'Medido sobre la población total, Parla saldría ganando. Medido sobre los niños que tienen ' +
-        'edad de ir al colegio, que es lo que importa, sale perdiendo: Parla tiene un 80 % de los ' +
-        'niños de 3 a 11 años de Getafe y solo un 76 % de sus colegios públicos.',
+      fuenteId: 'educacion',
+      nota: 'Medido sobre la población total, Parla aparentaría estar bien. Medido sobre los niños que tienen edad de ir al colegio, que es lo que importa, no lo está: Parla es la ciudad más joven de la comarca y eso se le come la ventaja.',
       datos: {
         getafe: {
           n: 29,
-          lista: ['Ana María Matute', 'Ciudad de Getafe', 'Ciudad de Madrid', 'Concepción Arenal',
-                  'Daoiz y Velarde', 'Doctor Severo Ochoa', 'El Bercial', 'Emperador Carlos V',
-                  'Enrique Tierno Galván', 'Fernando de los Ríos', 'Francisco de Quevedo',
-                  'Gabriel García Márquez', 'Gloria Fuertes', 'Jorge Guillén', 'Julián Besteiro',
-                  'Julio Cortázar', 'La Alhóndiga', 'Manuel Núñez de Arenas', 'María Blanchard',
-                  'Mariana Pineda', 'Miguel de Cervantes', 'Miguel Hernández', 'Ortiz Echagüe',
-                  'Rosalía de Castro', 'Sagrado Corazón', 'San José de Calasanz',
-                  'Santa Margarita María Alacoque', 'Seseña y Benavente', 'Vicente Ferrer'],
+          lista: [
+            'Ana María Matute', 'Ciudad de Getafe', 'Ciudad de Madrid', 'Concepción Arenal',
+            'Daoiz y Velarde', 'Doctor Severo Ochoa', 'El Bercial', 'Emperador Carlos V',
+            'Enrique Tierno Galván', 'Fernando de los Ríos', 'Francisco de Quevedo',
+            'Gabriel García Márquez', 'Gloria Fuertes', 'Jorge Guillén', 'Julio Cortázar',
+            'Julián Besteiro', 'La Alhóndiga', 'Manuel Núñez de Arenas', 'Mariana Pineda',
+            'María Blanchard', 'Miguel Hernández', 'Miguel de Cervantes', 'Ortiz Echagüe',
+            'Rosalía de Castro', 'Sagrado Corazón', 'San José de Calasanz',
+            'Santa Margarita María Alacoque', 'Seseña y Benavente', 'Vicente Ferrer'
+          ]
         },
         parla: {
           n: 22,
-          lista: ['Antonio Machado', 'Blas de Lezo', 'Ciudad de Mérida', 'Ciudad de Parla',
-                  'Clara Campoamor', 'Gerardo Diego', 'Giner de los Ríos', 'José Hierro',
-                  'Julián Besteiro', 'La Paloma', 'Los Lagos', 'Luis Vives',
-                  'Madre Teresa de Calcuta', 'Magerit', 'María Moliner', 'Miguel Delibes',
-                  'Miguel Hernández', 'Pablo Picasso', 'Rosa Luxemburgo', 'Rosa Montero',
-                  'Séneca', 'Virgen del Carmen'],
+          lista: [
+            'Antonio Machado', 'Blas de Lezo', 'Ciudad de Mérida', 'Ciudad de Parla',
+            'Clara Campoamor', 'Gerardo Diego', 'Giner de los Ríos', 'José Hierro',
+            'Julián Besteiro', 'La Paloma', 'Los Lagos', 'Luis Vives',
+            'Madre Teresa de Calcuta', 'Magerit', 'María Moliner', 'Miguel Delibes',
+            'Miguel Hernández', 'Pablo Picasso', 'Rosa Luxemburgo', 'Rosa Montero', 'Séneca',
+            'Virgen del Carmen'
+          ]
         },
-      },
+        pinto: {
+          n: 6,
+          lista: [
+            'Buenos Aires', 'Dos de Mayo', 'El Prado', 'Europa', 'Isabel la Católica',
+            'Las Artes'
+          ]
+        },
+        fuenlabrada: {
+          n: 37,
+          lista: [
+            'Andrés Manjón', 'Antonio Machado', 'Arcipreste de Hita', 'Aula 3',
+            'Benito Pérez Galdós', 'Carlos Cano', 'Cervantes', 'Clara Campoamor',
+            'Dulce Chacón', 'El Trigal', 'Enrique Tierno Galván', 'Francisco de Goya',
+            'Francisco de Quevedo', 'Fregacedos', 'Giner de los Ríos', 'Green Peace',
+            'John Lennon', 'Juan de la Cierva', 'La Cañada', 'León Felipe', 'Lope de Vega',
+            'Loranca', 'Maestra Trinidad García', 'Manuel de Falla', 'Manuela Malasaña',
+            'Miguel Hernández', 'Pablo Neruda', 'Poetisa Celia Viñas', 'Rayuela',
+            'Rosalía de Castro', 'Salvador Dalí', 'San Esteban', 'Santiago Ramón y Cajal',
+            'Velázquez', 'Vicente Blasco Ibáñez', 'Víctor Jara', 'Yvonne Blake'
+          ]
+        },
+        leganes: {
+          n: 33,
+          lista: [
+            'Aben Hazam', 'Andrés Segovia', 'Antonio Machado', 'Calderón de la Barca',
+            'Carmen Conde', 'Concepción Arenal', 'Constitución de 1812',
+            'Federico García Lorca', 'Francisco de Quevedo', 'Gabriela Morreale',
+            'Gerardo Diego', 'Giner de los Ríos', 'Gonzalo de Berceo', 'Jacinto Benavente',
+            'Joan Miró', 'José María de Pereda', 'Juan de Austria', 'Lepanto', 'León Felipe',
+            'Lope de Vega', 'Luis de Góngora', 'Manuel Vázquez Montalbán', 'Marqués de Leganés',
+            'Miguel Delibes', 'Miguel Hernández', 'Miguel de Cervantes', 'Ortega y Gasset',
+            'Pardo Bazán', 'Pérez Galdós', 'Pío Baroja', 'Trabenco', 'Víctor Pradera',
+            'Ángel González'
+          ]
+        },
+        alcorcon: {
+          n: 23,
+          lista: [
+            'Agustín de Argüelles', 'Bellas Vistas', 'Blas de Otero', 'Carmen Conde',
+            'Chaves Nogales', 'Clara Campoamor', 'Claudio Sánchez Albornoz', 'Daniel Martín',
+            'Federico García Lorca', 'Fernando de los Ríos', 'Fuente del Palomar',
+            'Isabel la Católica', 'Jesús Varela', 'Joaquín Costa', 'Los Castillos',
+            'Miguel Hernández', 'Miguel de Cervantes', 'Parque de Lisboa',
+            'Párroco D. Víctoriano', 'San José de Valderas', 'Santiago Ramón y Cajal',
+            'Santo Domingo', 'Vicente Aleixandre'
+          ]
+        }
+      }
     },
 
     {
-      id: 'teatros',
-      grupo: 'Cultura',
-      titulo: 'Teatros y espacios escénicos municipales',
-      sing: 'teatro municipal',
-      plur: 'teatros municipales',
-      forma: 'lista',
-      fuente: F.teatros,
-      nota: 'Dos y dos, así que por habitante Parla sale ligeramente mejor.',
+      id: 'institutos',
+      base: 'secundaria',
+      grupo: 'Educación',
+      titulo: 'Institutos públicos de secundaria',
+      fuenteId: 'educacion',
+      nota: 'El tramo más sangrante. Parla tiene 11.919 adolescentes, casi tantos como ciudades con 55.000 habitantes más, y nueve institutos públicos.',
       datos: {
-        getafe: { n: 2, lista: ['Teatro Federico García Lorca', 'Espacio Mercado'] },
-        parla: { n: 2, lista: ['Teatro Jaime Salom', 'Teatro Dulce Chacón'] },
-      },
+        getafe: {
+          n: 13,
+          lista: [
+            'Alarnes', 'Altaír', 'Antonio López García', 'Elisa Soriano Fischer',
+            'Ignacio Aldecoa', 'José Hierro', 'La Senda', 'Laguna de Joatzel', 'León Felipe',
+            'Matemático Puig Adam', 'Menéndez Pelayo', 'Satafi', 'Ícaro'
+          ]
+        },
+        parla: {
+          n: 9,
+          lista: [
+            'El Olivo', 'Enrique Tierno Galván', 'Humanejos', 'José Pedro Pérez Llorca',
+            'La Laguna', 'Las Américas', 'Manuel Elkin Patarroyo', 'Narcís Monturiol',
+            'Nicolás Copérnico'
+          ]
+        },
+        pinto: { n: 3, lista: ['Calderón de la Barca', 'Pablo Picasso', 'Vicente Aleixandre'] },
+        fuenlabrada: {
+          n: 13,
+          lista: [
+            'Barrio Loranca', 'Carpe Diem', 'Dionisio Aguado', 'Dolores Ibárruri',
+            'Gaspar Melchor de Jovellanos', 'Jimena Menéndez Pidal', 'Joaquín Araujo',
+            'José Luis López Aranguren', 'Julio Caro Baroja', 'La Serna', 'Salvador Allende',
+            'Victoria Kent', 'África'
+          ]
+        },
+        leganes: {
+          n: 16,
+          lista: [
+            'Arquitecto Peridis', 'Butarque', 'Enrique Tierno Galván', 'Gabriel García Márquez',
+            'Isaac Albéniz', 'José de Churriguera', 'Julio Verne', 'La Fortuna', 'Luis Vives',
+            'María Zambrano', 'Pablo Neruda', 'Pedro Duque', 'Rafael Frühbeck de Burgos',
+            'Salvador Dalí', 'San Nicasio', 'Siglo XXI'
+          ]
+        },
+        alcorcon: {
+          n: 11,
+          lista: [
+            'Centro Integral de Formación Profesional a Distancia Ignacio Ellacuría',
+            'El Pinar', 'Galileo Galilei', 'Jorge Guillén', 'Josefina Aldecoa', 'La Arboleda',
+            'Los Castillos', 'Luis Buñuel', 'Parque de Lisboa', 'Prado de Santo Domingo',
+            'Ítaca'
+          ]
+        }
+      }
     },
 
     {
-      id: 'centros-sociales',
+      id: 'universidad',
+      base: 'total',
+      grupo: 'Educación',
+      titulo: 'Campus universitario público',
+      fuenteId: 'universidades',
+      nota: 'En Parla no hay universidad. Estudiar una carrera pública sin salir de tu ciudad no es una comodidad: es dinero, tiempo y probabilidad de terminarla.',
+      datos: {
+        getafe: { n: 1, lista: ['Universidad Carlos III · Campus de Getafe'] },
+        parla: { n: 0, lista: [] },
+        pinto: { n: 0, lista: [] },
+        fuenlabrada: { n: 1, lista: ['Universidad Rey Juan Carlos · Campus de Fuenlabrada'] },
+        leganes: { n: 1, lista: ['Universidad Carlos III · Campus de Leganés'] },
+        alcorcon: { n: 1, lista: ['Universidad Rey Juan Carlos · Campus de Alcorcón'] }
+      }
+    },
+
+    {
+      id: 'conservatorio',
+      base: 'total',
+      grupo: 'Educación',
+      titulo: 'Conservatorio profesional de música',
+      fuenteId: 'educacion',
+      nota: 'Parla tiene escuela municipal de música, pero no conservatorio profesional: las enseñanzas regladas que dan titulación oficial hay que ir a buscarlas fuera.',
+      datos: {
+        getafe: { n: 1, lista: ['Conservatorio Profesional de Música de Getafe'] },
+        parla: { n: 0, lista: [] },
+        pinto: { n: 0, lista: [] },
+        fuenlabrada: { n: 0, lista: [] },
+        leganes: { n: 1, lista: ['Conservatorio Profesional Manuel Rodríguez Sales'] },
+        alcorcon: { n: 1, lista: ['Conservatorio Profesional Manuel de Falla'] }
+      }
+    },
+
+    {
+      id: 'plazas-residencia',
+      base: 'mayores',
       grupo: 'Servicios sociales',
-      titulo: 'Centros de servicios sociales',
-      sing: 'centro de servicios sociales',
-      plur: 'centros de servicios sociales',
-      forma: 'puntos',
-      fuente: F.sociales,
-      nota:
-        'Registro autonómico completo: mayores, discapacidad, infancia, mujer y otros colectivos, ' +
-        'de titularidad pública y privada.',
+      titulo: 'Plazas en residencias públicas de mayores',
+      enTotal: false,
+      fuenteId: 'atencionSocial',
+      nota: 'Aquí no se cuentan centros, se cuentan camas, que es lo que de verdad se ocupa. Solo residencias de titularidad pública. Este apartado se mide en plazas, no en equipamientos, así que no suma al recuento de la portada.',
       datos: {
-        getafe: { n: 53, lista: [] },
-        parla: { n: 39, lista: [] },
-      },
+        getafe: {
+          n: 134,
+          lista: [
+            'Residencia de Personas Mayores de Getafe · 64 plazas',
+            'Getafe Alzheimer · 70 plazas'
+          ]
+        },
+        parla: { n: 64, lista: ['Residencia de Personas Mayores de Parla · 64 plazas'] },
+        pinto: { n: 0, lista: [] },
+        fuenlabrada: { n: 63, lista: ['Residencia Municipal de Fuenlabrada · 63 plazas'] },
+        leganes: { n: 220, lista: ['Parque de los Frailes · 220 plazas'] },
+        alcorcon: { n: 208, lista: ['Residencia de Personas Mayores de Alcorcón · 208 plazas'] }
+      }
     },
 
     {
       id: 'tranvia',
+      base: 'total',
       grupo: 'Transporte',
       titulo: 'Paradas de tranvía',
-      sing: 'parada de tranvía',
-      plur: 'paradas de tranvía',
-      forma: 'puntos',
-      fuente: F.tranvia,
-      nota:
-        'Parla sí tiene lo que Getafe no: un tranvía, el ML-4, con 15 paradas. Es una línea ' +
-        'circular que no sale del municipio, y su construcción dejó al ayuntamiento una deuda de ' +
-        'unos 256 millones de euros.',
+      fuenteId: 'tranvia',
+      nota: 'Parla sí tiene lo que no tiene ningún vecino: un tranvía, el ML-4, con 15 paradas. Es una línea circular que no sale del municipio, y su construcción dejó al ayuntamiento una deuda de unos 256 millones de euros.',
       datos: {
         getafe: { n: 0, lista: [] },
         parla: { n: 15, lista: [] },
-      },
+        pinto: { n: 0, lista: [] },
+        fuenlabrada: { n: 0, lista: [] },
+        leganes: { n: 0, lista: [] },
+        alcorcon: { n: 0, lista: [] }
+      }
     },
+
   ];
 
-  /* ── El hospital: comparación de cartera, no de recuento ─────────────── */
-  const hospital = {
-    titulo: 'El hospital',
-    getafe: { nombre: 'Hospital Universitario de Getafe', unidades: 74 },
-    parla: { nombre: 'Hospital Universitario Infanta Cristina', unidades: 54 },
-    faltan: [
-      'Quemados',
-      'Neurocirugía',
-      'Hemodinámica',
-      'Cuidados intensivos neonatales',
-      'Cirugía torácica',
-      'Angiología y Cirugía Vascular',
-      'Cirugía plástica y reparadora',
-      'Medicina nuclear',
-      'Neurofisiología',
-      'Genética',
-      'Banco de tejidos',
-      'Inseminación artificial',
-      'Laboratorio de semen para capacitación espermática',
-      'Planificación familiar',
-      'Logopedia',
-      'Foniatría',
-      'Odontología/Estomatología',
-      'Vacunación',
-      'Laboratorio clínico',
-      'Otras unidades asistenciales',
-    ],
-    fuente: F.sanitarios,
-    cautela:
-      'Son las unidades asistenciales que el Registro de Centros de la Comunidad de Madrid tiene ' +
-      'declaradas en el hospital de Getafe y no en el de Parla. Ninguna está declarada al revés: ' +
-      'la cartera de Parla es un subconjunto exacto de la de Getafe. Algunas diferencias menores ' +
-      'pueden deberse a cómo declara cada centro sus servicios.',
+  /* Los hospitales no se reparten por habitante: se compara su cartera de servicios. */
+  const hospitales = {
+    getafe: {
+      nombre: 'Hospital Universitario de Getafe',
+      unidades: 74,
+      faltanEnReferencia: [
+        'Angiología y Cirugía Vascular', 'Banco de tejidos', 'Cirugía plástica y reparadora',
+        'Cirugía torácica', 'Cuidados intensivos neonatales', 'Foniatría', 'Genética',
+        'Hemodinámica', 'Inseminación artificial', 'Laboratorio Clínico',
+        'Laboratorio de semen para capacitación espermática', 'Logopedia', 'Medicina nuclear',
+        'Neurocirugía', 'Neurofisiología', 'Odontología/Estomatología',
+        'Otras unidades asistenciales', 'Planificación familiar', 'Quemados', 'Vacunación'
+      ],
+      faltanAqui: []
+    },
+    parla: {
+      nombre: 'Hospital Universitario Infanta Cristina',
+      unidades: 54,
+      faltanEnReferencia: [],
+      faltanAqui: []
+    },
+    pinto: {
+      nombre: null,
+      unidades: 0,
+      faltanEnReferencia: [],
+      faltanAqui: [
+        'Alergología', 'Anatomía patológica', 'Anestesia y Reanimación', 'Aparato digestivo',
+        'Atención Continuada en Atención Primaria', 'Atención sanitaria domiciliaria',
+        'Bioquímica clínica', 'Cardiología', 'Cirugía general y digestivo',
+        'Cirugía mayor ambulatoria', 'Cirugía menor ambulatoria',
+        'Cirugía ortopédica y Traumatología', 'Cuidados intermedios neonatales',
+        'Cuidados paliativos', 'Dermatología', 'Diálisis', 'Endocrinología', 'Enfermería',
+        'Enfermería obstétrico-ginecológica (matrona)', 'Extracción de sangre para donación',
+        'Extracción de órganos', 'Farmacia', 'Fisioterapia', 'Geriatría', 'Ginecología',
+        'Hematología clínica', 'Hospital de día', 'Implantación de tejidos',
+        'Laboratorio de hematología', 'Medicina del trabajo', 'Medicina intensiva',
+        'Medicina interna', 'Medicina preventiva', 'Microbiología y Parasitología',
+        'Nefrología', 'Neumología', 'Neurología', 'Nutrición y Dietética', 'Obstetricia',
+        'Obtención de muestras', 'Obtención de tejidos', 'Oftalmología', 'Oncología',
+        'Otorrinolaringología', 'Pediatría', 'Psicología clínica', 'Psiquiatría',
+        'Radiodiagnóstico', 'Rehabilitación', 'Reumatología', 'Servicio de transfusión',
+        'Terapia ocupacional', 'Tratamiento del dolor', 'Urología'
+      ]
+    },
+    fuenlabrada: {
+      nombre: 'Hospital Universitario de Fuenlabrada',
+      unidades: 69,
+      faltanEnReferencia: [
+        'Cirugía refractiva', 'Cuidados intensivos neonatales', 'Foniatría', 'Hemodinámica',
+        'Inseminación artificial', 'Interrupción voluntaria del embarazo',
+        'Laboratorio Clínico', 'Laboratorio de semen para capacitación espermática',
+        'Logopedia', 'Medicina general/de familia', 'Medicina nuclear', 'Neurofisiología',
+        'Otras unidades asistenciales', 'Planificación familiar', 'Radioterapia', 'Vacunación'
+      ],
+      faltanAqui: ['Diálisis']
+    },
+    leganes: {
+      nombre: 'Hospital Universitario Severo Ochoa',
+      unidades: 62,
+      faltanEnReferencia: [
+        'Angiología y Cirugía Vascular', 'Banco de tejidos', 'Cuidados intensivos neonatales',
+        'Farmacología clínica', 'Hemodinámica', 'Inseminación artificial',
+        'Laboratorio Clínico', 'Laboratorio de semen para capacitación espermática',
+        'Planificación familiar', 'Vacunación'
+      ],
+      faltanAqui: ['Atención sanitaria domiciliaria', 'Terapia ocupacional']
+    },
+    alcorcon: {
+      nombre: 'Hospital Universitario Fundación Alcorcón',
+      unidades: 70,
+      faltanEnReferencia: [
+        'Angiología y Cirugía Vascular', 'Banco de embriones', 'Banco de oocitos',
+        'Banco de semen', 'Banco de tejidos', 'Cuidados intensivos neonatales',
+        'Fecundación in vitro', 'Hemodinámica', 'Inseminación artificial',
+        'Interrupción voluntaria del embarazo', 'Laboratorio Clínico',
+        'Laboratorio de semen para capacitación espermática', 'Litotricia renal',
+        'Medicina nuclear', 'Neurofisiología', 'Otras unidades asistenciales',
+        'Planificación familiar', 'Recuperación de oocitos', 'Vacunación'
+      ],
+      faltanAqui: ['Atención sanitaria domiciliaria', 'Bioquímica clínica', 'Cuidados paliativos']
+    }
   };
 
-  /* ── Contexto económico ──────────────────────────────────────────────── */
+  const cautelaHospital =
+    'Son las unidades asistenciales que el Registro de Centros de la Comunidad de Madrid tiene '
+    + 'declaradas en un hospital y no en el otro. Algunas diferencias menores pueden deberse a '
+    + 'cómo declara cada centro su cartera.';
+
   const contexto = {
     renta: {
-      titulo: 'Renta disponible bruta por habitante',
-      unidad: '€',
       anio: 2023,
-      valores: { getafe: 19413, parla: 13534, madrid: 23159 },
-      fuente: F.renta,
-      nota:
-        'Parla vive con el 58,4 % de la renta media de la Comunidad de Madrid. Getafe, con el 83,8 %. ' +
-        'Menos servicios públicos donde menos dinero hay para pagárselos por fuera.',
+      fuenteId: 'renta',
+      mediaRegional: 23159,
+      valores: {
+        getafe: 19413,
+        parla: 13534,
+        pinto: 18803,
+        fuenlabrada: 15909,
+        leganes: 17438,
+        alcorcon: 19055
+      },
+      nota: 'Parla vive con el 58,4 % de la renta media de la Comunidad de Madrid. Menos servicios públicos justo donde menos dinero hay para pagárselos por fuera.'
     },
-  };
-
-  /* Estructura de edad: por qué no vale comparar colegios por habitante */
-  contexto.edades = {
-    titulo: 'Y no tienen la misma edad',
-    total: { getafe: 195628, parla: 138012 },
-    tramos: [
-      { etiqueta: '0 a 2 años', getafe: 4497, parla: 3315 },
-      { etiqueta: '3 a 11 años', getafe: 17671, parla: 14212 },
-      { etiqueta: '12 a 17 años', getafe: 12760, parla: 11919 },
-      { etiqueta: '65 años o más', getafe: 38119, parla: 19323 },
-    ],
-    fuente: F.edades,
-    nota:
-      'Parla tiene un 29 % menos de población que Getafe, pero solo un 7 % menos de adolescentes ' +
-      'y la mitad de personas mayores. Por eso los colegios, los institutos y las escuelas ' +
-      'infantiles no se comparan aquí por habitante, sino contra los niños que tienen esa edad. ' +
-      'Con la población total, Parla saldría mejor de lo que está.',
+    edades: {
+      fuenteId: 'edades',
+      total: {
+        getafe: 195628,
+        parla: 138012,
+        pinto: 56592,
+        fuenlabrada: 189814,
+        leganes: 195946,
+        alcorcon: 176806
+      },
+      tramos: [
+        {
+          etiqueta: '0 a 2 años',
+          valores: {
+            getafe: 4497,
+            parla: 3315,
+            pinto: 1278,
+            fuenlabrada: 3634,
+            leganes: 3573,
+            alcorcon: 3226
+          }
+        },
+        {
+          etiqueta: '3 a 11 años',
+          valores: {
+            getafe: 17671,
+            parla: 14212,
+            pinto: 5322,
+            fuenlabrada: 14531,
+            leganes: 14771,
+            alcorcon: 13351
+          }
+        },
+        {
+          etiqueta: '12 a 17 años',
+          valores: {
+            getafe: 12760,
+            parla: 11919,
+            pinto: 4456,
+            fuenlabrada: 12772,
+            leganes: 12991,
+            alcorcon: 11288
+          }
+        },
+        {
+          etiqueta: '65 años o más',
+          valores: {
+            getafe: 38119,
+            parla: 19323,
+            pinto: 8130,
+            fuenlabrada: 36611,
+            leganes: 44465,
+            alcorcon: 40010
+          }
+        }
+      ],
+      nota: 'Parla es la ciudad más joven de la comarca. Por eso los colegios, los institutos y las escuelas infantiles no se comparan aquí por habitante, sino contra los niños que tienen esa edad. Con la población total, Parla saldría mejor de lo que está.'
+    }
   };
 
   const pendientes = [
-    'Instalaciones deportivas municipales',
-    'Zonas verdes por habitante',
-    'Plantilla de Policía Local',
+    'Teatros y espacios escénicos municipales', 'Instalaciones deportivas municipales',
+    'Zonas verdes por habitante', 'Plantilla de Policía Local',
     'Tarjetas sanitarias por médico de familia',
-    'Frecuencia real del transporte a Madrid',
+    'Frecuencia real del transporte público hasta Madrid'
   ];
 
   return {
-    ACTUALIZADO, POBLACIONES, MUNICIPIOS, BASES,
-    referencia: 'parla',
-    indicadores, hospital, contexto, pendientes,
+    ACTUALIZADO, REFERENCIA, MUNICIPIOS, BASES,
+    indicadores, hospitales, cautelaHospital, contexto, pendientes,
     fuentes: F,
   };
 })();
