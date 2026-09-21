@@ -404,10 +404,12 @@
   /* ── El recuento ──────────────────────────────────────────────────── */
 
 
-  /* Un ejemplo con números reales explica la cuenta mejor que un párrafo */
+  /* La cuenta, hecha delante del lector con números reales de su ciudad.
+     En prosa no se seguía: faltaba ver las dos poblaciones una al lado de otra. */
   function comoSeLee() {
     const caja = $('#como-se-lee');
     vaciar(caja);
+
     let c = null;
     for (let i = 0; i < perdidas.length; i++) {
       if (perdidas[i].ind.id === 'bibliotecas') { c = perdidas[i]; break; }
@@ -416,12 +418,37 @@
     if (!c) { caja.hidden = true; return; }
     caja.hidden = false;
 
-    caja.appendChild(el('p', 'lee__rot', 'Un ejemplo'));
+    const g = c.ind.gen || 'm';
+    const etiqueta = c.base.etiqueta.charAt(0).toUpperCase() + c.base.etiqueta.slice(1);
+
+    caja.appendChild(el('p', 'lee__rot', 'Cómo se hace la cuenta'));
+
+    const tabla = el('div', 'lee__tabla');
+    const cab = el('div', 'lee__fila lee__fila--cab');
+    cab.appendChild(el('span', 'lee__et', ''));
+    cab.appendChild(el('span', 'lee__v', NOMBRE_REF));
+    cab.appendChild(el('span', 'lee__v', NOMBRE[AQUI]));
+    tabla.appendChild(cab);
+
+    [[etiqueta, entero(c.baseB), entero(c.baseA)],
+     [c.ind.titulo, String(c.nRef), String(c.n)],
+     [etiqueta + ' por ' + c.ind.sing,
+      cadaCuantos(c.nRef, c.baseB), cadaCuantos(c.n, c.baseA)]
+    ].forEach(function (f, i) {
+      const fila = el('div', 'lee__fila' + (i === 2 ? ' lee__fila--clave' : ''));
+      fila.appendChild(el('span', 'lee__et', f[0]));
+      fila.appendChild(el('span', 'lee__v', f[1]));
+      fila.appendChild(el('span', 'lee__v', f[2]));
+      tabla.appendChild(fila);
+    });
+    caja.appendChild(tabla);
+
     caja.appendChild(el('p', 'lee__txt',
-      NOMBRE_REF + ' tiene <b>' + c.nRef + '</b> ' + c.ind.titulo.toLowerCase() + ' para ' +
-      entero(c.baseB) + ' ' + c.base.etiqueta + '. A ese ritmo, a ' + NOMBRE[AQUI] +
-      ' le tocarían <b>' + num(c.equivalente, 1) + '</b>. Tiene <b>' + c.n +
-      '</b>, así que abajo aparece <b class="lee__dif">−' + num(c.delta) + '</b>.'));
+      'En ' + NOMBRE_REF + ' hay <b>' + uno[g] + ' ' + c.ind.sing + ' por cada ' +
+      cadaCuantos(c.nRef, c.baseB) + ' ' + c.base.etiqueta + '</b>. ' + NOMBRE[AQUI] +
+      ' tiene ' + entero(c.baseA) + ', así que con esa proporción le corresponderían <b>' +
+      num(c.equivalente, 1) + '</b>. Tiene <b>' + c.n + '</b>. La diferencia es ' +
+      '<b class="lee__dif">−' + num(c.delta) + '</b>, y así sale cada línea del recuento.'));
   }
 
   function filaRecuento(c, modo) {

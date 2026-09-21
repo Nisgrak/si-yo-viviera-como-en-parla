@@ -383,12 +383,12 @@ a:hover { text-decoration-color: var(--ref); }
   color: var(--ink-2);
 }
 
-/* ── Cómo se lee esto ─────────────────────────────────────────────────── */
+/* ── Cómo se hace la cuenta ───────────────────────────────────────────── */
 
 .lee {
   display: block;
   margin-top: clamp(1.5rem, 5vw, 2rem);
-  padding: clamp(.9rem, 3.5vw, 1.2rem) clamp(1rem, 4vw, 1.3rem);
+  padding: clamp(1rem, 4vw, 1.35rem);
   border: 1px solid var(--line);
   border-radius: 10px;
   background: var(--surface);
@@ -397,9 +397,52 @@ a:hover { text-decoration-color: var(--ref); }
   font-size: .6875rem; font-weight: 800;
   letter-spacing: .13em; text-transform: uppercase;
   color: var(--ref);
-  margin-bottom: .4rem;
 }
+
+.lee__tabla {
+  margin-top: .9rem;
+  font-variant-numeric: tabular-nums;
+}
+.lee__fila {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  column-gap: clamp(.7rem, 3vw, 1.25rem);
+  align-items: baseline;
+  padding-block: .4rem;
+  border-top: 1px solid var(--line);
+}
+.lee__fila--cab {
+  border-top: 0;
+  padding-bottom: .25rem;
+}
+.lee__fila--cab .lee__v {
+  font-size: .6875rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+.lee__fila--cab .lee__v:last-child { color: var(--ref); }
+
+.lee__et {
+  font-size: .8125rem; line-height: 1.3;
+  color: var(--ink-3);
+  min-width: 0;
+}
+.lee__v {
+  font-size: .9375rem; font-weight: 700;
+  color: var(--ink);
+  text-align: right;
+  min-width: 3.9rem;
+  white-space: nowrap;
+}
+
+.lee__fila--clave { border-top-width: 2px; border-top-color: var(--line-alta); }
+.lee__fila--clave .lee__et { color: var(--ink-2); font-weight: 600; }
+.lee__fila--clave .lee__v { font-size: 1.0625rem; font-stretch: 88%; letter-spacing: -.015em; }
+
 .lee__txt {
+  margin-top: 1rem;
+  padding-top: .9rem;
+  border-top: 1px solid var(--line);
   font-size: .9375rem; line-height: 1.55;
   color: var(--ink-2);
 }
