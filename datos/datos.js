@@ -163,6 +163,10 @@ window.DATOS = (function () {
     camas: {
       t: 'Ministerio de Sanidad · Catálogo Nacional de Hospitales 2025, camas instaladas',
       url: 'https://www.sanidad.gob.es/estadEstudios/estadisticas/sisInfSanSNS/ofertaRecursos/hospitales/home.htm'
+    },
+    alumnado: {
+      t: 'Comunidad de Madrid · Alumnos matriculados por tipo de centro y régimen, 2024',
+      url: 'https://datos.comunidad.madrid/catalogo/dataset/alumnos_no_universitarios_por_tipo_y_regimen'
     }
   };
 
@@ -694,6 +698,28 @@ window.DATOS = (function () {
         alcorcon: { n: 1, lista: ['Conservatorio Profesional Manuel de Falla'] },
         alcobendas: { n: 0, lista: [] },
         mostoles: { n: 1, lista: ['Conservatorio Profesional Rodolfo Halffter'] }
+      }
+    },
+
+    {
+      id: 'artes',
+      sing: 'alumno',
+      gen: 'm',
+      base: 'total',
+      enTotal: false,
+      grupo: 'Educación',
+      titulo: 'Alumnos en música, idiomas y artes',
+      fuenteId: 'alumnado',
+      nota: 'Enseñanzas de régimen especial en centros públicos: música, danza, idiomas y artes plásticas. Cuenta alumnos matriculados, no plazas ofertadas, y suma la enseñanza autonómica (escuelas oficiales de idiomas, conservatorios) con la municipal (escuelas de música y danza). Al medirse en alumnos, no suma al recuento de la portada.',
+      datos: {
+        getafe: { n: 2198, lista: [] },
+        parla: { n: 1169, lista: [] },
+        pinto: { n: 1278, lista: [] },
+        fuenlabrada: { n: 2100, lista: [] },
+        leganes: { n: 1965, lista: [] },
+        alcorcon: { n: 2825, lista: [] },
+        alcobendas: { n: 1733, lista: [] },
+        mostoles: { n: 1936, lista: [] }
       }
     },
 

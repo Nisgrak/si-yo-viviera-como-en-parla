@@ -68,11 +68,17 @@ dice en su apartado de método. Lo que no es ilustrativo es *cuántas*.
 
 ## Lo que no suma al total de portada
 
-Dos indicadores se calculan igual pero se muestran aparte, porque no se cuentan en
+Varios indicadores se calculan igual pero se muestran aparte, porque no se miden en
 equipamientos y sumarlos sería mezclar peras con manzanas:
 
 - **Plazas en residencias públicas de mayores.** Se cuentan camas, no centros: es lo que de
   verdad se ocupa. Solo titularidad pública.
+- **Camas de hospital público.** Instaladas, según el Catálogo Nacional de Hospitales.
+- **Alumnos en música, idiomas y artes.** Enseñanzas de régimen especial en centros públicos.
+  Mide matrícula, no plazas ofertadas, y suma lo autonómico (escuelas oficiales de idiomas,
+  conservatorios) con lo municipal (escuelas de música y danza), porque la fuente no los separa
+  por titularidad del centro. Sirve para comparar cuánta enseñanza de este tipo recibe cada
+  municipio, no para auditar a su ayuntamiento.
 - **Unidades asistenciales del hospital público.** Un hospital no se reparte por habitante; lo
   que se compara es su cartera de servicios, en los dos sentidos.
 

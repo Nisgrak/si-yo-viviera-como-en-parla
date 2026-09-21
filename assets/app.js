@@ -149,6 +149,11 @@
     cama:
       '<path d="M3 19.5V9"/><path d="M3 13h11.5a6.5 6.5 0 0 1 6.5 6.5"/>' +
       '<path d="M21 19.5v-1"/><circle cx="7.4" cy="9.6" r="2.3"/>',
+    paleta:
+      '<path d="M12 3.3c-5 0-8.9 3.6-8.9 8.2 0 4.6 4 8.2 8.9 8.2 1.2 0 2-.8 2-1.8 0-.5-.2-.9-.5-1.2' +
+      '-.3-.3-.5-.7-.5-1.2 0-1 .8-1.8 2-1.8h1.5c3 0 5.5-2.4 5.5-5.3 0-3.9-4.2-7.1-10-7.1z"/>' +
+      '<circle cx="7.5" cy="10.6" r="1.1"/><circle cx="11" cy="7.5" r="1.1"/>' +
+      '<circle cx="15.5" cy="8.4" r="1.1"/>',
     residencia:
       '<path d="M3.6 10.4 12 3.4l8.4 7v9.1a1 1 0 0 1-1 1H4.6a1 1 0 0 1-1-1z"/>' +
       '<path d="M12 18.3c-.6-.5-3.1-2.1-3.1-4a1.85 1.85 0 0 1 3.1-1.35 1.85 1.85 0 0 1 3.1 1.35' +
@@ -160,7 +165,7 @@
     farmacias: 'farmacia', bibliotecas: 'biblioteca', 'centros-salud': 'salud',
     'escuelas-infantiles': 'bebe', colegios: 'colegio', institutos: 'instituto',
     universidad: 'universidad', conservatorio: 'musica',
-    'plazas-residencia': 'residencia', camas: 'cama'
+    'plazas-residencia': 'residencia', camas: 'cama', artes: 'paleta'
   };
 
   function icono(clave, cls) {
