@@ -171,6 +171,14 @@ window.DATOS = (function () {
     segsocial: {
       t: 'Seguridad Social · Buscador de oficinas, provincia de Madrid',
       url: 'https://www.seg-social.es/wps/portal/wss/internet/OficinaSeguridadSocial'
+    },
+    pib: {
+      t: 'Comunidad de Madrid · Estimación del PIB municipal per cápita por rama de actividad, base 2021',
+      url: 'https://datos.comunidad.madrid/catalogo/dataset/pib_municipal_per_capita_2021'
+    },
+    conprel: {
+      t: 'Ministerio de Hacienda · Liquidaciones de los presupuestos de las entidades locales, 2021 a 2024',
+      url: 'https://serviciostelematicosext.hacienda.gob.es/SGFAL/CONPREL'
     }
   };
 
@@ -922,22 +930,6 @@ window.DATOS = (function () {
   const cautelaHospital = 'Son las unidades asistenciales que el Registro de Centros de la Comunidad de Madrid tiene declaradas en un hospital y no en el otro. Algunas diferencias menores pueden deberse a cómo declara cada centro su cartera.';
 
   const contexto = {
-    renta: {
-      anio: 2023,
-      fuenteId: 'renta',
-      mediaRegional: 23159,
-      valores: {
-        getafe: 19413,
-        parla: 13534,
-        pinto: 18803,
-        fuenlabrada: 15909,
-        leganes: 17438,
-        alcorcon: 19055,
-        alcobendas: 29659,
-        mostoles: 16710
-      },
-      nota: 'Parla vive con el 58,4 % de la renta media de la Comunidad de Madrid, la más baja de los {N} municipios comparados. Menos servicios públicos donde menos dinero hay para pagárselos por fuera.'
-    },
     edades: {
       fuenteId: 'edades',
       total: {
@@ -1005,7 +997,86 @@ window.DATOS = (function () {
         }
       ],
       nota: 'Parla es el municipio más joven de los {N} comparados. De ahí que los colegios, los institutos y las escuelas infantiles se midan contra los niños de esa edad y no contra el total de vecinos.'
-    }
+    },
+    dinero: [
+      {
+        id: 'renta',
+        titulo: 'Lo que gana quien vive aquí',
+        pie: 'Renta disponible bruta por habitante, 2023',
+        refNombre: 'Comunidad de Madrid',
+        mediaRegional: 23159,
+        valores: {
+          getafe: 19413,
+          parla: 13534,
+          pinto: 18803,
+          fuenlabrada: 15909,
+          leganes: 17438,
+          alcorcon: 19055,
+          alcobendas: 29659,
+          mostoles: 16710
+        },
+        fuenteId: 'renta',
+        nota: 'Parla vive con el 58,4 % de la renta media de la Comunidad de Madrid, la más baja de los {N} municipios comparados.'
+      },
+      {
+        id: 'pib',
+        titulo: 'Lo que se produce aquí',
+        pie: 'PIB por habitante, 2023',
+        refNombre: 'Comunidad de Madrid',
+        mediaRegional: 43413,
+        valores: {
+          getafe: 37722,
+          parla: 14021,
+          pinto: 36822,
+          fuenlabrada: 25566,
+          leganes: 28654,
+          alcorcon: 28390,
+          alcobendas: 85853,
+          mostoles: 18993
+        },
+        fuenteId: 'pib',
+        nota: 'Mide el valor de lo que se genera dentro del municipio, que no es lo mismo que lo que ganan sus vecinos. Parla se queda en el 32 % de la media regional y es la última de los 24 municipios de la Comunidad de Madrid que pasan de 50.000 habitantes. En la rama industrial la distancia se abre más: 1.398 € por habitante frente a los 6.509 de Getafe. La cifra de 2023 es provisional; la de 2022, ya definitiva, deja a Parla en el mismo 32 %.'
+      },
+      {
+        id: 'gasto',
+        titulo: 'Lo que gasta tu ayuntamiento',
+        pie: 'Gasto municipal por habitante, media de 2021 a 2024',
+        refNombre: 'Media de los municipios de Madrid',
+        mediaRegional: 1345,
+        valores: {
+          getafe: 978,
+          parla: 780,
+          pinto: 945,
+          fuenlabrada: 1014,
+          leganes: 782,
+          alcorcon: 877,
+          alcobendas: 1428,
+          mostoles: 885
+        },
+        fuenteId: 'conprel',
+        nota: 'Obligaciones reconocidas netas de los nueve capítulos, consolidando el ayuntamiento con sus organismos autónomos para no contar dos veces lo que se transfiere entre ellos. La media incluye a Madrid capital, que gasta mucho más por habitante y la empuja hacia arriba: sin ella baja a 1.032 €, y Parla sigue siendo la última de los {N} municipios comparados.'
+      },
+      {
+        id: 'inversion',
+        titulo: 'Lo que construye',
+        pie: 'Inversión real por habitante, media de 2021 a 2024',
+        refNombre: 'Media de los municipios de Madrid',
+        mediaRegional: 139,
+        valores: {
+          getafe: 156,
+          parla: 23,
+          pinto: 55,
+          fuenlabrada: 98,
+          leganes: 107,
+          alcorcon: 58,
+          alcobendas: 93,
+          mostoles: 52
+        },
+        fuenteId: 'conprel',
+        nota: 'El capítulo VI del presupuesto: obra nueva, reformas de colegios y calles, equipamiento. Es la partida que más se mueve de un año a otro, así que se promedian cuatro ejercicios. Parla es la última de los {N} en tres de esos cuatro años. Sin Madrid capital la media regional queda en 112 €.'
+      }
+    ],
+    dineroNota: 'Las cuatro cifras se encadenan: donde se produce poco se recauda poco —Parla ingresa 254 € por habitante en impuestos directos y Getafe 460— y donde se recauda poco se gasta y se construye poco. Cuánto de ese último escalón es infrafinanciación y cuánto es la deuda que Parla arrastra en su plan de ajuste, esta fuente no lo separa.'
   };
 
   return {

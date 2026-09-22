@@ -122,6 +122,8 @@ Todas oficiales y enlazadas una por una en el apartado «Cómo está hecho esto�
 - **Metro de Madrid** (líneas 10 y 12), **Renfe Cercanías** (C-3, C-4, C-5)
 - **UC3M** y **URJC** · campus oficiales
 - **Agencia Tributaria** y **Seguridad Social** · sus propios buscadores de oficinas
+- **Comunidad de Madrid** · PIB municipal per cápita por rama de actividad
+- **Ministerio de Hacienda** · liquidaciones de los presupuestos de las entidades locales
 - **Ministerio de Sanidad** · Catálogo Nacional de Hospitales 2025
 
 ### Lo que todavía no está
@@ -227,9 +229,45 @@ los cuatro ejercicios. El gasto total por habitante también la deja abajo (medi
 ahí Leganés está a un pelo (782 €) y 2022 fue un año raro en Parla, así que no es un dato
 redondo. El de inversión sí.
 
-No está en la web. Es dinero, no equipamientos, y metería una tesis causal que la web hoy no
-hace: parte de esa cifra es infrafinanciación y parte es la deuda heredada que Parla arrastra en
-su plan de ajuste, y separar las dos cosas no se puede hacer con esta fuente.
+Estas dos cifras están en la web, en la sección **«Y ahora, el dinero»**, junto a la renta y al
+PIB municipal. Van aparte del recuento porque son euros y no equipamientos, y la nota de cierre
+dice expresamente lo que la fuente no puede separar: cuánto de la inversión que falta es
+infrafinanciación y cuánto es la deuda que Parla arrastra en su plan de ajuste.
+
+La media de referencia que se enseña es la de **todos** los municipios de Madrid que liquidaron
+—entre 153 y 158 según el año, unos 6,7 millones de habitantes—, incluida la capital. Madrid
+capital la empuja hacia arriba: 1.345 € de gasto y 139 € de inversión con ella, 1.032 € y 112 €
+sin ella. Se enseña la más alta y se da la más baja en la nota, porque el argumento aguanta con
+las dos y así no hay nada que discutir.
+
+### Zonas verdes: mirado y descartado
+
+No existe estadística oficial de metros cuadrados de zona verde por municipio en Madrid. El
+portal de datos abiertos de la Comunidad devuelve un único resultado buscando «zonas verdes», y
+es una tabla del censo de vivienda de 2001. El INE publica la superficie total de cada municipio
+en sus Indicadores Urbanos pero deja vacíos los usos del suelo. El País Vasco sí lo publica como
+indicador municipal; Madrid no. Las cifras que circulan en prensa salen de estudios sueltos o de
+lo que declara cada ayuntamiento, que es el mismo problema que descartó los teatros.
+
+Se podría calcular con el Copernicus Urban Atlas (clase «Green urban areas», resolución de 0,25
+ha) o con el SIOSE del IGN, cruzando polígonos con los límites municipales. Sería el único dato
+de la web calculado por nosotros, y por tanto el primero que atacaría cualquiera que quisiera
+desmontarla. Descartado por eso, no por falta de medios.
+
+### Superficie industrial: mirado y sustituido
+
+Las hectáreas de suelo industrial tampoco se publican de forma comparable. Los datos
+alfanuméricos del [Sistema de Información Urbana](https://www.mivau.gob.es/urbanismo-y-suelo/sistema-de-informacion-urbana)
+del Ministerio de Vivienda traen la superficie de cada sector con su uso predominante, pero entre
+el 30 % y el 50 % sale sin uso asignado según la comunidad que lo reportara —Alcorcón tiene 1.165
+ha sin clasificar— y Alcobendas aparece con cero hectáreas industriales, lo cual es falso de
+partida. Además son áreas de desarrollo, es decir suelo pendiente, no el que ya existe.
+
+Lo que ese suelo produce sí está publicado, y es lo que entró en la web: el **PIB municipal per
+cápita por rama de actividad** de la Comunidad de Madrid. Parla se queda en el 32 % de la media
+regional y es la última de los 24 municipios de la región que pasan de 50.000 habitantes; por
+detrás de ella sólo hay pueblos de mil vecinos. En la rama industrial, 1.398 € por habitante
+frente a los 6.509 de Getafe.
 
 ## Cómo está escrita
 

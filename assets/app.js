@@ -35,7 +35,9 @@
 
   /* ── Formato ──────────────────────────────────────────────────────── */
 
-  function entero(n) { return n.toLocaleString('es-ES'); }
+  /* useGrouping explícito: el formato es-ES por defecto deja los cuatro
+     dígitos sin punto («1345») y aquí conviven cifras de tres y de seis. */
+  function entero(n) { return n.toLocaleString('es-ES', { useGrouping: true }); }
 
   function num(n, dec) {
     if (dec === undefined) dec = Math.abs(n - Math.round(n)) < 0.05 ? 0 : 1;
@@ -448,7 +450,7 @@
       if (tRef <= min + 1e-12) ultimos++;
     });
 
-    const r = D.contexto.renta.valores;
+    const r = serieDinero('renta').valores;
     const masPobre = ids.every(function (m) { return r[REF] <= r[m]; });
 
     const trozos = [];
@@ -612,15 +614,20 @@
 
   /* ── El punto de partida ──────────────────────────────────────────── */
 
-  function renta() {
-    const r = D.contexto.renta;
-    const cont = $('#renta');
-    vaciar(cont);
-    const max = Math.max(r.mediaRegional, r.valores[AQUI], r.valores[REF]);
+  function serieDinero(id) {
+    return D.contexto.dinero.find(function (s) { return s.id === id; });
+  }
 
-    [{ nombre: 'Comunidad de Madrid', v: r.mediaRegional, tipo: 'ref' },
-     { nombre: NOMBRE[AQUI], v: r.valores[AQUI], tipo: 'aqui' },
-     { nombre: NOMBRE_REF, v: r.valores[REF], tipo: 'referencia' }]
+  /* Las cuatro series de dinero comparten forma: tres barras contra la media
+     regional. Se dibujan con el mismo molde para que se lean como una sola
+     cuenta y no como cuatro gráficos sueltos. */
+  function barras(s) {
+    const caja = el('div', 'renta');
+    const max = Math.max(s.mediaRegional, s.valores[AQUI], s.valores[REF]);
+
+    [{ nombre: s.refNombre, v: s.mediaRegional, tipo: 'ref' },
+     { nombre: NOMBRE[AQUI], v: s.valores[AQUI], tipo: 'aqui' },
+     { nombre: NOMBRE_REF, v: s.valores[REF], tipo: 'referencia' }]
     .forEach(function (f) {
       const fila = el('div', 'renta__fila');
       fila.dataset.destacar = f.tipo;
@@ -632,13 +639,27 @@
       barra.appendChild(i);
       fila.appendChild(barra);
       fila.appendChild(el('p', 'renta__pct', f.tipo === 'ref'
-        ? 'referencia regional'
-        : num((f.v / r.mediaRegional) * 100, 1) + ' % de la media regional'));
-      cont.appendChild(fila);
+        ? 'referencia'
+        : num((f.v / s.mediaRegional) * 100, 1) + ' % de esa media'));
+      caja.appendChild(fila);
     });
+    return caja;
+  }
 
-    cont.appendChild(el('p', 'renta__nota', texto(r.nota)));
-    cont.appendChild(pieFuente([r.fuenteId]));
+  function dinero() {
+    const cont = $('#dinero-cuerpo');
+    vaciar(cont);
+    D.contexto.dinero.forEach(function (s) {
+      const art = el('article', 'plata');
+      art.id = 'dinero-' + s.id;
+      art.appendChild(el('h3', 'plata__h', s.titulo));
+      art.appendChild(el('p', 'plata__pie', s.pie));
+      art.appendChild(barras(s));
+      art.appendChild(el('p', 'renta__nota', texto(s.nota)));
+      art.appendChild(pieFuente([s.fuenteId]));
+      cont.appendChild(art);
+    });
+    $('#dinero-cierre').textContent = texto(D.contexto.dineroNota);
   }
 
   function edades() {
@@ -903,8 +924,8 @@
     portada();
     golpe();
     resumen();
-    renta();
     edades();
+    dinero();
     listas();
     hospital();
     metodo();
