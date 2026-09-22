@@ -240,6 +240,43 @@ capital la empuja hacia arriba: 1.345 € de gasto y 139 € de inversión con e
 sin ella. Se enseña la más alta y se da la más baja en la nota, porque el argumento aguanta con
 las dos y así no hay nada que discutir.
 
+### Plantilla médica de los hospitales: mirado y descartado
+
+Sí se publica, y con mucho detalle. Dos fuentes:
+
+- La **SIAE** del Ministerio de Sanidad recoge el personal de todos los hospitales de España, pero
+  los microdatos salen *anonimizados*: cada centro es un `NCODI` sin nombre, con comunidad
+  autónoma, finalidad y si es público o privado. No se puede decir qué hospital es cuál sin
+  reidentificar un fichero que el Ministerio ha anonimizado a propósito, así que no.
+- La Comunidad de Madrid publica la **plantilla orgánica hospital por hospital**, en
+  [esta página](https://www.comunidad.madrid/servicios/salud/plantillas-organicas-centros-sanitarios-servicio-madrileno-salud),
+  un PDF por centro y con fechas de efectos de 2026. De ahí salen estas cifras:
+
+| Hospital | Facultativos | Camas | Plantilla | Méd./1.000 hab | Méd./cama |
+|---|---:|---:|---:|---:|---:|
+| Getafe | 504 | 543 | 2.492 | 2,61 | 0,93 |
+| Fuenlabrada | 422 | 413 | 1.884 | 2,22 | 1,02 |
+| **Infanta Cristina (Parla)** | **276** | **188** | **962** | **2,01** | **1,47** |
+| F. Alcorcón | 352 | 401 | 1.750 | 2,00 | 0,88 |
+| Severo Ochoa (Leganés) | 383 | 386 | 1.863 | 1,96 | 0,99 |
+| Móstoles | 386 | 690 | 1.969 | 1,80 | 0,56 |
+
+No entra por tres motivos, y el primero es el que manda:
+
+1. **No dice lo que la web dice.** Por habitante del municipio Parla queda cuarta de seis, por
+   encima de Leganés y de Móstoles. Y por cama sale la primera con diferencia. Meterlo obligaría
+   a enseñarlo como ventaja de Parla, que es exactamente lo contrario de lo que el dato significa.
+2. **Dos de los ocho no se pueden medir igual.** El Rey Juan Carlos de Móstoles no aparece: la
+   Comunidad sólo publica plantilla de los hospitales de gestión directa, así que faltan las
+   cuatro concesiones y la Jiménez Díaz. Móstoles sale sistemáticamente corto. Y el PDF de la
+   Fundación Alcorcón es de **efectivos a 31 de diciembre de 2018**, otro concepto y siete años
+   viejo.
+3. **Plantilla orgánica no es gente trabajando.** Son puestos dotados; las vacantes no se ven.
+
+Lo que sí deja el dato es una lectura para las camas: el Infanta Cristina tiene 1,47 facultativos
+por cama y el de Getafe 0,93. El cuello de botella de Parla está en las camas, y eso ya está en
+la web.
+
 ### Zonas verdes: mirado y descartado
 
 No existe estadística oficial de metros cuadrados de zona verde por municipio en Madrid. El
