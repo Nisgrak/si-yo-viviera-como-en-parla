@@ -139,6 +139,8 @@ incorporarlos:
 - **Teatros y espacios escénicos municipales.** Cada ayuntamiento cuenta con criterios
   distintos: Fuenlabrada lista cinco espacios incluyendo salas pequeñas, Alcorcón uno,
   Leganés incluye un teatro de verano al aire libre de 1.520 plazas. No es comparable.
+  **Se volvió a mirar midiendo por aforo en vez de por número**, que es la idea correcta —60
+  butacas y 900 dejan de pesar igual— pero no hay fuente. Ver abajo.
 - **Centros de servicios sociales.** El registro autonómico da 82 en Leganés y 33 en Alcorcón,
   una diferencia de 2,5× entre vecinos que huele a criterio de registro, no a realidad.
 - **Instalaciones deportivas municipales.** El último Censo Nacional de Instalaciones
@@ -280,6 +282,35 @@ No entra por tres motivos, y el primero es el que manda:
 Lo que sí deja el dato es una lectura para las camas: el Infanta Cristina tiene 1,47 facultativos
 por cama y el de Getafe 0,93. El cuello de botella de Parla está en las camas, y eso ya está en
 la web.
+
+### Teatros por aforo: la idea es buena, la fuente no existe
+
+Contar butacas en vez de salas arregla el defecto que descartó los teatros, así que se buscó en
+serio. Tres vías, ninguna sirve:
+
+1. **Datos abiertos de la Comunidad.** Publica `Teatros por municipios` de 2017 a 2025, pero es un
+   recuento sin aforo, y el recuento en sí no se sostiene: da **1 teatro a Alcorcón**, una ciudad
+   de 175.719 habitantes cuyo Buero Vallejo pasa de mil butacas. Móstoles salta de 5 a 7 en 2023 y
+   Getafe baja de 3 a 2 el mismo año. No es un registro estable. Y además no diría lo que la web
+   dice: por ese recuento Parla tiene 3 teatros y Getafe 2, y Parla queda quinta de las ocho. Hay
+   otro conjunto con tramos de aforo («espacios escénicos con aforo de 101 a 200 personas») pero
+   sólo para el total regional, sin desglose municipal.
+2. **Red de Teatros de la Comunidad de Madrid.** Es el universo correcto —64 municipios, teatros y
+   auditorios municipales— y la Comunidad tiene los aforos: en su propia nota cita las 120 butacas
+   del más pequeño y las 989 del Teatro Auditorio Ciudad de Alcobendas. Pero no publica la tabla.
+   La página de la Red no lista los espacios, y en el BOCM sólo salen los convenios municipio a
+   municipio, sin capacidades.
+3. **redescena.net**, el directorio de la Red Española de Teatros de titularidad pública: 80
+   espacios en la Comunidad de Madrid y los ocho municipios presentes. Pero es el **listado de
+   socios de una asociación, no un registro**. Alcorcón figura sólo con Los Castillos y falta su
+   teatro principal, el Buero Vallejo; de Móstoles está el Teatro del Bosque y no el Teatro Villa
+   de Móstoles; de Getafe, un espacio. Usarlo descontaría justo a los municipios cuyo teatro
+   grande no es socio, que es el mismo defecto por el que se cayó la plantilla hospitalaria con el
+   Rey Juan Carlos fuera.
+
+Quedaría ir teatro por teatro a la web de cada ayuntamiento: una veintena de espacios, cada uno
+declarando su aforo a su manera —con palcos o sin ellos, ampliable o no— y cada ayuntamiento
+decidiendo qué sala merece llamarse teatro. Sería una recopilación nuestra, como las zonas verdes.
 
 ### Zonas verdes: mirado y descartado
 
