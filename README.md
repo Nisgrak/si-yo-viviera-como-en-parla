@@ -286,7 +286,7 @@ la web.
 ### Teatros por aforo: la idea es buena, la fuente no existe
 
 Contar butacas en vez de salas arregla el defecto que descartó los teatros, así que se buscó en
-serio. Tres vías, ninguna sirve:
+serio. Cuatro vías; la cuarta tiene el dato pero no se puede usar:
 
 1. **Datos abiertos de la Comunidad.** Publica `Teatros por municipios` de 2017 a 2025, pero es un
    recuento sin aforo, y el recuento en sí no se sostiene: da **1 teatro a Alcorcón**, una ciudad
@@ -307,6 +307,37 @@ serio. Tres vías, ninguna sirve:
    de Móstoles; de Getafe, un espacio. Usarlo descontaría justo a los municipios cuyo teatro
    grande no es socio, que es el mismo defecto por el que se cayó la plantilla hospitalaria con el
    Rey Juan Carlos fuera.
+
+4. **MIRE**, el [Mapa Informatizado de Recintos Escénicos](https://www.proyectomire.org/web/mireinicio.php)
+   de la Fundación SGAE, que es con diferencia lo mejor que hay: ficha técnica por recinto con
+   aforo, titularidad, cubierto o al aire libre y fecha de actualización, y con los ocho
+   municipios dentro, el Buero Vallejo de Alcorcón incluido. Filtrando a teatro cubierto de
+   titularidad pública sale esto:
+
+   | | Teatros | Butacas | Por 1.000 hab |
+   |---|---:|---:|---:|
+   | Pinto | 2 | 735 | 12,97 |
+   | Leganés | 4 | 2.085 | 10,65 |
+   | Alcobendas | 2 | 1.189 | 9,64 |
+   | Móstoles | 5 | 2.037 | 9,48 |
+   | Fuenlabrada | 3 | 1.335 | 7,02 |
+   | Alcorcón | 2 | 1.203 | 6,85 |
+   | **Parla** | **2** | **702** | **5,11** |
+   | Getafe | 2 | 913 | 4,72 |
+
+   Tampoco entra, por tres motivos y el primero es insalvable:
+
+   - **No se puede republicar.** La propia página dice que la base de datos es propiedad de la
+     Fundación SGAE y que «queda prohibida su reproducción, distribución, comunicación pública,
+     transformación y cualquier otro acto que no haya sido expresamente autorizado». Sacar el
+     aforo de veinte recintos y publicarlo es justo eso. Habría que pedir permiso.
+   - **No dice lo que dice la web.** Parla queda séptima de ocho y **Getafe última**: con la tasa
+     de Parla, Getafe ganaría butacas.
+   - **La cobertura y la frescura son desiguales.** Las fichas de Getafe se actualizaron por
+     última vez en 1999 y 2000; las de Parla, en marzo de 2025. Los recintos por municipio van de
+     2 a 5, y en unos entran los salones de actos de los centros culturales y en otros no.
+     La mitad de las butacas de Leganés son el auditorio de la Universidad Carlos III, que es
+     público pero ni municipal ni de programación teatral.
 
 Quedaría ir teatro por teatro a la web de cada ayuntamiento: una veintena de espacios, cada uno
 declarando su aforo a su manera —con palcos o sin ellos, ampliable o no— y cada ayuntamiento
