@@ -769,6 +769,14 @@ a:hover { text-decoration-color: var(--ref); }
   color: var(--ink-2);
 }
 .tasas__pie { font-size: .75rem; color: var(--ink-3); margin-top: .35rem; }
+/* La leyenda de las barras: dice de qué son los dos números. */
+.tasas__ley {
+  margin-bottom: .55rem;
+  font-size: .75rem; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase;
+  line-height: 1.35; color: var(--ink-3);
+}
+
 .tasas__base {
   margin-bottom: .35rem;
   padding: .5rem .7rem;

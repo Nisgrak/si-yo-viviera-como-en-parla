@@ -253,10 +253,15 @@
     const max = Math.max(c.tasaA, c.tasaB) || 1;
     const cont = el('div', 'tasas');
 
+    /* Las dos barras son dos números sueltos si no se dice de qué. El titular
+       del bloque ya dice qué se cuenta, así que aquí basta el divisor. */
+    cont.appendChild(el('p', 'tasas__ley',
+      'Por cada ' + entero(c.base.por) + ' ' + c.base.etiqueta));
+
     if (c.ind.base && c.ind.base !== 'total') {
       cont.appendChild(el('p', 'tasas__base',
-        'Medido sobre la <b>' + c.base.corto + '</b>: ' +
-        NOMBRE[AQUI] + ' ' + entero(c.baseA) + ' · ' + NOMBRE_REF + ' ' + entero(c.baseB)));
+        'En ese tramo: ' + NOMBRE[AQUI] + ' <b>' + entero(c.baseA) + '</b>, ' +
+        NOMBRE_REF + ' <b>' + entero(c.baseB) + '</b>.'));
     }
 
     [{ id: AQUI, v: c.tasaA }, { id: REF, v: c.tasaB }].forEach(function (f) {
@@ -274,12 +279,10 @@
 
     cont.appendChild(el('p', 'tasas__llano', enCristiano(c)));
 
-    const unidad = numTasa(c.tasaA) + ' y ' + numTasa(c.tasaB) + ' por cada ' +
-      entero(c.base.por) + ' ' + c.base.etiqueta;
     cont.appendChild(el('p', 'tasas__pie', modo === 'gana'
-      ? unidad + ' · con la tasa de ' + NOMBRE_REF + ' habría ' + numTasa(c.equivalente) +
+      ? 'Con la tasa de ' + NOMBRE_REF + ' habría ' + numTasa(c.equivalente) +
         ' en ' + NOMBRE[AQUI]
-      : unidad + ' · con la tasa de ' + NOMBRE_REF + ' quedarían ' + numTasa(c.equivalente) +
+      : 'Con la tasa de ' + NOMBRE_REF + ' quedarían ' + numTasa(c.equivalente) +
         ' de ' + c.n));
     return cont;
   }
@@ -530,29 +533,44 @@
     return li;
   }
 
+  function sumaDelta(lista) {
+    return lista.reduce(function (t, c) {
+      return t + (c.ind.enTotal === false ? 0 : c.delta);
+    }, 0);
+  }
+
+  /* El orden en que se leen las pérdidas: por áreas, primero la que más pierde,
+     y dentro de cada una como vengan ordenadas. Lo calcula una sola función
+     para que el recuento de arriba y la lista con nombres de abajo no puedan
+     acabar contando lo mismo en distinto orden. */
+  function porAreas() {
+    const areas = [];
+    const mapa = {};
+    perdidas.forEach(function (c) {
+      if (c.ind.enTotal === false) return;   /* estos van al final, aparte */
+      const k = c.ind.grupo;
+      if (!mapa[k]) { mapa[k] = []; areas.push(k); }
+      mapa[k].push(c);
+    });
+    areas.sort(function (x, y) { return sumaDelta(mapa[y]) - sumaDelta(mapa[x]); });
+
+    let orden = [];
+    areas.forEach(function (k) { orden = orden.concat(mapa[k]); });
+    orden = orden.concat(perdidas.filter(function (c) { return c.ind.enTotal === false; }));
+    return { areas: areas, mapa: mapa, orden: orden };
+  }
+
   function resumen() {
     comoSeLee();
     const cont = $('#recuento');
     vaciar(cont);
 
     /* Agrupado por área, con su subtotal: un recuento se lee por bloques,
-       no como una lista de doce cosas seguidas. */
-    const areas = [];
-    const porArea = {};
-    perdidas.forEach(function (c) {
-      if (c.ind.enTotal === false) return;   /* estos van al final, aparte */
-      const k = c.ind.grupo;
-      if (!porArea[k]) { porArea[k] = []; areas.push(k); }
-      porArea[k].push(c);
-    });
-
-    areas.sort(function (x, y) { return suma(porArea[y]) - suma(porArea[x]); });
-
-    function suma(lista) {
-      return lista.reduce(function (t, c) {
-        return t + (c.ind.enTotal === false ? 0 : c.delta);
-      }, 0);
-    }
+       no como una lista de quince cosas seguidas. */
+    const g = porAreas();
+    const areas = g.areas;
+    const porArea = g.mapa;
+    const suma = sumaDelta;
 
     areas.forEach(function (k) {
       const lista = porArea[k];
@@ -721,7 +739,7 @@
     const lp = $('#lista-perdidas');
     vaciar(lp);
     const env = el('div', 'env');
-    perdidas.forEach(function (c) { env.appendChild(bloqueIndicador(c, 'pierde')); });
+    porAreas().orden.forEach(function (c) { env.appendChild(bloqueIndicador(c, 'pierde')); });
     if (empates.length) {
       const art = el('article', 'ind');
       art.appendChild(el('p', 'ind__grupo', 'Empate técnico'));

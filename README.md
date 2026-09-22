@@ -107,6 +107,10 @@ En `datos/datos.js`:
 3. Añade su bloque en `datos` dentro de **cada** indicador, con `n` y `lista`.
 4. Añade su entrada en `hospitales` y en `contexto.renta` / `contexto.edades`.
 
+El recuento de arriba y la lista con nombres de abajo van **en el mismo orden**: por áreas, la
+que más pierde primero, y dentro de cada una por porcentaje perdido. Lo calcula `porAreas()` una
+sola vez y lo usan las dos, para que no puedan separarse al tocar cualquiera de las dos.
+
 La web decide sola si cada indicador es pérdida, ganancia o empate (umbral: 0,15 unidades), lo
 ordena por gravedad y recalcula el total de la portada.
 
