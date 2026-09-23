@@ -80,8 +80,12 @@
   const CIFRA_LETRA = ['cero', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis',
     'siete', 'ocho', 'nueve', 'diez', 'once', 'doce'];
   function letra(n) { return CIFRA_LETRA[n] || String(n); }
-  function texto(t) {
-    return (t || '').replace(/\{N\}/g, letra(D.MUNICIPIOS.length));
+  /* Además de {N}, una nota puede llevar {aqui}, {ref} o cualquier clave de
+     `vars`, que se rellena con la ciudad elegida. */
+  function texto(t, vars) {
+    const v = Object.assign({ aqui: NOMBRE[AQUI], ref: NOMBRE_REF }, vars || {});
+    return (t || '').replace(/\{N\}/g, letra(D.MUNICIPIOS.length))
+      .replace(/\{(\w+)\}/g, function (m, k) { return k in v ? v[k] : m; });
   }
 
   /* "Una biblioteca pública por cada 32.206 habitantes" */
@@ -202,6 +206,10 @@
       '<path d="M3.6 10.4 12 3.4l8.4 7v9.1a1 1 0 0 1-1 1H4.6a1 1 0 0 1-1-1z"/>' +
       '<path d="M12 18.3c-.6-.5-3.1-2.1-3.1-4a1.85 1.85 0 0 1 3.1-1.35 1.85 1.85 0 0 1 3.1 1.35' +
       'c0 1.9-2.5 3.5-3.1 4z"/>',
+    /* Una moneda con el euro. */
+    euro:
+      '<circle cx="12" cy="12" r="8.6"/>' +
+      '<path d="M15.2 8.9a4.2 4.2 0 1 0 0 6.2"/><path d="M7.6 11h5.6M7.6 13.2h5.6"/>',
     /* Un pino: copa, tronco y suelo. */
     arbol:
       '<path d="M12 3.4 5.6 12.8h12.8z"/>' +
@@ -806,6 +814,18 @@
         modo: 'aparte', href: '#ind-' + c.ind.id });
     });
 
+    /* Lo que el ayuntamiento invierte y gasta, en euros al año: la misma cuenta
+       que todo lo demás, y en su ficha de «Detrás de todo, el dinero». */
+    D.contexto.dinero.filter(function (s) { return s.alAnio; }).reverse().forEach(function (s) {
+      const a = alAnio(s);
+      extra.push({
+        ico: 'euro',
+        q: (s.id === 'inversion' ? 'Inversión' : 'Gasto') + ' municipal al año',
+        n: a.igual ? '≈' : (a.dif > 0 ? '−' : '+') + num(Math.abs(a.dif) / 1e6, 1) + ' M€',
+        modo: a.dif < 0 && !a.igual ? 'gana' : 'aparte',
+        href: '#dinero-' + s.id
+      });
+    });
     ganancias.forEach(function (c) {
       if (c.ind.enTotal !== false) return;   /* esas van arriba, en el recuento */
       extra.push({ ico: ICONO[c.ind.id], q: c.ind.titulo,
@@ -860,6 +880,9 @@
   function filasDinero(s, formato) {
     const filas = [];
     if (s.mediaRegional != null) filas.push({ q: s.refNombre, v: s.mediaRegional, quien: 'otro' });
+    if (s.mediaSinCapital != null) {
+      filas.push({ q: 'Sin la capital', v: s.mediaSinCapital, quien: 'otro' });
+    }
     filas.push({ q: NOMBRE[AQUI], v: s.valores[AQUI], quien: 'aqui' });
     filas.push({ q: NOMBRE_REF, v: s.valores[REF], quien: 'referencia' });
     const tope = filas.reduce(function (t, f) { return Math.max(t, f.v); }, 0);
@@ -908,10 +931,19 @@
     return t;
   }
 
+  /* Arriba, lo que decide el ayuntamiento, con su cifra en euros al año y su
+     cartel: la inversión primero, que es donde más distancia hay. Debajo, en
+     fila de tres, lo que describe a los vecinos: paro, renta y PIB. */
   function dinero() {
-    const cont = $('#dinero-cuerpo');
-    vaciar(cont);
-    D.contexto.dinero.forEach(function (s) {
+    const arriba = $('#dinero-cuerpo');
+    const abajo = $('#dinero-contexto');
+    vaciar(arriba);
+    vaciar(abajo);
+    const series = D.contexto.dinero;
+    const destacadas = series.filter(function (s) { return s.alAnio; }).reverse();
+    const resto = series.filter(function (s) { return !s.alAnio; });
+    destacadas.concat(resto).forEach(function (s) {
+      const cont = s.alAnio ? arriba : abajo;
       const art = el('article', 'plata');
       art.id = 'dinero-' + s.id;
       art.appendChild(el('h3', 'plata__h', s.titulo));
@@ -920,12 +952,17 @@
       art.appendChild(filasDinero(s, s.id === 'paro'
         ? function (v) { return num(v, 2) + ' %'; }
         : function (v) { return entero(v) + ' €'; }));
-      art.appendChild(el('p', 'renta__nota', texto(s.nota)));
+      art.appendChild(el('p', 'renta__nota', texto(s.nota, s.industria && {
+        industriaAqui: entero(s.industria[AQUI]), industriaRef: entero(s.industria[REF])
+      })));
       art.appendChild(pieFuente([s.fuenteId]));
       if (s.alAnio && !alAnio(s).igual) art.appendChild(botonCartel({ dinero: s }, null));
       cont.appendChild(art);
     });
-    $('#dinero-cierre').textContent = texto(D.contexto.dineroNota);
+    const imp = D.contexto.impuestosDirectos;
+    $('#dinero-cierre').textContent = texto(D.contexto.dineroNota, {
+      impuestosAqui: entero(imp[AQUI]), impuestosRef: entero(imp[REF])
+    });
   }
 
   function edades() {

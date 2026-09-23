@@ -429,7 +429,13 @@ a:hover { text-decoration-color: var(--ref); }
 }
 @media (min-width: 58rem) {
   .dinero { grid-template-columns: 1fr 1fr; column-gap: clamp(2.5rem, 5vw, 4rem); }
+  /* Paro, renta y PIB: tres columnas estrechas, así que la barra baja a su
+     propia línea bajo el nombre y la cifra. */
+  .dinero--contexto { grid-template-columns: repeat(3, 1fr); column-gap: clamp(1.75rem, 3vw, 2.5rem); }
+  .dinero--contexto .mun__fila { grid-template-columns: minmax(0, 1fr) auto; row-gap: .35rem; }
+  .dinero--contexto .mun__barra { grid-column: 1 / -1; }
 }
+.bloque--dinero .bloque__h3 + .dinero { margin-top: clamp(1.25rem, 4vw, 1.75rem); }
 
 .plata__h {
   font-weight: 800; font-stretch: 84%;

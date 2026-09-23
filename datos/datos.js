@@ -207,7 +207,7 @@ window.DATOS = (function () {
       grupo: 'Transporte',
       titulo: 'Estaciones de Metro',
       fuenteId: 'metro',
-      nota: 'MetroSur (línea 12) abrió en 2003 rodeando Alcorcón, Móstoles, Fuenlabrada, Leganés y Getafe con 28 estaciones, y Alcobendas tiene las suyas en la línea 10. Parla se quedó fuera de las dos. Lo que tiene es el tranvía ML-4: 15 paradas en un anillo de 8,3 kilómetros que no sale del municipio, así que desde cualquiera de ellas se llega a las otras catorce, todas en Parla. Desde una estación de MetroSur se llega sin cambiar de vehículo a las otras veintisiete, repartidas por cinco municipios. Por eso las paradas de tranvía no se cuentan junto a las de Metro.',
+      nota: 'MetroSur (línea 12) rodea Alcorcón, Móstoles, Fuenlabrada, Leganés y Getafe desde 2003, y Parla se quedó fuera. Tiene el tranvía ML-4: 15 paradas en un anillo de 8,3 km que no sale del municipio. Por eso no se cuenta junto al Metro: desde él solo se llega a otras paradas de Parla.',
       datos: {
         getafe: {
           n: 8,
@@ -306,7 +306,6 @@ window.DATOS = (function () {
       grupo: 'Cultura',
       titulo: 'Bibliotecas públicas',
       fuenteId: 'bibliotecas',
-      nota: 'Dos bibliotecas públicas para 137.471 habitantes. Es la ratio más baja de los {N} municipios comparados aquí.',
       datos: {
         getafe: {
           n: 6,
@@ -358,7 +357,7 @@ window.DATOS = (function () {
       grupo: 'Sanidad',
       titulo: 'Centros de salud',
       fuenteId: 'sanitarios',
-      nota: 'Atención primaria del Servicio Madrileño de Salud. Parla abrió el centro de Parla Este en 2026 y sigue a la cola por habitante.',
+      nota: 'Atención primaria del Servicio Madrileño de Salud. Incluye el centro de Parla Este, abierto en 2026.',
       datos: {
         getafe: {
           n: 9,
@@ -623,7 +622,7 @@ window.DATOS = (function () {
       grupo: 'Educación',
       titulo: 'Institutos públicos de secundaria',
       fuenteId: 'educacion',
-      nota: 'Es la mayor diferencia de los tres tramos educativos. Parla tiene 11.919 chicos y chicas de 12 a 17 años, casi los mismos que Leganés (12.991), que tiene 58.000 habitantes más.',
+      nota: 'Institutos públicos de ESO y bachillerato. Se comparan contra los chicos y chicas de 12 a 17 años de cada ciudad, no contra la población total.',
       datos: {
         getafe: {
           n: 13,
@@ -790,7 +789,7 @@ window.DATOS = (function () {
       grupo: 'Administración',
       titulo: 'Oficinas de la Agencia Tributaria',
       fuenteId: 'aeat',
-      nota: 'La Agencia Tributaria tiene trece administraciones en la Comunidad de Madrid fuera de la capital. Parla no es una de ellas, y es el municipio más poblado de la región que no la tiene: todos los que le ganan en población —Móstoles, Alcalá de Henares, Leganés, Getafe, Fuenlabrada, Alcorcón, Torrejón de Ardoz y Madrid— cuentan con la suya. La de El Escorial atiende a 17.171 vecinos. La Oficina Nacional de Gestión Tributaria comparte edificio con la administración de Alcorcón, pero es una unidad estatal y no se cuenta aquí.',
+      nota: 'La Agencia Tributaria tiene trece administraciones en la Comunidad de Madrid fuera de la capital, y Parla es el municipio más poblado de la región sin ninguna. La de El Escorial atiende a 17.171 vecinos. La Oficina Nacional de Gestión Tributaria, que comparte edificio con la de Alcorcón, no se cuenta: es una unidad estatal.',
       datos: {
         getafe: { n: 1, lista: ['Administración de Getafe'] },
         parla: { n: 0, lista: [] },
@@ -811,7 +810,7 @@ window.DATOS = (function () {
       grupo: 'Administración',
       titulo: 'Oficinas de la Seguridad Social',
       fuenteId: 'segsocial',
-      nota: 'El buscador de la Seguridad Social lista dieciséis municipios con oficina en la Comunidad de Madrid, y Parla no está entre ellos. San Martín de Valdeiglesias, con 9.324 habitantes, sí. Se cuentan direcciones distintas: donde el centro de atención del INSS y la administración de la Tesorería comparten edificio, cuenta una sola oficina.',
+      nota: 'El buscador de la Seguridad Social lista dieciséis municipios con oficina en la Comunidad de Madrid, y Parla no está entre ellos. Donde el centro del INSS y la administración de la Tesorería comparten edificio, cuenta como una sola oficina.',
       datos: {
         getafe: { n: 2, lista: ['Avda. de los Ángeles, 53', 'C/ San Isidro, 2'] },
         parla: { n: 0, lista: [] },
@@ -1106,13 +1105,26 @@ window.DATOS = (function () {
           alcobendas: 85853,
           mostoles: 18993
         },
+        /* La rama «Minería, industria y energía», misma fuente y año. */
+        industria: {
+          getafe: 6509,
+          parla: 1398,
+          pinto: 7505,
+          fuenlabrada: 3999,
+          leganes: 3348,
+          alcorcon: 3276,
+          alcobendas: 10143,
+          mostoles: 1758
+        },
         fuenteId: 'pib',
-        nota: 'Mide el valor de lo que se genera dentro del municipio, que no es lo mismo que lo que ganan sus vecinos. Parla se queda en el 32 % de la media regional y es la última de los 24 municipios de la Comunidad de Madrid que pasan de 50.000 habitantes. En la rama industrial la distancia se abre más: 1.398 € por habitante frente a los 6.509 de Getafe. La cifra de 2023 es provisional; la de 2022, ya definitiva, deja a Parla en el mismo 32 %.'
+        nota: 'Mide el valor de lo que se genera dentro del municipio, que no es lo mismo que lo que ganan sus vecinos. Parla se queda en el 32 % de la media regional y es la última de los 24 municipios de la Comunidad de Madrid que pasan de 50.000 habitantes. En la rama industrial, {industriaRef} € por habitante en {ref} y {industriaAqui} € en {aqui}. La cifra de 2023 es provisional; la de 2022, ya definitiva, deja a Parla en el mismo 32 %.'
       },
       {
         id: 'gasto',
-        refNombre: 'Media de los municipios de Madrid',
+        refNombre: 'Municipios de Madrid',
         mediaRegional: 1345,
+        /* Madrid capital la empuja hacia arriba; se enseñan las dos. */
+        mediaSinCapital: 1032,
         /* Se dice también en euros al año: la misma cuenta que el resto de la
            web, la tasa de Parla aplicada a la población de tu ciudad. */
         alAnio: { con: 'el gasto', verbo: 'gastaría', si: 'gastara' },
@@ -1129,12 +1141,14 @@ window.DATOS = (function () {
           mostoles: 885
         },
         fuenteId: 'conprel',
-        nota: 'Obligaciones reconocidas netas de los nueve capítulos, consolidando el ayuntamiento con sus organismos autónomos para no contar dos veces lo que se transfiere entre ellos. La media incluye a Madrid capital, que gasta mucho más por habitante y la empuja hacia arriba: sin ella baja a 1.032 €. Parla es la última de los {N} municipios comparados.'
+        nota: 'Obligaciones reconocidas netas de los nueve capítulos, consolidando el ayuntamiento con sus organismos autónomos para no contar dos veces lo que se transfiere entre ellos. Madrid capital gasta mucho más por habitante y empuja la media hacia arriba, así que se da también sin ella. Parla es la última de los {N} municipios comparados.'
       },
       {
         id: 'inversion',
-        refNombre: 'Media de los municipios de Madrid',
+        refNombre: 'Municipios de Madrid',
         mediaRegional: 139,
+        /* Madrid capital la empuja hacia arriba; se enseñan las dos. */
+        mediaSinCapital: 112,
         alAnio: { con: 'la inversión', verbo: 'invertiría', si: 'invirtiera' },
         titulo: 'Lo que construye',
         pie: 'Inversión real por habitante, media de 2021 a 2024',
@@ -1149,10 +1163,23 @@ window.DATOS = (function () {
           mostoles: 52
         },
         fuenteId: 'conprel',
-        nota: 'El capítulo VI del presupuesto: obra nueva, reformas de colegios y calles, equipamiento. Es la partida que más se mueve de un año a otro, así que se promedian cuatro ejercicios. Parla es la última de los {N} en tres de esos cuatro años. Sin Madrid capital la media queda en 112 €.'
+        nota: 'El capítulo VI del presupuesto: obra nueva, reformas de colegios y calles, equipamiento. Es la partida que más se mueve de un año a otro, así que se promedian cuatro ejercicios. Parla es la última de los {N} en tres de esos cuatro años.'
       }
     ],
-    dineroNota: 'Las cinco cifras se encadenan: donde hay menos trabajo se produce poco, donde se produce poco se recauda poco —Parla ingresa 254 € por habitante en impuestos directos y Getafe 460— y donde se recauda poco se gasta y se construye poco. Cuánto de ese último escalón es infrafinanciación y cuánto es la deuda que Parla arrastra en su plan de ajuste, esta fuente no lo separa.'
+    /* Impuestos directos por habitante: capítulo 1 de ingresos, derechos
+       reconocidos netos, consolidado, media de 2021 a 2024 de CONPREL, entre la
+       población del INE a 1 de enero de 2025. Los usa la nota de cierre. */
+    impuestosDirectos: {
+      getafe: 460,
+      parla: 254,
+      pinto: 433,
+      fuenlabrada: 367,
+      leganes: 326,
+      alcorcon: 470,
+      alcobendas: 707,
+      mostoles: 370
+    },
+    dineroNota: 'Las cinco cifras se encadenan: donde hay menos trabajo se produce poco, donde se produce poco se recauda poco —{ref} ingresa {impuestosRef} € por habitante en impuestos directos y {aqui}, {impuestosAqui}— y donde se recauda poco se gasta y se construye poco. Cuánto de ese último escalón es infrafinanciación y cuánto es la deuda que Parla arrastra en su plan de ajuste, esta fuente no lo separa.'
   };
 
   /* El verde entra como un indicador más, con la misma cuenta que el resto,

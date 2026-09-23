@@ -257,6 +257,11 @@ que usa la web— y en todos los ejercicios:
 | Leganés                         |  129 |  200 |   73 |   26 |   107 |
 | Getafe                          |   93 |  175 |  265 |   92 |   156 |
 
+**Impuestos directos** (capítulo 1 de ingresos, derechos reconocidos netos, consolidado, media
+de 2021 a 2024): Parla 254 € por habitante, la última de las ocho; Leganés 326, Fuenlabrada 367,
+Móstoles 370, Pinto 433, Getafe 460, Alcorcón 470 y Alcobendas 707. Los usa la nota de cierre del
+dinero, que compara Parla con la ciudad elegida.
+
 Parla invierte una séptima parte que Getafe por habitante, y es la última de las ocho en tres de
 los cuatro ejercicios. El gasto total por habitante también la deja abajo (media de 780 €), pero
 ahí Leganés está a un pelo (782 €) y 2022 fue un año raro en Parla, así que no es un dato
@@ -282,7 +287,7 @@ busca trabajo y no lo encuentra sobre la población activa.
 En gasto e inversión la media es la de **todos** los municipios de Madrid que liquidaron —entre
 153 y 158 según el año, unos 6,7 millones de habitantes—, incluida la capital. Madrid capital la
 empuja hacia arriba: 1.345 € de gasto y 139 € de inversión con ella, 1.032 € y 112 € sin ella.
-Se enseña la más alta y se da la más baja en la nota, porque el argumento aguanta con
+Se enseñan las dos en la gráfica, una fila cada una, porque el argumento aguanta con
 las dos y así no hay nada que discutir.
 
 ### Plantilla médica de los hospitales: mirado y descartado
