@@ -479,6 +479,242 @@ a:hover { text-decoration-color: var(--ref); }
   color: var(--ink);
 }
 
+/* ── Botón de compartir ───────────────────────────────────────────────── */
+
+.compartir {
+  display: inline-flex; align-items: center; gap: .45rem;
+  margin-top: 1rem;
+  padding: .5rem .85rem;
+  border: 1px solid var(--line-alta); border-radius: 999px;
+  background: var(--bg); color: var(--ink);
+  font: inherit; font-size: .8125rem; font-weight: 700;
+  letter-spacing: .02em;
+  cursor: pointer;
+}
+.compartir:hover { border-color: var(--ink); background: var(--surface); }
+.compartir:focus-visible { outline: 2px solid var(--ref); outline-offset: 2px; }
+.compartir__ico { display: inline-flex; width: 15px; height: 15px; color: var(--ref); }
+.compartir__ico svg { width: 100%; height: 100%; }
+
+/* El cartel del total: la unidad tachada va en rojo, que es su color. */
+.compartir--general .compartir__ico { color: var(--loss); }
+.portada__cartel { margin-top: 1.4rem; }
+
+/* ── Elegir el cartel ─────────────────────────────────────────────────── */
+
+.fondos {
+  width: min(92vw, 34rem);
+  padding: clamp(1.25rem, 5vw, 1.75rem);
+  border: 1px solid var(--line); border-radius: 12px;
+  background: var(--bg); color: var(--ink);
+  box-shadow: var(--sombra);
+}
+.fondos::backdrop { background: rgba(22, 22, 22, .45); }
+.fondos__h {
+  font-weight: 800; font-stretch: 84%; font-size: 1.35rem;
+  letter-spacing: -.02em; text-transform: uppercase;
+}
+.fondos__p { margin-top: .5rem; font-size: .875rem; color: var(--ink-2); }
+
+.cifra { margin-top: 1.1rem; }
+.cifra__rot {
+  display: block;
+  font-size: .6875rem; font-weight: 800;
+  letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3);
+}
+.cifra__seg {
+  display: inline-flex; margin-top: .5rem;
+  border: 1px solid var(--line-alta); border-radius: 999px;
+  overflow: hidden;
+}
+.cifra__op {
+  padding: .45rem .9rem;
+  border: 0; background: var(--bg); color: var(--ink-2);
+  font: inherit; font-size: .8125rem; cursor: pointer;
+}
+.cifra__op + .cifra__op { border-left: 1px solid var(--line-alta); }
+.cifra__op[data-activo='1'] { background: var(--ink); color: var(--bg); }
+.cifra__op:focus-visible { outline: 2px solid var(--ref); outline-offset: 2px; }
+
+.fondos__fila {
+  display: grid; grid-template-columns: 1fr 1fr; gap: .9rem;
+  margin-top: 1.25rem;
+}
+.fondo {
+  display: block; padding: .4rem;
+  border: 2px solid var(--line); border-radius: 10px;
+  background: var(--bg); font: inherit; color: inherit;
+  cursor: pointer; text-align: left;
+}
+.fondo:hover { border-color: var(--ink-3); }
+.fondo[data-activo='1'] { border-color: var(--ref); }
+.fondo:focus-visible { outline: 2px solid var(--ref); outline-offset: 2px; }
+.fondo img {
+  display: block; width: 100%; aspect-ratio: 210 / 297;
+  object-fit: cover; border-radius: 6px;
+}
+.fondo__n {
+  display: block; margin-top: .45rem;
+  font-size: .8125rem; font-weight: 700;
+}
+.fondos__x {
+  margin-top: 1.1rem; padding: .5rem .9rem;
+  border: 1px solid var(--line-alta); border-radius: 999px;
+  background: var(--bg); color: var(--ink-2);
+  font: inherit; font-size: .8125rem; cursor: pointer;
+}
+
+/* ── El cartel A4 ─────────────────────────────────────────────────────────
+   No se ve nunca en pantalla, pero sus estilos viven fuera de @media print:
+   antes de imprimir hay que medirlo para ajustar el titular al ancho, y para
+   medir hay que poder pintarlo. Colores literales y no tokens del tema: un
+   cartel impreso desde el tema oscuro tiene que salir igual.
+   La composición sale de un cartel de asociación de vecinos: titular enorme
+   con alternancia de negro y rojo, fila de cajas con filete rojo, y banda
+   oscura al pie con el cuadro blanco —que aquí es el QR—. */
+
+.cartel { display: none; }
+
+/* estado de medición: pintado pero fuera de la pantalla */
+.cartel.midiendo {
+  display: block;
+  position: fixed; left: -100vw; top: 0;
+  pointer-events: none;
+}
+
+.cartel--afiche {
+  position: relative;
+  box-sizing: border-box;
+  width: 210mm; height: 297mm;
+  background: #f3f1ec; color: #161616;
+  font-family: var(--fuente);
+  overflow: hidden;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+
+.kfondo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+.kcapa {
+  position: absolute; left: 0; right: 0; top: 0;
+  padding: 11mm 11mm 0;
+  display: flex; flex-direction: column;
+}
+
+.kpre {
+  font-size: 10.5pt; font-weight: 800;
+  letter-spacing: .17em; text-transform: uppercase; color: #3d3a36;
+}
+
+/* El titular ocupa la mayor parte del cartel. El cuerpo lo fija ajustarTitular(). */
+.ktit {
+  margin-top: 6mm;
+  font-weight: 800; font-stretch: 62%;
+  /* .92 y no .8: con el interlineado apretado la cola de la Q y las tildes de
+     las mayúsculas pisan el renglón de al lado. Medido letra a letra sobre los
+     siete municipios, el par que más sitio pide (una tilde bajo una letra) gasta
+     0,89 em, así que ahí va el suelo. */
+  font-size: 116pt; line-height: .92;
+  letter-spacing: -.035em; text-transform: uppercase;
+  white-space: nowrap;
+}
+.ktit span { display: block; }
+.ktit__n { font-size: 1.35em; line-height: .78; color: #161616; }
+.ktit__q { color: #c02719; white-space: normal; }
+.ktit__m { color: #161616; }
+
+/* fila de cajas con filete rojo */
+.kcajas {
+  list-style: none; margin: 8mm 0 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 2.5mm;
+  max-width: 175mm;
+}
+.kcaja {
+  padding: 2.4mm 3.2mm;
+  border: 1pt solid #c02719;
+  background: #f3f1ec;
+  font-size: 11pt; font-weight: 800; line-height: 1.12;
+  text-transform: uppercase; color: #161616;
+}
+.kcaja--tacha {
+  display: inline-flex; align-items: center; gap: 1.7mm;
+  color: #c02719;
+}
+/* la raya va en el nombre, no en el icono que lo acompaña */
+.kcaja--tacha .kcaja__t { text-decoration: line-through; }
+.kcaja__ico { display: inline-flex; flex: none; width: 4mm; height: 4mm; }
+.kcaja__ico svg { display: block; width: 100%; height: 100%; }
+.kcaja b {
+  display: block; margin-bottom: .8mm;
+  font-size: 8pt; letter-spacing: .12em; color: #c02719;
+  text-decoration: none;
+}
+.kcaja--ref b { color: #161616; }
+
+/* El cartel general: cada área con su caja de nombre y cifra, y debajo su fila
+   de cuadrados tachados. El lado del cuadrado lo pone el propio cartel en --ku,
+   para que la fila del área que más tiene quepa entera. */
+.kareas { list-style: none; margin: 7mm 0 0; padding: 0; --ku: 6mm; }
+.karea + .karea { margin-top: 3mm; }
+.karea__cab { display: flex; align-items: baseline; gap: 2.2mm; }
+.karea__ico {
+  display: inline-flex; flex: none; align-self: center;
+  width: 4.6mm; height: 4.6mm; color: #c02719;
+}
+.karea__ico svg { display: block; width: 100%; height: 100%; }
+.karea__q {
+  font-size: 11pt; font-weight: 800; line-height: 1.1;
+  letter-spacing: .11em; text-transform: uppercase; color: #c02719;
+}
+.karea__n {
+  font-size: 15pt; font-weight: 800; line-height: 1;
+  letter-spacing: -.02em; font-variant-numeric: tabular-nums; color: #161616;
+}
+
+/* Sobre la foto las filas caen en los edificios y el rojo se pierde: se apoyan
+   en un velo claro. En papel el velo es el propio papel, así que no se ve. */
+.cartel[data-fondo='barrio'] .kareas {
+  padding: 4mm 4mm 4.5mm;
+  background: rgba(243, 241, 236, .9);
+}
+
+/* la tira de unidades: un cuadrado tachado por equipamiento */
+.krejilla {
+  display: flex; flex-wrap: wrap; gap: 1.4mm;
+  margin-top: 1.6mm; max-width: 178mm;
+}
+.ku {
+  flex: none; display: block; width: var(--ku); height: var(--ku);
+  /* el mismo redondeo que la web y recorte, para que la raya no asome por las
+     esquinas; el fondo va aquí para que las esquinas recortadas salgan crema */
+  border-radius: calc(var(--ku) * .2);
+  overflow: hidden;
+  background: #f3f1ec;
+}
+.ku svg { display: block; width: 100%; height: 100%; }
+
+/* banda oscura al pie */
+.kbanda {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 58mm;
+  display: flex; align-items: center; gap: 7mm;
+  padding: 0 11mm;
+  background: #191714; color: #ffffff;
+}
+.kqr { flex: 0 0 auto; width: 32mm; height: 32mm; padding: 2mm; background: #ffffff; }
+.kqr svg { display: block; width: 100%; height: 100%; }
+.kbanda__txt { flex: 1 1 auto; min-width: 0; }
+.kbanda__h {
+  font-size: 21pt; font-weight: 800; font-stretch: 74%;
+  line-height: .96; letter-spacing: -.01em; text-transform: uppercase;
+}
+.kbanda__raya { display: block; width: 16mm; height: 1.2mm; margin: 3mm 0 2.5mm; background: #ffffff; }
+.kbanda__url { font-size: 9pt; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+
+@media print {
+  @page { size: A4 portrait; margin: 0; }
+  html[data-cartel] body > *:not(#cartel) { display: none !important; }
+  html[data-cartel] #cartel { display: block !important; }
+}
+
 /* ── Cómo se hace la cuenta ───────────────────────────────────────────── */
 
 .lee {

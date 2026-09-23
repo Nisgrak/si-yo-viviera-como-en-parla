@@ -94,6 +94,8 @@ index.html            estructura y textos fijos
 assets/estilos.css    todo el diseño
 assets/app.js         el cálculo y el render
 assets/fuentes/       la tipografía Archivo, servida desde aquí (OFL 1.1)
+assets/cartel/        los dos fondos del cartel para compartir
+assets/qr.js          el QR de cada municipio, ya trazado (lo traza herramientas/qr.py)
 datos/datos.js        LOS DATOS  ←  lo único que hay que tocar
 ```
 

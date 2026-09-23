@@ -1,7 +1,16 @@
 <!-- La unidad tachada: el mismo signo que la web usa para cada equipamiento
-     que desaparece. Fondo blanco para que se lea en pestañas claras y oscuras. -->
+     que desaparece, con las proporciones de la tira de la portada —borde del
+     10 % del lado, raya del 25 % y puntas planas, no redondeadas—. Fondo
+     blanco para que se lea en pestañas claras y oscuras. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <!-- la raya se recorta contra el cuadrado, como hace la web con su caja:
+         así no asoma por las esquinas -->
+    <clipPath id="unidad">
+      <rect x="4.55" y="4.55" width="22.9" height="22.9" rx="4.15"/>
+    </clipPath>
+  </defs>
   <rect width="32" height="32" rx="7" fill="#ffffff"/>
-  <rect x="5.6" y="5.6" width="20.8" height="20.8" rx="5" fill="none" stroke="#c02719" stroke-width="3.6"/>
-  <path d="M9.6 22.4 22.4 9.6" stroke="#c02719" stroke-width="3.6" stroke-linecap="round"/>
+  <rect x="5.6" y="5.6" width="20.8" height="20.8" rx="3.1" fill="none" stroke="#c02719" stroke-width="2.1"/>
+  <path d="M5.6 26.4 26.4 5.6" stroke="#c02719" stroke-width="5.3" clip-path="url(#unidad)"/>
 </svg>

@@ -59,6 +59,8 @@
       <div class="marcador__rejilla" id="rejilla" aria-hidden="true"></div>
     </div>
 
+    <div class="portada__cartel" id="portada-cartel"></div>
+
     <p class="portada__pie">
       <span data-aqui>Getafe</span> tiene <b id="pob-a">—</b> habitantes; Parla,
       <b id="pob-b">—</b>. Por eso todo se cuenta por habitante.
@@ -225,7 +227,13 @@
   </div>
 </footer>
 
+<!-- ── Cartel A4 ─────────────────────────────────────────────────────
+     Sólo existe al imprimir: lo rellena «Compartir» y lo convierte en PDF
+     el propio navegador. -->
+<div class="cartel" id="cartel" aria-hidden="true"></div>
+
 <script src="datos/datos.js"></script>
+<script src="assets/qr.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>
