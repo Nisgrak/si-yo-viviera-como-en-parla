@@ -672,12 +672,37 @@
       art.id = 'dinero-' + s.id;
       art.appendChild(el('h3', 'plata__h', s.titulo));
       art.appendChild(el('p', 'plata__pie', s.pie));
-      art.appendChild(barras(s));
+      art.appendChild(s.molde === 'paro' ? listaParo(s) : barras(s));
       art.appendChild(el('p', 'renta__nota', texto(s.nota)));
       art.appendChild(pieFuente([s.fuenteId]));
       cont.appendChild(art);
     });
     $('#dinero-cierre').textContent = texto(D.contexto.dineroNota);
+  }
+
+  /* El paro va al revés que las otras cuatro cifras: aquí, más alto, peor. Por
+     eso no cabe en las barras de «más es mejor» y se enseña la lista entera,
+     de menos a más, para que se vea dónde cae cada municipio. */
+  function listaParo(s) {
+    const filas = Object.keys(NOMBRE)
+      .map(function (m) { return { m: m, v: s.valores[m] }; })
+      .sort(function (a, b) { return a.v - b.v; });
+    const tope = filas[filas.length - 1].v;
+
+    const ul = el('ul', 'paro');
+    filas.forEach(function (f) {
+      const li = el('li', 'paro__fila');
+      li.dataset.quien = f.m === REF ? 'referencia' : f.m === AQUI ? 'aqui' : 'otro';
+      li.appendChild(el('span', 'paro__q', NOMBRE[f.m]));
+      li.appendChild(el('span', 'paro__v', num(f.v, 2) + ' %'));
+      const barra = el('span', 'paro__barra');
+      const i = el('i');
+      i.style.width = ((f.v / tope) * 100).toFixed(1) + '%';
+      barra.appendChild(i);
+      li.appendChild(barra);
+      ul.appendChild(li);
+    });
+    return ul;
   }
 
   function edades() {
@@ -731,6 +756,31 @@
       'izquierda, menos.'));
     cont.appendChild(el('p', 'renta__nota', texto(e.nota)));
     cont.appendChild(pieFuente([e.fuenteId]));
+  }
+
+  /* Cuánto suelo hay que repartir. Parla es la más pequeña de los ocho y la más
+     densa, y eso ayuda a leer el resto: la comparación es por habitante, no por
+     kilómetro cuadrado. */
+  function tamano() {
+    const s = D.contexto.superficie.valores;
+    const cont = $('#tamano');
+    vaciar(cont);
+    const ids = Object.keys(NOMBRE);
+    const pob = D.BASES.total.valores;
+    const dens = function (m) { return pob[m] / s[m]; };
+
+    let t = NOMBRE[AQUI] + ' reparte sus ' + entero(pob[AQUI]) + ' habitantes en ' +
+      num(s[AQUI], 1) + ' km², ' + entero(Math.round(dens(AQUI))) + ' por kilómetro cuadrado; ' +
+      NOMBRE_REF + ' reparte los suyos en ' + num(s[REF], 1) + ' km², ' +
+      entero(Math.round(dens(REF))) + '.';
+    const cola = [];
+    if (ids.every(function (m) { return s[REF] <= s[m]; })) cola.push('la de menos suelo');
+    if (ids.every(function (m) { return dens(REF) >= dens(m); })) cola.push('la más densa');
+    if (cola.length) {
+      t += ' ' + NOMBRE_REF + ' es ' + cola.join(' y ') + ' de los ' + letra(ids.length) + '.';
+    }
+    cont.appendChild(el('p', 'tamano__txt', t));
+    cont.appendChild(pieFuente([D.contexto.superficie.fuenteId]));
   }
 
   /* ── Listas ───────────────────────────────────────────────────────── */

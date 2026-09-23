@@ -409,7 +409,40 @@ a:hover { text-decoration-color: var(--ref); }
   color: var(--ink-2);
 }
 
-/* ── El dinero: cuatro series con la misma forma ──────────────────────── */
+/* El suelo que hay que repartir, en el punto de partida. */
+.tamano { margin-top: clamp(1.5rem, 5vw, 2rem); }
+.tamano__txt {
+  max-width: 32rem;
+  font-size: .9375rem; line-height: 1.5;
+  color: var(--ink-2);
+}
+
+/* La tasa de paro no cabe en las barras de «más es mejor»: va su propia lista,
+   de menos a más, para que se vea dónde cae cada municipio. */
+.paro { list-style: none; margin: 1.1rem 0 0; padding: 0; }
+.paro__fila {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 38%);
+  align-items: center;
+  column-gap: .9rem;
+  padding-block: .4rem;
+  border-top: 1px solid var(--line);
+}
+.paro__fila:last-child { border-bottom: 1px solid var(--line); }
+.paro__q { font-size: .875rem; color: var(--ink-3); min-width: 0; }
+.paro__v {
+  font-size: .9375rem; font-weight: 700; color: var(--ink);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.paro__barra { height: 8px; border-radius: 4px; background: var(--surface-2); overflow: hidden; }
+.paro__barra i { display: block; height: 100%; border-radius: 4px; background: var(--line-alta); }
+.paro__fila[data-quien='referencia'] .paro__q { color: var(--loss); font-weight: 700; }
+.paro__fila[data-quien='referencia'] .paro__v { color: var(--loss); }
+.paro__fila[data-quien='referencia'] .paro__barra i { background: var(--loss); }
+.paro__fila[data-quien='aqui'] .paro__q { color: var(--ink); font-weight: 700; }
+.paro__fila[data-quien='aqui'] .paro__barra i { background: var(--ref); }
+
+/* ── El dinero: cinco series, cuatro con la misma forma ───────────────── */
 
 .bloque--dinero { background: var(--surface); }
 

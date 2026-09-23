@@ -120,6 +120,14 @@ window.DATOS = (function () {
       t: 'INE · Población por sexo, edad año a año y nacionalidad, 1 enero 2025',
       url: 'https://www.ine.es/jaxiT3/Tabla.htm?t=68543'
     },
+    superficie: {
+      t: 'INE · Indicadores Urbanos: superficie total del municipio, 2024',
+      url: 'https://www.ine.es/jaxiT3/Tabla.htm?t=69333'
+    },
+    paro: {
+      t: 'INE · Indicadores Urbanos: tasa de paro municipal, 2024',
+      url: 'https://www.ine.es/jaxiT3/Tabla.htm?t=69331'
+    },
     metro: {
       t: 'Metro de Madrid · Estaciones por línea (líneas 10 y 12)',
       url: 'https://www.metromadrid.es/es/viaja-en-metro/lineas-y-horarios'
@@ -998,7 +1006,40 @@ window.DATOS = (function () {
       ],
       nota: 'Parla es el municipio más joven de los {N} comparados. De ahí que los colegios, los institutos y las escuelas infantiles se midan contra los niños de esa edad y no contra el total de vecinos.'
     },
+    /* Cuánto suelo hay que repartir. Va con las edades, en el punto de partida. */
+    superficie: {
+      fuenteId: 'superficie',
+      valores: {
+        getafe: 78.4,
+        parla: 24.5,
+        pinto: 62,
+        fuenlabrada: 39.4,
+        leganes: 43.1,
+        alcorcon: 33.7,
+        alcobendas: 45,
+        mostoles: 45.4
+      }
+    },
     dinero: [
+      {
+        id: 'paro',
+        /* No usa las barras de «más es mejor»: aquí, más alto, peor. */
+        molde: 'paro',
+        titulo: 'Lo que le falta a quien busca trabajo',
+        pie: 'Tasa de paro, 2024',
+        valores: {
+          getafe: 10.01,
+          parla: 12.35,
+          pinto: 9.39,
+          fuenlabrada: 11.11,
+          leganes: 10.34,
+          alcorcon: 9.56,
+          alcobendas: 7.07,
+          mostoles: 10.7
+        },
+        fuenteId: 'paro',
+        nota: 'Mide a quien quiere trabajar y no encuentra sobre la población activa, así que no es lo mismo que el paro registrado, que cuenta solo a quien se apunta al servicio de empleo. Parla es la última de los {N} comparados: 12,35 % frente al 7,07 % de Alcobendas.'
+      },
       {
         id: 'renta',
         titulo: 'Lo que gana quien vive aquí',
@@ -1076,7 +1117,7 @@ window.DATOS = (function () {
         nota: 'El capítulo VI del presupuesto: obra nueva, reformas de colegios y calles, equipamiento. Es la partida que más se mueve de un año a otro, así que se promedian cuatro ejercicios. Parla es la última de los {N} en tres de esos cuatro años. Sin Madrid capital la media regional queda en 112 €.'
       }
     ],
-    dineroNota: 'Las cuatro cifras se encadenan: donde se produce poco se recauda poco —Parla ingresa 254 € por habitante en impuestos directos y Getafe 460— y donde se recauda poco se gasta y se construye poco. Cuánto de ese último escalón es infrafinanciación y cuánto es la deuda que Parla arrastra en su plan de ajuste, esta fuente no lo separa.'
+    dineroNota: 'Las cinco cifras se encadenan: donde hay menos trabajo se produce poco, donde se produce poco se recauda poco —Parla ingresa 254 € por habitante en impuestos directos y Getafe 460— y donde se recauda poco se gasta y se construye poco. Cuánto de ese último escalón es infrafinanciación y cuánto es la deuda que Parla arrastra en su plan de ajuste, esta fuente no lo separa.'
   };
 
   return {

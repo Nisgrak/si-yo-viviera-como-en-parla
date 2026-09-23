@@ -56,6 +56,9 @@ Poblaciones totales: cifras oficiales del INE a 1 de enero de 2025.
 Tramos de edad: INE, población por edad año a año, misma fecha (tabla 68543). Los totales de
 las dos operaciones difieren en unos miles; ningún cálculo mezcla las dos.
 
+La **superficie** (INE Indicadores Urbanos, 2024) se enseña al final del punto de partida: Parla
+es la más pequeña de las ocho y la más densa, y eso se lee mejor con el dato delante.
+
 La web abre el recuento con un ejemplo resuelto con números reales del municipio elegido
 («Parla tiene 2 bibliotecas para 137.471 habitantes: una por cada 68.736; a ese ritmo a Getafe
 le tocarían 2,8 y tiene 6»), y cada indicador enseña su ratio en lenguaje llano —«una
@@ -120,6 +123,8 @@ Todas oficiales y enlazadas una por una en el apartado «Cómo está hecho esto�
 
 - **INE** · Cifras oficiales de población de los municipios españoles, 1 enero 2025
 - **INE** · Población por sexo, edad año a año y nacionalidad, 1 enero 2025 (tabla 68543)
+- **INE** · Indicadores Urbanos (Urban Audit): superficie total del municipio y tasa de paro, 2024
+  (tablas 69333 y 69331)
 - **Comunidad de Madrid, datos abiertos** · registro de centros sanitarios, centros educativos,
   bibliotecas públicas, farmacias, registro de centros de atención social, renta disponible
   bruta municipal
@@ -235,10 +240,16 @@ los cuatro ejercicios. El gasto total por habitante también la deja abajo (medi
 ahí Leganés está a un pelo (782 €) y 2022 fue un año raro en Parla, así que no es un dato
 redondo. El de inversión sí.
 
-Estas dos cifras están en la web, en la sección **«Y ahora, el dinero»**, junto a la renta y al
-PIB municipal. Van aparte del recuento porque son euros y no equipamientos, y la nota de cierre
-dice expresamente lo que la fuente no puede separar: cuánto de la inversión que falta es
-infrafinanciación y cuánto es la deuda que Parla arrastra en su plan de ajuste.
+Estas dos cifras están en la web, en la sección **«Y ahora, el dinero»**, junto a la renta, al
+PIB municipal y a la tasa de paro. Van aparte del recuento porque son euros y no equipamientos, y
+la nota de cierre dice expresamente lo que la fuente no puede separar: cuánto de la inversión que
+falta es infrafinanciación y cuánto es la deuda que Parla arrastra en su plan de ajuste.
+
+La **tasa de paro** (INE Indicadores Urbanos, 2024) abre esa sección y es la única de las cinco
+cifras que no se dibuja con barras contra la media regional: en las otras cuatro, más alto es
+mejor, y en el paro es al revés, así que va la lista entera de los ocho municipios, ordenada, con
+Parla al final. No es el paro registrado: mide a quien busca trabajo y no lo encuentra sobre la
+población activa.
 
 La media de referencia que se enseña es la de **todos** los municipios de Madrid que liquidaron
 —entre 153 y 158 según el año, unos 6,7 millones de habitantes—, incluida la capital. Madrid
