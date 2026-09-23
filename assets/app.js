@@ -799,7 +799,8 @@
 
     /* Lo que no suma: pérdidas y ganancias en su propia unidad. */
     const extra = [];
-    perdidas.forEach(function (c) {
+    /* En el orden de la lista de abajo: agrupado por área. */
+    g.orden.forEach(function (c) {
       if (c.ind.enTotal !== false) return;
       extra.push({ ico: ICONO[c.ind.id], q: c.ind.titulo, n: '−' + cantidad(c, c.delta),
         modo: 'aparte', href: '#ind-' + c.ind.id });
@@ -1009,7 +1010,8 @@
 
   /* Las fichas en orden y, antes de la primera que no suma, un corte con
      título propio. El texto dice en qué se mide lo de debajo, con las unidades
-     que de verdad aparecen para esta ciudad. */
+     que de verdad aparecen para esta ciudad. Si no hay nada encima que sí sume,
+     no hay nada que separar y el corte no se pone. */
   function fichasConSeparador(env, lista, modo, arranque) {
     const fuera = lista.filter(function (c) { return c.ind.enTotal === false; });
     const unidades = [];
@@ -1020,8 +1022,8 @@
       ? unidades.slice(0, -1).join(', ') + ' o ' + unidades[unidades.length - 1]
       : unidades[0];
     let cortado = false;
-    lista.forEach(function (c) {
-      if (!cortado && c.ind.enTotal === false) {
+    lista.forEach(function (c, n) {
+      if (!cortado && c.ind.enTotal === false && n > 0) {
         cortado = true;
         const sep = el('div', 'separador');
         sep.appendChild(el('h3', 'separador__h', 'Fuera del recuento'));
@@ -1120,7 +1122,7 @@
   function contador() {
     const chip = $('#contador');
     const salida = $('#contador-n');
-    const finZona = $('#ganancias');
+
     let pedido = false, ultimo = -1;
 
     function medir() {
@@ -1131,7 +1133,11 @@
       for (let i = 0; i < nodos.length; i++) {
         if (nodos[i].getBoundingClientRect().top < corte) suma += parseFloat(nodos[i].dataset.delta);
       }
-      const visible = suma >= 1 && finZona.getBoundingClientRect().top > 120;
+      /* Se apaga donde deja de sumar: en el separador, o en las ganancias si no
+         hay nada fuera del recuento. Se busca cada vez porque cambiar de ciudad
+         vuelve a pintar la lista. */
+      const fin = document.querySelector('#lista-perdidas .separador') || $('#ganancias');
+      const visible = suma >= 1 && fin.getBoundingClientRect().top > 120;
       chip.dataset.visible = visible ? '1' : '0';
       chip.setAttribute('aria-hidden', visible ? 'false' : 'true');
       const v = Math.round(suma);
