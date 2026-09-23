@@ -128,6 +128,14 @@ window.DATOS = (function () {
       t: 'INE · Indicadores Urbanos: tasa de paro municipal, 2024',
       url: 'https://www.ine.es/jaxiT3/Tabla.htm?t=69331'
     },
+    urbanAtlas: {
+      t: 'Copernicus · Urban Atlas 2018: zonas verdes urbanas e instalaciones deportivas y de ocio',
+      url: 'https://land.copernicus.eu/en/products/urban-atlas'
+    },
+    limites: {
+      t: 'IGN · Unidades administrativas (WFS INSPIRE): términos municipales',
+      url: 'https://www.ign.es/wfs-inspire/unidades-administrativas'
+    },
     metro: {
       t: 'Metro de Madrid · Estaciones por línea (líneas 10 y 12)',
       url: 'https://www.metromadrid.es/es/viaja-en-metro/lineas-y-horarios'
@@ -403,6 +411,7 @@ window.DATOS = (function () {
 
     {
       id: 'camas',
+      mide: 'camas',
       sing: 'cama de hospital público',
       gen: 'f',
       base: 'total',
@@ -410,7 +419,7 @@ window.DATOS = (function () {
       grupo: 'Sanidad',
       titulo: 'Camas de hospital público',
       fuenteId: 'camas',
-      nota: 'Camas instaladas en los hospitales públicos generales del municipio. Se dividen entre sus habitantes, aunque cada hospital atiende también a municipios vecinos. En los dos casos en que la Comunidad de Madrid publica la cobertura sale casi lo mismo: el de Parla atiende a ocho municipios y 182.030 personas, el de Getafe a dos y 249.889. Quedan fuera los hospitales privados y los psiquiátricos. Al medirse en camas, esto no suma al recuento de la portada.',
+      nota: 'Camas instaladas en los hospitales públicos generales del municipio. Quedan fuera los hospitales privados y los psiquiátricos. Se dividen entre los habitantes del municipio, aunque cada hospital atiende también a los de alrededor.',
       datos: {
         getafe: { n: 543, lista: ['Hospital Universitario de Getafe · 543 camas'] },
         parla: { n: 188, lista: ['Hospital Universitario Infanta Cristina · 188 camas'] },
@@ -723,6 +732,7 @@ window.DATOS = (function () {
 
     {
       id: 'artes',
+      mide: 'alumnos',
       sing: 'alumno',
       gen: 'm',
       base: 'total',
@@ -730,7 +740,7 @@ window.DATOS = (function () {
       grupo: 'Educación',
       titulo: 'Alumnos en música, idiomas y artes',
       fuenteId: 'alumnado',
-      nota: 'Enseñanzas de régimen especial en centros públicos: música, danza, idiomas y artes plásticas. Cuenta alumnos matriculados, no plazas ofertadas, y suma la enseñanza autonómica (escuelas oficiales de idiomas, conservatorios) con la municipal (escuelas de música y danza). Al medirse en alumnos, no suma al recuento de la portada.',
+      nota: 'Enseñanzas de régimen especial en centros públicos: música, danza, idiomas y artes plásticas. Cuenta alumnos matriculados, no plazas ofertadas, y suma la enseñanza autonómica (escuelas oficiales de idiomas, conservatorios) con la municipal (escuelas de música y danza).',
       datos: {
         getafe: { n: 2198, lista: [] },
         parla: { n: 1169, lista: [] },
@@ -745,6 +755,7 @@ window.DATOS = (function () {
 
     {
       id: 'plazas-residencia',
+      mide: 'plazas',
       sing: 'plaza residencial pública',
       gen: 'f',
       base: 'mayores',
@@ -752,7 +763,7 @@ window.DATOS = (function () {
       titulo: 'Plazas en residencias públicas de mayores',
       enTotal: false,
       fuenteId: 'atencionSocial',
-      nota: 'Se cuentan plazas y no centros, que es la unidad que se ocupa. Solo residencias de titularidad pública. Al medirse en plazas, queda fuera del recuento de la portada.',
+      nota: 'Se cuentan plazas y no centros, que es la unidad que se ocupa. Solo residencias de titularidad pública.',
       datos: {
         getafe: {
           n: 134,
@@ -935,8 +946,6 @@ window.DATOS = (function () {
     }
   };
 
-  const cautelaHospital = 'Son las unidades asistenciales que el Registro de Centros de la Comunidad de Madrid tiene declaradas en un hospital y no en el otro. Algunas diferencias menores pueden deberse a cómo declara cada centro su cartera.';
-
   const contexto = {
     edades: {
       fuenteId: 'edades',
@@ -1020,11 +1029,33 @@ window.DATOS = (function () {
         mostoles: 45.4
       }
     },
+    /* Verde y deporte, en metros cuadrados, del Urban Atlas 2018 y recortados
+       con los términos municipales del IGN. No lo publica ninguna estadística
+       oficial: lo calcula herramientas/zonas-verdes.py, que es donde está el
+       cómo. Las dos clases que se suman son 14100 (zonas verdes urbanas) y
+       14200 (instalaciones deportivas y de ocio, el «y de ocio» es del Urban
+       Atlas). La edición de 2012 da cifras bastante más bajas, así que no vale
+       para comparar años entre sí. */
+    zonasVerdes: {
+      fuenteId: 'urbanAtlas',
+      limitesFuenteId: 'limites',
+      anio: 2018,
+      valores: {
+        getafe: { verde: 4261877, deporte: 1018117 },
+        parla: { verde: 1228622, deporte: 285678 },
+        pinto: { verde: 1169291, deporte: 229438 },
+        fuenlabrada: { verde: 2392821, deporte: 499055 },
+        leganes: { verde: 6916956, deporte: 648126 },
+        alcorcon: { verde: 2756468, deporte: 1574157 },
+        alcobendas: { verde: 2160651, deporte: 1283677 },
+        mostoles: { verde: 1817280, deporte: 544268 }
+      }
+    },
     dinero: [
       {
         id: 'paro',
-        /* No usa las barras de «más es mejor»: aquí, más alto, peor. */
-        molde: 'paro',
+        /* Sin media regional: esta fuente da la tasa por ciudad y no publica una
+           de la Comunidad comparable. La de la EPA es otra encuesta. */
         titulo: 'Lo que le falta a quien busca trabajo',
         pie: 'Tasa de paro, 2024',
         valores: {
@@ -1038,14 +1069,14 @@ window.DATOS = (function () {
           mostoles: 10.7
         },
         fuenteId: 'paro',
-        nota: 'Mide a quien quiere trabajar y no encuentra sobre la población activa, así que no es lo mismo que el paro registrado, que cuenta solo a quien se apunta al servicio de empleo. Parla es la última de los {N} comparados: 12,35 % frente al 7,07 % de Alcobendas.'
+        nota: 'Mide a quien quiere trabajar y no encuentra sobre la población activa, así que no es lo mismo que el paro registrado, que cuenta solo a quien se apunta al servicio de empleo. Parla es la última de los {N} comparados.'
       },
       {
         id: 'renta',
-        titulo: 'Lo que gana quien vive aquí',
-        pie: 'Renta disponible bruta por habitante, 2023',
         refNombre: 'Comunidad de Madrid',
         mediaRegional: 23159,
+        titulo: 'Lo que gana quien vive aquí',
+        pie: 'Renta disponible bruta por habitante, 2023',
         valores: {
           getafe: 19413,
           parla: 13534,
@@ -1061,10 +1092,10 @@ window.DATOS = (function () {
       },
       {
         id: 'pib',
-        titulo: 'Lo que se produce aquí',
-        pie: 'PIB por habitante, 2023',
         refNombre: 'Comunidad de Madrid',
         mediaRegional: 43413,
+        titulo: 'Lo que se produce aquí',
+        pie: 'PIB por habitante, 2023',
         valores: {
           getafe: 37722,
           parla: 14021,
@@ -1080,10 +1111,13 @@ window.DATOS = (function () {
       },
       {
         id: 'gasto',
-        titulo: 'Lo que gasta tu ayuntamiento',
-        pie: 'Gasto municipal por habitante, media de 2021 a 2024',
         refNombre: 'Media de los municipios de Madrid',
         mediaRegional: 1345,
+        /* Se dice también en euros al año: la misma cuenta que el resto de la
+           web, la tasa de Parla aplicada a la población de tu ciudad. */
+        alAnio: { con: 'el gasto', verbo: 'gastaría', si: 'gastara' },
+        titulo: 'Lo que gasta tu ayuntamiento',
+        pie: 'Gasto municipal por habitante, media de 2021 a 2024',
         valores: {
           getafe: 978,
           parla: 780,
@@ -1095,14 +1129,15 @@ window.DATOS = (function () {
           mostoles: 885
         },
         fuenteId: 'conprel',
-        nota: 'Obligaciones reconocidas netas de los nueve capítulos, consolidando el ayuntamiento con sus organismos autónomos para no contar dos veces lo que se transfiere entre ellos. La media incluye a Madrid capital, que gasta mucho más por habitante y la empuja hacia arriba: sin ella baja a 1.032 €, y Parla sigue siendo la última de los {N} municipios comparados.'
+        nota: 'Obligaciones reconocidas netas de los nueve capítulos, consolidando el ayuntamiento con sus organismos autónomos para no contar dos veces lo que se transfiere entre ellos. La media incluye a Madrid capital, que gasta mucho más por habitante y la empuja hacia arriba: sin ella baja a 1.032 €. Parla es la última de los {N} municipios comparados.'
       },
       {
         id: 'inversion',
-        titulo: 'Lo que construye',
-        pie: 'Inversión real por habitante, media de 2021 a 2024',
         refNombre: 'Media de los municipios de Madrid',
         mediaRegional: 139,
+        alAnio: { con: 'la inversión', verbo: 'invertiría', si: 'invirtiera' },
+        titulo: 'Lo que construye',
+        pie: 'Inversión real por habitante, media de 2021 a 2024',
         valores: {
           getafe: 156,
           parla: 23,
@@ -1114,15 +1149,36 @@ window.DATOS = (function () {
           mostoles: 52
         },
         fuenteId: 'conprel',
-        nota: 'El capítulo VI del presupuesto: obra nueva, reformas de colegios y calles, equipamiento. Es la partida que más se mueve de un año a otro, así que se promedian cuatro ejercicios. Parla es la última de los {N} en tres de esos cuatro años. Sin Madrid capital la media regional queda en 112 €.'
+        nota: 'El capítulo VI del presupuesto: obra nueva, reformas de colegios y calles, equipamiento. Es la partida que más se mueve de un año a otro, así que se promedian cuatro ejercicios. Parla es la última de los {N} en tres de esos cuatro años. Sin Madrid capital la media queda en 112 €.'
       }
     ],
     dineroNota: 'Las cinco cifras se encadenan: donde hay menos trabajo se produce poco, donde se produce poco se recauda poco —Parla ingresa 254 € por habitante en impuestos directos y Getafe 460— y donde se recauda poco se gasta y se construye poco. Cuánto de ese último escalón es infrafinanciación y cuánto es la deuda que Parla arrastra en su plan de ajuste, esta fuente no lo separa.'
   };
 
+  /* El verde entra como un indicador más, con la misma cuenta que el resto,
+     pero se mide en metros cuadrados y no suma al recuento de la portada. Sus
+     cifras se leen de contexto.zonasVerdes, que es el bloque que imprime
+     herramientas/zonas-verdes.py: así rehacer el cálculo es pegar y listo. */
+  const zv = contexto.zonasVerdes.valores;
+  const verdeDatos = {};
+  Object.keys(zv).forEach(function (m) { verdeDatos[m] = { n: zv[m].verde + zv[m].deporte }; });
+  indicadores.push({
+    id: 'zonas-verdes',
+    medida: 'superficie',
+    mide: 'superficie',
+    base: 'total',
+    enTotal: false,
+    grupo: 'Medio ambiente',
+    titulo: 'Zonas verdes e instalaciones deportivas',
+    fuenteId: 'urbanAtlas',
+    limitesFuenteId: 'limites',
+    nota: 'Parques, jardines e instalaciones deportivas, medidos sobre el mapa europeo de usos del suelo. Ninguna estadística oficial lo publica por municipio, así que la cuenta es nuestra y está en el repositorio. El mapa no distingue quién es el dueño: un club privado con césped cuenta como un parque.',
+    datos: verdeDatos
+  });
+
   return {
     ACTUALIZADO, REFERENCIA, MUNICIPIOS, BASES,
-    indicadores, hospitales, cautelaHospital, contexto,
+    indicadores, hospitales, contexto,
     fuentes: F,
   };
 })();

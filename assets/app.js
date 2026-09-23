@@ -21,7 +21,7 @@
   const $ = function (s, r) { return (r || document).querySelector(s); };
 
   let AQUI = arranque();
-  let calculados, perdidas, ganancias, empates, TOTAL;
+  let calculados, perdidas, ganancias, empates, TOTAL, GANADO;
 
   function arranque() {
     const h = (location.hash || '').replace('#', '');
@@ -48,6 +48,23 @@
   function numTasa(v) {
     return num(v, v >= 100 ? 0 : v >= 10 ? 1 : 2);
   }
+
+  /* Una superficie, en la unidad que se lea: kilómetros cuadrados, hectáreas o
+     metros, según el tamaño. `redonda` quita los decimales, para el cartel. */
+  function enSuperficie(m2, redonda) {
+    if (m2 >= 1000000) return num(m2 / 1000000, redonda ? 1 : 2) + ' km²';
+    if (m2 >= 10000) return num(m2 / 10000, redonda ? 0 : 1) + ' ha';
+    return entero(Math.round(m2)) + ' m²';
+  }
+
+  /* Casi todos los indicadores cuentan cosas; el verde mide superficie. Estas
+     dos funciones son el único sitio donde eso importa al escribir la cifra. */
+  function esSuperficie(c) { return c.ind.medida === 'superficie'; }
+  function cantidad(c, v, dec) { return esSuperficie(c) ? enSuperficie(v) : num(v, dec); }
+
+  /* Por debajo del umbral es empate. En superficie, 0,15 m² no significa nada:
+     el umbral es un 2 % de lo que hay. */
+  function umbral(c) { return esSuperficie(c) ? c.n * 0.02 : UMBRAL; }
 
   function el(tag, cls, html) {
     const n = document.createElement(tag);
@@ -77,6 +94,10 @@
   }
 
   function enCristiano(c) {
+    if (esSuperficie(c)) {
+      return num(c.tasaA, 1) + ' m² por habitante en ' + NOMBRE[AQUI] + '; ' +
+        num(c.tasaB, 1) + ' en ' + NOMBRE_REF + '.';
+    }
     const g = c.ind.gen || 'm';
     const aqui = cadaCuantos(c.n, c.baseA);
     const ref = cadaCuantos(c.nRef, c.baseB);
@@ -94,15 +115,18 @@
       NOMBRE[AQUI] + '; ' + uno[g] + ' por cada ' + ref + ' en ' + NOMBRE_REF + '.';
   }
 
-  function pieFuente(ids) {
+  /* Cada id puede ir suelto o como [id, rótulo] cuando el rótulo es otro. */
+  function pieFuente(ids, despues) {
     const vistas = {};
     const trozos = [];
-    ids.forEach(function (id) {
+    ids.forEach(function (x) {
+      const id = Array.isArray(x) ? x[0] : x;
       const f = D.fuentes[id];
       if (!f || vistas[id]) return;
       vistas[id] = 1;
-      trozos.push((trozos.length === 0 ? 'Fuente: ' : 'Población de referencia: ') +
-        '<a href="' + f.url + '" target="_blank" rel="noopener">' + f.t + '</a>');
+      const rot = Array.isArray(x) ? x[1]
+        : trozos.length === 0 ? 'Fuente: ' : (despues || 'Población de referencia: ');
+      trozos.push(rot + '<a href="' + f.url + '" target="_blank" rel="noopener">' + f.t + '</a>');
     });
     return el('p', 'ind__fuente', trozos.join('. '));
   }
@@ -177,7 +201,12 @@
     residencia:
       '<path d="M3.6 10.4 12 3.4l8.4 7v9.1a1 1 0 0 1-1 1H4.6a1 1 0 0 1-1-1z"/>' +
       '<path d="M12 18.3c-.6-.5-3.1-2.1-3.1-4a1.85 1.85 0 0 1 3.1-1.35 1.85 1.85 0 0 1 3.1 1.35' +
-      'c0 1.9-2.5 3.5-3.1 4z"/>'
+      'c0 1.9-2.5 3.5-3.1 4z"/>',
+    /* Un pino: copa, tronco y suelo. */
+    arbol:
+      '<path d="M12 3.4 5.6 12.8h12.8z"/>' +
+      '<path d="M12 12.8v7.6"/>' +
+      '<path d="M6.4 20.4h11.2"/>'
   };
 
   const ICONO = {
@@ -186,7 +215,8 @@
     'escuelas-infantiles': 'bebe', colegios: 'colegio', institutos: 'instituto',
     universidad: 'universidad', conservatorio: 'musica',
     'plazas-residencia': 'residencia', camas: 'cama', artes: 'paleta',
-    hacienda: 'hacienda', 'seguridad-social': 'ventanilla'
+    hacienda: 'hacienda', 'seguridad-social': 'ventanilla',
+    'zonas-verdes': 'arbol', hospital: 'hospital'
   };
 
   /* No hay un icono por área, así que el cartel general toma prestado el del
@@ -197,7 +227,8 @@
     'Transporte': 'metro',
     'Administración': 'ventanilla',
     'Servicios sociales': 'residencia',
-    'Cultura': 'biblioteca'
+    'Cultura': 'biblioteca',
+    'Medio ambiente': 'arbol'
   };
 
   function icono(clave, cls) {
@@ -221,30 +252,80 @@
       const baseB = base.valores[REF];
       const equivalente = (b.n / baseB) * baseA;
       const delta = a.n - equivalente;              /* > 0 se pierde */
+      /* La superficie se lee por habitante, no por cada 100.000. */
+      const por = ind.medida === 'superficie' ? 1 : base.por;
       return {
         ind: ind, base: base, baseA: baseA, baseB: baseB,
         n: a.n, nRef: b.n, lista: a.lista,
         equivalente: equivalente, delta: delta,
         pct: a.n > 0 ? delta / a.n : 0,
-        tasaA: (a.n / baseA) * base.por,
-        tasaB: (b.n / baseB) * base.por
+        por: por,
+        tasaA: (a.n / baseA) * por,
+        tasaB: (b.n / baseB) * por
       };
     });
 
     perdidas = calculados
-      .filter(function (c) { return c.delta > UMBRAL; })
+      .filter(function (c) { return c.delta > umbral(c); })
       .sort(function (x, y) {
         const ax = x.ind.enTotal === false ? 1 : 0;
         const ay = y.ind.enTotal === false ? 1 : 0;
         return (ax - ay) || (y.pct - x.pct) || (y.delta - x.delta);
       });
 
-    ganancias = calculados.filter(function (c) { return c.delta < -UMBRAL; })
+    ganancias = calculados.filter(function (c) { return c.delta < -umbral(c); })
       .sort(function (x, y) { return x.delta - y.delta; });
-    empates = calculados.filter(function (c) { return Math.abs(c.delta) <= UMBRAL; });
+    empates = calculados.filter(function (c) { return Math.abs(c.delta) <= umbral(c); });
+    /* La cartera del hospital entra en las listas como una ficha más. */
+    const k = cartera();
+    if (k.delta > 0) perdidas.push(k);
+    else if (k.delta < 0) ganancias.push(k);
+    /* Las ganancias, como las pérdidas: primero lo que suma y, detrás, lo que
+       no, junto a lo de su misma área. */
+    ganancias.sort(function (x, y) {
+      const ax = x.ind.enTotal === false ? 1 : 0;
+      const ay = y.ind.enTotal === false ? 1 : 0;
+      return (ax - ay) || (ax ? x.ind.grupo.localeCompare(y.ind.grupo, 'es') : 0) ||
+        (x.delta - y.delta);
+    });
+
     TOTAL = perdidas.filter(function (c) { return c.ind.enTotal !== false; })
       .reduce(function (s, c) { return s + c.delta; }, 0);
+    /* Lo que se gana, en las mismas unidades que el total. No se le resta: la
+       portada da lo que se pierde, y esto va al lado para que no se esconda. */
+    GANADO = -sumaDelta(ganancias);
   }
+
+  /* Las ganancias que cuentan como equipamientos, las mismas que suma GANADO. */
+  function gananciasEnTotal() {
+    return ganancias.filter(function (c) { return c.ind.enTotal !== false; });
+  }
+
+  /* La cartera del hospital va como una ficha de Sanidad, pero no sale de la
+     tasa por habitante: un hospital no se reparte. Se compara qué unidades
+     asistenciales declara uno y no el otro. Tiene la forma de un cálculo para
+     que la recorran las mismas listas, el recuento y el cartel. */
+  const CARTERA = {
+    id: 'hospital', medida: 'cartera', enTotal: false, gen: 'f',
+    grupo: 'Sanidad', titulo: 'Servicios del hospital público',
+    mide: 'unidades asistenciales', fuenteId: 'sanitarios',
+    nota: 'Un hospital no se reparte por habitante, así que aquí se comparan las unidades ' +
+      'asistenciales que el Registro de Centros Sanitarios de la Comunidad de Madrid declara en ' +
+      'cada uno. Algunas diferencias menores pueden deberse a cómo declara cada centro su cartera.'
+  };
+
+  function cartera() {
+    const h = D.hospitales[AQUI];
+    const caen = h.faltanEnReferencia;
+    const nuevas = h.faltanAqui;
+    const delta = caen.length ? caen.length : -nuevas.length;
+    return {
+      ind: CARTERA, n: h.unidades, nRef: D.hospitales[REF].unidades,
+      lista: caen, nuevas: nuevas, delta: delta,
+      pct: h.unidades > 0 ? delta / h.unidades : 0
+    };
+  }
+  function esCartera(c) { return c.ind.medida === 'cartera'; }
 
   /* ── Piezas ───────────────────────────────────────────────────────── */
 
@@ -279,8 +360,9 @@
 
     /* Las dos barras son dos números sueltos si no se dice de qué. El titular
        del bloque ya dice qué se cuenta, así que aquí basta el divisor. */
-    cont.appendChild(el('p', 'tasas__ley',
-      'Por cada ' + entero(c.base.por) + ' ' + c.base.etiqueta));
+    cont.appendChild(el('p', 'tasas__ley', esSuperficie(c)
+      ? 'Metros cuadrados por habitante'
+      : 'Por cada ' + entero(c.por) + ' ' + c.base.etiqueta));
 
     if (c.ind.base && c.ind.base !== 'total') {
       cont.appendChild(el('p', 'tasas__base',
@@ -297,17 +379,17 @@
       barra.style.setProperty('--v', (f.v / max).toFixed(4));
       pista.appendChild(barra);
       fila.appendChild(pista);
-      fila.appendChild(el('span', 'tasa__valor', numTasa(f.v)));
+      fila.appendChild(el('span', 'tasa__valor', esSuperficie(c) ? num(f.v, 1) : numTasa(f.v)));
       cont.appendChild(fila);
     });
 
     cont.appendChild(el('p', 'tasas__llano', enCristiano(c)));
 
+    const eq = esSuperficie(c) ? enSuperficie(c.equivalente) : numTasa(c.equivalente);
+    const hay = esSuperficie(c) ? enSuperficie(c.n) : c.n;
     cont.appendChild(el('p', 'tasas__pie', modo === 'gana'
-      ? 'Con la tasa de ' + NOMBRE_REF + ' habría ' + numTasa(c.equivalente) +
-        ' en ' + NOMBRE[AQUI]
-      : 'Con la tasa de ' + NOMBRE_REF + ' quedarían ' + numTasa(c.equivalente) +
-        ' de ' + c.n));
+      ? 'Con la tasa de ' + NOMBRE_REF + ' habría ' + eq + ' en ' + NOMBRE[AQUI]
+      : 'Con la tasa de ' + NOMBRE_REF + ' quedarían ' + eq + ' de ' + hay));
     return cont;
   }
 
@@ -384,8 +466,15 @@
     art.appendChild(cab);
     art.appendChild(el('h3', 'ind__h', i.titulo));
 
+    if (esCartera(c)) return fichaCartera(art, c, modo);
+
     let titular;
-    if (modo === 'gana') {
+    if (esSuperficie(c)) {
+      /* Una superficie no tiene «la única que hay»: siempre es tanto de tanto. */
+      titular = (modo === 'gana' ? 'Ganarías' : 'Perderías') + ' <span class="cifra">' +
+        enSuperficie(Math.abs(c.delta)) + '</span> <span class="resto">' +
+        (modo === 'gana' ? 'más de las que hay ahora' : 'de ' + enSuperficie(c.n)) + '</span>';
+    } else if (modo === 'gana') {
       titular = 'Ganarías <span class="cifra">' + num(-c.delta) + '</span> <span class="resto">' +
         (c.n === 0 ? 'donde ahora no hay nada' : 'más de las que hay ahora') + '</span>';
     } else if (c.nRef === 0) {
@@ -402,12 +491,14 @@
     art.appendChild(el('p', 'ind__titular', titular));
 
     const sr = el('p', 'oculto');
-    sr.textContent = NOMBRE[AQUI] + ' tiene ' + c.n + ' y ' + NOMBRE_REF + ' tiene ' + c.nRef +
-      '. Medido sobre la ' + c.base.corto + '. Con la tasa de ' + NOMBRE_REF + ', en ' +
-      NOMBRE[AQUI] + ' quedarían ' + num(c.equivalente, 1) + '.';
+    sr.textContent = NOMBRE[AQUI] + ' tiene ' + cantidad(c, c.n) + ' y ' + NOMBRE_REF +
+      ' tiene ' + cantidad(c, c.nRef) + '. Medido sobre la ' + c.base.corto + '. Con la tasa de ' +
+      NOMBRE_REF + ', en ' + NOMBRE[AQUI] + ' quedarían ' + cantidad(c, c.equivalente, 1) + '.';
     art.appendChild(sr);
 
-    if (modo === 'gana') art.appendChild(tira(c.n, 0, Math.round(-c.delta)));
+    /* La tira es un cuadrado por unidad: no hay tira de metros cuadrados. */
+    if (esSuperficie(c)) { /* sin tira */ }
+    else if (modo === 'gana') art.appendChild(tira(c.n, 0, Math.round(-c.delta)));
     else if (c.n > 0 && c.n <= 400) art.appendChild(tira(c.n, c.delta, 0));
 
     art.appendChild(tasas(c, modo));
@@ -423,7 +514,60 @@
     }
 
     if (i.nota) art.appendChild(el('p', 'ind__nota', texto(i.nota)));
-    art.appendChild(pieFuente([i.fuenteId, c.base.fuenteId]));
+    art.appendChild(pieFuente([i.fuenteId, c.base.fuenteId].concat(
+      i.limitesFuenteId ? [[i.limitesFuenteId, 'Límites municipales: ']] : [])));
+    art.appendChild(botonCartel(c, modo));
+    return art;
+  }
+
+  /* El cuerpo de la ficha del hospital: la tira con una unidad por servicio,
+     lo que desaparece tachado y, si lo hay, lo que se ganaría. Sin barras de
+     tasa, porque aquí no hay tasa. */
+  function fichaCartera(art, c, modo) {
+    const i = c.ind;
+    const ref = D.hospitales[REF];
+    let titular;
+    if (modo === 'gana') {
+      titular = 'Ganarías <span class="cifra">' + c.nuevas.length + '</span> <span class="resto">' +
+        (c.n === 0 ? 'donde ahora no hay hospital' : 'más de las que hay ahora') + '</span>';
+    } else {
+      titular = 'Perderías <span class="cifra">' + c.lista.length + '</span> <span class="resto">de ' +
+        c.n + '</span>';
+    }
+    art.appendChild(el('p', 'ind__titular', titular));
+
+    /* Por ciudad y no por hospital: Móstoles tiene dos y se suman sus carteras. */
+    const cuenta = c.n
+      ? 'Unidades asistenciales declaradas: ' + c.n + ' en ' + NOMBRE[AQUI] + ', ' + c.nRef +
+        ' en ' + NOMBRE_REF + '.'
+      : NOMBRE[AQUI] + ' no tiene hospital público. En ' + NOMBRE_REF + ', el ' + ref.nombre +
+        ' declara ' + c.nRef + ' unidades asistenciales.';
+    const sr = el('p', 'oculto');
+    sr.textContent = cuenta + ' ' + c.lista.length + ' no están en ' + NOMBRE_REF + ' y ' +
+      c.nuevas.length + ' están solo en ' + NOMBRE_REF + '.';
+    art.appendChild(sr);
+
+    art.appendChild(tira(c.n, c.lista.length, c.nuevas.length));
+    art.appendChild(el('p', 'ind__nota', cuenta));
+
+    const cont = el('div', 'nombres-bloque');
+    if (c.lista.length) {
+      cont.appendChild(el('p', 'nombres__rot nombres__rot--cae', 'Lo que desaparece'));
+      const ul = el('ul', 'nombres');
+      c.lista.forEach(function (n) { ul.appendChild(filaNombre(n, 'nombre--cae', 'desaparece')); });
+      cont.appendChild(ul);
+    }
+    if (c.nuevas.length) {
+      cont.appendChild(el('p', 'nombres__rot',
+        c.lista.length ? 'Y al revés, lo que ganarías' : 'Lo que tendrías'));
+      const ul = el('ul', 'nombres');
+      c.nuevas.forEach(function (n) { ul.appendChild(filaNombre(n, 'nombre--gana')); });
+      cont.appendChild(ul);
+    }
+    art.appendChild(cont);
+
+    art.appendChild(el('p', 'ind__nota', texto(i.nota)));
+    art.appendChild(pieFuente([i.fuenteId]));
     art.appendChild(botonCartel(c, modo));
     return art;
   }
@@ -437,6 +581,21 @@
     const hueco = $('#portada-cartel');
     vaciar(hueco);
     hueco.appendChild(botonCartelGeneral());
+
+    /* "Y ganarías 3, en educación." Las áreas, y no los servicios uno a uno,
+       porque en la portada no cabe una lista. */
+    const gana = $('#gana-portada');
+    const ganadas = Math.round(GANADO);
+    if (ganadas > 0) {
+      const areas = [];
+      gananciasEnTotal().forEach(function (c) {
+        const k = c.ind.grupo.toLowerCase();
+        if (areas.indexOf(k) < 0) areas.push(k);
+      });
+      gana.textContent = 'Y ganarías ' + ganadas + ', en ' + areas.join(' y ') + '.';
+    } else {
+      gana.textContent = '';
+    }
 
     const marcas = Math.round(TOTAL);
     const rejilla = $('#rejilla');
@@ -470,8 +629,12 @@
 
   function golpe() {
     const ids = Object.keys(NOMBRE);
+    /* Solo lo que suma al recuento: la frase habla de equipamientos, y camas,
+       alumnos, plazas o superficie no lo son. Un empate a la cola cuenta como
+       última: ninguna tiene menos. */
+    const cuentan = D.indicadores.filter(function (ind) { return ind.enTotal !== false; });
     let ultimos = 0;
-    D.indicadores.forEach(function (ind) {
+    cuentan.forEach(function (ind) {
       const base = D.BASES[ind.base || 'total'];
       let min = Infinity;
       ids.forEach(function (m) {
@@ -488,7 +651,7 @@
     const trozos = [];
     if (masPobre) trozos.push('en renta por habitante');
     if (ultimos) {
-      trozos.push('en <b>' + ultimos + ' de los ' + D.indicadores.length + '</b> servicios');
+      trozos.push('en <b>' + ultimos + ' de los ' + cuentan.length + '</b> equipamientos');
     }
     if (!trozos.length) { $('#golpe').hidden = true; return; }
 
@@ -512,7 +675,7 @@
     for (let i = 0; i < perdidas.length; i++) {
       if (perdidas[i].ind.id === 'bibliotecas') { c = perdidas[i]; break; }
     }
-    if (!c) c = perdidas.filter(function (x) { return x.nRef > 0 && x.n > 1; })[0];
+    if (!c) c = perdidas.filter(function (x) { return x.nRef > 0 && x.n > 1 && !esSuperficie(x); })[0];
     if (!c) { caja.hidden = true; return; }
     caja.hidden = false;
 
@@ -557,7 +720,7 @@
     a.appendChild(icono(ICONO[i.id], 'rec__ico'));
     a.appendChild(el('span', 'rec__q', i.titulo));
     a.appendChild(el('span', 'rec__n',
-      (modo === 'gana' ? '+' : '−') + num(Math.abs(c.delta))));
+      (modo === 'gana' ? '+' : '−') + cantidad(c, Math.abs(c.delta))));
     li.appendChild(a);
     return li;
   }
@@ -575,17 +738,21 @@
   function porAreas() {
     const areas = [];
     const mapa = {};
+    const aparte = {};
     perdidas.forEach(function (c) {
-      if (c.ind.enTotal === false) return;   /* estos van al final, aparte */
       const k = c.ind.grupo;
+      if (c.ind.enTotal === false) { (aparte[k] = aparte[k] || []).push(c); return; }
       if (!mapa[k]) { mapa[k] = []; areas.push(k); }
       mapa[k].push(c);
     });
     areas.sort(function (x, y) { return sumaDelta(mapa[y]) - sumaDelta(mapa[x]); });
 
+    /* Lo que no suma va al final, tras el separador, agrupado por área para
+       que camas y hospital se lean juntos. */
     let orden = [];
     areas.forEach(function (k) { orden = orden.concat(mapa[k]); });
-    orden = orden.concat(perdidas.filter(function (c) { return c.ind.enTotal === false; }));
+    Object.keys(aparte).sort(function (x, y) { return x.localeCompare(y, 'es'); })
+      .forEach(function (k) { orden = orden.concat(aparte[k]); });
     return { areas: areas, mapa: mapa, orden: orden };
   }
 
@@ -615,25 +782,40 @@
       cont.appendChild(bloque);
     });
 
-    /* El hospital y, si toca, lo que sale ganando */
-    const h = D.hospitales[AQUI];
-    const hr = D.hospitales[REF];
+    /* Lo que se gana en equipamientos va dentro del recuento, con su subtotal:
+       se cuenta en las mismas unidades, así que no es «fuera del recuento». */
+    const suyas = gananciasEnTotal();
+    if (suyas.length) {
+      const bloque = el('div', 'area area--gana');
+      const cab = el('div', 'area__cab');
+      cab.appendChild(el('h3', 'area__q', 'Lo que ganarías'));
+      cab.appendChild(el('span', 'area__n', '+' + num(GANADO)));
+      bloque.appendChild(cab);
+      const ul = el('ul', 'area__filas');
+      suyas.forEach(function (c) { ul.appendChild(filaRecuento(c, 'gana')); });
+      bloque.appendChild(ul);
+      cont.appendChild(bloque);
+    }
+
+    /* Lo que no suma: pérdidas y ganancias en su propia unidad. */
     const extra = [];
     perdidas.forEach(function (c) {
       if (c.ind.enTotal !== false) return;
-      extra.push({ ico: ICONO[c.ind.id], q: c.ind.titulo, n: '−' + num(c.delta),
+      extra.push({ ico: ICONO[c.ind.id], q: c.ind.titulo, n: '−' + cantidad(c, c.delta),
         modo: 'aparte', href: '#ind-' + c.ind.id });
     });
-    if (h.unidades > 0 && h.faltanEnReferencia.length) {
-      extra.push({ ico: 'hospital', q: 'Unidades del hospital público',
-        n: '−' + h.faltanEnReferencia.length, modo: 'aparte' });
-    } else if (h.unidades === 0) {
-      extra.push({ ico: 'hospital', q: 'Unidades de hospital público',
-        n: '+' + hr.unidades, modo: 'gana' });
-    }
+
     ganancias.forEach(function (c) {
+      if (c.ind.enTotal !== false) return;   /* esas van arriba, en el recuento */
       extra.push({ ico: ICONO[c.ind.id], q: c.ind.titulo,
-        n: '+' + num(-c.delta), modo: 'gana', href: '#ind-' + c.ind.id });
+        n: '+' + cantidad(c, -c.delta), modo: 'gana', href: '#ind-' + c.ind.id });
+    });
+    /* Un empate fuera del recuento también se enseña: que no salga nada daría
+       a entender que no se ha medido. */
+    empates.forEach(function (c) {
+      if (c.ind.enTotal !== false) return;
+      extra.push({ ico: ICONO[c.ind.id], q: c.ind.titulo, n: '≈', modo: 'aparte',
+        href: '#lista-perdidas' });
     });
 
     if (extra.length) {
@@ -645,7 +827,7 @@
       extra.forEach(function (x) {
         const li = el('li', 'rec rec--' + x.modo);
         const a = el('a', 'rec__a');
-        a.href = x.href || '#hospital';
+        a.href = x.href;
         a.appendChild(icono(x.ico, 'rec__ico'));
         a.appendChild(el('span', 'rec__q', x.q));
         a.appendChild(el('span', 'rec__n', x.n));
@@ -656,7 +838,14 @@
       cont.appendChild(bloque);
     }
 
-    $('#resumen-n').textContent = Math.round(TOTAL);
+    /* Bruto, y al lado lo que se gana. El neto se da restando los dos números
+       ya redondeados, para que la cuenta cuadre a la vista. */
+    const pierdes = Math.round(TOTAL);
+    const ganas = Math.round(GANADO);
+    $('#resumen-total').innerHTML = ganas > 0
+      ? '<b>Pierdes ' + pierdes + ' equipamientos</b> y ganas <b class="gana">' + ganas + '</b>: ' +
+        (pierdes - ganas) + ' menos en neto.'
+      : '<b>' + pierdes + ' equipamientos</b> en total.';
   }
 
   /* ── El punto de partida ──────────────────────────────────────────── */
@@ -665,32 +854,57 @@
     return D.contexto.dinero.find(function (s) { return s.id === id; });
   }
 
-  /* Las cuatro series de dinero comparten forma: tres barras contra la media
-     regional. Se dibujan con el mismo molde para que se lean como una sola
-     cuenta y no como cuatro gráficos sueltos. */
-  function barras(s) {
-    const caja = el('div', 'renta');
-    const max = Math.max(s.mediaRegional, s.valores[AQUI], s.valores[REF]);
+  /* Las filas de una serie de dinero: la media de referencia, si la hay, tu
+     ciudad y Parla, cada una con su barra proporcional a la mayor. */
+  function filasDinero(s, formato) {
+    const filas = [];
+    if (s.mediaRegional != null) filas.push({ q: s.refNombre, v: s.mediaRegional, quien: 'otro' });
+    filas.push({ q: NOMBRE[AQUI], v: s.valores[AQUI], quien: 'aqui' });
+    filas.push({ q: NOMBRE_REF, v: s.valores[REF], quien: 'referencia' });
+    const tope = filas.reduce(function (t, f) { return Math.max(t, f.v); }, 0);
 
-    [{ nombre: s.refNombre, v: s.mediaRegional, tipo: 'ref' },
-     { nombre: NOMBRE[AQUI], v: s.valores[AQUI], tipo: 'aqui' },
-     { nombre: NOMBRE_REF, v: s.valores[REF], tipo: 'referencia' }]
-    .forEach(function (f) {
-      const fila = el('div', 'renta__fila');
-      fila.dataset.destacar = f.tipo;
-      fila.appendChild(el('p', 'renta__quien', f.nombre));
-      fila.appendChild(el('p', 'renta__cuanto', entero(f.v) + ' €'));
-      const barra = el('div', 'renta__barra');
+    const ul = el('ul', 'mun');
+    filas.forEach(function (f) {
+      const li = el('li', 'mun__fila');
+      li.dataset.quien = f.quien;
+      li.appendChild(el('span', 'mun__q', f.q));
+      li.appendChild(el('span', 'mun__v', formato(f.v)));
+      const barra = el('span', 'mun__barra');
       const i = el('i');
-      i.style.width = ((f.v / max) * 100).toFixed(1) + '%';
+      i.style.width = ((f.v / tope) * 100).toFixed(1) + '%';
       barra.appendChild(i);
-      fila.appendChild(barra);
-      fila.appendChild(el('p', 'renta__pct', f.tipo === 'ref'
-        ? 'referencia'
-        : num((f.v / s.mediaRegional) * 100, 1) + ' % de esa media'));
-      caja.appendChild(fila);
+      li.appendChild(barra);
+      ul.appendChild(li);
     });
-    return caja;
+    return ul;
+  }
+
+  /* Lo que el ayuntamiento gasta o invierte, en euros al año, si lo hiciera al
+     ritmo de Parla. Es la cuenta de toda la web: la tasa por habitante de Parla
+     por la población de tu ciudad. */
+  function enEuros(e) {
+    if (e >= 1e6) return num(e / 1e6, 1) + ' millones de euros';
+    return entero(Math.round(e / 1000) * 1000) + ' euros';
+  }
+
+  function alAnio(s) {
+    const pob = D.BASES.total.valores[AQUI];
+    const dif = (s.valores[AQUI] - s.valores[REF]) * pob;
+    return { dif: dif, igual: Math.abs(dif) < s.valores[AQUI] * pob * 0.01 };
+  }
+
+  function titularAnual(s) {
+    const a = alAnio(s);
+    const t = el('p', 'plata__titular');
+    if (a.igual) {
+      t.innerHTML = 'Con ' + s.alAnio.con + ' de ' + NOMBRE_REF + ', ' + NOMBRE[AQUI] +
+        ' se quedaría prácticamente igual.';
+    } else {
+      t.innerHTML = 'Con ' + s.alAnio.con + ' de ' + NOMBRE_REF + ', ' + NOMBRE[AQUI] + ' ' +
+        s.alAnio.verbo + ' <span class="cifra">' + enEuros(Math.abs(a.dif)) + '</span> ' +
+        (a.dif > 0 ? 'menos' : 'más') + ' al año.';
+    }
+    return t;
   }
 
   function dinero() {
@@ -701,37 +915,16 @@
       art.id = 'dinero-' + s.id;
       art.appendChild(el('h3', 'plata__h', s.titulo));
       art.appendChild(el('p', 'plata__pie', s.pie));
-      art.appendChild(s.molde === 'paro' ? listaParo(s) : barras(s));
+      if (s.alAnio) art.appendChild(titularAnual(s));
+      art.appendChild(filasDinero(s, s.id === 'paro'
+        ? function (v) { return num(v, 2) + ' %'; }
+        : function (v) { return entero(v) + ' €'; }));
       art.appendChild(el('p', 'renta__nota', texto(s.nota)));
       art.appendChild(pieFuente([s.fuenteId]));
+      if (s.alAnio && !alAnio(s).igual) art.appendChild(botonCartel({ dinero: s }, null));
       cont.appendChild(art);
     });
     $('#dinero-cierre').textContent = texto(D.contexto.dineroNota);
-  }
-
-  /* El paro va al revés que las otras cuatro cifras: aquí, más alto, peor. Por
-     eso no cabe en las barras de «más es mejor» y se enseña la lista entera,
-     de menos a más, para que se vea dónde cae cada municipio. */
-  function listaParo(s) {
-    const filas = Object.keys(NOMBRE)
-      .map(function (m) { return { m: m, v: s.valores[m] }; })
-      .sort(function (a, b) { return a.v - b.v; });
-    const tope = filas[filas.length - 1].v;
-
-    const ul = el('ul', 'paro');
-    filas.forEach(function (f) {
-      const li = el('li', 'paro__fila');
-      li.dataset.quien = f.m === REF ? 'referencia' : f.m === AQUI ? 'aqui' : 'otro';
-      li.appendChild(el('span', 'paro__q', NOMBRE[f.m]));
-      li.appendChild(el('span', 'paro__v', num(f.v, 2) + ' %'));
-      const barra = el('span', 'paro__barra');
-      const i = el('i');
-      i.style.width = ((f.v / tope) * 100).toFixed(1) + '%';
-      barra.appendChild(i);
-      li.appendChild(barra);
-      ul.appendChild(li);
-    });
-    return ul;
   }
 
   function edades() {
@@ -814,19 +1007,46 @@
 
   /* ── Listas ───────────────────────────────────────────────────────── */
 
+  /* Las fichas en orden y, antes de la primera que no suma, un corte con
+     título propio. El texto dice en qué se mide lo de debajo, con las unidades
+     que de verdad aparecen para esta ciudad. */
+  function fichasConSeparador(env, lista, modo, arranque) {
+    const fuera = lista.filter(function (c) { return c.ind.enTotal === false; });
+    const unidades = [];
+    fuera.forEach(function (c) {
+      if (unidades.indexOf(c.ind.mide) < 0) unidades.push(c.ind.mide);
+    });
+    const en = unidades.length > 1
+      ? unidades.slice(0, -1).join(', ') + ' o ' + unidades[unidades.length - 1]
+      : unidades[0];
+    let cortado = false;
+    lista.forEach(function (c) {
+      if (!cortado && c.ind.enTotal === false) {
+        cortado = true;
+        const sep = el('div', 'separador');
+        sep.appendChild(el('h3', 'separador__h', 'Fuera del recuento'));
+        sep.appendChild(el('p', 'separador__p', arranque + ': se mide en ' + en + '.'));
+        env.appendChild(sep);
+      }
+      env.appendChild(bloqueIndicador(c, modo));
+    });
+  }
+
   function listas() {
     const lp = $('#lista-perdidas');
     vaciar(lp);
     const env = el('div', 'env');
-    porAreas().orden.forEach(function (c) { env.appendChild(bloqueIndicador(c, 'pierde')); });
+    fichasConSeparador(env, porAreas().orden, 'pierde',
+      'No suma a los ' + Math.round(TOTAL) + ' de la portada');
     if (empates.length) {
       const art = el('article', 'ind');
       art.appendChild(el('p', 'ind__grupo', 'Empate técnico'));
       art.appendChild(el('h3', 'ind__h', 'Y en esto las dos ciudades están igual'));
       const ul = el('ul', 'pendientes');
       empates.forEach(function (c) {
-        ul.appendChild(el('li', null, c.ind.titulo + ' — ' + NOMBRE[AQUI] + ' ' + c.n + ', ' +
-          NOMBRE_REF + ' ' + c.nRef + ' (diferencia: ' + num(Math.abs(c.delta), 2) + ')'));
+        ul.appendChild(el('li', null, c.ind.titulo + ' — ' + NOMBRE[AQUI] + ' ' +
+          cantidad(c, c.n) + ', ' + NOMBRE_REF + ' ' + cantidad(c, c.nRef) + ' (diferencia: ' +
+          (esSuperficie(c) ? enSuperficie(Math.abs(c.delta)) : num(Math.abs(c.delta), 2)) + ')'));
       });
       art.appendChild(ul);
       env.appendChild(art);
@@ -841,68 +1061,10 @@
         'Ninguno. De todos los servicios medidos, no hay uno solo en el que ' + NOMBRE_REF +
         ' esté por encima de ' + NOMBRE[AQUI] + '.'));
     }
-    ganancias.forEach(function (c) { env2.appendChild(bloqueIndicador(c, 'gana')); });
+    fichasConSeparador(env2, ganancias, 'gana', Math.round(GANADO) > 0
+      ? 'No suma a los ' + Math.round(GANADO) + ' que ganarías'
+      : 'No suma al recuento');
     lg.appendChild(env2);
-  }
-
-  /* ── El hospital ──────────────────────────────────────────────────── */
-
-  function hospital() {
-    const h = D.hospitales[AQUI];
-    const hr = D.hospitales[REF];
-    const cont = $('#hospital-cuerpo');
-    vaciar(cont);
-
-    if (h.unidades === 0) {
-      cont.appendChild(el('p', 'bloque__intro',
-        NOMBRE[AQUI] + ' no tiene hospital. ' + NOMBRE_REF + ' sí: el ' + hr.nombre + ', con ' +
-        hr.unidades + ' unidades asistenciales declaradas. Así que en sanidad hospitalaria ' +
-        NOMBRE[AQUI] + ' queda por debajo de ' + NOMBRE_REF + '.'));
-      cont.appendChild(el('p', 'hospital__golpe hospital__golpe--gana',
-        'Estas <b>' + hr.faltanAqui.length + '</b> unidades existen en ' + NOMBRE_REF + ' y no en ' +
-        NOMBRE[AQUI] + ', porque aquí no hay hospital donde ponerlas:'));
-      const ul = el('ul', 'unidades unidades--gana');
-      hr.faltanAqui.forEach(function (u, i) {
-        ul.appendChild(el('li', 'unidad' + (i < 4 ? ' unidad--grave' : ''), u));
-      });
-      cont.appendChild(ul);
-      cont.appendChild(el('p', 'cautela', D.cautelaHospital));
-      cont.appendChild(pieFuente(['sanitarios']));
-      return;
-    }
-
-    cont.appendChild(el('p', 'bloque__intro',
-      'Cada ciudad tiene su hospital, así que contarlos por habitante no dice nada. Lo que se ' +
-      'compara aquí es su cartera de servicios. El Registro de Centros Sanitarios de la Comunidad ' +
-      'de Madrid declara <b>' +
-      h.unidades + '</b> unidades asistenciales en el ' + h.nombre + ' y <b>' + hr.unidades +
-      '</b> en el ' + hr.nombre + '.'));
-
-    if (h.faltanEnReferencia.length) {
-      cont.appendChild(el('p', 'hospital__golpe',
-        'Estas <b>' + h.faltanEnReferencia.length + '</b> se quedan fuera en ' + NOMBRE_REF + ':'));
-      const ul = el('ul', 'unidades');
-      h.faltanEnReferencia.forEach(function (u, i) {
-        ul.appendChild(el('li', 'unidad' + (i < 4 ? ' unidad--grave' : ''), u));
-      });
-      cont.appendChild(ul);
-    }
-
-    if (h.faltanAqui.length) {
-      cont.appendChild(el('p', 'hospital__golpe hospital__golpe--gana',
-        'Y al revés: estas <b>' + h.faltanAqui.length + '</b> las tiene ' + NOMBRE_REF + ' y no ' +
-        NOMBRE[AQUI] + '.'));
-      const ul = el('ul', 'unidades unidades--gana');
-      h.faltanAqui.forEach(function (u) { ul.appendChild(el('li', 'unidad', u)); });
-      cont.appendChild(ul);
-    } else {
-      cont.appendChild(el('p', 'hospital__golpe hospital__golpe--gana',
-        'Al revés no hay ninguna. La cartera de ' + NOMBRE_REF + ' cabe entera dentro de la de ' +
-        NOMBRE[AQUI] + '.'));
-    }
-
-    cont.appendChild(el('p', 'cautela', D.cautelaHospital));
-    cont.appendChild(pieFuente(['sanitarios']));
   }
 
   /* ── Método ───────────────────────────────────────────────────────── */
@@ -958,7 +1120,7 @@
   function contador() {
     const chip = $('#contador');
     const salida = $('#contador-n');
-    const finZona = $('#hospital');
+    const finZona = $('#ganancias');
     let pedido = false, ultimo = -1;
 
     function medir() {
@@ -1096,7 +1258,7 @@
   /* Las tres piezas que comparten el cartel de un indicador y el general: el
      fondo, el titular y la banda del pie. Se montan en este orden porque la
      banda va después de la capa, y el titular lo mide ajustarTitular(). */
-  function montarCartel(raiz, fondo) {
+  function montarCartel(raiz, fondo, pre) {
     vaciar(raiz);
     raiz.className = 'cartel cartel--afiche';
     raiz.setAttribute('data-fondo', fondo);
@@ -1107,7 +1269,7 @@
     raiz.appendChild(img);
 
     const capa = el('div', 'kcapa');
-    capa.appendChild(el('p', 'kpre',
+    capa.appendChild(el('p', 'kpre', pre ||
       'Si ' + NOMBRE[AQUI] + ' estuviera dotada como ' + NOMBRE_REF));
     raiz.appendChild(capa);
     return capa;
@@ -1143,7 +1305,9 @@
     const raiz = $('#cartel');
     const fondo = fondoElegido();
     const capa = montarCartel(raiz, fondo);
-    const tit = titularCartel(capa, cifraCartel(cuantos), c.ind.titulo, gana);
+    const tit = titularCartel(capa, esSuperficie(c)
+      ? enSuperficie(cuantos, cifraElegida() === 'redonda')
+      : cifraCartel(cuantos), c.ind.titulo, gana);
 
     /* Fila de cajas: los nombres que se tachan o, si no hay, las dos tasas. */
     const fila = el('ul', 'kcajas');
@@ -1164,6 +1328,16 @@
       if (caen > muestra.length) {
         fila.appendChild(el('li', 'kcaja', 'y ' + (caen - muestra.length) + ' más'));
       }
+    } else if (esCartera(c)) {
+      fila.appendChild(el('li', 'kcaja', '<b>' + NOMBRE[AQUI] + '</b>' +
+        (c.n ? c.n + ' unidades asistenciales' : 'sin hospital público')));
+      fila.appendChild(el('li', 'kcaja kcaja--ref', '<b>' + NOMBRE_REF + '</b>' +
+        c.nRef + ' unidades asistenciales'));
+    } else if (esSuperficie(c)) {
+      fila.appendChild(el('li', 'kcaja', '<b>' + NOMBRE[AQUI] + '</b>' +
+        num(c.tasaA, 1) + ' m² por habitante'));
+      fila.appendChild(el('li', 'kcaja kcaja--ref', '<b>' + NOMBRE_REF + '</b>' +
+        num(c.tasaB, 1) + ' m² por habitante'));
     } else {
       const u = entero(c.base.por) + ' ' + c.base.etiqueta;
       fila.appendChild(el('li', 'kcaja', '<b>' + NOMBRE[AQUI] + '</b>' +
@@ -1174,6 +1348,29 @@
     fila.dataset.n = String(fila.children.length);
     capa.appendChild(fila);
 
+    bandaCartel(raiz);
+    ajustarTitular(raiz, tit, fondo);
+  }
+
+  /* El cartel del gasto o la inversión: la cifra en euros al año y, en las
+     cajas, lo que cada ayuntamiento pone por habitante. */
+  function cartelDinero(s) {
+    const a = alAnio(s);
+    const raiz = $('#cartel');
+    const fondo = fondoElegido();
+    const capa = montarCartel(raiz, fondo,
+      'Si ' + NOMBRE[AQUI] + ' ' + s.alAnio.si + ' como ' + NOMBRE_REF);
+    const cifra = cifraElegida() === 'exacta' || a.dif < 1e7
+      ? num(Math.abs(a.dif) / 1e6, 1) : entero(Math.round(Math.abs(a.dif) / 1e6));
+    const tit = titularCartel(capa, cifra + ' M€',
+      (s.id === 'inversion' ? 'de inversión' : 'de gasto') + ' al año', a.dif < 0);
+    const fila = el('ul', 'kcajas');
+    fila.appendChild(el('li', 'kcaja', '<b>' + NOMBRE[AQUI] + '</b>' +
+      entero(s.valores[AQUI]) + ' € por habitante'));
+    fila.appendChild(el('li', 'kcaja kcaja--ref', '<b>' + NOMBRE_REF + '</b>' +
+      entero(s.valores[REF]) + ' € por habitante'));
+    fila.dataset.n = '2';
+    capa.appendChild(fila);
     bandaCartel(raiz);
     ajustarTitular(raiz, tit, fondo);
   }
@@ -1387,13 +1584,15 @@
      cartel del recuento entero. */
   function generar(caso, modo) {
     const general = caso === 'general';
-    if (general) cartelGeneral(); else cartelIndicador(caso, modo);
+    if (general) cartelGeneral();
+    else if (caso.dinero) cartelDinero(caso.dinero);
+    else cartelIndicador(caso, modo);
     const antes = document.title;
     /* El título es el nombre que el navegador propone para el PDF. */
     document.title = NOMBRE[AQUI] + ' como Parla · ' +
-      (general ? 'La situación general' : caso.ind.titulo);
+      (general ? 'La situación general' : caso.dinero ? caso.dinero.titulo : caso.ind.titulo);
     document.documentElement.setAttribute('data-cartel',
-      general ? 'general' : caso.ind.id);
+      general ? 'general' : caso.dinero ? 'dinero-' + caso.dinero.id : caso.ind.id);
 
     let limpio = false;
     function limpiar() {
@@ -1439,7 +1638,6 @@
     tamano();
     dinero();
     listas();
-    hospital();
     metodo();
     movimiento();
     document.title = 'Si yo viviera como en Parla · ' + NOMBRE[AQUI];

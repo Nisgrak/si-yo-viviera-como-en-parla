@@ -71,8 +71,10 @@ dice en su apartado de método. Lo que no es ilustrativo es *cuántas*.
 
 ## Lo que no suma al total de portada
 
-Varios indicadores se calculan igual pero se muestran aparte, porque no se miden en
-equipamientos y sumarlos sería mezclar peras con manzanas:
+Varios indicadores se muestran aparte porque no se miden en equipamientos y sumarlos sería
+mezclar peras con manzanas. En la lista de la web van al final de «Lo que perderías» (y de «Lo que
+ganarías»), detrás de un separador, «Fuera del recuento», cuyo texto dice en qué se mide lo de
+debajo con las unidades que de verdad aparecen para esa ciudad:
 
 - **Plazas en residencias públicas de mayores.** Se cuentan camas, no centros: es lo que de
   verdad se ocupa. Solo titularidad pública.
@@ -82,10 +84,23 @@ equipamientos y sumarlos sería mezclar peras con manzanas:
   conservatorios) con lo municipal (escuelas de música y danza), porque la fuente no los separa
   por titularidad del centro. Sirve para comparar cuánta enseñanza de este tipo recibe cada
   municipio, no para auditar a su ayuntamiento.
-- **Unidades asistenciales del hospital público.** Un hospital no se reparte por habitante; lo
-  que se compara es su cartera de servicios, en los dos sentidos.
+- **Zonas verdes e instalaciones deportivas.** Una superficie, y el único dato que calculamos
+  nosotros. Ver «Zonas verdes», más abajo.
+- **Servicios del hospital público.** Un hospital no se reparte por habitante, así que no sale de
+  la tasa: se compara su cartera, las unidades asistenciales que declara uno y no el otro, en los
+  dos sentidos. Es una ficha más de Sanidad, montada en `app.js` (`cartera()`) a partir de
+  `hospitales`, y se tachan sus nombres como los de las bibliotecas. No suma porque una unidad
+  asistencial no pesa lo que una farmacia —entre las de Getafe están Neurocirugía y Vacunación—,
+  porque parte de la diferencia es cómo declara cada centro su cartera, y porque en Pinto y
+  Alcobendas, sin hospital, un solo hospital pesaría como 54 farmacias.
 
-Se marcan con `enTotal: false` en `datos/datos.js`.
+Se marcan con `enTotal: false` en `datos/datos.js`, con un campo `mide` que dice en qué se miden.
+
+**La portada da lo que se pierde, no el neto.** Si la ciudad también gana algo que sí suma
+—Pinto gana colegios e institutos—, la portada lo dice debajo del total («Y ganarías 3, en
+educación»), el recuento lo enseña como un área más, «Lo que ganarías», y su pie da las dos cifras
+y la resta: «Pierdes 9 equipamientos y ganas 3: 6 menos en neto». No se resta del número grande
+porque lo que desaparece desaparece aunque aparezca otra cosa.
 
 ## Estructura
 
@@ -97,6 +112,7 @@ assets/fuentes/       la tipografía Archivo, servida desde aquí (OFL 1.1)
 assets/cartel/        los dos fondos del cartel para compartir
 assets/qr.js          el QR de cada municipio, ya trazado (lo traza herramientas/qr.py)
 datos/datos.js        LOS DATOS  ←  lo único que hay que tocar
+herramientas/         los dos scripts que rehacen lo que no se teclea: el QR y las zonas verdes
 ```
 
 No hay build, ni dependencias, ni framework. Se abre `index.html` y funciona.
@@ -110,14 +126,16 @@ En `datos/datos.js`:
 1. Añádelo a `MUNICIPIOS`.
 2. Añade su población y sus tramos de edad en cada entrada de `BASES.valores`.
 3. Añade su bloque en `datos` dentro de **cada** indicador, con `n` y `lista`.
-4. Añade su entrada en `hospitales` y en `contexto.renta` / `contexto.edades`.
+4. Añade su entrada en `hospitales` y en `contexto`: `edades`, `superficie`, cada serie de
+   `dinero` y `zonasVerdes`, que imprime `herramientas/zonas-verdes.py`.
 
 El recuento de arriba y la lista con nombres de abajo van **en el mismo orden**: por áreas, la
 que más pierde primero, y dentro de cada una por porcentaje perdido. Lo calcula `porAreas()` una
-sola vez y lo usan las dos, para que no puedan separarse al tocar cualquiera de las dos.
+sola vez y lo usan las dos, para que no puedan separarse al tocar cualquiera de las dos. Lo que no
+suma va al final de la lista, tras el separador, agrupado por área.
 
-La web decide sola si cada indicador es pérdida, ganancia o empate (umbral: 0,15 unidades), lo
-ordena por gravedad y recalcula el total de la portada.
+La web decide sola si cada indicador es pérdida, ganancia o empate (umbral: 0,15 unidades; en
+superficie, un 2 % de lo que hay), lo ordena por gravedad y recalcula el total de la portada.
 
 ## Fuentes
 
@@ -127,6 +145,8 @@ Todas oficiales y enlazadas una por una en el apartado «Cómo está hecho esto�
 - **INE** · Población por sexo, edad año a año y nacionalidad, 1 enero 2025 (tabla 68543)
 - **INE** · Indicadores Urbanos (Urban Audit): superficie total del municipio y tasa de paro, 2024
   (tablas 69333 y 69331)
+- **Copernicus** · Urban Atlas 2018: zonas verdes urbanas e instalaciones deportivas y de ocio
+- **IGN** · Unidades administrativas (WFS INSPIRE): términos municipales
 - **Comunidad de Madrid, datos abiertos** · registro de centros sanitarios, centros educativos,
   bibliotecas públicas, farmacias, registro de centros de atención social, renta disponible
   bruta municipal
@@ -242,21 +262,27 @@ los cuatro ejercicios. El gasto total por habitante también la deja abajo (medi
 ahí Leganés está a un pelo (782 €) y 2022 fue un año raro en Parla, así que no es un dato
 redondo. El de inversión sí.
 
-Estas dos cifras están en la web, en la sección **«Y ahora, el dinero»**, junto a la renta, al
+Estas dos cifras están en la web, en la sección **«Detrás de todo, el dinero»**, junto a la renta, al
 PIB municipal y a la tasa de paro. Van aparte del recuento porque son euros y no equipamientos, y
 la nota de cierre dice expresamente lo que la fuente no puede separar: cuánto de la inversión que
 falta es infrafinanciación y cuánto es la deuda que Parla arrastra en su plan de ajuste.
 
-La **tasa de paro** (INE Indicadores Urbanos, 2024) abre esa sección y es la única de las cinco
-cifras que no se dibuja con barras contra la media regional: en las otras cuatro, más alto es
-mejor, y en el paro es al revés, así que va la lista entera de los ocho municipios, ordenada, con
-Parla al final. No es el paro registrado: mide a quien busca trabajo y no lo encuentra sobre la
-población activa.
+Gasto e inversión se dicen además **en euros al año**, con la misma cuenta que el resto de la web:
+lo que Parla pone por habitante, por la población de tu ciudad. «Con la inversión de Parla, Getafe
+invertiría 25,7 millones de euros menos al año.» Por debajo de un 1 % de diferencia la web dice
+que se quedaría prácticamente igual —es el caso del gasto de Leganés— y no ofrece cartel. Renta,
+PIB y paro no se dicen así: describen a los vecinos, no lo que decide el ayuntamiento.
 
-La media de referencia que se enseña es la de **todos** los municipios de Madrid que liquidaron
-—entre 153 y 158 según el año, unos 6,7 millones de habitantes—, incluida la capital. Madrid
-capital la empuja hacia arriba: 1.345 € de gasto y 139 € de inversión con ella, 1.032 € y 112 €
-sin ella. Se enseña la más alta y se da la más baja en la nota, porque el argumento aguanta con
+Las cinco series comparan como el resto de la web, tu ciudad contra Parla, con una fila más
+arriba para la media de referencia. La **tasa de paro** (INE Indicadores Urbanos, 2024) abre la
+sección y es la única sin esa fila: la fuente da la tasa por ciudad y no publica una media de la
+Comunidad comparable, y la de la EPA es otra encuesta. No es el paro registrado: mide a quien
+busca trabajo y no lo encuentra sobre la población activa.
+
+En gasto e inversión la media es la de **todos** los municipios de Madrid que liquidaron —entre
+153 y 158 según el año, unos 6,7 millones de habitantes—, incluida la capital. Madrid capital la
+empuja hacia arriba: 1.345 € de gasto y 139 € de inversión con ella, 1.032 € y 112 € sin ella.
+Se enseña la más alta y se da la más baja en la nota, porque el argumento aguanta con
 las dos y así no hay nada que discutir.
 
 ### Plantilla médica de los hospitales: mirado y descartado
@@ -356,19 +382,35 @@ Quedaría ir teatro por teatro a la web de cada ayuntamiento: una veintena de es
 declarando su aforo a su manera —con palcos o sin ellos, ampliable o no— y cada ayuntamiento
 decidiendo qué sala merece llamarse teatro. Sería una recopilación nuestra, como las zonas verdes.
 
-### Zonas verdes: mirado y descartado
+### Zonas verdes: el único dato que calculamos nosotros
 
-No existe estadística oficial de metros cuadrados de zona verde por municipio en Madrid. El
-portal de datos abiertos de la Comunidad devuelve un único resultado buscando «zonas verdes», y
-es una tabla del censo de vivienda de 2001. El INE publica la superficie total de cada municipio
-en sus Indicadores Urbanos pero deja vacíos los usos del suelo. El País Vasco sí lo publica como
-indicador municipal; Madrid no. Las cifras que circulan en prensa salen de estudios sueltos o de
-lo que declara cada ayuntamiento, que es el mismo problema que descartó los teatros.
+No existe estadística oficial de metros cuadrados de zona verde por municipio en Madrid: el portal
+de datos abiertos de la Comunidad devuelve un único resultado buscando «zonas verdes» —una tabla
+del censo de vivienda de 2001—, y el País Vasco sí publica el indicador municipal pero Madrid no.
+El INE sí publica los usos del suelo en sus Indicadores Urbanos, pero **solo para 2014** y **sin
+Pinto**, y en una clase que mezcla el verde con las instalaciones deportivas y de ocio. Con siete
+municipios no puede entrar en el recuento.
 
-Se podría calcular con el Copernicus Urban Atlas (clase «Green urban areas», resolución de 0,25
-ha) o con el SIOSE del IGN, cruzando polígonos con los límites municipales. Sería el único dato
-de la web calculado por nosotros, y por tanto el primero que atacaría cualquiera que quisiera
-desmontarla. Descartado por eso, no por falta de medios.
+Así que se calcula, y el cómo está en `herramientas/zonas-verdes.py`, para que se pueda rehacer o
+discutir:
+
+1. **Los términos municipales**, del WFS INSPIRE del IGN. Cuadran con la superficie del INE
+   (Getafe 78,58 km² frente a 78,4), lo que sirve de comprobación.
+2. **Las superficies**, del Urban Atlas 2018 de Copernicus: las clases 14100 (zonas verdes
+   urbanas) y 14200 (instalaciones deportivas y de ocio, el «y de ocio» es del Urban Atlas),
+   recortadas contra el término municipal.
+3. **El total, por habitante**, con el padrón.
+
+Va fuera del recuento porque es una superficie y no un equipamiento que se pueda contar y tachar.
+Es un indicador más (`medida: 'superficie'`), con su ficha, sus barras en m² por habitante y su
+cartel, y **se dice cuánta superficie se perdería** con la tasa de Parla. Dato incómodo pero
+honesto: **con este cálculo Parla no es la última** (lo es Móstoles, y por poco; en Móstoles sale
+como empate). La nota de la web no lo comenta: las barras ya lo enseñan.
+
+Lo que hay que saber del dato: quien marca los polígonos es el Urban Atlas, no nosotros, y con una
+unidad mínima de 0,25 ha; **no distingue titularidad**, así que un club privado con césped cuenta
+igual que un parque; y la edición de 2012 da cifras hasta un 50 % más bajas, de modo que el número
+no sirve para comparar años entre sí.
 
 ### Superficie industrial: mirado y sustituido
 
@@ -401,10 +443,12 @@ Es una web pública, así que la copia sigue tres reglas:
 3. **Nada de jerga de desarrollo en la cara pública.** Para avisar de un error se enlaza el
    repositorio, no un nombre de archivo.
 4. **Las frases con fuerza también salen de los datos.** El golpe de la portada («Parla es la
-   última en renta por habitante y en 9 de los 15 servicios») no está escrito a mano:
-   `golpe()` recorre los indicadores en cada carga y cuenta en cuántos la tasa de Parla es la
-   mínima. Los dos números de la frase salen de ahí, así que si cambian los datos la frase cambia
-   sola.
+   última en renta por habitante y en 8 de los 12 equipamientos») no está escrito a mano:
+   `golpe()` recorre en cada carga los indicadores que suman al recuento y cuenta en cuántos la
+   tasa de Parla es la mínima. Los dos números de la frase salen de ahí, así que si cambian los
+   datos la frase cambia sola. Un empate a la cola cuenta como última, porque ninguna tiene
+   menos: de esos ocho, en cinco (Metro, universidad, conservatorio, Hacienda y Seguridad Social)
+   Parla tiene cero y alguna otra también.
 5. **Nada de antítesis.** La construcción «no es X: es Y» estaba doce veces y es lo que hacía
    que la web sonara a texto generado. Los datos se enuncian y punto.
 

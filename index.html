@@ -55,7 +55,7 @@
     <div class="marcador">
       <p class="marcador__pre">me faltarían</p>
       <p class="marcador__n"><span id="total-n">0</span></p>
-      <p class="marcador__u">equipamientos y servicios públicos.<br><span>Listados abajo, uno a uno.</span></p>
+      <p class="marcador__u">equipamientos y servicios públicos.<br><span>Listados abajo, uno a uno.</span><a class="marcador__gana" id="gana-portada" href="#ganancias"></a></p>
       <div class="marcador__rejilla" id="rejilla" aria-hidden="true"></div>
     </div>
 
@@ -81,7 +81,7 @@
 <!-- ── El recuento, de un vistazo ─────────────────────────────────────── -->
 <section class="bloque bloque--resumen" id="resumen">
   <div class="env">
-    <h2 class="bloque__h">El recuento</h2>
+    <h2 class="bloque__h">Recuento</h2>
     <p class="bloque__intro">
       El balance de <span data-aqui>Getafe</span> frente a Parla, por áreas. Cada línea lleva a
       su apartado, donde están los nombres y la fuente.
@@ -90,8 +90,9 @@
 
     <div class="recuento" id="recuento"></div>
     <p class="recuento__pie">
-      <b><span id="resumen-n">0</span> equipamientos</b> en total. Lo que aparece bajo «fuera del
-      recuento» no suma a esa cifra: se mide en plazas, en alumnos o en servicios de un hospital.
+      <span id="resumen-total"></span> Lo que aparece bajo «fuera del
+      recuento» no suma a esa cifra: se mide en camas, en plazas, en alumnos, en superficie o en
+      servicios de un hospital.
     </p>
   </div>
 </section>
@@ -99,7 +100,7 @@
 <!-- ── El punto de partida ───────────────────────────────────────────── -->
 <section class="bloque bloque--partida" id="partida">
   <div class="env">
-    <h2 class="bloque__h">El punto de partida</h2>
+    <h2 class="bloque__h">Punto de partida</h2>
     <p class="bloque__intro">
       Dos municipios del área metropolitana de Madrid con tamaños distintos. Por eso los
       equipamientos se cuentan por habitante y no en bruto. Y tampoco tienen la misma edad: los
@@ -123,18 +124,10 @@
   <div id="lista-perdidas"></div>
 </section>
 
-<!-- ── El hospital ───────────────────────────────────────────────────── -->
-<section class="bloque bloque--hospital" id="hospital">
-  <div class="env">
-    <h2 class="bloque__h">Y luego está el hospital</h2>
-    <div id="hospital-cuerpo"></div>
-  </div>
-</section>
-
 <!-- ── Lo que ganarías ───────────────────────────────────────────────── -->
 <section class="bloque bloque--ganancias" id="ganancias">
   <div class="env">
-    <h2 class="bloque__h">Y esto lo ganarías</h2>
+    <h2 class="bloque__h">Lo que ganarías</h2>
     <p class="bloque__intro">
       Hay servicios en los que Parla está por encima de <span data-aqui>Getafe</span> una vez
       ajustada la población de referencia. Estos son.
@@ -146,10 +139,10 @@
 <!-- ── El dinero ─────────────────────────────────────────────────────── -->
 <section class="bloque bloque--dinero" id="dinero">
   <div class="env">
-    <h2 class="bloque__h">Y ahora, el dinero</h2>
+    <h2 class="bloque__h">Detrás de todo, el dinero</h2>
     <p class="bloque__intro">
-      Hasta aquí se han contado cosas. Esto es lo que hay detrás: cinco cifras oficiales,
-      del trabajo que falta a lo que tu ayuntamiento llega a construir.
+      Hasta aquí se han contado cosas. Estas cinco cifras oficiales van del trabajo que falta a
+      lo que tu ayuntamiento llega a construir.
     </p>
 
     <div class="dinero" id="dinero-cuerpo"></div>
@@ -164,7 +157,7 @@
     <h2 class="bloque__h">Cómo está hecho esto</h2>
 
     <div class="metodo__cuerpo">
-      <h3>La cuenta que hace esta web</h3>
+      <h3>La cuenta que hacemos</h3>
       <p>
         Para cada servicio se calcula la tasa de Parla y se aplica a la población de referencia de
         <span data-aqui>Getafe</span>. La diferencia con lo que hay hoy es lo que aparece en rojo.
@@ -198,6 +191,29 @@
         cerraría. El número sí es exacto.
       </p>
 
+      <h3>Lo que va fuera del recuento</h3>
+      <p>
+        La cifra de la portada suma solo equipamientos que se pueden contar uno a uno. Las camas,
+        las plazas de residencia, los alumnos, la superficie verde y los servicios del hospital se
+        enseñan aparte, bajo «Fuera del recuento». Si tu ciudad sale ganando en algo que sí suma,
+        se dice al lado del total, pero no se le resta.
+      </p>
+
+      <h3>Lo que calculamos nosotros</h3>
+      <p>
+        Todas las cifras salen de fuentes oficiales menos una: las zonas verdes e instalaciones
+        deportivas. Ninguna estadística las publica por municipio, así que se miden sobre el
+        Urban Atlas de Copernicus, dentro de los términos municipales del IGN. El cálculo está en
+        <a href="https://github.com/Nisgrak/si-yo-viviera-como-en-parla">el repositorio</a>.
+      </p>
+
+      <h3>El dinero</h3>
+      <p>
+        El gasto y la inversión municipales salen de las liquidaciones de presupuestos que publica
+        el Ministerio de Hacienda, en media de 2021 a 2024. Los euros al año son la misma cuenta
+        que el resto: lo que Parla gasta o invierte por habitante, por la población de tu ciudad.
+      </p>
+
       <h3>De dónde sale la población</h3>
       <p>
         Cifras oficiales del INE a 1 de enero de 2025: <span id="pob-metodo">—</span>.
@@ -221,8 +237,8 @@
   <div class="env">
     <p class="pie__frase">Parla no es un caso raro.<br>Es lo que pasa cuando el reparto lo decide otro.</p>
     <p class="pie__meta">
-      Hecho con datos abiertos del INE y de la Comunidad de Madrid por un parleño
-      preocupado por su municipio.
+      Hecho con datos abiertos del INE, la Comunidad de Madrid, los ministerios de Hacienda y de
+      Sanidad, el IGN y Copernicus, por un parleño preocupado por su municipio.
     </p>
   </div>
 </footer>

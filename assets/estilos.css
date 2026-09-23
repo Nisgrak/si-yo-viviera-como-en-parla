@@ -326,6 +326,14 @@ a:hover { text-decoration-color: var(--ref); }
   text-wrap: balance;
 }
 .marcador__u span { display: block; color: var(--ink-3); font-weight: 400; }
+/* Lo que se gana, justo debajo: en verde y más discreto que la cifra. */
+.marcador__gana {
+  display: block; margin-top: .35rem;
+  color: var(--gain-ink); font-weight: 600;
+  text-decoration: none;
+}
+.marcador__gana:empty { display: none; }
+.marcador__gana:hover { text-decoration: underline; }
 .marcador__rejilla {
   grid-area: r;
   margin-top: 1rem;
@@ -368,39 +376,7 @@ a:hover { text-decoration-color: var(--ref); }
   font-size: 1rem;
 }
 
-/* ── Renta ────────────────────────────────────────────────────────────── */
-
-.renta { margin-top: clamp(2rem, 7vw, 2.75rem); }
-
-.renta__fila {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: baseline;
-  gap: .5rem 1rem;
-  padding-block: .9rem;
-  border-top: 1px solid var(--line);
-}
-.renta__fila:last-of-type { border-bottom: 1px solid var(--line); }
-.renta__quien { font-weight: 700; color: var(--ink); font-size: 1rem; }
-.renta__cuanto {
-  font-weight: 800; font-stretch: 84%; font-size: 1.5rem;
-  letter-spacing: -.02em; color: var(--ink);
-}
-.renta__barra {
-  grid-column: 1 / -1;
-  height: 8px; border-radius: 4px;
-  background: var(--surface-2);
-  overflow: hidden;
-}
-.renta__barra i {
-  display: block; height: 100%; border-radius: 4px;
-  background: var(--line-alta);
-  transform-origin: left;
-}
-.renta__fila[data-destacar='referencia'] .renta__cuanto { color: var(--loss); }
-.renta__fila[data-destacar='referencia'] .renta__barra i { background: var(--loss); }
-.renta__fila[data-destacar='aqui'] .renta__barra i { background: var(--ref); }
-.renta__pct { font-size: .8125rem; color: var(--ink-3); grid-column: 1 / -1; margin-top: -.15rem; }
+/* ── Notas bajo un gráfico ─────────────────────────────────────────── */
 
 .renta__nota {
   margin-top: 1.5rem;
@@ -417,10 +393,10 @@ a:hover { text-decoration-color: var(--ref); }
   color: var(--ink-2);
 }
 
-/* La tasa de paro no cabe en las barras de «más es mejor»: va su propia lista,
-   de menos a más, para que se vea dónde cae cada municipio. */
-.paro { list-style: none; margin: 1.1rem 0 0; padding: 0; }
-.paro__fila {
+/* Las filas del dinero: la media de referencia, tu ciudad y Parla, cada una con
+   su barra proporcional a la mayor. */
+.mun { list-style: none; margin: 1.1rem 0 0; padding: 0; }
+.mun__fila {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 38%);
   align-items: center;
@@ -428,19 +404,19 @@ a:hover { text-decoration-color: var(--ref); }
   padding-block: .4rem;
   border-top: 1px solid var(--line);
 }
-.paro__fila:last-child { border-bottom: 1px solid var(--line); }
-.paro__q { font-size: .875rem; color: var(--ink-3); min-width: 0; }
-.paro__v {
+.mun__fila:last-child { border-bottom: 1px solid var(--line); }
+.mun__q { font-size: .875rem; color: var(--ink-3); min-width: 0; }
+.mun__v {
   font-size: .9375rem; font-weight: 700; color: var(--ink);
   font-variant-numeric: tabular-nums; white-space: nowrap;
 }
-.paro__barra { height: 8px; border-radius: 4px; background: var(--surface-2); overflow: hidden; }
-.paro__barra i { display: block; height: 100%; border-radius: 4px; background: var(--line-alta); }
-.paro__fila[data-quien='referencia'] .paro__q { color: var(--loss); font-weight: 700; }
-.paro__fila[data-quien='referencia'] .paro__v { color: var(--loss); }
-.paro__fila[data-quien='referencia'] .paro__barra i { background: var(--loss); }
-.paro__fila[data-quien='aqui'] .paro__q { color: var(--ink); font-weight: 700; }
-.paro__fila[data-quien='aqui'] .paro__barra i { background: var(--ref); }
+.mun__barra { height: 8px; border-radius: 4px; background: var(--surface-2); overflow: hidden; }
+.mun__barra i { display: block; height: 100%; border-radius: 4px; background: var(--line-alta); }
+.mun__fila[data-quien='referencia'] .mun__q { color: var(--loss); font-weight: 700; }
+.mun__fila[data-quien='referencia'] .mun__v { color: var(--loss); }
+.mun__fila[data-quien='referencia'] .mun__barra i { background: var(--loss); }
+.mun__fila[data-quien='aqui'] .mun__q { color: var(--ink); font-weight: 700; }
+.mun__fila[data-quien='aqui'] .mun__barra i { background: var(--ref); }
 
 /* ── El dinero: cinco series, cuatro con la misma forma ───────────────── */
 
@@ -467,7 +443,22 @@ a:hover { text-decoration-color: var(--ref); }
   color: var(--ink-3);
 }
 /* Dentro de la sección las barras van pegadas a su título. */
-.plata .renta { margin-top: 1.1rem; }
+
+/* Gasto e inversión en euros al año: la frase que se comparte. */
+.plata__titular {
+  margin-top: .9rem;
+  font-size: clamp(1.125rem, 4.6vw, 1.375rem);
+  font-weight: 700; font-stretch: 88%;
+  line-height: 1.2; letter-spacing: -.015em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.plata__titular .cifra {
+  font-weight: 800; font-stretch: 80%;
+  color: var(--loss);
+  white-space: nowrap;
+}
+.plata .compartir { margin-top: 1.25rem; }
 .plata .renta__nota { margin-top: 1.1rem; }
 
 .dinero__cierre {
@@ -807,6 +798,7 @@ a:hover { text-decoration-color: var(--ref); }
   color: var(--loss);
   font-variant-numeric: tabular-nums;
 }
+.area--gana .area__n { color: var(--gain); }
 .area--extra .area__cab { border-bottom-color: var(--line-alta); }
 .area--extra .area__q { color: var(--ink-3); }
 
@@ -852,6 +844,7 @@ a:hover { text-decoration-color: var(--ref); }
   max-width: 32rem;
 }
 .recuento__pie b { color: var(--loss); }
+.recuento__pie b.gana { color: var(--gain-ink); }
 
 /* ── Estructura de edad ───────────────────────────────────────────────── */
 
@@ -953,6 +946,29 @@ a:hover { text-decoration-color: var(--ref); }
 .ind__ico { width: 1.25rem; height: 1.25rem; }
 .ind__ico svg { display: block; width: 100%; height: 100%; }
 .ind--gana .ind__grupo { color: var(--gain-ink); }
+
+/* El separador de «fuera del recuento»: corta la lista como un título de
+   sección, a sangre, para que se vea que lo de debajo es otra cuenta. */
+.separador {
+  margin-top: clamp(2rem, 7vw, 3rem);
+  margin-inline: calc(50% - 50vw);
+  padding: clamp(2.5rem, 9vw, 3.75rem) calc(50vw - 50%);
+  background: var(--surface);
+  border-block: 1px solid var(--line);
+}
+.separador__h {
+  font-weight: 800; font-stretch: 80%;
+  font-size: clamp(1.5rem, 6.5vw, 2.25rem);
+  line-height: .96; letter-spacing: -.03em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.separador__p {
+  margin-top: 1rem; max-width: 34rem;
+  font-size: 1rem;
+  color: var(--ink-3);
+}
+.separador + .ind { border-top: 0; }
 
 .ind__h {
   margin-top: .5rem;
@@ -1127,47 +1143,6 @@ details.plegable[open] > summary { margin-bottom: .2rem; }
 }
 .ind__fuente a { color: var(--ink-3); }
 .ind__fuente a:hover { color: var(--ink-2); }
-
-/* ── Hospital ─────────────────────────────────────────────────────────── */
-
-.bloque--hospital { background: var(--surface); }
-
-.hospital__golpe {
-  margin-top: clamp(1.75rem, 6vw, 2.5rem);
-  max-width: 32rem;
-  font-size: 1.0625rem;
-  color: var(--ink);
-}
-.hospital__golpe b { color: var(--loss); }
-
-.unidades {
-  margin-top: 1.5rem;
-  display: grid; gap: 0;
-}
-.unidades--gana .unidad::before { content: '✓'; color: var(--gain-ink); }
-.hospital__golpe--gana { margin-top: 2.25rem; }
-.hospital__golpe--gana b { color: var(--gain-ink); }
-.unidad {
-  display: grid; grid-template-columns: 18px 1fr; align-items: baseline; gap: .7rem;
-  padding-block: .6rem;
-  border-bottom: 1px solid var(--surface-2);
-  color: var(--ink-2);
-  font-size: .9375rem;
-}
-.unidad::before {
-  content: '✕';
-  color: var(--loss);
-  font-size: .8em;
-  line-height: inherit;
-}
-.unidad--grave {
-  font-size: clamp(1.125rem, 5vw, 1.375rem);
-  font-weight: 700; font-stretch: 88%;
-  letter-spacing: -.015em;
-  color: var(--ink);
-  padding-block: .72rem;
-}
-.unidad--grave::before { font-size: .7em; }
 
 .cautela {
   margin-top: 1.5rem;
