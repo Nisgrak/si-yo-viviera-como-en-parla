@@ -101,6 +101,12 @@ debajo con las unidades que de verdad aparecen para esa ciudad:
   tiene, y es la réplica más fácil de toda la web. Se quitan de las listas y del total de
   unidades de cada ciudad.
 
+  Lo que se pierde va ordenado de más a menos grave (`hospitales.gravedad`), y es lo que decide
+  qué nombres caben en el cartel: sin orden, el de Getafe abría con Angiología y Banco de tejidos
+  y dejaba fuera Neurocirugía. El orden no sale de ninguna fuente, es nuestro: primero lo que
+  atiende una urgencia vital, después la cirugía y el diagnóstico complejos, luego lo que se hace
+  con cita y al final la reproducción asistida.
+
 Se marcan con `enTotal: false` en `datos/datos.js`, con un campo `mide` que dice en qué se miden.
 
 **La portada da lo que se pierde, no el neto.** Si la ciudad también gana algo que sí suma

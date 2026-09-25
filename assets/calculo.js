@@ -103,7 +103,12 @@
     const fuera = D.hospitales.noComparables;
     const vale = function (u) { return fuera.indexOf(u) < 0; };
     const h = D.hospitales[AQUI];
-    const caen = h.faltanEnReferencia.filter(vale);
+    /* De más a menos grave, que es lo que decide qué cabe en el cartel. */
+    const orden = D.hospitales.gravedad || [];
+    const puesto = function (u) { const i = orden.indexOf(u); return i < 0 ? orden.length : i; };
+    const caen = h.faltanEnReferencia.filter(vale).sort(function (x, y) {
+      return (puesto(x) - puesto(y)) || x.localeCompare(y, 'es');
+    });
     const nuevas = h.faltanAqui.filter(vale);
     const delta = caen.length ? caen.length : -nuevas.length;
     /* Del total solo se quita lo que la ciudad declara: lo que Parla no tiene. */

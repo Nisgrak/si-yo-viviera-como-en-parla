@@ -837,6 +837,23 @@ window.DATOS = (function () {
        de hematología, Microbiología y Medicina preventiva. Se descuentan
        también del total de unidades de cada ciudad. */
     noComparables: ['Otras unidades asistenciales', 'Laboratorio Clínico', 'Vacunación'],
+    /* El orden en que se enseña lo que se pierde, de más a menos grave, y por
+       tanto qué nombres caben en el cartel. No sale de ninguna fuente: es
+       nuestro. Primero lo que atiende una urgencia vital,
+       después la cirugía y el diagnóstico complejos, luego lo que se hace con
+       cita y al final la reproducción asistida. Lo que no esté en la lista va
+       detrás, por orden alfabético. */
+    gravedad: [
+      'Hemodinámica', 'Cuidados intensivos neonatales', 'Neurocirugía', 'Cirugía cardiaca',
+      'Quemados', 'Radioterapia', 'Cirugía torácica', 'Angiología y Cirugía Vascular',
+      'Cirugía pediátrica', 'Medicina nuclear', 'Neurofisiología', 'Cirugía maxilofacial',
+      'Cirugía plástica y reparadora', 'Genética', 'Interrupción voluntaria del embarazo',
+      'Litotricia renal', 'Banco de tejidos', 'Farmacología clínica', 'Logopedia', 'Foniatría',
+      'Odontología/Estomatología', 'Planificación familiar', 'Cirugía refractiva',
+      'Medicina general/de familia', 'Fecundación in vitro', 'Inseminación artificial',
+      'Recuperación de oocitos', 'Banco de embriones', 'Banco de oocitos', 'Banco de semen',
+      'Laboratorio de semen para capacitación espermática'
+    ],
     getafe: {
       nombre: 'Hospital Universitario de Getafe',
       unidades: 74,
