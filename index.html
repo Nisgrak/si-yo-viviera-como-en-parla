@@ -12,7 +12,12 @@
 <meta property="og:title" content="Si yo viviera como en Parla">
 <meta property="og:description" content="Getafe, Leganés, Fuenlabrada, Alcorcón, Móstoles, Alcobendas o Pinto: cuántos equipamientos públicos desaparecerían si tu ciudad estuviera dotada igual que Parla. Con sus nombres.">
 <meta property="og:locale" content="es_ES">
-<meta name="twitter:card" content="summary">
+<meta property="og:url" content="https://siyovivieracomoenparla.netlify.app/">
+<meta property="og:image" content="https://siyovivieracomoenparla.netlify.app/assets/compartir/general.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Si yo viviera como en Parla: cuántos servicios públicos perdería tu ciudad">
+<meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="assets/icono.svg" type="image/svg+xml">
 <link rel="mask-icon" href="assets/icono.svg" color="#c02719">
@@ -57,9 +62,8 @@
       <p class="marcador__n"><span id="total-n">0</span></p>
       <p class="marcador__u">equipamientos y servicios públicos.<br><span>Listados abajo, uno a uno.</span><a class="marcador__gana" id="gana-portada" href="#ganancias"></a></p>
       <div class="marcador__rejilla" id="rejilla" aria-hidden="true"></div>
+      <div class="portada__cartel" id="portada-cartel"></div>
     </div>
-
-    <div class="portada__cartel" id="portada-cartel"></div>
 
     <p class="portada__pie">
       <span data-aqui>Getafe</span> tiene <b id="pob-a">—</b> habitantes; Parla,
@@ -128,10 +132,7 @@
 <section class="bloque bloque--ganancias" id="ganancias">
   <div class="env">
     <h2 class="bloque__h">Lo que ganarías</h2>
-    <p class="bloque__intro">
-      Hay servicios en los que Parla está por encima de <span data-aqui>Getafe</span> una vez
-      ajustada la población de referencia. Estos son.
-    </p>
+    <p class="bloque__intro" id="ganancias-intro"></p>
   </div>
   <div id="lista-ganancias"></div>
 </section>
@@ -170,8 +171,8 @@
         <span>base de Parla</span> × <span>base de tu ciudad</span>
       </p>
       <p>
-        Los decimales se muestran sin redondear. Miden la distancia exacta entre una ciudad y
-        otra en ese servicio, y redondearlos la escondería.
+        Las cifras llevan un decimal y no se redondean a enteros. Ese decimal mide la distancia
+        entre una ciudad y otra en ese servicio, y quitarlo la escondería.
       </p>
 
       <h3>Contra qué población se mide cada cosa</h3>
@@ -252,6 +253,7 @@
 <div class="cartel" id="cartel" aria-hidden="true"></div>
 
 <script src="datos/datos.js"></script>
+<script src="assets/calculo.js"></script>
 <script src="assets/qr.js"></script>
 <script src="assets/app.js"></script>
 </body>

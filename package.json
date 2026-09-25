@@ -1,0 +1,15 @@
+{
+  "name": "si-yo-viviera-como-en-parla",
+  "private": true,
+  "description": "La web no necesita nada de esto: se abre index.html y funciona. Esto es solo el build de Netlify, que añade la vista previa de cada ciudad.",
+  "scripts": {
+    "build": "node herramientas/compartir.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@takumi-rs/core": "^2.14.0",
+    "@takumi-rs/helpers": "^2.14.0"
+  }
+}

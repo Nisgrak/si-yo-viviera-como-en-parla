@@ -56,7 +56,7 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 - **El golpe se calcula, no se escribe.** La frase de la portada que resume el agravio sale de
   contar posiciones en los datos. Así no puede quedarse obsoleta ni decir más de lo que hay.
 - **El selector es la frase.** Elegir municipio no es un control aparte: es la primera palabra
-  del titular. «Vivo en [Getafe] y si viviera como en Parla… me faltarían 47». El desplegable
+  del titular. «Vivo en [Getafe] y si viviera como en Parla… me faltarían 50». El desplegable
   lleva el mismo tipo y el mismo peso que el resto del titular, en azul y subrayado para que se
   vea que se toca.
 - **Jerarquía de lectura:** portada → «El recuento» (todo lo que cae, con nombre, en una
@@ -83,10 +83,11 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 
 ## Estado
 
-v4: siete ciudades contra Parla —Leganés 67, Fuenlabrada 61, Móstoles 59, Alcorcón 58,
-Getafe 47, Alcobendas 21, Pinto 9—
-con 12 indicadores, más las plazas residenciales públicas y la cartera del hospital, que se
-cuentan aparte. Pinto es el contraejemplo que sostiene la credibilidad: pierde poco y en
+v5: siete ciudades contra Parla —Leganés 69, Fuenlabrada 63, Móstoles 61, Alcorcón 61,
+Getafe 50, Alcobendas 24, Pinto 9—
+con 12 indicadores que suman, y aparte, fuera del recuento, las camas, las plazas
+residenciales públicas, los alumnos de enseñanzas artísticas, las zonas verdes, la cartera del
+hospital y el dinero. Pinto es el contraejemplo que sostiene la credibilidad: pierde poco y en
 hospital está por debajo de Parla, y la web lo dice en su propia portada.
 
 Siguiente: distritos de Madrid; después, deporte, zonas verdes y teatros cuando haya una fuente

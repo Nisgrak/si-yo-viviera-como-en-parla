@@ -3,3 +3,6 @@ node_modules/
 
 # caché de herramientas/zonas-verdes.py (los recortes del WFS del IGN)
 herramientas/.cache/
+
+# lo que monta el build de Netlify (herramientas/compartir.mjs)
+dist/

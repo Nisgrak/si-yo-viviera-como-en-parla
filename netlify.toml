@@ -1,0 +1,8 @@
+# La web no necesita build: se abre index.html y funciona. Este solo añade la
+# vista previa de cada ciudad al compartir el enlace (herramientas/compartir.mjs).
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"

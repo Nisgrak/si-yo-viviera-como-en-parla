@@ -23,7 +23,7 @@ pequeña, y tampoco tiene universidad ni conservatorio. Ninguno de los dos tiene
 propio, así que en sanidad hospitalaria están **por debajo** de Parla. La web lo dice.
 
 **Móstoles** es el único con dos hospitales públicos (el Universitario de Móstoles y el Rey Juan
-Carlos); se compara la unión de sus dos carteras, 79 unidades frente a las 54 de Parla.
+Carlos); se compara la unión de sus dos carteras, 76 unidades frente a las 54 de Parla.
 
 ## Cómo funciona
 
@@ -90,9 +90,16 @@ debajo con las unidades que de verdad aparecen para esa ciudad:
   la tasa: se compara su cartera, las unidades asistenciales que declara uno y no el otro, en los
   dos sentidos. Es una ficha más de Sanidad, montada en `app.js` (`cartera()`) a partir de
   `hospitales`, y se tachan sus nombres como los de las bibliotecas. No suma porque una unidad
-  asistencial no pesa lo que una farmacia —entre las de Getafe están Neurocirugía y Vacunación—,
+  asistencial no pesa lo que una farmacia —entre las de Getafe están Neurocirugía y Logopedia—,
   porque parte de la diferencia es cómo declara cada centro su cartera, y porque en Pinto y
   Alcobendas, sin hospital, un solo hospital pesaría como 54 farmacias.
+
+  Tres unidades del registro no entran (`hospitales.noComparables`): «Otras unidades
+  asistenciales», que no dice qué servicio es, y «Laboratorio Clínico» y «Vacunación», que los
+  demás declaran y el Infanta Cristina cubre con otros epígrafes (Bioquímica clínica,
+  Laboratorio de hematología, Microbiología, Medicina preventiva). Salían como algo que Parla no
+  tiene, y es la réplica más fácil de toda la web. Se quitan de las listas y del total de
+  unidades de cada ciudad.
 
 Se marcan con `enTotal: false` en `datos/datos.js`, con un campo `mide` que dice en qué se miden.
 
@@ -107,17 +114,41 @@ porque lo que desaparece desaparece aunque aparezca otra cosa.
 ```
 index.html            estructura y textos fijos
 assets/estilos.css    todo el diseño
-assets/app.js         el cálculo y el render
+assets/calculo.js     la cuenta: qué se pierde, qué se gana y cuánto suma la portada
+assets/app.js         el render
 assets/fuentes/       la tipografía Archivo, servida desde aquí (OFL 1.1)
 assets/cartel/        los dos fondos del cartel para compartir
 assets/qr.js          el QR de cada municipio, ya trazado (lo traza herramientas/qr.py)
 datos/datos.js        LOS DATOS  ←  lo único que hay que tocar
-herramientas/         los dos scripts que rehacen lo que no se teclea: el QR y las zonas verdes
+herramientas/         lo que rehace lo que no se teclea: el QR, las zonas verdes y el build
+                      que añade la vista previa de cada ciudad (compartir.mjs)
 ```
 
-No hay build, ni dependencias, ni framework. Se abre `index.html` y funciona.
-El municipio se guarda en la URL (`#leganes`) y en el navegador, así que los enlaces son
-compartibles.
+La web no necesita build, ni dependencias, ni framework: se abre `index.html` y funciona. El
+municipio se guarda en la URL y en el navegador, así que los enlaces son compartibles.
+
+### La vista previa de cada ciudad
+
+WhatsApp y las redes no ejecutan JavaScript ni leen lo que va detrás de `#`, así que para que
+el enlace de cada ciudad enseñe su cifra hace falta un HTML propio con sus etiquetas `og` y su
+imagen. Eso lo monta Netlify en cada publicación (`netlify.toml` → `npm run build` →
+`herramientas/compartir.mjs`), en `dist/`:
+
+- la web tal cual;
+- `dist/leganes/index.html`, una página mínima con la cifra en el título, que manda a
+  `/#leganes`;
+- `dist/assets/compartir/leganes.png`, la imagen con la cifra, y `general.png`, la de la portada.
+
+La cifra no se teclea: el build carga `datos.js` y `calculo.js`, los mismos archivos que el
+navegador, así que no hay una segunda cuenta que pueda separarse. Y como se rehace en cada push,
+no hay nada que acordarse de regenerar. Las imágenes las pinta
+[Takumi](https://takumi.kane.tw), en Node y sin navegador.
+
+En lo publicado, la web cambia la barra de direcciones a `/leganes/`, que es el enlace que se
+copia. Lo sabe porque el build marca el `<html>` con `data-rutas`. Abierta desde la carpeta no
+existen esas páginas, así que se queda con `#leganes`.
+
+Para verlo en local: `npm install && npm run build`, y servir `dist/`.
 
 ## Añadir un municipio
 
@@ -128,11 +159,13 @@ En `datos/datos.js`:
 3. Añade su bloque en `datos` dentro de **cada** indicador, con `n` y `lista`.
 4. Añade su entrada en `hospitales` y en `contexto`: `edades`, `superficie`, cada serie de
    `dinero` y `zonasVerdes`, que imprime `herramientas/zonas-verdes.py`.
+5. Rehaz el QR (`python3 herramientas/qr.py`). La vista previa se genera sola al publicar.
 
 El recuento de arriba y la lista con nombres de abajo van **en el mismo orden**: por áreas, la
-que más pierde primero, y dentro de cada una por porcentaje perdido. Lo calcula `porAreas()` una
-sola vez y lo usan las dos, para que no puedan separarse al tocar cualquiera de las dos. Lo que no
-suma va al final de la lista, tras el separador, agrupado por área.
+que más pierde primero, y dentro de cada una por porcentaje perdido: quedarse sin la única
+universidad pesa más que perder 3 institutos de 13. Lo calcula `porAreas()` una sola vez y lo
+usan las dos, para que no puedan separarse al tocar cualquiera de las dos. Lo que no suma va al
+final de la lista, tras el separador, agrupado por área.
 
 La web decide sola si cada indicador es pérdida, ganancia o empate (umbral: 0,15 unidades; en
 superficie, un 2 % de lo que hay), lo ordena por gravedad y recalcula el total de la portada.
@@ -172,10 +205,6 @@ incorporarlos:
   una diferencia de 2,5× entre vecinos que huele a criterio de registro, no a realidad.
 - **Instalaciones deportivas municipales.** El último Censo Nacional de Instalaciones
   Deportivas del CSD es de 2005 y la Comunidad de Madrid no publica un registro municipal.
-- **Zonas verdes por habitante.** El INE publica la superficie total de cada municipio en sus
-  Indicadores Urbanos, pero deja vacíos los porcentajes de uso del suelo para todos ellos. La
-  única vía sería calcularlo yo sobre el Copernicus Urban Atlas, y eso sería una estimación
-  mía, no una cifra oficial citable.
 - **Plantilla policial, local y nacional.** Ningún organismo publica efectivos por municipio.
   Castilla y León sí publica los de su policía local; la Comunidad de Madrid no. Y el Ministerio
   del Interior da los de la Policía Nacional **por provincia**, nunca por comisaría: su catálogo

@@ -515,7 +515,11 @@ window.DATOS = (function () {
       grupo: 'Educación',
       titulo: 'Colegios públicos de infantil y primaria',
       fuenteId: 'educacion',
-      nota: 'Con la población total como divisor, Parla saldría bien parada. Al dividir entre los niños en edad escolar deja de estarlo, porque es el municipio más joven de los {N}.',
+      nota: 'Se comparan contra los niños y niñas de 3 a 11 años de cada ciudad, no contra la población total, porque Parla es el municipio más joven de los {N}.',
+      /* Solo donde el divisor le da la vuelta al resultado: con la población
+         total Parla no saldría por debajo, y con los niños en edad escolar sí.
+         Lo decide app.js ciudad a ciudad; en el resto va `nota`. */
+      notaGiro: 'Con la población total como divisor, Parla saldría bien parada frente a {aqui}. Al dividir entre los niños en edad escolar deja de estarlo, porque es el municipio más joven de los {N}.',
       datos: {
         getafe: {
           n: 29,
@@ -826,6 +830,13 @@ window.DATOS = (function () {
 
   /* Los hospitales no se reparten por habitante: se compara su cartera de servicios. */
   const hospitales = {
+    /* Unidades del registro que no entran en la comparación. «Otras unidades
+       asistenciales» no dice qué servicio es. «Laboratorio Clínico» y
+       «Vacunación» los declaran los demás hospitales, pero el de Parla cubre lo
+       mismo con otros epígrafes de su cartera: Bioquímica clínica, Laboratorio
+       de hematología, Microbiología y Medicina preventiva. Se descuentan
+       también del total de unidades de cada ciudad. */
+    noComparables: ['Otras unidades asistenciales', 'Laboratorio Clínico', 'Vacunación'],
     getafe: {
       nombre: 'Hospital Universitario de Getafe',
       unidades: 74,
@@ -1055,7 +1066,7 @@ window.DATOS = (function () {
         id: 'paro',
         /* Sin media regional: esta fuente da la tasa por ciudad y no publica una
            de la Comunidad comparable. La de la EPA es otra encuesta. */
-        titulo: 'Lo que le falta a quien busca trabajo',
+        titulo: 'Quien busca trabajo y no lo encuentra',
         pie: 'Tasa de paro, 2024',
         valores: {
           getafe: 10.01,
@@ -1072,7 +1083,7 @@ window.DATOS = (function () {
       },
       {
         id: 'renta',
-        refNombre: 'Comunidad de Madrid',
+        refNombre: 'Media de la Comunidad',
         mediaRegional: 23159,
         titulo: 'Lo que gana quien vive aquí',
         pie: 'Renta disponible bruta por habitante, 2023',
@@ -1091,7 +1102,7 @@ window.DATOS = (function () {
       },
       {
         id: 'pib',
-        refNombre: 'Comunidad de Madrid',
+        refNombre: 'Media de la Comunidad',
         mediaRegional: 43413,
         titulo: 'Lo que se produce aquí',
         pie: 'PIB por habitante, 2023',
@@ -1121,7 +1132,7 @@ window.DATOS = (function () {
       },
       {
         id: 'gasto',
-        refNombre: 'Municipios de Madrid',
+        refNombre: 'Media de la Comunidad',
         mediaRegional: 1345,
         /* Madrid capital la empuja hacia arriba; se enseñan las dos. */
         mediaSinCapital: 1032,
@@ -1145,7 +1156,7 @@ window.DATOS = (function () {
       },
       {
         id: 'inversion',
-        refNombre: 'Municipios de Madrid',
+        refNombre: 'Media de la Comunidad',
         mediaRegional: 139,
         /* Madrid capital la empuja hacia arriba; se enseñan las dos. */
         mediaSinCapital: 112,
@@ -1179,7 +1190,7 @@ window.DATOS = (function () {
       alcobendas: 707,
       mostoles: 370
     },
-    dineroNota: 'Las cinco cifras se encadenan: donde hay menos trabajo se produce poco, donde se produce poco se recauda poco —{ref} ingresa {impuestosRef} € por habitante en impuestos directos y {aqui}, {impuestosAqui}— y donde se recauda poco se gasta y se construye poco. Cuánto de ese último escalón es infrafinanciación y cuánto es la deuda que Parla arrastra en su plan de ajuste, esta fuente no lo separa.'
+    dineroNota: 'En impuestos directos, sobre todo el IBI, {ref} ingresa {impuestosRef} € por habitante y {aqui}, {impuestosAqui}. Con menos ingresos propios hay menos margen para gastar e invertir. Cuánto de la inversión que falta es infrafinanciación y cuánto es la deuda que Parla arrastra en su plan de ajuste, esta fuente no lo separa.'
   };
 
   /* El verde entra como un indicador más, con la misma cuenta que el resto,

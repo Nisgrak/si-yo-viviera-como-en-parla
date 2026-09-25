@@ -298,7 +298,7 @@ a:hover { text-decoration-color: var(--ref); }
   border-top: 1px solid var(--line);
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-template-areas: 'p p' 'n u' 'r r';
+  grid-template-areas: 'p p' 'n u' 'r r' 'k k';
   column-gap: clamp(.8rem, 3vw, 1.2rem);
   align-items: center;
 }
@@ -394,7 +394,8 @@ a:hover { text-decoration-color: var(--ref); }
 }
 
 /* Las filas del dinero: la media de referencia, tu ciudad y Parla, cada una con
-   su barra proporcional a la mayor. */
+   su barra proporcional a la mayor. Los papeles, los del resto de la web: tu
+   ciudad en gris, Parla en azul, y la media más clara que las dos. */
 .mun { list-style: none; margin: 1.1rem 0 0; padding: 0; }
 .mun__fila {
   display: grid;
@@ -412,11 +413,10 @@ a:hover { text-decoration-color: var(--ref); }
 }
 .mun__barra { height: 8px; border-radius: 4px; background: var(--surface-2); overflow: hidden; }
 .mun__barra i { display: block; height: 100%; border-radius: 4px; background: var(--line-alta); }
-.mun__fila[data-quien='referencia'] .mun__q { color: var(--loss); font-weight: 700; }
-.mun__fila[data-quien='referencia'] .mun__v { color: var(--loss); }
-.mun__fila[data-quien='referencia'] .mun__barra i { background: var(--loss); }
+.mun__fila[data-quien='referencia'] .mun__q { color: var(--ref); font-weight: 700; }
+.mun__fila[data-quien='referencia'] .mun__barra i { background: var(--ref); }
 .mun__fila[data-quien='aqui'] .mun__q { color: var(--ink); font-weight: 700; }
-.mun__fila[data-quien='aqui'] .mun__barra i { background: var(--ref); }
+.mun__fila[data-quien='aqui'] .mun__barra i { background: var(--ink-3); }
 
 /* ── El dinero: cinco series, cuatro con la misma forma ───────────────── */
 
@@ -495,7 +495,7 @@ a:hover { text-decoration-color: var(--ref); }
 
 /* El cartel del total: la unidad tachada va en rojo, que es su color. */
 .compartir--general .compartir__ico { color: var(--loss); }
-.portada__cartel { margin-top: 1.4rem; }
+.portada__cartel { grid-area: k; justify-self: start; margin-top: 1.4rem; }
 
 /* ── Elegir el cartel ─────────────────────────────────────────────────── */
 
@@ -869,71 +869,10 @@ a:hover { text-decoration-color: var(--ref); }
   max-width: 24rem;
 }
 
-.edades__grafico { display: grid; gap: .55rem; }
+.edades__grafico { display: grid; gap: 1.1rem; }
 
-.edad {
-  display: grid;
-  grid-template-columns: 7.25rem 1fr 3rem;
-  align-items: center; gap: .6rem;
-}
-.edad__q { font-size: .8125rem; font-weight: 600; color: var(--ink-2); }
-
-.edad__pista {
-  position: relative;
-  height: 15px; border-radius: 3px;
-  background: var(--surface-2);
-  overflow: hidden;
-}
-/* la línea del centro es el tamaño general del municipio de referencia */
-.edad__pista::after {
-  content: ''; position: absolute; left: 50%;
-  top: 0; bottom: 0; width: 2px; margin-left: -1px;
-  background: var(--line-alta);
-  z-index: 1;
-}
-.edad__pista i {
-  position: absolute; top: 2px; bottom: 2px;
-  width: var(--w, 0%);
-  border-radius: 2px;
-  transform: scaleX(0);
-  transition: transform .7s var(--sal) .15s;
-}
-.edad--mas .edad__pista i {
-  left: 50%;
-  background: var(--ref);
-  transform-origin: left;
-}
-.edad--menos .edad__pista i {
-  right: 50%;
-  background: var(--ink-3);
-  transform-origin: right;
-}
-.edades .visto .edad__pista i,
-.edades__grafico .edad__pista i { transform: scaleX(1); }
-
-.edad__v {
-  font-size: .8125rem; font-weight: 700; color: var(--ink);
-  text-align: right;
-}
-.edad--menos .edad__v { color: var(--ink-3); }
-
-.edades__base {
-  display: grid;
-  grid-template-columns: 7.25rem 1fr 3rem;
-  gap: .6rem;
-  margin-top: .7rem;
-  padding-top: .6rem;
-  border-top: 1px solid var(--line);
-  font-size: .75rem; color: var(--ink-3);
-}
-.edades__base-q { font-weight: 700; }
-.edades__base-v { grid-column: 3; text-align: right; font-weight: 700; }
-
-.edades__marca {
-  margin-top: 1rem;
-  font-size: .8125rem; color: var(--ink-3);
-  max-width: 32rem;
-}
+.edad { display: grid; gap: .4rem; }
+.edad__q { font-size: .8125rem; font-weight: 700; color: var(--ink); }
 
 /* ── Indicador ────────────────────────────────────────────────────────── */
 
@@ -1278,7 +1217,6 @@ code {
 /* ── Movimiento reducido ──────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-  .edad__pista i { transform: scaleX(var(--v, 0)); }
   html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: .001ms !important;
