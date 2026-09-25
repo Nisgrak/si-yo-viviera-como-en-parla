@@ -1244,7 +1244,10 @@
   /* Los dos fondos van precargados: el cartel se monta y se imprime en el
      mismo gesto, y una imagen a medio cargar saldría en blanco. */
   const FONDOS = ['papel', 'barrio'];
-  FONDOS.forEach(function (f) { (new Image()).src = 'assets/cartel/' + f + '.jpg'; });
+  /* La ruta se resuelve ya, al cargar: luego la barra de direcciones pasa a
+     /getafe/ y una ruta relativa se iría a buscar a /getafe/assets/. */
+  const CARTEL = new URL('assets/cartel/', location.href).href;
+  FONDOS.forEach(function (f) { (new Image()).src = CARTEL + f + '.jpg'; });
 
   function fondoElegido() {
     try {
@@ -1263,7 +1266,7 @@
     raiz.setAttribute('data-fondo', fondo);
 
     const img = el('img', 'kfondo');
-    img.src = 'assets/cartel/' + fondo + '.jpg';
+    img.src = CARTEL + fondo + '.jpg';
     img.alt = '';
     raiz.appendChild(img);
 
@@ -1539,7 +1542,7 @@
       b.type = 'button';
       b.dataset.fondo = f;
       const im = el('img');
-      im.src = 'assets/cartel/' + f + '.jpg';
+      im.src = CARTEL + f + '.jpg';
       im.alt = '';
       b.appendChild(im);
       b.appendChild(el('span', 'fondo__n', ROTULO_FONDO[f] || f));
