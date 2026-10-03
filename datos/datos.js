@@ -12,7 +12,7 @@
    ───────────────────────────────────────────────────────────────────────── */
 
 window.DATOS = (function () {
-  const ACTUALIZADO = 'septiembre de 2026';
+  const ACTUALIZADO = 'octubre de 2026';
   const REFERENCIA = 'parla';
 
   const MUNICIPIOS = [
@@ -195,6 +195,14 @@ window.DATOS = (function () {
     conprel: {
       t: 'Ministerio de Hacienda · Liquidaciones de los presupuestos de las entidades locales, 2021 a 2024',
       url: 'https://serviciostelematicosext.hacienda.gob.es/SGFAL/CONPREL'
+    },
+    deudaViva: {
+      t: 'Ministerio de Hacienda · Deuda viva de los ayuntamientos a 31 de diciembre de 2025 (XLSX)',
+      url: 'https://www.hacienda.gob.es/cdi/sist%20financiacion%20y%20deuda/informacioneells/2025/deuda-viva-ayuntamientos-202512.xlsx'
+    },
+    deudaMetodo: {
+      t: 'Ministerio de Hacienda · Definición de deuda viva',
+      url: 'https://www.hacienda.gob.es/es-ES/CDI/Paginas/SistemasFinanciacionDeuda/InformacionEELLs/DeudaViva.aspx'
     }
   };
 
@@ -1192,6 +1200,26 @@ window.DATOS = (function () {
         },
         fuenteId: 'conprel',
         nota: 'El capítulo VI del presupuesto: obra nueva, reformas de colegios y calles, equipamiento. Es la partida que más se mueve de un año a otro, así que se promedian cuatro ejercicios. Parla es la última de los {N} en tres de esos cuatro años.'
+      },
+      {
+        id: 'deuda',
+        titulo: 'Lo que debe tu ayuntamiento',
+        pie: 'Deuda viva por habitante, 31 de diciembre de 2025',
+        /* El XLSX publica miles de euros. Aquí se guardan euros, sin redondear
+           a millones. La tasa se calcula abajo con BASES.total: actualizar la
+           población no deja un cociente antiguo. Es un saldo, sin alAnio. */
+        saldoEuros: {
+          getafe: 8244964,
+          parla: 520280348.98,
+          pinto: 1333,
+          fuenlabrada: 66913976,
+          leganes: 22803520.30,
+          alcorcon: 88015077.75,
+          alcobendas: 2329165,
+          mostoles: 3020356
+        },
+        fuenteId: 'deudaViva',
+        nota: 'La deuda financiera que queda por devolver al acabar el año. No recoge todas las facturas pendientes ni dice cuánto se paga cada año en intereses y devolución de préstamos.'
       }
     ],
     /* Impuestos directos por habitante: capítulo 1 de ingresos, derechos
@@ -1207,8 +1235,18 @@ window.DATOS = (function () {
       alcobendas: 707,
       mostoles: 370
     },
-    dineroNota: 'En impuestos directos, sobre todo el IBI, {ref} ingresa {impuestosRef} € por habitante y {aqui}, {impuestosAqui}. Con menos ingresos propios hay menos margen para gastar e invertir. Cuánto de la inversión que falta es infrafinanciación y cuánto es la deuda que Parla arrastra en su plan de ajuste, esta fuente no lo separa.'
+    dineroNota: 'En impuestos directos, sobre todo el IBI, {ref} ingresa {impuestosRef} € por habitante y {aqui}, {impuestosAqui}. Con menos ingresos propios hay menos margen para gastar e invertir. Estas cifras no dicen cuánto de la inversión que falta se debe a la financiación y cuánto al pago de la deuda.'
   };
+
+  /* La deuda es contexto económico y nunca entra en indicadores ni en el
+     total de equipamientos. Solo se redondea al mostrarla. */
+  contexto.dinero.forEach(function (s) {
+    if (!s.saldoEuros) return;
+    s.valores = {};
+    Object.keys(s.saldoEuros).forEach(function (m) {
+      s.valores[m] = s.saldoEuros[m] / BASES.total.valores[m];
+    });
+  });
 
   /* El verde entra como un indicador más, con la misma cuenta que el resto,
      pero se mide en metros cuadrados y no suma al recuento de la portada. Sus

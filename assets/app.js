@@ -861,14 +861,15 @@
     return ul;
   }
 
-  /* Lo que el ayuntamiento gasta o invierte, en euros al año, si lo hiciera al
-     ritmo de Parla. Es la cuenta de toda la web: la tasa por habitante de Parla
-     por la población de tu ciudad. */
-  function enEuros(e) {
+  /* Importes grandes en millones. En los flujos anuales, los pequeños se
+     redondean al millar; los saldos pequeños se pueden conservar exactos. */
+  function enEuros(e, redondearMiles) {
     if (e >= 1e6) return num(e / 1e6, 1) + ' millones de euros';
-    return entero(Math.round(e / 1000) * 1000) + ' euros';
+    return entero(redondearMiles === false ? e : Math.round(e / 1000) * 1000) + ' euros';
   }
 
+  /* La tasa por habitante de Parla por la población de tu ciudad: lo que el
+     ayuntamiento gastaría o invertiría al año si lo hiciera al mismo ritmo. */
   function alAnio(s) {
     const pob = D.BASES.total.valores[AQUI];
     const dif = (s.valores[AQUI] - s.valores[REF]) * pob;
@@ -889,9 +890,9 @@
     return t;
   }
 
-  /* Arriba, lo que decide el ayuntamiento, con su cifra en euros al año y su
-     cartel: la inversión primero, que es donde más distancia hay. Debajo, en
-     fila de tres, lo que describe a los vecinos: paro, renta y PIB. */
+  /* Arriba, inversión y gasto en euros al año, seguidos del saldo de deuda.
+     Debajo, en fila de tres, lo que describe a los vecinos: paro, renta y PIB.
+     El saldo no recibe ni equivalencia anual ni cartel de gasto. */
   function dinero() {
     const arriba = $('#dinero-cuerpo');
     const abajo = $('#dinero-contexto');
@@ -899,21 +900,28 @@
     vaciar(abajo);
     const series = D.contexto.dinero;
     const destacadas = series.filter(function (s) { return s.alAnio; }).reverse();
-    const resto = series.filter(function (s) { return !s.alAnio; });
-    destacadas.concat(resto).forEach(function (s) {
-      const cont = s.alAnio ? arriba : abajo;
-      const art = el('article', 'plata');
+    const saldos = series.filter(function (s) { return s.saldoEuros; });
+    const resto = series.filter(function (s) { return !s.alAnio && !s.saldoEuros; });
+    destacadas.concat(saldos, resto).forEach(function (s) {
+      const cont = s.alAnio || s.saldoEuros ? arriba : abajo;
+      const art = el('article', 'plata' + (s.saldoEuros ? ' plata--saldo' : ''));
       art.id = 'dinero-' + s.id;
       art.appendChild(el('h3', 'plata__h', s.titulo));
       art.appendChild(el('p', 'plata__pie', s.pie));
       if (s.alAnio) art.appendChild(titularAnual(s));
+      if (s.saldoEuros) {
+        art.appendChild(el('p', 'plata__titular', NOMBRE_REF + ' debe <span class="cifra">' +
+          enEuros(s.saldoEuros[REF], false) + '</span>. ' + NOMBRE[AQUI] + ' debe ' +
+          enEuros(s.saldoEuros[AQUI], false) + '.'));
+      }
       art.appendChild(filasDinero(s, s.id === 'paro'
         ? function (v) { return num(v, 2) + ' %'; }
-        : function (v) { return entero(v) + ' €'; }));
+        : function (v) { return (s.saldoEuros ? num(v, 2) : entero(v)) + ' €'; }));
       art.appendChild(el('p', 'renta__nota', texto(s.nota, s.industria && {
         industriaAqui: entero(s.industria[AQUI]), industriaRef: entero(s.industria[REF])
       })));
-      art.appendChild(pieFuente([s.fuenteId]));
+      art.appendChild(pieFuente([s.fuenteId].concat(s.saldoEuros
+        ? [D.BASES.total.fuenteId, ['deudaMetodo', 'Definición: ']] : [])));
       if (s.alAnio && !alAnio(s).igual) art.appendChild(botonCartel({ dinero: s }, null));
       cont.appendChild(art);
     });

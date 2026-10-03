@@ -313,9 +313,9 @@ invertiría 25,7 millones de euros menos al año.» Por debajo de un 1 % de dife
 que se quedaría prácticamente igual —es el caso del gasto de Leganés— y no ofrece cartel. Renta,
 PIB y paro no se dicen así: describen a los vecinos, no lo que decide el ayuntamiento.
 
-Las cinco series comparan como el resto de la web, tu ciudad contra Parla, con una fila más
-arriba para la media de referencia. La **tasa de paro** (INE Indicadores Urbanos, 2024) abre la
-sección y es la única sin esa fila: la fuente da la tasa por ciudad y no publica una media de la
+Las series comparan como el resto de la web, tu ciudad contra Parla, con una fila más
+arriba cuando hay una media de referencia comparable. La **tasa de paro** (INE Indicadores
+Urbanos, 2024) no lleva esa fila: la fuente da la tasa por ciudad y no publica una media de la
 Comunidad comparable, y la de la EPA es otra encuesta. No es el paro registrado: mide a quien
 busca trabajo y no lo encuentra sobre la población activa.
 
@@ -324,6 +324,42 @@ En gasto e inversión la media es la de **todos** los municipios de Madrid que l
 empuja hacia arriba: 1.345 € de gasto y 139 € de inversión con ella, 1.032 € y 112 € sin ella.
 Se enseñan las dos en la gráfica, una fila cada una, porque el argumento aguanta con
 las dos y así no hay nada que discutir.
+
+### Deuda viva: saldo a 31 de diciembre de 2025
+
+En **«Detrás de todo, el dinero»** se añade la deuda viva, separada del gasto y la inversión
+anuales. Fuente: [Ministerio de Hacienda, ayuntamientos a 31/12/2025 (XLSX)](https://www.hacienda.gob.es/cdi/sist%20financiacion%20y%20deuda/informacioneells/2025/deuda-viva-ayuntamientos-202512.xlsx),
+hoja `Datos`, provincia `28`, códigos municipales `006`, `007`, `058`, `065`, `074`, `092`, `106`
+y `113`. Los nombres llevan espacios finales. Los importes originales están en **miles de
+euros**: se multiplican por 1.000 y se guardan como euros en `saldoEuros` de `datos/datos.js`.
+
+| Municipio | Deuda viva, € | € por habitante |
+|---|---:|---:|
+| Parla | 520.280.348,98 | 3.784,66 |
+| Alcorcón | 88.015.077,75 | 500,89 |
+| Fuenlabrada | 66.913.976,00 | 352,04 |
+| Leganés | 22.803.520,30 | 116,50 |
+| Getafe | 8.244.964,00 | 42,67 |
+| Alcobendas | 2.329.165,00 | 18,88 |
+| Móstoles | 3.020.356,00 | 14,06 |
+| Pinto | 1.333,00 | 0,02 |
+
+La tasa se calcula con las cifras oficiales del Padrón a **1 de enero de 2025** de `BASES.total`,
+las mismas que usa la web. Se conserva el cociente sin redondear y se muestran dos decimales:
+Pinto tiene un saldo pequeño, pero distinto de cero. No se añade una media regional sin calcularla
+con un perímetro y una población comparables.
+
+El titular compara los dos saldos totales con el mismo formato legible que el resto del dinero:
+millones de euros con un decimal. Los importes inferiores al millón se mantienen sin redondear
+al millar, para que los 1.333 € de Pinto sigan apareciendo como 1.333. Las cifras exactas se conservan
+en los datos y en la tabla anterior.
+
+Hacienda [define el saldo financiero](https://www.hacienda.gob.es/es-ES/CDI/Paginas/SistemasFinanciacionDeuda/InformacionEELLs/DeudaViva.aspx)
+a partir de información del Banco de España. No representa toda la deuda comercial ni el pago
+anual de intereses y amortización. No se convierte a «euros menos al año», no genera un cartel de
+gasto y no entra en `indicadores`, en las pérdidas o ganancias ni en el total de equipamientos.
+El saldo por sí solo no cuantifica cuánto explica de la baja inversión de Parla; para eso harían
+falta, entre otros datos, intereses y amortizaciones de las liquidaciones.
 
 ### Plantilla médica de los hospitales: mirado y descartado
 
