@@ -23,7 +23,10 @@ window.DATOS = (function () {
     { id: 'leganes', nombre: 'Leganés', activo: true },
     { id: 'alcorcon', nombre: 'Alcorcón', activo: true },
     { id: 'alcobendas', nombre: 'Alcobendas', activo: true },
-    { id: 'mostoles', nombre: 'Móstoles', activo: true }
+    { id: 'mostoles', nombre: 'Móstoles', activo: true },
+    { id: 'torrejon', nombre: 'Torrejón de Ardoz', activo: true },
+    { id: 'pozuelo', nombre: 'Pozuelo de Alarcón', activo: true },
+    { id: 'majadahonda', nombre: 'Majadahonda', activo: true }
   ];
 
   /* Contra qué población se mide cada indicador. Un colegio no se mide contra
@@ -42,7 +45,10 @@ window.DATOS = (function () {
         leganes: 195734,
         alcorcon: 175719,
         alcobendas: 123342,
-        mostoles: 214817
+        mostoles: 214817,
+        torrejon: 143526,
+        pozuelo: 89770,
+        majadahonda: 73625
       }
     },
     infantil: {
@@ -58,7 +64,10 @@ window.DATOS = (function () {
         leganes: 3573,
         alcorcon: 3226,
         alcobendas: 2631,
-        mostoles: 4219
+        mostoles: 4219,
+        torrejon: 3283,
+        pozuelo: 1988,
+        majadahonda: 1627
       }
     },
     primaria: {
@@ -74,7 +83,10 @@ window.DATOS = (function () {
         leganes: 14771,
         alcorcon: 13351,
         alcobendas: 10914,
-        mostoles: 17039
+        mostoles: 17039,
+        torrejon: 12865,
+        pozuelo: 7879,
+        majadahonda: 6455
       }
     },
     secundaria: {
@@ -90,7 +102,10 @@ window.DATOS = (function () {
         leganes: 12991,
         alcorcon: 11288,
         alcobendas: 9160,
-        mostoles: 12992
+        mostoles: 12992,
+        torrejon: 9974,
+        pozuelo: 7029,
+        majadahonda: 5842
       }
     },
     mayores: {
@@ -106,7 +121,10 @@ window.DATOS = (function () {
         leganes: 44465,
         alcorcon: 40010,
         alcobendas: 21998,
-        mostoles: 49845
+        mostoles: 49845,
+        torrejon: 23698,
+        pozuelo: 17700,
+        majadahonda: 14300
       }
     }
   };
@@ -141,7 +159,7 @@ window.DATOS = (function () {
       url: 'https://www.metromadrid.es/es/viaja-en-metro/lineas-y-horarios'
     },
     cercanias: {
-      t: 'Renfe Cercanías Madrid · líneas C-3, C-4 y C-5',
+      t: 'Renfe Cercanías Madrid · líneas C-2, C-3, C-4, C-5, C-7 y C-10',
       url: 'https://www.renfe.com/es/es/cercanias/cercanias-madrid'
     },
     sanitarios: {
@@ -157,7 +175,7 @@ window.DATOS = (function () {
       url: 'https://datos.comunidad.madrid/catalogo/dataset/centros_educativos'
     },
     universidades: {
-      t: 'Universidad Carlos III y Universidad Rey Juan Carlos · campus oficiales',
+      t: 'Universidad Carlos III, Rey Juan Carlos, Alcalá y Complutense · campus oficiales',
       url: 'https://www.urjc.es/universidad/campus'
     },
     bibliotecas: {
@@ -251,7 +269,10 @@ window.DATOS = (function () {
             'Universidad Rey Juan Carlos', 'Móstoles Central', 'Pradillo',
             'Hospital de Móstoles', 'Manuela Malasaña'
           ]
-        }
+        },
+        torrejon: { n: 0, lista: [] },
+        pozuelo: { n: 0, lista: [] },
+        majadahonda: { n: 0, lista: [] }
       }
     },
 
@@ -281,7 +302,10 @@ window.DATOS = (function () {
           n: 2,
           lista: ['Alcobendas-San Sebastián de los Reyes (C-4)', 'Valdelasfuentes (C-4)']
         },
-        mostoles: { n: 2, lista: ['Móstoles (C-5)', 'Móstoles-El Soto (C-5)'] }
+        mostoles: { n: 2, lista: ['Móstoles (C-5)', 'Móstoles-El Soto (C-5)'] },
+        torrejon: { n: 2, lista: ['Torrejón de Ardoz (C-2, C-7)', 'Soto del Henares (C-2, C-7)'] },
+        pozuelo: { n: 1, lista: ['Pozuelo (C-7, C-10)'] },
+        majadahonda: { n: 1, lista: ['Majadahonda (C-7, C-10)'] }
       }
     },
 
@@ -302,7 +326,10 @@ window.DATOS = (function () {
         leganes: { n: 68, lista: [] },
         alcorcon: { n: 69, lista: [] },
         alcobendas: { n: 37, lista: [] },
-        mostoles: { n: 73, lista: [] }
+        mostoles: { n: 73, lista: [] },
+        torrejon: { n: 35, lista: [] },
+        pozuelo: { n: 30, lista: [] },
+        majadahonda: { n: 25, lista: [] }
       }
     },
 
@@ -353,7 +380,22 @@ window.DATOS = (function () {
             'Almudena Grandes', 'Norte-Universidad', 'Parque Coimbra', 'El Soto', 'Joan Miró',
             'Caleidoscopio'
           ]
-        }
+        },
+        torrejon: {
+          n: 4,
+          lista: [
+            'Federico García Lorca · Central', 'Gabriel Celaya · Las Fronteras', 'La Caja del Arte',
+            'La Isla Misteriosa · La Cañada'
+          ]
+        },
+        pozuelo: {
+          n: 4,
+          lista: [
+            'Miguel de Cervantes · Central', 'Rosalía de Castro · La Estación',
+            'Benito Pérez Galdós · Volturno', 'Universitaria ESIC'
+          ]
+        },
+        majadahonda: { n: 1, lista: ['Francisco Umbral'] }
       }
     },
 
@@ -412,7 +454,13 @@ window.DATOS = (function () {
             'El Soto', 'Enfermera Carmen Vázquez', 'Felipe II', 'La Princesa', 'Parque Coimbra',
             'Presentación Sabio'
           ]
-        }
+        },
+        torrejon: {
+          n: 6,
+          lista: ['Brújula', 'Fronteras', 'Juncal', 'La Plata', 'Las Veredillas', 'Los Fresnos']
+        },
+        pozuelo: { n: 3, lista: ['Pozuelo-Estación', 'San Juan de la Cruz', 'Somosaguas'] },
+        majadahonda: { n: 2, lista: ['Cerro del Aire', 'Valle de la Oliva'] }
       }
     },
 
@@ -441,7 +489,10 @@ window.DATOS = (function () {
             'Hospital Universitario de Móstoles · 328 camas',
             'Hospital Universitario Rey Juan Carlos · 362 camas'
           ]
-        }
+        },
+        torrejon: { n: 250, lista: ['Hospital Universitario de Torrejón · 250 camas'] },
+        pozuelo: { n: 0, lista: [] },
+        majadahonda: { n: 613, lista: ['Hospital Universitario Puerta de Hierro Majadahonda · 613 camas'] }
       }
     },
 
@@ -511,7 +562,16 @@ window.DATOS = (function () {
             'El Pequeño Sauce', 'El Soto', 'Fabulas y Leyendas', 'Joan Miró', 'Osa Mayor',
             'Parque Coimbra', 'Villaamil'
           ]
-        }
+        },
+        torrejon: {
+          n: 6,
+          lista: [
+            'El Gato con Botas', 'Juan sin Miedo', 'La Cañada de Ardoz', 'La Cigarra y la Hormiga',
+            'Loreto', 'Marionetas'
+          ]
+        },
+        pozuelo: { n: 3, lista: ['La Encina', 'Los Álamos', 'Los Madroños'] },
+        majadahonda: { n: 4, lista: ['La Tarara', 'Tacataca', 'Talín', 'Tamaral'] }
       }
     },
 
@@ -622,6 +682,30 @@ window.DATOS = (function () {
             'Principe de Asturias', 'Pío Baroja', 'Rafael Alberti', 'Rio Bidasoa',
             'Rosalía de Castro', 'Salzillo-valle Inclán', 'Severo Ochoa', 'Vicente Aleixandre'
           ]
+        },
+        torrejon: {
+          n: 20,
+          lista: [
+            'Andrés Segovia', 'Antonio Machado', 'Beethoven', 'El Buen Gobernador',
+            'Gabriel y Galán', 'Giner de los Ríos', 'Jaime Vera', 'Joaquín Blume',
+            'Juan Ramón Jiménez', 'La Gaviota', 'La Zarzuela', 'Miguel de Cervantes',
+            'Miguel Hernández', 'Pinocho', 'Ramón Carande', 'Ramón y Cajal', 'Seis de Diciembre',
+            'Severo Ochoa', 'Uno de Mayo', 'Vicente Aleixandre'
+          ]
+        },
+        pozuelo: {
+          n: 8,
+          lista: [
+            'Asunción de Nuestra Señora', 'Divino Maestro', 'Infanta Elena', 'Las Acacias',
+            'Los Ángeles', 'Pinar Prados de Torrejón', 'Príncipes de Asturias', 'San José Obrero'
+          ]
+        },
+        majadahonda: {
+          n: 8,
+          lista: [
+            'Antonio Machado', 'Benito Pérez Galdós', 'El Tejar', 'Federico García Lorca',
+            'Francisco de Quevedo', 'Rosalía de Castro', 'San Pío X', 'Santa Catalina'
+          ]
         }
       }
     },
@@ -695,6 +779,21 @@ window.DATOS = (function () {
             'Los Rosales', 'Luis Buñuel', 'Manuel de Falla', 'Manuela Malasaña',
             'Miguel Hernández', 'Miguel de Cervantes', 'Rayuela', 'Velázquez'
           ]
+        },
+        torrejon: {
+          n: 8,
+          lista: [
+            'Isaac Peral', 'Juan Bautista Monegro', 'Las Veredillas', 'León Felipe',
+            'Luis de Góngora', 'Palas Atenea', 'Valle Inclán', 'Victoria Kent'
+          ]
+        },
+        pozuelo: { n: 3, lista: ['Camilo José Cela', 'Gerardo Diego', 'San Juan de la Cruz'] },
+        majadahonda: {
+          n: 5,
+          lista: [
+            'Carlos Bousoño', 'José Saramago', 'Leonardo da Vinci', 'Margarita Salas',
+            'María de Zayas y Sotomayor'
+          ]
         }
       }
     },
@@ -716,7 +815,10 @@ window.DATOS = (function () {
         leganes: { n: 1, lista: ['Universidad Carlos III · Campus de Leganés'] },
         alcorcon: { n: 1, lista: ['Universidad Rey Juan Carlos · Campus de Alcorcón'] },
         alcobendas: { n: 0, lista: [] },
-        mostoles: { n: 1, lista: ['Universidad Rey Juan Carlos · Campus de Móstoles'] }
+        mostoles: { n: 1, lista: ['Universidad Rey Juan Carlos · Campus de Móstoles'] },
+        torrejon: { n: 1, lista: ['Universidad de Alcalá · Campus de Torrejón de Ardoz'] },
+        pozuelo: { n: 1, lista: ['Universidad Complutense · Campus de Somosaguas'] },
+        majadahonda: { n: 0, lista: [] }
       }
     },
 
@@ -737,7 +839,10 @@ window.DATOS = (function () {
         leganes: { n: 1, lista: ['Conservatorio Profesional Manuel Rodríguez Sales'] },
         alcorcon: { n: 1, lista: ['Conservatorio Profesional Manuel de Falla'] },
         alcobendas: { n: 0, lista: [] },
-        mostoles: { n: 1, lista: ['Conservatorio Profesional Rodolfo Halffter'] }
+        mostoles: { n: 1, lista: ['Conservatorio Profesional Rodolfo Halffter'] },
+        torrejon: { n: 0, lista: [] },
+        pozuelo: { n: 0, lista: [] },
+        majadahonda: { n: 1, lista: ['Conservatorio Profesional de Música de Majadahonda'] }
       }
     },
 
@@ -760,7 +865,10 @@ window.DATOS = (function () {
         leganes: { n: 1965, lista: [] },
         alcorcon: { n: 2825, lista: [] },
         alcobendas: { n: 1733, lista: [] },
-        mostoles: { n: 1936, lista: [] }
+        mostoles: { n: 1936, lista: [] },
+        torrejon: { n: 1360, lista: [] },
+        pozuelo: { n: 2162, lista: [] },
+        majadahonda: { n: 1416, lista: [] }
       }
     },
 
@@ -789,7 +897,10 @@ window.DATOS = (function () {
         leganes: { n: 220, lista: ['Parque de los Frailes · 220 plazas'] },
         alcorcon: { n: 208, lista: ['Residencia de Personas Mayores de Alcorcón · 208 plazas'] },
         alcobendas: { n: 201, lista: ['Gastón Baquero · 201 plazas'] },
-        mostoles: { n: 249, lista: ['Parque Coimbra · 220 plazas', 'Juan XXIII · 29 plazas'] }
+        mostoles: { n: 249, lista: ['Parque Coimbra · 220 plazas', 'Juan XXIII · 29 plazas'] },
+        torrejon: { n: 0, lista: [] },
+        pozuelo: { n: 0, lista: [] },
+        majadahonda: { n: 0, lista: [] }
       }
     },
 
@@ -810,7 +921,10 @@ window.DATOS = (function () {
         leganes: { n: 1, lista: ['Administración de Leganés'] },
         alcorcon: { n: 1, lista: ['Administración de Alcorcón'] },
         alcobendas: { n: 1, lista: ['Administración de Alcobendas'] },
-        mostoles: { n: 1, lista: ['Administración de Móstoles'] }
+        mostoles: { n: 1, lista: ['Administración de Móstoles'] },
+        torrejon: { n: 1, lista: ['Administración de Torrejón de Ardoz'] },
+        pozuelo: { n: 1, lista: ['Administración de Pozuelo de Alarcón'] },
+        majadahonda: { n: 0, lista: [] }
       }
     },
 
@@ -831,7 +945,10 @@ window.DATOS = (function () {
         leganes: { n: 1, lista: ['Avda. Dos de Mayo, 29'] },
         alcorcon: { n: 2, lista: ['Paseo de Extremadura, 17', 'C/ Inspector Juan Antonio Bueno'] },
         alcobendas: { n: 2, lista: ['C/ Marqués de la Valdavia, 75', 'C/ Marqués de la Valdavia, 30'] },
-        mostoles: { n: 1, lista: ['Paseo de Arroyomolinos, 59'] }
+        mostoles: { n: 1, lista: ['Paseo de Arroyomolinos, 59'] },
+        torrejon: { n: 2, lista: ['Avda. de Madrid, 11', 'C/ Manuel Sandoval, 3-5'] },
+        pozuelo: { n: 1, lista: ['Avda. de Europa, 8'] },
+        majadahonda: { n: 0, lista: [] }
       }
     }
   ];
@@ -853,9 +970,11 @@ window.DATOS = (function () {
        detrás, por orden alfabético. */
     gravedad: [
       'Hemodinámica', 'Cuidados intensivos neonatales', 'Neurocirugía', 'Cirugía cardiaca',
+      'Trasplante de órganos',
       'Quemados', 'Radioterapia', 'Cirugía torácica', 'Angiología y Cirugía Vascular',
       'Cirugía pediátrica', 'Medicina nuclear', 'Neurofisiología', 'Cirugía maxilofacial',
-      'Cirugía plástica y reparadora', 'Genética', 'Interrupción voluntaria del embarazo',
+      'Cirugía plástica y reparadora', 'Genética', 'Inmunología',
+      'Psiquiatría Infantil y de la Adolescencia', 'Interrupción voluntaria del embarazo',
       'Litotricia renal', 'Banco de tejidos', 'Farmacología clínica', 'Logopedia', 'Foniatría',
       'Odontología/Estomatología', 'Planificación familiar', 'Cirugía refractiva',
       'Medicina general/de familia', 'Fecundación in vitro', 'Inseminación artificial',
@@ -978,6 +1097,57 @@ window.DATOS = (function () {
         'Recuperación de oocitos', 'Vacunación'
       ],
       faltanAqui: []
+    },
+    torrejon: {
+      nombre: 'Hospital Universitario de Torrejón',
+      unidades: 71,
+      faltanEnReferencia: [
+        'Angiología y Cirugía Vascular', 'Cirugía cardiaca', 'Cirugía maxilofacial',
+        'Cirugía pediátrica', 'Cirugía plástica y reparadora', 'Cirugía torácica', 'Foniatría',
+        'Genética', 'Hemodinámica', 'Inmunología', 'Inseminación artificial',
+        'Laboratorio Clínico', 'Laboratorio de semen para capacitación espermática', 'Logopedia',
+        'Neurocirugía', 'Neurofisiología', 'Planificación familiar',
+        'Psiquiatría Infantil y de la Adolescencia', 'Radioterapia'
+      ],
+      faltanAqui: ['Geriatría', 'Terapia ocupacional']
+    },
+    pozuelo: {
+      nombre: null,
+      unidades: 0,
+      faltanEnReferencia: [],
+      faltanAqui: [
+        'Alergología', 'Anatomía patológica', 'Anestesia y Reanimación', 'Aparato digestivo',
+        'Atención Continuada en Atención Primaria', 'Atención sanitaria domiciliaria',
+        'Bioquímica clínica', 'Cardiología', 'Cirugía general y digestivo',
+        'Cirugía mayor ambulatoria', 'Cirugía menor ambulatoria',
+        'Cirugía ortopédica y Traumatología', 'Cuidados intermedios neonatales',
+        'Cuidados paliativos', 'Dermatología', 'Diálisis', 'Endocrinología', 'Enfermería',
+        'Enfermería obstétrico-ginecológica (matrona)', 'Extracción de sangre para donación',
+        'Extracción de órganos', 'Farmacia', 'Fisioterapia', 'Geriatría', 'Ginecología',
+        'Hematología clínica', 'Hospital de día', 'Implantación de tejidos',
+        'Laboratorio de hematología', 'Medicina del trabajo', 'Medicina intensiva',
+        'Medicina interna', 'Medicina preventiva', 'Microbiología y Parasitología',
+        'Nefrología', 'Neumología', 'Neurología', 'Nutrición y Dietética', 'Obstetricia',
+        'Obtención de muestras', 'Obtención de tejidos', 'Oftalmología', 'Oncología',
+        'Otorrinolaringología', 'Pediatría', 'Psicología clínica', 'Psiquiatría',
+        'Radiodiagnóstico', 'Rehabilitación', 'Reumatología', 'Servicio de transfusión',
+        'Terapia ocupacional', 'Tratamiento del dolor', 'Urología'
+      ]
+    },
+    majadahonda: {
+      nombre: 'Hospital Universitario Puerta de Hierro Majadahonda',
+      unidades: 80,
+      faltanEnReferencia: [
+        'Angiología y Cirugía Vascular', 'Banco de tejidos', 'Cirugía cardiaca',
+        'Cirugía maxilofacial', 'Cirugía pediátrica', 'Cirugía plástica y reparadora',
+        'Cirugía torácica', 'Cuidados intensivos neonatales', 'Farmacología clínica', 'Genética',
+        'Hemodinámica', 'Inmunología', 'Inseminación artificial', 'Laboratorio Clínico',
+        'Laboratorio de semen para capacitación espermática', 'Litotricia renal', 'Logopedia',
+        'Medicina nuclear', 'Neurocirugía', 'Neurofisiología', 'Otras unidades asistenciales',
+        'Planificación familiar', 'Psiquiatría Infantil y de la Adolescencia', 'Radioterapia',
+        'Trasplante de órganos', 'Vacunación'
+      ],
+      faltanAqui: []
     }
   };
 
@@ -992,7 +1162,10 @@ window.DATOS = (function () {
         leganes: 195946,
         alcorcon: 176806,
         alcobendas: 123222,
-        mostoles: 214293
+        mostoles: 214293,
+        torrejon: 144211,
+        pozuelo: 89474,
+        majadahonda: 73662
       },
       tramos: [
         {
@@ -1005,7 +1178,10 @@ window.DATOS = (function () {
             leganes: 3573,
             alcorcon: 3226,
             alcobendas: 2631,
-            mostoles: 4219
+            mostoles: 4219,
+            torrejon: 3283,
+            pozuelo: 1988,
+            majadahonda: 1627
           }
         },
         {
@@ -1018,7 +1194,10 @@ window.DATOS = (function () {
             leganes: 14771,
             alcorcon: 13351,
             alcobendas: 10914,
-            mostoles: 17039
+            mostoles: 17039,
+            torrejon: 12865,
+            pozuelo: 7879,
+            majadahonda: 6455
           }
         },
         {
@@ -1031,7 +1210,10 @@ window.DATOS = (function () {
             leganes: 12991,
             alcorcon: 11288,
             alcobendas: 9160,
-            mostoles: 12992
+            mostoles: 12992,
+            torrejon: 9974,
+            pozuelo: 7029,
+            majadahonda: 5842
           }
         },
         {
@@ -1044,7 +1226,10 @@ window.DATOS = (function () {
             leganes: 44465,
             alcorcon: 40010,
             alcobendas: 21998,
-            mostoles: 49845
+            mostoles: 49845,
+            torrejon: 23698,
+            pozuelo: 17700,
+            majadahonda: 14300
           }
         }
       ],
@@ -1061,7 +1246,10 @@ window.DATOS = (function () {
         leganes: 43.1,
         alcorcon: 33.7,
         alcobendas: 45,
-        mostoles: 45.4
+        mostoles: 45.4,
+        torrejon: 32.6,
+        pozuelo: 43.2,
+        majadahonda: 38.5
       }
     },
     /* Verde y deporte, en metros cuadrados, del Urban Atlas 2018 y recortados
@@ -1083,7 +1271,10 @@ window.DATOS = (function () {
         leganes: { verde: 6916956, deporte: 648126 },
         alcorcon: { verde: 2756468, deporte: 1574157 },
         alcobendas: { verde: 2160651, deporte: 1283677 },
-        mostoles: { verde: 1817280, deporte: 544268 }
+        mostoles: { verde: 1817280, deporte: 544268 },
+        torrejon: { verde: 1334971, deporte: 449793 },
+        pozuelo: { verde: 9570712, deporte: 1107194 },
+        majadahonda: { verde: 4168847, deporte: 810887 }
       }
     },
     dinero: [
@@ -1101,7 +1292,10 @@ window.DATOS = (function () {
           leganes: 10.34,
           alcorcon: 9.56,
           alcobendas: 7.07,
-          mostoles: 10.7
+          mostoles: 10.7,
+          torrejon: 10.04,
+          pozuelo: 5.08,
+          majadahonda: 5.64
         },
         fuenteId: 'paro',
         nota: 'Mide a quien quiere trabajar y no encuentra sobre la población activa, así que no es lo mismo que el paro registrado, que cuenta solo a quien se apunta al servicio de empleo. Parla es la última de los {N} comparados.'
@@ -1120,7 +1314,10 @@ window.DATOS = (function () {
           leganes: 17438,
           alcorcon: 19055,
           alcobendas: 29659,
-          mostoles: 16710
+          mostoles: 16710,
+          torrejon: 17473,
+          pozuelo: 44016,
+          majadahonda: 32413
         },
         fuenteId: 'renta',
         nota: 'Parla vive con el 58,4 % de la renta media de la Comunidad de Madrid, la más baja de los {N} municipios comparados.'
@@ -1139,7 +1336,10 @@ window.DATOS = (function () {
           leganes: 28654,
           alcorcon: 28390,
           alcobendas: 85853,
-          mostoles: 18993
+          mostoles: 18993,
+          torrejon: 26657,
+          pozuelo: 72166,
+          majadahonda: 40886
         },
         /* La rama «Minería, industria y energía», misma fuente y año. */
         industria: {
@@ -1150,7 +1350,10 @@ window.DATOS = (function () {
           leganes: 3348,
           alcorcon: 3276,
           alcobendas: 10143,
-          mostoles: 1758
+          mostoles: 1758,
+          torrejon: 6614,
+          pozuelo: 1973,
+          majadahonda: 977
         },
         fuenteId: 'pib',
         nota: 'Mide el valor de lo que se genera dentro del municipio, que no es lo mismo que lo que ganan sus vecinos. Parla se queda en el 32 % de la media regional y es la última de los 24 municipios de la Comunidad de Madrid que pasan de 50.000 habitantes. En la rama industrial, {industriaRef} € por habitante en {ref} y {industriaAqui} € en {aqui}. La cifra de 2023 es provisional; la de 2022, ya definitiva, deja a Parla en el mismo 32 %.'
@@ -1166,6 +1369,11 @@ window.DATOS = (function () {
         alAnio: { con: 'el gasto', verbo: 'gastaría', si: 'gastara' },
         titulo: 'Lo que gasta tu ayuntamiento',
         pie: 'Gasto municipal por habitante, media de 2021 a 2024',
+        /* Pozuelo no tiene liquidación publicada de 2022 ni de 2023. */
+        pieCiudad: {
+          pozuelo: 'Gasto municipal por habitante, media de 2021 y 2024: Hacienda no publica ' +
+            'las liquidaciones de 2022 y 2023 de Pozuelo de Alarcón'
+        },
         valores: {
           getafe: 978,
           parla: 780,
@@ -1174,7 +1382,10 @@ window.DATOS = (function () {
           leganes: 782,
           alcorcon: 877,
           alcobendas: 1428,
-          mostoles: 885
+          mostoles: 885,
+          torrejon: 941,
+          pozuelo: 1273,
+          majadahonda: 1146
         },
         fuenteId: 'conprel',
         nota: 'Obligaciones reconocidas netas de los nueve capítulos, consolidando el ayuntamiento con sus organismos autónomos para no contar dos veces lo que se transfiere entre ellos. Madrid capital gasta mucho más por habitante y empuja la media hacia arriba, así que se da también sin ella. Parla es la última de los {N} municipios comparados.'
@@ -1188,6 +1399,11 @@ window.DATOS = (function () {
         alAnio: { con: 'la inversión', verbo: 'invertiría', si: 'invirtiera' },
         titulo: 'Lo que construye',
         pie: 'Inversión real por habitante, media de 2021 a 2024',
+        /* Pozuelo no tiene liquidación publicada de 2022 ni de 2023. */
+        pieCiudad: {
+          pozuelo: 'Inversión real por habitante, media de 2021 y 2024: Hacienda no publica ' +
+            'las liquidaciones de 2022 y 2023 de Pozuelo de Alarcón'
+        },
         valores: {
           getafe: 156,
           parla: 23,
@@ -1196,7 +1412,10 @@ window.DATOS = (function () {
           leganes: 107,
           alcorcon: 58,
           alcobendas: 93,
-          mostoles: 52
+          mostoles: 52,
+          torrejon: 142,
+          pozuelo: 119,
+          majadahonda: 135
         },
         fuenteId: 'conprel',
         nota: 'El capítulo VI del presupuesto: obra nueva, reformas de colegios y calles, equipamiento. Es la partida que más se mueve de un año a otro, así que se promedian cuatro ejercicios. Parla es la última de los {N} en tres de esos cuatro años.'
@@ -1216,7 +1435,10 @@ window.DATOS = (function () {
           leganes: 22803520.30,
           alcorcon: 88015077.75,
           alcobendas: 2329165,
-          mostoles: 3020356
+          mostoles: 3020356,
+          torrejon: 84343046.60,
+          pozuelo: 278975,
+          majadahonda: 185111
         },
         fuenteId: 'deudaViva',
         nota: 'La deuda financiera que queda por devolver al acabar el año. No recoge todas las facturas pendientes ni dice cuánto se paga cada año en intereses y devolución de préstamos.'
@@ -1224,7 +1446,8 @@ window.DATOS = (function () {
     ],
     /* Impuestos directos por habitante: capítulo 1 de ingresos, derechos
        reconocidos netos, consolidado, media de 2021 a 2024 de CONPREL, entre la
-       población del INE a 1 de enero de 2025. Los usa la nota de cierre. */
+       población del INE a 1 de enero de 2025. Los usa la nota de cierre. En
+       Pozuelo, media de 2021 y 2024: no hay liquidación publicada de 2022 ni 2023. */
     impuestosDirectos: {
       getafe: 460,
       parla: 254,
@@ -1233,7 +1456,10 @@ window.DATOS = (function () {
       leganes: 326,
       alcorcon: 470,
       alcobendas: 707,
-      mostoles: 370
+      mostoles: 370,
+      torrejon: 358,
+      pozuelo: 733,
+      majadahonda: 518
     },
     dineroNota: 'En impuestos directos, sobre todo el IBI, {ref} ingresa {impuestosRef} € por habitante y {aqui}, {impuestosAqui}. Con menos ingresos propios hay menos margen para gastar e invertir. Estas cifras no dicen cuánto de la inversión que falta se debe a la financiación y cuánto al pago de la deuda.'
   };

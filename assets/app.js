@@ -907,7 +907,8 @@
       const art = el('article', 'plata' + (s.saldoEuros ? ' plata--saldo' : ''));
       art.id = 'dinero-' + s.id;
       art.appendChild(el('h3', 'plata__h', s.titulo));
-      art.appendChild(el('p', 'plata__pie', s.pie));
+      /* Donde a una ciudad le faltan años, su pie lo dice. */
+      art.appendChild(el('p', 'plata__pie', (s.pieCiudad && s.pieCiudad[AQUI]) || s.pie));
       if (s.alAnio) art.appendChild(titularAnual(s));
       if (s.saldoEuros) {
         art.appendChild(el('p', 'plata__titular', NOMBRE_REF + ' debe <span class="cifra">' +
@@ -971,7 +972,7 @@
     cont.appendChild(pieFuente([e.fuenteId]));
   }
 
-  /* Cuánto suelo hay que repartir. Parla es la más pequeña de los ocho y la más
+  /* Cuánto suelo hay que repartir. Parla es la más pequeña de los once y la más
      densa, y eso ayuda a leer el resto: la comparación es por habitante, no por
      kilómetro cuadrado. */
   function tamano() {

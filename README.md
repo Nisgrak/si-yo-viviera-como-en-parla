@@ -5,7 +5,7 @@ Web reivindicativa que responde a una pregunta muy concreta:
 > **¿Cuántos servicios públicos desaparecerían de mi ciudad si estuviera dotada exactamente
 > igual que Parla?**
 
-Siete ciudades del área metropolitana de Madrid comparadas contra Parla, con nombre y apellidos:
+Diez ciudades del área metropolitana de Madrid comparadas contra Parla, con nombre y apellidos:
 
 | Ciudad | Habitantes | Equipamientos que perdería |
 |---|---:|---:|
@@ -15,6 +15,9 @@ Siete ciudades del área metropolitana de Madrid comparadas contra Parla, con no
 | Alcorcón | 175.719 | **61** |
 | Getafe | 193.238 | **50** |
 | Alcobendas | 123.342 | **24** |
+| Pozuelo de Alarcón | 89.770 | **18** |
+| Torrejón de Ardoz | 143.526 | **14** |
+| Majadahonda | 73.625 | **12** |
 | Pinto | 56.651 | **9** |
 
 **Pinto y Alcobendas** pierden poco, y por motivos opuestos. Pinto ya está casi tan mal dotado
@@ -24,6 +27,22 @@ propio, así que en sanidad hospitalaria están **por debajo** de Parla. La web 
 
 **Móstoles** es el único con dos hospitales públicos (el Universitario de Móstoles y el Rey Juan
 Carlos); se compara la unión de sus dos carteras, 76 unidades frente a las 54 de Parla.
+
+**Torrejón de Ardoz** tiene más habitantes que Parla y pierde 14. Tampoco tiene Metro, empata en
+colegios y gana escuelas infantiles. Su campus público, de la Universidad de Alcalá, abrió en
+septiembre de 2025 con Enfermería y Fisioterapia: es pequeño, pero cuenta como los demás.
+
+**Pozuelo de Alarcón y Majadahonda** son, con Alcobendas, las ciudades ricas de la comparación:
+44.016 y 32.413 € de renta por habitante. Pozuelo pierde 18 y gana 9,2, casi todo en educación:
+tiene campus (Somosaguas, de la Complutense), Hacienda y Seguridad Social, y no tiene hospital
+público. Majadahonda pierde 12 y tiene el Puerta de Hierro, con 613 camas y todas las unidades del
+Infanta Cristina más 23; pero no tiene Hacienda ni Seguridad Social, y con una sola biblioteca
+para 73.625 vecinos queda por debajo de Parla.
+
+Las 16 paradas de Metro Ligero de Pozuelo (ML-2 y ML-3) no cuentan como Metro, igual que el
+tranvía de Parla. La estación de El Barrial-Centro Comercial Pozuelo está en el término de Madrid
+y tampoco cuenta. Hacienda no publica las liquidaciones de Pozuelo de 2022 ni de 2023: su gasto,
+inversión e impuestos directos son la media de 2021 y 2024, y su pie en la web lo dice.
 
 ## Cómo funciona
 
@@ -50,14 +69,15 @@ Con la población total como base, los colegios de Parla salían por encima de l
 con los niños en edad escolar, salen por debajo.
 
 Alcobendas no es del sur: está al norte de Madrid. Entró para tener un contraste de renta alta
-en la comparación, y por eso los textos hablan de «área metropolitana» y no de «el sur».
+en la comparación, y por eso los textos hablan de «área metropolitana» y no de «el sur». Torrejón
+de Ardoz, en el corredor del Henares, tampoco es del sur, ni Pozuelo y Majadahonda, al oeste.
 
 Poblaciones totales: cifras oficiales del INE a 1 de enero de 2025.
 Tramos de edad: INE, población por edad año a año, misma fecha (tabla 68543). Los totales de
 las dos operaciones difieren en unos miles; ningún cálculo mezcla las dos.
 
 La **superficie** (INE Indicadores Urbanos, 2024) se enseña al final del punto de partida: Parla
-es la más pequeña de las ocho y la más densa, y eso se lee mejor con el dato delante.
+es la más pequeña de las once y la más densa, y eso se lee mejor con el dato delante.
 
 La web abre el recuento con un ejemplo resuelto con números reales del municipio elegido
 («Parla tiene 2 bibliotecas para 137.471 habitantes: una por cada 68.736; a ese ritmo a Getafe
@@ -265,7 +285,8 @@ https://serviciostelematicosext.hacienda.gob.es/SGFAL/CONPREL/Consulta/DescargaF
 Se lee con `mdbtools`. Dentro: `tb_inventario` (entidades y población), `tb_funcional`
 (gasto por entidad × capítulo económico × programa), `tb_economica` y sus dos versiones
 consolidadas, que eliminan las transferencias internas entre un ayuntamiento y sus organismos
-autónomos. Los ocho municipios están los cuatro ejercicios.
+autónomos. Los once municipios están los cuatro ejercicios, salvo Pozuelo de Alarcón, que no
+aparece en 2022 ni en 2023.
 
 **Limpieza viaria (programa 163) no sirve, y el dato lo demuestra.** Parla aparece como la que
 más gasta de las ocho: 90,30 € por habitante en 2024, frente a 53,30 de Getafe y 43,79 de
@@ -290,14 +311,18 @@ que usa la web— y en todos los ejercicios:
 | Alcobendas                      |   46 |   63 |  185 |   79 |    93 |
 | Fuenlabrada                     |   55 |   61 |  132 |  146 |    98 |
 | Leganés                         |  129 |  200 |   73 |   26 |   107 |
+| Pozuelo de Alarcón              |  120 |    — |    — |  119 |   119 |
+| Majadahonda                     |   30 |   44 |  307 |  160 |   135 |
+| Torrejón de Ardoz               |   97 |  128 |  163 |  182 |   142 |
 | Getafe                          |   93 |  175 |  265 |   92 |   156 |
 
 **Impuestos directos** (capítulo 1 de ingresos, derechos reconocidos netos, consolidado, media
-de 2021 a 2024): Parla 254 € por habitante, la última de las ocho; Leganés 326, Fuenlabrada 367,
-Móstoles 370, Pinto 433, Getafe 460, Alcorcón 470 y Alcobendas 707. Los usa la nota de cierre del
+de 2021 a 2024): Parla 254 € por habitante, la última de las once; Leganés 326, Torrejón de
+Ardoz 358, Fuenlabrada 367, Móstoles 370, Pinto 433, Getafe 460, Alcorcón 470, Majadahonda 518,
+Alcobendas 707 y Pozuelo de Alarcón 733 (media de 2021 y 2024). Los usa la nota de cierre del
 dinero, que compara Parla con la ciudad elegida.
 
-Parla invierte una séptima parte que Getafe por habitante, y es la última de las ocho en tres de
+Parla invierte una séptima parte que Getafe por habitante, y es la última de las once en tres de
 los cuatro ejercicios. El gasto total por habitante también la deja abajo (media de 780 €), pero
 ahí Leganés está a un pelo (782 €) y 2022 fue un año raro en Parla, así que no es un dato
 redondo. El de inversión sí.
@@ -329,19 +354,22 @@ las dos y así no hay nada que discutir.
 
 En **«Detrás de todo, el dinero»** se añade la deuda viva, separada del gasto y la inversión
 anuales. Fuente: [Ministerio de Hacienda, ayuntamientos a 31/12/2025 (XLSX)](https://www.hacienda.gob.es/cdi/sist%20financiacion%20y%20deuda/informacioneells/2025/deuda-viva-ayuntamientos-202512.xlsx),
-hoja `Datos`, provincia `28`, códigos municipales `006`, `007`, `058`, `065`, `074`, `092`, `106`
-y `113`. Los nombres llevan espacios finales. Los importes originales están en **miles de
-euros**: se multiplican por 1.000 y se guardan como euros en `saldoEuros` de `datos/datos.js`.
+hoja `Datos`, provincia `28`, códigos municipales `006`, `007`, `058`, `065`, `074`, `092`, `106`,
+`113`, `148`, `115` y `080`. Los nombres llevan espacios finales. Los importes originales están
+en **miles de euros**: se multiplican por 1.000 y se guardan como euros en `saldoEuros` de `datos/datos.js`.
 
 | Municipio | Deuda viva, € | € por habitante |
 |---|---:|---:|
 | Parla | 520.280.348,98 | 3.784,66 |
+| Torrejón de Ardoz | 84.343.046,60 | 587,65 |
 | Alcorcón | 88.015.077,75 | 500,89 |
 | Fuenlabrada | 66.913.976,00 | 352,04 |
 | Leganés | 22.803.520,30 | 116,50 |
 | Getafe | 8.244.964,00 | 42,67 |
 | Alcobendas | 2.329.165,00 | 18,88 |
 | Móstoles | 3.020.356,00 | 14,06 |
+| Pozuelo de Alarcón | 278.975,00 | 3,11 |
+| Majadahonda | 185.111,00 | 2,51 |
 | Pinto | 1.333,00 | 0,02 |
 
 La tasa se calcula con las cifras oficiales del Padrón a **1 de enero de 2025** de `BASES.total`,
@@ -519,7 +547,7 @@ Es una web pública, así que la copia sigue tres reglas:
 3. **Nada de jerga de desarrollo en la cara pública.** Para avisar de un error se enlaza el
    repositorio, no un nombre de archivo.
 4. **Las frases con fuerza también salen de los datos.** El golpe de la portada («Parla es la
-   última en renta por habitante y en 8 de los 12 equipamientos») no está escrito a mano:
+   última en renta por habitante y en 7 de los 12 equipamientos») no está escrito a mano:
    `golpe()` recorre en cada carga los indicadores que suman al recuento y cuenta en cuántos la
    tasa de Parla es la mínima. Los dos números de la frase salen de ahí, así que si cambian los
    datos la frase cambia sola. Un empate a la cola cuenta como última, porque ninguna tiene

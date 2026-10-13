@@ -65,6 +65,9 @@ MUNICIPIOS = {
     'alcorcon':    ('Alcorcón',    40.3459, -3.8249),
     'alcobendas':  ('Alcobendas',  40.5405, -3.6416),
     'mostoles':    ('Móstoles',    40.3223, -3.8649),
+    'torrejon':    ('Torrejón de Ardoz', 40.4553, -3.4797),
+    'pozuelo':     ('Pozuelo de Alarcón', 40.4350, -3.8140),
+    'majadahonda': ('Majadahonda', 40.4735, -3.8720),
 }
 
 
