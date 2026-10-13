@@ -62,6 +62,7 @@ usar la población total en educación la favorecería sin motivo:
 | Escuelas infantiles y casas de niños | población de 0 a 2 años |
 | Colegios públicos | población de 3 a 11 años |
 | Institutos públicos | población de 12 a 17 años |
+| Alumnos de FP pública | población de 12 a 17 años |
 | Plazas en residencias públicas | población de 65 años o más |
 | Todo lo demás | población total |
 
@@ -104,6 +105,15 @@ debajo con las unidades que de verdad aparecen para esa ciudad:
   conservatorios) con lo municipal (escuelas de música y danza), porque la fuente no los separa
   por titularidad del centro. Sirve para comparar cuánta enseñanza de este tipo recibe cada
   municipio, no para auditar a su ayuntamiento.
+- **Alumnos de Formación Profesional pública.** FP Básica, Grado Medio y Grado Superior
+  presenciales en centros públicos, curso 2023-24 (dataset `alumnos_no_universitarios_general_
+  por_tipo_y_ensenanza`). Mide matrícula, no plazas: la Comunidad no publica las plazas
+  ofertadas por centro ni por municipio, solo totales regionales en notas de prensa. Cuenta donde
+  se estudia, no donde se vive. Se deja fuera la FP a distancia, que se concentra en pocos
+  centros de toda la región (Alcorcón tiene 2.883 alumnos a distancia; Móstoles, 1.133). La base
+  es la de 12 a 17 años porque `BASES` no tiene un tramo de 16 a 24. Las unidades escolares
+  (grupos) de FP sí se publican, pero sumarlas al recuento lo desbordaba —Getafe pasaba de 50 a
+  unos 95— y un grupo no pesa lo que un centro de salud; van en un comentario de `datos.js`.
 - **Zonas verdes e instalaciones deportivas.** Una superficie, y el único dato que calculamos
   nosotros. Ver «Zonas verdes», más abajo.
 - **Servicios del hospital público.** Un hospital no se reparte por habitante, así que no sale de
@@ -204,6 +214,8 @@ Todas oficiales y enlazadas una por una en el apartado «Cómo está hecho esto�
 - **INE** · Población por sexo, edad año a año y nacionalidad, 1 enero 2025 (tabla 68543)
 - **INE** · Indicadores Urbanos (Urban Audit): superficie total del municipio y tasa de paro, 2024
   (tablas 69333 y 69331)
+- **INE** · Atlas de Distribución de Renta de los Hogares: población bajo umbrales relativos, 2023
+  (tablas 31102 y 31103, las de la provincia de Madrid)
 - **Copernicus** · Urban Atlas 2018: zonas verdes urbanas e instalaciones deportivas y de ocio
 - **IGN** · Unidades administrativas (WFS INSPIRE): términos municipales
 - **Comunidad de Madrid, datos abiertos** · registro de centros sanitarios, centros educativos,
@@ -261,6 +273,22 @@ incorporarlos:
   Parla queda segunda por la cola: 7.041 parados por oficina frente a los 4.094 de Getafe, pero
   Fuenlabrada aguanta 9.355. Con recuentos de uno o dos, una oficina de más o de menos le da la
   vuelta a la tabla. Queda descartado por lumpy, no por falta de fuente.
+- **Ingreso Mínimo Vital.** La Seguridad Social y el INE lo publican por provincia, no por
+  municipio ni por código postal. Las cifras municipales que circulan salen de peticiones de
+  transparencia.
+- **Renta Mínima de Inserción.** El informe anual de la Comunidad sí da familias perceptoras
+  por municipio, pero la prestación se está extinguiendo con el paso al IMV: 19 familias en
+  Parla en 2025, 0 en Majadahonda. Con esos números, un caso le da la vuelta.
+- **Desahucios.** El CGPJ publica los lanzamientos por partido judicial, no por municipio. Solo
+  Getafe, Leganés, Alcorcón y Pozuelo tienen partido propio; Parla va con Pinto, Fuenlabrada con
+  Humanes, y Móstoles, Alcobendas, Torrejón y Majadahonda mezclan otros municipios. Además el
+  fichero de 2025 no cuadra con el anual del propio CGPJ.
+- **Centros de día de mayores.** El registro de atención social da las plazas de titularidad
+  pública (Parla 30, Getafe 40, tres ciudades a cero), pero no separa las concertadas, que son la
+  mayor parte de la red, y en Fuenlabrada hay un posible duplicado (Ramón Rubial, C3255 y C9718).
+- **Centros de educación de adultos.** Hay un CEPA por municipio, salvo Alcobendas: binario, como
+  las comisarías. El alumnado de adultos mide demanda, no dotación.
+- **Becas de comedor y bono social.** Solo hay totales regionales o provinciales.
 - **Accesos a autovías y autopistas.** No hay estadística municipal oficial. Contar enlaces sobre
   un mapa sería un constructo propio.
 - **Escuelas deportivas municipales.** Sin registro, el mismo muro que los polideportivos.
@@ -388,6 +416,58 @@ anual de intereses y amortización. No se convierte a «euros menos al año», n
 gasto y no entra en `indicadores`, en las pérdidas o ganancias ni en el total de equipamientos.
 El saldo por sí solo no cuantifica cuánto explica de la baja inversión de Parla; para eso harían
 falta, entre otros datos, intereses y amortizaciones de las liquidaciones.
+
+### Pobreza: el Atlas de Distribución de Renta de los Hogares del INE
+
+En «Y lo que hay debajo», junto al paro, la renta y el PIB. Porcentaje de población con ingresos
+por unidad de consumo por debajo del 60 % de la mediana, 2023. Desde la edición de 2023 la
+mediana es la de **toda España** (antes, solo territorio fiscal común), así que el umbral es el
+mismo para las once y se pueden comparar sin más. No hay fila de media: el atlas publica
+municipios, distritos y secciones, no la Comunidad.
+
+| | bajo el 60 % | bajo el 40 % | menores de 18, bajo el 60 % |
+|---|---:|---:|---:|
+| Parla | 27,2 | 12,5 | 35,8 |
+| Leganés | 18,8 | 7,9 | 25,7 |
+| Móstoles | 18,6 | 8,1 | 26,1 |
+| Fuenlabrada | 17,8 | 7,2 | 26,1 |
+| Torrejón de Ardoz | 17,1 | 7,1 | 22,4 |
+| Alcorcón | 16,0 | 6,7 | 21,2 |
+| Alcobendas | 15,9 | 7,3 | 19,5 |
+| Getafe | 15,8 | 6,8 | 20,3 |
+| Pinto | 14,9 | 6,2 | 18,4 |
+| Majadahonda | 11,9 | 5,7 | 13,6 |
+| Pozuelo de Alarcón | 8,5 | 4,3 | 9,8 |
+
+Las barras son el 60 %; el 40 % y los menores van en la nota (`extra` en `datos.js`). Las
+tablas son de la provincia de Madrid: el INE las numera por provincia y el nombre no lo dice
+(la 31111, por ejemplo, es Málaga). La serie llega a 2015 si algún día se quiere la evolución.
+
+### Servicios sociales y lo que pone la Comunidad
+
+Dos series más de CONPREL, con el mismo método que gasto e inversión (consolidado, media de
+2021 a 2024, población del INE a 1 de enero de 2025; Pozuelo, media de 2021 y 2024). Van arriba,
+con lo que decide o recibe el ayuntamiento (`municipal: true`), pero **sin euros al año ni
+cartel**.
+
+**Gasto en servicios sociales: política de gasto 23**, obligaciones reconocidas. A diferencia de
+limpieza, aguanta: la política solo tiene un programa en el catálogo (231), así que no hay
+reparto entre programas, y ninguno de los once sale con cero ni con valores raros. El único
+organismo autónomo con gasto en la 23 fue el Patronato de Bienestar Social de Alcobendas en 2021,
+y el consolidado lo recoge. Lo que no se puede comprobar es la frontera con otras políticas
+(empleo, escuelas infantiles), y lo dice la nota. La media con Madrid capital (105,83 €) dobla
+la de sin ella (54,44 €); se enseñan las dos. Entre 18 y 21 municipios pequeños declaran cero,
+probablemente porque lo prestan por mancomunidad.
+
+**Lo que pone la Comunidad: artículo 75 de ingresos** (transferencias de capital de la
+comunidad autónoma), derechos reconocidos. Parla, 1,49 € por habitante; media sin la capital,
+19,43. Cautelas: lo que la Comunidad contrata y paga directamente (buena parte del PIR) no pasa
+por el presupuesto municipal, y uno o dos convenios dominan la media —el salto de Torrejón en
+2024 son 30,3 millones del concepto 750.60, convenios con la Comunidad—. Aquí Madrid capital
+tira la media hacia abajo (13,26). La nota da también el capítulo 7 entero (Estado, Comunidad
+y UE): ahí Parla queda en 23,88 €, casi todo del concepto 797, otras transferencias de la UE.
+El capítulo 7 entero no va como serie: es demasiado volátil, y en Alcobendas 2021 sale negativo
+por un ajuste de consolidación (cuenta `7t`, −2.716.967,45 €).
 
 ### Plantilla médica de los hospitales: mirado y descartado
 

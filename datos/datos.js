@@ -190,9 +190,21 @@ window.DATOS = (function () {
       t: 'Comunidad de Madrid · Indicador de Renta Disponible Bruta Municipal, 2023',
       url: 'https://datos.comunidad.madrid/catalogo/dataset/irpf_indicador_renta'
     },
+    pobreza: {
+      t: 'INE · Atlas de Distribución de Renta de los Hogares: población bajo umbrales relativos de ingresos, 2023',
+      url: 'https://www.ine.es/jaxiT3/Tabla.htm?t=31102'
+    },
+    pobrezaEdad: {
+      t: 'INE · Atlas de Distribución de Renta de los Hogares: población bajo umbrales relativos por edad, 2023',
+      url: 'https://www.ine.es/jaxiT3/Tabla.htm?t=31103'
+    },
     camas: {
       t: 'Ministerio de Sanidad · Catálogo Nacional de Hospitales 2025, camas instaladas',
       url: 'https://www.sanidad.gob.es/estadEstudios/estadisticas/sisInfSanSNS/ofertaRecursos/hospitales/home.htm'
+    },
+    alumnadoFp: {
+      t: 'Comunidad de Madrid · Alumnos de régimen general por tipo de centro y enseñanza, 2024',
+      url: 'https://datos.comunidad.madrid/catalogo/dataset/alumnos_no_universitarios_general_por_tipo_y_ensenanza'
     },
     alumnado: {
       t: 'Comunidad de Madrid · Alumnos matriculados por tipo de centro y régimen, 2024',
@@ -873,6 +885,45 @@ window.DATOS = (function () {
     },
 
     {
+      id: 'fp',
+      mide: 'alumnos',
+      sing: 'alumno',
+      gen: 'm',
+      /* No hay tramo de 16 a 24 en BASES: se mide, como los institutos, contra
+         quien llegará a la FP. */
+      base: 'secundaria',
+      enTotal: false,
+      grupo: 'Educación',
+      titulo: 'Alumnos de Formación Profesional pública',
+      fuenteId: 'alumnadoFp',
+      /* Curso 2023-24, centros públicos: FP Básica, Grado Medio presencial y
+         Grado Superior presencial. Fuera, la FP a distancia, que se concentra
+         en pocos centros de toda la región (Alcorcón y Móstoles), y los cursos
+         de especialización. Unidades escolares públicas de FP, por si se
+         quieren: Getafe 109, Parla 60, Pinto 20, Fuenlabrada 189, Leganés 155,
+         Alcorcón 122, Alcobendas 107, Móstoles 231, Torrejón 72, Pozuelo 49,
+         Majadahonda 52. Por nivel (Básica / Medio / Superior): Getafe
+         349/1.022/1.350, Parla 304/720/421, Pinto 37/210/242, Fuenlabrada
+         528/1.797/2.145, Leganés 254/1.382/1.928, Alcorcón 278/1.119/1.446,
+         Alcobendas 316/719/1.391, Móstoles 649/1.919/2.634, Torrejón
+         414/523/435, Pozuelo 49/381/546, Majadahonda 75/282/731. */
+      nota: 'FP Básica, Grado Medio y Grado Superior presenciales en centros públicos. Cuenta alumnos matriculados, no plazas ofertadas, que no se publican por municipio, y los cuenta donde estudian, no donde viven.',
+      datos: {
+        getafe: { n: 2721, lista: [] },
+        parla: { n: 1445, lista: [] },
+        pinto: { n: 489, lista: [] },
+        fuenlabrada: { n: 4470, lista: [] },
+        leganes: { n: 3564, lista: [] },
+        alcorcon: { n: 2843, lista: [] },
+        alcobendas: { n: 2426, lista: [] },
+        mostoles: { n: 5202, lista: [] },
+        torrejon: { n: 1372, lista: [] },
+        pozuelo: { n: 976, lista: [] },
+        majadahonda: { n: 1088, lista: [] }
+      }
+    },
+
+    {
       id: 'plazas-residencia',
       mide: 'plazas',
       sing: 'plaza residencial pública',
@@ -1284,6 +1335,7 @@ window.DATOS = (function () {
            de la Comunidad comparable. La de la EPA es otra encuesta. */
         titulo: 'Quien busca trabajo y no lo encuentra',
         pie: 'Tasa de paro, 2024',
+        unidad: '%',
         valores: {
           getafe: 10.01,
           parla: 12.35,
@@ -1323,6 +1375,61 @@ window.DATOS = (function () {
         nota: 'Parla vive con el 58,4 % de la renta media de la Comunidad de Madrid, la más baja de los {N} municipios comparados.'
       },
       {
+        id: 'pobreza',
+        /* Sin media regional: el atlas da municipios, distritos y secciones, no
+           la Comunidad. El umbral es el mismo para todos: la mediana de España. */
+        titulo: 'Quien vive en riesgo de pobreza',
+        pie: 'Población con ingresos bajo el 60 % de la mediana de España, 2023',
+        unidad: '%',
+        decimales: 1,
+        valores: {
+          getafe: 15.8,
+          parla: 27.2,
+          pinto: 14.9,
+          fuenlabrada: 17.8,
+          leganes: 18.8,
+          alcorcon: 16,
+          alcobendas: 15.9,
+          mostoles: 18.6,
+          torrejon: 17.1,
+          pozuelo: 8.5,
+          majadahonda: 11.9
+        },
+        extra: {
+          /* Bajo el 40 % de la mediana, misma tabla y año. */
+          severa: {
+            getafe: 6.8,
+            parla: 12.5,
+            pinto: 6.2,
+            fuenlabrada: 7.2,
+            leganes: 7.9,
+            alcorcon: 6.7,
+            alcobendas: 7.3,
+            mostoles: 8.1,
+            torrejon: 7.1,
+            pozuelo: 4.3,
+            majadahonda: 5.7
+          },
+          /* Menores de 18 años bajo el 60 %, tabla por edad. */
+          menores: {
+            getafe: 20.3,
+            parla: 35.8,
+            pinto: 18.4,
+            fuenlabrada: 26.1,
+            leganes: 25.7,
+            alcorcon: 21.2,
+            alcobendas: 19.5,
+            mostoles: 26.1,
+            torrejon: 22.4,
+            pozuelo: 9.8,
+            majadahonda: 13.6
+          }
+        },
+        fuenteId: 'pobreza',
+        masFuentes: [['pobrezaEdad', 'Menores: ']],
+        nota: 'Cuenta a quien vive en un hogar cuyos ingresos, ajustados por el número de miembros, no llegan al 60 % de la mediana de España. Bajo el 40 %, lo que se suele llamar pobreza severa, están el {severaRef} % de {ref} y el {severaAqui} % de {aqui}. Entre los menores de 18 años, bajo el 60 %, el {menoresRef} % en {ref} y el {menoresAqui} % en {aqui}.'
+      },
+      {
         id: 'pib',
         refNombre: 'Media de la Comunidad',
         mediaRegional: 43413,
@@ -1342,7 +1449,7 @@ window.DATOS = (function () {
           majadahonda: 40886
         },
         /* La rama «Minería, industria y energía», misma fuente y año. */
-        industria: {
+        extra: { industria: {
           getafe: 6509,
           parla: 1398,
           pinto: 7505,
@@ -1354,7 +1461,7 @@ window.DATOS = (function () {
           torrejon: 6614,
           pozuelo: 1973,
           majadahonda: 977
-        },
+        } },
         fuenteId: 'pib',
         nota: 'Mide el valor de lo que se genera dentro del municipio, que no es lo mismo que lo que ganan sus vecinos. Parla se queda en el 32 % de la media regional y es la última de los 24 municipios de la Comunidad de Madrid que pasan de 50.000 habitantes. En la rama industrial, {industriaRef} € por habitante en {ref} y {industriaAqui} € en {aqui}. La cifra de 2023 es provisional; la de 2022, ya definitiva, deja a Parla en el mismo 32 %.'
       },
@@ -1419,6 +1526,87 @@ window.DATOS = (function () {
         },
         fuenteId: 'conprel',
         nota: 'El capítulo VI del presupuesto: obra nueva, reformas de colegios y calles, equipamiento. Es la partida que más se mueve de un año a otro, así que se promedian cuatro ejercicios. Parla es la última de los {N} en tres de esos cuatro años.'
+      },
+      {
+        id: 'servicios-sociales',
+        /* Sin euros al año: va con el gasto y la inversión, pero sin cartel. */
+        municipal: true,
+        refNombre: 'Media de la Comunidad',
+        mediaRegional: 105.83,
+        /* Madrid capital la dobla; se enseñan las dos. */
+        mediaSinCapital: 54.44,
+        decimales: 2,
+        titulo: 'Lo que gasta en servicios sociales',
+        pie: 'Gasto municipal en servicios sociales por habitante, media de 2021 a 2024',
+        pieCiudad: {
+          pozuelo: 'Gasto municipal en servicios sociales por habitante, media de 2021 y 2024: ' +
+            'Hacienda no publica las liquidaciones de 2022 y 2023 de Pozuelo de Alarcón'
+        },
+        /* Política de gasto 23, obligaciones reconocidas netas, consolidado. */
+        valores: {
+          getafe: 52.77,
+          parla: 52.91,
+          pinto: 68.25,
+          fuenlabrada: 91.72,
+          leganes: 45.21,
+          alcorcon: 53.00,
+          alcobendas: 57.85,
+          mostoles: 52.65,
+          torrejon: 63.29,
+          pozuelo: 47.83,
+          majadahonda: 48.72
+        },
+        fuenteId: 'conprel',
+        nota: 'La política de gasto 23, servicios sociales y promoción social, consolidando el ayuntamiento con sus organismos autónomos. Cada ayuntamiento decide qué apunta aquí y qué en otras partidas, como empleo o escuelas infantiles. Mide lo que se gasta, no lo que hace falta.'
+      },
+      {
+        id: 'comunidad',
+        municipal: true,
+        refNombre: 'Media de la Comunidad',
+        mediaRegional: 13.26,
+        /* Aquí Madrid capital tira hacia abajo; se enseñan las dos igual. */
+        mediaSinCapital: 19.43,
+        decimales: 2,
+        titulo: 'Lo que pone la Comunidad para invertir',
+        pie: 'Transferencias de capital de la Comunidad de Madrid por habitante, media de 2021 a 2024',
+        pieCiudad: {
+          pozuelo: 'Transferencias de capital de la Comunidad de Madrid por habitante, media de 2021 ' +
+            'y 2024: Hacienda no publica las liquidaciones de 2022 y 2023 de Pozuelo de Alarcón'
+        },
+        /* Capítulo 7 de ingresos, artículo 75, derechos reconocidos netos,
+           consolidado. */
+        valores: {
+          getafe: 12.54,
+          parla: 1.49,
+          pinto: 0,
+          fuenlabrada: 7.26,
+          leganes: 11.68,
+          alcorcon: 2.59,
+          alcobendas: 2.18,
+          mostoles: 2.04,
+          torrejon: 63.79,
+          pozuelo: 1.73,
+          majadahonda: 0.03
+        },
+        extra: {
+          /* El capítulo 7 entero: Comunidad, Estado y Unión Europea. En
+             Alcobendas incluye un ajuste de consolidación negativo de 2021. */
+          capital: {
+            getafe: 17.80,
+            parla: 23.88,
+            pinto: 28.02,
+            fuenlabrada: 34.86,
+            leganes: 16.15,
+            alcorcon: 13.06,
+            alcobendas: 22.16,
+            mostoles: 4.14,
+            torrejon: 87.74,
+            pozuelo: 1.73,
+            majadahonda: 3.90
+          }
+        },
+        fuenteId: 'conprel',
+        nota: 'Lo que la Comunidad de Madrid transfiere al ayuntamiento para obras y equipamientos. No recoge las obras que la Comunidad contrata y paga por su cuenta, porque no pasan por el presupuesto municipal, y un solo convenio puede mover la media de todo el periodo. Contando también los fondos del Estado y de la Unión Europea, {ref} recibe {capitalRef} € por habitante y {aqui}, {capitalAqui} €.'
       },
       {
         id: 'deuda',

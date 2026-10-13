@@ -187,6 +187,10 @@
       '-.3-.3-.5-.7-.5-1.2 0-1 .8-1.8 2-1.8h1.5c3 0 5.5-2.4 5.5-5.3 0-3.9-4.2-7.1-10-7.1z"/>' +
       '<circle cx="7.5" cy="10.6" r="1.1"/><circle cx="11" cy="7.5" r="1.1"/>' +
       '<circle cx="15.5" cy="8.4" r="1.1"/>',
+    /* Una llave inglesa: mango y cabeza abierta. */
+    llave:
+      '<path d="M14.6 3.4a4.6 4.6 0 0 0-4.3 6.3l-6.4 6.4a2 2 0 0 0 2.9 2.9l6.4-6.4a4.6 4.6 0 0 0 ' +
+      '6.3-4.3l-2.8 2.8-2.9-.9-.9-2.9z"/>',
     descarga:
       '<path d="M12 3.4v11.2"/><path d="M7.6 10.4 12 14.8l4.4-4.4"/>' +
       '<path d="M4.2 16.6v2.6a1.4 1.4 0 0 0 1.4 1.4h12.8a1.4 1.4 0 0 0 1.4-1.4v-2.6"/>',
@@ -228,7 +232,7 @@
     farmacias: 'farmacia', bibliotecas: 'biblioteca', 'centros-salud': 'salud',
     'escuelas-infantiles': 'bebe', colegios: 'colegio', institutos: 'instituto',
     universidad: 'universidad', conservatorio: 'musica',
-    'plazas-residencia': 'residencia', camas: 'cama', artes: 'paleta',
+    'plazas-residencia': 'residencia', camas: 'cama', artes: 'paleta', fp: 'llave',
     hacienda: 'hacienda', 'seguridad-social': 'ventanilla',
     'zonas-verdes': 'arbol', hospital: 'hospital'
   };
@@ -890,9 +894,10 @@
     return t;
   }
 
-  /* Arriba, inversión y gasto en euros al año, seguidos del saldo de deuda.
-     Debajo, en fila de tres, lo que describe a los vecinos: paro, renta y PIB.
-     El saldo no recibe ni equivalencia anual ni cartel de gasto. */
+  /* Arriba, inversión y gasto en euros al año, lo demás que decide o recibe el
+     ayuntamiento y el saldo de deuda. Debajo, lo que describe a los vecinos:
+     paro, renta, pobreza y PIB. Solo gasto e inversión llevan euros al año y
+     cartel. */
   function dinero() {
     const arriba = $('#dinero-cuerpo');
     const abajo = $('#dinero-contexto');
@@ -900,10 +905,11 @@
     vaciar(abajo);
     const series = D.contexto.dinero;
     const destacadas = series.filter(function (s) { return s.alAnio; }).reverse();
+    const municipales = series.filter(function (s) { return s.municipal; });
     const saldos = series.filter(function (s) { return s.saldoEuros; });
-    const resto = series.filter(function (s) { return !s.alAnio && !s.saldoEuros; });
-    destacadas.concat(saldos, resto).forEach(function (s) {
-      const cont = s.alAnio || s.saldoEuros ? arriba : abajo;
+    const resto = series.filter(function (s) { return !s.alAnio && !s.saldoEuros && !s.municipal; });
+    destacadas.concat(municipales, saldos, resto).forEach(function (s) {
+      const cont = s.alAnio || s.saldoEuros || s.municipal ? arriba : abajo;
       const art = el('article', 'plata' + (s.saldoEuros ? ' plata--saldo' : ''));
       art.id = 'dinero-' + s.id;
       art.appendChild(el('h3', 'plata__h', s.titulo));
@@ -915,13 +921,21 @@
           enEuros(s.saldoEuros[REF], false) + '</span>. ' + NOMBRE[AQUI] + ' debe ' +
           enEuros(s.saldoEuros[AQUI], false) + '.'));
       }
-      art.appendChild(filasDinero(s, s.id === 'paro'
-        ? function (v) { return num(v, 2) + ' %'; }
-        : function (v) { return (s.saldoEuros ? num(v, 2) : entero(v)) + ' €'; }));
-      art.appendChild(el('p', 'renta__nota', texto(s.nota, s.industria && {
-        industriaAqui: entero(s.industria[AQUI]), industriaRef: entero(s.industria[REF])
-      })));
-      art.appendChild(pieFuente([s.fuenteId].concat(s.saldoEuros
+      /* Los decimales, los que trae la fuente; sin indicarlos, la cifra tal cual. */
+      const cifra = function (v) {
+        return s.decimales != null ? num(v, s.decimales) : s.saldoEuros ? num(v, 2) : entero(v);
+      };
+      art.appendChild(filasDinero(s, s.unidad === '%'
+        ? function (v) { return num(v, s.decimales != null ? s.decimales : 2) + ' %'; }
+        : function (v) { return cifra(v) + ' €'; }));
+      /* Cada serie de extra da a la nota {claveRef} y {claveAqui}. */
+      const huecos = {};
+      Object.keys(s.extra || {}).forEach(function (k) {
+        huecos[k + 'Aqui'] = cifra(s.extra[k][AQUI]);
+        huecos[k + 'Ref'] = cifra(s.extra[k][REF]);
+      });
+      art.appendChild(el('p', 'renta__nota', texto(s.nota, huecos)));
+      art.appendChild(pieFuente([s.fuenteId].concat(s.masFuentes || [], s.saldoEuros
         ? [D.BASES.total.fuenteId, ['deudaMetodo', 'Definición: ']] : [])));
       if (s.alAnio && !alAnio(s).igual) art.appendChild(botonCartel({ dinero: s }, null));
       cont.appendChild(art);
