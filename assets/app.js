@@ -551,6 +551,15 @@
     const hueco = $('#portada-cartel');
     vaciar(hueco);
     hueco.appendChild(botonCartelGeneral());
+    /* Y el atajo a la página de los accesos, que si no queda al final */
+    if ((window.ACCESOS || {}).ciudades) {
+      const a = el('a', 'compartir compartir--salir');
+      a.id = 'portada-salir';
+      a.href = RUTAS ? RAIZ_WEB + AQUI + '/infraestructura/' : 'infraestructura.html#' + AQUI;
+      a.innerHTML = '<span>Infraestructura: salir en coche</span><svg width="16" height="12" viewBox="0 0 16 12" ' +
+        'fill="none" aria-hidden="true"><path d="M1 6h13M9.5 1l5 5-5 5" stroke="currentColor" stroke-width="1.8"/></svg>';
+      hueco.appendChild(a);
+    }
 
     /* "Y ganarías 3, en educación." Las áreas, y no los servicios uno a uno,
        porque en la portada no cabe una lista. */
@@ -1026,16 +1035,21 @@
     const en = unidades.length > 1
       ? unidades.slice(0, -1).join(', ') + ' o ' + unidades[unidades.length - 1]
       : unidades[0];
-    let cortado = false;
+    let cortado = false, area = null;
     lista.forEach(function (c, n) {
       if (!cortado && c.ind.enTotal === false && n > 0) {
         cortado = true;
         const sep = el('div', 'separador');
+        sep.id = 'fuera-' + modo;
+        sep.dataset.indiceSub = 'Fuera del recuento';
         sep.appendChild(el('h3', 'separador__h', 'Fuera del recuento'));
         sep.appendChild(el('p', 'separador__p', arranque + ': se mide en ' + en + '.'));
         env.appendChild(sep);
       }
-      env.appendChild(bloqueIndicador(c, modo));
+      const art = bloqueIndicador(c, modo);
+      /* La primera ficha de cada área es un apartado del índice (assets/indice.js) */
+      if (!cortado && c.ind.grupo !== area) { area = c.ind.grupo; art.dataset.indiceSub = area; }
+      env.appendChild(art);
     });
   }
 
@@ -1654,6 +1668,46 @@
     return b;
   }
 
+
+  /* ── Salir en coche: el resumen de infraestructura.html ───────────────
+     Los datos los escribe herramientas/infraestructura.py; aquí solo se
+     enseña la puerta más usada de cada ciudad y se manda a la página. */
+  function salir() {
+    const A = (window.ACCESOS || {}).ciudades;
+    const caja = $('#salir');
+    if (!A || !A[REF] || !A[AQUI]) { if (caja) caja.hidden = true; return; }
+    function primera(c) {
+      const t = c.puertas.reduce(function (s, p) { return s + p.v; }, 0) + c.calles;
+      return { p: c.puertas[0], s: c.puertas[0].v / t, t: t };
+    }
+    const r = primera(A[REF]), a = primera(A[AQUI]);
+    $('#salir-txt').textContent =
+      'Entre las 6 y las 10 de la mañana salen de Parla por carretera ' +
+      entero(Math.round(r.t)) + ' personas, y el ' + num(r.s * 100, 1) + ' % lo hace por la ' +
+      'misma carretera: la ' + r.p.via + ' ' + r.p.hacia + '. En ' + NOMBRE[AQUI] +
+      ', la salida más usada se lleva el ' + num(a.s * 100, 1) + ' %.';
+    const ul = $('#salir-filas');
+    vaciar(ul);
+    [[REF, 'referencia', r], [AQUI, 'aqui', a]].forEach(function (g) {
+      const li = el('li', 'mun__fila');
+      li.setAttribute('data-quien', g[1]);
+      const q = el('span', 'mun__q');
+      q.textContent = NOMBRE[g[0]] + ', por la ' + g[2].p.via;
+      li.appendChild(q);
+      li.appendChild(el('span', 'mun__v', num(g[2].s * 100, 1) + ' %'));
+      const b = el('span', 'mun__barra');
+      const i = el('i');
+      i.style.width = (g[2].s * 100).toFixed(1) + '%';
+      b.appendChild(i);
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+    const ir = RUTAS ? RAIZ_WEB + AQUI + '/infraestructura/' : 'infraestructura.html#' + AQUI;
+    $('#salir-ir').href = ir;
+    const atajo = $('#portada-salir');
+    if (atajo) atajo.href = ir;
+  }
+
   function pintar() {
     calcular();
     portada();
@@ -1662,10 +1716,24 @@
     edades();
     tamano();
     dinero();
+    salir();
     listas();
     metodo();
     movimiento();
     document.title = 'Si yo viviera como en Parla · ' + NOMBRE[AQUI];
+    indice();
+  }
+
+  /* El índice lee la página; aquí solo se le dan las cifras de las dos
+     listas y la ciudad, para los enlaces a las otras páginas. */
+  function indice() {
+    if (!window.INDICE) return;
+    const p = $('#perdidas'), g = $('#ganancias');
+    p.dataset.indiceDato = Math.round(TOTAL) > 0 ? String(Math.round(TOTAL)) : '';
+    p.dataset.indiceTono = 'loss';
+    g.dataset.indiceDato = Math.round(GANADO) > 0 ? String(Math.round(GANADO)) : '';
+    g.dataset.indiceTono = 'gain';
+    window.INDICE.refrescar({ ciudad: AQUI, nombre: NOMBRE[AQUI] });
   }
 
   selector();

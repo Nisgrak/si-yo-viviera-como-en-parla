@@ -25,7 +25,7 @@
 <link rel="preload" href="assets/fuentes/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/estilos.css">
 </head>
-<body>
+<body data-pagina="recuento">
 
 <a class="saltar" href="#resumen">Saltar al recuento</a>
 
@@ -83,7 +83,7 @@
 <main>
 
 <!-- ── El recuento, de un vistazo ─────────────────────────────────────── -->
-<section class="bloque bloque--resumen" id="resumen">
+<section class="bloque bloque--resumen" id="resumen" data-indice="Recuento">
   <div class="env">
     <h2 class="bloque__h">Recuento</h2>
     <p class="bloque__intro">
@@ -102,7 +102,7 @@
 </section>
 
 <!-- ── El punto de partida ───────────────────────────────────────────── -->
-<section class="bloque bloque--partida" id="partida">
+<section class="bloque bloque--partida" id="partida" data-indice="Punto de partida">
   <div class="env">
     <h2 class="bloque__h">Punto de partida</h2>
     <p class="bloque__intro">
@@ -116,7 +116,7 @@
 </section>
 
 <!-- ── Lo que perderías ──────────────────────────────────────────────── -->
-<section class="bloque bloque--perdidas" id="perdidas">
+<section class="bloque bloque--perdidas" id="perdidas" data-indice="Lo que perderías">
   <div class="env">
     <h2 class="bloque__h">Lo que perderías</h2>
     <p class="bloque__intro">
@@ -129,7 +129,7 @@
 </section>
 
 <!-- ── Lo que ganarías ───────────────────────────────────────────────── -->
-<section class="bloque bloque--ganancias" id="ganancias">
+<section class="bloque bloque--ganancias" id="ganancias" data-indice="Lo que ganarías">
   <div class="env">
     <h2 class="bloque__h">Lo que ganarías</h2>
     <p class="bloque__intro" id="ganancias-intro"></p>
@@ -138,7 +138,7 @@
 </section>
 
 <!-- ── El dinero ─────────────────────────────────────────────────────── -->
-<section class="bloque bloque--dinero" id="dinero">
+<section class="bloque bloque--dinero" id="dinero" data-indice="El dinero">
   <div class="env">
     <h2 class="bloque__h">Detrás de todo, el dinero</h2>
     <p class="bloque__intro">
@@ -155,8 +155,28 @@
   </div>
 </section>
 
+<!-- ── Salir en coche ─────────────────────────────────────────────────
+     Solo el resumen: lo demás está en infraestructura.html. -->
+<section class="bloque bloque--salir" id="salir" data-indice="Salir en coche">
+  <div class="env">
+    <h2 class="bloque__h">Salir en coche</h2>
+    <p class="bloque__intro" id="salir-txt"></p>
+    <ul class="mun salir__filas" id="salir-filas"></ul>
+    <p class="salir__pie">
+      Parte de las salidas por carretera de 6 a 10 de la mañana que se lleva la salida más usada.
+      <a href="https://www.transportes.gob.es/ministerio/proyectos-singulares/estudios-de-movilidad-con-big-data/rutas-por-carretera">Ministerio de Transportes, rutas por carretera</a>, 16-10-2024.
+    </p>
+    <a class="salir__ir" id="salir-ir" href="infraestructura.html">
+      <span>Ver las salidas de <span data-aqui>Getafe</span> y de Parla</span>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+        <path d="M1 6h13M9.5 1l5 5-5 5" stroke="currentColor" stroke-width="1.6"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
 <!-- ── Método ────────────────────────────────────────────────────────── -->
-<section class="bloque bloque--metodo" id="metodo">
+<section class="bloque bloque--metodo" id="metodo" data-indice="Cómo está hecho">
   <div class="env">
     <h2 class="bloque__h">Cómo está hecho esto</h2>
 
@@ -255,8 +275,10 @@
 <div class="cartel" id="cartel" aria-hidden="true"></div>
 
 <script src="datos/datos.js"></script>
+<script src="datos/infraestructura.js"></script>
 <script src="assets/calculo.js"></script>
 <script src="assets/qr.js"></script>
+<script src="assets/indice.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>

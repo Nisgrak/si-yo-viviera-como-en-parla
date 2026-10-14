@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Salir de Parla en coche · Si yo viviera como en Parla</title>
+<meta name="description" content="Por qué carreteras se sale en coche de Parla y de tu ciudad entre las 6 y las 10 de la mañana, y cuánta gente pasa por cada una. Con datos del Ministerio de Transportes.">
+<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Salir de Parla en coche">
+<meta property="og:description" content="De 6 a 10 de la mañana, 7 de cada 10 personas que salen de Parla por carretera lo hacen por la misma carretera: la A-42 hacia Madrid.">
+<meta property="og:locale" content="es_ES">
+<meta property="og:url" content="https://siyovivieracomoenparla.netlify.app/infraestructura.html">
+<meta property="og:image" content="https://siyovivieracomoenparla.netlify.app/assets/compartir/general.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/icono.svg" type="image/svg+xml">
+<link rel="mask-icon" href="assets/icono.svg" color="#c02719">
+
+<link rel="preload" href="assets/fuentes/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/estilos.css">
+<link rel="stylesheet" href="assets/infraestructura.css">
+</head>
+<body class="infra" data-pagina="infraestructura">
+
+<a class="saltar" href="#mapas">Saltar al mapa</a>
+
+<noscript>
+  <p class="sin-js">
+    Esta página dibuja las colas en tu navegador y necesita JavaScript. Los datos, con sus
+    fuentes, están en
+    <a href="https://github.com/Nisgrak/si-yo-viviera-como-en-parla">github.com/Nisgrak/si-yo-viviera-como-en-parla</a>.
+  </p>
+</noscript>
+
+<nav class="volver">
+  <div class="env">
+    <a class="js-volver" href="index.html">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+        <path d="M15 6H2M6.5 1 1.5 6l5 5" stroke="currentColor" stroke-width="1.6"/>
+      </svg>
+      <span>El recuento de <span data-aqui>Getafe</span></span>
+    </a>
+  </div>
+</nav>
+
+<!-- ── Portada ───────────────────────────────────────────────────────── -->
+<header class="portada portada--infra">
+  <div class="env">
+    <h1 class="portada__titulo">
+      <span class="t1">Salir de <span class="selector">
+        <span class="selector__eco" id="sel-texto" aria-hidden="true">Getafe</span>
+        <select id="sel-municipio" aria-label="Elige tu municipio"></select>
+      </span></span>
+      <span class="t2">en coche, y salir de</span>
+      <span class="t3">Parla</span>
+    </h1>
+    <p class="portada__golpe" id="golpe"></p>
+  </div>
+</header>
+
+<main>
+
+<!-- ── El mapa ───────────────────────────────────────────────────────── -->
+<section class="bloque bloque--colas" id="mapas" data-indice="Por dónde sale la gente">
+  <div class="env">
+    <h2 class="bloque__h">Por dónde sale la gente</h2>
+    <p class="bloque__intro">
+      El ancho de cada carretera es la gente que sale por ella, con la misma medida en los dos
+      mapas.
+    </p>
+
+    <div class="mapas" data-indice-ancho>
+      <figure class="mapa" data-quien="referencia">
+        <figcaption class="mapa__pie"><span class="mapa__nombre">Parla</span> <span class="mapa__dato" id="dato-parla"></span></figcaption>
+        <canvas class="mapa__lienzo" id="mapa-parla" role="img"></canvas>
+      </figure>
+      <figure class="mapa" data-quien="aqui">
+        <figcaption class="mapa__pie"><span class="mapa__nombre" data-aqui>Getafe</span> <span class="mapa__dato" id="dato-aqui"></span></figcaption>
+        <canvas class="mapa__lienzo" id="mapa-aqui" role="img"></canvas>
+      </figure>
+    </div>
+
+    <p class="mapa__escala" id="escala"></p>
+
+    <p class="colas__pie">
+      La línea es el término municipal (IGN). Se dibujan las carreteras por las que salen al
+      menos 50 personas, hasta 4 kilómetros fuera del término; el porcentaje es la parte de la
+      gente que sale por cada salida. Fuente: <a href="https://www.transportes.gob.es/ministerio/proyectos-singulares/estudios-de-movilidad-con-big-data/rutas-por-carretera">Ministerio de Transportes, rutas por carretera</a>, 16-10-2024.
+    </p>
+
+  </div>
+</section>
+
+<!-- ── Las colas ─────────────────────────────────────────────────────── -->
+<section class="bloque" id="colas" data-indice="Cuánta gente por salida">
+  <div class="env">
+    <h2 class="bloque__h">Cuánta gente por cada salida</h2>
+    <p class="bloque__intro">
+      La misma gente, en cola en la salida que toma. Cada punto son
+      <b>100 personas</b>.
+    </p>
+
+    <div class="colas-pareja">
+      <div class="colas" id="colas-parla" data-quien="referencia"></div>
+      <div class="colas" id="colas-aqui" data-quien="aqui"></div>
+    </div>
+
+    <p class="colas__pie">
+      Fuente: <a href="https://www.transportes.gob.es/ministerio/proyectos-singulares/estudios-de-movilidad-con-big-data/rutas-por-carretera">Ministerio de Transportes, rutas por carretera</a>, 16-10-2024.
+    </p>
+  </div>
+</section>
+
+<!-- ── Salen y entran ────────────────────────────────────────────────── -->
+<section class="bloque" id="sentidos" data-indice="La hora punta">
+  <div class="env">
+    <h2 class="bloque__h">La hora punta, en los dos sentidos</h2>
+    <p class="bloque__intro" id="sentidos-intro"></p>
+    <div class="sentidos" id="sentidos-filas"></div>
+    <p class="colas__pie">
+      Fuente:
+      <a href="https://movilidad-opendata.mitma.es/">Ministerio de Transportes, Open Data Movilidad</a>,
+      16-10-2024.
+    </p>
+  </div>
+</section>
+
+<!-- ── Lo oficial ────────────────────────────────────────────────────── -->
+<section class="bloque" id="oficial" data-indice="Las salidas de Parla">
+  <div class="env">
+    <h2 class="bloque__h">Las salidas de Parla, una a una</h2>
+    <p class="bloque__intro">
+      Lo que dicen de cada acceso el Ministerio de Transportes y la Comunidad de Madrid.
+    </p>
+
+    <ol class="puerta-ficha">
+      <li>
+        <h3><span class="rotulo">A-42</span> hacia Madrid</h3>
+        <p>
+          En Parla Norte la autovía pasa de tres carriles a dos. Lleva hasta 90.000 vehículos al
+          día, y el Ministerio reconoce «retenciones que en horas punta se producen actualmente,
+          tanto en salida como en entrada».
+        </p>
+        <p>
+          El proyecto del tercer carril entre Parla Norte y Casarrubuelos se adjudicó en octubre
+          de 2024 por 1.413.000 euros. Es la redacción del proyecto; la obra se estima en 40
+          millones y no tiene fecha.
+        </p>
+        <p>
+          La estación de aforo del Ministerio dentro de Parla (kilómetro 23,9) registró en 2024
+          373 horas de tráfico alterado o congestionado en sentido Madrid. No hay ninguna entre
+          el kilómetro 16 y el 23,9, que es el tramo de Parla Norte.
+        </p>
+        <p class="ficha__fuente">
+          <a href="https://www.transportes.gob.es/el-ministerio/sala-de-prensa/noticias/lun-21102024-1319">Ministerio de Transportes, 21-10-2024</a>
+          · <a href="https://mapadetrafico.transportes.gob.es/">Mapa de tráfico, estación M-133-0</a>
+        </p>
+      </li>
+      <li>
+        <h3><span class="rotulo">M-408</span> hacia Pinto</h3>
+        <p>
+          Un carril por sentido. Un día laborable, entre las 7 y las 8 de la mañana, salen por ella 1.304
+          vehículos por hora, según el aforo de la Comunidad de Madrid de 2024. Es también el
+          único camino de Parla a la R-4.
+        </p>
+        <p class="ficha__fuente">
+          <a href="https://www.comunidad.madrid/servicios/transporte/estudio-intensidad-media-diaria-vehiculos-imd">Comunidad de Madrid, intensidad de tráfico 2024, estación 430 (septiembre a diciembre)</a>
+        </p>
+      </li>
+      <li>
+        <h3><span class="rotulo">R-4</span> de peaje</h3>
+        <p>
+          Pasa junto a Parla sin salida propia: se llega desde la M-408, por una glorieta que ya
+          está en Pinto. Ir de Pinto-Parla a la M-50 cuesta 0,55 euros con telepeaje. El 3 % de
+          los viajes por carretera que salen de Parla pasa por ella.
+        </p>
+        <p class="ficha__fuente">
+          <a href="https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_r4_2026_1.pdf">SEITT, tarifas de la R-4 en 2026</a>
+          · <a href="https://www.transportes.gob.es/ministerio/proyectos-singulares/estudios-de-movilidad-con-big-data/rutas-por-carretera">Ministerio de Transportes, rutas por carretera</a>
+        </p>
+      </li>
+      <li>
+        <h3><span class="rotulo">A-42 y M-410</span> hacia el sur</h3>
+        <p>
+          El enlace de la salida 24 y una glorieta sobre la M-410. Por aquí sale el tráfico que va
+          hacia el sur por la A-42 y hacia el oeste por la M-410.
+        </p>
+      </li>
+    </ol>
+
+    <p class="cautela">
+      La A-42 la usan también los municipios vecinos y quien viene de más al sur, y su atasco lo
+      comparten todos. Las horas de congestión de arriba miden la autovía entera.
+    </p>
+  </div>
+</section>
+
+<!-- ── Método ────────────────────────────────────────────────────────── -->
+<section class="bloque bloque--metodo" id="metodo" data-indice="Cómo está hecho">
+  <div class="env">
+    <h2 class="bloque__h">Cómo está hecho esto</h2>
+    <div class="metodo__cuerpo">
+      <h3>De dónde sale el dato</h3>
+      <p>
+        El Ministerio de Transportes publica, a partir de la telefonía móvil, el recorrido por
+        carretera de los viajes de más de 5 kilómetros entre municipios en días sueltos. Se usa el
+        miércoles 16 de octubre de 2024. Cada viaje se asigna a la carretera por la que cruza el
+        límite del término municipal (IGN) al salir.
+      </p>
+      <p id="metodo-2023"></p>
+
+      <h3>Son personas</h3>
+      <p>
+        El dato cuenta viajeros por carretera, en coche o en autobús, sin separarlos. Los
+        camiones de reparto no están. En las colas, cada salida se redondea a la centena.
+      </p>
+
+      <h3>Las horas, estimadas</h3>
+      <p>
+        Las rutas no llevan hora. Las franjas de 6 a 10 y de 7 a 8 de la mañana se estiman aplicando a cada
+        origen y destino la parte de sus viajes que cae en esas horas en el estudio por horas del
+        mismo Ministerio, que mezcla todos los medios de transporte.
+      </p>
+
+      <h3>Qué es una salida</h3>
+      <p>
+        Las carreteras de la red del estudio que cortan el límite municipal, agrupadas cuando sus
+        cruces quedan a menos de 1,1 kilómetros. Se rotulan con las dos primeras carreteras y el
+        rumbo desde el centro del municipio. Lo que sale por calles que no están en esa red va en
+        una fila aparte, y en las ciudades pegadas a otras es bastante.
+      </p>
+
+      <h3>Fuentes, una por una</h3>
+      <ul class="fuentes">
+        <li><a href="https://movilidad-opendata.mitma.es/">Ministerio de Transportes, Open Data Movilidad</a>: rutas por carretera y estudio básico por municipios, 16-10-2024 y 17-10-2023.</li>
+        <li><a href="https://www.transportes.gob.es/recursos_mfom/paginabasica/recursos/a3_informe_metodologico_resumen_v11.pdf">Informe metodológico de los estudios de movilidad</a>.</li>
+        <li><a href="https://www.ign.es/wfs-inspire/unidades-administrativas">IGN, unidades administrativas</a>: términos municipales.</li>
+        <li><a href="https://www.comunidad.madrid/servicios/transporte/estudio-intensidad-media-diaria-vehiculos-imd">Comunidad de Madrid, intensidad media diaria de tráfico 2024</a>.</li>
+        <li><a href="https://mapadetrafico.transportes.gob.es/">Ministerio de Transportes, Mapa de tráfico</a>.</li>
+        <li><a href="https://www.transportes.gob.es/el-ministerio/sala-de-prensa/noticias/lun-21102024-1319">Ministerio de Transportes, adjudicación del proyecto del tercer carril de la A-42</a>.</li>
+        <li><a href="https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_r4_2026_1.pdf">SEITT, tarifas de la R-4</a>.</li>
+        <li><a href="https://www.ine.es/jaxiT3/Tabla.htm?t=2881">INE, cifras oficiales de población a 1 de enero de 2025</a>.</li>
+      </ul>
+      <p class="cautela">
+        El cálculo, con sus scripts, está en
+        <a href="https://github.com/Nisgrak/si-yo-viviera-como-en-parla">el repositorio del proyecto</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="env">
+    <p class="pie__frase">Parla no es un caso raro.<br>Es lo que pasa cuando el reparto lo decide otro.</p>
+    <p class="pie__meta">
+      <a class="js-volver" href="index.html">Volver al recuento de <span data-aqui>Getafe</span></a>
+    </p>
+  </div>
+</footer>
+
+<script src="datos/datos.js"></script>
+<script src="datos/infraestructura.js"></script>
+<script src="assets/indice.js"></script>
+<script src="assets/infraestructura-comun.js"></script>
+<script src="assets/infraestructura-mapa.js"></script>
+<script src="assets/infraestructura.js"></script>
+</body>
+</html>

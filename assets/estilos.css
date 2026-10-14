@@ -1179,6 +1179,37 @@ code {
 }
 .pie__meta { margin-top: 1.5rem; font-size: .8125rem; color: var(--ink-3); max-width: 26rem; }
 
+/* ── Salir en coche: el resumen que manda a infraestructura.html ──────── */
+
+.salir__filas { margin-top: 1.5rem; max-width: 34rem; }
+.salir__pie { margin-top: .7rem; max-width: 34rem; font-size: .8125rem; color: var(--ink-3); }
+.salir__pie a { color: var(--ink-3); }
+.salir__ir {
+  display: inline-flex; align-items: center; gap: .6rem;
+  margin-top: 1.5rem;
+  color: var(--ref);
+  font-size: .8125rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  text-decoration: none;
+}
+.salir__ir:hover { color: var(--ref-deep); }
+.salir__ir svg { transition: transform .2s var(--sal-corta); }
+.salir__ir:hover svg { transform: translateX(3px); }
+
+/* El atajo de la portada a infraestructura.html: relleno en el azul de
+   Parla y algo más grande que el del cartel, para que no se pierda. */
+.portada__cartel { display: flex; flex-wrap: wrap; align-items: center; gap: 0 .6rem; }
+.compartir--salir {
+  padding: .7rem 1.15rem;
+  border-color: var(--ref);
+  background: var(--ref); color: var(--bg);
+  font-size: .9375rem; font-weight: 800;
+  text-decoration: none;
+}
+.compartir--salir:hover { border-color: var(--ref-deep); background: var(--ref-deep); }
+.compartir--salir svg { transition: transform .2s var(--sal-corta); }
+.compartir--salir:hover svg { transform: translateX(3px); }
+
 /* ── Pantallas anchas ─────────────────────────────────────────────────── */
 
 @media (min-width: 62rem) {
@@ -1228,6 +1259,173 @@ code {
   .unidades { grid-template-columns: 1fr; }
 }
 
+/* ── El índice (assets/indice.js) ─────────────────────────────────────────
+   Dos formas del mismo índice. Con sitio en el margen izquierdo, una lista
+   fija ahí (html[data-indice='lateral']). Sin sitio, una barra abajo que
+   dice dónde se está y abre una hoja con todo (html[data-indice='barra']).
+   Las dos salen al dejar atrás la portada. */
+
+[data-indice], [data-indice-sub] { scroll-margin-top: 1.25rem; }
+[data-indice]:focus, [data-indice-sub]:focus { outline: none; }
+
+.indice__h {
+  font-size: .6875rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+.indice__lista, .indice__subs, .indice__paginas { list-style: none; margin: 0; padding: 0; }
+.indice__a {
+  display: grid; grid-template-columns: 1.6rem 1fr auto; align-items: baseline;
+  gap: .15rem .3rem;
+  padding: .42rem .5rem .42rem .75rem;
+  border-left: 2px solid var(--line);
+  color: var(--ink-2);
+  text-decoration: none;
+  line-height: 1.25;
+  transition: color .2s, border-color .2s;
+}
+.indice__a:hover { color: var(--ink); border-left-color: var(--line-alta); }
+.indice__a[aria-current] { color: var(--ink); font-weight: 700; border-left-color: var(--ref); }
+.indice__n { font-size: .6875rem; font-weight: 700; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.indice__a[aria-current] .indice__n { color: var(--ref); }
+.indice__dato {
+  font-size: .75rem; font-weight: 800; font-variant-numeric: tabular-nums;
+  color: var(--ink-3);
+}
+.indice__dato[data-tono='loss'] { color: var(--loss); }
+.indice__dato[data-tono='gain'] { color: var(--gain-ink, var(--gain)); }
+.indice__subs { padding: .1rem 0 .35rem; border-left: 2px solid var(--line); }
+.indice__sub {
+  display: block;
+  padding: .26rem .5rem .26rem 2.35rem;
+  font-size: .8125rem; line-height: 1.25;
+  color: var(--ink-3);
+  text-decoration: none;
+}
+.indice__sub:hover { color: var(--ink); }
+.indice__sub[aria-current] { color: var(--ink); font-weight: 700; }
+.indice__h--paginas { margin-top: 1.25rem; }
+.indice__paginas { margin-top: .4rem; }
+.indice__pagina {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .35rem 0;
+  color: var(--ref); font-weight: 700; line-height: 1.25;
+  text-decoration: none;
+}
+.indice__pagina:hover { color: var(--ref-deep); }
+.indice__pagina svg { flex: none; transition: transform .2s var(--sal-corta); }
+.indice__pagina:hover svg { transform: translateX(3px); }
+
+/* El lateral: solo se despliegan los apartados de la sección en la que se
+   está, para que la lista no crezca con la página. */
+.indice {
+  position: fixed; z-index: var(--z-sticky);
+  top: 50%; left: clamp(1rem, 2vw, 2rem);
+  width: 13rem; max-height: calc(100vh - 6rem);
+  overflow-y: auto; overscroll-behavior: contain;
+  font-size: .875rem;
+  opacity: 0; visibility: hidden;
+  transform: translate(-.5rem, -50%);
+  transition: opacity .3s var(--sal), transform .3s var(--sal), visibility 0s .3s;
+  scrollbar-width: none;
+}
+.indice .indice__h:first-child { padding-left: .75rem; margin-bottom: .5rem; }
+.indice .indice__subs { display: none; }
+.indice .indice__item--abierto .indice__subs { display: block; }
+.indice .indice__h--paginas, .indice .indice__paginas { padding-left: .75rem; }
+html[data-indice='lateral'] .indice[data-visible='1'] {
+  opacity: 1; visibility: visible;
+  transform: translate(0, -50%);
+  transition: opacity .3s var(--sal), transform .3s var(--sal), visibility 0s;
+}
+
+/* La barra de abajo: dónde se está y cuánto queda; toda ella abre la hoja. */
+.indice-barra {
+  position: fixed; z-index: var(--z-sticky);
+  left: 50%; bottom: max(.75rem, env(safe-area-inset-bottom));
+  width: min(100% - 1.5rem, 26rem);
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .7rem;
+  padding: .7rem .8rem .7rem 1rem;
+  border: 1px solid var(--line-alta); border-radius: 14px;
+  background: var(--velo);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--sombra), 0 10px 30px -14px rgba(22, 22, 22, .35);
+  color: var(--ink);
+  font: inherit; text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transform: translate(-50%, calc(100% + 1.5rem));
+  transition: transform .45s var(--sal);
+}
+html[data-indice='barra'] .indice-barra[data-visible='1'] { transform: translate(-50%, 0); }
+.indice-barra:focus-visible { outline: 2px solid var(--ref); outline-offset: 2px; }
+.indice-barra__progreso { position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--line); }
+.indice-barra__progreso i {
+  position: absolute; inset: 0;
+  background: var(--ref);
+  transform-origin: left; transform: scaleX(var(--progreso, 0));
+}
+.indice-barra__n { font-size: .75rem; font-weight: 800; color: var(--ref); font-variant-numeric: tabular-nums; }
+.indice-barra__actual {
+  min-width: 0;
+  font-size: .9375rem; font-weight: 700;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.indice-barra__abre {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.25rem; height: 2.25rem;
+  border-radius: 10px;
+  background: var(--ref); color: var(--bg);
+}
+/* que la barra no tape el final de la página */
+html[data-indice='barra'] .pie { padding-bottom: calc(clamp(3.5rem, 11vw, 6rem) + 4.5rem); }
+
+/* La hoja: sube desde abajo, con todas las secciones y sus apartados. */
+.indice-hoja {
+  position: fixed;
+  inset: auto 0 0 0;
+  width: min(100%, 34rem); max-width: none;
+  max-height: min(85dvh, 44rem);
+  margin: 0 auto;
+  padding: 0;
+  border: 1px solid var(--line); border-bottom: 0;
+  border-radius: 18px 18px 0 0;
+  background: var(--bg); color: var(--ink);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+}
+.indice-hoja[open] { display: flex; flex-direction: column; animation: indice-sube .35s var(--sal); }
+.indice-hoja::backdrop { background: rgba(22, 22, 22, .45); }
+@keyframes indice-sube { from { transform: translateY(100%); } to { transform: none; } }
+.indice-hoja__cab {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1rem .6rem 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+.indice-hoja__h {
+  font-weight: 800; font-stretch: 84%; font-size: 1.35rem;
+  letter-spacing: -.02em; text-transform: uppercase;
+}
+.indice-hoja__cerrar {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.5rem; height: 2.5rem;
+  border: 1px solid var(--line-alta); border-radius: 999px;
+  background: var(--bg); color: var(--ink);
+  cursor: pointer;
+}
+.indice-hoja__cerrar:focus-visible { outline: 2px solid var(--ref); outline-offset: 2px; }
+.indice-hoja__cuerpo {
+  overflow-y: auto; overscroll-behavior: contain;
+  padding: .75rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom));
+}
+.indice-hoja .indice__a { padding-block: .7rem; font-size: 1rem; }
+.indice-hoja .indice__sub { padding-block: .45rem; font-size: .9375rem; }
+.indice-hoja .indice__pagina { padding-block: .6rem; font-size: 1rem; }
+
+@media print {
+  .indice, .indice-barra, .indice-hoja { display: none !important; }
+}
+
 /* ── Movimiento reducido ──────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1241,4 +1439,5 @@ code {
   .u--cae::after { transform: scaleX(1); }
   .tasa__pista i { transform: scaleX(var(--v, 0)); }
   .contador { transition: none; }
+  .indice-hoja[open] { animation: none; }
 }

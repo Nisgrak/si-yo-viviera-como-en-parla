@@ -152,16 +152,40 @@ index.html            estructura y textos fijos
 assets/estilos.css    todo el diseño
 assets/calculo.js     la cuenta: qué se pierde, qué se gana y cuánto suma la portada
 assets/app.js         el render
+assets/indice.js      el índice de cada página (lateral o barra de abajo); lo lee de la página
 assets/fuentes/       la tipografía Archivo, servida desde aquí (OFL 1.1)
 assets/cartel/        los dos fondos del cartel para compartir
 assets/qr.js          el QR de cada municipio, ya trazado (lo traza herramientas/qr.py)
 datos/datos.js        LOS DATOS  ←  lo único que hay que tocar
-herramientas/         lo que rehace lo que no se teclea: el QR, las zonas verdes y el build
-                      que añade la vista previa de cada ciudad (compartir.mjs)
+infraestructura.html  la página de los accesos en coche (/<ciudad>/infraestructura/)
+assets/infraestructura*.css/.js   su diseño y su render: lo común, el mapa y las colas
+datos/infraestructura.js   sus cifras; las escribe herramientas/infraestructura.py
+datos/mapa/<id>.js    las geometrías de cada mapa; las escribe herramientas/accesos/accesos.py --mapa
+herramientas/         lo que rehace lo que no se teclea: el QR, las zonas verdes, los accesos
+                      y el build que añade la vista previa de cada ciudad (compartir.mjs)
 ```
 
 La web no necesita build, ni dependencias, ni framework: se abre `index.html` y funciona. El
 municipio se guarda en la URL y en el navegador, así que los enlaces son compartibles.
+
+### El índice: añadir una sección o una página
+
+Las páginas son largas, así que llevan un índice (`assets/indice.js`, con sus estilos en
+`estilos.css`). Con sitio en el margen izquierdo es una lista fija que marca dónde estás y
+despliega los apartados de esa sección. Sin sitio (en el móvil, sobre todo) es una barra abajo con
+la sección actual y el progreso, que abre una hoja con todo. Sale al dejar atrás la portada. Los
+enlaces mueven la vista sin tocar la dirección, porque el `#getafe` elige la ciudad.
+
+No hay nada escrito a mano en él:
+- **Una sección nueva** entra sola si lleva `data-indice="Título corto"` y un `id`. Con
+  `data-indice-dato` saca una cifra al lado (`data-indice-tono="loss"` o `"gain"` para el color).
+- **Un apartado** dentro de una sección es cualquier elemento con `data-indice-sub="Nombre"` y un
+  `id`. Las áreas de «Lo que perderías» y «Lo que ganarías» las marca `app.js` al pintarlas.
+- **Algo que ocupe también los márgenes** (como los mapas) lleva `data-indice-ancho`: mientras está
+  en pantalla, el índice lateral se aparta.
+- **Una página nueva**: una línea en `PAGINAS` (en `indice.js`), su id en `<body data-pagina>`,
+  `<script src="assets/indice.js">` antes de su render, una llamada a `INDICE.refrescar()` cada vez
+  que se pinta, y su ruta por ciudad en `herramientas/compartir.mjs`.
 
 ### La vista previa de cada ciudad
 
@@ -289,14 +313,62 @@ incorporarlos:
 - **Centros de educación de adultos.** Hay un CEPA por municipio, salvo Alcobendas: binario, como
   las comisarías. El alumnado de adultos mide demanda, no dotación.
 - **Becas de comedor y bono social.** Solo hay totales regionales o provinciales.
-- **Accesos a autovías y autopistas.** No hay estadística municipal oficial. Contar enlaces sobre
-  un mapa sería un constructo propio.
+- **Accesos a autovías y autopistas, contados sobre el mapa.** Sigue fuera: no hay estadística
+  municipal oficial y contar enlaces es un constructo propio. Lo que sí entró es por dónde sale
+  la gente, que viene del Ministerio de Transportes. Ver «Salir en coche», abajo.
 - **Escuelas deportivas municipales.** Sin registro, el mismo muro que los polideportivos.
 - **Autobuses urbanos e interurbanos.** El GTFS del CRTM trae los horarios reales, y el id de
   línea lleva dentro el código INE del municipio (`9__1__065_` es Getafe). Pero ese atajo miente:
   Fuenlabrada sale con cero líneas urbanas y Leganés con una, porque sus servicios urbanos están
   clasificados dentro de la red interurbana. Hacerlo bien exige cruzar las coordenadas de cada
   parada con los límites municipales del IGN. Es viable, pero es un día de trabajo.
+
+### Salir en coche: la página de los accesos
+
+**La parte pública** está en `infraestructura.html`, que se publica como `/<ciudad>/infraestructura/`, y
+en la web principal: el bloque «Salir en coche» antes del método y un botón azul en la portada
+(«Infraestructura: salir en coche»).
+Cuenta por qué acceso cruzan el límite del municipio las personas que salen por carretera entre
+las 6 y las 10 de la mañana, de dos maneras:
+- **El mapa.** Las carreteras reales con la gente fluyendo. Los dos mapas tienen el mismo tamaño y cada uno su escala, para que cada término llene su marco; la barra de 1 km lo indica. El ancho de cada carretera es proporcional a la gente que sale por ella, con la misma regla en los dos mapas, y los puntos van igual de juntos dentro de cada banda. En escritorio los mapas se salen del ancho del texto.
+- **Las colas.** Un punto por cada 100 personas: la cifra absoluta.
+
+**De dónde sale.** De los estudios de movilidad con telefonía móvil del Ministerio de
+Transportes (Open Data Movilidad):
+- **Rutas por carretera:** el recorrido de los viajes de más de 5 km entre municipios, tramo a tramo. Solo hay días sueltos; se usa el 16-10-2024 y, de control, el 17-10-2023.
+- **Estudio básico por municipios:** los viajes por hora, de todos los medios.
+
+Cada viaje se asigna al primer tramo de su ruta que corta el término del IGN. Las rutas no
+llevan hora, así que la franja de 6 a 10 es una estimación: a cada origen y destino se le aplica
+la parte de sus viajes de esa franja según el estudio básico.
+
+**Para rehacerlo:**
+
+```
+.venv/bin/python herramientas/accesos/accesos.py --mapa   # descarga, filtra, salida/*.csv y datos/mapa/
+python3 herramientas/infraestructura.py                   # escribe datos/infraestructura.js
+```
+
+`tramo_ruta` pesa 1,5 GB por día y se filtra al vuelo; la caché va en `herramientas/.cache/accesos/`.
+
+**Cautelas:**
+- Cuenta personas, no coches, y no separa el coche del autobús.
+- Comparado con los aforos, el dataset sale entre un 28 % y un 88 % por encima de los vehículos ligeros contados.
+- La cifra de 7 a 8 de la M-408 que da la página (1.304 vehículos por hora) es un aforo real de la Comunidad, estación 430. Solo hay datos de septiembre a diciembre de 2024.
+
+**Lo que se miró y no entró:**
+
+- **Contar accesos sobre OpenStreetMap, con capacidades de manual** (HCM, glorietas de Fomento). Parla, auditada vía a vía, tiene 5 accesos reales de las 87 vías que cruzan su límite:
+  - los tres enlaces de la A-42;
+  - una glorieta sobre la M-410;
+  - la M-408 hacia Pinto.
+
+  El resto son troncos sin salida, ramales del peaje de la R-4 que acaban en caminos privados y caminos de tierra. No hay carretera asfaltada hacia Humanes, Torrejón de la Calzada ni el norte. Contando solo conexiones con la red de carreteras, Parla tiene 5 y Getafe 18, o 9 si solo cuentan las que sirven a su casco. Con cualquier definición, Parla es la última de las 11 en capacidad teórica de salida por habitante (53–81 vehículos por hora por cada 1.000 habitantes). No entra por dos motivos:
+  - la capacidad depende de supuestos;
+  - Torrejón y Móstoles salen de descargas de OSM sin auditar.
+- **Horas de congestión del Mapa de tráfico del Ministerio.** En 2024, en sentido Madrid, la estación de la A-42 en Parla (km 23,9) suma 373 horas; las de Getafe, entre 340 y 394 (A-42 km 11 y 15, A-4 km 13). Es el mismo orden: la congestión de la autovía no distingue a Parla. Además, no hay ninguna estación entre el km 16 y el 23,9, que es el tramo de Parla Norte.
+- **La R-4.** Es de peaje (0,55 € de Pinto-Parla a la M-50 en 2026) y apenas se usa: el 3 % de los viajes que salen de Parla pasa por ella. Su IMD creció un 37 % entre 2019 y 2025, frente al 3,6 % de la A-42.
+- **Concentración comparada.** Alcobendas concentra casi igual que Parla: el 62,6 % de sus salidas de la mañana va por la A-1 y la M-40. La página no dice que Parla sea la única.
 
 ### CONPREL: qué se puede sacar de los presupuestos municipales
 

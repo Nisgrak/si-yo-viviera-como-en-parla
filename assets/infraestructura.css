@@ -1,0 +1,287 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   SALIR EN COCHE · la página de los accesos (infraestructura.html)
+   Hereda todo de estilos.css: los mismos papeles de color, la misma
+   tipografía. Parla en azul, tu ciudad en tinta gris, como en el dinero.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Vuelta al recuento ───────────────────────────────────────────────── */
+
+.volver { border-bottom: 1px solid var(--line); }
+.volver a {
+  display: inline-flex; align-items: center; gap: .55rem;
+  padding-block: .85rem;
+  color: var(--ink-3);
+  font-size: .8125rem; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  text-decoration: none;
+}
+.volver a:hover { color: var(--ink); }
+.volver svg { transition: transform .2s var(--sal-corta); }
+.volver a:hover svg { transform: translateX(-3px); }
+
+/* La portada de aquí no ocupa la pantalla entera: lo que manda son las colas. */
+.portada--infra {
+  min-height: 0;
+  padding-block: clamp(1.5rem, 6vw, 3.5rem) clamp(.75rem, 3vw, 2rem);
+}
+.portada--infra .portada__golpe { max-width: 34rem; }
+.portada--infra .portada__golpe b.parla { color: var(--ref); }
+/* Aquí Parla va siempre en azul: el rojo es solo para lo que se pierde. */
+.portada--infra .portada__titulo .t3 { color: var(--ref); }
+@media (min-width: 62rem) {
+  .portada--infra > .env { display: block; max-width: 64rem; }
+}
+
+/* ── Las colas ────────────────────────────────────────────────────────── */
+
+/* Toda la página va al ancho de las colas, para que los bordes izquierdos
+   coincidan; los textos llevan su propio ancho máximo. */
+.infra .env { max-width: 64rem; }
+
+.colas { margin-top: clamp(2rem, 7vw, 3rem); }
+.colas + .colas {
+  padding-top: clamp(1.75rem, 6vw, 2.5rem);
+  border-top: 1px solid var(--line-alta);
+}
+
+.colas__h {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  column-gap: .9rem; row-gap: .2rem;
+}
+.colas__nombre {
+  font-weight: 800; font-stretch: 78%;
+  font-size: clamp(1.9rem, 9vw, 3rem);
+  line-height: .95; letter-spacing: -.035em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.colas[data-quien='referencia'] .colas__nombre { color: var(--ref); }
+.colas__resumen { font-size: .9375rem; color: var(--ink-3); }
+.colas__resumen b { font-variant-numeric: tabular-nums; }
+
+/* Las puertas, una al lado de otra; cada cola cuelga de su dintel. */
+.colas__puertas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(4.9rem, 1fr));
+  gap: 1.75rem .6rem;
+  margin-top: 1.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--line);
+  align-items: start;
+}
+.cola {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  row-gap: .45rem;
+  min-width: 0;
+}
+.cola__rotulo {
+  display: grid; justify-items: start; row-gap: .25rem;
+  min-height: 3.1rem;
+  align-content: end;
+  font-size: .8125rem; line-height: 1.25; color: var(--ink-3);
+}
+.cola__cifra {
+  font-size: .8125rem; line-height: 1.25; color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.cola__cifra b {
+  display: block;
+  font-size: 1.125rem; font-weight: 800; font-stretch: 84%;
+  letter-spacing: -.01em;
+  color: var(--ink);
+}
+.colas[data-quien='referencia'] .cola__cifra b { color: var(--ref); }
+.cola__gente { display: block; }
+
+/* Lo que sale por calles y las puertas casi vacías: más quietas, para que
+   no compitan con las carreteras. */
+.cola--resto .cola__cifra b { color: var(--ink-3) !important; }
+
+@media (min-width: 46rem) {
+  .colas__puertas { grid-template-columns: repeat(auto-fill, minmax(6.25rem, 1fr)); gap: 2rem 1rem; }
+  /* Las dos ciudades lado a lado: las colas cuelgan de la misma línea y
+     las alturas se comparan de un vistazo. */
+  .colas-pareja {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+  }
+  .colas-pareja .colas { min-width: 0; }
+  .colas-pareja .colas + .colas {
+    padding-top: 0; border-top: 0;
+    padding-left: clamp(1.5rem, 4vw, 3rem);
+    margin-left: calc(-1 * clamp(1.5rem, 4vw, 3rem) / 2);
+    border-left: 1px solid var(--line-alta);
+  }
+  /* la cabecera con la misma altura en las dos, para que las puertas
+     empiecen a la vez */
+  .colas-pareja .colas__h { min-height: 5.5rem; align-content: start; }
+  .colas-pareja .colas__puertas { grid-template-columns: repeat(auto-fill, minmax(5.4rem, 1fr)); gap: 2rem .75rem; }
+  /* rótulos de la misma altura: todos los dinteles a la misma línea */
+  .colas-pareja .cola__rotulo { min-height: 4.75rem; }
+}
+
+/* Rótulo de carretera: la matrícula enmarcada, como en un panel de salida,
+   pero en la tinta de la web. */
+.rotulo {
+  display: inline-block;
+  padding: .12em .42em .1em;
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+  color: var(--ink);
+  font-weight: 800; font-stretch: 84%;
+  font-size: .75rem; line-height: 1.15;
+  font-stretch: 76%;
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+@media (min-width: 46rem) { .rotulo { font-size: .8125rem; font-stretch: 84%; } }
+.colas[data-quien='referencia'] .rotulo { color: var(--ref); }
+.cola--calles .rotulo { border-style: dashed; color: var(--ink-3); }
+
+
+.colas__pie {
+  margin-top: 1.5rem;
+  max-width: 36rem;
+  font-size: .8125rem; line-height: 1.6;
+  color: var(--ink-3);
+}
+
+/* ── La hora punta: un embudo por ciudad ───────────────────────────────
+   Arriba salen, abajo entran, con la misma escala en las dos ciudades. El
+   embudo aparece de arriba abajo al verse. */
+
+.sentidos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.25rem, 5vw, 3rem);
+  margin-top: clamp(1.5rem, 5vw, 2.25rem);
+  max-width: 52rem;
+}
+.sent { min-width: 0; display: flex; flex-direction: column; }
+.sent__nombre {
+  font-weight: 800; font-stretch: 78%;
+  font-size: clamp(1.5rem, 6vw, 2.25rem);
+  line-height: .95; letter-spacing: -.03em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.sent[data-quien='referencia'] .sent__nombre { color: var(--ref); }
+.sent__frase { margin-top: .4rem; min-height: 3.2em; font-size: clamp(.875rem, 2.4vw, 1.0625rem); line-height: 1.3; color: var(--ink-2); }
+.sent__frase b {
+  display: block;
+  font-weight: 800; font-stretch: 80%;
+  font-size: clamp(2.25rem, 9vw, 3.25rem);
+  line-height: 1; letter-spacing: -.03em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.sent[data-quien='referencia'] .sent__frase b { color: var(--ref); }
+.sent__dato {
+  display: flex; justify-content: center; align-items: baseline; gap: .45rem;
+  margin-top: .9rem;
+  font-size: .8125rem; color: var(--ink-3);
+  text-transform: uppercase; letter-spacing: .06em; font-weight: 700;
+}
+.sent__dato b {
+  font-size: clamp(1.125rem, 4vw, 1.5rem); font-weight: 800; font-stretch: 84%;
+  letter-spacing: -.01em; text-transform: none;
+  color: var(--ink); font-variant-numeric: tabular-nums;
+}
+.sent__embudo { display: block; width: 100%; height: clamp(9rem, 30vw, 13rem); margin-top: .4rem; overflow: visible; }
+.sent__dato + .sent__embudo { margin-top: .4rem; }
+.sent__embudo + .sent__dato { margin-top: .4rem; }
+.sent__sale, .sent__entra { fill: var(--ink-3); }
+.sent__cuello { fill: var(--ink-3); opacity: .22; }
+.sent[data-quien='referencia'] .sent__sale,
+.sent[data-quien='referencia'] .sent__entra,
+.sent[data-quien='referencia'] .sent__cuello { fill: var(--ref); }
+.sent__embudo { clip-path: inset(0 0 100% 0); transition: clip-path 1.1s var(--sal-corta); }
+.sent--visto .sent__embudo { clip-path: inset(0 0 0 0); }
+@media (prefers-reduced-motion: reduce) { .sent__embudo { clip-path: none; transition: none; } }
+
+/* ── Las fichas de cada puerta ────────────────────────────────────────── */
+
+.puerta-ficha {
+  margin-top: clamp(1.75rem, 6vw, 2.5rem);
+  display: grid;
+  gap: 0;
+  max-width: 36rem;
+}
+.puerta-ficha li {
+  padding-block: 1.4rem;
+  border-top: 1px solid var(--line);
+}
+.puerta-ficha li:last-child { border-bottom: 1px solid var(--line); }
+.puerta-ficha h3 {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .55rem;
+  margin-bottom: .7rem;
+  font-size: 1.125rem; font-weight: 700; font-stretch: 92%;
+  letter-spacing: -.012em; line-height: 1.25;
+}
+.puerta-ficha h3 .rotulo { color: var(--ref); font-size: 1rem; }
+.puerta-ficha p { font-size: .9375rem; }
+.puerta-ficha p + p { margin-top: .7rem; }
+.ficha__fuente { font-size: .8125rem !important; color: var(--ink-3); }
+.ficha__fuente a { color: var(--ink-3); }
+.ficha__fuente a:hover { color: var(--ink-2); }
+
+.infra .pie__meta a { color: var(--ink-2); }
+
+::selection { background: var(--aura-ref); background: color-mix(in srgb, var(--ref) 22%, transparent); }
+
+/* Las colas van pegadas a la portada: son la tesis de la página y tienen que
+   asomar en la primera pantalla. */
+.portada--infra { border-bottom: 0; }
+.bloque--colas { padding-top: clamp(.5rem, 2vw, 1rem); }
+
+/* ── El mapa ──────────────────────────────────────────────────────────── */
+
+.mapas {
+  display: grid;
+  gap: 2rem 1.5rem;
+  margin-top: clamp(1.5rem, 5vw, 2.25rem);
+}
+@media (min-width: 46rem) { .mapas { grid-template-columns: 1fr 1fr; } }
+/* En pantallas anchas los mapas se salen del ancho del texto: son la pieza
+   principal y necesitan sitio para que la gente no se apelotone. */
+@media (min-width: 70rem) {
+  .mapas {
+    width: min(100vw - 2 * var(--gutter), 92rem);
+    margin-inline: calc((100% - min(100vw - 2 * var(--gutter), 92rem)) / 2);
+  }
+}
+.mapa { margin: 0; min-width: 0; }
+.mapa__pie {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .7rem;
+  margin-bottom: .6rem;
+}
+.mapa__nombre {
+  font-weight: 800; font-stretch: 78%;
+  font-size: clamp(1.6rem, 7vw, 2.25rem);
+  line-height: .95; letter-spacing: -.035em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.mapa[data-quien='referencia'] .mapa__nombre,
+.perimetro[data-quien='referencia'] .mapa__nombre { color: var(--ref); }
+.mapa__dato { font-size: .875rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.mapa__lienzo {
+  display: block; width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--bg);
+}
+.mapa__escala:empty { display: none; }
+.mapa__escala { margin-top: .9rem; font-size: .8125rem; color: var(--ink-3); }
+.infra .salir__ir {
+  display: inline-flex; align-items: center; gap: .6rem;
+  margin-top: 1.5rem;
+  color: var(--ref);
+  font-size: .8125rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  text-decoration: none;
+}
+

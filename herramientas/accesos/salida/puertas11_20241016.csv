@@ -1,0 +1,559 @@
+fecha;codigo;ciudad;sentido;ventana;puerta_id;puerta;viajes;pct
+20241016;28006;Alcobendas;entra;6_10;28006-02;A-1 / M-40 / M-603 (SO);19939.53;54.29
+20241016;28006;Alcobendas;entra;6_10;28006-01;A-1 (E);5740.84;15.63
+20241016;28006;Alcobendas;entra;6_10;28006-03;M-110 / M-12 / R-2 (SE);3279.60;8.93
+20241016;28006;Alcobendas;entra;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);2982.95;8.12
+20241016;28006;Alcobendas;entra;6_10;28006-04;M-616 (NO);2802.85;7.63
+20241016;28006;Alcobendas;entra;6_10;28006-05;R-2 (E);1206.98;3.29
+20241016;28006;Alcobendas;entra;6_10;(ruta sin tramos);(ruta sin tramos);777.69;2.12
+20241016;28006;Alcobendas;entra;7_8;28006-02;A-1 / M-40 / M-603 (SO);5841.70;53.48
+20241016;28006;Alcobendas;entra;7_8;28006-01;A-1 (E);1831.25;16.76
+20241016;28006;Alcobendas;entra;7_8;28006-03;M-110 / M-12 / R-2 (SE);996.16;9.12
+20241016;28006;Alcobendas;entra;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);859.85;7.87
+20241016;28006;Alcobendas;entra;7_8;28006-04;M-616 (NO);788.45;7.22
+20241016;28006;Alcobendas;entra;7_8;28006-05;R-2 (E);395.65;3.62
+20241016;28006;Alcobendas;entra;7_8;(ruta sin tramos);(ruta sin tramos);210.82;1.93
+20241016;28006;Alcobendas;entra;dia;28006-02;A-1 / M-40 / M-603 (SO);64071.37;57.10
+20241016;28006;Alcobendas;entra;dia;28006-01;A-1 (E);14238.85;12.69
+20241016;28006;Alcobendas;entra;dia;28006-03;M-110 / M-12 / R-2 (SE);9840.43;8.77
+20241016;28006;Alcobendas;entra;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);9236.11;8.23
+20241016;28006;Alcobendas;entra;dia;28006-04;M-616 (NO);8347.90;7.44
+20241016;28006;Alcobendas;entra;dia;(ruta sin tramos);(ruta sin tramos);3781.01;3.37
+20241016;28006;Alcobendas;entra;dia;28006-05;R-2 (E);2698.76;2.41
+20241016;28006;Alcobendas;sale;6_10;28006-02;A-1 / M-40 / M-603 (SO);15774.88;62.56
+20241016;28006;Alcobendas;sale;6_10;28006-03;M-110 / M-12 / R-2 (SE);2449.26;9.71
+20241016;28006;Alcobendas;sale;6_10;28006-01;A-1 (E);2282.42;9.05
+20241016;28006;Alcobendas;sale;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);1850.04;7.34
+20241016;28006;Alcobendas;sale;6_10;28006-04;M-616 (NO);1757.95;6.97
+20241016;28006;Alcobendas;sale;6_10;(ruta sin tramos);(ruta sin tramos);844.03;3.35
+20241016;28006;Alcobendas;sale;6_10;28006-05;R-2 (E);255.65;1.01
+20241016;28006;Alcobendas;sale;7_8;28006-02;A-1 / M-40 / M-603 (SO);4650.02;62.86
+20241016;28006;Alcobendas;sale;7_8;28006-03;M-110 / M-12 / R-2 (SE);719.37;9.72
+20241016;28006;Alcobendas;sale;7_8;28006-01;A-1 (E);675.99;9.14
+20241016;28006;Alcobendas;sale;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);540.56;7.31
+20241016;28006;Alcobendas;sale;7_8;28006-04;M-616 (NO);515.05;6.96
+20241016;28006;Alcobendas;sale;7_8;(ruta sin tramos);(ruta sin tramos);220.66;2.98
+20241016;28006;Alcobendas;sale;7_8;28006-05;R-2 (E);76.25;1.03
+20241016;28006;Alcobendas;sale;dia;28006-02;A-1 / M-40 / M-603 (SO);65772.50;57.96
+20241016;28006;Alcobendas;sale;dia;28006-01;A-1 (E);14777.79;13.02
+20241016;28006;Alcobendas;sale;dia;28006-03;M-110 / M-12 / R-2 (SE);10627.33;9.36
+20241016;28006;Alcobendas;sale;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);8951.10;7.89
+20241016;28006;Alcobendas;sale;dia;28006-04;M-616 (NO);7241.31;6.38
+20241016;28006;Alcobendas;sale;dia;(ruta sin tramos);(ruta sin tramos);4739.11;4.18
+20241016;28006;Alcobendas;sale;dia;28006-05;R-2 (E);1375.97;1.21
+20241016;28007;Alcorcón;entra;6_10;28007-07;M-50 / M-506 (S);7634.66;23.63
+20241016;28007;Alcorcón;entra;6_10;28007-01;A-5 (E);6735.31;20.85
+20241016;28007;Alcorcón;entra;6_10;28007-03;A-5R / M-40 / M-406 (E);6442.59;19.94
+20241016;28007;Alcorcón;entra;6_10;28007-02;A-5 / M-50 (SO);4330.84;13.40
+20241016;28007;Alcorcón;entra;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);3149.07;9.75
+20241016;28007;Alcorcón;entra;6_10;28007-08;M-506 (O);1471.60;4.55
+20241016;28007;Alcorcón;entra;6_10;28007-06;M-50 (NO);1261.82;3.91
+20241016;28007;Alcorcón;entra;6_10;28007-04;M-40 / M-501 / M-511 (N);1139.67;3.53
+20241016;28007;Alcorcón;entra;6_10;(ruta sin tramos);(ruta sin tramos);145.61;0.45
+20241016;28007;Alcorcón;entra;7_8;28007-07;M-50 / M-506 (S);2272.58;24.22
+20241016;28007;Alcorcón;entra;7_8;28007-01;A-5 (E);1950.10;20.79
+20241016;28007;Alcorcón;entra;7_8;28007-03;A-5R / M-40 / M-406 (E);1878.32;20.02
+20241016;28007;Alcorcón;entra;7_8;28007-02;A-5 / M-50 (SO);1283.67;13.68
+20241016;28007;Alcorcón;entra;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);889.09;9.48
+20241016;28007;Alcorcón;entra;7_8;28007-08;M-506 (O);424.41;4.52
+20241016;28007;Alcorcón;entra;7_8;28007-04;M-40 / M-501 / M-511 (N);323.89;3.45
+20241016;28007;Alcorcón;entra;7_8;28007-06;M-50 (NO);319.18;3.40
+20241016;28007;Alcorcón;entra;7_8;(ruta sin tramos);(ruta sin tramos);40.22;0.43
+20241016;28007;Alcorcón;entra;dia;28007-01;A-5 (E);37960.60;26.93
+20241016;28007;Alcorcón;entra;dia;28007-03;A-5R / M-40 / M-406 (E);32131.81;22.80
+20241016;28007;Alcorcón;entra;dia;28007-07;M-50 / M-506 (S);28020.54;19.88
+20241016;28007;Alcorcón;entra;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);13282.83;9.42
+20241016;28007;Alcorcón;entra;dia;28007-02;A-5 / M-50 (SO);12733.87;9.03
+20241016;28007;Alcorcón;entra;dia;28007-06;M-50 (NO);5785.17;4.10
+20241016;28007;Alcorcón;entra;dia;28007-04;M-40 / M-501 / M-511 (N);5271.02;3.74
+20241016;28007;Alcorcón;entra;dia;28007-08;M-506 (O);5072.90;3.60
+20241016;28007;Alcorcón;entra;dia;(ruta sin tramos);(ruta sin tramos);694.80;0.49
+20241016;28007;Alcorcón;sale;6_10;28007-03;A-5R / M-40 / M-406 (E);12559.50;33.49
+20241016;28007;Alcorcón;sale;6_10;28007-01;A-5 (E);11157.13;29.75
+20241016;28007;Alcorcón;sale;6_10;28007-07;M-50 / M-506 (S);4190.03;11.17
+20241016;28007;Alcorcón;sale;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);3336.54;8.90
+20241016;28007;Alcorcón;sale;6_10;28007-06;M-50 (NO);2209.51;5.89
+20241016;28007;Alcorcón;sale;6_10;28007-02;A-5 / M-50 (SO);1566.61;4.18
+20241016;28007;Alcorcón;sale;6_10;28007-04;M-40 / M-501 / M-511 (N);1535.72;4.09
+20241016;28007;Alcorcón;sale;6_10;28007-08;M-506 (O);811.82;2.16
+20241016;28007;Alcorcón;sale;6_10;(ruta sin tramos);(ruta sin tramos);136.52;0.36
+20241016;28007;Alcorcón;sale;7_8;28007-03;A-5R / M-40 / M-406 (E);3886.41;34.59
+20241016;28007;Alcorcón;sale;7_8;28007-01;A-5 (E);3437.91;30.60
+20241016;28007;Alcorcón;sale;7_8;28007-07;M-50 / M-506 (S);1242.31;11.06
+20241016;28007;Alcorcón;sale;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);976.03;8.69
+20241016;28007;Alcorcón;sale;7_8;28007-06;M-50 (NO);601.05;5.35
+20241016;28007;Alcorcón;sale;7_8;28007-04;M-40 / M-501 / M-511 (N);458.49;4.08
+20241016;28007;Alcorcón;sale;7_8;28007-02;A-5 / M-50 (SO);392.79;3.50
+20241016;28007;Alcorcón;sale;7_8;28007-08;M-506 (O);199.05;1.77
+20241016;28007;Alcorcón;sale;7_8;(ruta sin tramos);(ruta sin tramos);40.26;0.36
+20241016;28007;Alcorcón;sale;dia;28007-03;A-5R / M-40 / M-406 (E);40688.53;28.73
+20241016;28007;Alcorcón;sale;dia;28007-01;A-5 (E);33164.08;23.42
+20241016;28007;Alcorcón;sale;dia;28007-07;M-50 / M-506 (S);21372.46;15.09
+20241016;28007;Alcorcón;sale;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);15627.48;11.03
+20241016;28007;Alcorcón;sale;dia;28007-02;A-5 / M-50 (SO);12317.34;8.70
+20241016;28007;Alcorcón;sale;dia;28007-06;M-50 (NO);7728.39;5.46
+20241016;28007;Alcorcón;sale;dia;28007-04;M-40 / M-501 / M-511 (N);5238.57;3.70
+20241016;28007;Alcorcón;sale;dia;28007-08;M-506 (O);4934.56;3.48
+20241016;28007;Alcorcón;sale;dia;(ruta sin tramos);(ruta sin tramos);548.46;0.39
+20241016;28058;Fuenlabrada;entra;6_10;28058-05;M-409 (NE);5987.24;20.93
+20241016;28058;Fuenlabrada;entra;6_10;28058-02;A-42 / M-50 / ISLA DE PASCUA (DE LA) (E);5424.45;18.96
+20241016;28058;Fuenlabrada;entra;6_10;28058-06;M-50 / M-506 / R-5 (NO);5231.88;18.29
+20241016;28058;Fuenlabrada;entra;6_10;28058-01;A-42 / M-408 (SE);2981.53;10.42
+20241016;28058;Fuenlabrada;entra;6_10;28058-04;M-407 / M-50 (NO);2979.63;10.41
+20241016;28058;Fuenlabrada;entra;6_10;28058-07;M-506 (SE);2124.78;7.43
+20241016;28058;Fuenlabrada;entra;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);2045.19;7.15
+20241016;28058;Fuenlabrada;entra;6_10;28058-03;M-407 (O);1747.23;6.11
+20241016;28058;Fuenlabrada;entra;6_10;(ruta sin tramos);(ruta sin tramos);63.36;0.22
+20241016;28058;Fuenlabrada;entra;6_10;28058-08;R-5 (N);25.83;0.09
+20241016;28058;Fuenlabrada;entra;7_8;28058-05;M-409 (NE);1586.43;20.67
+20241016;28058;Fuenlabrada;entra;7_8;28058-06;M-50 / M-506 / R-5 (NO);1486.52;19.37
+20241016;28058;Fuenlabrada;entra;7_8;28058-02;A-42 / M-50 / ISLA DE PASCUA (DE LA) (E);1424.34;18.56
+20241016;28058;Fuenlabrada;entra;7_8;28058-04;M-407 / M-50 (NO);805.01;10.49
+20241016;28058;Fuenlabrada;entra;7_8;28058-01;A-42 / M-408 (SE);713.30;9.29
+20241016;28058;Fuenlabrada;entra;7_8;28058-07;M-506 (SE);580.40;7.56
+20241016;28058;Fuenlabrada;entra;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);550.39;7.17
+20241016;28058;Fuenlabrada;entra;7_8;28058-03;M-407 (O);506.51;6.60
+20241016;28058;Fuenlabrada;entra;7_8;(ruta sin tramos);(ruta sin tramos);15.89;0.21
+20241016;28058;Fuenlabrada;entra;7_8;28058-08;R-5 (N);6.93;0.09
+20241016;28058;Fuenlabrada;entra;dia;28058-05;M-409 (NE);30819.50;23.94
+20241016;28058;Fuenlabrada;entra;dia;28058-02;A-42 / M-50 / ISLA DE PASCUA (DE LA) (E);26552.01;20.62
+20241016;28058;Fuenlabrada;entra;dia;28058-06;M-50 / M-506 / R-5 (NO);26029.07;20.22
+20241016;28058;Fuenlabrada;entra;dia;28058-04;M-407 / M-50 (NO);15205.60;11.81
+20241016;28058;Fuenlabrada;entra;dia;28058-01;A-42 / M-408 (SE);8759.18;6.80
+20241016;28058;Fuenlabrada;entra;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);7893.18;6.13
+20241016;28058;Fuenlabrada;entra;dia;28058-07;M-506 (SE);7475.16;5.81
+20241016;28058;Fuenlabrada;entra;dia;28058-03;M-407 (O);5516.97;4.29
+20241016;28058;Fuenlabrada;entra;dia;(ruta sin tramos);(ruta sin tramos);360.91;0.28
+20241016;28058;Fuenlabrada;entra;dia;28058-08;R-5 (N);134.41;0.10
+20241016;28058;Fuenlabrada;sale;6_10;28058-06;M-50 / M-506 / R-5 (NO);9593.83;26.36
+20241016;28058;Fuenlabrada;sale;6_10;28058-05;M-409 (NE);9050.31;24.87
+20241016;28058;Fuenlabrada;sale;6_10;28058-02;A-42 / M-50 / ISLA DE PASCUA (DE LA) (E);8107.96;22.28
+20241016;28058;Fuenlabrada;sale;6_10;28058-04;M-407 / M-50 (NO);2813.66;7.73
+20241016;28058;Fuenlabrada;sale;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);1694.44;4.66
+20241016;28058;Fuenlabrada;sale;6_10;28058-07;M-506 (SE);1667.67;4.58
+20241016;28058;Fuenlabrada;sale;6_10;28058-01;A-42 / M-408 (SE);1339.95;3.68
+20241016;28058;Fuenlabrada;sale;6_10;28058-08;R-5 (N);1020.63;2.80
+20241016;28058;Fuenlabrada;sale;6_10;28058-03;M-407 (O);1015.19;2.79
+20241016;28058;Fuenlabrada;sale;6_10;(ruta sin tramos);(ruta sin tramos);87.55;0.24
+20241016;28058;Fuenlabrada;sale;7_8;28058-06;M-50 / M-506 / R-5 (NO);2909.61;26.46
+20241016;28058;Fuenlabrada;sale;7_8;28058-05;M-409 (NE);2771.40;25.21
+20241016;28058;Fuenlabrada;sale;7_8;28058-02;A-42 / M-50 / ISLA DE PASCUA (DE LA) (E);2467.66;22.44
+20241016;28058;Fuenlabrada;sale;7_8;28058-04;M-407 / M-50 (NO);843.82;7.67
+20241016;28058;Fuenlabrada;sale;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);483.82;4.40
+20241016;28058;Fuenlabrada;sale;7_8;28058-07;M-506 (SE);482.35;4.39
+20241016;28058;Fuenlabrada;sale;7_8;28058-01;A-42 / M-408 (SE);402.75;3.66
+20241016;28058;Fuenlabrada;sale;7_8;28058-08;R-5 (N);318.26;2.89
+20241016;28058;Fuenlabrada;sale;7_8;28058-03;M-407 (O);289.74;2.64
+20241016;28058;Fuenlabrada;sale;7_8;(ruta sin tramos);(ruta sin tramos);25.26;0.23
+20241016;28058;Fuenlabrada;sale;dia;28058-06;M-50 / M-506 / R-5 (NO);32422.60;25.11
+20241016;28058;Fuenlabrada;sale;dia;28058-05;M-409 (NE);29148.96;22.58
+20241016;28058;Fuenlabrada;sale;dia;28058-02;A-42 / M-50 / ISLA DE PASCUA (DE LA) (E);25656.39;19.87
+20241016;28058;Fuenlabrada;sale;dia;28058-04;M-407 / M-50 (NO);9605.28;7.44
+20241016;28058;Fuenlabrada;sale;dia;28058-01;A-42 / M-408 (SE);8263.99;6.40
+20241016;28058;Fuenlabrada;sale;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);8047.94;6.23
+20241016;28058;Fuenlabrada;sale;dia;28058-07;M-506 (SE);6576.47;5.09
+20241016;28058;Fuenlabrada;sale;dia;28058-03;M-407 (O);6213.01;4.81
+20241016;28058;Fuenlabrada;sale;dia;28058-08;R-5 (N);2836.26;2.20
+20241016;28058;Fuenlabrada;sale;dia;(ruta sin tramos);(ruta sin tramos);339.46;0.26
+20241016;28065;Getafe;entra;6_10;28065-04;A-42 / M-50 / ISLA DE PASCUA (DE LA) (O);11852.08;23.48
+20241016;28065;Getafe;entra;6_10;28065-01;A-4 (NO);10962.38;21.72
+20241016;28065;Getafe;entra;6_10;28065-03;A-42 / M-45 (NO);8833.53;17.50
+20241016;28065;Getafe;entra;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);6610.98;13.10
+20241016;28065;Getafe;entra;6_10;28065-02;A-4 / M-50 (SO);4588.79;9.09
+20241016;28065;Getafe;entra;6_10;28065-07;M-406 (O);2917.88;5.78
+20241016;28065;Getafe;entra;6_10;28065-08;M-45 (NO);1877.18;3.72
+20241016;28065;Getafe;entra;6_10;28065-09;M-50 (NE);1489.72;2.95
+20241016;28065;Getafe;entra;6_10;28065-05;M-301 (N);548.52;1.09
+20241016;28065;Getafe;entra;6_10;(ruta sin tramos);(ruta sin tramos);524.04;1.04
+20241016;28065;Getafe;entra;6_10;28065-10;M-50 / R-4 (SO);219.65;0.44
+20241016;28065;Getafe;entra;6_10;28065-06;M-301 (SE);55.56;0.11
+20241016;28065;Getafe;entra;7_8;28065-01;A-4 (NO);3597.85;22.55
+20241016;28065;Getafe;entra;7_8;28065-04;A-42 / M-50 / ISLA DE PASCUA (DE LA) (O);3545.40;22.22
+20241016;28065;Getafe;entra;7_8;28065-03;A-42 / M-45 (NO);2913.50;18.26
+20241016;28065;Getafe;entra;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);2100.34;13.16
+20241016;28065;Getafe;entra;7_8;28065-02;A-4 / M-50 (SO);1402.53;8.79
+20241016;28065;Getafe;entra;7_8;28065-07;M-406 (O);902.01;5.65
+20241016;28065;Getafe;entra;7_8;28065-08;M-45 (NO);594.97;3.73
+20241016;28065;Getafe;entra;7_8;28065-09;M-50 (NE);469.87;2.94
+20241016;28065;Getafe;entra;7_8;28065-05;M-301 (N);177.92;1.12
+20241016;28065;Getafe;entra;7_8;(ruta sin tramos);(ruta sin tramos);161.32;1.01
+20241016;28065;Getafe;entra;7_8;28065-10;M-50 / R-4 (SO);71.02;0.45
+20241016;28065;Getafe;entra;7_8;28065-06;M-301 (SE);19.28;0.12
+20241016;28065;Getafe;entra;dia;28065-01;A-4 (NO);40561.09;23.52
+20241016;28065;Getafe;entra;dia;28065-04;A-42 / M-50 / ISLA DE PASCUA (DE LA) (O);35996.77;20.88
+20241016;28065;Getafe;entra;dia;28065-03;A-42 / M-45 (NO);33232.24;19.27
+20241016;28065;Getafe;entra;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);21607.91;12.53
+20241016;28065;Getafe;entra;dia;28065-02;A-4 / M-50 (SO);14234.52;8.26
+20241016;28065;Getafe;entra;dia;28065-07;M-406 (O);10948.87;6.35
+20241016;28065;Getafe;entra;dia;28065-08;M-45 (NO);6421.56;3.72
+20241016;28065;Getafe;entra;dia;28065-09;M-50 (NE);4285.83;2.49
+20241016;28065;Getafe;entra;dia;(ruta sin tramos);(ruta sin tramos);2285.39;1.33
+20241016;28065;Getafe;entra;dia;28065-05;M-301 (N);2062.44;1.20
+20241016;28065;Getafe;entra;dia;28065-10;M-50 / R-4 (SO);647.56;0.38
+20241016;28065;Getafe;entra;dia;28065-06;M-301 (SE);145.03;0.08
+20241016;28065;Getafe;sale;6_10;28065-03;A-42 / M-45 (NO);10878.15;27.63
+20241016;28065;Getafe;sale;6_10;28065-01;A-4 (NO);8980.06;22.81
+20241016;28065;Getafe;sale;6_10;28065-04;A-42 / M-50 / ISLA DE PASCUA (DE LA) (O);7094.59;18.02
+20241016;28065;Getafe;sale;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);3956.36;10.05
+20241016;28065;Getafe;sale;6_10;28065-02;A-4 / M-50 (SO);2609.58;6.63
+20241016;28065;Getafe;sale;6_10;28065-07;M-406 (O);2230.61;5.67
+20241016;28065;Getafe;sale;6_10;28065-08;M-45 (NO);2109.07;5.36
+20241016;28065;Getafe;sale;6_10;28065-09;M-50 (NE);825.92;2.10
+20241016;28065;Getafe;sale;6_10;(ruta sin tramos);(ruta sin tramos);284.67;0.72
+20241016;28065;Getafe;sale;6_10;28065-05;M-301 (N);280.60;0.71
+20241016;28065;Getafe;sale;6_10;28065-10;M-50 / R-4 (SO);96.55;0.25
+20241016;28065;Getafe;sale;6_10;28065-06;M-301 (SE);24.84;0.06
+20241016;28065;Getafe;sale;7_8;28065-03;A-42 / M-45 (NO);3141.26;28.75
+20241016;28065;Getafe;sale;7_8;28065-01;A-4 (NO);2578.42;23.60
+20241016;28065;Getafe;sale;7_8;28065-04;A-42 / M-50 / ISLA DE PASCUA (DE LA) (O);1741.25;15.94
+20241016;28065;Getafe;sale;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);1124.50;10.29
+20241016;28065;Getafe;sale;7_8;28065-02;A-4 / M-50 (SO);728.82;6.67
+20241016;28065;Getafe;sale;7_8;28065-08;M-45 (NO);603.30;5.52
+20241016;28065;Getafe;sale;7_8;28065-07;M-406 (O);574.62;5.26
+20241016;28065;Getafe;sale;7_8;28065-09;M-50 (NE);246.55;2.26
+20241016;28065;Getafe;sale;7_8;(ruta sin tramos);(ruta sin tramos);79.47;0.73
+20241016;28065;Getafe;sale;7_8;28065-05;M-301 (N);78.65;0.72
+20241016;28065;Getafe;sale;7_8;28065-10;M-50 / R-4 (SO);23.69;0.22
+20241016;28065;Getafe;sale;7_8;28065-06;M-301 (SE);6.53;0.06
+20241016;28065;Getafe;sale;dia;28065-03;A-42 / M-45 (NO);40288.32;23.28
+20241016;28065;Getafe;sale;dia;28065-04;A-42 / M-50 / ISLA DE PASCUA (DE LA) (O);39638.03;22.91
+20241016;28065;Getafe;sale;dia;28065-01;A-4 (NO);34045.97;19.68
+20241016;28065;Getafe;sale;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);16916.37;9.78
+20241016;28065;Getafe;sale;dia;28065-02;A-4 / M-50 (SO);16192.67;9.36
+20241016;28065;Getafe;sale;dia;28065-07;M-406 (O);10710.87;6.19
+20241016;28065;Getafe;sale;dia;28065-08;M-45 (NO);8564.42;4.95
+20241016;28065;Getafe;sale;dia;28065-09;M-50 (NE);3401.36;1.97
+20241016;28065;Getafe;sale;dia;(ruta sin tramos);(ruta sin tramos);1252.88;0.72
+20241016;28065;Getafe;sale;dia;28065-05;M-301 (N);1192.33;0.69
+20241016;28065;Getafe;sale;dia;28065-10;M-50 / R-4 (SO);628.78;0.36
+20241016;28065;Getafe;sale;dia;28065-06;M-301 (SE);208.40;0.12
+20241016;28074;Leganés;entra;6_10;28074-01;A-42 / M-40 / M-411 / M-45 / R-5 (NE);6421.83;21.89
+20241016;28074;Leganés;entra;6_10;28074-02;A-42 / M-402 / M-45 (E);5987.97;20.41
+20241016;28074;Leganés;entra;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);4557.17;15.53
+20241016;28074;Leganés;entra;6_10;28074-06;M-407 / M-50 (SO);4130.64;14.08
+20241016;28074;Leganés;entra;6_10;28074-05;M-406 (SE);2198.20;7.49
+20241016;28074;Leganés;entra;6_10;28074-04;M-406 (NO);1905.78;6.49
+20241016;28074;Leganés;entra;6_10;28074-08;M-50 (S);1801.23;6.14
+20241016;28074;Leganés;entra;6_10;28074-07;M-409 (S);1764.93;6.01
+20241016;28074;Leganés;entra;6_10;28074-09;R-5 (O);409.66;1.40
+20241016;28074;Leganés;entra;6_10;(ruta sin tramos);(ruta sin tramos);165.63;0.56
+20241016;28074;Leganés;entra;7_8;28074-01;A-42 / M-40 / M-411 / M-45 / R-5 (NE);1804.07;21.51
+20241016;28074;Leganés;entra;7_8;28074-02;A-42 / M-402 / M-45 (E);1694.42;20.20
+20241016;28074;Leganés;entra;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);1274.81;15.20
+20241016;28074;Leganés;entra;7_8;28074-06;M-407 / M-50 (SO);1225.76;14.61
+20241016;28074;Leganés;entra;7_8;28074-05;M-406 (SE);629.03;7.50
+20241016;28074;Leganés;entra;7_8;28074-04;M-406 (NO);545.72;6.51
+20241016;28074;Leganés;entra;7_8;28074-08;M-50 (S);534.89;6.38
+20241016;28074;Leganés;entra;7_8;28074-07;M-409 (S);508.04;6.06
+20241016;28074;Leganés;entra;7_8;28074-09;R-5 (O);126.94;1.51
+20241016;28074;Leganés;entra;7_8;(ruta sin tramos);(ruta sin tramos);45.07;0.54
+20241016;28074;Leganés;entra;dia;28074-01;A-42 / M-40 / M-411 / M-45 / R-5 (NE);32525.44;24.56
+20241016;28074;Leganés;entra;dia;28074-02;A-42 / M-402 / M-45 (E);28009.81;21.15
+20241016;28074;Leganés;entra;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);23068.67;17.42
+20241016;28074;Leganés;entra;dia;28074-06;M-407 / M-50 (SO);14883.98;11.24
+20241016;28074;Leganés;entra;dia;28074-04;M-406 (NO);9159.15;6.92
+20241016;28074;Leganés;entra;dia;28074-05;M-406 (SE);8847.83;6.68
+20241016;28074;Leganés;entra;dia;28074-07;M-409 (S);7131.29;5.38
+20241016;28074;Leganés;entra;dia;28074-08;M-50 (S);6524.29;4.93
+20241016;28074;Leganés;entra;dia;28074-09;R-5 (O);1454.70;1.10
+20241016;28074;Leganés;entra;dia;(ruta sin tramos);(ruta sin tramos);825.95;0.62
+20241016;28074;Leganés;sale;6_10;28074-01;A-42 / M-40 / M-411 / M-45 / R-5 (NE);10169.07;30.54
+20241016;28074;Leganés;sale;6_10;28074-02;A-42 / M-402 / M-45 (E);6376.06;19.15
+20241016;28074;Leganés;sale;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);4706.50;14.13
+20241016;28074;Leganés;sale;6_10;28074-06;M-407 / M-50 (SO);3391.23;10.18
+20241016;28074;Leganés;sale;6_10;28074-05;M-406 (SE);3223.77;9.68
+20241016;28074;Leganés;sale;6_10;28074-04;M-406 (NO);2455.07;7.37
+20241016;28074;Leganés;sale;6_10;28074-07;M-409 (S);1302.78;3.91
+20241016;28074;Leganés;sale;6_10;28074-08;M-50 (S);1224.89;3.68
+20241016;28074;Leganés;sale;6_10;(ruta sin tramos);(ruta sin tramos);361.76;1.09
+20241016;28074;Leganés;sale;6_10;28074-09;R-5 (O);90.00;0.27
+20241016;28074;Leganés;sale;7_8;28074-01;A-42 / M-40 / M-411 / M-45 / R-5 (NE);3104.97;31.33
+20241016;28074;Leganés;sale;7_8;28074-02;A-42 / M-402 / M-45 (E);1944.11;19.61
+20241016;28074;Leganés;sale;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);1383.87;13.96
+20241016;28074;Leganés;sale;7_8;28074-05;M-406 (SE);968.50;9.77
+20241016;28074;Leganés;sale;7_8;28074-06;M-407 / M-50 (SO);953.69;9.62
+20241016;28074;Leganés;sale;7_8;28074-04;M-406 (NO);736.80;7.43
+20241016;28074;Leganés;sale;7_8;28074-07;M-409 (S);349.63;3.53
+20241016;28074;Leganés;sale;7_8;28074-08;M-50 (S);343.70;3.47
+20241016;28074;Leganés;sale;7_8;(ruta sin tramos);(ruta sin tramos);104.08;1.05
+20241016;28074;Leganés;sale;7_8;28074-09;R-5 (O);22.73;0.23
+20241016;28074;Leganés;sale;dia;28074-01;A-42 / M-40 / M-411 / M-45 / R-5 (NE);35355.54;26.74
+20241016;28074;Leganés;sale;dia;28074-02;A-42 / M-402 / M-45 (E);24878.11;18.82
+20241016;28074;Leganés;sale;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);17870.69;13.52
+20241016;28074;Leganés;sale;dia;28074-06;M-407 / M-50 (SO);16112.07;12.19
+20241016;28074;Leganés;sale;dia;28074-05;M-406 (SE);13735.10;10.39
+20241016;28074;Leganés;sale;dia;28074-04;M-406 (NO);8786.66;6.65
+20241016;28074;Leganés;sale;dia;28074-07;M-409 (S);7190.90;5.44
+20241016;28074;Leganés;sale;dia;28074-08;M-50 (S);6103.06;4.62
+20241016;28074;Leganés;sale;dia;(ruta sin tramos);(ruta sin tramos);1762.56;1.33
+20241016;28074;Leganés;sale;dia;28074-09;R-5 (O);415.38;0.31
+20241016;28080;Majadahonda;entra;6_10;28080-05;M-503 (SE);6472.58;29.89
+20241016;28080;Majadahonda;entra;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);5751.82;26.56
+20241016;28080;Majadahonda;entra;6_10;28080-03;M-50 (SE);3849.63;17.77
+20241016;28080;Majadahonda;entra;6_10;28080-02;M-50 (N);1892.21;8.74
+20241016;28080;Majadahonda;entra;6_10;28080-06;M-509 (NO);1427.34;6.59
+20241016;28080;Majadahonda;entra;6_10;28080-04;M-503 (O);1284.39;5.93
+20241016;28080;Majadahonda;entra;6_10;28080-01;A-6 (E);626.37;2.89
+20241016;28080;Majadahonda;entra;6_10;(ruta sin tramos);(ruta sin tramos);353.66;1.63
+20241016;28080;Majadahonda;entra;7_8;28080-05;M-503 (SE);2102.43;30.56
+20241016;28080;Majadahonda;entra;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);1910.23;27.77
+20241016;28080;Majadahonda;entra;7_8;28080-03;M-50 (SE);1139.76;16.57
+20241016;28080;Majadahonda;entra;7_8;28080-02;M-50 (N);583.94;8.49
+20241016;28080;Majadahonda;entra;7_8;28080-04;M-503 (O);439.18;6.38
+20241016;28080;Majadahonda;entra;7_8;28080-06;M-509 (NO);417.69;6.07
+20241016;28080;Majadahonda;entra;7_8;28080-01;A-6 (E);182.66;2.66
+20241016;28080;Majadahonda;entra;7_8;(ruta sin tramos);(ruta sin tramos);102.90;1.50
+20241016;28080;Majadahonda;entra;dia;28080-05;M-503 (SE);25905.80;32.68
+20241016;28080;Majadahonda;entra;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);23319.37;29.42
+20241016;28080;Majadahonda;entra;dia;28080-03;M-50 (SE);11105.68;14.01
+20241016;28080;Majadahonda;entra;dia;28080-02;M-50 (N);6563.72;8.28
+20241016;28080;Majadahonda;entra;dia;28080-06;M-509 (NO);4486.00;5.66
+20241016;28080;Majadahonda;entra;dia;28080-04;M-503 (O);3948.62;4.98
+20241016;28080;Majadahonda;entra;dia;28080-01;A-6 (E);2476.88;3.12
+20241016;28080;Majadahonda;entra;dia;(ruta sin tramos);(ruta sin tramos);1466.83;1.85
+20241016;28080;Majadahonda;sale;6_10;28080-01;A-6 (E);5519.93;32.37
+20241016;28080;Majadahonda;sale;6_10;28080-05;M-503 (SE);4377.39;25.67
+20241016;28080;Majadahonda;sale;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);2868.52;16.82
+20241016;28080;Majadahonda;sale;6_10;28080-03;M-50 (SE);1878.16;11.01
+20241016;28080;Majadahonda;sale;6_10;28080-02;M-50 (N);1097.71;6.44
+20241016;28080;Majadahonda;sale;6_10;28080-06;M-509 (NO);524.85;3.08
+20241016;28080;Majadahonda;sale;6_10;28080-04;M-503 (O);440.33;2.58
+20241016;28080;Majadahonda;sale;6_10;(ruta sin tramos);(ruta sin tramos);344.25;2.02
+20241016;28080;Majadahonda;sale;7_8;28080-01;A-6 (E);1622.50;35.78
+20241016;28080;Majadahonda;sale;7_8;28080-05;M-503 (SE);1167.52;25.74
+20241016;28080;Majadahonda;sale;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);759.38;16.74
+20241016;28080;Majadahonda;sale;7_8;28080-03;M-50 (SE);457.76;10.09
+20241016;28080;Majadahonda;sale;7_8;28080-02;M-50 (N);261.45;5.77
+20241016;28080;Majadahonda;sale;7_8;28080-06;M-509 (NO);113.38;2.50
+20241016;28080;Majadahonda;sale;7_8;(ruta sin tramos);(ruta sin tramos);80.97;1.79
+20241016;28080;Majadahonda;sale;7_8;28080-04;M-503 (O);72.17;1.59
+20241016;28080;Majadahonda;sale;dia;28080-01;A-6 (E);19041.36;24.10
+20241016;28080;Majadahonda;sale;dia;28080-05;M-503 (SE);17219.71;21.79
+20241016;28080;Majadahonda;sale;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);13527.76;17.12
+20241016;28080;Majadahonda;sale;dia;28080-03;M-50 (SE);11467.29;14.51
+20241016;28080;Majadahonda;sale;dia;28080-02;M-50 (N);7785.53;9.85
+20241016;28080;Majadahonda;sale;dia;28080-06;M-509 (NO);4602.77;5.83
+20241016;28080;Majadahonda;sale;dia;28080-04;M-503 (O);3478.45;4.40
+20241016;28080;Majadahonda;sale;dia;(ruta sin tramos);(ruta sin tramos);1893.39;2.40
+20241016;28092;Móstoles;entra;6_10;28092-02;A-5 / M-50 (NE);8338.47;32.42
+20241016;28092;Móstoles;entra;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);7973.49;31.01
+20241016;28092;Móstoles;entra;6_10;28092-01;A-5 / M-413 (SO);4696.10;18.26
+20241016;28092;Móstoles;entra;6_10;28092-05;M-506 / R-5 (E);3845.63;14.95
+20241016;28092;Móstoles;entra;6_10;28092-03;M-506 (N);487.69;1.90
+20241016;28092;Móstoles;entra;6_10;28092-04;M-506 (N);183.48;0.71
+20241016;28092;Móstoles;entra;6_10;(ruta sin tramos);(ruta sin tramos);124.03;0.48
+20241016;28092;Móstoles;entra;6_10;28092-06;R-5 (SE);62.32;0.24
+20241016;28092;Móstoles;entra;6_10;28092-07;R-5 (SE);5.11;0.02
+20241016;28092;Móstoles;entra;7_8;28092-02;A-5 / M-50 (NE);2479.29;32.19
+20241016;28092;Móstoles;entra;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);2291.39;29.75
+20241016;28092;Móstoles;entra;7_8;28092-01;A-5 / M-413 (SO);1541.51;20.01
+20241016;28092;Móstoles;entra;7_8;28092-05;M-506 / R-5 (E);1133.68;14.72
+20241016;28092;Móstoles;entra;7_8;28092-03;M-506 (N);145.42;1.89
+20241016;28092;Móstoles;entra;7_8;28092-04;M-506 (N);55.65;0.72
+20241016;28092;Móstoles;entra;7_8;(ruta sin tramos);(ruta sin tramos);35.75;0.46
+20241016;28092;Móstoles;entra;7_8;28092-06;R-5 (SE);18.18;0.24
+20241016;28092;Móstoles;entra;7_8;28092-07;R-5 (SE);1.38;0.02
+20241016;28092;Móstoles;entra;dia;28092-02;A-5 / M-50 (NE);47308.85;37.98
+20241016;28092;Móstoles;entra;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);39610.00;31.80
+20241016;28092;Móstoles;entra;dia;28092-05;M-506 / R-5 (E);18065.63;14.50
+20241016;28092;Móstoles;entra;dia;28092-01;A-5 / M-413 (SO);15575.82;12.51
+20241016;28092;Móstoles;entra;dia;28092-03;M-506 (N);2332.77;1.87
+20241016;28092;Móstoles;entra;dia;28092-04;M-506 (N);813.97;0.65
+20241016;28092;Móstoles;entra;dia;(ruta sin tramos);(ruta sin tramos);593.68;0.48
+20241016;28092;Móstoles;entra;dia;28092-06;R-5 (SE);228.06;0.18
+20241016;28092;Móstoles;entra;dia;28092-07;R-5 (SE);21.97;0.02
+20241016;28092;Móstoles;sale;6_10;28092-05;M-506 / R-5 (E);15624.97;43.08
+20241016;28092;Móstoles;sale;6_10;28092-02;A-5 / M-50 (NE);13631.40;37.58
+20241016;28092;Móstoles;sale;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);4041.63;11.14
+20241016;28092;Móstoles;sale;6_10;28092-01;A-5 / M-413 (SO);2109.43;5.82
+20241016;28092;Móstoles;sale;6_10;28092-03;M-506 (N);460.61;1.27
+20241016;28092;Móstoles;sale;6_10;28092-04;M-506 (N);307.68;0.85
+20241016;28092;Móstoles;sale;6_10;(ruta sin tramos);(ruta sin tramos);92.91;0.26
+20241016;28092;Móstoles;sale;6_10;28092-07;R-5 (SE);2.43;0.01
+20241016;28092;Móstoles;sale;6_10;28092-06;R-5 (SE);1.78;0.00
+20241016;28092;Móstoles;sale;7_8;28092-05;M-506 / R-5 (E);4605.17;43.36
+20241016;28092;Móstoles;sale;7_8;28092-02;A-5 / M-50 (NE);4033.24;37.97
+20241016;28092;Móstoles;sale;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);1133.11;10.67
+20241016;28092;Móstoles;sale;7_8;28092-01;A-5 / M-413 (SO);602.37;5.67
+20241016;28092;Móstoles;sale;7_8;28092-03;M-506 (N);134.27;1.26
+20241016;28092;Móstoles;sale;7_8;28092-04;M-506 (N);86.35;0.81
+20241016;28092;Móstoles;sale;7_8;(ruta sin tramos);(ruta sin tramos);25.76;0.24
+20241016;28092;Móstoles;sale;7_8;28092-07;R-5 (SE);0.68;0.01
+20241016;28092;Móstoles;sale;7_8;28092-06;R-5 (SE);0.44;0.00
+20241016;28092;Móstoles;sale;dia;28092-05;M-506 / R-5 (E);51949.01;41.55
+20241016;28092;Móstoles;sale;dia;28092-02;A-5 / M-50 (NE);38167.64;30.53
+20241016;28092;Móstoles;sale;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);16317.13;13.05
+20241016;28092;Móstoles;sale;dia;28092-01;A-5 / M-413 (SO);15427.61;12.34
+20241016;28092;Móstoles;sale;dia;28092-03;M-506 (N);1574.56;1.26
+20241016;28092;Móstoles;sale;dia;28092-04;M-506 (N);1085.35;0.87
+20241016;28092;Móstoles;sale;dia;(ruta sin tramos);(ruta sin tramos);478.50;0.38
+20241016;28092;Móstoles;sale;dia;28092-07;R-5 (SE);12.62;0.01
+20241016;28092;Móstoles;sale;dia;28092-06;R-5 (SE);11.20;0.01
+20241016;28106;Parla;entra;6_10;28106-01;A-42 / M-408 (N);4847.02;46.44
+20241016;28106;Parla;entra;6_10;28106-02;A-42 / M-410 / POLIGONO 001 (SO);3589.86;34.40
+20241016;28106;Parla;entra;6_10;28106-03;M-408 / R-4 (NE);1938.43;18.57
+20241016;28106;Parla;entra;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);39.58;0.38
+20241016;28106;Parla;entra;6_10;(ruta sin tramos);(ruta sin tramos);21.00;0.20
+20241016;28106;Parla;entra;6_10;28106-04;R-4 (SE);0.84;0.01
+20241016;28106;Parla;entra;7_8;28106-01;A-42 / M-408 (N);1394.65;49.35
+20241016;28106;Parla;entra;7_8;28106-02;A-42 / M-410 / POLIGONO 001 (SO);906.91;32.09
+20241016;28106;Parla;entra;7_8;28106-03;M-408 / R-4 (NE);508.83;18.00
+20241016;28106;Parla;entra;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);10.23;0.36
+20241016;28106;Parla;entra;7_8;(ruta sin tramos);(ruta sin tramos);5.35;0.19
+20241016;28106;Parla;entra;7_8;28106-04;R-4 (SE);0.26;0.01
+20241016;28106;Parla;entra;dia;28106-01;A-42 / M-408 (N);40151.12;58.42
+20241016;28106;Parla;entra;dia;28106-02;A-42 / M-410 / POLIGONO 001 (SO);15679.11;22.81
+20241016;28106;Parla;entra;dia;28106-03;M-408 / R-4 (NE);12452.30;18.12
+20241016;28106;Parla;entra;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);271.89;0.40
+20241016;28106;Parla;entra;dia;(ruta sin tramos);(ruta sin tramos);164.84;0.24
+20241016;28106;Parla;entra;dia;28106-04;R-4 (SE);7.97;0.01
+20241016;28106;Parla;sale;6_10;28106-01;A-42 / M-408 (N);16870.49;69.78
+20241016;28106;Parla;sale;6_10;28106-03;M-408 / R-4 (NE);3759.92;15.55
+20241016;28106;Parla;sale;6_10;28106-02;A-42 / M-410 / POLIGONO 001 (SO);3441.85;14.24
+20241016;28106;Parla;sale;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);67.86;0.28
+20241016;28106;Parla;sale;6_10;(ruta sin tramos);(ruta sin tramos);36.02;0.15
+20241016;28106;Parla;sale;7_8;28106-01;A-42 / M-408 (N);5040.75;72.49
+20241016;28106;Parla;sale;7_8;28106-03;M-408 / R-4 (NE);991.72;14.26
+20241016;28106;Parla;sale;7_8;28106-02;A-42 / M-410 / POLIGONO 001 (SO);895.06;12.87
+20241016;28106;Parla;sale;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);15.89;0.23
+20241016;28106;Parla;sale;7_8;(ruta sin tramos);(ruta sin tramos);10.14;0.15
+20241016;28106;Parla;sale;dia;28106-01;A-42 / M-408 (N);40517.14;58.90
+20241016;28106;Parla;sale;dia;28106-02;A-42 / M-410 / POLIGONO 001 (SO);15494.12;22.52
+20241016;28106;Parla;sale;dia;28106-03;M-408 / R-4 (NE);12466.06;18.12
+20241016;28106;Parla;sale;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);204.55;0.30
+20241016;28106;Parla;sale;dia;(ruta sin tramos);(ruta sin tramos);107.63;0.16
+20241016;28113;Pinto;entra;6_10;28113-02;A-4 / M-50 (N);4853.01;36.38
+20241016;28113;Pinto;entra;6_10;28113-01;A-4 / M-423 (S);2784.44;20.87
+20241016;28113;Pinto;entra;6_10;28113-05;M-506 (NO);2677.86;20.08
+20241016;28113;Pinto;entra;6_10;28113-03;M-408 / R-4 (O);1957.98;14.68
+20241016;28113;Pinto;entra;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);704.02;5.28
+20241016;28113;Pinto;entra;6_10;28113-06;M-506 (SE);330.84;2.48
+20241016;28113;Pinto;entra;6_10;(ruta sin tramos);(ruta sin tramos);22.96;0.17
+20241016;28113;Pinto;entra;6_10;28113-04;M-50 / R-4 (NO);8.12;0.06
+20241016;28113;Pinto;entra;7_8;28113-02;A-4 / M-50 (N);1403.20;36.94
+20241016;28113;Pinto;entra;7_8;28113-01;A-4 / M-423 (S);830.70;21.87
+20241016;28113;Pinto;entra;7_8;28113-05;M-506 (NO);774.09;20.38
+20241016;28113;Pinto;entra;7_8;28113-03;M-408 / R-4 (O);514.29;13.54
+20241016;28113;Pinto;entra;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);182.10;4.79
+20241016;28113;Pinto;entra;7_8;28113-06;M-506 (SE);85.84;2.26
+20241016;28113;Pinto;entra;7_8;(ruta sin tramos);(ruta sin tramos);5.71;0.15
+20241016;28113;Pinto;entra;7_8;28113-04;M-50 / R-4 (NO);2.67;0.07
+20241016;28113;Pinto;entra;dia;28113-02;A-4 / M-50 (N);22320.83;43.21
+20241016;28113;Pinto;entra;dia;28113-05;M-506 (NO);9981.39;19.32
+20241016;28113;Pinto;entra;dia;28113-01;A-4 / M-423 (S);8756.97;16.95
+20241016;28113;Pinto;entra;dia;28113-03;M-408 / R-4 (O);6983.52;13.52
+20241016;28113;Pinto;entra;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);2438.90;4.72
+20241016;28113;Pinto;entra;dia;28113-06;M-506 (SE);1013.18;1.96
+20241016;28113;Pinto;entra;dia;(ruta sin tramos);(ruta sin tramos);132.98;0.26
+20241016;28113;Pinto;entra;dia;28113-04;M-50 / R-4 (NO);28.11;0.05
+20241016;28113;Pinto;sale;6_10;28113-02;A-4 / M-50 (N);7270.59;55.80
+20241016;28113;Pinto;sale;6_10;28113-05;M-506 (NO);2397.08;18.40
+20241016;28113;Pinto;sale;6_10;28113-01;A-4 / M-423 (S);1508.93;11.58
+20241016;28113;Pinto;sale;6_10;28113-03;M-408 / R-4 (O);1345.44;10.33
+20241016;28113;Pinto;sale;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);314.25;2.41
+20241016;28113;Pinto;sale;6_10;28113-06;M-506 (SE);137.82;1.06
+20241016;28113;Pinto;sale;6_10;(ruta sin tramos);(ruta sin tramos);37.82;0.29
+20241016;28113;Pinto;sale;6_10;28113-04;M-50 / R-4 (NO);16.73;0.13
+20241016;28113;Pinto;sale;7_8;28113-02;A-4 / M-50 (N);2138.44;58.88
+20241016;28113;Pinto;sale;7_8;28113-05;M-506 (NO);639.70;17.61
+20241016;28113;Pinto;sale;7_8;28113-01;A-4 / M-423 (S);401.43;11.05
+20241016;28113;Pinto;sale;7_8;28113-03;M-408 / R-4 (O);326.94;9.00
+20241016;28113;Pinto;sale;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);78.79;2.17
+20241016;28113;Pinto;sale;7_8;28113-06;M-506 (SE);31.37;0.86
+20241016;28113;Pinto;sale;7_8;(ruta sin tramos);(ruta sin tramos);10.78;0.30
+20241016;28113;Pinto;sale;7_8;28113-04;M-50 / R-4 (NO);4.47;0.12
+20241016;28113;Pinto;sale;dia;28113-02;A-4 / M-50 (N);22473.40;43.75
+20241016;28113;Pinto;sale;dia;28113-05;M-506 (NO);9508.81;18.51
+20241016;28113;Pinto;sale;dia;28113-01;A-4 / M-423 (S);8766.08;17.07
+20241016;28113;Pinto;sale;dia;28113-03;M-408 / R-4 (O);7661.38;14.91
+20241016;28113;Pinto;sale;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);1785.73;3.48
+20241016;28113;Pinto;sale;dia;28113-06;M-506 (SE);966.86;1.88
+20241016;28113;Pinto;sale;dia;(ruta sin tramos);(ruta sin tramos);140.60;0.27
+20241016;28113;Pinto;sale;dia;28113-04;M-50 / R-4 (NO);65.71;0.13
+20241016;28115;Pozuelo de Alarcón;entra;6_10;28115-03;M-502 / M-511 (SE);9976.57;23.47
+20241016;28115;Pozuelo de Alarcón;entra;6_10;28115-04;M-503 (NE);9811.54;23.09
+20241016;28115;Pozuelo de Alarcón;entra;6_10;28115-02;M-40 / M-501 / M-511 (SO);6619.71;15.58
+20241016;28115;Pozuelo de Alarcón;entra;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);5509.79;12.96
+20241016;28115;Pozuelo de Alarcón;entra;6_10;28115-01;M-40 (N);5333.22;12.55
+20241016;28115;Pozuelo de Alarcón;entra;6_10;28115-05;M-503 (NO);4683.47;11.02
+20241016;28115;Pozuelo de Alarcón;entra;6_10;(ruta sin tramos);(ruta sin tramos);566.00;1.33
+20241016;28115;Pozuelo de Alarcón;entra;7_8;28115-04;M-503 (NE);2967.08;23.46
+20241016;28115;Pozuelo de Alarcón;entra;7_8;28115-03;M-502 / M-511 (SE);2937.14;23.23
+20241016;28115;Pozuelo de Alarcón;entra;7_8;28115-02;M-40 / M-501 / M-511 (SO);1956.10;15.47
+20241016;28115;Pozuelo de Alarcón;entra;7_8;28115-01;M-40 (N);1652.70;13.07
+20241016;28115;Pozuelo de Alarcón;entra;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);1610.66;12.74
+20241016;28115;Pozuelo de Alarcón;entra;7_8;28115-05;M-503 (NO);1360.47;10.76
+20241016;28115;Pozuelo de Alarcón;entra;7_8;(ruta sin tramos);(ruta sin tramos);161.15;1.27
+20241016;28115;Pozuelo de Alarcón;entra;dia;28115-04;M-503 (NE);31894.64;24.86
+20241016;28115;Pozuelo de Alarcón;entra;dia;28115-03;M-502 / M-511 (SE);29831.55;23.26
+20241016;28115;Pozuelo de Alarcón;entra;dia;28115-02;M-40 / M-501 / M-511 (SO);17244.85;13.44
+20241016;28115;Pozuelo de Alarcón;entra;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);16995.07;13.25
+20241016;28115;Pozuelo de Alarcón;entra;dia;28115-01;M-40 (N);15960.27;12.44
+20241016;28115;Pozuelo de Alarcón;entra;dia;28115-05;M-503 (NO);14358.75;11.19
+20241016;28115;Pozuelo de Alarcón;entra;dia;(ruta sin tramos);(ruta sin tramos);1989.12;1.55
+20241016;28115;Pozuelo de Alarcón;sale;6_10;28115-03;M-502 / M-511 (SE);5134.00;22.76
+20241016;28115;Pozuelo de Alarcón;sale;6_10;28115-04;M-503 (NE);4693.13;20.80
+20241016;28115;Pozuelo de Alarcón;sale;6_10;28115-01;M-40 (N);3699.47;16.40
+20241016;28115;Pozuelo de Alarcón;sale;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);3605.74;15.98
+20241016;28115;Pozuelo de Alarcón;sale;6_10;28115-02;M-40 / M-501 / M-511 (SO);2641.82;11.71
+20241016;28115;Pozuelo de Alarcón;sale;6_10;28115-05;M-503 (NO);2426.08;10.75
+20241016;28115;Pozuelo de Alarcón;sale;6_10;(ruta sin tramos);(ruta sin tramos);359.94;1.60
+20241016;28115;Pozuelo de Alarcón;sale;7_8;28115-03;M-502 / M-511 (SE);1370.55;23.61
+20241016;28115;Pozuelo de Alarcón;sale;7_8;28115-04;M-503 (NE);1264.20;21.77
+20241016;28115;Pozuelo de Alarcón;sale;7_8;28115-01;M-40 (N);1025.33;17.66
+20241016;28115;Pozuelo de Alarcón;sale;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);880.45;15.16
+20241016;28115;Pozuelo de Alarcón;sale;7_8;28115-02;M-40 / M-501 / M-511 (SO);656.92;11.31
+20241016;28115;Pozuelo de Alarcón;sale;7_8;28115-05;M-503 (NO);516.70;8.90
+20241016;28115;Pozuelo de Alarcón;sale;7_8;(ruta sin tramos);(ruta sin tramos);91.72;1.58
+20241016;28115;Pozuelo de Alarcón;sale;dia;28115-03;M-502 / M-511 (SE);29142.44;22.75
+20241016;28115;Pozuelo de Alarcón;sale;dia;28115-04;M-503 (NE);24548.10;19.17
+20241016;28115;Pozuelo de Alarcón;sale;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);20617.61;16.10
+20241016;28115;Pozuelo de Alarcón;sale;dia;28115-01;M-40 (N);19534.97;15.25
+20241016;28115;Pozuelo de Alarcón;sale;dia;28115-02;M-40 / M-501 / M-511 (SO);16680.57;13.02
+20241016;28115;Pozuelo de Alarcón;sale;dia;28115-05;M-503 (NO);15667.52;12.23
+20241016;28115;Pozuelo de Alarcón;sale;dia;(ruta sin tramos);(ruta sin tramos);1886.65;1.47
+20241016;28148;Torrejón de Ardoz;entra;6_10;28148-01;A-2 / M-300 (E);7352.05;33.09
+20241016;28148;Torrejón de Ardoz;entra;6_10;28148-02;A-2 / M-50 (O);6017.30;27.08
+20241016;28148;Torrejón de Ardoz;entra;6_10;28148-05;M-206 (SO);3574.24;16.09
+20241016;28148;Torrejón de Ardoz;entra;6_10;28148-04;M-206 (S);1925.96;8.67
+20241016;28148;Torrejón de Ardoz;entra;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);1734.55;7.81
+20241016;28148;Torrejón de Ardoz;entra;6_10;28148-03;M-108 (NO);1369.71;6.16
+20241016;28148;Torrejón de Ardoz;entra;6_10;(ruta sin tramos);(ruta sin tramos);218.39;0.98
+20241016;28148;Torrejón de Ardoz;entra;6_10;28148-06;M-50 (O);25.44;0.11
+20241016;28148;Torrejón de Ardoz;entra;7_8;28148-01;A-2 / M-300 (E);2265.45;33.89
+20241016;28148;Torrejón de Ardoz;entra;7_8;28148-02;A-2 / M-50 (O);1799.39;26.92
+20241016;28148;Torrejón de Ardoz;entra;7_8;28148-05;M-206 (SO);1051.94;15.74
+20241016;28148;Torrejón de Ardoz;entra;7_8;28148-04;M-206 (S);606.16;9.07
+20241016;28148;Torrejón de Ardoz;entra;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);527.89;7.90
+20241016;28148;Torrejón de Ardoz;entra;7_8;28148-03;M-108 (NO);366.30;5.48
+20241016;28148;Torrejón de Ardoz;entra;7_8;(ruta sin tramos);(ruta sin tramos);60.67;0.91
+20241016;28148;Torrejón de Ardoz;entra;7_8;28148-06;M-50 (O);7.34;0.11
+20241016;28148;Torrejón de Ardoz;entra;dia;28148-02;A-2 / M-50 (O);30381.18;31.19
+20241016;28148;Torrejón de Ardoz;entra;dia;28148-01;A-2 / M-300 (E);27277.63;28.01
+20241016;28148;Torrejón de Ardoz;entra;dia;28148-05;M-206 (SO);16031.90;16.46
+20241016;28148;Torrejón de Ardoz;entra;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);8894.74;9.13
+20241016;28148;Torrejón de Ardoz;entra;dia;28148-04;M-206 (S);6891.52;7.08
+20241016;28148;Torrejón de Ardoz;entra;dia;28148-03;M-108 (NO);6674.46;6.85
+20241016;28148;Torrejón de Ardoz;entra;dia;(ruta sin tramos);(ruta sin tramos);1138.54;1.17
+20241016;28148;Torrejón de Ardoz;entra;dia;28148-06;M-50 (O);109.70;0.11
+20241016;28148;Torrejón de Ardoz;sale;6_10;28148-02;A-2 / M-50 (O);12273.59;43.99
+20241016;28148;Torrejón de Ardoz;sale;6_10;28148-01;A-2 / M-300 (E);5693.16;20.41
+20241016;28148;Torrejón de Ardoz;sale;6_10;28148-05;M-206 (SO);5420.00;19.43
+20241016;28148;Torrejón de Ardoz;sale;6_10;28148-03;M-108 (NO);2252.78;8.07
+20241016;28148;Torrejón de Ardoz;sale;6_10;28148-04;M-206 (S);1434.06;5.14
+20241016;28148;Torrejón de Ardoz;sale;6_10;(sin tramo de red en el límite);(sin tramo de red en el límite);532.82;1.91
+20241016;28148;Torrejón de Ardoz;sale;6_10;(ruta sin tramos);(ruta sin tramos);293.84;1.05
+20241016;28148;Torrejón de Ardoz;sale;7_8;28148-02;A-2 / M-50 (O);3950.07;45.65
+20241016;28148;Torrejón de Ardoz;sale;7_8;28148-05;M-206 (SO);1690.12;19.53
+20241016;28148;Torrejón de Ardoz;sale;7_8;28148-01;A-2 / M-300 (E);1635.29;18.90
+20241016;28148;Torrejón de Ardoz;sale;7_8;28148-03;M-108 (NO);735.61;8.50
+20241016;28148;Torrejón de Ardoz;sale;7_8;28148-04;M-206 (S);396.86;4.59
+20241016;28148;Torrejón de Ardoz;sale;7_8;(sin tramo de red en el límite);(sin tramo de red en el límite);157.42;1.82
+20241016;28148;Torrejón de Ardoz;sale;7_8;(ruta sin tramos);(ruta sin tramos);86.67;1.00
+20241016;28148;Torrejón de Ardoz;sale;dia;28148-02;A-2 / M-50 (O);33909.32;34.72
+20241016;28148;Torrejón de Ardoz;sale;dia;28148-01;A-2 / M-300 (E);28052.65;28.72
+20241016;28148;Torrejón de Ardoz;sale;dia;28148-05;M-206 (SO);17474.67;17.89
+20241016;28148;Torrejón de Ardoz;sale;dia;28148-03;M-108 (NO);8254.88;8.45
+20241016;28148;Torrejón de Ardoz;sale;dia;28148-04;M-206 (S);6898.73;7.06
+20241016;28148;Torrejón de Ardoz;sale;dia;(sin tramo de red en el límite);(sin tramo de red en el límite);2014.12;2.06
+20241016;28148;Torrejón de Ardoz;sale;dia;(ruta sin tramos);(ruta sin tramos);1066.72;1.09
