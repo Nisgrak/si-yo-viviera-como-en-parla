@@ -1,0 +1,1208 @@
+{
+ "_meta": {
+  "generado": "2026-10-15",
+  "tema": "Quién es dueño de las casas y vivienda pública",
+  "nota": "Cada bloque cita su clave en 'fuentes'. Porcentajes calculados aquí con 2 decimales sobre los totales oficiales."
+ },
+ "parla": {
+  "nombre": "Parla",
+  "codigo_ine": "28106",
+  "poblacion_ine_2025": 137471,
+  "catastro_titularidad_residencial": {
+   "fuente": "catastro_titularidad_2026",
+   "referencia": "AREF 2026 (base de datos catastral de octubre)",
+   "inmuebles_residenciales": 47303,
+   "sujetos_pasivos": 39996,
+   "inmuebles_personas_fisicas": 42727,
+   "pct_personas_fisicas": 90.33,
+   "inmuebles_pf_espanolas": 38658,
+   "inmuebles_pf_extranjeras": 4069,
+   "inmuebles_sociedades": 3518,
+   "pct_sociedades": 7.44,
+   "inmuebles_aapp": 967,
+   "pct_aapp": 2.04,
+   "inmuebles_entidades_extranjeras": 0,
+   "inmuebles_asociaciones_fundaciones_religiosas": 15,
+   "inmuebles_sin_personalidad_juridica": 6,
+   "inmuebles_entidad_no_definida": 26,
+   "inmuebles_otros_nif": 44,
+   "sociedades_mas_10_en_municipio": {
+    "titulares": 32,
+    "inmuebles": 2855,
+    "pct": 6.04
+   },
+   "sociedades_mas_100_en_municipio": {
+    "titulares": 8,
+    "inmuebles": 2149,
+    "pct": 4.54
+   },
+   "personas_fisicas_mas_10_en_municipio": {
+    "titulares": 7,
+    "inmuebles": 132,
+    "pct": 0.28
+   },
+   "aapp_mas_100_en_municipio": {
+    "titulares": 1,
+    "inmuebles": 953
+   },
+   "año_anterior_2025": {
+    "inmuebles_residenciales": 47174,
+    "pct_personas_fisicas": 90.34,
+    "pct_sociedades": 7.39,
+    "pct_aapp": 2.05,
+    "sociedades_mas_100": {
+     "titulares": 8,
+     "inmuebles": 2165,
+     "pct": 4.59
+    },
+    "sociedades_mas_10": {
+     "titulares": 29,
+     "inmuebles": 2800,
+     "pct": 5.94
+    }
+   }
+  },
+  "aeat_arrendadores_particulares_irpf_2024": {
+   "fuente": "aeat_irpf_municipios_2024",
+   "url_tabla_municipio": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf158c18af4b846381dd4c14b7bb96cfaa3b47cdb6.html",
+   "declaraciones_total": 63046,
+   "declaraciones_con_rendimientos_capital_inmobiliario": 5662,
+   "importe_rendimiento_neto_eur": 16283034,
+   "media_eur": 2876,
+   "pct_declaraciones": 8.98,
+   "por_1000_habitantes": 41.19,
+   "declaraciones_con_rentas_imputadas_inmuebles": 15776,
+   "importe_rentas_imputadas_eur": 8755129
+  },
+  "agencia_vivienda_social": {
+   "fuente": "avs_inmuebles_2026T3",
+   "fecha_datos": "2026-09-30",
+   "viviendas": 953,
+   "garajes": 937,
+   "locales": 27,
+   "viviendas_por_1000_habitantes": 6.93,
+   "pct_sobre_inmuebles_residenciales_catastro": 2.01,
+   "nota": "El % mezcla dos fuentes (AVS sept. 2026 / Catastro AREF 2026); orientativo."
+  },
+  "viviendas_turisticas_ine": {
+   "fuente": "ine_vut",
+   "periodo": "2026M05",
+   "viviendas": 28,
+   "plazas": 63,
+   "pct_sobre_viviendas": 0.06,
+   "periodo_anterior": "2025M05",
+   "viviendas_anterior": 46,
+   "pct_anterior": 0.1
+  },
+  "venta_ivima_encasa_2013": {
+   "viviendas_en_el_municipio": 240,
+   "calidad": "prensa",
+   "fuente": "prensa_publico_ivima",
+   "nota": "Desglose municipal publicado por Público (2022) atribuido a la resolución judicial; no localizado en documento oficial. Total oficial 2.935 (Cámara de Cuentas) cuadra con la suma del desglose.",
+   "contratos_visados_encasa_2013_2015T1_oficial": 71,
+   "fuente_visados": "ccm_ivima_2012_2013"
+  }
+ },
+ "getafe": {
+  "nombre": "Getafe",
+  "codigo_ine": "28065",
+  "poblacion_ine_2025": 193238,
+  "catastro_titularidad_residencial": {
+   "fuente": "catastro_titularidad_2026",
+   "referencia": "AREF 2026 (base de datos catastral de octubre)",
+   "inmuebles_residenciales": 80928,
+   "sujetos_pasivos": 69450,
+   "inmuebles_personas_fisicas": 76855,
+   "pct_personas_fisicas": 94.97,
+   "inmuebles_pf_espanolas": 74351,
+   "inmuebles_pf_extranjeras": 2504,
+   "inmuebles_sociedades": 3481,
+   "pct_sociedades": 4.3,
+   "inmuebles_aapp": 500,
+   "pct_aapp": 0.62,
+   "inmuebles_entidades_extranjeras": 5,
+   "inmuebles_asociaciones_fundaciones_religiosas": 31,
+   "inmuebles_sin_personalidad_juridica": 18,
+   "inmuebles_entidad_no_definida": 8,
+   "inmuebles_otros_nif": 30,
+   "sociedades_mas_10_en_municipio": {
+    "titulares": 49,
+    "inmuebles": 2185,
+    "pct": 2.7
+   },
+   "sociedades_mas_100_en_municipio": {
+    "titulares": 5,
+    "inmuebles": 1043,
+    "pct": 1.29
+   },
+   "personas_fisicas_mas_10_en_municipio": {
+    "titulares": 22,
+    "inmuebles": 332,
+    "pct": 0.41
+   },
+   "aapp_mas_100_en_municipio": {
+    "titulares": 1,
+    "inmuebles": 399
+   },
+   "año_anterior_2025": {
+    "inmuebles_residenciales": 80649,
+    "pct_personas_fisicas": 95.08,
+    "pct_sociedades": 4.18,
+    "pct_aapp": 0.62,
+    "sociedades_mas_100": {
+     "titulares": 5,
+     "inmuebles": 985,
+     "pct": 1.22
+    },
+    "sociedades_mas_10": {
+     "titulares": 50,
+     "inmuebles": 2145,
+     "pct": 2.66
+    }
+   }
+  },
+  "aeat_arrendadores_particulares_irpf_2024": {
+   "fuente": "aeat_irpf_municipios_2024",
+   "url_tabla_municipio": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubik411f4c9b5734bc6930ecbaaa3e7ab739543dc5b0.html",
+   "declaraciones_total": 109662,
+   "declaraciones_con_rendimientos_capital_inmobiliario": 16600,
+   "importe_rendimiento_neto_eur": 53898127,
+   "media_eur": 3247,
+   "pct_declaraciones": 15.14,
+   "por_1000_habitantes": 85.9,
+   "declaraciones_con_rentas_imputadas_inmuebles": 39473,
+   "importe_rentas_imputadas_eur": 26623077
+  },
+  "agencia_vivienda_social": {
+   "fuente": "avs_inmuebles_2026T3",
+   "fecha_datos": "2026-09-30",
+   "viviendas": 398,
+   "garajes": 375,
+   "locales": 8,
+   "viviendas_por_1000_habitantes": 2.06,
+   "pct_sobre_inmuebles_residenciales_catastro": 0.49,
+   "nota": "El % mezcla dos fuentes (AVS sept. 2026 / Catastro AREF 2026); orientativo."
+  },
+  "viviendas_turisticas_ine": {
+   "fuente": "ine_vut",
+   "periodo": "2026M05",
+   "viviendas": 69,
+   "plazas": 217,
+   "pct_sobre_viviendas": 0.09,
+   "periodo_anterior": "2025M05",
+   "viviendas_anterior": 97,
+   "pct_anterior": 0.12
+  },
+  "venta_ivima_encasa_2013": {
+   "viviendas_en_el_municipio": 0,
+   "calidad": "prensa",
+   "fuente": "prensa_publico_ivima",
+   "nota": "Desglose municipal publicado por Público (2022) atribuido a la resolución judicial; no localizado en documento oficial. Total oficial 2.935 (Cámara de Cuentas) cuadra con la suma del desglose.",
+   "contratos_visados_encasa_2013_2015T1_oficial": null,
+   "fuente_visados": null
+  }
+ },
+ "leganes": {
+  "nombre": "Leganés",
+  "codigo_ine": "28074",
+  "poblacion_ine_2025": 195734,
+  "catastro_titularidad_residencial": {
+   "fuente": "catastro_titularidad_2026",
+   "referencia": "AREF 2026 (base de datos catastral de octubre)",
+   "inmuebles_residenciales": 78271,
+   "sujetos_pasivos": 69218,
+   "inmuebles_personas_fisicas": 75358,
+   "pct_personas_fisicas": 96.28,
+   "inmuebles_pf_espanolas": 73813,
+   "inmuebles_pf_extranjeras": 1545,
+   "inmuebles_sociedades": 1624,
+   "pct_sociedades": 2.07,
+   "inmuebles_aapp": 1138,
+   "pct_aapp": 1.45,
+   "inmuebles_entidades_extranjeras": 0,
+   "inmuebles_asociaciones_fundaciones_religiosas": 41,
+   "inmuebles_sin_personalidad_juridica": 0,
+   "inmuebles_entidad_no_definida": 9,
+   "inmuebles_otros_nif": 101,
+   "sociedades_mas_10_en_municipio": {
+    "titulares": 12,
+    "inmuebles": 888,
+    "pct": 1.13
+   },
+   "sociedades_mas_100_en_municipio": {
+    "titulares": 2,
+    "inmuebles": 369,
+    "pct": 0.47
+   },
+   "personas_fisicas_mas_10_en_municipio": {
+    "titulares": 14,
+    "inmuebles": 266,
+    "pct": 0.34
+   },
+   "aapp_mas_100_en_municipio": {
+    "titulares": 1,
+    "inmuebles": 1087
+   },
+   "año_anterior_2025": {
+    "inmuebles_residenciales": 78044,
+    "pct_personas_fisicas": 96.16,
+    "pct_sociedades": 2.18,
+    "pct_aapp": 1.4,
+    "sociedades_mas_100": {
+     "titulares": 3,
+     "inmuebles": 491,
+     "pct": 0.63
+    },
+    "sociedades_mas_10": {
+     "titulares": 12,
+     "inmuebles": 956,
+     "pct": 1.22
+    }
+   }
+  },
+  "aeat_arrendadores_particulares_irpf_2024": {
+   "fuente": "aeat_irpf_municipios_2024",
+   "url_tabla_municipio": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubik70a30faed4d8ea4e2116cb82f53cf438d62161c5.html",
+   "declaraciones_total": 103691,
+   "declaraciones_con_rendimientos_capital_inmobiliario": 13585,
+   "importe_rendimiento_neto_eur": 39933114,
+   "media_eur": 2940,
+   "pct_declaraciones": 13.1,
+   "por_1000_habitantes": 69.41,
+   "declaraciones_con_rentas_imputadas_inmuebles": 37861,
+   "importe_rentas_imputadas_eur": 20346780
+  },
+  "agencia_vivienda_social": {
+   "fuente": "avs_inmuebles_2026T3",
+   "fecha_datos": "2026-09-30",
+   "viviendas": 995,
+   "garajes": 1045,
+   "locales": 10,
+   "viviendas_por_1000_habitantes": 5.08,
+   "pct_sobre_inmuebles_residenciales_catastro": 1.27,
+   "nota": "El % mezcla dos fuentes (AVS sept. 2026 / Catastro AREF 2026); orientativo."
+  },
+  "viviendas_turisticas_ine": {
+   "fuente": "ine_vut",
+   "periodo": "2026M05",
+   "viviendas": 54,
+   "plazas": 173,
+   "pct_sobre_viviendas": 0.07,
+   "periodo_anterior": "2025M05",
+   "viviendas_anterior": 53,
+   "pct_anterior": 0.07
+  },
+  "venta_ivima_encasa_2013": {
+   "viviendas_en_el_municipio": 36,
+   "calidad": "prensa",
+   "fuente": "prensa_publico_ivima",
+   "nota": "Desglose municipal publicado por Público (2022) atribuido a la resolución judicial; no localizado en documento oficial. Total oficial 2.935 (Cámara de Cuentas) cuadra con la suma del desglose.",
+   "contratos_visados_encasa_2013_2015T1_oficial": null,
+   "fuente_visados": null,
+   "oficial_parcial": "Cámara de Cuentas, cuadro 32: promoción IVIMA 9233.01.02, parcela RB-10.2 de Leganés, 18 VPPA con préstamo subrogado (confirma presencia en Leganés, no el total del municipio)."
+  }
+ },
+ "fuenlabrada": {
+  "nombre": "Fuenlabrada",
+  "codigo_ine": "28058",
+  "poblacion_ine_2025": 190076,
+  "catastro_titularidad_residencial": {
+   "fuente": "catastro_titularidad_2026",
+   "referencia": "AREF 2026 (base de datos catastral de octubre)",
+   "inmuebles_residenciales": 71778,
+   "sujetos_pasivos": 65321,
+   "inmuebles_personas_fisicas": 69301,
+   "pct_personas_fisicas": 96.55,
+   "inmuebles_pf_espanolas": 67432,
+   "inmuebles_pf_extranjeras": 1869,
+   "inmuebles_sociedades": 1574,
+   "pct_sociedades": 2.19,
+   "inmuebles_aapp": 837,
+   "pct_aapp": 1.17,
+   "inmuebles_entidades_extranjeras": 3,
+   "inmuebles_asociaciones_fundaciones_religiosas": 25,
+   "inmuebles_sin_personalidad_juridica": 0,
+   "inmuebles_entidad_no_definida": 17,
+   "inmuebles_otros_nif": 21,
+   "sociedades_mas_10_en_municipio": {
+    "titulares": 30,
+    "inmuebles": 752,
+    "pct": 1.05
+   },
+   "sociedades_mas_100_en_municipio": {
+    "titulares": 0,
+    "inmuebles": 0,
+    "pct": 0.0
+   },
+   "personas_fisicas_mas_10_en_municipio": {
+    "titulares": 14,
+    "inmuebles": 202,
+    "pct": 0.28
+   },
+   "aapp_mas_100_en_municipio": {
+    "titulares": 2,
+    "inmuebles": 821
+   },
+   "año_anterior_2025": {
+    "inmuebles_residenciales": 71505,
+    "pct_personas_fisicas": 96.55,
+    "pct_sociedades": 2.18,
+    "pct_aapp": 1.17,
+    "sociedades_mas_100": {
+     "titulares": 0,
+     "inmuebles": 0,
+     "pct": 0.0
+    },
+    "sociedades_mas_10": {
+     "titulares": 29,
+     "inmuebles": 746,
+     "pct": 1.04
+    }
+   }
+  },
+  "aeat_arrendadores_particulares_irpf_2024": {
+   "fuente": "aeat_irpf_municipios_2024",
+   "url_tabla_municipio": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf4b278ebf4c3614821461952577059e39a9e04e94.html",
+   "declaraciones_total": 101195,
+   "declaraciones_con_rendimientos_capital_inmobiliario": 9358,
+   "importe_rendimiento_neto_eur": 27064304,
+   "media_eur": 2892,
+   "pct_declaraciones": 9.25,
+   "por_1000_habitantes": 49.23,
+   "declaraciones_con_rentas_imputadas_inmuebles": 35971,
+   "importe_rentas_imputadas_eur": 20167529
+  },
+  "agencia_vivienda_social": {
+   "fuente": "avs_inmuebles_2026T3",
+   "fecha_datos": "2026-09-30",
+   "viviendas": 563,
+   "garajes": 546,
+   "locales": 5,
+   "viviendas_por_1000_habitantes": 2.96,
+   "pct_sobre_inmuebles_residenciales_catastro": 0.78,
+   "nota": "El % mezcla dos fuentes (AVS sept. 2026 / Catastro AREF 2026); orientativo."
+  },
+  "viviendas_turisticas_ine": {
+   "fuente": "ine_vut",
+   "periodo": "2026M05",
+   "viviendas": 27,
+   "plazas": 64,
+   "pct_sobre_viviendas": 0.04,
+   "periodo_anterior": "2025M05",
+   "viviendas_anterior": 25,
+   "pct_anterior": 0.04
+  },
+  "venta_ivima_encasa_2013": {
+   "viviendas_en_el_municipio": 0,
+   "calidad": "prensa",
+   "fuente": "prensa_publico_ivima",
+   "nota": "Desglose municipal publicado por Público (2022) atribuido a la resolución judicial; no localizado en documento oficial. Total oficial 2.935 (Cámara de Cuentas) cuadra con la suma del desglose.",
+   "contratos_visados_encasa_2013_2015T1_oficial": null,
+   "fuente_visados": null
+  }
+ },
+ "mostoles": {
+  "nombre": "Móstoles",
+  "codigo_ine": "28092",
+  "poblacion_ine_2025": 214817,
+  "catastro_titularidad_residencial": {
+   "fuente": "catastro_titularidad_2026",
+   "referencia": "AREF 2026 (base de datos catastral de octubre)",
+   "inmuebles_residenciales": 83453,
+   "sujetos_pasivos": 74586,
+   "inmuebles_personas_fisicas": 79298,
+   "pct_personas_fisicas": 95.02,
+   "inmuebles_pf_espanolas": 77237,
+   "inmuebles_pf_extranjeras": 2061,
+   "inmuebles_sociedades": 3139,
+   "pct_sociedades": 3.76,
+   "inmuebles_aapp": 890,
+   "pct_aapp": 1.07,
+   "inmuebles_entidades_extranjeras": 1,
+   "inmuebles_asociaciones_fundaciones_religiosas": 30,
+   "inmuebles_sin_personalidad_juridica": 14,
+   "inmuebles_entidad_no_definida": 8,
+   "inmuebles_otros_nif": 73,
+   "sociedades_mas_10_en_municipio": {
+    "titulares": 27,
+    "inmuebles": 2330,
+    "pct": 2.79
+   },
+   "sociedades_mas_100_en_municipio": {
+    "titulares": 6,
+    "inmuebles": 1547,
+    "pct": 1.85
+   },
+   "personas_fisicas_mas_10_en_municipio": {
+    "titulares": 4,
+    "inmuebles": 58,
+    "pct": 0.07
+   },
+   "aapp_mas_100_en_municipio": {
+    "titulares": 1,
+    "inmuebles": 811
+   },
+   "año_anterior_2025": {
+    "inmuebles_residenciales": 83193,
+    "pct_personas_fisicas": 94.95,
+    "pct_sociedades": 3.83,
+    "pct_aapp": 1.07,
+    "sociedades_mas_100": {
+     "titulares": 6,
+     "inmuebles": 1591,
+     "pct": 1.91
+    },
+    "sociedades_mas_10": {
+     "titulares": 25,
+     "inmuebles": 2380,
+     "pct": 2.86
+    }
+   }
+  },
+  "aeat_arrendadores_particulares_irpf_2024": {
+   "fuente": "aeat_irpf_municipios_2024",
+   "url_tabla_municipio": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf7777155794d6db10804d1e0940a6740746111084.html",
+   "declaraciones_total": 112543,
+   "declaraciones_con_rendimientos_capital_inmobiliario": 11856,
+   "importe_rendimiento_neto_eur": 33548982,
+   "media_eur": 2830,
+   "pct_declaraciones": 10.53,
+   "por_1000_habitantes": 55.19,
+   "declaraciones_con_rentas_imputadas_inmuebles": 42550,
+   "importe_rentas_imputadas_eur": 22106489
+  },
+  "agencia_vivienda_social": {
+   "fuente": "avs_inmuebles_2026T3",
+   "fecha_datos": "2026-09-30",
+   "viviendas": 811,
+   "garajes": 762,
+   "locales": 0,
+   "viviendas_por_1000_habitantes": 3.78,
+   "pct_sobre_inmuebles_residenciales_catastro": 0.97,
+   "nota": "El % mezcla dos fuentes (AVS sept. 2026 / Catastro AREF 2026); orientativo."
+  },
+  "viviendas_turisticas_ine": {
+   "fuente": "ine_vut",
+   "periodo": "2026M05",
+   "viviendas": 55,
+   "plazas": 156,
+   "pct_sobre_viviendas": 0.07,
+   "periodo_anterior": "2025M05",
+   "viviendas_anterior": 62,
+   "pct_anterior": 0.08
+  },
+  "venta_ivima_encasa_2013": {
+   "viviendas_en_el_municipio": 259,
+   "calidad": "prensa",
+   "fuente": "prensa_publico_ivima",
+   "nota": "Desglose municipal publicado por Público (2022) atribuido a la resolución judicial; no localizado en documento oficial. Total oficial 2.935 (Cámara de Cuentas) cuadra con la suma del desglose.",
+   "contratos_visados_encasa_2013_2015T1_oficial": 95,
+   "fuente_visados": "ccm_ivima_2012_2013"
+  }
+ },
+ "alcorcon": {
+  "nombre": "Alcorcón",
+  "codigo_ine": "28007",
+  "poblacion_ine_2025": 175719,
+  "catastro_titularidad_residencial": {
+   "fuente": "catastro_titularidad_2026",
+   "referencia": "AREF 2026 (base de datos catastral de octubre)",
+   "inmuebles_residenciales": 71233,
+   "sujetos_pasivos": 64190,
+   "inmuebles_personas_fisicas": 68873,
+   "pct_personas_fisicas": 96.69,
+   "inmuebles_pf_espanolas": 67507,
+   "inmuebles_pf_extranjeras": 1366,
+   "inmuebles_sociedades": 1402,
+   "pct_sociedades": 1.97,
+   "inmuebles_aapp": 832,
+   "pct_aapp": 1.17,
+   "inmuebles_entidades_extranjeras": 1,
+   "inmuebles_asociaciones_fundaciones_religiosas": 27,
+   "inmuebles_sin_personalidad_juridica": 10,
+   "inmuebles_entidad_no_definida": 5,
+   "inmuebles_otros_nif": 83,
+   "sociedades_mas_10_en_municipio": {
+    "titulares": 13,
+    "inmuebles": 830,
+    "pct": 1.17
+   },
+   "sociedades_mas_100_en_municipio": {
+    "titulares": 2,
+    "inmuebles": 435,
+    "pct": 0.61
+   },
+   "personas_fisicas_mas_10_en_municipio": {
+    "titulares": 5,
+    "inmuebles": 98,
+    "pct": 0.14
+   },
+   "aapp_mas_100_en_municipio": {
+    "titulares": 1,
+    "inmuebles": 757
+   },
+   "año_anterior_2025": {
+    "inmuebles_residenciales": 71153,
+    "pct_personas_fisicas": 96.67,
+    "pct_sociedades": 1.98,
+    "pct_aapp": 1.17,
+    "sociedades_mas_100": {
+     "titulares": 2,
+     "inmuebles": 440,
+     "pct": 0.62
+    },
+    "sociedades_mas_10": {
+     "titulares": 13,
+     "inmuebles": 852,
+     "pct": 1.2
+    }
+   }
+  },
+  "aeat_arrendadores_particulares_irpf_2024": {
+   "fuente": "aeat_irpf_municipios_2024",
+   "url_tabla_municipio": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf2d94f8b3e044243b001640ef19fc2934f6f55b18.html",
+   "declaraciones_total": 97232,
+   "declaraciones_con_rendimientos_capital_inmobiliario": 12605,
+   "importe_rendimiento_neto_eur": 36737328,
+   "media_eur": 2915,
+   "pct_declaraciones": 12.96,
+   "por_1000_habitantes": 71.73,
+   "declaraciones_con_rentas_imputadas_inmuebles": 40047,
+   "importe_rentas_imputadas_eur": 26496793
+  },
+  "agencia_vivienda_social": {
+   "fuente": "avs_inmuebles_2026T3",
+   "fecha_datos": "2026-09-30",
+   "viviendas": 758,
+   "garajes": 848,
+   "locales": 9,
+   "viviendas_por_1000_habitantes": 4.31,
+   "pct_sobre_inmuebles_residenciales_catastro": 1.06,
+   "nota": "El % mezcla dos fuentes (AVS sept. 2026 / Catastro AREF 2026); orientativo."
+  },
+  "viviendas_turisticas_ine": {
+   "fuente": "ine_vut",
+   "periodo": "2026M05",
+   "viviendas": 40,
+   "plazas": 123,
+   "pct_sobre_viviendas": 0.06,
+   "periodo_anterior": "2025M05",
+   "viviendas_anterior": 75,
+   "pct_anterior": 0.11
+  },
+  "venta_ivima_encasa_2013": {
+   "viviendas_en_el_municipio": 0,
+   "calidad": "prensa",
+   "fuente": "prensa_publico_ivima",
+   "nota": "Desglose municipal publicado por Público (2022) atribuido a la resolución judicial; no localizado en documento oficial. Total oficial 2.935 (Cámara de Cuentas) cuadra con la suma del desglose.",
+   "contratos_visados_encasa_2013_2015T1_oficial": null,
+   "fuente_visados": null
+  }
+ },
+ "alcobendas": {
+  "nombre": "Alcobendas",
+  "codigo_ine": "28006",
+  "poblacion_ine_2025": 123342,
+  "catastro_titularidad_residencial": {
+   "fuente": "catastro_titularidad_2026",
+   "referencia": "AREF 2026 (base de datos catastral de octubre)",
+   "inmuebles_residenciales": 42765,
+   "sujetos_pasivos": 36473,
+   "inmuebles_personas_fisicas": 39491,
+   "pct_personas_fisicas": 92.34,
+   "inmuebles_pf_espanolas": 38062,
+   "inmuebles_pf_extranjeras": 1429,
+   "inmuebles_sociedades": 2714,
+   "pct_sociedades": 6.35,
+   "inmuebles_aapp": 421,
+   "pct_aapp": 0.98,
+   "inmuebles_entidades_extranjeras": 38,
+   "inmuebles_asociaciones_fundaciones_religiosas": 13,
+   "inmuebles_sin_personalidad_juridica": 19,
+   "inmuebles_entidad_no_definida": 3,
+   "inmuebles_otros_nif": 66,
+   "sociedades_mas_10_en_municipio": {
+    "titulares": 30,
+    "inmuebles": 1157,
+    "pct": 2.71
+   },
+   "sociedades_mas_100_en_municipio": {
+    "titulares": 1,
+    "inmuebles": 403,
+    "pct": 0.94
+   },
+   "personas_fisicas_mas_10_en_municipio": {
+    "titulares": 31,
+    "inmuebles": 615,
+    "pct": 1.44
+   },
+   "aapp_mas_100_en_municipio": {
+    "titulares": 2,
+    "inmuebles": 413
+   },
+   "año_anterior_2025": {
+    "inmuebles_residenciales": 42594,
+    "pct_personas_fisicas": 91.91,
+    "pct_sociedades": 6.76,
+    "pct_aapp": 1.0,
+    "sociedades_mas_100": {
+     "titulares": 2,
+     "inmuebles": 520,
+     "pct": 1.22
+    },
+    "sociedades_mas_10": {
+     "titulares": 34,
+     "inmuebles": 1336,
+     "pct": 3.14
+    }
+   }
+  },
+  "aeat_arrendadores_particulares_irpf_2024": {
+   "fuente": "aeat_irpf_municipios_2024",
+   "url_tabla_municipio": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikb60fd34739369af9ac7cd927379dfa8b6248e02.html",
+   "declaraciones_total": 62698,
+   "declaraciones_con_rendimientos_capital_inmobiliario": 11078,
+   "importe_rendimiento_neto_eur": 57341735,
+   "media_eur": 5176,
+   "pct_declaraciones": 17.67,
+   "por_1000_habitantes": 89.82,
+   "declaraciones_con_rentas_imputadas_inmuebles": 23034,
+   "importe_rentas_imputadas_eur": 20960111
+  },
+  "agencia_vivienda_social": {
+   "fuente": "avs_inmuebles_2026T3",
+   "fecha_datos": "2026-09-30",
+   "viviendas": 225,
+   "garajes": 197,
+   "locales": 0,
+   "viviendas_por_1000_habitantes": 1.82,
+   "pct_sobre_inmuebles_residenciales_catastro": 0.53,
+   "nota": "El % mezcla dos fuentes (AVS sept. 2026 / Catastro AREF 2026); orientativo."
+  },
+  "viviendas_turisticas_ine": {
+   "fuente": "ine_vut",
+   "periodo": "2026M05",
+   "viviendas": 55,
+   "plazas": 171,
+   "pct_sobre_viviendas": 0.13,
+   "periodo_anterior": "2025M05",
+   "viviendas_anterior": 80,
+   "pct_anterior": 0.19
+  },
+  "venta_ivima_encasa_2013": {
+   "viviendas_en_el_municipio": 0,
+   "calidad": "prensa",
+   "fuente": "prensa_publico_ivima",
+   "nota": "Desglose municipal publicado por Público (2022) atribuido a la resolución judicial; no localizado en documento oficial. Total oficial 2.935 (Cámara de Cuentas) cuadra con la suma del desglose.",
+   "contratos_visados_encasa_2013_2015T1_oficial": null,
+   "fuente_visados": null
+  }
+ },
+ "pinto": {
+  "nombre": "Pinto",
+  "codigo_ine": "28113",
+  "poblacion_ine_2025": 56651,
+  "catastro_titularidad_residencial": {
+   "fuente": "catastro_titularidad_2026",
+   "referencia": "AREF 2026 (base de datos catastral de octubre)",
+   "inmuebles_residenciales": 21583,
+   "sujetos_pasivos": 18028,
+   "inmuebles_personas_fisicas": 19799,
+   "pct_personas_fisicas": 91.73,
+   "inmuebles_pf_espanolas": 19237,
+   "inmuebles_pf_extranjeras": 562,
+   "inmuebles_sociedades": 1563,
+   "pct_sociedades": 7.24,
+   "inmuebles_aapp": 170,
+   "pct_aapp": 0.79,
+   "inmuebles_entidades_extranjeras": 0,
+   "inmuebles_asociaciones_fundaciones_religiosas": 15,
+   "inmuebles_sin_personalidad_juridica": 2,
+   "inmuebles_entidad_no_definida": 23,
+   "inmuebles_otros_nif": 11,
+   "sociedades_mas_10_en_municipio": {
+    "titulares": 14,
+    "inmuebles": 1188,
+    "pct": 5.5
+   },
+   "sociedades_mas_100_en_municipio": {
+    "titulares": 5,
+    "inmuebles": 913,
+    "pct": 4.23
+   },
+   "personas_fisicas_mas_10_en_municipio": {
+    "titulares": 3,
+    "inmuebles": 90,
+    "pct": 0.42
+   },
+   "aapp_mas_100_en_municipio": {
+    "titulares": 1,
+    "inmuebles": 115
+   },
+   "año_anterior_2025": {
+    "inmuebles_residenciales": 21390,
+    "pct_personas_fisicas": 92.0,
+    "pct_sociedades": 6.94,
+    "pct_aapp": 0.79,
+    "sociedades_mas_100": {
+     "titulares": 4,
+     "inmuebles": 794,
+     "pct": 3.71
+    },
+    "sociedades_mas_10": {
+     "titulares": 13,
+     "inmuebles": 1102,
+     "pct": 5.15
+    }
+   }
+  },
+  "aeat_arrendadores_particulares_irpf_2024": {
+   "fuente": "aeat_irpf_municipios_2024",
+   "url_tabla_municipio": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf275fbdbf8c6a1ea6553ce3f63b43d7aed6ea05dc.html",
+   "declaraciones_total": 30703,
+   "declaraciones_con_rendimientos_capital_inmobiliario": 4289,
+   "importe_rendimiento_neto_eur": 12147068,
+   "media_eur": 2832,
+   "pct_declaraciones": 13.97,
+   "por_1000_habitantes": 75.71,
+   "declaraciones_con_rentas_imputadas_inmuebles": 9726,
+   "importe_rentas_imputadas_eur": 4655639
+  },
+  "agencia_vivienda_social": {
+   "fuente": "avs_inmuebles_2026T3",
+   "fecha_datos": "2026-09-30",
+   "viviendas": 116,
+   "garajes": 113,
+   "locales": 6,
+   "viviendas_por_1000_habitantes": 2.05,
+   "pct_sobre_inmuebles_residenciales_catastro": 0.54,
+   "nota": "El % mezcla dos fuentes (AVS sept. 2026 / Catastro AREF 2026); orientativo."
+  },
+  "viviendas_turisticas_ine": {
+   "fuente": "ine_vut",
+   "periodo": "2026M05",
+   "viviendas": 29,
+   "plazas": 114,
+   "pct_sobre_viviendas": 0.13,
+   "periodo_anterior": "2025M05",
+   "viviendas_anterior": 31,
+   "pct_anterior": 0.14
+  },
+  "venta_ivima_encasa_2013": {
+   "viviendas_en_el_municipio": 0,
+   "calidad": "prensa",
+   "fuente": "prensa_publico_ivima",
+   "nota": "Desglose municipal publicado por Público (2022) atribuido a la resolución judicial; no localizado en documento oficial. Total oficial 2.935 (Cámara de Cuentas) cuadra con la suma del desglose.",
+   "contratos_visados_encasa_2013_2015T1_oficial": null,
+   "fuente_visados": null
+  }
+ },
+ "torrejon": {
+  "nombre": "Torrejón de Ardoz",
+  "codigo_ine": "28148",
+  "poblacion_ine_2025": 143526,
+  "catastro_titularidad_residencial": {
+   "fuente": "catastro_titularidad_2026",
+   "referencia": "AREF 2026 (base de datos catastral de octubre)",
+   "inmuebles_residenciales": 53453,
+   "sujetos_pasivos": 45748,
+   "inmuebles_personas_fisicas": 49978,
+   "pct_personas_fisicas": 93.5,
+   "inmuebles_pf_espanolas": 47619,
+   "inmuebles_pf_extranjeras": 2359,
+   "inmuebles_sociedades": 2553,
+   "pct_sociedades": 4.78,
+   "inmuebles_aapp": 719,
+   "pct_aapp": 1.35,
+   "inmuebles_entidades_extranjeras": 1,
+   "inmuebles_asociaciones_fundaciones_religiosas": 28,
+   "inmuebles_sin_personalidad_juridica": 27,
+   "inmuebles_entidad_no_definida": 15,
+   "inmuebles_otros_nif": 132,
+   "sociedades_mas_10_en_municipio": {
+    "titulares": 28,
+    "inmuebles": 1760,
+    "pct": 3.29
+   },
+   "sociedades_mas_100_en_municipio": {
+    "titulares": 4,
+    "inmuebles": 1187,
+    "pct": 2.22
+   },
+   "personas_fisicas_mas_10_en_municipio": {
+    "titulares": 3,
+    "inmuebles": 48,
+    "pct": 0.09
+   },
+   "aapp_mas_100_en_municipio": {
+    "titulares": 2,
+    "inmuebles": 674
+   },
+   "año_anterior_2025": {
+    "inmuebles_residenciales": 53041,
+    "pct_personas_fisicas": 93.05,
+    "pct_sociedades": 5.11,
+    "pct_aapp": 1.36,
+    "sociedades_mas_100": {
+     "titulares": 4,
+     "inmuebles": 1276,
+     "pct": 2.41
+    },
+    "sociedades_mas_10": {
+     "titulares": 26,
+     "inmuebles": 1867,
+     "pct": 3.52
+    }
+   }
+  },
+  "aeat_arrendadores_particulares_irpf_2024": {
+   "fuente": "aeat_irpf_municipios_2024",
+   "url_tabla_municipio": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf7c11b5d2df0ccbbe0954b1e348d51fa9566d380d.html",
+   "declaraciones_total": 76322,
+   "declaraciones_con_rendimientos_capital_inmobiliario": 8853,
+   "importe_rendimiento_neto_eur": 23982590,
+   "media_eur": 2709,
+   "pct_declaraciones": 11.6,
+   "por_1000_habitantes": 61.68,
+   "declaraciones_con_rentas_imputadas_inmuebles": 24599,
+   "importe_rentas_imputadas_eur": 13007676
+  },
+  "agencia_vivienda_social": {
+   "fuente": "avs_inmuebles_2026T3",
+   "fecha_datos": "2026-09-30",
+   "viviendas": 565,
+   "garajes": 454,
+   "locales": 44,
+   "viviendas_por_1000_habitantes": 3.94,
+   "pct_sobre_inmuebles_residenciales_catastro": 1.06,
+   "nota": "El % mezcla dos fuentes (AVS sept. 2026 / Catastro AREF 2026); orientativo."
+  },
+  "viviendas_turisticas_ine": {
+   "fuente": "ine_vut",
+   "periodo": "2026M05",
+   "viviendas": 64,
+   "plazas": 227,
+   "pct_sobre_viviendas": 0.13,
+   "periodo_anterior": "2025M05",
+   "viviendas_anterior": 90,
+   "pct_anterior": 0.18
+  },
+  "venta_ivima_encasa_2013": {
+   "viviendas_en_el_municipio": 224,
+   "calidad": "prensa",
+   "fuente": "prensa_publico_ivima",
+   "nota": "Desglose municipal publicado por Público (2022) atribuido a la resolución judicial; no localizado en documento oficial. Total oficial 2.935 (Cámara de Cuentas) cuadra con la suma del desglose.",
+   "contratos_visados_encasa_2013_2015T1_oficial": 103,
+   "fuente_visados": "ccm_ivima_2012_2013"
+  }
+ },
+ "pozuelo": {
+  "nombre": "Pozuelo de Alarcón",
+  "codigo_ine": "28115",
+  "poblacion_ine_2025": 89770,
+  "catastro_titularidad_residencial": {
+   "fuente": "catastro_titularidad_2026",
+   "referencia": "AREF 2026 (base de datos catastral de octubre)",
+   "inmuebles_residenciales": 31439,
+   "sujetos_pasivos": 27537,
+   "inmuebles_personas_fisicas": 28791,
+   "pct_personas_fisicas": 91.58,
+   "inmuebles_pf_espanolas": 27949,
+   "inmuebles_pf_extranjeras": 842,
+   "inmuebles_sociedades": 2365,
+   "pct_sociedades": 7.52,
+   "inmuebles_aapp": 216,
+   "pct_aapp": 0.69,
+   "inmuebles_entidades_extranjeras": 19,
+   "inmuebles_asociaciones_fundaciones_religiosas": 27,
+   "inmuebles_sin_personalidad_juridica": 7,
+   "inmuebles_entidad_no_definida": 0,
+   "inmuebles_otros_nif": 14,
+   "sociedades_mas_10_en_municipio": {
+    "titulares": 13,
+    "inmuebles": 565,
+    "pct": 1.8
+   },
+   "sociedades_mas_100_en_municipio": {
+    "titulares": 2,
+    "inmuebles": 301,
+    "pct": 0.96
+   },
+   "personas_fisicas_mas_10_en_municipio": {
+    "titulares": 5,
+    "inmuebles": 76,
+    "pct": 0.24
+   },
+   "aapp_mas_100_en_municipio": {
+    "titulares": 1,
+    "inmuebles": 190
+   },
+   "año_anterior_2025": {
+    "inmuebles_residenciales": 31237,
+    "pct_personas_fisicas": 91.52,
+    "pct_sociedades": 7.57,
+    "pct_aapp": 0.69,
+    "sociedades_mas_100": {
+     "titulares": 2,
+     "inmuebles": 301,
+     "pct": 0.96
+    },
+    "sociedades_mas_10": {
+     "titulares": 13,
+     "inmuebles": 574,
+     "pct": 1.84
+    }
+   }
+  },
+  "aeat_arrendadores_particulares_irpf_2024": {
+   "fuente": "aeat_irpf_municipios_2024",
+   "url_tabla_municipio": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubik5b0bb6ad71d22ec2a69410c181d779d35edabba1.html",
+   "declaraciones_total": 49827,
+   "declaraciones_con_rendimientos_capital_inmobiliario": 13751,
+   "importe_rendimiento_neto_eur": 84420230,
+   "media_eur": 6139,
+   "pct_declaraciones": 27.6,
+   "por_1000_habitantes": 153.18,
+   "declaraciones_con_rentas_imputadas_inmuebles": 22063,
+   "importe_rentas_imputadas_eur": 26220859
+  },
+  "agencia_vivienda_social": {
+   "fuente": "avs_inmuebles_2026T3",
+   "fecha_datos": "2026-09-30",
+   "viviendas": 14,
+   "garajes": 0,
+   "locales": 0,
+   "viviendas_por_1000_habitantes": 0.16,
+   "pct_sobre_inmuebles_residenciales_catastro": 0.04,
+   "nota": "El % mezcla dos fuentes (AVS sept. 2026 / Catastro AREF 2026); orientativo."
+  },
+  "viviendas_turisticas_ine": {
+   "fuente": "ine_vut",
+   "periodo": "2026M05",
+   "viviendas": 67,
+   "plazas": 203,
+   "pct_sobre_viviendas": 0.21,
+   "periodo_anterior": "2025M05",
+   "viviendas_anterior": 105,
+   "pct_anterior": 0.32
+  },
+  "venta_ivima_encasa_2013": {
+   "viviendas_en_el_municipio": 0,
+   "calidad": "prensa",
+   "fuente": "prensa_publico_ivima",
+   "nota": "Desglose municipal publicado por Público (2022) atribuido a la resolución judicial; no localizado en documento oficial. Total oficial 2.935 (Cámara de Cuentas) cuadra con la suma del desglose.",
+   "contratos_visados_encasa_2013_2015T1_oficial": null,
+   "fuente_visados": null
+  }
+ },
+ "majadahonda": {
+  "nombre": "Majadahonda",
+  "codigo_ine": "28080",
+  "poblacion_ine_2025": 73625,
+  "catastro_titularidad_residencial": {
+   "fuente": "catastro_titularidad_2026",
+   "referencia": "AREF 2026 (base de datos catastral de octubre)",
+   "inmuebles_residenciales": 26206,
+   "sujetos_pasivos": 22386,
+   "inmuebles_personas_fisicas": 23844,
+   "pct_personas_fisicas": 90.99,
+   "inmuebles_pf_espanolas": 23228,
+   "inmuebles_pf_extranjeras": 616,
+   "inmuebles_sociedades": 2059,
+   "pct_sociedades": 7.86,
+   "inmuebles_aapp": 241,
+   "pct_aapp": 0.92,
+   "inmuebles_entidades_extranjeras": 0,
+   "inmuebles_asociaciones_fundaciones_religiosas": 17,
+   "inmuebles_sin_personalidad_juridica": 3,
+   "inmuebles_entidad_no_definida": 0,
+   "inmuebles_otros_nif": 42,
+   "sociedades_mas_10_en_municipio": {
+    "titulares": 34,
+    "inmuebles": 934,
+    "pct": 3.56
+   },
+   "sociedades_mas_100_en_municipio": {
+    "titulares": 1,
+    "inmuebles": 200,
+    "pct": 0.76
+   },
+   "personas_fisicas_mas_10_en_municipio": {
+    "titulares": 7,
+    "inmuebles": 103,
+    "pct": 0.39
+   },
+   "aapp_mas_100_en_municipio": {
+    "titulares": 1,
+    "inmuebles": 167
+   },
+   "año_anterior_2025": {
+    "inmuebles_residenciales": 26132,
+    "pct_personas_fisicas": 90.89,
+    "pct_sociedades": 7.95,
+    "pct_aapp": 0.92,
+    "sociedades_mas_100": {
+     "titulares": 1,
+     "inmuebles": 200,
+     "pct": 0.77
+    },
+    "sociedades_mas_10": {
+     "titulares": 34,
+     "inmuebles": 961,
+     "pct": 3.68
+    }
+   }
+  },
+  "aeat_arrendadores_particulares_irpf_2024": {
+   "fuente": "aeat_irpf_municipios_2024",
+   "url_tabla_municipio": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubik5c16ec2c5696fab67eb238255ee8fcb06c149d06.html",
+   "declaraciones_total": 40119,
+   "declaraciones_con_rendimientos_capital_inmobiliario": 9022,
+   "importe_rendimiento_neto_eur": 46445703,
+   "media_eur": 5148,
+   "pct_declaraciones": 22.49,
+   "por_1000_habitantes": 122.54,
+   "declaraciones_con_rentas_imputadas_inmuebles": 15483,
+   "importe_rentas_imputadas_eur": 15698141
+  },
+  "agencia_vivienda_social": {
+   "fuente": "avs_inmuebles_2026T3",
+   "fecha_datos": "2026-09-30",
+   "viviendas": 167,
+   "garajes": 164,
+   "locales": 0,
+   "viviendas_por_1000_habitantes": 2.27,
+   "pct_sobre_inmuebles_residenciales_catastro": 0.64,
+   "nota": "El % mezcla dos fuentes (AVS sept. 2026 / Catastro AREF 2026); orientativo."
+  },
+  "viviendas_turisticas_ine": {
+   "fuente": "ine_vut",
+   "periodo": "2026M05",
+   "viviendas": 23,
+   "plazas": 68,
+   "pct_sobre_viviendas": 0.09,
+   "periodo_anterior": "2025M05",
+   "viviendas_anterior": 34,
+   "pct_anterior": 0.13
+  },
+  "venta_ivima_encasa_2013": {
+   "viviendas_en_el_municipio": 332,
+   "calidad": "prensa",
+   "fuente": "prensa_publico_ivima",
+   "nota": "Desglose municipal publicado por Público (2022) atribuido a la resolución judicial; no localizado en documento oficial. Total oficial 2.935 (Cámara de Cuentas) cuadra con la suma del desglose.",
+   "contratos_visados_encasa_2013_2015T1_oficial": 37,
+   "fuente_visados": "ccm_ivima_2012_2013"
+  }
+ },
+ "_comun": {
+  "ivima_encasa": {
+   "viviendas_vendidas": 2935,
+   "garajes": 3084,
+   "trasteros": 1865,
+   "locales": 45,
+   "precio_eur": 201000007,
+   "fecha_escritura": "2013-10-25",
+   "recuperadas_por_avs": {
+    "viviendas": 1721,
+    "garajes": 224,
+    "locales": 34,
+    "importe_restituido_eur": 107722508.95,
+    "fecha_pago": "2022-06-27"
+   },
+   "fuentes": [
+    "ccm_ivima_2012_2013",
+    "bocm_decreto_85_2025"
+   ],
+   "nota": "La venta fue anulada (Juzgado C-A nº 29, sentencia 118/2018; auto 20/2021 extiende a las 32 promociones; TSJM 889/2021). Las no recuperadas (2.935-1.721=1.214) fueron transmitidas a terceros de buena fe. No hay desglose oficial por municipio de las recuperadas."
+  },
+  "emvs_madrid_blackstone": {
+   "nota": "Venta de la EMVS del Ayuntamiento de Madrid a Fidere (Blackstone) en 2013: viviendas del municipio de Madrid; no afecta a ninguno de los 11 municipios."
+  },
+  "zonas_tensionadas_comunidad_madrid": {
+   "declaradas": false,
+   "fuente": "boe_zonas_tensionadas",
+   "nota": "Ninguna zona de la Comunidad de Madrid en las resoluciones trimestrales revisadas del MIVAU (1T2024, 4T2024, 2T2025, 3T2025, 4T2025, 1T2026, 2T2026). La declaración corresponde a la comunidad autónoma (art. 18 Ley 12/2023)."
+  }
+ },
+ "fuentes": {
+  "catastro_titularidad_2026": {
+   "organismo": "Dirección General del Catastro",
+   "titulo": "Padrón IBI: Sujetos pasivos e inmuebles. Padrón urbano - Uso residencial - Desglose por tipología de persona fiscal. Municipios",
+   "url": "https://www.catastro.hacienda.gob.es/documentos/estadisticas/propietarios/2026/P_SPI_mun_V_TPF.csv",
+   "url_2025": "https://www.catastro.hacienda.gob.es/documentos/estadisticas/propietarios/2025/P_SPI_mun_V_TPF.csv",
+   "pagina": "https://www.catastro.hacienda.gob.es/es-ES/estadisticas_3_1.html",
+   "metodologia": "https://www.catastro.hacienda.gob.es/documentos/estadisticas/metodologia_SujetosPasivos.pdf",
+   "notas": "Unidad: inmueble urbano de uso residencial y su sujeto pasivo del IBI (contribuyente). Clasificación por primera letra del NIF: personas físicas españolas/extranjeras; sociedades (A,B,C,D,F,J: incluye S.A./S.L., cooperativas, sociedades civiles y también empresas municipales de vivienda constituidas como sociedades); AAPP (P,Q,S). Los tramos de número de inmuebles (1, 2-5, 6-10, 11-25, 26-100, >100) se computan dentro del municipio: la suma municipal de sociedades con >100 en la provincia de Madrid (135 titulares-municipio, 44.904 inmuebles) difiere del dato provincial (126 titulares, 52.387). Un fondo con 50 pisos en Parla y miles en España aparece en el tramo 26-100. No identifica titulares por nombre ni distingue fondos de bancos, promotoras, cooperativas o empresas públicas. Si un inmueble tiene varios cotitulares, cuenta el sujeto pasivo del IBI. Excluye País Vasco y Navarra. Descarga con certificado FNMT (curl -k)."
+  },
+  "aeat_irpf_municipios_2024": {
+   "organismo": "Agencia Tributaria",
+   "titulo": "Estadística de los declarantes del IRPF por municipios 2024 (municipios > 1.000 hab.)",
+   "url": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/home.html",
+   "urls_municipio": {
+    "parla": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf158c18af4b846381dd4c14b7bb96cfaa3b47cdb6.html",
+    "getafe": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubik411f4c9b5734bc6930ecbaaa3e7ab739543dc5b0.html",
+    "leganes": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubik70a30faed4d8ea4e2116cb82f53cf438d62161c5.html",
+    "fuenlabrada": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf4b278ebf4c3614821461952577059e39a9e04e94.html",
+    "mostoles": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf7777155794d6db10804d1e0940a6740746111084.html",
+    "alcorcon": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf2d94f8b3e044243b001640ef19fc2934f6f55b18.html",
+    "alcobendas": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikb60fd34739369af9ac7cd927379dfa8b6248e02.html",
+    "pinto": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf275fbdbf8c6a1ea6553ce3f63b43d7aed6ea05dc.html",
+    "torrejon": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf7c11b5d2df0ccbbe0954b1e348d51fa9566d380d.html",
+    "pozuelo": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubik5b0bb6ad71d22ec2a69410c181d779d35edabba1.html",
+    "majadahonda": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubik5c16ec2c5696fab67eb238255ee8fcb06c149d06.html"
+   },
+   "notas": "Partida 'Suma de rendimientos del capital inmobiliario' = declaraciones con alquiler de inmuebles no afectos a actividad económica, e importe del rendimiento neto (tras gastos y reducciones previas), no ingreso bruto. Se asigna al municipio de residencia del declarante, no al de la vivienda alquilada. Es número de declaraciones (una conjunta puede incluir dos titulares). Excluye País Vasco y Navarra y a quien no declara. 'Rentas imputadas' = segundas viviendas/vacías no alquiladas. Próxima edición (2025) prevista para sept. 2027."
+  },
+  "avs_inmuebles_2026T3": {
+   "organismo": "Comunidad de Madrid, Agencia de Vivienda Social",
+   "titulo": "Viviendas, garajes y locales en propiedad, por municipios (a 30/09/2026)",
+   "url": "https://www.comunidad.madrid/docs/assets/2025/07/09/02_agvs_inmuebles.xls?VersionId=eCQ5N6ntpzAz3Po5qK8Yrrb6QM6n9W8E",
+   "pagina": "https://www.comunidad.madrid/gobierno/estadistica/patrimonio-datos-estadisticos-agencia-vivienda-social",
+   "notas": "Total regional 24.991 viviendas. Sólo parque en propiedad de la AVS; no incluye vivienda de empresas municipales ni la protegida privada. La ruta del fichero conserva la fecha 2025/07/09 pero el contenido dice 'a 30/09/2026'; próxima actualización 31/12/2026."
+  },
+  "ine_vut": {
+   "organismo": "INE",
+   "titulo": "Estadística experimental: Medición del número de viviendas turísticas en España y su capacidad",
+   "url": "https://www.ine.es/jaxiT3/Tabla.htm?t=39363",
+   "url_pct": "https://www.ine.es/jaxiT3/Tabla.htm?t=39366",
+   "csv": "https://www.ine.es/jaxiT3/files/t/es/csv_bdsc/39363.csv",
+   "notas": "Estadística experimental por web scraping de plataformas (Airbnb, Booking...) con deduplicación; anuncios activos, no registro administrativo. Porcentaje sobre viviendas censadas."
+  },
+  "ccm_ivima_2012_2013": {
+   "organismo": "Cámara de Cuentas de la Comunidad de Madrid",
+   "titulo": "Informe de fiscalización de operaciones de enajenaciones del patrimonio inmobiliario del IVIMA y controles realizados por las instituciones competentes. Ejercicios 2012 y 2013",
+   "url": "https://www.camaradecuentasmadrid.org/admin/uploads/definitivo-4.pdf",
+   "notas": "Cuadro 16: 2.935 viviendas (2.371 VPPAOC-J, 459 VPPA, 105 VPPAOC), 7.929 inmuebles, 201.000.007 €. Cuadro 28: contratos de arrendamiento de Encasa presentados a visado 2013-1T2015 por municipio (Arroyomolinos 44, Madrid 168, Majadahonda 37, Móstoles 95, Navalcarnero 2, Parla 71, Torrejón 103, Valdemoro 4). Cuadro 32: préstamos subrogados (incluye Leganés RB-10.2, 18 VPPA). No trae el desglose de las 2.935 viviendas por municipio."
+  },
+  "bocm_decreto_85_2025": {
+   "organismo": "BOCM",
+   "titulo": "Decreto 85/2025, de 22 de octubre, acuerdo transaccional AVS-Encasa Cibeles",
+   "url": "https://www.bocm.es/boletin/CM_Orden_BOCM/2025/10/23/BOCM-20251023-23.PDF",
+   "notas": "Recuperación de 1.721 viviendas, 224 garajes y 34 locales no transmitidos a terceros; 107.722.508,95 € abonados el 27/06/2022."
+  },
+  "cuenta_general_avs_2020": {
+   "organismo": "Comunidad de Madrid, Cuenta General 2020, AVS, informe F.27 hechos posteriores",
+   "url": "http://www.madrid.org/cuenta-general/CUENTA%20GENERAL%202020/Cuenta%202020/pdfs/EO046_F.27.Hechos_posteriores.pdf"
+  },
+  "prensa_publico_ivima": {
+   "organismo": "Prensa (Público)",
+   "titulo": "Madrid pagará al fondo de inversión Encasa Cibeles 107 millones por el retorno de 1.721 pisos del IVIMA",
+   "url": "https://www.publico.es/economia/madrid-pagara-fondo-inversion-encasa-cibeles-107-millones-retorno-1-721-pisos-ivima.html",
+   "notas": "Desglose: Madrid 1.380, Majadahonda 332, Móstoles 259, Parla 240, Torrejón 224, Navalcarnero 192, Arroyomolinos 127, Valdemoro 80, Collado Villalba 44, Leganés 36, Tielmes 21 (suma 2.935). Atribuido a resoluciones judiciales sin número de documento; marcar como prensa."
+  },
+  "boe_zonas_tensionadas": {
+   "organismo": "BOE / Secretaría de Estado de Vivienda",
+   "titulo": "Resoluciones trimestrales con la relación de zonas de mercado residencial tensionado (art. 18 Ley 12/2023)",
+   "urls": [
+    "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2024-5214",
+    "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2025-1721",
+    "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2025-15728",
+    "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2025-21901",
+    "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-2448",
+    "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-9175",
+    "https://boe.es/boe/dias/2026/07/29/pdfs/BOE-A-2026-16532.pdf"
+   ],
+   "notas": "Comunidades presentes: Cataluña, País Vasco, Navarra, Galicia, Asturias. Ninguna de Madrid. No se revisaron las de 2T2024, 3T2024 y 1T2025 (la página del MIVAU con el listado consolidado devuelve 403)."
+  }
+ }
+}

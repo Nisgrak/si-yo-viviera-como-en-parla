@@ -175,6 +175,28 @@
   </div>
 </section>
 
+<!-- ── Vivienda ─────────────────────────────────────────────────────────
+     Solo el resumen: lo demás está en vivienda.html. -->
+<section class="bloque bloque--salir" id="vivienda" data-indice="Vivienda">
+  <div class="env">
+    <h2 class="bloque__h">Vivienda</h2>
+    <p class="bloque__intro" id="vivienda-txt"></p>
+    <div class="hogm-pareja" id="vivienda-hogares"></div>
+    <p class="salir__pie">
+      Viviendas nuevas por cada 100 vecinos nuevos entre 2015 y 2025, y tamaño medio del hogar
+      (<a href="https://www.ine.es/jaxiT3/Tabla.htm?t=31097">INE, Atlas de renta</a>, 2023).
+      <a href="https://gestiona.comunidad.madrid/desvan/almudena/AccionDatosTemaMunicipal.icm?codTema=1002048">Catastro, unidades urbanas de uso residencial</a>
+      e <a href="https://www.ine.es/jaxiT3/Tabla.htm?t=2881">INE, padrón</a>.
+    </p>
+    <a class="salir__ir" id="vivienda-ir" href="vivienda.html">
+      <span>Ver la vivienda en <span data-aqui>Getafe</span> y en Parla</span>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+        <path d="M1 6h13M9.5 1l5 5-5 5" stroke="currentColor" stroke-width="1.6"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
 <!-- ── Método ────────────────────────────────────────────────────────── -->
 <section class="bloque bloque--metodo" id="metodo" data-indice="Cómo está hecho">
   <div class="env">
@@ -276,6 +298,7 @@
 
 <script src="datos/datos.js"></script>
 <script src="datos/infraestructura.js"></script>
+<script src="datos/vivienda.js"></script>
 <script src="assets/calculo.js"></script>
 <script src="assets/qr.js"></script>
 <script src="assets/indice.js"></script>

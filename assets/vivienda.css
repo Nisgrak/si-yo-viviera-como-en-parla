@@ -1,0 +1,321 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   UNA CASA EN PARLA · la página de la vivienda (vivienda.html)
+   Hereda de estilos.css y de infraestructura.css (la vuelta, la portada
+   corta, las fichas y los pies). Parla en azul, tu ciudad en gris; la
+   Comunidad, cuando sale, más clara que las dos.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.viv .bloque__intro { max-width: 36rem; }
+
+/* El resumen va pegado a la portada, como las colas en la de los accesos. */
+.bloque--resumen-viv { padding-top: clamp(1rem, 4vw, 2rem); }
+
+/* ── Vecinos nuevos, casas nuevas ─────────────────────────────────────
+   Por cada 100 vecinos nuevos: con borde, los hogares que serían; llenas,
+   las viviendas que se registraron. */
+
+.hogares-pareja {
+  display: grid;
+  gap: clamp(2rem, 7vw, 3rem);
+  margin-top: clamp(1.5rem, 5vw, 2.25rem);
+}
+@media (min-width: 46rem) { .hogares-pareja { grid-template-columns: 1fr 1fr; } }
+.hog { min-width: 0; }
+.hog[data-quien='referencia'] .cien__nombre { color: var(--ref); }
+.hog__v {
+  margin-top: .5rem;
+  font-weight: 800; font-stretch: 80%;
+  font-size: clamp(2.75rem, 12vw, 4.5rem);
+  line-height: .95; letter-spacing: -.035em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.hog[data-quien='referencia'] .hog__v { color: var(--ref); }
+.hog__que { margin-top: .3rem; font-size: .9375rem; line-height: 1.4; color: var(--ink-2); max-width: 22rem; }
+.hog__fila {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 5px;
+  max-width: 19rem;
+  margin-top: 1rem;
+}
+.hog__fila--cien { gap: 3px; max-width: 17rem; }
+.hog__u { display: block; width: 100%; height: auto; overflow: visible; }
+.hog__borde { fill: none; stroke: var(--ink-3); stroke-width: 1.4; }
+.hog__lleno { fill: var(--ink-3); }
+.hog__fila--cien .hog__borde { stroke: var(--line-alta); stroke-width: 1.2; }
+.hog[data-quien='referencia'] .hog__lleno { fill: var(--ref); }
+.hog[data-quien='referencia'] .hog__borde { stroke: var(--ref); }
+.hog__pie { margin-top: .85rem; font-size: .8125rem; line-height: 1.45; color: var(--ink-3); max-width: 24rem; }
+
+/* ── De un barrio a otro: del extremo bajo al alto ────────────────────── */
+
+.rangos { display: grid; gap: clamp(2rem, 7vw, 2.75rem); margin-top: clamp(1.75rem, 6vw, 2.5rem); max-width: 46rem; }
+.rango__fila {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr) 4.75rem;
+  align-items: start;
+  column-gap: .8rem;
+  padding-block: .8rem 1.9rem;
+  border-bottom: 1px solid var(--line);
+}
+.rango .hecho__h { padding-bottom: .4rem; border-bottom: 2px solid var(--ink); }
+.rango__pista { position: relative; height: 1rem; margin-top: .15rem; }
+.rango__pista::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--line); }
+.rango__seg { position: absolute; top: calc(50% - 2px); height: 4px; border-radius: 2px; background: var(--ink-3); }
+.rango__punto {
+  position: absolute; top: 50%; width: .8rem; height: .8rem; margin: -.4rem 0 0 -.4rem;
+  border-radius: 50%; background: var(--bg); box-shadow: inset 0 0 0 2.5px var(--ink-3);
+}
+.rango__punto--hi { background: var(--ink-3); }
+.rango__v {
+  position: absolute; top: 1.15rem; transform: translateX(-50%);
+  font-size: .75rem; font-weight: 600; white-space: nowrap; color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.rango__v--lo { transform: translateX(-85%); }
+.rango__v--hi { transform: translateX(-15%); }
+[data-quien='referencia'] .rango__seg { background: var(--ref); }
+[data-quien='referencia'] .rango__punto { box-shadow: inset 0 0 0 2.5px var(--ref); }
+[data-quien='referencia'] .rango__punto--hi { background: var(--ref); }
+[data-quien='referencia'] .rango__v { color: var(--ref); }
+@media (max-width: 30rem) {
+  .rango__fila { grid-template-columns: 5.25rem minmax(0, 1fr) 3.75rem; column-gap: .55rem; }
+  .rango__v { font-size: .6875rem; }
+}
+
+.graf-pareja { display: grid; gap: clamp(1.25rem, 4vw, 2rem); }
+@media (min-width: 52rem) { .graf-pareja { grid-template-columns: 1fr 1fr; } }
+.graf-pareja .graf { margin-top: clamp(1rem, 4vw, 1.5rem); min-width: 0; }
+.graf__titulo {
+  margin-bottom: .35rem;
+  font-weight: 800; font-stretch: 80%;
+  font-size: 1.05rem; letter-spacing: -.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.graf__titulo--referencia { color: var(--ref); }
+
+/* ── Piezas que se llenan: años de renta y euros de cada 100 ──────────── */
+
+.anios, .cien-euros {
+  margin-top: clamp(1.75rem, 6vw, 2.5rem);
+  max-width: 46rem;
+}
+.anios__h {
+  padding-bottom: .4rem;
+  border-bottom: 2px solid var(--ink);
+  font-size: .75rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink);
+}
+.anios__fila, .euros__fila {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr) 4.75rem;
+  align-items: center;
+  column-gap: .8rem;
+  padding-block: .6rem;
+  border-bottom: 1px solid var(--line);
+}
+.anios__q { font-size: .875rem; font-weight: 700; color: var(--ink); min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.anios__v { text-align: right; font-size: .9375rem; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--ink); }
+[data-quien='referencia'] > .anios__q,
+[data-quien='referencia'] > .anios__v { color: var(--ref); }
+.anios__piezas { display: flex; gap: 4px; }
+.anios__u {
+  flex: 0 0 auto;
+  width: clamp(1.75rem, 7vw, 2.75rem); height: 1.25rem;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px var(--line-alta);
+  overflow: hidden;
+}
+.anios__u b { display: block; height: 100%; background: var(--ink-3); }
+[data-quien='referencia'] .anios__u b { background: var(--ref); }
+.euros__barra {
+  height: 1.25rem;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px var(--line-alta);
+  overflow: hidden;
+}
+.euros__barra i { display: block; height: 100%; background: var(--ink-3); }
+[data-quien='referencia'] .euros__barra i { background: var(--ref); }
+.anios__pie { margin-top: .6rem; font-size: .8125rem; line-height: 1.45; color: var(--ink-3); }
+@media (max-width: 30rem) {
+  .anios__fila, .euros__fila { grid-template-columns: 5.25rem minmax(0, 1fr) 4.25rem; column-gap: .55rem; }
+}
+
+/* ── Dos cifras grandes ───────────────────────────────────────────────── */
+
+.pareja {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1rem, 4vw, 2.5rem);
+  margin-top: clamp(1.5rem, 5vw, 2.25rem);
+  max-width: 46rem;
+}
+.cifra { min-width: 0; }
+.cifra__quien {
+  font-weight: 800; font-stretch: 78%;
+  font-size: clamp(1.1rem, 4.5vw, 1.5rem);
+  line-height: 1; letter-spacing: -.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.cifra__v {
+  margin-top: .35rem;
+  font-weight: 800; font-stretch: 80%;
+  font-size: clamp(2.25rem, 10vw, 3.75rem);
+  line-height: 1; letter-spacing: -.03em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.cifra__que { margin-top: .4rem; font-size: .875rem; line-height: 1.4; color: var(--ink-3); }
+.cifra[data-quien='referencia'] .cifra__quien,
+.cifra[data-quien='referencia'] .cifra__v { color: var(--ref); }
+
+/* ── El gráfico de líneas ─────────────────────────────────────────────── */
+
+.graf { margin: clamp(1.75rem, 6vw, 2.5rem) 0 0; max-width: 52rem; }
+.graf__svg { display: block; overflow: visible; }
+.graf__rejilla { stroke: var(--line); stroke-width: 1; }
+.graf__eje { fill: var(--ink-3); font-size: 11px; font-variant-numeric: tabular-nums; }
+.graf__linea { fill: none; stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; }
+.graf__linea--referencia { stroke: var(--ref); stroke-width: 2.75; }
+.graf__linea--aqui { stroke: var(--ink-3); }
+.graf__linea--region { stroke: var(--line-alta); stroke-dasharray: 4 4; }
+.graf__linea--fina { stroke-width: 1.75; stroke-dasharray: 5 4; }
+.graf__rejilla--cero { stroke: var(--line-alta); }
+.graf__punto--referencia { fill: var(--ref); }
+.graf__punto--aqui { fill: var(--ink-3); }
+.graf__punto--region { fill: var(--line-alta); }
+.graf__nombre { font-size: 12px; font-weight: 700; fill: var(--ink); }
+.graf__nombre--referencia { fill: var(--ref); }
+.graf__nombre--region { fill: var(--ink-3); font-weight: 600; }
+.graf__valor { font-size: 11.5px; fill: var(--ink-3); font-variant-numeric: tabular-nums; }
+.graf__valor--referencia { fill: var(--ref); }
+.graf__nota { font-size: 11px; font-weight: 600; fill: var(--ref); }
+.graf { position: relative; }
+.graf__svg { touch-action: pan-y; cursor: crosshair; }
+.graf__svg:focus-visible { outline: 2px solid var(--ref); outline-offset: 4px; border-radius: 2px; }
+.graf__guia { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 3 3; pointer-events: none; }
+.graf__marca { stroke: var(--bg); stroke-width: 2; pointer-events: none; }
+.graf__tip {
+  position: absolute; z-index: 3;
+  min-width: 9rem; max-width: 15rem;
+  padding: .5rem .65rem .55rem;
+  border-radius: 6px;
+  background: var(--bg);
+  box-shadow: 0 0 0 1px var(--line-alta), 0 6px 18px rgb(0 0 0 / .12);
+  pointer-events: none;
+  translate: 0 -100%;
+}
+.graf__tip-h { margin-bottom: .3rem; font-size: .75rem; font-weight: 700; color: var(--ink-3); letter-spacing: .02em; }
+.graf__tip-f {
+  display: grid; grid-template-columns: .9rem minmax(0, 1fr) auto; align-items: center; column-gap: .45rem;
+  font-size: .8125rem; line-height: 1.5; color: var(--ink-2);
+}
+.graf__tip-f b { font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; }
+.graf__tip-f--referencia span, .graf__tip-f--referencia b { color: var(--ref); }
+.graf__tip-c { height: 3px; border-radius: 2px; background: var(--ink-3); }
+.graf__tip-c--fina { background: repeating-linear-gradient(90deg, currentColor 0 4px, transparent 4px 7px); height: 2px; }
+.graf__tip-f--referencia .graf__tip-c { background: var(--ref); }
+.graf__tip-f--referencia .graf__tip-c--fina { background: repeating-linear-gradient(90deg, var(--ref) 0 4px, transparent 4px 7px); }
+.graf__tip-f--region .graf__tip-c { background: var(--line-alta); }
+.graf__tip-f--region span { color: var(--ink-3); }
+.graf__pie { margin-top: .5rem; font-size: .8125rem; color: var(--ink-3); }
+
+/* La línea se dibuja de izquierda a derecha al verse. */
+.graf--espera .graf__svg { clip-path: inset(0 100% 0 0); }
+.graf--visto .graf__svg { clip-path: inset(0 0 0 0); transition: clip-path 1.4s var(--sal); }
+@media (prefers-reduced-motion: reduce) {
+  .graf--espera .graf__svg, .graf--visto .graf__svg { clip-path: none; transition: none; }
+}
+
+/* ── Los hechos: dos filas con barra, como en el dinero ───────────────── */
+
+.hechos {
+  display: grid;
+  gap: clamp(2rem, 7vw, 2.75rem);
+  margin-top: clamp(2rem, 7vw, 2.75rem);
+}
+@media (min-width: 52rem) {
+  .hechos { grid-template-columns: 1fr 1fr; column-gap: clamp(2rem, 4vw, 3.5rem); }
+}
+.hecho { min-width: 0; }
+.hecho__h {
+  font-weight: 800; font-stretch: 84%;
+  font-size: clamp(1.05rem, 4.2vw, 1.2rem);
+  line-height: 1.15; letter-spacing: -.015em;
+}
+.hecho__pie { margin-top: .3rem; font-size: .8125rem; line-height: 1.45; color: var(--ink-3); }
+.hecho__nota { margin-top: .7rem; font-size: .875rem; line-height: 1.5; color: var(--ink-2); }
+.hecho .mun { margin-top: .8rem; }
+.mun--sin .mun__fila { grid-template-columns: minmax(0, 1fr) auto; }
+.mun__fila[data-quien='otro'] .mun__q { color: var(--ink-3); }
+.mun__fila[data-quien='otro'] .mun__v { color: var(--ink-3); font-weight: 600; }
+
+/* ── De cada 100 viviendas ────────────────────────────────────────────── */
+
+.cien-pareja {
+  display: grid;
+  gap: clamp(2rem, 7vw, 3rem);
+  margin-top: clamp(1.75rem, 6vw, 2.5rem);
+}
+@media (min-width: 46rem) { .cien-pareja { grid-template-columns: 1fr 1fr; } }
+.cien { min-width: 0; }
+.cien__nombre {
+  font-weight: 800; font-stretch: 78%;
+  font-size: clamp(1.6rem, 7vw, 2.25rem);
+  line-height: .95; letter-spacing: -.035em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.cien[data-quien='referencia'] .cien__nombre { color: var(--ref); }
+.cien__rejilla {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
+  max-width: 17rem;
+  margin-top: 1rem;
+}
+.cien__u {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+/* Los colores de cada ciudad: las personas, en el tono suave; las sociedades,
+   lleno; las grandes, lleno con borde de tinta. */
+.cien__u--pf { background: var(--surface-2); }
+.cien__u--soc, .cien__u--soc100 { background: var(--ink-3); box-shadow: none; }
+.cien__u--soc100 { box-shadow: inset 0 0 0 2px var(--ink); }
+.cien__u--aapp { background: transparent; box-shadow: inset 0 0 0 1.5px var(--ink-3); }
+.cien[data-quien='referencia'] .cien__u--soc,
+.cien[data-quien='referencia'] .cien__u--soc100 { background: var(--ref); }
+.cien[data-quien='referencia'] .cien__u--aapp { box-shadow: inset 0 0 0 1.5px var(--ref); }
+.cien:not(.cien--visto) .cien__u--soc,
+.cien:not(.cien--visto) .cien__u--soc100,
+.cien:not(.cien--visto) .cien__u--aapp { opacity: 0; }
+.cien--visto .cien__u { transition: opacity .4s var(--sal-corta); transition-delay: calc(var(--i) * 8ms); }
+@media (prefers-reduced-motion: reduce) {
+  .cien:not(.cien--visto) .cien__u { opacity: 1; }
+  .cien--visto .cien__u { transition: none; }
+}
+
+.cien__ley { margin-top: 1rem; display: grid; gap: .35rem; max-width: 24rem; }
+.cien__l {
+  display: grid; grid-template-columns: .85rem minmax(0, 1fr) auto;
+  align-items: center; column-gap: .55rem;
+  font-size: .8125rem; line-height: 1.3; color: var(--ink-2);
+}
+.cien__l b { font-variant-numeric: tabular-nums; }
+.cien__l i { width: .85rem; height: .85rem; border-radius: 2px; }
+.cien__l--pf i { background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); }
+.cien__l--soc i { background: var(--ink-3); }
+.cien__l--soc100 i { background: var(--ink-3); box-shadow: inset 0 0 0 2px var(--ink); }
+.cien__l--soc100 span { padding-left: .9rem; }
+.cien__l--aapp i { box-shadow: inset 0 0 0 1.5px var(--ink-3); }
+.cien[data-quien='referencia'] .cien__l--soc i,
+.cien[data-quien='referencia'] .cien__l--soc100 i { background: var(--ref); }
+.cien[data-quien='referencia'] .cien__l--aapp i { box-shadow: inset 0 0 0 1.5px var(--ref); }
+.cien[data-quien='referencia'] .cien__l b { color: var(--ref); }

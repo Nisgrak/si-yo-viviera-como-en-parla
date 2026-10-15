@@ -1207,8 +1207,24 @@ code {
   text-decoration: none;
 }
 .compartir--salir:hover { border-color: var(--ref-deep); background: var(--ref-deep); }
-.compartir--salir svg { transition: transform .2s var(--sal-corta); }
-.compartir--salir:hover svg { transform: translateX(3px); }
+.compartir--salir .compartir__icono { flex: none; margin-left: -.2rem; }
+.compartir--salir .compartir__flecha { transition: transform .2s var(--sal-corta); }
+.compartir--salir:hover .compartir__flecha { transform: translateX(3px); }
+
+/* El resumen de la vivienda: por cada 100 vecinos nuevos, los hogares
+   que serían (con borde) y las viviendas que se hicieron (llenas). */
+.hogm-pareja { display: grid; gap: 1.75rem; margin-top: 1.5rem; max-width: 40rem; }
+@media (min-width: 40rem) { .hogm-pareja { grid-template-columns: 1fr 1fr; } }
+.hogm__nombre { font-weight: 800; font-stretch: 80%; font-size: 1.15rem; text-transform: uppercase; color: var(--ink); }
+.hogm__v { margin-top: .2rem; font-weight: 800; font-stretch: 80%; font-size: 3rem; line-height: 1; letter-spacing: -.03em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.hogm__que { margin-top: .3rem; font-size: .875rem; line-height: 1.4; color: var(--ink-2); max-width: 20rem; }
+.hogm[data-quien='referencia'] .hogm__nombre, .hogm[data-quien='referencia'] .hogm__v { color: var(--ref); }
+.hogm__fila { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; max-width: 16rem; margin-top: .8rem; }
+.hogm__u { display: block; width: 100%; height: auto; overflow: visible; }
+.hogm__borde { fill: none; stroke: var(--ink-3); stroke-width: 1.4; }
+.hogm__lleno { fill: var(--ink-3); }
+.hogm[data-quien='referencia'] .hogm__borde { stroke: var(--ref); }
+.hogm[data-quien='referencia'] .hogm__lleno { fill: var(--ref); }
 
 /* ── Pantallas anchas ─────────────────────────────────────────────────── */
 

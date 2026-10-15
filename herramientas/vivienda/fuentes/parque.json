@@ -1,0 +1,3808 @@
+{
+ "_meta": {
+  "generado": "2026-10-15",
+  "tema": "Parque de viviendas, hogares y capacidad de pago",
+  "notas": [
+   "Censo 2021 (fecha de referencia 1-1-2021) se basa en registros administrativos; el Censo 2011 era muestral con recogida por agentes. No se deben restar viviendas 2021-2011: la diferencia mezcla cambio real y cambio de método. censo2011 se deja solo como referencia.",
+   "Viviendas vacías: proceden de la clasificación por consumo eléctrico de 2020 (modelo 159 AEAT). El INE avisa de que se analizan por separado del censo de viviendas y tienen carácter provisional. Vacía = sin contrato o consumo < consumo medio municipal/24 (umbral entre 75 y 180 kWh). Muy bajo consumo = por debajo de 250 kWh (sin ser vacía). Uso esporádico = 251-750 kWh. Por eso vacías + esporádicas no cuadra con \"no principales\" del censo.",
+   "El asterisco que el INE pone tras algunos nombres en la tabla 59531 no está explicado en la tabla. La metodología indica que la mediana por distrito solo se da donde se asignó distrito a más del 75% de contadores; probablemente es esa marca, sin confirmar.",
+   "Hogares: en el Censo 2021 hogares = viviendas principales por definición. En Móstoles la tabla 59543 da 76.909 hogares y la 59525 da 76.662 viviendas principales; se dejan ambas cifras tal cual publica el INE (las tablas 59529 y 59530 cuadran con 76.662).",
+   "Tamaño medio del hogar: viene del ADRH 2023 (una cifra decimal, como la publica el INE). El Censo 2021 no publica media municipal; solo hogares por tamaño con tramo abierto \"5 o más\".",
+   "Superficie útil media: el INE publica solo tramos. La media (m2) la da el Instituto de Estadística de la Comunidad de Madrid con fuente Censo 2021 y se refiere a todas las viviendas familiares, no solo principales.",
+   "Hacinamiento: no hay indicador de hacinamiento del Censo 2021 por municipio (el último municipal, en Almudena, es de 2001). Se da un indicador aproximado a partir de la tabla 59530: hogares de 5 o más personas (y de 4 o más) en viviendas de 60 m2 útiles o menos. Es un cálculo propio sumando celdas, no un indicador oficial.",
+   "% anterior a 1981: el INE agrupa por décadas (1971-1980), así que el corte posible es \"edificio construido en 1980 o antes\". Denominador: total de viviendas incluido \"no consta\".",
+   "Construcción: no hay serie municipal oficial reciente y completa de viviendas iniciadas/terminadas ni de calificaciones de vivienda protegida para estos municipios. MIVAU publica iniciadas/terminadas y calificaciones solo por provincia/CCAA; la Comunidad de Madrid publica en datos abiertos libres y protegidas solo para el total regional. La serie municipal de licencias (viviendas a construir) de Almudena está extinta en 2019 y tiene huecos (\"-\" en origen, aquí null; no significa cero): Parla sin dato 2011-2019, Majadahonda 2008-2019, Móstoles 2008 y 2010-2019, etc. No distingue libre y protegida.",
+   "Proxy de crecimiento del parque: variación del número de unidades urbanas de uso residencial en Catastro (año según etiqueta del IECM). Es variación neta de stock catastral (incluye altas por regularización y cambios de uso), no viviendas terminadas en el año. La serie de Pinto tiene un salto 2003-2004 en origen.",
+   "Viviendas por 1.000 habitantes: viviendas totales del Censo 2021 / padrón a 1-1-2021 (cálculo propio). Nuevas unidades por 1.000 hab: (unidades 2025 - unidades 2015) / padrón 2025 x 1000. Nuevas unidades por cada 100 habitantes nuevos: solo cuando la población crece (en Fuenlabrada cae, así que es null).",
+   "ADRH: último año publicado en la API del INE a 15-10-2026: 2023. Renta neta = tras impuestos y cotizaciones. Las medianas por unidad de consumo publicadas son múltiplos de 350 euros (16.450, 19.250...), lo que apunta a cálculo sobre tramos; no verificado en la metodología. Tamaño medio del hogar y % unipersonales: tabla de indicadores demográficos del ADRH, año 2023."
+  ]
+ },
+ "fuentes": {
+  "censo2021_viviendas_tipo": {
+   "organismo": "INE",
+   "tabla": "Censo 2021. Viviendas por tipo de vivienda (principal o no), todos los municipios",
+   "url": "https://www.ine.es/jaxi/Tabla.htm?tpx=59525",
+   "api": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/59525",
+   "campos": [
+    "censo2021.viviendas_totales",
+    "viviendas_principales",
+    "viviendas_no_principales"
+   ]
+  },
+  "censo2021_anyo_construccion": {
+   "organismo": "INE",
+   "tabla": "Censo 2021. Viviendas familiares convencionales según tipo de vivienda y año de construcción (agregado) del edificio. Capitales y municipios >50.000 hab.",
+   "url": "https://www.ine.es/jaxi/Tabla.htm?tpx=59527",
+   "api": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/59527"
+  },
+  "censo2021_superficie": {
+   "organismo": "INE",
+   "tabla": "Censo 2021. Viviendas según tipo de vivienda y superficie útil (tramos). Capitales y municipios >50.000 hab.",
+   "url": "https://www.ine.es/jaxi/Tabla.htm?tpx=59528",
+   "api": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/59528"
+  },
+  "censo2021_tenencia": {
+   "organismo": "INE",
+   "tabla": "Censo 2021. Viviendas principales por régimen de tenencia. Capitales y municipios >50.000 hab.",
+   "url": "https://www.ine.es/jaxi/Tabla.htm?tpx=59529",
+   "api": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/59529"
+  },
+  "censo2021_tamano_hogar_x_superficie": {
+   "organismo": "INE",
+   "tabla": "Censo 2021. Hogares por tamaño del hogar y superficie útil de la vivienda. Capitales y municipios >50.000 hab.",
+   "url": "https://www.ine.es/jaxi/Tabla.htm?tpx=59530",
+   "api": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/59530"
+  },
+  "censo2021_hogares_tamano": {
+   "organismo": "INE",
+   "tabla": "Censo 2021. Hogares por tamaño del hogar, todos los municipios",
+   "url": "https://www.ine.es/jaxi/Tabla.htm?tpx=59543",
+   "api": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/59543"
+  },
+  "censo2021_consumo_electrico": {
+   "organismo": "INE",
+   "tabla": "Censo 2021. Viviendas según su intensidad de uso (consumo eléctrico 2020). Datos actualizados el 22/11/2024",
+   "url": "https://www.ine.es/jaxi/Tabla.htm?tpx=59531",
+   "api": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/59531",
+   "metodologia": "https://ine.es/censos2021/censos2021_meto.pdf (cap. 8.2)"
+  },
+  "censo2021_superficie_media": {
+   "organismo": "Instituto de Estadística de la Comunidad de Madrid (Banco de Datos Municipal Almudena), fuente INE Censo 2021",
+   "tabla": "Superficie media de viviendas familiares (m2), 2021",
+   "url": "https://gestiona.comunidad.madrid/desvan/almudena/AccionDatosTemaMunicipal.icm?codTema=1929207",
+   "csv": "https://gestiona.comunidad.madrid/desvan/almudena/GenerarCsvUnTema.icm?codTema=1929207"
+  },
+  "adrh_renta": {
+   "organismo": "INE",
+   "tabla": "Atlas de Distribución de Renta de los Hogares. Indicadores de renta media y mediana. Madrid (municipios, distritos y secciones)",
+   "url": "https://www.ine.es/jaxiT3/Tabla.htm?t=31097",
+   "api": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/31097"
+  },
+  "adrh_demografia": {
+   "organismo": "INE",
+   "tabla": "Atlas de Distribución de Renta de los Hogares. Indicadores demográficos. Madrid",
+   "url": "https://www.ine.es/jaxiT3/Tabla.htm?t=31105",
+   "api": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/31105"
+  },
+  "padron": {
+   "organismo": "INE",
+   "tabla": "Cifras oficiales de población de los municipios españoles (Revisión del Padrón). Madrid: población por municipios y sexo, a 1 de enero",
+   "url": "https://www.ine.es/jaxiT3/Tabla.htm?t=2881",
+   "api": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/2881"
+  },
+  "catastro_residencial": {
+   "organismo": "Instituto de Estadística de la Comunidad de Madrid (Almudena), fuente Dirección General del Catastro",
+   "tabla": "Unidades urbanas para uso residencial, 2003-2026",
+   "url": "https://gestiona.comunidad.madrid/desvan/almudena/AccionDatosTemaMunicipal.icm?codTema=1002048",
+   "csv": "https://gestiona.comunidad.madrid/desvan/almudena/GenerarCsvUnTema.icm?codTema=1002048"
+  },
+  "licencias": {
+   "organismo": "Instituto de Estadística de la Comunidad de Madrid (Almudena, serie EXTINTA), fuente MITMA Estadística de Construcción de Edificios",
+   "tabla": "Licencias. Viviendas a construir, 1992-2019",
+   "url": "https://gestiona.comunidad.madrid/desvan/almudena/AccionDatosTemaMunicipal.icm?codTema=1006036",
+   "csv": "https://gestiona.comunidad.madrid/desvan/almudena/GenerarCsvUnTema.icm?codTema=1006036"
+  },
+  "censo2011": {
+   "organismo": "INE",
+   "tabla": "Censo 2011. Viviendas por municipios (>2.000 hab.) y tipo de vivienda",
+   "url": "https://www.ine.es/jaxiT3/Tabla.htm?t=3456",
+   "api": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/3456"
+  }
+ },
+ "parla": {
+  "nombre": "Parla",
+  "ine": "28106",
+  "censo2021": {
+   "fecha_referencia": "2021-01-01",
+   "viviendas_totales": 47256,
+   "viviendas_principales": 44570,
+   "viviendas_no_principales": 2686,
+   "pct_no_principales": 5.68,
+   "hogares": 44570,
+   "hogares_nota": "En el Censo 2021 el número de hogares coincide por definición con el de viviendas principales.",
+   "hogares_por_tamano": {
+    "1persona": 7814,
+    "2personas": 11589,
+    "3personas": 10280,
+    "4personas": 9745,
+    "5omaspersonas": 5142
+   },
+   "pct_hogares_1_persona": 17.53,
+   "pct_hogares_5_o_mas": 11.54,
+   "viviendas_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 22,
+    "de1921a1940": 21,
+    "de1941a1950": 33,
+    "de1951a1960": 61,
+    "de1961a1970": 3020,
+    "de1971a1980": 17273,
+    "de1981a1990": 1722,
+    "de1991a2000": 4558,
+    "de2001a2010": 19330,
+    "de2011a2020": 947,
+    "noconsta": 269
+   },
+   "viviendas_principales_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 11,
+    "de1921a1940": 11,
+    "de1941a1950": 19,
+    "de1951a1960": 46,
+    "de1961a1970": 2871,
+    "de1971a1980": 16840,
+    "de1981a1990": 1651,
+    "de1991a2000": 4393,
+    "de2001a2010": 17736,
+    "de2011a2020": 848,
+    "noconsta": 144
+   },
+   "viviendas_edificio_anterior_1981": 20430,
+   "pct_viviendas_edificio_anterior_1981": 43.23,
+   "pct_anterior_1981_nota": "Suma de tramos \"antes de 1900\" a \"1971-1980\" sobre el total de viviendas (incluye \"no consta\" en el denominador). El INE agrupa por décadas: el corte disponible es 1980 inclusive.",
+   "viviendas_2001_2010": 19330,
+   "viviendas_2011_2020": 947,
+   "viviendas_principales_por_superficie_util": {
+    "menosde30m2": 81,
+    "entre30y45m2": 2048,
+    "entre46y60m2": 11101,
+    "entre61y75m2": 17023,
+    "entre76y90m2": 8476,
+    "entre91y105m2": 2532,
+    "entre106y120m2": 966,
+    "entre121y150m2": 1334,
+    "entre151y180m2": 738,
+    "masde180m2": 185,
+    "noconsta": 86
+   },
+   "viviendas_principales_60m2_o_menos": 13230,
+   "pct_principales_60m2_o_menos": 29.68,
+   "tenencia_viviendas_principales": {
+    "totalregimendetenencia": 44570,
+    "enpropiedad": 34097,
+    "enalquiler": 8614,
+    "otroregimendetenencia": 1859
+   },
+   "pct_alquiler": 19.33,
+   "pct_propiedad": 76.5,
+   "hogares_tamano_x_superficie": {
+    "1persona": {
+     "menosde30m2": 35,
+     "entre30y45m2": 801,
+     "entre46y60m2": 2355,
+     "entre61y75m2": 2899,
+     "entre76y90m2": 1200,
+     "entre91y105m2": 235,
+     "entre106y120m2": 96,
+     "entre121y150m2": 108,
+     "entre151y180m2": 53,
+     "masde180m2": 19,
+     "noconsta": 13
+    },
+    "2personas": {
+     "menosde30m2": 19,
+     "entre30y45m2": 560,
+     "entre46y60m2": 3163,
+     "entre61y75m2": 4482,
+     "entre76y90m2": 1981,
+     "entre91y105m2": 624,
+     "entre106y120m2": 222,
+     "entre121y150m2": 300,
+     "entre151y180m2": 182,
+     "masde180m2": 40,
+     "noconsta": 16
+    },
+    "3personas": {
+     "menosde30m2": 8,
+     "entre30y45m2": 319,
+     "entre46y60m2": 2442,
+     "entre61y75m2": 4071,
+     "entre76y90m2": 2076,
+     "entre91y105m2": 596,
+     "entre106y120m2": 235,
+     "entre121y150m2": 316,
+     "entre151y180m2": 157,
+     "masde180m2": 37,
+     "noconsta": 23
+    },
+    "4personas": {
+     "menosde30m2": 13,
+     "entre30y45m2": 195,
+     "entre46y60m2": 1723,
+     "entre61y75m2": 3627,
+     "entre76y90m2": 2347,
+     "entre91y105m2": 791,
+     "entre106y120m2": 290,
+     "entre121y150m2": 433,
+     "entre151y180m2": 242,
+     "masde180m2": 65,
+     "noconsta": 19
+    },
+    "5omaspersonas": {
+     "menosde30m2": 6,
+     "entre30y45m2": 173,
+     "entre46y60m2": 1418,
+     "entre61y75m2": 1944,
+     "entre76y90m2": 872,
+     "entre91y105m2": 286,
+     "entre106y120m2": 123,
+     "entre121y150m2": 177,
+     "entre151y180m2": 104,
+     "masde180m2": 24,
+     "noconsta": 15
+    }
+   },
+   "hogares_5omas_en_60m2_o_menos": 1597,
+   "pct_hogares_5omas_en_60m2_o_menos": 3.58,
+   "hogares_4_en_60m2_o_menos": 1931,
+   "hogares_4omas_en_60m2_o_menos": 3528,
+   "pct_hogares_4omas_en_60m2_o_menos": 7.92,
+   "hogares_5omas_en_45m2_o_menos": 179,
+   "padron_2021": 131689,
+   "viviendas_por_1000_hab": 358.8,
+   "viviendas_por_1000_hab_nota": "Viviendas totales Censo 2021 / padrón a 1-1-2021 (INE tabla 2881) x 1000. Cálculo propio."
+  },
+  "superficie_media_viviendas_familiares_m2_censo2021": 72.09,
+  "consumo_electrico_2020": {
+   "viviendas_totales": 47256,
+   "viviendas_vacias": 1506,
+   "pct_vacias": 3.19,
+   "viviendas_muy_bajo_consumo": 803,
+   "viviendas_uso_esporadico_251_750kwh": 2560,
+   "pct_uso_esporadico": 5.42,
+   "mediana_consumo_anual_kwh": 2357
+  },
+  "adrh": {
+   "anyo": 2023,
+   "renta_neta_media_por_hogar": 35177,
+   "renta_neta_media_por_persona": 11522,
+   "mediana_renta_por_unidad_consumo": 16450,
+   "media_renta_por_unidad_consumo": 17942,
+   "renta_bruta_media_por_hogar": 41321,
+   "renta_bruta_media_por_persona": 13534,
+   "serie_2021_2023": {
+    "Renta neta media por persona": {
+     "2023": 11522,
+     "2022": 10837,
+     "2021": 10251
+    },
+    "Renta neta media por hogar": {
+     "2023": 35177,
+     "2022": 32919,
+     "2021": 30961
+    },
+    "Media de la renta por unidad de consumo": {
+     "2023": 17942,
+     "2022": 17004,
+     "2021": 16098
+    },
+    "Mediana de la renta por unidad de consumo": {
+     "2023": 16450,
+     "2022": 15750,
+     "2021": 15050
+    },
+    "Renta bruta media por persona": {
+     "2023": 13534,
+     "2022": 12691,
+     "2021": 11965
+    },
+    "Renta bruta media por hogar": {
+     "2023": 41321,
+     "2022": 38554,
+     "2021": 36139
+    }
+   },
+   "tamano_medio_hogar": 3.0,
+   "pct_hogares_unipersonales": 18.8,
+   "indicadores_demograficos_2021_2023": {
+    "Edad media de la población": {
+     "2023": 39.0,
+     "2022": 38.6,
+     "2021": 38.3
+    },
+    "Porcentaje de población menor de 18 años": {
+     "2023": 21.7,
+     "2022": 22.1,
+     "2021": 22.5
+    },
+    "Porcentaje de población de 65 y más años": {
+     "2023": 13.8,
+     "2022": 13.4,
+     "2021": 13.0
+    },
+    "Tamaño medio del hogar": {
+     "2023": 3.0,
+     "2022": 3.0,
+     "2021": 3.0
+    },
+    "Porcentaje de hogares unipersonales": {
+     "2023": 18.8,
+     "2022": 18.8,
+     "2021": 18.6
+    },
+    "Población": {
+     "2023": 132621.0,
+     "2022": 130903.0,
+     "2021": 128609.0
+    },
+    "Porcentaje de población española": {
+     "2023": 77.5,
+     "2022": 78.0,
+     "2021": 78.2
+    }
+   }
+  },
+  "padron": {
+   "serie": {
+    "2014": 125323,
+    "2015": 125056,
+    "2016": 124661,
+    "2017": 125898,
+    "2018": 128256,
+    "2019": 130124,
+    "2020": 133482,
+    "2021": 131689,
+    "2022": 130577,
+    "2023": 133004,
+    "2024": 134833,
+    "2025": 137471
+   },
+   "pob_2015": 125056,
+   "pob_2025": 137471,
+   "crec_abs_2015_2025": 12415,
+   "crec_pct_2015_2025": 9.93
+  },
+  "catastro_unidades_residenciales": {
+   "serie": {
+    "2003": 27591,
+    "2004": 28211,
+    "2005": 29692,
+    "2006": 30515,
+    "2007": 32547,
+    "2008": 35451,
+    "2009": 39183,
+    "2010": 43295,
+    "2011": 44675,
+    "2012": 45382,
+    "2013": 45686,
+    "2014": 46049,
+    "2015": 46362,
+    "2016": 46478,
+    "2017": 46492,
+    "2018": 46511,
+    "2019": 46553,
+    "2020": 46612,
+    "2021": 46641,
+    "2022": 46730,
+    "2023": 46864,
+    "2024": 46923,
+    "2025": 47124,
+    "2026": 47187
+   },
+   "u_2015": 46362,
+   "u_2025": 47124,
+   "u_2026": 47187,
+   "crec_abs_2015_2025": 762,
+   "crec_pct_2015_2025": 1.64,
+   "nuevas_unidades_por_1000_hab_2025": 5.5,
+   "nuevas_unidades_por_cada_100_habitantes_nuevos": 6.1,
+   "nota": "Variación neta del stock catastral de unidades urbanas de uso residencial (altas menos bajas y reclasificaciones), no viviendas terminadas."
+  },
+  "licencias_viviendas_a_construir_1992_2019": {
+   "1992": 208,
+   "1993": 188,
+   "1994": 236,
+   "1995": 638,
+   "1996": 745,
+   "1997": 692,
+   "1998": 765,
+   "1999": 871,
+   "2000": 1258,
+   "2001": 866,
+   "2002": 1718,
+   "2003": 1092,
+   "2004": 7833,
+   "2005": 2722,
+   "2006": 2568,
+   "2007": 813,
+   "2008": 3,
+   "2009": 217,
+   "2010": 557,
+   "2011": null,
+   "2012": null,
+   "2013": null,
+   "2014": null,
+   "2015": null,
+   "2016": null,
+   "2017": null,
+   "2018": null,
+   "2019": null
+  },
+  "censo2011": {
+   "viviendas_totales": 47097,
+   "principales": 43712,
+   "no_principales": 3381,
+   "vacias": 2805
+  }
+ },
+ "getafe": {
+  "nombre": "Getafe",
+  "ine": "28065",
+  "censo2021": {
+   "fecha_referencia": "2021-01-01",
+   "viviendas_totales": 79835,
+   "viviendas_principales": 70627,
+   "viviendas_no_principales": 9208,
+   "pct_no_principales": 11.53,
+   "hogares": 70627,
+   "hogares_nota": "En el Censo 2021 el número de hogares coincide por definición con el de viviendas principales.",
+   "hogares_por_tamano": {
+    "1persona": 16268,
+    "2personas": 20995,
+    "3personas": 15429,
+    "4personas": 13510,
+    "5omaspersonas": 4425
+   },
+   "pct_hogares_1_persona": 23.03,
+   "pct_hogares_5_o_mas": 6.27,
+   "viviendas_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 34,
+    "de1921a1940": 113,
+    "de1941a1950": 130,
+    "de1951a1960": 965,
+    "de1961a1970": 18310,
+    "de1971a1980": 16515,
+    "de1981a1990": 7513,
+    "de1991a2000": 12652,
+    "de2001a2010": 11111,
+    "de2011a2020": 12393,
+    "noconsta": 99
+   },
+   "viviendas_principales_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 21,
+    "de1921a1940": 78,
+    "de1941a1950": 94,
+    "de1951a1960": 768,
+    "de1961a1970": 16229,
+    "de1971a1980": 15040,
+    "de1981a1990": 7086,
+    "de1991a2000": 11392,
+    "de2001a2010": 9535,
+    "de2011a2020": 10298,
+    "noconsta": 86
+   },
+   "viviendas_edificio_anterior_1981": 36067,
+   "pct_viviendas_edificio_anterior_1981": 45.18,
+   "pct_anterior_1981_nota": "Suma de tramos \"antes de 1900\" a \"1971-1980\" sobre el total de viviendas (incluye \"no consta\" en el denominador). El INE agrupa por décadas: el corte disponible es 1980 inclusive.",
+   "viviendas_2001_2010": 11111,
+   "viviendas_2011_2020": 12393,
+   "viviendas_principales_por_superficie_util": {
+    "menosde30m2": 149,
+    "entre30y45m2": 4731,
+    "entre46y60m2": 24454,
+    "entre61y75m2": 13194,
+    "entre76y90m2": 13684,
+    "entre91y105m2": 4963,
+    "entre106y120m2": 4128,
+    "entre121y150m2": 4101,
+    "entre151y180m2": 660,
+    "masde180m2": 466,
+    "noconsta": 97
+   },
+   "viviendas_principales_60m2_o_menos": 29334,
+   "pct_principales_60m2_o_menos": 41.53,
+   "tenencia_viviendas_principales": {
+    "totalregimendetenencia": 70627,
+    "enpropiedad": 56955,
+    "enalquiler": 10990,
+    "otroregimendetenencia": 2682
+   },
+   "pct_alquiler": 15.56,
+   "pct_propiedad": 80.64,
+   "hogares_tamano_x_superficie": {
+    "1persona": {
+     "menosde30m2": 52,
+     "entre30y45m2": 1731,
+     "entre46y60m2": 6859,
+     "entre61y75m2": 3256,
+     "entre76y90m2": 2573,
+     "entre91y105m2": 713,
+     "entre106y120m2": 473,
+     "entre121y150m2": 447,
+     "entre151y180m2": 62,
+     "masde180m2": 68,
+     "noconsta": 34
+    },
+    "2personas": {
+     "menosde30m2": 46,
+     "entre30y45m2": 1493,
+     "entre46y60m2": 8047,
+     "entre61y75m2": 3721,
+     "entre76y90m2": 3454,
+     "entre91y105m2": 1350,
+     "entre106y120m2": 1221,
+     "entre121y150m2": 1210,
+     "entre151y180m2": 244,
+     "masde180m2": 180,
+     "noconsta": 29
+    },
+    "3personas": {
+     "menosde30m2": 34,
+     "entre30y45m2": 779,
+     "entre46y60m2": 4841,
+     "entre61y75m2": 2970,
+     "entre76y90m2": 3422,
+     "entre91y105m2": 1200,
+     "entre106y120m2": 998,
+     "entre121y150m2": 916,
+     "entre151y180m2": 157,
+     "masde180m2": 97,
+     "noconsta": 15
+    },
+    "4personas": {
+     "menosde30m2": 10,
+     "entre30y45m2": 498,
+     "entre46y60m2": 3136,
+     "entre61y75m2": 2544,
+     "entre76y90m2": 3539,
+     "entre91y105m2": 1327,
+     "entre106y120m2": 1114,
+     "entre121y150m2": 1115,
+     "entre151y180m2": 136,
+     "masde180m2": 79,
+     "noconsta": 12
+    },
+    "5omaspersonas": {
+     "menosde30m2": 7,
+     "entre30y45m2": 230,
+     "entre46y60m2": 1571,
+     "entre61y75m2": 703,
+     "entre76y90m2": 696,
+     "entre91y105m2": 373,
+     "entre106y120m2": 322,
+     "entre121y150m2": 413,
+     "entre151y180m2": 61,
+     "masde180m2": 42,
+     "noconsta": 7
+    }
+   },
+   "hogares_5omas_en_60m2_o_menos": 1808,
+   "pct_hogares_5omas_en_60m2_o_menos": 2.56,
+   "hogares_4_en_60m2_o_menos": 3644,
+   "hogares_4omas_en_60m2_o_menos": 5452,
+   "pct_hogares_4omas_en_60m2_o_menos": 7.72,
+   "hogares_5omas_en_45m2_o_menos": 237,
+   "padron_2021": 183095,
+   "viviendas_por_1000_hab": 436.0,
+   "viviendas_por_1000_hab_nota": "Viviendas totales Censo 2021 / padrón a 1-1-2021 (INE tabla 2881) x 1000. Cálculo propio."
+  },
+  "superficie_media_viviendas_familiares_m2_censo2021": 73.32,
+  "consumo_electrico_2020": {
+   "viviendas_totales": 79835,
+   "viviendas_vacias": 2885,
+   "pct_vacias": 3.61,
+   "viviendas_muy_bajo_consumo": 1512,
+   "viviendas_uso_esporadico_251_750kwh": 5034,
+   "pct_uso_esporadico": 6.31,
+   "mediana_consumo_anual_kwh": 2239
+  },
+  "adrh": {
+   "anyo": 2023,
+   "renta_neta_media_por_hogar": 41792,
+   "renta_neta_media_por_persona": 15867,
+   "mediana_renta_por_unidad_consumo": 21350,
+   "media_renta_por_unidad_consumo": 23896,
+   "renta_bruta_media_por_hogar": 51131,
+   "renta_bruta_media_por_persona": 19413,
+   "serie_2021_2023": {
+    "Renta neta media por persona": {
+     "2023": 15867,
+     "2022": 15061,
+     "2021": 14205
+    },
+    "Renta neta media por hogar": {
+     "2023": 41792,
+     "2022": 39455,
+     "2021": 36962
+    },
+    "Media de la renta por unidad de consumo": {
+     "2023": 23896,
+     "2022": 22798,
+     "2021": 21509
+    },
+    "Mediana de la renta por unidad de consumo": {
+     "2023": 21350,
+     "2022": 20650,
+     "2021": 19250
+    },
+    "Renta bruta media por persona": {
+     "2023": 19413,
+     "2022": 18351,
+     "2021": 17279
+    },
+    "Renta bruta media por hogar": {
+     "2023": 51131,
+     "2022": 48074,
+     "2021": 44962
+    }
+   },
+   "tamano_medio_hogar": 2.6,
+   "pct_hogares_unipersonales": 24.4,
+   "indicadores_demograficos_2021_2023": {
+    "Edad media de la población": {
+     "2023": 42.7,
+     "2022": 42.6,
+     "2021": 42.5
+    },
+    "Porcentaje de población menor de 18 años": {
+     "2023": 18.2,
+     "2022": 18.4,
+     "2021": 18.7
+    },
+    "Porcentaje de población de 65 y más años": {
+     "2023": 19.5,
+     "2022": 19.5,
+     "2021": 19.6
+    },
+    "Tamaño medio del hogar": {
+     "2023": 2.6,
+     "2022": 2.6,
+     "2021": 2.6
+    },
+    "Porcentaje de hogares unipersonales": {
+     "2023": 24.4,
+     "2022": 24.4,
+     "2021": 24.4
+    },
+    "Población": {
+     "2023": 189908.0,
+     "2022": 186008.0,
+     "2021": 181570.0
+    },
+    "Porcentaje de población española": {
+     "2023": 85.8,
+     "2022": 86.8,
+     "2021": 88.1
+    }
+   }
+  },
+  "padron": {
+   "serie": {
+    "2014": 173057,
+    "2015": 174921,
+    "2016": 176659,
+    "2017": 178288,
+    "2018": 180747,
+    "2019": 183374,
+    "2020": 185180,
+    "2021": 183095,
+    "2022": 183219,
+    "2023": 185899,
+    "2024": 189906,
+    "2025": 193238
+   },
+   "pob_2015": 174921,
+   "pob_2025": 193238,
+   "crec_abs_2015_2025": 18317,
+   "crec_pct_2015_2025": 10.47
+  },
+  "catastro_unidades_residenciales": {
+   "serie": {
+    "2003": 52176,
+    "2004": 53798,
+    "2005": 55800,
+    "2006": 57759,
+    "2007": 59695,
+    "2008": 61082,
+    "2009": 63796,
+    "2010": 64856,
+    "2011": 65323,
+    "2012": 65894,
+    "2013": 70213,
+    "2014": 72512,
+    "2015": 72922,
+    "2016": 73847,
+    "2017": 74370,
+    "2018": 75019,
+    "2019": 75525,
+    "2020": 77099,
+    "2021": 77850,
+    "2022": 78727,
+    "2023": 79029,
+    "2024": 79802,
+    "2025": 80131,
+    "2026": 80782
+   },
+   "u_2015": 72922,
+   "u_2025": 80131,
+   "u_2026": 80782,
+   "crec_abs_2015_2025": 7209,
+   "crec_pct_2015_2025": 9.89,
+   "nuevas_unidades_por_1000_hab_2025": 37.3,
+   "nuevas_unidades_por_cada_100_habitantes_nuevos": 39.4,
+   "nota": "Variación neta del stock catastral de unidades urbanas de uso residencial (altas menos bajas y reclasificaciones), no viviendas terminadas."
+  },
+  "licencias_viviendas_a_construir_1992_2019": {
+   "1992": 993,
+   "1993": 485,
+   "1994": 1479,
+   "1995": 980,
+   "1996": 629,
+   "1997": 867,
+   "1998": 1013,
+   "1999": 169,
+   "2000": 475,
+   "2001": 192,
+   "2002": 118,
+   "2003": 449,
+   "2004": 2895,
+   "2005": 2107,
+   "2006": 1603,
+   "2007": 667,
+   "2008": 495,
+   "2009": 5322,
+   "2010": 1403,
+   "2011": 845,
+   "2012": 343,
+   "2013": 157,
+   "2014": 850,
+   "2015": 250,
+   "2016": 1173,
+   "2017": 478,
+   "2018": 476,
+   "2019": 221
+  },
+  "censo2011": {
+   "viviendas_totales": 69002,
+   "principales": 62509,
+   "no_principales": 6475,
+   "vacias": 4812
+  }
+ },
+ "leganes": {
+  "nombre": "Leganés",
+  "ine": "28074",
+  "censo2021": {
+   "fecha_referencia": "2021-01-01",
+   "viviendas_totales": 77962,
+   "viviendas_principales": 72285,
+   "viviendas_no_principales": 5677,
+   "pct_no_principales": 7.28,
+   "hogares": 72285,
+   "hogares_nota": "En el Censo 2021 el número de hogares coincide por definición con el de viviendas principales.",
+   "hogares_por_tamano": {
+    "1persona": 16118,
+    "2personas": 22043,
+    "3personas": 16066,
+    "4personas": 13428,
+    "5omaspersonas": 4630
+   },
+   "pct_hogares_1_persona": 22.3,
+   "pct_hogares_5_o_mas": 6.41,
+   "viviendas_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 14,
+    "de1921a1940": 9,
+    "de1941a1950": 53,
+    "de1951a1960": 380,
+    "de1961a1970": 15091,
+    "de1971a1980": 30948,
+    "de1981a1990": 6794,
+    "de1991a2000": 9341,
+    "de2001a2010": 12084,
+    "de2011a2020": 2983,
+    "noconsta": 265
+   },
+   "viviendas_principales_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 8,
+    "de1921a1940": 6,
+    "de1941a1950": 30,
+    "de1951a1960": 322,
+    "de1961a1970": 13875,
+    "de1971a1980": 28921,
+    "de1981a1990": 6475,
+    "de1991a2000": 8853,
+    "de2001a2010": 11009,
+    "de2011a2020": 2605,
+    "noconsta": 181
+   },
+   "viviendas_edificio_anterior_1981": 46495,
+   "pct_viviendas_edificio_anterior_1981": 59.64,
+   "pct_anterior_1981_nota": "Suma de tramos \"antes de 1900\" a \"1971-1980\" sobre el total de viviendas (incluye \"no consta\" en el denominador). El INE agrupa por décadas: el corte disponible es 1980 inclusive.",
+   "viviendas_2001_2010": 12084,
+   "viviendas_2011_2020": 2983,
+   "viviendas_principales_por_superficie_util": {
+    "menosde30m2": 192,
+    "entre30y45m2": 3598,
+    "entre46y60m2": 31702,
+    "entre61y75m2": 18001,
+    "entre76y90m2": 10795,
+    "entre91y105m2": 3523,
+    "entre106y120m2": 1141,
+    "entre121y150m2": 1787,
+    "entre151y180m2": 976,
+    "masde180m2": 438,
+    "noconsta": 132
+   },
+   "viviendas_principales_60m2_o_menos": 35492,
+   "pct_principales_60m2_o_menos": 49.1,
+   "tenencia_viviendas_principales": {
+    "totalregimendetenencia": 72285,
+    "enpropiedad": 57836,
+    "enalquiler": 11236,
+    "otroregimendetenencia": 3213
+   },
+   "pct_alquiler": 15.54,
+   "pct_propiedad": 80.01,
+   "hogares_tamano_x_superficie": {
+    "1persona": {
+     "menosde30m2": 78,
+     "entre30y45m2": 1266,
+     "entre46y60m2": 8042,
+     "entre61y75m2": 4103,
+     "entre76y90m2": 1681,
+     "entre91y105m2": 492,
+     "entre106y120m2": 116,
+     "entre121y150m2": 159,
+     "entre151y180m2": 76,
+     "masde180m2": 49,
+     "noconsta": 56
+    },
+    "2personas": {
+     "menosde30m2": 54,
+     "entre30y45m2": 1117,
+     "entre46y60m2": 10677,
+     "entre61y75m2": 5436,
+     "entre76y90m2": 2737,
+     "entre91y105m2": 926,
+     "entre106y120m2": 302,
+     "entre121y150m2": 428,
+     "entre151y180m2": 214,
+     "masde180m2": 117,
+     "noconsta": 35
+    },
+    "3personas": {
+     "menosde30m2": 29,
+     "entre30y45m2": 660,
+     "entre46y60m2": 6741,
+     "entre61y75m2": 3985,
+     "entre76y90m2": 2758,
+     "entre91y105m2": 829,
+     "entre106y120m2": 284,
+     "entre121y150m2": 419,
+     "entre151y180m2": 226,
+     "masde180m2": 111,
+     "noconsta": 24
+    },
+    "4personas": {
+     "menosde30m2": 19,
+     "entre30y45m2": 358,
+     "entre46y60m2": 4248,
+     "entre61y75m2": 3435,
+     "entre76y90m2": 2941,
+     "entre91y105m2": 1019,
+     "entre106y120m2": 347,
+     "entre121y150m2": 600,
+     "entre151y180m2": 332,
+     "masde180m2": 120,
+     "noconsta": 9
+    },
+    "5omaspersonas": {
+     "menosde30m2": 12,
+     "entre30y45m2": 197,
+     "entre46y60m2": 1994,
+     "entre61y75m2": 1042,
+     "entre76y90m2": 678,
+     "entre91y105m2": 257,
+     "entre106y120m2": 92,
+     "entre121y150m2": 181,
+     "entre151y180m2": 128,
+     "masde180m2": 41,
+     "noconsta": 8
+    }
+   },
+   "hogares_5omas_en_60m2_o_menos": 2203,
+   "pct_hogares_5omas_en_60m2_o_menos": 3.05,
+   "hogares_4_en_60m2_o_menos": 4625,
+   "hogares_4omas_en_60m2_o_menos": 6828,
+   "pct_hogares_4omas_en_60m2_o_menos": 9.45,
+   "hogares_5omas_en_45m2_o_menos": 209,
+   "padron_2021": 187762,
+   "viviendas_por_1000_hab": 415.2,
+   "viviendas_por_1000_hab_nota": "Viviendas totales Censo 2021 / padrón a 1-1-2021 (INE tabla 2881) x 1000. Cálculo propio."
+  },
+  "superficie_media_viviendas_familiares_m2_censo2021": 67.64,
+  "consumo_electrico_2020": {
+   "viviendas_totales": 77962,
+   "viviendas_vacias": 2545,
+   "pct_vacias": 3.26,
+   "viviendas_muy_bajo_consumo": 1356,
+   "viviendas_uso_esporadico_251_750kwh": 4643,
+   "pct_uso_esporadico": 5.96,
+   "mediana_consumo_anual_kwh": 2097
+  },
+  "adrh": {
+   "anyo": 2023,
+   "renta_neta_media_por_hogar": 38660,
+   "renta_neta_media_por_persona": 14531,
+   "mediana_renta_por_unidad_consumo": 19950,
+   "media_renta_por_unidad_consumo": 21756,
+   "renta_bruta_media_por_hogar": 46394,
+   "renta_bruta_media_por_persona": 17438,
+   "serie_2021_2023": {
+    "Renta neta media por persona": {
+     "2023": 14531,
+     "2022": 13703,
+     "2021": 13120
+    },
+    "Renta neta media por hogar": {
+     "2023": 38660,
+     "2022": 36260,
+     "2021": 34335
+    },
+    "Media de la renta por unidad de consumo": {
+     "2023": 21756,
+     "2022": 20684,
+     "2021": 19751
+    },
+    "Mediana de la renta por unidad de consumo": {
+     "2023": 19950,
+     "2022": 18550,
+     "2021": 17850
+    },
+    "Renta bruta media por persona": {
+     "2023": 17438,
+     "2022": 16463,
+     "2021": 15658
+    },
+    "Renta bruta media por hogar": {
+     "2023": 46394,
+     "2022": 43564,
+     "2021": 40974
+    }
+   },
+   "tamano_medio_hogar": 2.6,
+   "pct_hogares_unipersonales": 23.7,
+   "indicadores_demograficos_2021_2023": {
+    "Edad media de la población": {
+     "2023": 44.6,
+     "2022": 44.4,
+     "2021": 44.3
+    },
+    "Porcentaje de población menor de 18 años": {
+     "2023": 16.4,
+     "2022": 16.8,
+     "2021": 17.0
+    },
+    "Porcentaje de población de 65 y más años": {
+     "2023": 22.5,
+     "2022": 22.5,
+     "2021": 22.7
+    },
+    "Tamaño medio del hogar": {
+     "2023": 2.6,
+     "2022": 2.6,
+     "2021": 2.6
+    },
+    "Porcentaje de hogares unipersonales": {
+     "2023": 23.7,
+     "2022": 23.7,
+     "2021": 23.9
+    },
+    "Población": {
+     "2023": 191539.0,
+     "2022": 188919.0,
+     "2021": 185056.0
+    },
+    "Porcentaje de población española": {
+     "2023": 87.0,
+     "2022": 88.0,
+     "2021": 89.7
+    }
+   }
+  },
+  "padron": {
+   "serie": {
+    "2014": 186696,
+    "2015": 186907,
+    "2016": 187173,
+    "2017": 187720,
+    "2018": 188425,
+    "2019": 189861,
+    "2020": 191114,
+    "2021": 187762,
+    "2022": 186660,
+    "2023": 190665,
+    "2024": 194084,
+    "2025": 195734
+   },
+   "pob_2015": 186907,
+   "pob_2025": 195734,
+   "crec_abs_2015_2025": 8827,
+   "crec_pct_2015_2025": 4.72
+  },
+  "catastro_unidades_residenciales": {
+   "serie": {
+    "2003": 61874,
+    "2004": 62468,
+    "2005": 63790,
+    "2006": 66665,
+    "2007": 67512,
+    "2008": 68351,
+    "2009": 71309,
+    "2010": 73182,
+    "2011": 73221,
+    "2012": 73914,
+    "2013": 74468,
+    "2014": 75889,
+    "2015": 75799,
+    "2016": 76373,
+    "2017": 76469,
+    "2018": 76574,
+    "2019": 76704,
+    "2020": 76964,
+    "2021": 77069,
+    "2022": 77159,
+    "2023": 77583,
+    "2024": 77743,
+    "2025": 77783,
+    "2026": 78092
+   },
+   "u_2015": 75799,
+   "u_2025": 77783,
+   "u_2026": 78092,
+   "crec_abs_2015_2025": 1984,
+   "crec_pct_2015_2025": 2.62,
+   "nuevas_unidades_por_1000_hab_2025": 10.1,
+   "nuevas_unidades_por_cada_100_habitantes_nuevos": 22.5,
+   "nota": "Variación neta del stock catastral de unidades urbanas de uso residencial (altas menos bajas y reclasificaciones), no viviendas terminadas."
+  },
+  "licencias_viviendas_a_construir_1992_2019": {
+   "1992": 316,
+   "1993": 421,
+   "1994": 497,
+   "1995": 2649,
+   "1996": 1256,
+   "1997": 827,
+   "1998": 1060,
+   "1999": 549,
+   "2000": 318,
+   "2001": 1229,
+   "2002": 2476,
+   "2003": 1741,
+   "2004": 530,
+   "2005": 457,
+   "2006": 2741,
+   "2007": 692,
+   "2008": 319,
+   "2009": 213,
+   "2010": 565,
+   "2011": 26,
+   "2012": 1147,
+   "2013": 107,
+   "2014": 124,
+   "2015": 168,
+   "2016": 54,
+   "2017": null,
+   "2018": null,
+   "2019": null
+  },
+  "censo2011": {
+   "viviendas_totales": 75525,
+   "principales": 70949,
+   "no_principales": 4565,
+   "vacias": 3914
+  }
+ },
+ "fuenlabrada": {
+  "nombre": "Fuenlabrada",
+  "ine": "28058",
+  "censo2021": {
+   "fecha_referencia": "2021-01-01",
+   "viviendas_totales": 70944,
+   "viviendas_principales": 67078,
+   "viviendas_no_principales": 3866,
+   "pct_no_principales": 5.45,
+   "hogares": 67078,
+   "hogares_nota": "En el Censo 2021 el número de hogares coincide por definición con el de viviendas principales.",
+   "hogares_por_tamano": {
+    "1persona": 10367,
+    "2personas": 18312,
+    "3personas": 17290,
+    "4personas": 15394,
+    "5omaspersonas": 5715
+   },
+   "pct_hogares_1_persona": 15.46,
+   "pct_hogares_5_o_mas": 8.52,
+   "viviendas_por_anyo_construccion_edificio": {
+    "antesde1900": 1,
+    "de1900a1920": 93,
+    "de1921a1940": 49,
+    "de1941a1950": 70,
+    "de1951a1960": 92,
+    "de1961a1970": 1285,
+    "de1971a1980": 33793,
+    "de1981a1990": 11829,
+    "de1991a2000": 16085,
+    "de2001a2010": 5958,
+    "de2011a2020": 1482,
+    "noconsta": 207
+   },
+   "viviendas_principales_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 69,
+    "de1921a1940": 29,
+    "de1941a1950": 42,
+    "de1951a1960": 72,
+    "de1961a1970": 1168,
+    "de1971a1980": 32422,
+    "de1981a1990": 11367,
+    "de1991a2000": 15252,
+    "de2001a2010": 5318,
+    "de2011a2020": 1282,
+    "noconsta": 57
+   },
+   "viviendas_edificio_anterior_1981": 35383,
+   "pct_viviendas_edificio_anterior_1981": 49.87,
+   "pct_anterior_1981_nota": "Suma de tramos \"antes de 1900\" a \"1971-1980\" sobre el total de viviendas (incluye \"no consta\" en el denominador). El INE agrupa por décadas: el corte disponible es 1980 inclusive.",
+   "viviendas_2001_2010": 5958,
+   "viviendas_2011_2020": 1482,
+   "viviendas_principales_por_superficie_util": {
+    "menosde30m2": 35,
+    "entre30y45m2": 935,
+    "entre46y60m2": 26355,
+    "entre61y75m2": 24827,
+    "entre76y90m2": 9140,
+    "entre91y105m2": 2695,
+    "entre106y120m2": 1048,
+    "entre121y150m2": 1061,
+    "entre151y180m2": 626,
+    "masde180m2": 318,
+    "noconsta": 38
+   },
+   "viviendas_principales_60m2_o_menos": 27325,
+   "pct_principales_60m2_o_menos": 40.74,
+   "tenencia_viviendas_principales": {
+    "totalregimendetenencia": 67078,
+    "enpropiedad": 55353,
+    "enalquiler": 8969,
+    "otroregimendetenencia": 2756
+   },
+   "pct_alquiler": 13.37,
+   "pct_propiedad": 82.52,
+   "hogares_tamano_x_superficie": {
+    "1persona": {
+     "menosde30m2": 21,
+     "entre30y45m2": 392,
+     "entre46y60m2": 4657,
+     "entre61y75m2": 3753,
+     "entre76y90m2": 982,
+     "entre91y105m2": 266,
+     "entre106y120m2": 109,
+     "entre121y150m2": 103,
+     "entre151y180m2": 50,
+     "masde180m2": 28,
+     "noconsta": 6
+    },
+    "2personas": {
+     "menosde30m2": 7,
+     "entre30y45m2": 272,
+     "entre46y60m2": 7862,
+     "entre61y75m2": 6687,
+     "entre76y90m2": 1978,
+     "entre91y105m2": 659,
+     "entre106y120m2": 309,
+     "entre121y150m2": 280,
+     "entre151y180m2": 170,
+     "masde180m2": 79,
+     "noconsta": 9
+    },
+    "3personas": {
+     "menosde30m2": 3,
+     "entre30y45m2": 149,
+     "entre46y60m2": 6600,
+     "entre61y75m2": 6610,
+     "entre76y90m2": 2451,
+     "entre91y105m2": 702,
+     "entre106y120m2": 265,
+     "entre121y150m2": 279,
+     "entre151y180m2": 146,
+     "masde180m2": 75,
+     "noconsta": 10
+    },
+    "4personas": {
+     "menosde30m2": 2,
+     "entre30y45m2": 72,
+     "entre46y60m2": 4903,
+     "entre61y75m2": 5760,
+     "entre76y90m2": 3013,
+     "entre91y105m2": 814,
+     "entre106y120m2": 268,
+     "entre121y150m2": 284,
+     "entre151y180m2": 181,
+     "masde180m2": 91,
+     "noconsta": 6
+    },
+    "5omaspersonas": {
+     "menosde30m2": 2,
+     "entre30y45m2": 50,
+     "entre46y60m2": 2333,
+     "entre61y75m2": 2017,
+     "entre76y90m2": 716,
+     "entre91y105m2": 254,
+     "entre106y120m2": 97,
+     "entre121y150m2": 115,
+     "entre151y180m2": 79,
+     "masde180m2": 45,
+     "noconsta": 7
+    }
+   },
+   "hogares_5omas_en_60m2_o_menos": 2385,
+   "pct_hogares_5omas_en_60m2_o_menos": 3.56,
+   "hogares_4_en_60m2_o_menos": 4977,
+   "hogares_4omas_en_60m2_o_menos": 7362,
+   "pct_hogares_4omas_en_60m2_o_menos": 10.98,
+   "hogares_5omas_en_45m2_o_menos": 52,
+   "padron_2021": 192233,
+   "viviendas_por_1000_hab": 369.1,
+   "viviendas_por_1000_hab_nota": "Viviendas totales Censo 2021 / padrón a 1-1-2021 (INE tabla 2881) x 1000. Cálculo propio."
+  },
+  "superficie_media_viviendas_familiares_m2_censo2021": 68.1,
+  "consumo_electrico_2020": {
+   "viviendas_totales": 70944,
+   "viviendas_vacias": 2085,
+   "pct_vacias": 2.94,
+   "viviendas_muy_bajo_consumo": 1029,
+   "viviendas_uso_esporadico_251_750kwh": 3323,
+   "pct_uso_esporadico": 4.68,
+   "mediana_consumo_anual_kwh": 2268
+  },
+  "adrh": {
+   "anyo": 2023,
+   "renta_neta_media_por_hogar": 38299,
+   "renta_neta_media_por_persona": 13454,
+   "mediana_renta_por_unidad_consumo": 19250,
+   "media_renta_por_unidad_consumo": 20457,
+   "renta_bruta_media_por_hogar": 45288,
+   "renta_bruta_media_por_persona": 15909,
+   "serie_2021_2023": {
+    "Renta neta media por persona": {
+     "2023": 13454,
+     "2022": 12574,
+     "2021": 11788
+    },
+    "Renta neta media por hogar": {
+     "2023": 38299,
+     "2022": 35891,
+     "2021": 34016
+    },
+    "Media de la renta por unidad de consumo": {
+     "2023": 20457,
+     "2022": 19260,
+     "2021": 18125
+    },
+    "Mediana de la renta por unidad de consumo": {
+     "2023": 19250,
+     "2022": 17850,
+     "2021": 17150
+    },
+    "Renta bruta media por persona": {
+     "2023": 15909,
+     "2022": 14850,
+     "2021": 13896
+    },
+    "Renta bruta media por hogar": {
+     "2023": 45288,
+     "2022": 42387,
+     "2021": 40098
+    }
+   },
+   "tamano_medio_hogar": 2.8,
+   "pct_hogares_unipersonales": 17.4,
+   "indicadores_demograficos_2021_2023": {
+    "Edad media de la población": {
+     "2023": 42.5,
+     "2022": 42.0,
+     "2021": 41.5
+    },
+    "Porcentaje de población menor de 18 años": {
+     "2023": 16.8,
+     "2022": 17.3,
+     "2021": 17.7
+    },
+    "Porcentaje de población de 65 y más años": {
+     "2023": 18.3,
+     "2022": 17.2,
+     "2021": 16.1
+    },
+    "Tamaño medio del hogar": {
+     "2023": 2.8,
+     "2022": 2.8,
+     "2021": 2.9
+    },
+    "Porcentaje de hogares unipersonales": {
+     "2023": 17.4,
+     "2022": 17.3,
+     "2021": 16.7
+    },
+    "Población": {
+     "2023": 188862.0,
+     "2022": 187965.0,
+     "2021": 187996.0
+    },
+    "Porcentaje de población española": {
+     "2023": 89.0,
+     "2022": 89.5,
+     "2021": 89.7
+    }
+   }
+  },
+  "padron": {
+   "serie": {
+    "2014": 195864,
+    "2015": 195180,
+    "2016": 194171,
+    "2017": 194669,
+    "2018": 193586,
+    "2019": 193700,
+    "2020": 194514,
+    "2021": 192233,
+    "2022": 189891,
+    "2023": 188736,
+    "2024": 190790,
+    "2025": 190076
+   },
+   "pob_2015": 195180,
+   "pob_2025": 190076,
+   "crec_abs_2015_2025": -5104,
+   "crec_pct_2015_2025": -2.62
+  },
+  "catastro_unidades_residenciales": {
+   "serie": {
+    "2003": 63670,
+    "2004": 64318,
+    "2005": 64551,
+    "2006": 64805,
+    "2007": 65323,
+    "2008": 66183,
+    "2009": 66724,
+    "2010": 68012,
+    "2011": 68335,
+    "2012": 68945,
+    "2013": 69232,
+    "2014": 69730,
+    "2015": 69856,
+    "2016": 69938,
+    "2017": 70019,
+    "2018": 70111,
+    "2019": 70240,
+    "2020": 70440,
+    "2021": 70610,
+    "2022": 70823,
+    "2023": 70930,
+    "2024": 71196,
+    "2025": 71362,
+    "2026": 71566
+   },
+   "u_2015": 69856,
+   "u_2025": 71362,
+   "u_2026": 71566,
+   "crec_abs_2015_2025": 1506,
+   "crec_pct_2015_2025": 2.16,
+   "nuevas_unidades_por_1000_hab_2025": 7.9,
+   "nuevas_unidades_por_cada_100_habitantes_nuevos": null,
+   "nota": "Variación neta del stock catastral de unidades urbanas de uso residencial (altas menos bajas y reclasificaciones), no viviendas terminadas."
+  },
+  "licencias_viviendas_a_construir_1992_2019": {
+   "1992": 500,
+   "1993": 841,
+   "1994": 548,
+   "1995": 3551,
+   "1996": 1953,
+   "1997": 1284,
+   "1998": 1786,
+   "1999": 883,
+   "2000": 605,
+   "2001": 397,
+   "2002": 81,
+   "2003": 117,
+   "2004": 895,
+   "2005": 1122,
+   "2006": 532,
+   "2007": 390,
+   "2008": 565,
+   "2009": 429,
+   "2010": 329,
+   "2011": null,
+   "2012": null,
+   "2013": 136,
+   "2014": 465,
+   "2015": 81,
+   "2016": 157,
+   "2017": null,
+   "2018": null,
+   "2019": null
+  },
+  "censo2011": {
+   "viviendas_totales": 70841,
+   "principales": 66655,
+   "no_principales": 4180,
+   "vacias": 3506
+  }
+ },
+ "mostoles": {
+  "nombre": "Móstoles",
+  "ine": "28092",
+  "censo2021": {
+   "fecha_referencia": "2021-01-01",
+   "viviendas_totales": 82103,
+   "viviendas_principales": 76662,
+   "viviendas_no_principales": 5441,
+   "pct_no_principales": 6.63,
+   "hogares": 76909,
+   "hogares_nota": "En el Censo 2021 el número de hogares coincide por definición con el de viviendas principales.",
+   "hogares_por_tamano": {
+    "1persona": 14825,
+    "2personas": 23232,
+    "3personas": 18368,
+    "4personas": 14451,
+    "5omaspersonas": 6033
+   },
+   "pct_hogares_1_persona": 19.28,
+   "pct_hogares_5_o_mas": 7.84,
+   "viviendas_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 36,
+    "de1921a1940": 36,
+    "de1941a1950": 62,
+    "de1951a1960": 87,
+    "de1961a1970": 5714,
+    "de1971a1980": 47825,
+    "de1981a1990": 7631,
+    "de1991a2000": 6957,
+    "de2001a2010": 8845,
+    "de2011a2020": 4680,
+    "noconsta": 230
+   },
+   "viviendas_principales_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 19,
+    "de1921a1940": 21,
+    "de1941a1950": 40,
+    "de1951a1960": 58,
+    "de1961a1970": 5411,
+    "de1971a1980": 45530,
+    "de1981a1990": 7274,
+    "de1991a2000": 6528,
+    "de2001a2010": 7742,
+    "de2011a2020": 3853,
+    "noconsta": 186
+   },
+   "viviendas_edificio_anterior_1981": 53760,
+   "pct_viviendas_edificio_anterior_1981": 65.48,
+   "pct_anterior_1981_nota": "Suma de tramos \"antes de 1900\" a \"1971-1980\" sobre el total de viviendas (incluye \"no consta\" en el denominador). El INE agrupa por décadas: el corte disponible es 1980 inclusive.",
+   "viviendas_2001_2010": 8845,
+   "viviendas_2011_2020": 4680,
+   "viviendas_principales_por_superficie_util": {
+    "menosde30m2": 85,
+    "entre30y45m2": 1720,
+    "entre46y60m2": 20326,
+    "entre61y75m2": 26436,
+    "entre76y90m2": 17999,
+    "entre91y105m2": 4374,
+    "entre106y120m2": 3124,
+    "entre121y150m2": 1388,
+    "entre151y180m2": 716,
+    "masde180m2": 329,
+    "noconsta": 165
+   },
+   "viviendas_principales_60m2_o_menos": 22131,
+   "pct_principales_60m2_o_menos": 28.87,
+   "tenencia_viviendas_principales": {
+    "totalregimendetenencia": 76662,
+    "enpropiedad": 62012,
+    "enalquiler": 11193,
+    "otroregimendetenencia": 3457
+   },
+   "pct_alquiler": 14.6,
+   "pct_propiedad": 80.89,
+   "hogares_tamano_x_superficie": {
+    "1persona": {
+     "menosde30m2": 35,
+     "entre30y45m2": 681,
+     "entre46y60m2": 4834,
+     "entre61y75m2": 5032,
+     "entre76y90m2": 2864,
+     "entre91y105m2": 607,
+     "entre106y120m2": 443,
+     "entre121y150m2": 146,
+     "entre151y180m2": 71,
+     "masde180m2": 40,
+     "noconsta": 31
+    },
+    "2personas": {
+     "menosde30m2": 26,
+     "entre30y45m2": 516,
+     "entre46y60m2": 6313,
+     "entre61y75m2": 8128,
+     "entre76y90m2": 5330,
+     "entre91y105m2": 1232,
+     "entre106y120m2": 959,
+     "entre121y150m2": 373,
+     "entre151y180m2": 159,
+     "masde180m2": 101,
+     "noconsta": 57
+    },
+    "3personas": {
+     "menosde30m2": 14,
+     "entre30y45m2": 291,
+     "entre46y60m2": 4652,
+     "entre61y75m2": 6387,
+     "entre76y90m2": 4603,
+     "entre91y105m2": 1082,
+     "entre106y120m2": 736,
+     "entre121y150m2": 320,
+     "entre151y180m2": 156,
+     "masde180m2": 60,
+     "noconsta": 34
+    },
+    "4personas": {
+     "menosde30m2": 7,
+     "entre30y45m2": 143,
+     "entre46y60m2": 2910,
+     "entre61y75m2": 5037,
+     "entre76y90m2": 3855,
+     "entre91y105m2": 1047,
+     "entre106y120m2": 714,
+     "entre121y150m2": 365,
+     "entre151y180m2": 223,
+     "masde180m2": 71,
+     "noconsta": 33
+    },
+    "5omaspersonas": {
+     "menosde30m2": 3,
+     "entre30y45m2": 89,
+     "entre46y60m2": 1617,
+     "entre61y75m2": 1852,
+     "entre76y90m2": 1347,
+     "entre91y105m2": 406,
+     "entre106y120m2": 272,
+     "entre121y150m2": 184,
+     "entre151y180m2": 107,
+     "masde180m2": 57,
+     "noconsta": 10
+    }
+   },
+   "hogares_5omas_en_60m2_o_menos": 1709,
+   "pct_hogares_5omas_en_60m2_o_menos": 2.23,
+   "hogares_4_en_60m2_o_menos": 3060,
+   "hogares_4omas_en_60m2_o_menos": 4769,
+   "pct_hogares_4omas_en_60m2_o_menos": 6.22,
+   "hogares_5omas_en_45m2_o_menos": 92,
+   "padron_2021": 209639,
+   "viviendas_por_1000_hab": 391.6,
+   "viviendas_por_1000_hab_nota": "Viviendas totales Censo 2021 / padrón a 1-1-2021 (INE tabla 2881) x 1000. Cálculo propio."
+  },
+  "superficie_media_viviendas_familiares_m2_censo2021": 72.79,
+  "consumo_electrico_2020": {
+   "viviendas_totales": 82103,
+   "viviendas_vacias": 2568,
+   "pct_vacias": 3.13,
+   "viviendas_muy_bajo_consumo": 1478,
+   "viviendas_uso_esporadico_251_750kwh": 4775,
+   "pct_uso_esporadico": 5.82,
+   "mediana_consumo_anual_kwh": 2109
+  },
+  "adrh": {
+   "anyo": 2023,
+   "renta_neta_media_por_hogar": 38622,
+   "renta_neta_media_por_persona": 14045,
+   "mediana_renta_por_unidad_consumo": 19950,
+   "media_renta_por_unidad_consumo": 21168,
+   "renta_bruta_media_por_hogar": 45949,
+   "renta_bruta_media_por_persona": 16710,
+   "serie_2021_2023": {
+    "Renta neta media por persona": {
+     "2023": 14045,
+     "2022": 13223,
+     "2021": 12566
+    },
+    "Renta neta media por hogar": {
+     "2023": 38622,
+     "2022": 36297,
+     "2021": 34529
+    },
+    "Media de la renta por unidad de consumo": {
+     "2023": 21168,
+     "2022": 20036,
+     "2021": 19081
+    },
+    "Mediana de la renta por unidad de consumo": {
+     "2023": 19950,
+     "2022": 18550,
+     "2021": 17850
+    },
+    "Renta bruta media por persona": {
+     "2023": 16710,
+     "2022": 15703,
+     "2021": 14875
+    },
+    "Renta bruta media por hogar": {
+     "2023": 45949,
+     "2022": 43105,
+     "2021": 40872
+    }
+   },
+   "tamano_medio_hogar": 2.7,
+   "pct_hogares_unipersonales": 21.0,
+   "indicadores_demograficos_2021_2023": {
+    "Edad media de la población": {
+     "2023": 44.2,
+     "2022": 43.9,
+     "2021": 43.6
+    },
+    "Porcentaje de población menor de 18 años": {
+     "2023": 16.3,
+     "2022": 16.6,
+     "2021": 16.8
+    },
+    "Porcentaje de población de 65 y más años": {
+     "2023": 23.0,
+     "2022": 22.5,
+     "2021": 22.0
+    },
+    "Tamaño medio del hogar": {
+     "2023": 2.7,
+     "2022": 2.7,
+     "2021": 2.7
+    },
+    "Porcentaje de hogares unipersonales": {
+     "2023": 21.0,
+     "2022": 20.7,
+     "2021": 20.4
+    },
+    "Población": {
+     "2023": 209802.0,
+     "2022": 208118.0,
+     "2021": 206510.0
+    },
+    "Porcentaje de población española": {
+     "2023": 87.2,
+     "2022": 87.8,
+     "2021": 87.9
+    }
+   }
+  },
+  "padron": {
+   "serie": {
+    "2014": 205712,
+    "2015": 206263,
+    "2016": 205614,
+    "2017": 206589,
+    "2018": 207095,
+    "2019": 209184,
+    "2020": 210309,
+    "2021": 209639,
+    "2022": 208761,
+    "2023": 211265,
+    "2024": 214006,
+    "2025": 214817
+   },
+   "pob_2015": 206263,
+   "pob_2025": 214817,
+   "crec_abs_2015_2025": 8554,
+   "crec_pct_2015_2025": 4.15
+  },
+  "catastro_unidades_residenciales": {
+   "serie": {
+    "2003": 67326,
+    "2004": 68108,
+    "2005": 69195,
+    "2006": 71080,
+    "2007": 71124,
+    "2008": 71827,
+    "2009": 73949,
+    "2010": 74674,
+    "2011": 76110,
+    "2012": 76701,
+    "2013": 77783,
+    "2014": 78334,
+    "2015": 79580,
+    "2016": 79699,
+    "2017": 79845,
+    "2018": 80183,
+    "2019": 80450,
+    "2020": 81008,
+    "2021": 81147,
+    "2022": 81956,
+    "2023": 82461,
+    "2024": 82843,
+    "2025": 82967,
+    "2026": 83285
+   },
+   "u_2015": 79580,
+   "u_2025": 82967,
+   "u_2026": 83285,
+   "crec_abs_2015_2025": 3387,
+   "crec_pct_2015_2025": 4.26,
+   "nuevas_unidades_por_1000_hab_2025": 15.8,
+   "nuevas_unidades_por_cada_100_habitantes_nuevos": 39.6,
+   "nota": "Variación neta del stock catastral de unidades urbanas de uso residencial (altas menos bajas y reclasificaciones), no viviendas terminadas."
+  },
+  "licencias_viviendas_a_construir_1992_2019": {
+   "1992": 470,
+   "1993": 534,
+   "1994": 322,
+   "1995": 1126,
+   "1996": 840,
+   "1997": 684,
+   "1998": 857,
+   "1999": 1049,
+   "2000": 862,
+   "2001": 1108,
+   "2002": 352,
+   "2003": 363,
+   "2004": 389,
+   "2005": 275,
+   "2006": 441,
+   "2007": 1007,
+   "2008": null,
+   "2009": 625,
+   "2010": null,
+   "2011": null,
+   "2012": null,
+   "2013": null,
+   "2014": null,
+   "2015": null,
+   "2016": null,
+   "2017": null,
+   "2018": null,
+   "2019": null
+  },
+  "censo2011": {
+   "viviendas_totales": 79599,
+   "principales": 74951,
+   "no_principales": 4641,
+   "vacias": 2992
+  }
+ },
+ "alcorcon": {
+  "nombre": "Alcorcón",
+  "ine": "28007",
+  "censo2021": {
+   "fecha_referencia": "2021-01-01",
+   "viviendas_totales": 70601,
+   "viviendas_principales": 65867,
+   "viviendas_no_principales": 4734,
+   "pct_no_principales": 6.71,
+   "hogares": 65867,
+   "hogares_nota": "En el Censo 2021 el número de hogares coincide por definición con el de viviendas principales.",
+   "hogares_por_tamano": {
+    "1persona": 15172,
+    "2personas": 19755,
+    "3personas": 14280,
+    "4personas": 12139,
+    "5omaspersonas": 4521
+   },
+   "pct_hogares_1_persona": 23.03,
+   "pct_hogares_5_o_mas": 6.86,
+   "viviendas_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 3,
+    "de1921a1940": 54,
+    "de1941a1950": 284,
+    "de1951a1960": 594,
+    "de1961a1970": 16538,
+    "de1971a1980": 26766,
+    "de1981a1990": 621,
+    "de1991a2000": 12182,
+    "de2001a2010": 10704,
+    "de2011a2020": 2565,
+    "noconsta": 290
+   },
+   "viviendas_principales_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 3,
+    "de1921a1940": 39,
+    "de1941a1950": 259,
+    "de1951a1960": 544,
+    "de1961a1970": 15631,
+    "de1971a1980": 25146,
+    "de1981a1990": 576,
+    "de1991a2000": 11456,
+    "de2001a2010": 9793,
+    "de2011a2020": 2257,
+    "noconsta": 163
+   },
+   "viviendas_edificio_anterior_1981": 44239,
+   "pct_viviendas_edificio_anterior_1981": 62.66,
+   "pct_anterior_1981_nota": "Suma de tramos \"antes de 1900\" a \"1971-1980\" sobre el total de viviendas (incluye \"no consta\" en el denominador). El INE agrupa por décadas: el corte disponible es 1980 inclusive.",
+   "viviendas_2001_2010": 10704,
+   "viviendas_2011_2020": 2565,
+   "viviendas_principales_por_superficie_util": {
+    "menosde30m2": 37,
+    "entre30y45m2": 2580,
+    "entre46y60m2": 20548,
+    "entre61y75m2": 24120,
+    "entre76y90m2": 12350,
+    "entre91y105m2": 2719,
+    "entre106y120m2": 2024,
+    "entre121y150m2": 1011,
+    "entre151y180m2": 192,
+    "masde180m2": 137,
+    "noconsta": 149
+   },
+   "viviendas_principales_60m2_o_menos": 23165,
+   "pct_principales_60m2_o_menos": 35.17,
+   "tenencia_viviendas_principales": {
+    "totalregimendetenencia": 65867,
+    "enpropiedad": 53514,
+    "enalquiler": 9468,
+    "otroregimendetenencia": 2885
+   },
+   "pct_alquiler": 14.37,
+   "pct_propiedad": 81.25,
+   "hogares_tamano_x_superficie": {
+    "1persona": {
+     "menosde30m2": 14,
+     "entre30y45m2": 957,
+     "entre46y60m2": 5447,
+     "entre61y75m2": 5439,
+     "entre76y90m2": 2571,
+     "entre91y105m2": 322,
+     "entre106y120m2": 240,
+     "entre121y150m2": 100,
+     "entre151y180m2": 11,
+     "masde180m2": 15,
+     "noconsta": 56
+    },
+    "2personas": {
+     "menosde30m2": 14,
+     "entre30y45m2": 762,
+     "entre46y60m2": 6635,
+     "entre61y75m2": 7267,
+     "entre76y90m2": 3431,
+     "entre91y105m2": 723,
+     "entre106y120m2": 546,
+     "entre121y150m2": 250,
+     "entre151y180m2": 48,
+     "masde180m2": 36,
+     "noconsta": 43
+    },
+    "3personas": {
+     "menosde30m2": 5,
+     "entre30y45m2": 457,
+     "entre46y60m2": 4240,
+     "entre61y75m2": 5398,
+     "entre76y90m2": 2763,
+     "entre91y105m2": 643,
+     "entre106y120m2": 489,
+     "entre121y150m2": 212,
+     "entre151y180m2": 40,
+     "masde180m2": 12,
+     "noconsta": 21
+    },
+    "4personas": {
+     "menosde30m2": 3,
+     "entre30y45m2": 251,
+     "entre46y60m2": 2754,
+     "entre61y75m2": 4634,
+     "entre76y90m2": 2753,
+     "entre91y105m2": 753,
+     "entre106y120m2": 546,
+     "entre121y150m2": 320,
+     "entre151y180m2": 64,
+     "masde180m2": 40,
+     "noconsta": 21
+    },
+    "5omaspersonas": {
+     "menosde30m2": 1,
+     "entre30y45m2": 153,
+     "entre46y60m2": 1472,
+     "entre61y75m2": 1382,
+     "entre76y90m2": 832,
+     "entre91y105m2": 278,
+     "entre106y120m2": 203,
+     "entre121y150m2": 129,
+     "entre151y180m2": 29,
+     "masde180m2": 34,
+     "noconsta": 8
+    }
+   },
+   "hogares_5omas_en_60m2_o_menos": 1626,
+   "pct_hogares_5omas_en_60m2_o_menos": 2.47,
+   "hogares_4_en_60m2_o_menos": 3008,
+   "hogares_4omas_en_60m2_o_menos": 4634,
+   "pct_hogares_4omas_en_60m2_o_menos": 7.04,
+   "hogares_5omas_en_45m2_o_menos": 154,
+   "padron_2021": 170817,
+   "viviendas_por_1000_hab": 413.3,
+   "viviendas_por_1000_hab_nota": "Viviendas totales Censo 2021 / padrón a 1-1-2021 (INE tabla 2881) x 1000. Cálculo propio."
+  },
+  "superficie_media_viviendas_familiares_m2_censo2021": 68.98,
+  "consumo_electrico_2020": {
+   "viviendas_totales": 70601,
+   "viviendas_vacias": 2263,
+   "pct_vacias": 3.21,
+   "viviendas_muy_bajo_consumo": 1254,
+   "viviendas_uso_esporadico_251_750kwh": 4201,
+   "pct_uso_esporadico": 5.95,
+   "mediana_consumo_anual_kwh": 2054
+  },
+  "adrh": {
+   "anyo": 2023,
+   "renta_neta_media_por_hogar": 41634,
+   "renta_neta_media_por_persona": 15667,
+   "mediana_renta_por_unidad_consumo": 21350,
+   "media_renta_por_unidad_consumo": 23503,
+   "renta_bruta_media_por_hogar": 50636,
+   "renta_bruta_media_por_persona": 19055,
+   "serie_2021_2023": {
+    "Renta neta media por persona": {
+     "2023": 15667,
+     "2022": 14750,
+     "2021": 13993
+    },
+    "Renta neta media por hogar": {
+     "2023": 41634,
+     "2022": 39129,
+     "2021": 36837
+    },
+    "Media de la renta por unidad de consumo": {
+     "2023": 23503,
+     "2022": 22260,
+     "2021": 21213
+    },
+    "Mediana de la renta por unidad de consumo": {
+     "2023": 21350,
+     "2022": 19950,
+     "2021": 19250
+    },
+    "Renta bruta media por persona": {
+     "2023": 19055,
+     "2022": 17894,
+     "2021": 17004
+    },
+    "Renta bruta media por hogar": {
+     "2023": 50636,
+     "2022": 47468,
+     "2021": 44762
+    }
+   },
+   "tamano_medio_hogar": 2.6,
+   "pct_hogares_unipersonales": 24.8,
+   "indicadores_demograficos_2021_2023": {
+    "Edad media de la población": {
+     "2023": 44.9,
+     "2022": 44.7,
+     "2021": 44.4
+    },
+    "Porcentaje de población menor de 18 años": {
+     "2023": 16.1,
+     "2022": 16.5,
+     "2021": 17.1
+    },
+    "Porcentaje de población de 65 y más años": {
+     "2023": 22.7,
+     "2022": 22.6,
+     "2021": 22.8
+    },
+    "Tamaño medio del hogar": {
+     "2023": 2.6,
+     "2022": 2.6,
+     "2021": 2.6
+    },
+    "Porcentaje de hogares unipersonales": {
+     "2023": 24.8,
+     "2022": 24.5,
+     "2021": 24.6
+    },
+    "Población": {
+     "2023": 172536.0,
+     "2022": 171156.0,
+     "2021": 168602.0
+    },
+    "Porcentaje de población española": {
+     "2023": 88.2,
+     "2022": 88.7,
+     "2021": 89.8
+    }
+   }
+  },
+  "padron": {
+   "serie": {
+    "2014": 170336,
+    "2015": 167136,
+    "2016": 167354,
+    "2017": 168141,
+    "2018": 169502,
+    "2019": 170514,
+    "2020": 172384,
+    "2021": 170817,
+    "2022": 170296,
+    "2023": 171772,
+    "2024": 173625,
+    "2025": 175719
+   },
+   "pob_2015": 167136,
+   "pob_2025": 175719,
+   "crec_abs_2015_2025": 8583,
+   "crec_pct_2015_2025": 5.14
+  },
+  "catastro_unidades_residenciales": {
+   "serie": {
+    "2003": 58732,
+    "2004": 59760,
+    "2005": 60201,
+    "2006": 61055,
+    "2007": 61595,
+    "2008": 62096,
+    "2009": 62093,
+    "2010": 63462,
+    "2011": 65048,
+    "2012": 66574,
+    "2013": 68766,
+    "2014": 68769,
+    "2015": 69001,
+    "2016": 69217,
+    "2017": 69297,
+    "2018": 69516,
+    "2019": 69659,
+    "2020": 70095,
+    "2021": 70215,
+    "2022": 70443,
+    "2023": 70959,
+    "2024": 71066,
+    "2025": 71083,
+    "2026": 71161
+   },
+   "u_2015": 69001,
+   "u_2025": 71083,
+   "u_2026": 71161,
+   "crec_abs_2015_2025": 2082,
+   "crec_pct_2015_2025": 3.02,
+   "nuevas_unidades_por_1000_hab_2025": 11.8,
+   "nuevas_unidades_por_cada_100_habitantes_nuevos": 24.3,
+   "nota": "Variación neta del stock catastral de unidades urbanas de uso residencial (altas menos bajas y reclasificaciones), no viviendas terminadas."
+  },
+  "licencias_viviendas_a_construir_1992_2019": {
+   "1992": 1186,
+   "1993": 1008,
+   "1994": 1269,
+   "1995": 1434,
+   "1996": 881,
+   "1997": 964,
+   "1998": 1191,
+   "1999": 1724,
+   "2000": 1791,
+   "2001": 254,
+   "2002": 95,
+   "2003": 1304,
+   "2004": 96,
+   "2005": 64,
+   "2006": 1571,
+   "2007": 1666,
+   "2008": 1624,
+   "2009": 496,
+   "2010": 30,
+   "2011": 52,
+   "2012": 92,
+   "2013": null,
+   "2014": 50,
+   "2015": 146,
+   "2016": 168,
+   "2017": 187,
+   "2018": 507,
+   "2019": 124
+  },
+  "censo2011": {
+   "viviendas_totales": 70861,
+   "principales": 66066,
+   "no_principales": 4791,
+   "vacias": 3488
+  }
+ },
+ "alcobendas": {
+  "nombre": "Alcobendas",
+  "ine": "28006",
+  "censo2021": {
+   "fecha_referencia": "2021-01-01",
+   "viviendas_totales": 42744,
+   "viviendas_principales": 40084,
+   "viviendas_no_principales": 2660,
+   "pct_no_principales": 6.22,
+   "hogares": 40084,
+   "hogares_nota": "En el Censo 2021 el número de hogares coincide por definición con el de viviendas principales.",
+   "hogares_por_tamano": {
+    "1persona": 7437,
+    "2personas": 10677,
+    "3personas": 8743,
+    "4personas": 8178,
+    "5omaspersonas": 5049
+   },
+   "pct_hogares_1_persona": 18.55,
+   "pct_hogares_5_o_mas": 12.6,
+   "viviendas_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 18,
+    "de1921a1940": 15,
+    "de1941a1950": 66,
+    "de1951a1960": 427,
+    "de1961a1970": 6524,
+    "de1971a1980": 10897,
+    "de1981a1990": 6512,
+    "de1991a2000": 6597,
+    "de2001a2010": 9530,
+    "de2011a2020": 1717,
+    "noconsta": 441
+   },
+   "viviendas_principales_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 15,
+    "de1921a1940": 12,
+    "de1941a1950": 60,
+    "de1951a1960": 385,
+    "de1961a1970": 6320,
+    "de1971a1980": 10467,
+    "de1981a1990": 5948,
+    "de1991a2000": 6172,
+    "de2001a2010": 8804,
+    "de2011a2020": 1470,
+    "noconsta": 431
+   },
+   "viviendas_edificio_anterior_1981": 17947,
+   "pct_viviendas_edificio_anterior_1981": 41.99,
+   "pct_anterior_1981_nota": "Suma de tramos \"antes de 1900\" a \"1971-1980\" sobre el total de viviendas (incluye \"no consta\" en el denominador). El INE agrupa por décadas: el corte disponible es 1980 inclusive.",
+   "viviendas_2001_2010": 9530,
+   "viviendas_2011_2020": 1717,
+   "viviendas_principales_por_superficie_util": {
+    "menosde30m2": 173,
+    "entre30y45m2": 2243,
+    "entre46y60m2": 11029,
+    "entre61y75m2": 10698,
+    "entre76y90m2": 6234,
+    "entre91y105m2": 2454,
+    "entre106y120m2": 1950,
+    "entre121y150m2": 1956,
+    "entre151y180m2": 871,
+    "masde180m2": 2126,
+    "noconsta": 350
+   },
+   "viviendas_principales_60m2_o_menos": 13445,
+   "pct_principales_60m2_o_menos": 33.54,
+   "tenencia_viviendas_principales": {
+    "totalregimendetenencia": 40084,
+    "enpropiedad": 30002,
+    "enalquiler": 8584,
+    "otroregimendetenencia": 1498
+   },
+   "pct_alquiler": 21.42,
+   "pct_propiedad": 74.85,
+   "hogares_tamano_x_superficie": {
+    "1persona": {
+     "menosde30m2": 68,
+     "entre30y45m2": 791,
+     "entre46y60m2": 2639,
+     "entre61y75m2": 1946,
+     "entre76y90m2": 873,
+     "entre91y105m2": 309,
+     "entre106y120m2": 174,
+     "entre121y150m2": 206,
+     "entre151y180m2": 85,
+     "masde180m2": 213,
+     "noconsta": 133
+    },
+    "2personas": {
+     "menosde30m2": 59,
+     "entre30y45m2": 642,
+     "entre46y60m2": 3363,
+     "entre61y75m2": 2977,
+     "entre76y90m2": 1504,
+     "entre91y105m2": 575,
+     "entre106y120m2": 430,
+     "entre121y150m2": 400,
+     "entre151y180m2": 205,
+     "masde180m2": 425,
+     "noconsta": 97
+    },
+    "3personas": {
+     "menosde30m2": 23,
+     "entre30y45m2": 391,
+     "entre46y60m2": 2278,
+     "entre61y75m2": 2546,
+     "entre76y90m2": 1514,
+     "entre91y105m2": 574,
+     "entre106y120m2": 446,
+     "entre121y150m2": 400,
+     "entre151y180m2": 145,
+     "masde180m2": 379,
+     "noconsta": 47
+    },
+    "4personas": {
+     "menosde30m2": 11,
+     "entre30y45m2": 243,
+     "entre46y60m2": 1630,
+     "entre61y75m2": 2124,
+     "entre76y90m2": 1632,
+     "entre91y105m2": 691,
+     "entre106y120m2": 564,
+     "entre121y150m2": 554,
+     "entre151y180m2": 207,
+     "masde180m2": 474,
+     "noconsta": 48
+    },
+    "5omaspersonas": {
+     "menosde30m2": 12,
+     "entre30y45m2": 176,
+     "entre46y60m2": 1119,
+     "entre61y75m2": 1105,
+     "entre76y90m2": 711,
+     "entre91y105m2": 305,
+     "entre106y120m2": 336,
+     "entre121y150m2": 396,
+     "entre151y180m2": 229,
+     "masde180m2": 635,
+     "noconsta": 25
+    }
+   },
+   "hogares_5omas_en_60m2_o_menos": 1307,
+   "pct_hogares_5omas_en_60m2_o_menos": 3.26,
+   "hogares_4_en_60m2_o_menos": 1884,
+   "hogares_4omas_en_60m2_o_menos": 3191,
+   "pct_hogares_4omas_en_60m2_o_menos": 7.96,
+   "hogares_5omas_en_45m2_o_menos": 188,
+   "padron_2021": 116589,
+   "viviendas_por_1000_hab": 366.6,
+   "viviendas_por_1000_hab_nota": "Viviendas totales Censo 2021 / padrón a 1-1-2021 (INE tabla 2881) x 1000. Cálculo propio."
+  },
+  "superficie_media_viviendas_familiares_m2_censo2021": 80.33,
+  "consumo_electrico_2020": {
+   "viviendas_totales": 42744,
+   "viviendas_vacias": 1434,
+   "pct_vacias": 3.35,
+   "viviendas_muy_bajo_consumo": 723,
+   "viviendas_uso_esporadico_251_750kwh": 2322,
+   "pct_uso_esporadico": 5.43,
+   "mediana_consumo_anual_kwh": 2311
+  },
+  "adrh": {
+   "anyo": 2023,
+   "renta_neta_media_por_hogar": 65139,
+   "renta_neta_media_por_persona": 21644,
+   "mediana_renta_por_unidad_consumo": 24150,
+   "media_renta_por_unidad_consumo": 34744,
+   "renta_bruta_media_por_hogar": 89262,
+   "renta_bruta_media_por_persona": 29659,
+   "serie_2021_2023": {
+    "Renta neta media por persona": {
+     "2023": 21644,
+     "2022": 20706,
+     "2021": 19394
+    },
+    "Renta neta media por hogar": {
+     "2023": 65139,
+     "2022": 62298,
+     "2021": 57962
+    },
+    "Media de la renta por unidad de consumo": {
+     "2023": 34744,
+     "2022": 33664,
+     "2021": 31388
+    },
+    "Mediana de la renta por unidad de consumo": {
+     "2023": 24150,
+     "2022": 22750,
+     "2021": 21350
+    },
+    "Renta bruta media por persona": {
+     "2023": 29659,
+     "2022": 28088,
+     "2021": 26065
+    },
+    "Renta bruta media por hogar": {
+     "2023": 89262,
+     "2022": 84506,
+     "2021": 77901
+    }
+   },
+   "tamano_medio_hogar": 3.0,
+   "pct_hogares_unipersonales": 20.5,
+   "indicadores_demograficos_2021_2023": {
+    "Edad media de la población": {
+     "2023": 41.6,
+     "2022": 41.3,
+     "2021": 41.2
+    },
+    "Porcentaje de población menor de 18 años": {
+     "2023": 18.7,
+     "2022": 19.2,
+     "2021": 19.4
+    },
+    "Porcentaje de población de 65 y más años": {
+     "2023": 17.5,
+     "2022": 17.2,
+     "2021": 17.1
+    },
+    "Tamaño medio del hogar": {
+     "2023": 3.0,
+     "2022": 3.0,
+     "2021": 3.0
+    },
+    "Porcentaje de hogares unipersonales": {
+     "2023": 20.5,
+     "2022": 19.9,
+     "2021": 19.9
+    },
+    "Población": {
+     "2023": 119536.0,
+     "2022": 117951.0,
+     "2021": 115439.0
+    },
+    "Porcentaje de población española": {
+     "2023": 83.6,
+     "2022": 84.3,
+     "2021": 85.2
+    }
+   }
+  },
+  "padron": {
+   "serie": {
+    "2014": 112188,
+    "2015": 113055,
+    "2016": 113340,
+    "2017": 114864,
+    "2018": 116037,
+    "2019": 117040,
+    "2020": 118417,
+    "2021": 116589,
+    "2022": 117041,
+    "2023": 119416,
+    "2024": 121373,
+    "2025": 123342
+   },
+   "pob_2015": 113055,
+   "pob_2025": 123342,
+   "crec_abs_2015_2025": 10287,
+   "crec_pct_2015_2025": 9.1
+  },
+  "catastro_unidades_residenciales": {
+   "serie": {
+    "2003": 30483,
+    "2004": 32456,
+    "2005": 33818,
+    "2006": 34827,
+    "2007": 35036,
+    "2008": 35203,
+    "2009": 35226,
+    "2010": 35386,
+    "2011": 37188,
+    "2012": 38228,
+    "2013": 39287,
+    "2014": 39402,
+    "2015": 39436,
+    "2016": 39624,
+    "2017": 39702,
+    "2018": 39758,
+    "2019": 39987,
+    "2020": 40628,
+    "2021": 40867,
+    "2022": 41269,
+    "2023": 41774,
+    "2024": 41854,
+    "2025": 42287,
+    "2026": 42663
+   },
+   "u_2015": 39436,
+   "u_2025": 42287,
+   "u_2026": 42663,
+   "crec_abs_2015_2025": 2851,
+   "crec_pct_2015_2025": 7.23,
+   "nuevas_unidades_por_1000_hab_2025": 23.1,
+   "nuevas_unidades_por_cada_100_habitantes_nuevos": 27.7,
+   "nota": "Variación neta del stock catastral de unidades urbanas de uso residencial (altas menos bajas y reclasificaciones), no viviendas terminadas."
+  },
+  "licencias_viviendas_a_construir_1992_2019": {
+   "1992": 479,
+   "1993": 765,
+   "1994": 792,
+   "1995": 710,
+   "1996": 381,
+   "1997": 591,
+   "1998": 505,
+   "1999": 1211,
+   "2000": 2304,
+   "2001": 827,
+   "2002": 599,
+   "2003": 506,
+   "2004": 130,
+   "2005": 102,
+   "2006": 1325,
+   "2007": 1267,
+   "2008": 575,
+   "2009": 284,
+   "2010": 175,
+   "2011": 281,
+   "2012": 15,
+   "2013": 89,
+   "2014": 25,
+   "2015": 77,
+   "2016": 362,
+   "2017": 396,
+   "2018": 497,
+   "2019": 277
+  },
+  "censo2011": {
+   "viviendas_totales": 41189,
+   "principales": 39101,
+   "no_principales": 2079,
+   "vacias": 1513
+  }
+ },
+ "pinto": {
+  "nombre": "Pinto",
+  "ine": "28113",
+  "censo2021": {
+   "fecha_referencia": "2021-01-01",
+   "viviendas_totales": 21507,
+   "viviendas_principales": 19481,
+   "viviendas_no_principales": 2026,
+   "pct_no_principales": 9.42,
+   "hogares": 19481,
+   "hogares_nota": "En el Censo 2021 el número de hogares coincide por definición con el de viviendas principales.",
+   "hogares_por_tamano": {
+    "1persona": 3782,
+    "2personas": 5165,
+    "3personas": 4784,
+    "4personas": 4348,
+    "5omaspersonas": 1402
+   },
+   "pct_hogares_1_persona": 19.41,
+   "pct_hogares_5_o_mas": 7.2,
+   "viviendas_por_anyo_construccion_edificio": {
+    "antesde1900": 1,
+    "de1900a1920": 61,
+    "de1921a1940": 20,
+    "de1941a1950": 30,
+    "de1951a1960": 133,
+    "de1961a1970": 1683,
+    "de1971a1980": 3474,
+    "de1981a1990": 1813,
+    "de1991a2000": 4737,
+    "de2001a2010": 7081,
+    "de2011a2020": 2326,
+    "noconsta": 148
+   },
+   "viviendas_principales_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 26,
+    "de1921a1940": 12,
+    "de1941a1950": 22,
+    "de1951a1960": 105,
+    "de1961a1970": 1511,
+    "de1971a1980": 3299,
+    "de1981a1990": 1692,
+    "de1991a2000": 4401,
+    "de2001a2010": 6316,
+    "de2011a2020": 2035,
+    "noconsta": 62
+   },
+   "viviendas_edificio_anterior_1981": 5402,
+   "pct_viviendas_edificio_anterior_1981": 25.12,
+   "pct_anterior_1981_nota": "Suma de tramos \"antes de 1900\" a \"1971-1980\" sobre el total de viviendas (incluye \"no consta\" en el denominador). El INE agrupa por décadas: el corte disponible es 1980 inclusive.",
+   "viviendas_2001_2010": 7081,
+   "viviendas_2011_2020": 2326,
+   "viviendas_principales_por_superficie_util": {
+    "menosde30m2": 31,
+    "entre30y45m2": 935,
+    "entre46y60m2": 3935,
+    "entre61y75m2": 7521,
+    "entre76y90m2": 3945,
+    "entre91y105m2": 1366,
+    "entre106y120m2": 598,
+    "entre121y150m2": 540,
+    "entre151y180m2": 292,
+    "masde180m2": 280,
+    "noconsta": 38
+   },
+   "viviendas_principales_60m2_o_menos": 4901,
+   "pct_principales_60m2_o_menos": 25.16,
+   "tenencia_viviendas_principales": {
+    "totalregimendetenencia": 19481,
+    "enpropiedad": 15287,
+    "enalquiler": 3506,
+    "otroregimendetenencia": 688
+   },
+   "pct_alquiler": 18.0,
+   "pct_propiedad": 78.47,
+   "hogares_tamano_x_superficie": {
+    "1persona": {
+     "menosde30m2": 12,
+     "entre30y45m2": 443,
+     "entre46y60m2": 1162,
+     "entre61y75m2": 1365,
+     "entre76y90m2": 485,
+     "entre91y105m2": 137,
+     "entre106y120m2": 69,
+     "entre121y150m2": 48,
+     "entre151y180m2": 25,
+     "masde180m2": 24,
+     "noconsta": 12
+    },
+    "2personas": {
+     "menosde30m2": 12,
+     "entre30y45m2": 285,
+     "entre46y60m2": 1172,
+     "entre61y75m2": 2043,
+     "entre76y90m2": 921,
+     "entre91y105m2": 293,
+     "entre106y120m2": 152,
+     "entre121y150m2": 146,
+     "entre151y180m2": 66,
+     "masde180m2": 61,
+     "noconsta": 14
+    },
+    "3personas": {
+     "menosde30m2": 3,
+     "entre30y45m2": 143,
+     "entre46y60m2": 851,
+     "entre61y75m2": 1946,
+     "entre76y90m2": 1046,
+     "entre91y105m2": 368,
+     "entre106y120m2": 155,
+     "entre121y150m2": 137,
+     "entre151y180m2": 68,
+     "masde180m2": 61,
+     "noconsta": 6
+    },
+    "4personas": {
+     "menosde30m2": 2,
+     "entre30y45m2": 44,
+     "entre46y60m2": 514,
+     "entre61y75m2": 1658,
+     "entre76y90m2": 1168,
+     "entre91y105m2": 466,
+     "entre106y120m2": 159,
+     "entre121y150m2": 153,
+     "entre151y180m2": 92,
+     "masde180m2": 90,
+     "noconsta": 2
+    },
+    "5omaspersonas": {
+     "menosde30m2": 2,
+     "entre30y45m2": 20,
+     "entre46y60m2": 236,
+     "entre61y75m2": 509,
+     "entre76y90m2": 325,
+     "entre91y105m2": 102,
+     "entre106y120m2": 63,
+     "entre121y150m2": 56,
+     "entre151y180m2": 41,
+     "masde180m2": 44,
+     "noconsta": 4
+    }
+   },
+   "hogares_5omas_en_60m2_o_menos": 258,
+   "pct_hogares_5omas_en_60m2_o_menos": 1.32,
+   "hogares_4_en_60m2_o_menos": 560,
+   "hogares_4omas_en_60m2_o_menos": 818,
+   "pct_hogares_4omas_en_60m2_o_menos": 4.2,
+   "hogares_5omas_en_45m2_o_menos": 22,
+   "padron_2021": 53537,
+   "viviendas_por_1000_hab": 401.7,
+   "viviendas_por_1000_hab_nota": "Viviendas totales Censo 2021 / padrón a 1-1-2021 (INE tabla 2881) x 1000. Cálculo propio."
+  },
+  "superficie_media_viviendas_familiares_m2_censo2021": 74.63,
+  "consumo_electrico_2020": {
+   "viviendas_totales": 21507,
+   "viviendas_vacias": 586,
+   "pct_vacias": 2.72,
+   "viviendas_muy_bajo_consumo": 310,
+   "viviendas_uso_esporadico_251_750kwh": 1031,
+   "pct_uso_esporadico": 4.79,
+   "mediana_consumo_anual_kwh": 2602
+  },
+  "adrh": {
+   "anyo": 2023,
+   "renta_neta_media_por_hogar": 42700,
+   "renta_neta_media_por_persona": 15301,
+   "mediana_renta_por_unidad_consumo": 21350,
+   "media_renta_por_unidad_consumo": 23448,
+   "renta_bruta_media_por_hogar": 52472,
+   "renta_bruta_media_por_persona": 18803,
+   "serie_2021_2023": {
+    "Renta neta media por persona": {
+     "2023": 15301,
+     "2022": 14433,
+     "2021": 13665
+    },
+    "Renta neta media por hogar": {
+     "2023": 42700,
+     "2022": 40277,
+     "2021": 38031
+    },
+    "Media de la renta por unidad de consumo": {
+     "2023": 23448,
+     "2022": 22272,
+     "2021": 21082
+    },
+    "Mediana de la renta por unidad de consumo": {
+     "2023": 21350,
+     "2022": 19950,
+     "2021": 19250
+    },
+    "Renta bruta media por persona": {
+     "2023": 18803,
+     "2022": 17672,
+     "2021": 16615
+    },
+    "Renta bruta media por hogar": {
+     "2023": 52472,
+     "2022": 49316,
+     "2021": 46240
+    }
+   },
+   "tamano_medio_hogar": 2.8,
+   "pct_hogares_unipersonales": 20.5,
+   "indicadores_demograficos_2021_2023": {
+    "Edad media de la población": {
+     "2023": 40.0,
+     "2022": 39.7,
+     "2021": 39.4
+    },
+    "Porcentaje de población menor de 18 años": {
+     "2023": 20.2,
+     "2022": 20.6,
+     "2021": 21.1
+    },
+    "Porcentaje de población de 65 y más años": {
+     "2023": 13.8,
+     "2022": 13.4,
+     "2021": 13.1
+    },
+    "Tamaño medio del hogar": {
+     "2023": 2.8,
+     "2022": 2.8,
+     "2021": 2.8
+    },
+    "Porcentaje de hogares unipersonales": {
+     "2023": 20.5,
+     "2022": 20.4,
+     "2021": 20.5
+    },
+    "Población": {
+     "2023": 55575.0,
+     "2022": 54809.0,
+     "2021": 53689.0
+    },
+    "Porcentaje de población española": {
+     "2023": 87.9,
+     "2022": 88.6,
+     "2021": 89.1
+    }
+   }
+  },
+  "padron": {
+   "serie": {
+    "2014": 47594,
+    "2015": 48660,
+    "2016": 49522,
+    "2017": 50442,
+    "2018": 51541,
+    "2019": 52526,
+    "2020": 53325,
+    "2021": 53537,
+    "2022": 54088,
+    "2023": 55208,
+    "2024": 56003,
+    "2025": 56651
+   },
+   "pob_2015": 48660,
+   "pob_2025": 56651,
+   "crec_abs_2015_2025": 7991,
+   "crec_pct_2015_2025": 16.42
+  },
+  "catastro_unidades_residenciales": {
+   "serie": {
+    "2003": 14795,
+    "2004": 11853,
+    "2005": 12427,
+    "2006": 13757,
+    "2007": 16136,
+    "2008": 16450,
+    "2009": 16834,
+    "2010": 17933,
+    "2011": 18248,
+    "2012": 18731,
+    "2013": 18740,
+    "2014": 19135,
+    "2015": 19771,
+    "2016": 19715,
+    "2017": 19867,
+    "2018": 20043,
+    "2019": 20289,
+    "2020": 20484,
+    "2021": 20741,
+    "2022": 21078,
+    "2023": 21202,
+    "2024": 21227,
+    "2025": 21287,
+    "2026": 21405
+   },
+   "u_2015": 19771,
+   "u_2025": 21287,
+   "u_2026": 21405,
+   "crec_abs_2015_2025": 1516,
+   "crec_pct_2015_2025": 7.67,
+   "nuevas_unidades_por_1000_hab_2025": 26.8,
+   "nuevas_unidades_por_cada_100_habitantes_nuevos": 19.0,
+   "nota": "Variación neta del stock catastral de unidades urbanas de uso residencial (altas menos bajas y reclasificaciones), no viviendas terminadas."
+  },
+  "licencias_viviendas_a_construir_1992_2019": {
+   "1992": 237,
+   "1993": 439,
+   "1994": 442,
+   "1995": 263,
+   "1996": 368,
+   "1997": 830,
+   "1998": 466,
+   "1999": 574,
+   "2000": 487,
+   "2001": 424,
+   "2002": 1030,
+   "2003": 668,
+   "2004": 354,
+   "2005": 137,
+   "2006": 585,
+   "2007": 1100,
+   "2008": 817,
+   "2009": 347,
+   "2010": 599,
+   "2011": 291,
+   "2012": 47,
+   "2013": 41,
+   "2014": 156,
+   "2015": 155,
+   "2016": 168,
+   "2017": 9,
+   "2018": 41,
+   "2019": null
+  },
+  "censo2011": {
+   "viviendas_totales": 19698,
+   "principales": 17401,
+   "no_principales": 2294,
+   "vacias": 1427
+  }
+ },
+ "torrejon": {
+  "nombre": "Torrejón de Ardoz",
+  "ine": "28148",
+  "censo2021": {
+   "fecha_referencia": "2021-01-01",
+   "viviendas_totales": 50494,
+   "viviendas_principales": 47253,
+   "viviendas_no_principales": 3241,
+   "pct_no_principales": 6.42,
+   "hogares": 47253,
+   "hogares_nota": "En el Censo 2021 el número de hogares coincide por definición con el de viviendas principales.",
+   "hogares_por_tamano": {
+    "1persona": 8715,
+    "2personas": 12784,
+    "3personas": 11508,
+    "4personas": 9969,
+    "5omaspersonas": 4277
+   },
+   "pct_hogares_1_persona": 18.44,
+   "pct_hogares_5_o_mas": 9.05,
+   "viviendas_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 46,
+    "de1921a1940": 95,
+    "de1941a1950": 60,
+    "de1951a1960": 884,
+    "de1961a1970": 4166,
+    "de1971a1980": 18251,
+    "de1981a1990": 3160,
+    "de1991a2000": 8570,
+    "de2001a2010": 11915,
+    "de2011a2020": 3196,
+    "noconsta": 151
+   },
+   "viviendas_principales_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 26,
+    "de1921a1940": 70,
+    "de1941a1950": 36,
+    "de1951a1960": 798,
+    "de1961a1970": 3946,
+    "de1971a1980": 17672,
+    "de1981a1990": 3065,
+    "de1991a2000": 8184,
+    "de2001a2010": 10594,
+    "de2011a2020": 2713,
+    "noconsta": 149
+   },
+   "viviendas_edificio_anterior_1981": 23502,
+   "pct_viviendas_edificio_anterior_1981": 46.54,
+   "pct_anterior_1981_nota": "Suma de tramos \"antes de 1900\" a \"1971-1980\" sobre el total de viviendas (incluye \"no consta\" en el denominador). El INE agrupa por décadas: el corte disponible es 1980 inclusive.",
+   "viviendas_2001_2010": 11915,
+   "viviendas_2011_2020": 3196,
+   "viviendas_principales_por_superficie_util": {
+    "menosde30m2": 68,
+    "entre30y45m2": 1245,
+    "entre46y60m2": 11516,
+    "entre61y75m2": 16638,
+    "entre76y90m2": 11713,
+    "entre91y105m2": 2214,
+    "entre106y120m2": 2019,
+    "entre121y150m2": 1149,
+    "entre151y180m2": 314,
+    "masde180m2": 142,
+    "noconsta": 235
+   },
+   "viviendas_principales_60m2_o_menos": 12829,
+   "pct_principales_60m2_o_menos": 27.15,
+   "tenencia_viviendas_principales": {
+    "totalregimendetenencia": 47253,
+    "enpropiedad": 36371,
+    "enalquiler": 8842,
+    "otroregimendetenencia": 2040
+   },
+   "pct_alquiler": 18.71,
+   "pct_propiedad": 76.97,
+   "hogares_tamano_x_superficie": {
+    "1persona": {
+     "menosde30m2": 29,
+     "entre30y45m2": 478,
+     "entre46y60m2": 2780,
+     "entre61y75m2": 3102,
+     "entre76y90m2": 1552,
+     "entre91y105m2": 250,
+     "entre106y120m2": 243,
+     "entre121y150m2": 107,
+     "entre151y180m2": 32,
+     "masde180m2": 17,
+     "noconsta": 125
+    },
+    "2personas": {
+     "menosde30m2": 17,
+     "entre30y45m2": 372,
+     "entre46y60m2": 3286,
+     "entre61y75m2": 4680,
+     "entre76y90m2": 2929,
+     "entre91y105m2": 534,
+     "entre106y120m2": 542,
+     "entre121y150m2": 254,
+     "entre151y180m2": 89,
+     "masde180m2": 32,
+     "noconsta": 49
+    },
+    "3personas": {
+     "menosde30m2": 14,
+     "entre30y45m2": 216,
+     "entre46y60m2": 2662,
+     "entre61y75m2": 4078,
+     "entre76y90m2": 3064,
+     "entre91y105m2": 566,
+     "entre106y120m2": 475,
+     "entre121y150m2": 310,
+     "entre151y180m2": 68,
+     "masde180m2": 32,
+     "noconsta": 23
+    },
+    "4personas": {
+     "menosde30m2": 3,
+     "entre30y45m2": 109,
+     "entre46y60m2": 1701,
+     "entre61y75m2": 3372,
+     "entre76y90m2": 3155,
+     "entre91y105m2": 613,
+     "entre106y120m2": 506,
+     "entre121y150m2": 364,
+     "entre151y180m2": 82,
+     "masde180m2": 38,
+     "noconsta": 26
+    },
+    "5omaspersonas": {
+     "menosde30m2": 5,
+     "entre30y45m2": 70,
+     "entre46y60m2": 1087,
+     "entre61y75m2": 1406,
+     "entre76y90m2": 1013,
+     "entre91y105m2": 251,
+     "entre106y120m2": 253,
+     "entre121y150m2": 114,
+     "entre151y180m2": 43,
+     "masde180m2": 23,
+     "noconsta": 12
+    }
+   },
+   "hogares_5omas_en_60m2_o_menos": 1162,
+   "pct_hogares_5omas_en_60m2_o_menos": 2.46,
+   "hogares_4_en_60m2_o_menos": 1813,
+   "hogares_4omas_en_60m2_o_menos": 2975,
+   "pct_hogares_4omas_en_60m2_o_menos": 6.3,
+   "hogares_5omas_en_45m2_o_menos": 75,
+   "padron_2021": 132771,
+   "viviendas_por_1000_hab": 380.3,
+   "viviendas_por_1000_hab_nota": "Viviendas totales Censo 2021 / padrón a 1-1-2021 (INE tabla 2881) x 1000. Cálculo propio."
+  },
+  "superficie_media_viviendas_familiares_m2_censo2021": 72.91,
+  "consumo_electrico_2020": {
+   "viviendas_totales": 50494,
+   "viviendas_vacias": 1752,
+   "pct_vacias": 3.47,
+   "viviendas_muy_bajo_consumo": 932,
+   "viviendas_uso_esporadico_251_750kwh": 2767,
+   "pct_uso_esporadico": 5.48,
+   "mediana_consumo_anual_kwh": 2221
+  },
+  "adrh": {
+   "anyo": 2023,
+   "renta_neta_media_por_hogar": 41459,
+   "renta_neta_media_por_persona": 14463,
+   "mediana_renta_por_unidad_consumo": 19950,
+   "media_renta_por_unidad_consumo": 22129,
+   "renta_bruta_media_por_hogar": 50089,
+   "renta_bruta_media_por_persona": 17473,
+   "serie_2021_2023": {
+    "Renta neta media por persona": {
+     "2023": 14463,
+     "2022": 13541,
+     "2021": 12745
+    },
+    "Renta neta media por hogar": {
+     "2023": 41459,
+     "2022": 38759,
+     "2021": 36317
+    },
+    "Media de la renta por unidad de consumo": {
+     "2023": 22129,
+     "2022": 20845,
+     "2021": 19662
+    },
+    "Mediana de la renta por unidad de consumo": {
+     "2023": 19950,
+     "2022": 19250,
+     "2021": 17850
+    },
+    "Renta bruta media por persona": {
+     "2023": 17473,
+     "2022": 16301,
+     "2021": 15313
+    },
+    "Renta bruta media por hogar": {
+     "2023": 50089,
+     "2022": 46660,
+     "2021": 43635
+    }
+   },
+   "tamano_medio_hogar": 2.8,
+   "pct_hogares_unipersonales": 19.9,
+   "indicadores_demograficos_2021_2023": {
+    "Edad media de la población": {
+     "2023": 41.2,
+     "2022": 40.9,
+     "2021": 40.6
+    },
+    "Porcentaje de población menor de 18 años": {
+     "2023": 18.4,
+     "2022": 18.9,
+     "2021": 19.3
+    },
+    "Porcentaje de población de 65 y más años": {
+     "2023": 16.2,
+     "2022": 15.8,
+     "2021": 15.5
+    },
+    "Tamaño medio del hogar": {
+     "2023": 2.8,
+     "2022": 2.8,
+     "2021": 2.8
+    },
+    "Porcentaje de hogares unipersonales": {
+     "2023": 19.9,
+     "2022": 19.8,
+     "2021": 20.0
+    },
+    "Población": {
+     "2023": 139537.0,
+     "2022": 136871.0,
+     "2021": 133550.0
+    },
+    "Porcentaje de población española": {
+     "2023": 81.9,
+     "2022": 82.7,
+     "2021": 83.8
+    }
+   }
+  },
+  "padron": {
+   "serie": {
+    "2014": 126878,
+    "2015": 126934,
+    "2016": 126981,
+    "2017": 128013,
+    "2018": 129729,
+    "2019": 131376,
+    "2020": 132853,
+    "2021": 132771,
+    "2022": 134733,
+    "2023": 137711,
+    "2024": 140626,
+    "2025": 143526
+   },
+   "pob_2015": 126934,
+   "pob_2025": 143526,
+   "crec_abs_2015_2025": 16592,
+   "crec_pct_2015_2025": 13.07
+  },
+  "catastro_unidades_residenciales": {
+   "serie": {
+    "2003": 35016,
+    "2004": 36892,
+    "2005": 37844,
+    "2006": 39012,
+    "2007": 40357,
+    "2008": 40902,
+    "2009": 42075,
+    "2010": 42846,
+    "2011": 45598,
+    "2012": 46797,
+    "2013": 47638,
+    "2014": 48237,
+    "2015": 48502,
+    "2016": 48736,
+    "2017": 49103,
+    "2018": 49307,
+    "2019": 49504,
+    "2020": 49683,
+    "2021": 49886,
+    "2022": 50634,
+    "2023": 51777,
+    "2024": 52275,
+    "2025": 52872,
+    "2026": 53101
+   },
+   "u_2015": 48502,
+   "u_2025": 52872,
+   "u_2026": 53101,
+   "crec_abs_2015_2025": 4370,
+   "crec_pct_2015_2025": 9.01,
+   "nuevas_unidades_por_1000_hab_2025": 30.4,
+   "nuevas_unidades_por_cada_100_habitantes_nuevos": 26.3,
+   "nota": "Variación neta del stock catastral de unidades urbanas de uso residencial (altas menos bajas y reclasificaciones), no viviendas terminadas."
+  },
+  "licencias_viviendas_a_construir_1992_2019": {
+   "1992": 227,
+   "1993": 198,
+   "1994": 1903,
+   "1995": 787,
+   "1996": 733,
+   "1997": 82,
+   "1998": 175,
+   "1999": 59,
+   "2000": 693,
+   "2001": 184,
+   "2002": 238,
+   "2003": 269,
+   "2004": 492,
+   "2005": 619,
+   "2006": 1546,
+   "2007": 2235,
+   "2008": 930,
+   "2009": 907,
+   "2010": 313,
+   "2011": 158,
+   "2012": 97,
+   "2013": 6,
+   "2014": null,
+   "2015": null,
+   "2016": null,
+   "2017": null,
+   "2018": 154,
+   "2019": 184
+  },
+  "censo2011": {
+   "viviendas_totales": 49216,
+   "principales": 44581,
+   "no_principales": 4628,
+   "vacias": 3967
+  }
+ },
+ "pozuelo": {
+  "nombre": "Pozuelo de Alarcón",
+  "ine": "28115",
+  "censo2021": {
+   "fecha_referencia": "2021-01-01",
+   "viviendas_totales": 32327,
+   "viviendas_principales": 27767,
+   "viviendas_no_principales": 4560,
+   "pct_no_principales": 14.11,
+   "hogares": 27767,
+   "hogares_nota": "En el Censo 2021 el número de hogares coincide por definición con el de viviendas principales.",
+   "hogares_por_tamano": {
+    "1persona": 4310,
+    "2personas": 6747,
+    "3personas": 5882,
+    "4personas": 6211,
+    "5omaspersonas": 4617
+   },
+   "pct_hogares_1_persona": 15.52,
+   "pct_hogares_5_o_mas": 16.63,
+   "viviendas_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 89,
+    "de1921a1940": 109,
+    "de1941a1950": 343,
+    "de1951a1960": 929,
+    "de1961a1970": 2056,
+    "de1971a1980": 6900,
+    "de1981a1990": 7194,
+    "de1991a2000": 6235,
+    "de2001a2010": 6324,
+    "de2011a2020": 1971,
+    "noconsta": 177
+   },
+   "viviendas_principales_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 63,
+    "de1921a1940": 80,
+    "de1941a1950": 283,
+    "de1951a1960": 829,
+    "de1961a1970": 1812,
+    "de1971a1980": 6130,
+    "de1981a1990": 6345,
+    "de1991a2000": 5401,
+    "de2001a2010": 5196,
+    "de2011a2020": 1451,
+    "noconsta": 177
+   },
+   "viviendas_edificio_anterior_1981": 10426,
+   "pct_viviendas_edificio_anterior_1981": 32.25,
+   "pct_anterior_1981_nota": "Suma de tramos \"antes de 1900\" a \"1971-1980\" sobre el total de viviendas (incluye \"no consta\" en el denominador). El INE agrupa por décadas: el corte disponible es 1980 inclusive.",
+   "viviendas_2001_2010": 6324,
+   "viviendas_2011_2020": 1971,
+   "viviendas_principales_por_superficie_util": {
+    "menosde30m2": 162,
+    "entre30y45m2": 1270,
+    "entre46y60m2": 2151,
+    "entre61y75m2": 2294,
+    "entre76y90m2": 3398,
+    "entre91y105m2": 3321,
+    "entre106y120m2": 3221,
+    "entre121y150m2": 4089,
+    "entre151y180m2": 2337,
+    "masde180m2": 5374,
+    "noconsta": 150
+   },
+   "viviendas_principales_60m2_o_menos": 3583,
+   "pct_principales_60m2_o_menos": 12.9,
+   "tenencia_viviendas_principales": {
+    "totalregimendetenencia": 27767,
+    "enpropiedad": 21762,
+    "enalquiler": 5046,
+    "otroregimendetenencia": 959
+   },
+   "pct_alquiler": 18.17,
+   "pct_propiedad": 78.37,
+   "hogares_tamano_x_superficie": {
+    "1persona": {
+     "menosde30m2": 54,
+     "entre30y45m2": 404,
+     "entre46y60m2": 623,
+     "entre61y75m2": 531,
+     "entre76y90m2": 684,
+     "entre91y105m2": 434,
+     "entre106y120m2": 401,
+     "entre121y150m2": 426,
+     "entre151y180m2": 242,
+     "masde180m2": 462,
+     "noconsta": 49
+    },
+    "2personas": {
+     "menosde30m2": 47,
+     "entre30y45m2": 354,
+     "entre46y60m2": 604,
+     "entre61y75m2": 602,
+     "entre76y90m2": 824,
+     "entre91y105m2": 779,
+     "entre106y120m2": 748,
+     "entre121y150m2": 1036,
+     "entre151y180m2": 613,
+     "masde180m2": 1114,
+     "noconsta": 26
+    },
+    "3personas": {
+     "menosde30m2": 23,
+     "entre30y45m2": 256,
+     "entre46y60m2": 411,
+     "entre61y75m2": 592,
+     "entre76y90m2": 769,
+     "entre91y105m2": 752,
+     "entre106y120m2": 678,
+     "entre121y150m2": 906,
+     "entre151y180m2": 447,
+     "masde180m2": 1023,
+     "noconsta": 25
+    },
+    "4personas": {
+     "menosde30m2": 25,
+     "entre30y45m2": 164,
+     "entre46y60m2": 292,
+     "entre61y75m2": 356,
+     "entre76y90m2": 771,
+     "entre91y105m2": 913,
+     "entre106y120m2": 909,
+     "entre121y150m2": 957,
+     "entre151y180m2": 545,
+     "masde180m2": 1249,
+     "noconsta": 30
+    },
+    "5omaspersonas": {
+     "menosde30m2": 13,
+     "entre30y45m2": 92,
+     "entre46y60m2": 221,
+     "entre61y75m2": 213,
+     "entre76y90m2": 350,
+     "entre91y105m2": 443,
+     "entre106y120m2": 485,
+     "entre121y150m2": 764,
+     "entre151y180m2": 490,
+     "masde180m2": 1526,
+     "noconsta": 20
+    }
+   },
+   "hogares_5omas_en_60m2_o_menos": 326,
+   "pct_hogares_5omas_en_60m2_o_menos": 1.17,
+   "hogares_4_en_60m2_o_menos": 481,
+   "hogares_4omas_en_60m2_o_menos": 807,
+   "pct_hogares_4omas_en_60m2_o_menos": 2.91,
+   "hogares_5omas_en_45m2_o_menos": 105,
+   "padron_2021": 87134,
+   "viviendas_por_1000_hab": 371.0,
+   "viviendas_por_1000_hab_nota": "Viviendas totales Censo 2021 / padrón a 1-1-2021 (INE tabla 2881) x 1000. Cálculo propio."
+  },
+  "superficie_media_viviendas_familiares_m2_censo2021": 116.65,
+  "consumo_electrico_2020": {
+   "viviendas_totales": 32327,
+   "viviendas_vacias": 2180,
+   "pct_vacias": 6.74,
+   "viviendas_muy_bajo_consumo": 359,
+   "viviendas_uso_esporadico_251_750kwh": 1340,
+   "pct_uso_esporadico": 4.15,
+   "mediana_consumo_anual_kwh": 2983
+  },
+  "adrh": {
+   "anyo": 2023,
+   "renta_neta_media_por_hogar": 96290,
+   "renta_neta_media_por_persona": 30524,
+   "mediana_renta_por_unidad_consumo": 37450,
+   "media_renta_por_unidad_consumo": 49811,
+   "renta_bruta_media_por_hogar": 138851,
+   "renta_bruta_media_por_persona": 44016,
+   "serie_2021_2023": {
+    "Renta neta media por persona": {
+     "2023": 30524,
+     "2022": 29258,
+     "2021": 27167
+    },
+    "Renta neta media por hogar": {
+     "2023": 96290,
+     "2022": 92596,
+     "2021": 86403
+    },
+    "Media de la renta por unidad de consumo": {
+     "2023": 49811,
+     "2022": 48119,
+     "2021": 44872
+    },
+    "Mediana de la renta por unidad de consumo": {
+     "2023": 37450,
+     "2022": 36050,
+     "2021": 33250
+    },
+    "Renta bruta media por persona": {
+     "2023": 44016,
+     "2022": 41167,
+     "2021": 38361
+    },
+    "Renta bruta media por hogar": {
+     "2023": 138851,
+     "2022": 130284,
+     "2021": 122006
+    }
+   },
+   "tamano_medio_hogar": 3.1,
+   "pct_hogares_unipersonales": 17.1,
+   "indicadores_demograficos_2021_2023": {
+    "Edad media de la población": {
+     "2023": 42.1,
+     "2022": 41.7,
+     "2021": 41.5
+    },
+    "Porcentaje de población menor de 18 años": {
+     "2023": 19.3,
+     "2022": 19.8,
+     "2021": 20.2
+    },
+    "Porcentaje de población de 65 y más años": {
+     "2023": 18.8,
+     "2022": 18.3,
+     "2021": 17.9
+    },
+    "Tamaño medio del hogar": {
+     "2023": 3.1,
+     "2022": 3.1,
+     "2021": 3.2
+    },
+    "Porcentaje de hogares unipersonales": {
+     "2023": 17.1,
+     "2022": 16.7,
+     "2021": 16.6
+    },
+    "Población": {
+     "2023": 87407.0,
+     "2022": 86962.0,
+     "2021": 86242.0
+    },
+    "Porcentaje de población española": {
+     "2023": 90.2,
+     "2022": 90.6,
+     "2021": 91.0
+    }
+   }
+  },
+  "padron": {
+   "serie": {
+    "2014": 84360,
+    "2015": 84558,
+    "2016": 84989,
+    "2017": 85605,
+    "2018": 86172,
+    "2019": 86422,
+    "2020": 87165,
+    "2021": 87134,
+    "2022": 87728,
+    "2023": 88784,
+    "2024": 89378,
+    "2025": 89770
+   },
+   "pob_2015": 84558,
+   "pob_2025": 89770,
+   "crec_abs_2015_2025": 5212,
+   "crec_pct_2015_2025": 6.16
+  },
+  "catastro_unidades_residenciales": {
+   "serie": {
+    "2003": 22922,
+    "2004": 23292,
+    "2005": 25609,
+    "2006": 26389,
+    "2007": 26703,
+    "2008": 27014,
+    "2009": 27500,
+    "2010": 28002,
+    "2011": 28471,
+    "2012": 28934,
+    "2013": 29014,
+    "2014": 29065,
+    "2015": 29248,
+    "2016": 29393,
+    "2017": 29426,
+    "2018": 29554,
+    "2019": 29786,
+    "2020": 29905,
+    "2021": 30353,
+    "2022": 30538,
+    "2023": 30834,
+    "2024": 31034,
+    "2025": 31187,
+    "2026": 31306
+   },
+   "u_2015": 29248,
+   "u_2025": 31187,
+   "u_2026": 31306,
+   "crec_abs_2015_2025": 1939,
+   "crec_pct_2015_2025": 6.63,
+   "nuevas_unidades_por_1000_hab_2025": 21.6,
+   "nuevas_unidades_por_cada_100_habitantes_nuevos": 37.2,
+   "nota": "Variación neta del stock catastral de unidades urbanas de uso residencial (altas menos bajas y reclasificaciones), no viviendas terminadas."
+  },
+  "licencias_viviendas_a_construir_1992_2019": {
+   "1992": 344,
+   "1993": 547,
+   "1994": 564,
+   "1995": 630,
+   "1996": 446,
+   "1997": 686,
+   "1998": 614,
+   "1999": 235,
+   "2000": 1664,
+   "2001": 605,
+   "2002": 317,
+   "2003": 295,
+   "2004": 315,
+   "2005": 282,
+   "2006": 129,
+   "2007": 604,
+   "2008": 233,
+   "2009": 624,
+   "2010": 96,
+   "2011": 14,
+   "2012": 164,
+   "2013": null,
+   "2014": null,
+   "2015": null,
+   "2016": null,
+   "2017": null,
+   "2018": null,
+   "2019": null
+  },
+  "censo2011": {
+   "viviendas_totales": 29876,
+   "principales": 26769,
+   "no_principales": 3071,
+   "vacias": 1417
+  }
+ },
+ "majadahonda": {
+  "nombre": "Majadahonda",
+  "ine": "28080",
+  "censo2021": {
+   "fecha_referencia": "2021-01-01",
+   "viviendas_totales": 25577,
+   "viviendas_principales": 23827,
+   "viviendas_no_principales": 1750,
+   "pct_no_principales": 6.84,
+   "hogares": 23827,
+   "hogares_nota": "En el Censo 2021 el número de hogares coincide por definición con el de viviendas principales.",
+   "hogares_por_tamano": {
+    "1persona": 4075,
+    "2personas": 5915,
+    "3personas": 5035,
+    "4personas": 5213,
+    "5omaspersonas": 3589
+   },
+   "pct_hogares_1_persona": 17.1,
+   "pct_hogares_5_o_mas": 15.06,
+   "viviendas_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 1,
+    "de1921a1940": 20,
+    "de1941a1950": 32,
+    "de1951a1960": 145,
+    "de1961a1970": 1043,
+    "de1971a1980": 5998,
+    "de1981a1990": 3974,
+    "de1991a2000": 6089,
+    "de2001a2010": 6680,
+    "de2011a2020": 1494,
+    "noconsta": 101
+   },
+   "viviendas_principales_por_anyo_construccion_edificio": {
+    "antesde1900": 0,
+    "de1900a1920": 0,
+    "de1921a1940": 17,
+    "de1941a1950": 30,
+    "de1951a1960": 137,
+    "de1961a1970": 980,
+    "de1971a1980": 5769,
+    "de1981a1990": 3814,
+    "de1991a2000": 5677,
+    "de2001a2010": 6111,
+    "de2011a2020": 1232,
+    "noconsta": 60
+   },
+   "viviendas_edificio_anterior_1981": 7239,
+   "pct_viviendas_edificio_anterior_1981": 28.3,
+   "pct_anterior_1981_nota": "Suma de tramos \"antes de 1900\" a \"1971-1980\" sobre el total de viviendas (incluye \"no consta\" en el denominador). El INE agrupa por décadas: el corte disponible es 1980 inclusive.",
+   "viviendas_2001_2010": 6680,
+   "viviendas_2011_2020": 1494,
+   "viviendas_principales_por_superficie_util": {
+    "menosde30m2": 169,
+    "entre30y45m2": 1104,
+    "entre46y60m2": 2182,
+    "entre61y75m2": 3315,
+    "entre76y90m2": 3860,
+    "entre91y105m2": 4580,
+    "entre106y120m2": 2724,
+    "entre121y150m2": 3129,
+    "entre151y180m2": 1402,
+    "masde180m2": 1327,
+    "noconsta": 35
+   },
+   "viviendas_principales_60m2_o_menos": 3455,
+   "pct_principales_60m2_o_menos": 14.5,
+   "tenencia_viviendas_principales": {
+    "totalregimendetenencia": 23827,
+    "enpropiedad": 17692,
+    "enalquiler": 5178,
+    "otroregimendetenencia": 957
+   },
+   "pct_alquiler": 21.73,
+   "pct_propiedad": 74.25,
+   "hogares_tamano_x_superficie": {
+    "1persona": {
+     "menosde30m2": 56,
+     "entre30y45m2": 378,
+     "entre46y60m2": 637,
+     "entre61y75m2": 744,
+     "entre76y90m2": 634,
+     "entre91y105m2": 692,
+     "entre106y120m2": 350,
+     "entre121y150m2": 339,
+     "entre151y180m2": 118,
+     "masde180m2": 117,
+     "noconsta": 10
+    },
+    "2personas": {
+     "menosde30m2": 50,
+     "entre30y45m2": 306,
+     "entre46y60m2": 590,
+     "entre61y75m2": 848,
+     "entre76y90m2": 967,
+     "entre91y105m2": 1132,
+     "entre106y120m2": 667,
+     "entre121y150m2": 761,
+     "entre151y180m2": 291,
+     "masde180m2": 294,
+     "noconsta": 9
+    },
+    "3personas": {
+     "menosde30m2": 39,
+     "entre30y45m2": 194,
+     "entre46y60m2": 465,
+     "entre61y75m2": 715,
+     "entre76y90m2": 897,
+     "entre91y105m2": 995,
+     "entre106y120m2": 559,
+     "entre121y150m2": 627,
+     "entre151y180m2": 287,
+     "masde180m2": 249,
+     "noconsta": 8
+    },
+    "4personas": {
+     "menosde30m2": 13,
+     "entre30y45m2": 134,
+     "entre46y60m2": 265,
+     "entre61y75m2": 572,
+     "entre76y90m2": 898,
+     "entre91y105m2": 1145,
+     "entre106y120m2": 706,
+     "entre121y150m2": 798,
+     "entre151y180m2": 386,
+     "masde180m2": 294,
+     "noconsta": 2
+    },
+    "5omaspersonas": {
+     "menosde30m2": 11,
+     "entre30y45m2": 92,
+     "entre46y60m2": 225,
+     "entre61y75m2": 436,
+     "entre76y90m2": 464,
+     "entre91y105m2": 616,
+     "entre106y120m2": 442,
+     "entre121y150m2": 604,
+     "entre151y180m2": 320,
+     "masde180m2": 373,
+     "noconsta": 6
+    }
+   },
+   "hogares_5omas_en_60m2_o_menos": 328,
+   "pct_hogares_5omas_en_60m2_o_menos": 1.38,
+   "hogares_4_en_60m2_o_menos": 412,
+   "hogares_4omas_en_60m2_o_menos": 740,
+   "pct_hogares_4omas_en_60m2_o_menos": 3.11,
+   "hogares_5omas_en_45m2_o_menos": 103,
+   "padron_2021": 72034,
+   "viviendas_por_1000_hab": 355.1,
+   "viviendas_por_1000_hab_nota": "Viviendas totales Censo 2021 / padrón a 1-1-2021 (INE tabla 2881) x 1000. Cálculo propio."
+  },
+  "superficie_media_viviendas_familiares_m2_censo2021": 98.42,
+  "consumo_electrico_2020": {
+   "viviendas_totales": 25577,
+   "viviendas_vacias": 684,
+   "pct_vacias": 2.67,
+   "viviendas_muy_bajo_consumo": 314,
+   "viviendas_uso_esporadico_251_750kwh": 1156,
+   "pct_uso_esporadico": 4.52,
+   "mediana_consumo_anual_kwh": 2698
+  },
+  "adrh": {
+   "anyo": 2023,
+   "renta_neta_media_por_hogar": 74987,
+   "renta_neta_media_por_persona": 24019,
+   "mediana_renta_por_unidad_consumo": 31150,
+   "media_renta_por_unidad_consumo": 38270,
+   "renta_bruta_media_por_hogar": 101193,
+   "renta_bruta_media_por_persona": 32413,
+   "serie_2021_2023": {
+    "Renta neta media por persona": {
+     "2023": 24019,
+     "2022": 22550,
+     "2021": 21248
+    },
+    "Renta neta media por hogar": {
+     "2023": 74987,
+     "2022": 70529,
+     "2021": 66390
+    },
+    "Media de la renta por unidad de consumo": {
+     "2023": 38270,
+     "2022": 36518,
+     "2021": 34446
+    },
+    "Mediana de la renta por unidad de consumo": {
+     "2023": 31150,
+     "2022": 29750,
+     "2021": 28350
+    },
+    "Renta bruta media por persona": {
+     "2023": 32413,
+     "2022": 30534,
+     "2021": 28750
+    },
+    "Renta bruta media por hogar": {
+     "2023": 101193,
+     "2022": 95500,
+     "2021": 89832
+    }
+   },
+   "tamano_medio_hogar": 3.1,
+   "pct_hogares_unipersonales": 19.0,
+   "indicadores_demograficos_2021_2023": {
+    "Edad media de la población": {
+     "2023": 41.9,
+     "2022": 41.6,
+     "2021": 41.2
+    },
+    "Porcentaje de población menor de 18 años": {
+     "2023": 19.5,
+     "2022": 19.9,
+     "2021": 20.5
+    },
+    "Porcentaje de población de 65 y más años": {
+     "2023": 18.7,
+     "2022": 18.2,
+     "2021": 17.6
+    },
+    "Tamaño medio del hogar": {
+     "2023": 3.1,
+     "2022": 3.1,
+     "2021": 3.1
+    },
+    "Porcentaje de hogares unipersonales": {
+     "2023": 19.0,
+     "2022": 18.6,
+     "2021": 18.5
+    },
+    "Población": {
+     "2023": 72227.0,
+     "2022": 71679.0,
+     "2021": 71093.0
+    },
+    "Porcentaje de población española": {
+     "2023": 88.5,
+     "2022": 88.8,
+     "2021": 89.3
+    }
+   }
+  },
+  "padron": {
+   "serie": {
+    "2014": 70359,
+    "2015": 70800,
+    "2016": 70755,
+    "2017": 71299,
+    "2018": 71785,
+    "2019": 71826,
+    "2020": 72155,
+    "2021": 72034,
+    "2022": 72179,
+    "2023": 72548,
+    "2024": 73355,
+    "2025": 73625
+   },
+   "pob_2015": 70800,
+   "pob_2025": 73625,
+   "crec_abs_2015_2025": 2825,
+   "crec_pct_2015_2025": 3.99
+  },
+  "catastro_unidades_residenciales": {
+   "serie": {
+    "2003": 19163,
+    "2004": 20427,
+    "2005": 21283,
+    "2006": 21791,
+    "2007": 22131,
+    "2008": 22965,
+    "2009": 23306,
+    "2010": 23443,
+    "2011": 23661,
+    "2012": 23688,
+    "2013": 23878,
+    "2014": 23956,
+    "2015": 24357,
+    "2016": 24429,
+    "2017": 24899,
+    "2018": 24989,
+    "2019": 25000,
+    "2020": 25295,
+    "2021": 25437,
+    "2022": 25506,
+    "2023": 25860,
+    "2024": 25924,
+    "2025": 26023,
+    "2026": 26136
+   },
+   "u_2015": 24357,
+   "u_2025": 26023,
+   "u_2026": 26136,
+   "crec_abs_2015_2025": 1666,
+   "crec_pct_2015_2025": 6.84,
+   "nuevas_unidades_por_1000_hab_2025": 22.6,
+   "nuevas_unidades_por_cada_100_habitantes_nuevos": 59.0,
+   "nota": "Variación neta del stock catastral de unidades urbanas de uso residencial (altas menos bajas y reclasificaciones), no viviendas terminadas."
+  },
+  "licencias_viviendas_a_construir_1992_2019": {
+   "1992": 247,
+   "1993": 434,
+   "1994": 733,
+   "1995": 351,
+   "1996": 680,
+   "1997": 670,
+   "1998": 1526,
+   "1999": 974,
+   "2000": 1035,
+   "2001": 1149,
+   "2002": 529,
+   "2003": 643,
+   "2004": 577,
+   "2005": 23,
+   "2006": 375,
+   "2007": null,
+   "2008": null,
+   "2009": null,
+   "2010": null,
+   "2011": null,
+   "2012": null,
+   "2013": null,
+   "2014": null,
+   "2015": null,
+   "2016": null,
+   "2017": null,
+   "2018": null,
+   "2019": null
+  },
+  "censo2011": {
+   "viviendas_totales": 24649,
+   "principales": 23069,
+   "no_principales": 1576,
+   "vacias": 969
+  }
+ }
+}

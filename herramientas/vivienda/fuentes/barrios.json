@@ -1,0 +1,310 @@
+{
+ "_meta": {
+  "fuentes": {
+   "serpavi": "https://www.mivau.gob.es/vivienda/alquila-bien-es-tu-derecho/serpavi",
+   "serpavi_xlsx": "https://cdn.mivau.gob.es/portal-web-mivau/vivienda/serpavi/2026-03_09_bd_SERPAVI_2011-2024%20-%20DEFINITIVO%20WEB_v2.xlsx",
+   "adrh": "https://www.ine.es/jaxiT3/Tabla.htm?t=31097"
+  },
+  "notas": [
+   "Alquiler: mediana €/m² al mes, vivienda colectiva, 2024, por sección censal; solo secciones con 30 o más alquileres declarados.",
+   "Renta: renta neta media por hogar 2023 por sección censal. 104.774 € aparece repetido en 134 secciones de la Comunidad: se trata como tope y, si el máximo de una ciudad es ese valor, la distancia no se calcula."
+  ]
+ },
+ "parla": {
+  "alquiler": {
+   "secciones": 59,
+   "min": {
+    "seccion": "2810601006",
+    "m2": 6.77,
+    "n": 99
+   },
+   "max": {
+    "seccion": "2810601016",
+    "m2": 9.97,
+    "n": 95
+   }
+  },
+  "renta": {
+   "secciones": 67,
+   "min": {
+    "seccion": "2810601033",
+    "eur": 25755.0
+   },
+   "max": {
+    "seccion": "2810601053",
+    "eur": 53239.0
+   },
+   "tope": false
+  }
+ },
+ "getafe": {
+  "alquiler": {
+   "secciones": 99,
+   "min": {
+    "seccion": "2806503030",
+    "m2": 8.64,
+    "n": 31
+   },
+   "max": {
+    "seccion": "2806502005",
+    "m2": 12.28,
+    "n": 187
+   }
+  },
+  "renta": {
+   "secciones": 122,
+   "min": {
+    "seccion": "2806502006",
+    "eur": 26434.0
+   },
+   "max": {
+    "seccion": "2806502017",
+    "eur": 74959.0
+   },
+   "tope": false
+  }
+ },
+ "leganes": {
+  "alquiler": {
+   "secciones": 133,
+   "min": {
+    "seccion": "2807405020",
+    "m2": 8.17,
+    "n": 37
+   },
+   "max": {
+    "seccion": "2807401009",
+    "m2": 11.64,
+    "n": 112
+   }
+  },
+  "renta": {
+   "secciones": 142,
+   "min": {
+    "seccion": "2807402009",
+    "eur": 26714.0
+   },
+   "max": {
+    "seccion": "2807403019",
+    "eur": 68882.0
+   },
+   "tope": false
+  }
+ },
+ "fuenlabrada": {
+  "alquiler": {
+   "secciones": 114,
+   "min": {
+    "seccion": "2805806009",
+    "m2": 7.26,
+    "n": 66
+   },
+   "max": {
+    "seccion": "2805804015",
+    "m2": 12.79,
+    "n": 192
+   }
+  },
+  "renta": {
+   "secciones": 119,
+   "min": {
+    "seccion": "2805804012",
+    "eur": 28621.0
+   },
+   "max": {
+    "seccion": "2805807015",
+    "eur": 55078.0
+   },
+   "tope": false
+  }
+ },
+ "mostoles": {
+  "alquiler": {
+   "secciones": 126,
+   "min": {
+    "seccion": "2809201017",
+    "m2": 7.24,
+    "n": 78
+   },
+   "max": {
+    "seccion": "2809202039",
+    "m2": 12.08,
+    "n": 32
+   }
+  },
+  "renta": {
+   "secciones": 139,
+   "min": {
+    "seccion": "2809202010",
+    "eur": 28192.0
+   },
+   "max": {
+    "seccion": "2809201022",
+    "eur": 61906.0
+   },
+   "tope": false
+  }
+ },
+ "alcorcon": {
+  "alquiler": {
+   "secciones": 111,
+   "min": {
+    "seccion": "2800704016",
+    "m2": 8.06,
+    "n": 46
+   },
+   "max": {
+    "seccion": "2800701018",
+    "m2": 12.77,
+    "n": 157
+   }
+  },
+  "renta": {
+   "secciones": 119,
+   "min": {
+    "seccion": "2800704017",
+    "eur": 27451.0
+   },
+   "max": {
+    "seccion": "2800702037",
+    "eur": 69410.0
+   },
+   "tope": false
+  }
+ },
+ "alcobendas": {
+  "alquiler": {
+   "secciones": 61,
+   "min": {
+    "seccion": "2800601007",
+    "m2": 9.2,
+    "n": 169
+   },
+   "max": {
+    "seccion": "2800601059",
+    "m2": 19.84,
+    "n": 139
+   }
+  },
+  "renta": {
+   "secciones": 66,
+   "min": {
+    "seccion": "2800601017",
+    "eur": 31224.0
+   },
+   "max": {
+    "seccion": "2800601033",
+    "eur": 104774.0
+   },
+   "tope": true
+  }
+ },
+ "pinto": {
+  "alquiler": {
+   "secciones": 29,
+   "min": {
+    "seccion": "2811302006",
+    "m2": 7.73,
+    "n": 48
+   },
+   "max": {
+    "seccion": "2811302015",
+    "m2": 10.74,
+    "n": 104
+   }
+  },
+  "renta": {
+   "secciones": 31,
+   "min": {
+    "seccion": "2811302002",
+    "eur": 31744.0
+   },
+   "max": {
+    "seccion": "2811302016",
+    "eur": 60747.0
+   },
+   "tope": false
+  }
+ },
+ "torrejon": {
+  "alquiler": {
+   "secciones": 72,
+   "min": {
+    "seccion": "2814802009",
+    "m2": 6.69,
+    "n": 83
+   },
+   "max": {
+    "seccion": "2814801023",
+    "m2": 12.06,
+    "n": 141
+   }
+  },
+  "renta": {
+   "secciones": 81,
+   "min": {
+    "seccion": "2814804009",
+    "eur": 29844.0
+   },
+   "max": {
+    "seccion": "2814803006",
+    "eur": 65194.0
+   },
+   "tope": false
+  }
+ },
+ "pozuelo": {
+  "alquiler": {
+   "secciones": 32,
+   "min": {
+    "seccion": "2811501009",
+    "m2": 10.62,
+    "n": 68
+   },
+   "max": {
+    "seccion": "2811502010",
+    "m2": 16.38,
+    "n": 96
+   }
+  },
+  "renta": {
+   "secciones": 56,
+   "min": {
+    "seccion": "2811501004",
+    "eur": 31960.0
+   },
+   "max": {
+    "seccion": "2811501001",
+    "eur": 104774.0
+   },
+   "tope": true
+  }
+ },
+ "majadahonda": {
+  "alquiler": {
+   "secciones": 38,
+   "min": {
+    "seccion": "2808001015",
+    "m2": 10.28,
+    "n": 62
+   },
+   "max": {
+    "seccion": "2808002007",
+    "m2": 16.04,
+    "n": 85
+   }
+  },
+  "renta": {
+   "secciones": 46,
+   "min": {
+    "seccion": "2808001003",
+    "eur": 35648.0
+   },
+   "max": {
+    "seccion": "2808001018",
+    "eur": 104774.0
+   },
+   "tope": true
+  }
+ }
+}

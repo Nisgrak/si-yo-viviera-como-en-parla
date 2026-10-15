@@ -4,6 +4,7 @@
                                      etiquetas og, que manda a /#<id>
      dist/<id>/infraestructura/      la página de los accesos en coche, ya
                                      con la ciudad puesta
+     dist/<id>/vivienda/             la página de la vivienda, igual
      dist/assets/compartir/*.png     la imagen de vista previa general y la de
                                      cada municipio, con su total
 
@@ -37,7 +38,7 @@ const D = globalThis.DATOS;
 
 await rm(DIST, { recursive: true, force: true });
 await mkdir(DIST);
-for (const x of ['index.html', 'infraestructura.html', 'assets', 'datos']) {
+for (const x of ['index.html', 'infraestructura.html', 'vivienda.html', 'assets', 'datos']) {
   await cp(join(RAIZ, x), join(DIST, x), { recursive: true });
 }
 /* La marca que le dice a app.js que aquí sí existen /getafe/ y compañía, así
@@ -50,6 +51,10 @@ const infra = await readFile(join(RAIZ, 'infraestructura.html'), 'utf8');
 if (!infra.includes('<html lang="es">')) throw new Error('infraestructura.html: no encuentro <html lang="es">');
 await writeFile(join(DIST, 'infraestructura.html'),
   infra.replace('<html lang="es">', '<html lang="es" data-rutas>'));
+const viv = await readFile(join(RAIZ, 'vivienda.html'), 'utf8');
+if (!viv.includes('<html lang="es">')) throw new Error('vivienda.html: no encuentro <html lang="es">');
+await writeFile(join(DIST, 'vivienda.html'),
+  viv.replace('<html lang="es">', '<html lang="es" data-rutas>'));
 
 /* ── Las imágenes ───────────────────────────────────────────────────── */
 
@@ -146,11 +151,11 @@ function pagina(id, nombre, total) {
 `;
 }
 
-/* La de los accesos es la página entera, no una redirección: la ciudad va
-   escrita en el <html> y las rutas relativas se resuelven desde la raíz con
-   <base>. Así /getafe/infraestructura/ es el enlace que se copia. */
-function paginaInfra(id, nombre, fuente = infra, ruta = 'infraestructura/', base = '../../') {
-  const titulo = 'Salir de ' + nombre + ' y de Parla en coche';
+/* Las páginas de los accesos y de la vivienda son la página entera, no una
+   redirección: la ciudad va escrita en el <html> y las rutas relativas se
+   resuelven desde la raíz con <base>. Así /getafe/infraestructura/ es el
+   enlace que se copia. */
+function paginaCiudad(id, titulo, fuente, archivo, ruta, base = '../../') {
   const url = BASE + id + '/' + ruta;
   let h = fuente
     .replace(/<html lang="es"[^>]*>/, (m) => m.replace('>', ` data-rutas data-ciudad="${id}">`))
@@ -158,11 +163,15 @@ function paginaInfra(id, nombre, fuente = infra, ruta = 'infraestructura/', base
     .replace(/<title>[^<]*<\/title>/, `<title>${esc(titulo)} · Si yo viviera como en Parla</title>`)
     .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${esc(titulo)}">`)
     .replace(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${url}">\n<link rel="canonical" href="${url}">`);
-  for (const a of ['data-ciudad', '<base'].concat(fuente === infra ? [url] : [])) {
-    if (!h.includes(a)) throw new Error('infraestructura.html: no se pudo marcar ' + a);
+  for (const a of ['data-ciudad', '<base', url]) {
+    if (!h.includes(a)) throw new Error(archivo + ': no se pudo marcar ' + a);
   }
   return h;
 }
+const paginaInfra = (id, nombre) => paginaCiudad(id, 'Salir de ' + nombre + ' y de Parla en coche',
+  infra, 'infraestructura.html', 'infraestructura/');
+const paginaVivienda = (id, nombre) => paginaCiudad(id, 'Una casa en ' + nombre + ' y una casa en Parla',
+  viv, 'vivienda.html', 'vivienda/');
 
 await mkdir(join(DIST, 'assets/compartir'), { recursive: true });
 await pintar(imagenGeneral(), join(DIST, 'assets/compartir/general.png'));
@@ -176,5 +185,7 @@ for (const m of D.MUNICIPIOS) {
   await writeFile(join(DIST, m.id, 'index.html'), pagina(m.id, m.nombre, total));
   await mkdir(join(DIST, m.id, 'infraestructura'), { recursive: true });
   await writeFile(join(DIST, m.id, 'infraestructura', 'index.html'), paginaInfra(m.id, m.nombre));
+  await mkdir(join(DIST, m.id, 'vivienda'), { recursive: true });
+  await writeFile(join(DIST, m.id, 'vivienda', 'index.html'), paginaVivienda(m.id, m.nombre));
   console.log(m.id.padEnd(12), total);
 }

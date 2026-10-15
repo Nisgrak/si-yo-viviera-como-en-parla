@@ -1,0 +1,404 @@
+{
+ "_meta": {
+  "descripcion": "Vivienda pública de la Comunidad y ayudas al alquiler, por municipio.",
+  "fuentes": {
+   "ayudas_2022_2023": "https://datos.comunidad.madrid/dataset/spacm_ayudas_alquiler_vivienda_jovenes_sectores_escasos_recursos",
+   "bono_alquiler_joven_2022": "https://datos.comunidad.madrid/dataset/spacm_bono_alquiler_joven_2022",
+   "avs_informe_2023": "https://www.comunidad.madrid/docs/assets/2024/10/10/avs_informe_gestion_2023.pdf",
+   "avs_informe_2024": "https://www.comunidad.madrid/docs/assets/2025/07/01/avs_informe_gestion_2024.pdf",
+   "avs_informe_2025": "https://www.comunidad.madrid/docs/2026-06/avs-informe-gestion-2025.pdf",
+   "plan_vive_19_08_2026": "https://www.comunidad.madrid/noticias/2026/08/19/comunidad-madrid-destina-tres-cada-cuatro-viviendas-plan-vive-menores-35-anos"
+  },
+  "notas": [
+   "Ayudas: programa 2.0 = sectores con escasos recursos y mayores de 65; 5.1 = jóvenes. Convocatorias 2022 y 2023, últimas publicadas en datos abiertos. Ficheros en latin1; solicitudes y aceptadas por municipio de la vivienda.",
+   "Bono Alquiler Joven 2022 (estatal, gestionado por la Comunidad).",
+   "AVS: tabla «Viviendas entregadas por segunda adjudicación» de cada informe de gestión; un municipio que no aparece cuenta 0.",
+   "Plan Vive: la nota de prensa de 19-08-2026 enumera las 12 localidades con viviendas disponibles (Alcalá de Henares, Alcorcón, Boadilla del Monte, Colmenar Viejo, Getafe, Móstoles, Navalcarnero, Pinto, San Sebastián de los Reyes, Torrejón de Ardoz, Tres Cantos y Madrid) y las de Solución Joven con obras próximas (Alcobendas, Arroyomolinos, Colmenar Viejo, Móstoles, Tres Cantos, Valdemoro, Madrid). No hay tabla oficial por municipio."
+  ]
+ },
+ "parla": {
+  "ayudas": {
+   "escasos": {
+    "2022": {
+     "solicitudes": 187,
+     "aceptadas": 45
+    },
+    "2023": {
+     "solicitudes": 203,
+     "aceptadas": 86
+    }
+   },
+   "jovenes": {
+    "2022": {
+     "solicitudes": 103,
+     "aceptadas": 25
+    },
+    "2023": {
+     "solicitudes": 173,
+     "aceptadas": 65
+    }
+   },
+   "bono2022": {
+    "solicitudes": 604,
+    "aceptadas": 128
+   }
+  },
+  "avs_segunda_adjudicacion": {
+   "2023": 21,
+   "2024": 24,
+   "2025": 11
+  },
+  "plan_vive_disponibles_2026": false,
+  "plan_vive_solucion_joven_obras": false
+ },
+ "getafe": {
+  "ayudas": {
+   "escasos": {
+    "2022": {
+     "solicitudes": 284,
+     "aceptadas": 72
+    },
+    "2023": {
+     "solicitudes": 346,
+     "aceptadas": 135
+    }
+   },
+   "jovenes": {
+    "2022": {
+     "solicitudes": 186,
+     "aceptadas": 54
+    },
+    "2023": {
+     "solicitudes": 307,
+     "aceptadas": 101
+    }
+   },
+   "bono2022": {
+    "solicitudes": 1209,
+    "aceptadas": 282
+   }
+  },
+  "avs_segunda_adjudicacion": {
+   "2023": 0,
+   "2024": 0,
+   "2025": 1
+  },
+  "plan_vive_disponibles_2026": true,
+  "plan_vive_solucion_joven_obras": false
+ },
+ "leganes": {
+  "ayudas": {
+   "escasos": {
+    "2022": {
+     "solicitudes": 276,
+     "aceptadas": 63
+    },
+    "2023": {
+     "solicitudes": 325,
+     "aceptadas": 136
+    }
+   },
+   "jovenes": {
+    "2022": {
+     "solicitudes": 152,
+     "aceptadas": 51
+    },
+    "2023": {
+     "solicitudes": 293,
+     "aceptadas": 88
+    }
+   },
+   "bono2022": {
+    "solicitudes": 1143,
+    "aceptadas": 234
+   }
+  },
+  "avs_segunda_adjudicacion": {
+   "2023": 0,
+   "2024": 2,
+   "2025": 0
+  },
+  "plan_vive_disponibles_2026": false,
+  "plan_vive_solucion_joven_obras": false
+ },
+ "fuenlabrada": {
+  "ayudas": {
+   "escasos": {
+    "2022": {
+     "solicitudes": 346,
+     "aceptadas": 89
+    },
+    "2023": {
+     "solicitudes": 320,
+     "aceptadas": 158
+    }
+   },
+   "jovenes": {
+    "2022": {
+     "solicitudes": 91,
+     "aceptadas": 32
+    },
+    "2023": {
+     "solicitudes": 216,
+     "aceptadas": 69
+    }
+   },
+   "bono2022": {
+    "solicitudes": 898,
+    "aceptadas": 239
+   }
+  },
+  "avs_segunda_adjudicacion": {
+   "2023": 1,
+   "2024": 1,
+   "2025": 0
+  },
+  "plan_vive_disponibles_2026": false,
+  "plan_vive_solucion_joven_obras": false
+ },
+ "mostoles": {
+  "ayudas": {
+   "escasos": {
+    "2022": {
+     "solicitudes": 287,
+     "aceptadas": 63
+    },
+    "2023": {
+     "solicitudes": 314,
+     "aceptadas": 129
+    }
+   },
+   "jovenes": {
+    "2022": {
+     "solicitudes": 185,
+     "aceptadas": 57
+    },
+    "2023": {
+     "solicitudes": 318,
+     "aceptadas": 75
+    }
+   },
+   "bono2022": {
+    "solicitudes": 1269,
+    "aceptadas": 367
+   }
+  },
+  "avs_segunda_adjudicacion": {
+   "2023": 29,
+   "2024": 19,
+   "2025": 18
+  },
+  "plan_vive_disponibles_2026": true,
+  "plan_vive_solucion_joven_obras": true
+ },
+ "alcorcon": {
+  "ayudas": {
+   "escasos": {
+    "2022": {
+     "solicitudes": 245,
+     "aceptadas": 58
+    },
+    "2023": {
+     "solicitudes": 177,
+     "aceptadas": 84
+    }
+   },
+   "jovenes": {
+    "2022": {
+     "solicitudes": 171,
+     "aceptadas": 44
+    },
+    "2023": {
+     "solicitudes": 221,
+     "aceptadas": 62
+    }
+   },
+   "bono2022": {
+    "solicitudes": 1006,
+    "aceptadas": 265
+   }
+  },
+  "avs_segunda_adjudicacion": {
+   "2023": 4,
+   "2024": 4,
+   "2025": 7
+  },
+  "plan_vive_disponibles_2026": true,
+  "plan_vive_solucion_joven_obras": false
+ },
+ "alcobendas": {
+  "ayudas": {
+   "escasos": {
+    "2022": {
+     "solicitudes": 149,
+     "aceptadas": 51
+    },
+    "2023": {
+     "solicitudes": 187,
+     "aceptadas": 68
+    }
+   },
+   "jovenes": {
+    "2022": {
+     "solicitudes": 87,
+     "aceptadas": 24
+    },
+    "2023": {
+     "solicitudes": 180,
+     "aceptadas": 52
+    }
+   },
+   "bono2022": {
+    "solicitudes": 605,
+    "aceptadas": 158
+   }
+  },
+  "avs_segunda_adjudicacion": {
+   "2023": 1,
+   "2024": 8,
+   "2025": 2
+  },
+  "plan_vive_disponibles_2026": false,
+  "plan_vive_solucion_joven_obras": true
+ },
+ "pinto": {
+  "ayudas": {
+   "escasos": {
+    "2022": {
+     "solicitudes": 54,
+     "aceptadas": 10
+    },
+    "2023": {
+     "solicitudes": 57,
+     "aceptadas": 29
+    }
+   },
+   "jovenes": {
+    "2022": {
+     "solicitudes": 85,
+     "aceptadas": 24
+    },
+    "2023": {
+     "solicitudes": 126,
+     "aceptadas": 38
+    }
+   },
+   "bono2022": {
+    "solicitudes": 476,
+    "aceptadas": 136
+   }
+  },
+  "avs_segunda_adjudicacion": {
+   "2023": 0,
+   "2024": 0,
+   "2025": 0
+  },
+  "plan_vive_disponibles_2026": true,
+  "plan_vive_solucion_joven_obras": false
+ },
+ "torrejon": {
+  "ayudas": {
+   "escasos": {
+    "2022": {
+     "solicitudes": 157,
+     "aceptadas": 28
+    },
+    "2023": {
+     "solicitudes": 149,
+     "aceptadas": 63
+    }
+   },
+   "jovenes": {
+    "2022": {
+     "solicitudes": 132,
+     "aceptadas": 26
+    },
+    "2023": {
+     "solicitudes": 239,
+     "aceptadas": 54
+    }
+   },
+   "bono2022": {
+    "solicitudes": 895,
+    "aceptadas": 257
+   }
+  },
+  "avs_segunda_adjudicacion": {
+   "2023": 11,
+   "2024": 6,
+   "2025": 8
+  },
+  "plan_vive_disponibles_2026": true,
+  "plan_vive_solucion_joven_obras": false
+ },
+ "pozuelo": {
+  "ayudas": {
+   "escasos": {
+    "2022": {
+     "solicitudes": 37,
+     "aceptadas": 13
+    },
+    "2023": {
+     "solicitudes": 57,
+     "aceptadas": 26
+    }
+   },
+   "jovenes": {
+    "2022": {
+     "solicitudes": 37,
+     "aceptadas": 14
+    },
+    "2023": {
+     "solicitudes": 38,
+     "aceptadas": 19
+    }
+   },
+   "bono2022": {
+    "solicitudes": 166,
+    "aceptadas": 25
+   }
+  },
+  "avs_segunda_adjudicacion": {
+   "2023": 0,
+   "2024": 0,
+   "2025": 0
+  },
+  "plan_vive_disponibles_2026": false,
+  "plan_vive_solucion_joven_obras": false
+ },
+ "majadahonda": {
+  "ayudas": {
+   "escasos": {
+    "2022": {
+     "solicitudes": 50,
+     "aceptadas": 9
+    },
+    "2023": {
+     "solicitudes": 48,
+     "aceptadas": 17
+    }
+   },
+   "jovenes": {
+    "2022": {
+     "solicitudes": 25,
+     "aceptadas": 9
+    },
+    "2023": {
+     "solicitudes": 39,
+     "aceptadas": 13
+    }
+   },
+   "bono2022": {
+    "solicitudes": 189,
+    "aceptadas": 40
+   }
+  },
+  "avs_segunda_adjudicacion": {
+   "2023": 4,
+   "2024": 8,
+   "2025": 15
+  },
+  "plan_vive_disponibles_2026": false,
+  "plan_vive_solucion_joven_obras": false
+ }
+}

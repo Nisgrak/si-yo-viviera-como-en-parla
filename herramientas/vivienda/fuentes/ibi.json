@@ -1,0 +1,81 @@
+{
+ "_meta": {
+  "fuentes": {
+   "tipos_2026": "https://serviciostelematicosext.hacienda.gob.es/SGFAL/ConsultaTipos/aspx/listado_municipiosm.aspx",
+   "tipos_2026_excel": "https://serviciostelematicosext.hacienda.gob.es/SGFAL/ConsultaTipos/aspx/ImpuestosExcel.aspx?provincia=28&anosel=2026",
+   "valor_catastral_2026": "https://www.catastro.hacienda.gob.es/jaxi/tabla.do?path=/est2026/catastro/urbano/&file=URBO4228.px&type=pcaxis&L=0",
+   "inmuebles_2026": "https://www.catastro.hacienda.gob.es/jaxi/tabla.do?path=/est2026/catastro/urbano/&file=URAO4228.px&type=pcaxis&L=0"
+  },
+  "notas": [
+   "Recibo estimado = valor catastral medio residencial 2026 × tipo general del IBI urbano 2026 (Hacienda). Cuota antes de bonificaciones; sin garaje ni trastero, que suelen tener recibo aparte.",
+   "El valor catastral de la tabla viene en miles de euros.",
+   "Tipos de Hacienda: la tabla de ordenanzas del Catastro repite en 2026 los tipos de 2025 de Móstoles y Pinto."
+  ]
+ },
+ "parla": {
+  "inmuebles_residenciales": 47187,
+  "valor_catastral_residencial_eur": 3577524541.19,
+  "tipo_2026_pct": 0.433,
+  "revision_catastral": 2009
+ },
+ "getafe": {
+  "inmuebles_residenciales": 80782,
+  "valor_catastral_residencial_eur": 8159579782.2,
+  "tipo_2026_pct": 0.41,
+  "revision_catastral": 2009
+ },
+ "leganes": {
+  "inmuebles_residenciales": 78092,
+  "valor_catastral_residencial_eur": 5442458933.45,
+  "tipo_2026_pct": 0.4,
+  "revision_catastral": 2014
+ },
+ "fuenlabrada": {
+  "inmuebles_residenciales": 71566,
+  "valor_catastral_residencial_eur": 5718195513.76,
+  "tipo_2026_pct": 0.4,
+  "revision_catastral": 2010
+ },
+ "mostoles": {
+  "inmuebles_residenciales": 83285,
+  "valor_catastral_residencial_eur": 6966530367.68,
+  "tipo_2026_pct": 0.49,
+  "revision_catastral": 2012
+ },
+ "alcorcon": {
+  "inmuebles_residenciales": 71161,
+  "valor_catastral_residencial_eur": 8048705669.13,
+  "tipo_2026_pct": 0.4872,
+  "revision_catastral": 2009
+ },
+ "alcobendas": {
+  "inmuebles_residenciales": 42663,
+  "valor_catastral_residencial_eur": 6191288000.82,
+  "tipo_2026_pct": 0.4,
+  "revision_catastral": 2014
+ },
+ "pinto": {
+  "inmuebles_residenciales": 21405,
+  "valor_catastral_residencial_eur": 1440176225.32,
+  "tipo_2026_pct": 0.62,
+  "revision_catastral": 2016
+ },
+ "torrejon": {
+  "inmuebles_residenciales": 53101,
+  "valor_catastral_residencial_eur": 3468283193.02,
+  "tipo_2026_pct": 0.525,
+  "revision_catastral": 2002
+ },
+ "pozuelo": {
+  "inmuebles_residenciales": 31306,
+  "valor_catastral_residencial_eur": 5092293516.02,
+  "tipo_2026_pct": 0.425,
+  "revision_catastral": 2001
+ },
+ "majadahonda": {
+  "inmuebles_residenciales": 26136,
+  "valor_catastral_residencial_eur": 4719374691.12,
+  "tipo_2026_pct": 0.4,
+  "revision_catastral": 2008
+ }
+}

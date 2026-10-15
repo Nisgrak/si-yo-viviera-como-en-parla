@@ -1,0 +1,4031 @@
+{
+ "_meta": {
+  "tema": "Impagos, desahucios y ejecuciones (lanzamientos judiciales por partido judicial)",
+  "fecha_elaboracion": "2026-10-15",
+  "unidad_territorial": "partido judicial (PJ), no municipio",
+  "nota": "Los datos judiciales se recogen por órgano judicial y se agregan por partido judicial. Un PJ puede abarcar varios municipios: la cifra del PJ no es la del municipio.",
+  "cautelas": [
+   "Desahucio no es impago: un lanzamiento es la ejecución material de una orden judicial de entrega de un inmueble. Muchos impagos acaban en acuerdo, abandono o pago sin llegar a lanzamiento. La categoría «otros» del CGPJ no se desglosa; previsiblemente recoge lanzamientos de otros procedimientos (precario, ocupación, etc.), pero el CGPJ no lo detalla.",
+   "Los datos son por juzgado y se agregan por partido judicial; no hay dato oficial por municipio. Parla se mide junto con Pinto (PJ Parla); Fuenlabrada con Humanes; Móstoles con 5 municipios; Alcobendas con 6; Torrejón con 10; Majadahonda con Las Rozas. Solo Getafe, Leganés, Alcorcón y Pozuelo coinciden con su municipio.",
+   "Pinto NO pertenece al PJ de Valdemoro: según la ficha del Ministerio de Justicia, el PJ de Parla lo forman Parla y Pinto (194.122 hab.), y el de Valdemoro Valdemoro, Chinchón, Ciempozuelos, San Martín de la Vega, Titulcia, Torrejón de la Calzada, Torrejón de Velasco y Valdelaguna.",
+   "Se cuenta un lanzamiento por inmueble, incluidas las entregas voluntarias de posesión acordadas (definición CGPJ). Un lanzamiento se registra en el PJ del juzgado que lo practica, no necesariamente donde vive el hogar.",
+   "2025 es año de transición a los tribunales de instancia (Ley Orgánica 1/2025): parte de los lanzamientos de 2025 los practicaron los servicios comunes de ejecución (SCEJ/SCT). El total 2025 de este fichero = juzgados (Excel CGPJ) + servicio común (OUSCEJ008). Para Getafe, Móstoles y Pozuelo no aparece servicio común con lanzamientos en 2025. La suma de los 21 PJ de Madrid más los servicios comunes reproduce el total provincial del CGPJ (2.132 + 135 = 2.267).",
+   "Composición de los PJ: la de las fichas ministeriales de 2026. No se ha comprobado si hubo cambios de demarcación entre 2013 y 2025; las tasas de cada año usan la población de esos mismos municipios a 1 de enero de cada año.",
+   "Cifras pequeñas: en 2025 varios PJ tienen entre 20 y 40 lanzamientos; una variación de 10 casos mueve mucho la tasa.",
+   "Tasa por 1.000 hogares en alquiler: numerador de 2024 o 2025, denominador del Censo 2021 (viviendas principales en alquiler). Desfase temporal; orientativa.",
+   "Verbales posesorios por ocupación: el procedimiento existe desde la Ley 5/2018 (junio de 2018); antes de 2018 el campo es null."
+  ],
+  "no_conseguido": [
+   "Lanzamientos, ejecuciones hipotecarias o verbales por municipio: no existen; la unidad mínima oficial es el partido judicial (órgano judicial).",
+   "INE ejecuciones hipotecarias: solo nacional, comunidad autónoma y provincia.",
+   "Tabla CGPJ ANEXOVIV (lanzamientos de vivienda habitual suspendidos por vulnerabilidad y peticiones de suspensión): por PJ casi todo a cero en Madrid 2020-2025 (registro aparentemente incompleto); no se usa.",
+   "Oficinas de intermediación hipotecaria / servicios municipales de vivienda: no se ha encontrado estadística oficial publicada por municipio.",
+   "Bono Alquiler Joven por municipio: solo la convocatoria 2022 en datos abiertos de la Comunidad de Madrid; ayudas al alquiler del Plan Estatal: solo convocatorias 2022 y 2023.",
+   "Hogares en alquiler posteriores a 2021 por municipio: no hay dato oficial anual."
+  ],
+  "nota_ine_eh": "INE (provincia de Madrid, solo provincial): viviendas con ejecución hipotecaria iniciada e inscrita en los registros de la propiedad: 1343 en 2025 y 1161 en 2024."
+ },
+ "partidos": {
+  "parla": {
+   "nombre": "Partido judicial de Parla",
+   "codigo_cgpj": "132816PARLA",
+   "etiqueta_excel_cgpj": "PARLA",
+   "municipios": [
+    {
+     "nombre": "Parla",
+     "poblacion_2025": 137471,
+     "censo2021_viviendas_principales_alquiler": 8616,
+     "censo2021_viviendas_principales_total": 44574
+    },
+    {
+     "nombre": "Pinto",
+     "poblacion_2025": 56651,
+     "censo2021_viviendas_principales_alquiler": 3504,
+     "censo2021_viviendas_principales_total": 19479
+    }
+   ],
+   "n_municipios": 2,
+   "poblacion_ine": {
+    "2013": 172504,
+    "2014": 172917,
+    "2015": 173716,
+    "2016": 174183,
+    "2017": 176340,
+    "2018": 179797,
+    "2019": 182650,
+    "2020": 186807,
+    "2021": 185226,
+    "2022": 184665,
+    "2023": 188212,
+    "2024": 190836,
+    "2025": 194122
+   },
+   "poblacion_2025_mapa_ministerio": 194122,
+   "censo2021_viviendas_principales_alquiler": 12120,
+   "municipios_del_proyecto": [
+    "parla",
+    "pinto"
+   ],
+   "coincide_con_municipio": false,
+   "lanzamientos": {
+    "2013": {
+     "total": 280,
+     "ejecucion_hipotecaria": 112,
+     "lau_arrendamientos": 157,
+     "otros": 11,
+     "juzgados": {
+      "total": 280,
+      "ejecucion_hipotecaria": 112,
+      "lau_arrendamientos": 157,
+      "otros": 11
+     },
+     "por_100000_hab": 162.3,
+     "lau_por_100000_hab": 91.0
+    },
+    "2014": {
+     "total": 244,
+     "ejecucion_hipotecaria": 112,
+     "lau_arrendamientos": 126,
+     "otros": 6,
+     "juzgados": {
+      "total": 244,
+      "ejecucion_hipotecaria": 112,
+      "lau_arrendamientos": 126,
+      "otros": 6
+     },
+     "por_100000_hab": 141.1,
+     "lau_por_100000_hab": 72.9
+    },
+    "2015": {
+     "total": 235,
+     "ejecucion_hipotecaria": 89,
+     "lau_arrendamientos": 132,
+     "otros": 14,
+     "juzgados": {
+      "total": 235,
+      "ejecucion_hipotecaria": 89,
+      "lau_arrendamientos": 132,
+      "otros": 14
+     },
+     "por_100000_hab": 135.3,
+     "lau_por_100000_hab": 76.0
+    },
+    "2016": {
+     "total": 200,
+     "ejecucion_hipotecaria": 69,
+     "lau_arrendamientos": 120,
+     "otros": 11,
+     "juzgados": {
+      "total": 200,
+      "ejecucion_hipotecaria": 69,
+      "lau_arrendamientos": 120,
+      "otros": 11
+     },
+     "por_100000_hab": 114.8,
+     "lau_por_100000_hab": 68.9
+    },
+    "2017": {
+     "total": 179,
+     "ejecucion_hipotecaria": 62,
+     "lau_arrendamientos": 114,
+     "otros": 3,
+     "juzgados": {
+      "total": 179,
+      "ejecucion_hipotecaria": 62,
+      "lau_arrendamientos": 114,
+      "otros": 3
+     },
+     "por_100000_hab": 101.5,
+     "lau_por_100000_hab": 64.6
+    },
+    "2018": {
+     "total": 160,
+     "ejecucion_hipotecaria": 36,
+     "lau_arrendamientos": 116,
+     "otros": 8,
+     "juzgados": {
+      "total": 160,
+      "ejecucion_hipotecaria": 36,
+      "lau_arrendamientos": 116,
+      "otros": 8
+     },
+     "por_100000_hab": 89.0,
+     "lau_por_100000_hab": 64.5
+    },
+    "2019": {
+     "total": 157,
+     "ejecucion_hipotecaria": 27,
+     "lau_arrendamientos": 113,
+     "otros": 17,
+     "juzgados": {
+      "total": 157,
+      "ejecucion_hipotecaria": 27,
+      "lau_arrendamientos": 113,
+      "otros": 17
+     },
+     "por_100000_hab": 86.0,
+     "lau_por_100000_hab": 61.9
+    },
+    "2020": {
+     "total": 80,
+     "ejecucion_hipotecaria": 8,
+     "lau_arrendamientos": 71,
+     "otros": 1,
+     "juzgados": {
+      "total": 80,
+      "ejecucion_hipotecaria": 8,
+      "lau_arrendamientos": 71,
+      "otros": 1
+     },
+     "por_100000_hab": 42.8,
+     "lau_por_100000_hab": 38.0
+    },
+    "2021": {
+     "total": 80,
+     "ejecucion_hipotecaria": 15,
+     "lau_arrendamientos": 61,
+     "otros": 4,
+     "juzgados": {
+      "total": 80,
+      "ejecucion_hipotecaria": 15,
+      "lau_arrendamientos": 61,
+      "otros": 4
+     },
+     "por_100000_hab": 43.2,
+     "lau_por_100000_hab": 32.9
+    },
+    "2022": {
+     "total": 75,
+     "ejecucion_hipotecaria": 5,
+     "lau_arrendamientos": 69,
+     "otros": 1,
+     "juzgados": {
+      "total": 75,
+      "ejecucion_hipotecaria": 5,
+      "lau_arrendamientos": 69,
+      "otros": 1
+     },
+     "por_100000_hab": 40.6,
+     "lau_por_100000_hab": 37.4
+    },
+    "2023": {
+     "total": 49,
+     "ejecucion_hipotecaria": 7,
+     "lau_arrendamientos": 41,
+     "otros": 1,
+     "juzgados": {
+      "total": 49,
+      "ejecucion_hipotecaria": 7,
+      "lau_arrendamientos": 41,
+      "otros": 1
+     },
+     "por_100000_hab": 26.0,
+     "lau_por_100000_hab": 21.8
+    },
+    "2024": {
+     "total": 66,
+     "ejecucion_hipotecaria": 13,
+     "lau_arrendamientos": 51,
+     "otros": 2,
+     "juzgados": {
+      "total": 66,
+      "ejecucion_hipotecaria": 13,
+      "lau_arrendamientos": 51,
+      "otros": 2
+     },
+     "por_100000_hab": 34.6,
+     "lau_por_100000_hab": 26.7
+    },
+    "2025": {
+     "total": 38,
+     "ejecucion_hipotecaria": 6,
+     "lau_arrendamientos": 31,
+     "otros": 1,
+     "juzgados": {
+      "total": 25,
+      "ejecucion_hipotecaria": 2,
+      "lau_arrendamientos": 22,
+      "otros": 1
+     },
+     "servicio_comun_ejecucion": {
+      "organo": "SCEJ DE PARLA",
+      "total": 13,
+      "ejecucion_hipotecaria": 4,
+      "lau_arrendamientos": 9,
+      "otros": 0
+     },
+     "por_100000_hab": 19.6,
+     "lau_por_100000_hab": 16.0
+    }
+   },
+   "asuntos_juzgados_civil": {
+    "2013": {
+     "verbales_arrendaticios_ingresados": 303,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 402,
+     "lanzamientos_suspendidos": 0
+    },
+    "2014": {
+     "verbales_arrendaticios_ingresados": 369,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 398,
+     "lanzamientos_suspendidos": 0
+    },
+    "2015": {
+     "verbales_arrendaticios_ingresados": 324,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 315,
+     "lanzamientos_suspendidos": 0
+    },
+    "2016": {
+     "verbales_arrendaticios_ingresados": 345,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 191,
+     "lanzamientos_suspendidos": 0
+    },
+    "2017": {
+     "verbales_arrendaticios_ingresados": 406,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 115,
+     "lanzamientos_suspendidos": 0
+    },
+    "2018": {
+     "verbales_arrendaticios_ingresados": 428,
+     "verbales_posesorios_ocupacion_ingresados": 6,
+     "ejecuciones_hipotecarias_ingresadas": 68,
+     "lanzamientos_suspendidos": 0
+    },
+    "2019": {
+     "verbales_arrendaticios_ingresados": 425,
+     "verbales_posesorios_ocupacion_ingresados": 8,
+     "ejecuciones_hipotecarias_ingresadas": 48,
+     "lanzamientos_suspendidos": 0
+    },
+    "2020": {
+     "verbales_arrendaticios_ingresados": 525,
+     "verbales_posesorios_ocupacion_ingresados": 14,
+     "ejecuciones_hipotecarias_ingresadas": 88,
+     "lanzamientos_suspendidos": 0
+    },
+    "2021": {
+     "verbales_arrendaticios_ingresados": 540,
+     "verbales_posesorios_ocupacion_ingresados": 16,
+     "ejecuciones_hipotecarias_ingresadas": 131,
+     "lanzamientos_suspendidos": 0
+    },
+    "2022": {
+     "verbales_arrendaticios_ingresados": 413,
+     "verbales_posesorios_ocupacion_ingresados": 10,
+     "ejecuciones_hipotecarias_ingresadas": 121,
+     "lanzamientos_suspendidos": 0
+    },
+    "2023": {
+     "verbales_arrendaticios_ingresados": 316,
+     "verbales_posesorios_ocupacion_ingresados": 8,
+     "ejecuciones_hipotecarias_ingresadas": 109,
+     "lanzamientos_suspendidos": 0
+    },
+    "2024": {
+     "verbales_arrendaticios_ingresados": 315,
+     "verbales_posesorios_ocupacion_ingresados": 6,
+     "ejecuciones_hipotecarias_ingresadas": 88,
+     "lanzamientos_suspendidos": 0
+    },
+    "2025": {
+     "verbales_arrendaticios_ingresados": 307,
+     "verbales_posesorios_ocupacion_ingresados": 8,
+     "ejecuciones_hipotecarias_ingresadas": 118,
+     "lanzamientos_suspendidos": 0
+    }
+   },
+   "resumen_2025": {
+    "lanzamientos_total": 38,
+    "lau": 31,
+    "hipotecarios": 6,
+    "otros": 1,
+    "por_100000_hab": 19.6,
+    "lau_por_1000_hogares_alquiler_censo2021": 2.56,
+    "total_por_1000_hogares_alquiler_censo2021": 3.14
+   },
+   "resumen_2024": {
+    "lanzamientos_total": 66,
+    "lau": 51,
+    "hipotecarios": 13,
+    "otros": 2,
+    "por_100000_hab": 34.6,
+    "lau_por_1000_hogares_alquiler_censo2021": 4.21
+   },
+   "ratio_lanzamientos_lau_sobre_verbales_arrendaticios_ingresados_2019_2025": 0.154,
+   "mapa_ministerio_url": "https://www.mjusticia.gob.es/es/JusticiaEspana/OrganizacionJusticia/InstLibraryCartographyJudProv/Madrid/Parla.pdf"
+  },
+  "getafe": {
+   "nombre": "Partido judicial de Getafe",
+   "codigo_cgpj": "132810GETAF",
+   "etiqueta_excel_cgpj": "GETAFE",
+   "municipios": [
+    {
+     "nombre": "Getafe",
+     "poblacion_2025": 193238,
+     "censo2021_viviendas_principales_alquiler": 10992,
+     "censo2021_viviendas_principales_total": 70629
+    }
+   ],
+   "n_municipios": 1,
+   "poblacion_ine": {
+    "2013": 172526,
+    "2014": 173057,
+    "2015": 174921,
+    "2016": 176659,
+    "2017": 178288,
+    "2018": 180747,
+    "2019": 183374,
+    "2020": 185180,
+    "2021": 183095,
+    "2022": 183219,
+    "2023": 185899,
+    "2024": 189906,
+    "2025": 193238
+   },
+   "poblacion_2025_mapa_ministerio": 193238,
+   "censo2021_viviendas_principales_alquiler": 10992,
+   "municipios_del_proyecto": [
+    "getafe"
+   ],
+   "coincide_con_municipio": true,
+   "lanzamientos": {
+    "2013": {
+     "total": 139,
+     "ejecucion_hipotecaria": 64,
+     "lau_arrendamientos": 68,
+     "otros": 7,
+     "juzgados": {
+      "total": 139,
+      "ejecucion_hipotecaria": 64,
+      "lau_arrendamientos": 68,
+      "otros": 7
+     },
+     "por_100000_hab": 80.6,
+     "lau_por_100000_hab": 39.4
+    },
+    "2014": {
+     "total": 159,
+     "ejecucion_hipotecaria": 50,
+     "lau_arrendamientos": 101,
+     "otros": 8,
+     "juzgados": {
+      "total": 159,
+      "ejecucion_hipotecaria": 50,
+      "lau_arrendamientos": 101,
+      "otros": 8
+     },
+     "por_100000_hab": 91.9,
+     "lau_por_100000_hab": 58.4
+    },
+    "2015": {
+     "total": 131,
+     "ejecucion_hipotecaria": 35,
+     "lau_arrendamientos": 90,
+     "otros": 6,
+     "juzgados": {
+      "total": 131,
+      "ejecucion_hipotecaria": 35,
+      "lau_arrendamientos": 90,
+      "otros": 6
+     },
+     "por_100000_hab": 74.9,
+     "lau_por_100000_hab": 51.5
+    },
+    "2016": {
+     "total": 163,
+     "ejecucion_hipotecaria": 44,
+     "lau_arrendamientos": 119,
+     "otros": 0,
+     "juzgados": {
+      "total": 163,
+      "ejecucion_hipotecaria": 44,
+      "lau_arrendamientos": 119,
+      "otros": 0
+     },
+     "por_100000_hab": 92.3,
+     "lau_por_100000_hab": 67.4
+    },
+    "2017": {
+     "total": 118,
+     "ejecucion_hipotecaria": 15,
+     "lau_arrendamientos": 96,
+     "otros": 7,
+     "juzgados": {
+      "total": 118,
+      "ejecucion_hipotecaria": 15,
+      "lau_arrendamientos": 96,
+      "otros": 7
+     },
+     "por_100000_hab": 66.2,
+     "lau_por_100000_hab": 53.8
+    },
+    "2018": {
+     "total": 110,
+     "ejecucion_hipotecaria": 11,
+     "lau_arrendamientos": 93,
+     "otros": 6,
+     "juzgados": {
+      "total": 110,
+      "ejecucion_hipotecaria": 11,
+      "lau_arrendamientos": 93,
+      "otros": 6
+     },
+     "por_100000_hab": 60.9,
+     "lau_por_100000_hab": 51.5
+    },
+    "2019": {
+     "total": 117,
+     "ejecucion_hipotecaria": 6,
+     "lau_arrendamientos": 101,
+     "otros": 10,
+     "juzgados": {
+      "total": 117,
+      "ejecucion_hipotecaria": 6,
+      "lau_arrendamientos": 101,
+      "otros": 10
+     },
+     "por_100000_hab": 63.8,
+     "lau_por_100000_hab": 55.1
+    },
+    "2020": {
+     "total": 73,
+     "ejecucion_hipotecaria": 4,
+     "lau_arrendamientos": 64,
+     "otros": 5,
+     "juzgados": {
+      "total": 73,
+      "ejecucion_hipotecaria": 4,
+      "lau_arrendamientos": 64,
+      "otros": 5
+     },
+     "por_100000_hab": 39.4,
+     "lau_por_100000_hab": 34.6
+    },
+    "2021": {
+     "total": 71,
+     "ejecucion_hipotecaria": 6,
+     "lau_arrendamientos": 61,
+     "otros": 4,
+     "juzgados": {
+      "total": 71,
+      "ejecucion_hipotecaria": 6,
+      "lau_arrendamientos": 61,
+      "otros": 4
+     },
+     "por_100000_hab": 38.8,
+     "lau_por_100000_hab": 33.3
+    },
+    "2022": {
+     "total": 68,
+     "ejecucion_hipotecaria": 3,
+     "lau_arrendamientos": 62,
+     "otros": 3,
+     "juzgados": {
+      "total": 68,
+      "ejecucion_hipotecaria": 3,
+      "lau_arrendamientos": 62,
+      "otros": 3
+     },
+     "por_100000_hab": 37.1,
+     "lau_por_100000_hab": 33.8
+    },
+    "2023": {
+     "total": 45,
+     "ejecucion_hipotecaria": 1,
+     "lau_arrendamientos": 43,
+     "otros": 1,
+     "juzgados": {
+      "total": 45,
+      "ejecucion_hipotecaria": 1,
+      "lau_arrendamientos": 43,
+      "otros": 1
+     },
+     "por_100000_hab": 24.2,
+     "lau_por_100000_hab": 23.1
+    },
+    "2024": {
+     "total": 46,
+     "ejecucion_hipotecaria": 0,
+     "lau_arrendamientos": 45,
+     "otros": 1,
+     "juzgados": {
+      "total": 46,
+      "ejecucion_hipotecaria": 0,
+      "lau_arrendamientos": 45,
+      "otros": 1
+     },
+     "por_100000_hab": 24.2,
+     "lau_por_100000_hab": 23.7
+    },
+    "2025": {
+     "total": 32,
+     "ejecucion_hipotecaria": 3,
+     "lau_arrendamientos": 26,
+     "otros": 3,
+     "juzgados": {
+      "total": 32,
+      "ejecucion_hipotecaria": 3,
+      "lau_arrendamientos": 26,
+      "otros": 3
+     },
+     "por_100000_hab": 16.6,
+     "lau_por_100000_hab": 13.5
+    }
+   },
+   "asuntos_juzgados_civil": {
+    "2013": {
+     "verbales_arrendaticios_ingresados": 208,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 245,
+     "lanzamientos_suspendidos": 0
+    },
+    "2014": {
+     "verbales_arrendaticios_ingresados": 203,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 213,
+     "lanzamientos_suspendidos": 0
+    },
+    "2015": {
+     "verbales_arrendaticios_ingresados": 220,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 142,
+     "lanzamientos_suspendidos": 0
+    },
+    "2016": {
+     "verbales_arrendaticios_ingresados": 244,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 87,
+     "lanzamientos_suspendidos": 0
+    },
+    "2017": {
+     "verbales_arrendaticios_ingresados": 253,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 66,
+     "lanzamientos_suspendidos": 0
+    },
+    "2018": {
+     "verbales_arrendaticios_ingresados": 222,
+     "verbales_posesorios_ocupacion_ingresados": 5,
+     "ejecuciones_hipotecarias_ingresadas": 53,
+     "lanzamientos_suspendidos": 0
+    },
+    "2019": {
+     "verbales_arrendaticios_ingresados": 249,
+     "verbales_posesorios_ocupacion_ingresados": 10,
+     "ejecuciones_hipotecarias_ingresadas": 46,
+     "lanzamientos_suspendidos": 0
+    },
+    "2020": {
+     "verbales_arrendaticios_ingresados": 266,
+     "verbales_posesorios_ocupacion_ingresados": 18,
+     "ejecuciones_hipotecarias_ingresadas": 39,
+     "lanzamientos_suspendidos": 0
+    },
+    "2021": {
+     "verbales_arrendaticios_ingresados": 321,
+     "verbales_posesorios_ocupacion_ingresados": 10,
+     "ejecuciones_hipotecarias_ingresadas": 83,
+     "lanzamientos_suspendidos": 0
+    },
+    "2022": {
+     "verbales_arrendaticios_ingresados": 247,
+     "verbales_posesorios_ocupacion_ingresados": 9,
+     "ejecuciones_hipotecarias_ingresadas": 82,
+     "lanzamientos_suspendidos": 0
+    },
+    "2023": {
+     "verbales_arrendaticios_ingresados": 289,
+     "verbales_posesorios_ocupacion_ingresados": 9,
+     "ejecuciones_hipotecarias_ingresadas": 75,
+     "lanzamientos_suspendidos": 0
+    },
+    "2024": {
+     "verbales_arrendaticios_ingresados": 215,
+     "verbales_posesorios_ocupacion_ingresados": 8,
+     "ejecuciones_hipotecarias_ingresadas": 67,
+     "lanzamientos_suspendidos": 0
+    },
+    "2025": {
+     "verbales_arrendaticios_ingresados": 163,
+     "verbales_posesorios_ocupacion_ingresados": 7,
+     "ejecuciones_hipotecarias_ingresadas": 83,
+     "lanzamientos_suspendidos": 0
+    }
+   },
+   "resumen_2025": {
+    "lanzamientos_total": 32,
+    "lau": 26,
+    "hipotecarios": 3,
+    "otros": 3,
+    "por_100000_hab": 16.6,
+    "lau_por_1000_hogares_alquiler_censo2021": 2.37,
+    "total_por_1000_hogares_alquiler_censo2021": 2.91
+   },
+   "resumen_2024": {
+    "lanzamientos_total": 46,
+    "lau": 45,
+    "hipotecarios": 0,
+    "otros": 1,
+    "por_100000_hab": 24.2,
+    "lau_por_1000_hogares_alquiler_censo2021": 4.09
+   },
+   "ratio_lanzamientos_lau_sobre_verbales_arrendaticios_ingresados_2019_2025": 0.23,
+   "mapa_ministerio_url": "https://www.mjusticia.gob.es/es/JusticiaEspana/OrganizacionJusticia/InstLibraryCartographyJudProv/Madrid/Getafe.pdf"
+  },
+  "leganes": {
+   "nombre": "Partido judicial de Leganés",
+   "codigo_cgpj": "132809LEGAN",
+   "etiqueta_excel_cgpj": "LEGANES",
+   "municipios": [
+    {
+     "nombre": "Leganés",
+     "poblacion_2025": 195734,
+     "censo2021_viviendas_principales_alquiler": 11238,
+     "censo2021_viviendas_principales_total": 72285
+    }
+   ],
+   "n_municipios": 1,
+   "poblacion_ine": {
+    "2013": 186995,
+    "2014": 186696,
+    "2015": 186907,
+    "2016": 187173,
+    "2017": 187720,
+    "2018": 188425,
+    "2019": 189861,
+    "2020": 191114,
+    "2021": 187762,
+    "2022": 186660,
+    "2023": 190665,
+    "2024": 194084,
+    "2025": 195734
+   },
+   "poblacion_2025_mapa_ministerio": 195734,
+   "censo2021_viviendas_principales_alquiler": 11238,
+   "municipios_del_proyecto": [
+    "leganes"
+   ],
+   "coincide_con_municipio": true,
+   "lanzamientos": {
+    "2013": {
+     "total": 236,
+     "ejecucion_hipotecaria": 68,
+     "lau_arrendamientos": 165,
+     "otros": 3,
+     "juzgados": {
+      "total": 236,
+      "ejecucion_hipotecaria": 68,
+      "lau_arrendamientos": 165,
+      "otros": 3
+     },
+     "por_100000_hab": 126.2,
+     "lau_por_100000_hab": 88.2
+    },
+    "2014": {
+     "total": 224,
+     "ejecucion_hipotecaria": 72,
+     "lau_arrendamientos": 145,
+     "otros": 7,
+     "juzgados": {
+      "total": 224,
+      "ejecucion_hipotecaria": 72,
+      "lau_arrendamientos": 145,
+      "otros": 7
+     },
+     "por_100000_hab": 120.0,
+     "lau_por_100000_hab": 77.7
+    },
+    "2015": {
+     "total": 205,
+     "ejecucion_hipotecaria": 65,
+     "lau_arrendamientos": 133,
+     "otros": 7,
+     "juzgados": {
+      "total": 205,
+      "ejecucion_hipotecaria": 65,
+      "lau_arrendamientos": 133,
+      "otros": 7
+     },
+     "por_100000_hab": 109.7,
+     "lau_por_100000_hab": 71.2
+    },
+    "2016": {
+     "total": 196,
+     "ejecucion_hipotecaria": 52,
+     "lau_arrendamientos": 134,
+     "otros": 10,
+     "juzgados": {
+      "total": 196,
+      "ejecucion_hipotecaria": 52,
+      "lau_arrendamientos": 134,
+      "otros": 10
+     },
+     "por_100000_hab": 104.7,
+     "lau_por_100000_hab": 71.6
+    },
+    "2017": {
+     "total": 150,
+     "ejecucion_hipotecaria": 26,
+     "lau_arrendamientos": 122,
+     "otros": 2,
+     "juzgados": {
+      "total": 150,
+      "ejecucion_hipotecaria": 26,
+      "lau_arrendamientos": 122,
+      "otros": 2
+     },
+     "por_100000_hab": 79.9,
+     "lau_por_100000_hab": 65.0
+    },
+    "2018": {
+     "total": 188,
+     "ejecucion_hipotecaria": 30,
+     "lau_arrendamientos": 154,
+     "otros": 4,
+     "juzgados": {
+      "total": 188,
+      "ejecucion_hipotecaria": 30,
+      "lau_arrendamientos": 154,
+      "otros": 4
+     },
+     "por_100000_hab": 99.8,
+     "lau_por_100000_hab": 81.7
+    },
+    "2019": {
+     "total": 173,
+     "ejecucion_hipotecaria": 15,
+     "lau_arrendamientos": 155,
+     "otros": 3,
+     "juzgados": {
+      "total": 173,
+      "ejecucion_hipotecaria": 15,
+      "lau_arrendamientos": 155,
+      "otros": 3
+     },
+     "por_100000_hab": 91.1,
+     "lau_por_100000_hab": 81.6
+    },
+    "2020": {
+     "total": 71,
+     "ejecucion_hipotecaria": 8,
+     "lau_arrendamientos": 61,
+     "otros": 2,
+     "juzgados": {
+      "total": 71,
+      "ejecucion_hipotecaria": 8,
+      "lau_arrendamientos": 61,
+      "otros": 2
+     },
+     "por_100000_hab": 37.2,
+     "lau_por_100000_hab": 31.9
+    },
+    "2021": {
+     "total": 140,
+     "ejecucion_hipotecaria": 15,
+     "lau_arrendamientos": 114,
+     "otros": 11,
+     "juzgados": {
+      "total": 140,
+      "ejecucion_hipotecaria": 15,
+      "lau_arrendamientos": 114,
+      "otros": 11
+     },
+     "por_100000_hab": 74.6,
+     "lau_por_100000_hab": 60.7
+    },
+    "2022": {
+     "total": 78,
+     "ejecucion_hipotecaria": 6,
+     "lau_arrendamientos": 68,
+     "otros": 4,
+     "juzgados": {
+      "total": 78,
+      "ejecucion_hipotecaria": 6,
+      "lau_arrendamientos": 68,
+      "otros": 4
+     },
+     "por_100000_hab": 41.8,
+     "lau_por_100000_hab": 36.4
+    },
+    "2023": {
+     "total": 47,
+     "ejecucion_hipotecaria": 8,
+     "lau_arrendamientos": 37,
+     "otros": 2,
+     "juzgados": {
+      "total": 47,
+      "ejecucion_hipotecaria": 8,
+      "lau_arrendamientos": 37,
+      "otros": 2
+     },
+     "por_100000_hab": 24.7,
+     "lau_por_100000_hab": 19.4
+    },
+    "2024": {
+     "total": 62,
+     "ejecucion_hipotecaria": 9,
+     "lau_arrendamientos": 51,
+     "otros": 2,
+     "juzgados": {
+      "total": 62,
+      "ejecucion_hipotecaria": 9,
+      "lau_arrendamientos": 51,
+      "otros": 2
+     },
+     "por_100000_hab": 31.9,
+     "lau_por_100000_hab": 26.3
+    },
+    "2025": {
+     "total": 46,
+     "ejecucion_hipotecaria": 5,
+     "lau_arrendamientos": 37,
+     "otros": 4,
+     "juzgados": {
+      "total": 29,
+      "ejecucion_hipotecaria": 3,
+      "lau_arrendamientos": 25,
+      "otros": 1
+     },
+     "servicio_comun_ejecucion": {
+      "organo": "SCEJ DE LEGANES",
+      "total": 17,
+      "ejecucion_hipotecaria": 2,
+      "lau_arrendamientos": 12,
+      "otros": 3
+     },
+     "por_100000_hab": 23.5,
+     "lau_por_100000_hab": 18.9
+    }
+   },
+   "asuntos_juzgados_civil": {
+    "2013": {
+     "verbales_arrendaticios_ingresados": 228,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 184,
+     "lanzamientos_suspendidos": 0
+    },
+    "2014": {
+     "verbales_arrendaticios_ingresados": 201,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 135,
+     "lanzamientos_suspendidos": 0
+    },
+    "2015": {
+     "verbales_arrendaticios_ingresados": 191,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 118,
+     "lanzamientos_suspendidos": 0
+    },
+    "2016": {
+     "verbales_arrendaticios_ingresados": 207,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 106,
+     "lanzamientos_suspendidos": 0
+    },
+    "2017": {
+     "verbales_arrendaticios_ingresados": 229,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 78,
+     "lanzamientos_suspendidos": 0
+    },
+    "2018": {
+     "verbales_arrendaticios_ingresados": 234,
+     "verbales_posesorios_ocupacion_ingresados": 1,
+     "ejecuciones_hipotecarias_ingresadas": 43,
+     "lanzamientos_suspendidos": 0
+    },
+    "2019": {
+     "verbales_arrendaticios_ingresados": 243,
+     "verbales_posesorios_ocupacion_ingresados": 6,
+     "ejecuciones_hipotecarias_ingresadas": 47,
+     "lanzamientos_suspendidos": 0
+    },
+    "2020": {
+     "verbales_arrendaticios_ingresados": 226,
+     "verbales_posesorios_ocupacion_ingresados": 4,
+     "ejecuciones_hipotecarias_ingresadas": 37,
+     "lanzamientos_suspendidos": 0
+    },
+    "2021": {
+     "verbales_arrendaticios_ingresados": 239,
+     "verbales_posesorios_ocupacion_ingresados": 9,
+     "ejecuciones_hipotecarias_ingresadas": 70,
+     "lanzamientos_suspendidos": 0
+    },
+    "2022": {
+     "verbales_arrendaticios_ingresados": 191,
+     "verbales_posesorios_ocupacion_ingresados": 3,
+     "ejecuciones_hipotecarias_ingresadas": 56,
+     "lanzamientos_suspendidos": 0
+    },
+    "2023": {
+     "verbales_arrendaticios_ingresados": 160,
+     "verbales_posesorios_ocupacion_ingresados": 2,
+     "ejecuciones_hipotecarias_ingresadas": 57,
+     "lanzamientos_suspendidos": 0
+    },
+    "2024": {
+     "verbales_arrendaticios_ingresados": 154,
+     "verbales_posesorios_ocupacion_ingresados": 1,
+     "ejecuciones_hipotecarias_ingresadas": 56,
+     "lanzamientos_suspendidos": 0
+    },
+    "2025": {
+     "verbales_arrendaticios_ingresados": 139,
+     "verbales_posesorios_ocupacion_ingresados": 2,
+     "ejecuciones_hipotecarias_ingresadas": 55,
+     "lanzamientos_suspendidos": 0
+    }
+   },
+   "resumen_2025": {
+    "lanzamientos_total": 46,
+    "lau": 37,
+    "hipotecarios": 5,
+    "otros": 4,
+    "por_100000_hab": 23.5,
+    "lau_por_1000_hogares_alquiler_censo2021": 3.29,
+    "total_por_1000_hogares_alquiler_censo2021": 4.09
+   },
+   "resumen_2024": {
+    "lanzamientos_total": 62,
+    "lau": 51,
+    "hipotecarios": 9,
+    "otros": 2,
+    "por_100000_hab": 31.9,
+    "lau_por_1000_hogares_alquiler_censo2021": 4.54
+   },
+   "ratio_lanzamientos_lau_sobre_verbales_arrendaticios_ingresados_2019_2025": 0.387,
+   "mapa_ministerio_url": "https://www.mjusticia.gob.es/es/JusticiaEspana/OrganizacionJusticia/InstLibraryCartographyJudProv/Madrid/Legan%C3%A9s.pdf"
+  },
+  "fuenlabrada": {
+   "nombre": "Partido judicial de Fuenlabrada",
+   "codigo_cgpj": "132818FUENL",
+   "etiqueta_excel_cgpj": "FUENLABRADA",
+   "municipios": [
+    {
+     "nombre": "Fuenlabrada",
+     "poblacion_2025": 190076,
+     "censo2021_viviendas_principales_alquiler": 8970,
+     "censo2021_viviendas_principales_total": 67080
+    },
+    {
+     "nombre": "Humanes de Madrid",
+     "poblacion_2025": 20500,
+     "censo2021_viviendas_principales_alquiler": 1038,
+     "censo2021_viviendas_principales_total": 6579
+    }
+   ],
+   "n_municipios": 2,
+   "poblacion_ine": {
+    "2013": 216768,
+    "2014": 215268,
+    "2015": 214593,
+    "2016": 213734,
+    "2017": 214276,
+    "2018": 213173,
+    "2019": 213443,
+    "2020": 214215,
+    "2021": 211969,
+    "2022": 209729,
+    "2023": 208638,
+    "2024": 210864,
+    "2025": 210576
+   },
+   "poblacion_2025_mapa_ministerio": 210576,
+   "censo2021_viviendas_principales_alquiler": 10008,
+   "municipios_del_proyecto": [
+    "fuenlabrada"
+   ],
+   "coincide_con_municipio": false,
+   "lanzamientos": {
+    "2013": {
+     "total": 206,
+     "ejecucion_hipotecaria": 67,
+     "lau_arrendamientos": 135,
+     "otros": 4,
+     "juzgados": {
+      "total": 206,
+      "ejecucion_hipotecaria": 67,
+      "lau_arrendamientos": 135,
+      "otros": 4
+     },
+     "por_100000_hab": 95.0,
+     "lau_por_100000_hab": 62.3
+    },
+    "2014": {
+     "total": 169,
+     "ejecucion_hipotecaria": 63,
+     "lau_arrendamientos": 98,
+     "otros": 8,
+     "juzgados": {
+      "total": 169,
+      "ejecucion_hipotecaria": 63,
+      "lau_arrendamientos": 98,
+      "otros": 8
+     },
+     "por_100000_hab": 78.5,
+     "lau_por_100000_hab": 45.5
+    },
+    "2015": {
+     "total": 147,
+     "ejecucion_hipotecaria": 60,
+     "lau_arrendamientos": 86,
+     "otros": 1,
+     "juzgados": {
+      "total": 147,
+      "ejecucion_hipotecaria": 60,
+      "lau_arrendamientos": 86,
+      "otros": 1
+     },
+     "por_100000_hab": 68.5,
+     "lau_por_100000_hab": 40.1
+    },
+    "2016": {
+     "total": 172,
+     "ejecucion_hipotecaria": 56,
+     "lau_arrendamientos": 112,
+     "otros": 4,
+     "juzgados": {
+      "total": 172,
+      "ejecucion_hipotecaria": 56,
+      "lau_arrendamientos": 112,
+      "otros": 4
+     },
+     "por_100000_hab": 80.5,
+     "lau_por_100000_hab": 52.4
+    },
+    "2017": {
+     "total": 136,
+     "ejecucion_hipotecaria": 28,
+     "lau_arrendamientos": 105,
+     "otros": 3,
+     "juzgados": {
+      "total": 136,
+      "ejecucion_hipotecaria": 28,
+      "lau_arrendamientos": 105,
+      "otros": 3
+     },
+     "por_100000_hab": 63.5,
+     "lau_por_100000_hab": 49.0
+    },
+    "2018": {
+     "total": 168,
+     "ejecucion_hipotecaria": 45,
+     "lau_arrendamientos": 120,
+     "otros": 3,
+     "juzgados": {
+      "total": 168,
+      "ejecucion_hipotecaria": 45,
+      "lau_arrendamientos": 120,
+      "otros": 3
+     },
+     "por_100000_hab": 78.8,
+     "lau_por_100000_hab": 56.3
+    },
+    "2019": {
+     "total": 171,
+     "ejecucion_hipotecaria": 45,
+     "lau_arrendamientos": 118,
+     "otros": 8,
+     "juzgados": {
+      "total": 171,
+      "ejecucion_hipotecaria": 45,
+      "lau_arrendamientos": 118,
+      "otros": 8
+     },
+     "por_100000_hab": 80.1,
+     "lau_por_100000_hab": 55.3
+    },
+    "2020": {
+     "total": 65,
+     "ejecucion_hipotecaria": 12,
+     "lau_arrendamientos": 49,
+     "otros": 4,
+     "juzgados": {
+      "total": 65,
+      "ejecucion_hipotecaria": 12,
+      "lau_arrendamientos": 49,
+      "otros": 4
+     },
+     "por_100000_hab": 30.3,
+     "lau_por_100000_hab": 22.9
+    },
+    "2021": {
+     "total": 104,
+     "ejecucion_hipotecaria": 27,
+     "lau_arrendamientos": 67,
+     "otros": 10,
+     "juzgados": {
+      "total": 104,
+      "ejecucion_hipotecaria": 27,
+      "lau_arrendamientos": 67,
+      "otros": 10
+     },
+     "por_100000_hab": 49.1,
+     "lau_por_100000_hab": 31.6
+    },
+    "2022": {
+     "total": 88,
+     "ejecucion_hipotecaria": 28,
+     "lau_arrendamientos": 54,
+     "otros": 6,
+     "juzgados": {
+      "total": 88,
+      "ejecucion_hipotecaria": 28,
+      "lau_arrendamientos": 54,
+      "otros": 6
+     },
+     "por_100000_hab": 42.0,
+     "lau_por_100000_hab": 25.7
+    },
+    "2023": {
+     "total": 32,
+     "ejecucion_hipotecaria": 6,
+     "lau_arrendamientos": 22,
+     "otros": 4,
+     "juzgados": {
+      "total": 32,
+      "ejecucion_hipotecaria": 6,
+      "lau_arrendamientos": 22,
+      "otros": 4
+     },
+     "por_100000_hab": 15.3,
+     "lau_por_100000_hab": 10.5
+    },
+    "2024": {
+     "total": 45,
+     "ejecucion_hipotecaria": 12,
+     "lau_arrendamientos": 32,
+     "otros": 1,
+     "juzgados": {
+      "total": 45,
+      "ejecucion_hipotecaria": 12,
+      "lau_arrendamientos": 32,
+      "otros": 1
+     },
+     "por_100000_hab": 21.3,
+     "lau_por_100000_hab": 15.2
+    },
+    "2025": {
+     "total": 37,
+     "ejecucion_hipotecaria": 7,
+     "lau_arrendamientos": 27,
+     "otros": 3,
+     "juzgados": {
+      "total": 31,
+      "ejecucion_hipotecaria": 5,
+      "lau_arrendamientos": 23,
+      "otros": 3
+     },
+     "servicio_comun_ejecucion": {
+      "organo": "SCEJ DE FUENLABRADA",
+      "total": 6,
+      "ejecucion_hipotecaria": 2,
+      "lau_arrendamientos": 4,
+      "otros": 0
+     },
+     "por_100000_hab": 17.6,
+     "lau_por_100000_hab": 12.8
+    }
+   },
+   "asuntos_juzgados_civil": {
+    "2013": {
+     "verbales_arrendaticios_ingresados": 253,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 424,
+     "lanzamientos_suspendidos": 0
+    },
+    "2014": {
+     "verbales_arrendaticios_ingresados": 243,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 369,
+     "lanzamientos_suspendidos": 0
+    },
+    "2015": {
+     "verbales_arrendaticios_ingresados": 245,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 350,
+     "lanzamientos_suspendidos": 0
+    },
+    "2016": {
+     "verbales_arrendaticios_ingresados": 245,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 186,
+     "lanzamientos_suspendidos": 0
+    },
+    "2017": {
+     "verbales_arrendaticios_ingresados": 307,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 104,
+     "lanzamientos_suspendidos": 0
+    },
+    "2018": {
+     "verbales_arrendaticios_ingresados": 265,
+     "verbales_posesorios_ocupacion_ingresados": 15,
+     "ejecuciones_hipotecarias_ingresadas": 93,
+     "lanzamientos_suspendidos": 0
+    },
+    "2019": {
+     "verbales_arrendaticios_ingresados": 269,
+     "verbales_posesorios_ocupacion_ingresados": 44,
+     "ejecuciones_hipotecarias_ingresadas": 54,
+     "lanzamientos_suspendidos": 0
+    },
+    "2020": {
+     "verbales_arrendaticios_ingresados": 270,
+     "verbales_posesorios_ocupacion_ingresados": 32,
+     "ejecuciones_hipotecarias_ingresadas": 83,
+     "lanzamientos_suspendidos": 0
+    },
+    "2021": {
+     "verbales_arrendaticios_ingresados": 334,
+     "verbales_posesorios_ocupacion_ingresados": 17,
+     "ejecuciones_hipotecarias_ingresadas": 130,
+     "lanzamientos_suspendidos": 0
+    },
+    "2022": {
+     "verbales_arrendaticios_ingresados": 248,
+     "verbales_posesorios_ocupacion_ingresados": 15,
+     "ejecuciones_hipotecarias_ingresadas": 129,
+     "lanzamientos_suspendidos": 0
+    },
+    "2023": {
+     "verbales_arrendaticios_ingresados": 195,
+     "verbales_posesorios_ocupacion_ingresados": 13,
+     "ejecuciones_hipotecarias_ingresadas": 104,
+     "lanzamientos_suspendidos": 0
+    },
+    "2024": {
+     "verbales_arrendaticios_ingresados": 266,
+     "verbales_posesorios_ocupacion_ingresados": 5,
+     "ejecuciones_hipotecarias_ingresadas": 103,
+     "lanzamientos_suspendidos": 0
+    },
+    "2025": {
+     "verbales_arrendaticios_ingresados": 180,
+     "verbales_posesorios_ocupacion_ingresados": 7,
+     "ejecuciones_hipotecarias_ingresadas": 127,
+     "lanzamientos_suspendidos": 0
+    }
+   },
+   "resumen_2025": {
+    "lanzamientos_total": 37,
+    "lau": 27,
+    "hipotecarios": 7,
+    "otros": 3,
+    "por_100000_hab": 17.6,
+    "lau_por_1000_hogares_alquiler_censo2021": 2.7,
+    "total_por_1000_hogares_alquiler_censo2021": 3.7
+   },
+   "resumen_2024": {
+    "lanzamientos_total": 45,
+    "lau": 32,
+    "hipotecarios": 12,
+    "otros": 1,
+    "por_100000_hab": 21.3,
+    "lau_por_1000_hogares_alquiler_censo2021": 3.2
+   },
+   "ratio_lanzamientos_lau_sobre_verbales_arrendaticios_ingresados_2019_2025": 0.209,
+   "mapa_ministerio_url": "https://www.mjusticia.gob.es/es/JusticiaEspana/OrganizacionJusticia/InstLibraryCartographyJudProv/Madrid/Fuenlabrada.pdf"
+  },
+  "mostoles": {
+   "nombre": "Partido judicial de Móstoles",
+   "codigo_cgpj": "132806MOSTO",
+   "etiqueta_excel_cgpj": "MOSTOLES",
+   "municipios": [
+    {
+     "nombre": "Móstoles",
+     "poblacion_2025": 214817,
+     "censo2021_viviendas_principales_alquiler": 11193,
+     "censo2021_viviendas_principales_total": 76665
+    },
+    {
+     "nombre": "Boadilla del Monte",
+     "poblacion_2025": 66349,
+     "censo2021_viviendas_principales_alquiler": 2745,
+     "censo2021_viviendas_principales_total": 18057
+    },
+    {
+     "nombre": "Brunete",
+     "poblacion_2025": 11287,
+     "censo2021_viviendas_principales_alquiler": 831,
+     "censo2021_viviendas_principales_total": 3657
+    },
+    {
+     "nombre": "Quijorna",
+     "poblacion_2025": 4044,
+     "censo2021_viviendas_principales_alquiler": 204,
+     "censo2021_viviendas_principales_total": 1236
+    },
+    {
+     "nombre": "Villanueva de la Cañada",
+     "poblacion_2025": 24028,
+     "censo2021_viviendas_principales_alquiler": 1326,
+     "censo2021_viviendas_principales_total": 6891
+    },
+    {
+     "nombre": "Villaviciosa de Odón",
+     "poblacion_2025": 30127,
+     "censo2021_viviendas_principales_alquiler": 1098,
+     "censo2021_viviendas_principales_total": 9261
+    }
+   ],
+   "n_municipios": 6,
+   "poblacion_ine": {
+    "2013": 313019,
+    "2014": 312711,
+    "2015": 314957,
+    "2016": 315876,
+    "2017": 319531,
+    "2018": 322270,
+    "2019": 327209,
+    "2020": 331607,
+    "2021": 333620,
+    "2022": 336913,
+    "2023": 343227,
+    "2024": 348218,
+    "2025": 350652
+   },
+   "poblacion_2025_mapa_ministerio": 350652,
+   "censo2021_viviendas_principales_alquiler": 17397,
+   "municipios_del_proyecto": [
+    "mostoles"
+   ],
+   "coincide_con_municipio": false,
+   "lanzamientos": {
+    "2013": {
+     "total": 478,
+     "ejecucion_hipotecaria": 138,
+     "lau_arrendamientos": 330,
+     "otros": 10,
+     "juzgados": {
+      "total": 478,
+      "ejecucion_hipotecaria": 138,
+      "lau_arrendamientos": 330,
+      "otros": 10
+     },
+     "por_100000_hab": 152.7,
+     "lau_por_100000_hab": 105.4
+    },
+    "2014": {
+     "total": 411,
+     "ejecucion_hipotecaria": 113,
+     "lau_arrendamientos": 286,
+     "otros": 12,
+     "juzgados": {
+      "total": 411,
+      "ejecucion_hipotecaria": 113,
+      "lau_arrendamientos": 286,
+      "otros": 12
+     },
+     "por_100000_hab": 131.4,
+     "lau_por_100000_hab": 91.5
+    },
+    "2015": {
+     "total": 415,
+     "ejecucion_hipotecaria": 153,
+     "lau_arrendamientos": 256,
+     "otros": 6,
+     "juzgados": {
+      "total": 415,
+      "ejecucion_hipotecaria": 153,
+      "lau_arrendamientos": 256,
+      "otros": 6
+     },
+     "por_100000_hab": 131.8,
+     "lau_por_100000_hab": 81.3
+    },
+    "2016": {
+     "total": 384,
+     "ejecucion_hipotecaria": 110,
+     "lau_arrendamientos": 259,
+     "otros": 15,
+     "juzgados": {
+      "total": 384,
+      "ejecucion_hipotecaria": 110,
+      "lau_arrendamientos": 259,
+      "otros": 15
+     },
+     "por_100000_hab": 121.6,
+     "lau_por_100000_hab": 82.0
+    },
+    "2017": {
+     "total": 412,
+     "ejecucion_hipotecaria": 83,
+     "lau_arrendamientos": 318,
+     "otros": 11,
+     "juzgados": {
+      "total": 412,
+      "ejecucion_hipotecaria": 83,
+      "lau_arrendamientos": 318,
+      "otros": 11
+     },
+     "por_100000_hab": 128.9,
+     "lau_por_100000_hab": 99.5
+    },
+    "2018": {
+     "total": 388,
+     "ejecucion_hipotecaria": 59,
+     "lau_arrendamientos": 315,
+     "otros": 14,
+     "juzgados": {
+      "total": 388,
+      "ejecucion_hipotecaria": 59,
+      "lau_arrendamientos": 315,
+      "otros": 14
+     },
+     "por_100000_hab": 120.4,
+     "lau_por_100000_hab": 97.7
+    },
+    "2019": {
+     "total": 448,
+     "ejecucion_hipotecaria": 53,
+     "lau_arrendamientos": 360,
+     "otros": 35,
+     "juzgados": {
+      "total": 448,
+      "ejecucion_hipotecaria": 53,
+      "lau_arrendamientos": 360,
+      "otros": 35
+     },
+     "por_100000_hab": 136.9,
+     "lau_por_100000_hab": 110.0
+    },
+    "2020": {
+     "total": 185,
+     "ejecucion_hipotecaria": 19,
+     "lau_arrendamientos": 155,
+     "otros": 11,
+     "juzgados": {
+      "total": 185,
+      "ejecucion_hipotecaria": 19,
+      "lau_arrendamientos": 155,
+      "otros": 11
+     },
+     "por_100000_hab": 55.8,
+     "lau_por_100000_hab": 46.7
+    },
+    "2021": {
+     "total": 220,
+     "ejecucion_hipotecaria": 25,
+     "lau_arrendamientos": 170,
+     "otros": 25,
+     "juzgados": {
+      "total": 220,
+      "ejecucion_hipotecaria": 25,
+      "lau_arrendamientos": 170,
+      "otros": 25
+     },
+     "por_100000_hab": 65.9,
+     "lau_por_100000_hab": 51.0
+    },
+    "2022": {
+     "total": 230,
+     "ejecucion_hipotecaria": 26,
+     "lau_arrendamientos": 187,
+     "otros": 17,
+     "juzgados": {
+      "total": 230,
+      "ejecucion_hipotecaria": 26,
+      "lau_arrendamientos": 187,
+      "otros": 17
+     },
+     "por_100000_hab": 68.3,
+     "lau_por_100000_hab": 55.5
+    },
+    "2023": {
+     "total": 121,
+     "ejecucion_hipotecaria": 14,
+     "lau_arrendamientos": 102,
+     "otros": 5,
+     "juzgados": {
+      "total": 121,
+      "ejecucion_hipotecaria": 14,
+      "lau_arrendamientos": 102,
+      "otros": 5
+     },
+     "por_100000_hab": 35.3,
+     "lau_por_100000_hab": 29.7
+    },
+    "2024": {
+     "total": 181,
+     "ejecucion_hipotecaria": 22,
+     "lau_arrendamientos": 146,
+     "otros": 13,
+     "juzgados": {
+      "total": 181,
+      "ejecucion_hipotecaria": 22,
+      "lau_arrendamientos": 146,
+      "otros": 13
+     },
+     "por_100000_hab": 52.0,
+     "lau_por_100000_hab": 41.9
+    },
+    "2025": {
+     "total": 121,
+     "ejecucion_hipotecaria": 19,
+     "lau_arrendamientos": 96,
+     "otros": 6,
+     "juzgados": {
+      "total": 121,
+      "ejecucion_hipotecaria": 19,
+      "lau_arrendamientos": 96,
+      "otros": 6
+     },
+     "por_100000_hab": 34.5,
+     "lau_por_100000_hab": 27.4
+    }
+   },
+   "asuntos_juzgados_civil": {
+    "2013": {
+     "verbales_arrendaticios_ingresados": 340,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 375,
+     "lanzamientos_suspendidos": 0
+    },
+    "2014": {
+     "verbales_arrendaticios_ingresados": 361,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 374,
+     "lanzamientos_suspendidos": 0
+    },
+    "2015": {
+     "verbales_arrendaticios_ingresados": 344,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 259,
+     "lanzamientos_suspendidos": 0
+    },
+    "2016": {
+     "verbales_arrendaticios_ingresados": 372,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 182,
+     "lanzamientos_suspendidos": 0
+    },
+    "2017": {
+     "verbales_arrendaticios_ingresados": 482,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 137,
+     "lanzamientos_suspendidos": 0
+    },
+    "2018": {
+     "verbales_arrendaticios_ingresados": 464,
+     "verbales_posesorios_ocupacion_ingresados": 6,
+     "ejecuciones_hipotecarias_ingresadas": 100,
+     "lanzamientos_suspendidos": 0
+    },
+    "2019": {
+     "verbales_arrendaticios_ingresados": 489,
+     "verbales_posesorios_ocupacion_ingresados": 21,
+     "ejecuciones_hipotecarias_ingresadas": 96,
+     "lanzamientos_suspendidos": 0
+    },
+    "2020": {
+     "verbales_arrendaticios_ingresados": 505,
+     "verbales_posesorios_ocupacion_ingresados": 14,
+     "ejecuciones_hipotecarias_ingresadas": 113,
+     "lanzamientos_suspendidos": 0
+    },
+    "2021": {
+     "verbales_arrendaticios_ingresados": 485,
+     "verbales_posesorios_ocupacion_ingresados": 9,
+     "ejecuciones_hipotecarias_ingresadas": 149,
+     "lanzamientos_suspendidos": 0
+    },
+    "2022": {
+     "verbales_arrendaticios_ingresados": 399,
+     "verbales_posesorios_ocupacion_ingresados": 18,
+     "ejecuciones_hipotecarias_ingresadas": 147,
+     "lanzamientos_suspendidos": 0
+    },
+    "2023": {
+     "verbales_arrendaticios_ingresados": 380,
+     "verbales_posesorios_ocupacion_ingresados": 12,
+     "ejecuciones_hipotecarias_ingresadas": 120,
+     "lanzamientos_suspendidos": 0
+    },
+    "2024": {
+     "verbales_arrendaticios_ingresados": 396,
+     "verbales_posesorios_ocupacion_ingresados": 34,
+     "ejecuciones_hipotecarias_ingresadas": 121,
+     "lanzamientos_suspendidos": 0
+    },
+    "2025": {
+     "verbales_arrendaticios_ingresados": 396,
+     "verbales_posesorios_ocupacion_ingresados": 5,
+     "ejecuciones_hipotecarias_ingresadas": 141,
+     "lanzamientos_suspendidos": 0
+    }
+   },
+   "resumen_2025": {
+    "lanzamientos_total": 121,
+    "lau": 96,
+    "hipotecarios": 19,
+    "otros": 6,
+    "por_100000_hab": 34.5,
+    "lau_por_1000_hogares_alquiler_censo2021": 5.52,
+    "total_por_1000_hogares_alquiler_censo2021": 6.96
+   },
+   "resumen_2024": {
+    "lanzamientos_total": 181,
+    "lau": 146,
+    "hipotecarios": 22,
+    "otros": 13,
+    "por_100000_hab": 52.0,
+    "lau_por_1000_hogares_alquiler_censo2021": 8.39
+   },
+   "ratio_lanzamientos_lau_sobre_verbales_arrendaticios_ingresados_2019_2025": 0.399,
+   "mapa_ministerio_url": "https://www.mjusticia.gob.es/es/JusticiaEspana/OrganizacionJusticia/InstLibraryCartographyJudProv/Madrid/M%C3%B3stoles.pdf"
+  },
+  "alcorcon": {
+   "nombre": "Partido judicial de Alcorcón",
+   "codigo_cgpj": "132817ALCOR",
+   "etiqueta_excel_cgpj": "ALCORCON",
+   "municipios": [
+    {
+     "nombre": "Alcorcón",
+     "poblacion_2025": 175719,
+     "censo2021_viviendas_principales_alquiler": 9468,
+     "censo2021_viviendas_principales_total": 65865
+    }
+   ],
+   "n_municipios": 1,
+   "poblacion_ine": {
+    "2013": 169773,
+    "2014": 170336,
+    "2015": 167136,
+    "2016": 167354,
+    "2017": 168141,
+    "2018": 169502,
+    "2019": 170514,
+    "2020": 172384,
+    "2021": 170817,
+    "2022": 170296,
+    "2023": 171772,
+    "2024": 173625,
+    "2025": 175719
+   },
+   "poblacion_2025_mapa_ministerio": 175719,
+   "censo2021_viviendas_principales_alquiler": 9468,
+   "municipios_del_proyecto": [
+    "alcorcon"
+   ],
+   "coincide_con_municipio": true,
+   "lanzamientos": {
+    "2013": {
+     "total": 181,
+     "ejecucion_hipotecaria": 34,
+     "lau_arrendamientos": 142,
+     "otros": 5,
+     "juzgados": {
+      "total": 181,
+      "ejecucion_hipotecaria": 34,
+      "lau_arrendamientos": 142,
+      "otros": 5
+     },
+     "por_100000_hab": 106.6,
+     "lau_por_100000_hab": 83.6
+    },
+    "2014": {
+     "total": 119,
+     "ejecucion_hipotecaria": 20,
+     "lau_arrendamientos": 92,
+     "otros": 7,
+     "juzgados": {
+      "total": 119,
+      "ejecucion_hipotecaria": 20,
+      "lau_arrendamientos": 92,
+      "otros": 7
+     },
+     "por_100000_hab": 69.9,
+     "lau_por_100000_hab": 54.0
+    },
+    "2015": {
+     "total": 179,
+     "ejecucion_hipotecaria": 16,
+     "lau_arrendamientos": 154,
+     "otros": 9,
+     "juzgados": {
+      "total": 179,
+      "ejecucion_hipotecaria": 16,
+      "lau_arrendamientos": 154,
+      "otros": 9
+     },
+     "por_100000_hab": 107.1,
+     "lau_por_100000_hab": 92.1
+    },
+    "2016": {
+     "total": 142,
+     "ejecucion_hipotecaria": 19,
+     "lau_arrendamientos": 113,
+     "otros": 10,
+     "juzgados": {
+      "total": 142,
+      "ejecucion_hipotecaria": 19,
+      "lau_arrendamientos": 113,
+      "otros": 10
+     },
+     "por_100000_hab": 84.9,
+     "lau_por_100000_hab": 67.5
+    },
+    "2017": {
+     "total": 114,
+     "ejecucion_hipotecaria": 14,
+     "lau_arrendamientos": 96,
+     "otros": 4,
+     "juzgados": {
+      "total": 114,
+      "ejecucion_hipotecaria": 14,
+      "lau_arrendamientos": 96,
+      "otros": 4
+     },
+     "por_100000_hab": 67.8,
+     "lau_por_100000_hab": 57.1
+    },
+    "2018": {
+     "total": 188,
+     "ejecucion_hipotecaria": 64,
+     "lau_arrendamientos": 111,
+     "otros": 13,
+     "juzgados": {
+      "total": 188,
+      "ejecucion_hipotecaria": 64,
+      "lau_arrendamientos": 111,
+      "otros": 13
+     },
+     "por_100000_hab": 110.9,
+     "lau_por_100000_hab": 65.5
+    },
+    "2019": {
+     "total": 120,
+     "ejecucion_hipotecaria": 8,
+     "lau_arrendamientos": 95,
+     "otros": 17,
+     "juzgados": {
+      "total": 120,
+      "ejecucion_hipotecaria": 8,
+      "lau_arrendamientos": 95,
+      "otros": 17
+     },
+     "por_100000_hab": 70.4,
+     "lau_por_100000_hab": 55.7
+    },
+    "2020": {
+     "total": 70,
+     "ejecucion_hipotecaria": 6,
+     "lau_arrendamientos": 58,
+     "otros": 6,
+     "juzgados": {
+      "total": 70,
+      "ejecucion_hipotecaria": 6,
+      "lau_arrendamientos": 58,
+      "otros": 6
+     },
+     "por_100000_hab": 40.6,
+     "lau_por_100000_hab": 33.6
+    },
+    "2021": {
+     "total": 122,
+     "ejecucion_hipotecaria": 27,
+     "lau_arrendamientos": 87,
+     "otros": 8,
+     "juzgados": {
+      "total": 122,
+      "ejecucion_hipotecaria": 27,
+      "lau_arrendamientos": 87,
+      "otros": 8
+     },
+     "por_100000_hab": 71.4,
+     "lau_por_100000_hab": 50.9
+    },
+    "2022": {
+     "total": 46,
+     "ejecucion_hipotecaria": 14,
+     "lau_arrendamientos": 29,
+     "otros": 3,
+     "juzgados": {
+      "total": 46,
+      "ejecucion_hipotecaria": 14,
+      "lau_arrendamientos": 29,
+      "otros": 3
+     },
+     "por_100000_hab": 27.0,
+     "lau_por_100000_hab": 17.0
+    },
+    "2023": {
+     "total": 53,
+     "ejecucion_hipotecaria": 4,
+     "lau_arrendamientos": 43,
+     "otros": 6,
+     "juzgados": {
+      "total": 53,
+      "ejecucion_hipotecaria": 4,
+      "lau_arrendamientos": 43,
+      "otros": 6
+     },
+     "por_100000_hab": 30.9,
+     "lau_por_100000_hab": 25.0
+    },
+    "2024": {
+     "total": 55,
+     "ejecucion_hipotecaria": 6,
+     "lau_arrendamientos": 45,
+     "otros": 4,
+     "juzgados": {
+      "total": 55,
+      "ejecucion_hipotecaria": 6,
+      "lau_arrendamientos": 45,
+      "otros": 4
+     },
+     "por_100000_hab": 31.7,
+     "lau_por_100000_hab": 25.9
+    },
+    "2025": {
+     "total": 33,
+     "ejecucion_hipotecaria": 3,
+     "lau_arrendamientos": 21,
+     "otros": 9,
+     "juzgados": {
+      "total": 24,
+      "ejecucion_hipotecaria": 1,
+      "lau_arrendamientos": 21,
+      "otros": 2
+     },
+     "servicio_comun_ejecucion": {
+      "organo": "SCT DE ALCORCON",
+      "total": 9,
+      "ejecucion_hipotecaria": 2,
+      "lau_arrendamientos": 0,
+      "otros": 7
+     },
+     "por_100000_hab": 18.8,
+     "lau_por_100000_hab": 12.0
+    }
+   },
+   "asuntos_juzgados_civil": {
+    "2013": {
+     "verbales_arrendaticios_ingresados": 230,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 143,
+     "lanzamientos_suspendidos": 0
+    },
+    "2014": {
+     "verbales_arrendaticios_ingresados": 210,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 132,
+     "lanzamientos_suspendidos": 0
+    },
+    "2015": {
+     "verbales_arrendaticios_ingresados": 228,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 122,
+     "lanzamientos_suspendidos": 0
+    },
+    "2016": {
+     "verbales_arrendaticios_ingresados": 199,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 98,
+     "lanzamientos_suspendidos": 0
+    },
+    "2017": {
+     "verbales_arrendaticios_ingresados": 204,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 60,
+     "lanzamientos_suspendidos": 0
+    },
+    "2018": {
+     "verbales_arrendaticios_ingresados": 204,
+     "verbales_posesorios_ocupacion_ingresados": 2,
+     "ejecuciones_hipotecarias_ingresadas": 42,
+     "lanzamientos_suspendidos": 0
+    },
+    "2019": {
+     "verbales_arrendaticios_ingresados": 158,
+     "verbales_posesorios_ocupacion_ingresados": 20,
+     "ejecuciones_hipotecarias_ingresadas": 25,
+     "lanzamientos_suspendidos": 0
+    },
+    "2020": {
+     "verbales_arrendaticios_ingresados": 250,
+     "verbales_posesorios_ocupacion_ingresados": 9,
+     "ejecuciones_hipotecarias_ingresadas": 28,
+     "lanzamientos_suspendidos": 0
+    },
+    "2021": {
+     "verbales_arrendaticios_ingresados": 237,
+     "verbales_posesorios_ocupacion_ingresados": 6,
+     "ejecuciones_hipotecarias_ingresadas": 50,
+     "lanzamientos_suspendidos": 0
+    },
+    "2022": {
+     "verbales_arrendaticios_ingresados": 202,
+     "verbales_posesorios_ocupacion_ingresados": 6,
+     "ejecuciones_hipotecarias_ingresadas": 54,
+     "lanzamientos_suspendidos": 0
+    },
+    "2023": {
+     "verbales_arrendaticios_ingresados": 171,
+     "verbales_posesorios_ocupacion_ingresados": 1,
+     "ejecuciones_hipotecarias_ingresadas": 30,
+     "lanzamientos_suspendidos": 0
+    },
+    "2024": {
+     "verbales_arrendaticios_ingresados": 178,
+     "verbales_posesorios_ocupacion_ingresados": 5,
+     "ejecuciones_hipotecarias_ingresadas": 71,
+     "lanzamientos_suspendidos": 0
+    },
+    "2025": {
+     "verbales_arrendaticios_ingresados": 149,
+     "verbales_posesorios_ocupacion_ingresados": 1,
+     "ejecuciones_hipotecarias_ingresadas": 57,
+     "lanzamientos_suspendidos": 0
+    }
+   },
+   "resumen_2025": {
+    "lanzamientos_total": 33,
+    "lau": 21,
+    "hipotecarios": 3,
+    "otros": 9,
+    "por_100000_hab": 18.8,
+    "lau_por_1000_hogares_alquiler_censo2021": 2.22,
+    "total_por_1000_hogares_alquiler_censo2021": 3.49
+   },
+   "resumen_2024": {
+    "lanzamientos_total": 55,
+    "lau": 45,
+    "hipotecarios": 6,
+    "otros": 4,
+    "por_100000_hab": 31.7,
+    "lau_por_1000_hogares_alquiler_censo2021": 4.75
+   },
+   "ratio_lanzamientos_lau_sobre_verbales_arrendaticios_ingresados_2019_2025": 0.281,
+   "mapa_ministerio_url": "https://www.mjusticia.gob.es/es/JusticiaEspana/OrganizacionJusticia/InstLibraryCartographyJudProv/Madrid/Alcorc%C3%B3n.pdf"
+  },
+  "alcobendas": {
+   "nombre": "Partido judicial de Alcobendas",
+   "codigo_cgpj": "132805ALCOB",
+   "etiqueta_excel_cgpj": "ALCOBENDAS",
+   "municipios": [
+    {
+     "nombre": "Alcobendas",
+     "poblacion_2025": 123342,
+     "censo2021_viviendas_principales_alquiler": 8583,
+     "censo2021_viviendas_principales_total": 40083
+    },
+    {
+     "nombre": "San Sebastián de los Reyes",
+     "poblacion_2025": 96992,
+     "censo2021_viviendas_principales_alquiler": 6267,
+     "censo2021_viviendas_principales_total": 32904
+    },
+    {
+     "nombre": "San Agustín del Guadalix",
+     "poblacion_2025": 13825,
+     "censo2021_viviendas_principales_alquiler": 810,
+     "censo2021_viviendas_principales_total": 4440
+    },
+    {
+     "nombre": "Molar, El",
+     "poblacion_2025": 9999,
+     "censo2021_viviendas_principales_alquiler": 819,
+     "censo2021_viviendas_principales_total": 3411
+    },
+    {
+     "nombre": "Pedrezuela",
+     "poblacion_2025": 6606,
+     "censo2021_viviendas_principales_alquiler": 582,
+     "censo2021_viviendas_principales_total": 2322
+    },
+    {
+     "nombre": "Talamanca de Jarama",
+     "poblacion_2025": 4607,
+     "censo2021_viviendas_principales_alquiler": 291,
+     "censo2021_viviendas_principales_total": 1512
+    },
+    {
+     "nombre": "Valdepiélagos",
+     "poblacion_2025": 612,
+     "censo2021_viviendas_principales_alquiler": 39,
+     "censo2021_viviendas_principales_total": 231
+    }
+   ],
+   "n_municipios": 7,
+   "poblacion_ine": {
+    "2013": 224473,
+    "2014": 225402,
+    "2015": 228225,
+    "2016": 230152,
+    "2017": 232938,
+    "2018": 235745,
+    "2019": 238966,
+    "2020": 243170,
+    "2021": 241341,
+    "2022": 242307,
+    "2023": 246937,
+    "2024": 251775,
+    "2025": 255983
+   },
+   "poblacion_2025_mapa_ministerio": 255983,
+   "censo2021_viviendas_principales_alquiler": 17391,
+   "municipios_del_proyecto": [
+    "alcobendas"
+   ],
+   "coincide_con_municipio": false,
+   "lanzamientos": {
+    "2013": {
+     "total": 179,
+     "ejecucion_hipotecaria": 31,
+     "lau_arrendamientos": 133,
+     "otros": 15,
+     "juzgados": {
+      "total": 179,
+      "ejecucion_hipotecaria": 31,
+      "lau_arrendamientos": 133,
+      "otros": 15
+     },
+     "por_100000_hab": 79.7,
+     "lau_por_100000_hab": 59.2
+    },
+    "2014": {
+     "total": 226,
+     "ejecucion_hipotecaria": 52,
+     "lau_arrendamientos": 171,
+     "otros": 3,
+     "juzgados": {
+      "total": 226,
+      "ejecucion_hipotecaria": 52,
+      "lau_arrendamientos": 171,
+      "otros": 3
+     },
+     "por_100000_hab": 100.3,
+     "lau_por_100000_hab": 75.9
+    },
+    "2015": {
+     "total": 217,
+     "ejecucion_hipotecaria": 51,
+     "lau_arrendamientos": 158,
+     "otros": 8,
+     "juzgados": {
+      "total": 217,
+      "ejecucion_hipotecaria": 51,
+      "lau_arrendamientos": 158,
+      "otros": 8
+     },
+     "por_100000_hab": 95.1,
+     "lau_por_100000_hab": 69.2
+    },
+    "2016": {
+     "total": 222,
+     "ejecucion_hipotecaria": 50,
+     "lau_arrendamientos": 169,
+     "otros": 3,
+     "juzgados": {
+      "total": 222,
+      "ejecucion_hipotecaria": 50,
+      "lau_arrendamientos": 169,
+      "otros": 3
+     },
+     "por_100000_hab": 96.5,
+     "lau_por_100000_hab": 73.4
+    },
+    "2017": {
+     "total": 266,
+     "ejecucion_hipotecaria": 56,
+     "lau_arrendamientos": 204,
+     "otros": 6,
+     "juzgados": {
+      "total": 266,
+      "ejecucion_hipotecaria": 56,
+      "lau_arrendamientos": 204,
+      "otros": 6
+     },
+     "por_100000_hab": 114.2,
+     "lau_por_100000_hab": 87.6
+    },
+    "2018": {
+     "total": 244,
+     "ejecucion_hipotecaria": 44,
+     "lau_arrendamientos": 181,
+     "otros": 19,
+     "juzgados": {
+      "total": 244,
+      "ejecucion_hipotecaria": 44,
+      "lau_arrendamientos": 181,
+      "otros": 19
+     },
+     "por_100000_hab": 103.5,
+     "lau_por_100000_hab": 76.8
+    },
+    "2019": {
+     "total": 158,
+     "ejecucion_hipotecaria": 15,
+     "lau_arrendamientos": 142,
+     "otros": 1,
+     "juzgados": {
+      "total": 158,
+      "ejecucion_hipotecaria": 15,
+      "lau_arrendamientos": 142,
+      "otros": 1
+     },
+     "por_100000_hab": 66.1,
+     "lau_por_100000_hab": 59.4
+    },
+    "2020": {
+     "total": 47,
+     "ejecucion_hipotecaria": 12,
+     "lau_arrendamientos": 35,
+     "otros": 0,
+     "juzgados": {
+      "total": 47,
+      "ejecucion_hipotecaria": 12,
+      "lau_arrendamientos": 35,
+      "otros": 0
+     },
+     "por_100000_hab": 19.3,
+     "lau_por_100000_hab": 14.4
+    },
+    "2021": {
+     "total": 111,
+     "ejecucion_hipotecaria": 26,
+     "lau_arrendamientos": 84,
+     "otros": 1,
+     "juzgados": {
+      "total": 111,
+      "ejecucion_hipotecaria": 26,
+      "lau_arrendamientos": 84,
+      "otros": 1
+     },
+     "por_100000_hab": 46.0,
+     "lau_por_100000_hab": 34.8
+    },
+    "2022": {
+     "total": 132,
+     "ejecucion_hipotecaria": 10,
+     "lau_arrendamientos": 119,
+     "otros": 3,
+     "juzgados": {
+      "total": 132,
+      "ejecucion_hipotecaria": 10,
+      "lau_arrendamientos": 119,
+      "otros": 3
+     },
+     "por_100000_hab": 54.5,
+     "lau_por_100000_hab": 49.1
+    },
+    "2023": {
+     "total": 77,
+     "ejecucion_hipotecaria": 3,
+     "lau_arrendamientos": 72,
+     "otros": 2,
+     "juzgados": {
+      "total": 77,
+      "ejecucion_hipotecaria": 3,
+      "lau_arrendamientos": 72,
+      "otros": 2
+     },
+     "por_100000_hab": 31.2,
+     "lau_por_100000_hab": 29.2
+    },
+    "2024": {
+     "total": 95,
+     "ejecucion_hipotecaria": 1,
+     "lau_arrendamientos": 93,
+     "otros": 1,
+     "juzgados": {
+      "total": 95,
+      "ejecucion_hipotecaria": 1,
+      "lau_arrendamientos": 93,
+      "otros": 1
+     },
+     "por_100000_hab": 37.7,
+     "lau_por_100000_hab": 36.9
+    },
+    "2025": {
+     "total": 60,
+     "ejecucion_hipotecaria": 2,
+     "lau_arrendamientos": 54,
+     "otros": 4,
+     "juzgados": {
+      "total": 57,
+      "ejecucion_hipotecaria": 2,
+      "lau_arrendamientos": 52,
+      "otros": 3
+     },
+     "servicio_comun_ejecucion": {
+      "organo": "SCEJ DE ALCOBENDAS",
+      "total": 3,
+      "ejecucion_hipotecaria": 0,
+      "lau_arrendamientos": 2,
+      "otros": 1
+     },
+     "por_100000_hab": 23.4,
+     "lau_por_100000_hab": 21.1
+    }
+   },
+   "asuntos_juzgados_civil": {
+    "2013": {
+     "verbales_arrendaticios_ingresados": 309,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 277,
+     "lanzamientos_suspendidos": 0
+    },
+    "2014": {
+     "verbales_arrendaticios_ingresados": 347,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 223,
+     "lanzamientos_suspendidos": 0
+    },
+    "2015": {
+     "verbales_arrendaticios_ingresados": 342,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 232,
+     "lanzamientos_suspendidos": 0
+    },
+    "2016": {
+     "verbales_arrendaticios_ingresados": 335,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 138,
+     "lanzamientos_suspendidos": 0
+    },
+    "2017": {
+     "verbales_arrendaticios_ingresados": 368,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 117,
+     "lanzamientos_suspendidos": 0
+    },
+    "2018": {
+     "verbales_arrendaticios_ingresados": 372,
+     "verbales_posesorios_ocupacion_ingresados": 5,
+     "ejecuciones_hipotecarias_ingresadas": 84,
+     "lanzamientos_suspendidos": 0
+    },
+    "2019": {
+     "verbales_arrendaticios_ingresados": 330,
+     "verbales_posesorios_ocupacion_ingresados": 8,
+     "ejecuciones_hipotecarias_ingresadas": 62,
+     "lanzamientos_suspendidos": 0
+    },
+    "2020": {
+     "verbales_arrendaticios_ingresados": 363,
+     "verbales_posesorios_ocupacion_ingresados": 18,
+     "ejecuciones_hipotecarias_ingresadas": 59,
+     "lanzamientos_suspendidos": 0
+    },
+    "2021": {
+     "verbales_arrendaticios_ingresados": 371,
+     "verbales_posesorios_ocupacion_ingresados": 9,
+     "ejecuciones_hipotecarias_ingresadas": 91,
+     "lanzamientos_suspendidos": 0
+    },
+    "2022": {
+     "verbales_arrendaticios_ingresados": 281,
+     "verbales_posesorios_ocupacion_ingresados": 6,
+     "ejecuciones_hipotecarias_ingresadas": 83,
+     "lanzamientos_suspendidos": 0
+    },
+    "2023": {
+     "verbales_arrendaticios_ingresados": 245,
+     "verbales_posesorios_ocupacion_ingresados": 11,
+     "ejecuciones_hipotecarias_ingresadas": 52,
+     "lanzamientos_suspendidos": 0
+    },
+    "2024": {
+     "verbales_arrendaticios_ingresados": 263,
+     "verbales_posesorios_ocupacion_ingresados": 2,
+     "ejecuciones_hipotecarias_ingresadas": 40,
+     "lanzamientos_suspendidos": 0
+    },
+    "2025": {
+     "verbales_arrendaticios_ingresados": 240,
+     "verbales_posesorios_ocupacion_ingresados": 2,
+     "ejecuciones_hipotecarias_ingresadas": 77,
+     "lanzamientos_suspendidos": 0
+    }
+   },
+   "resumen_2025": {
+    "lanzamientos_total": 60,
+    "lau": 54,
+    "hipotecarios": 2,
+    "otros": 4,
+    "por_100000_hab": 23.4,
+    "lau_por_1000_hogares_alquiler_censo2021": 3.11,
+    "total_por_1000_hogares_alquiler_censo2021": 3.45
+   },
+   "resumen_2024": {
+    "lanzamientos_total": 95,
+    "lau": 93,
+    "hipotecarios": 1,
+    "otros": 1,
+    "por_100000_hab": 37.7,
+    "lau_por_1000_hogares_alquiler_censo2021": 5.35
+   },
+   "ratio_lanzamientos_lau_sobre_verbales_arrendaticios_ingresados_2019_2025": 0.286,
+   "mapa_ministerio_url": "https://www.mjusticia.gob.es/es/JusticiaEspana/OrganizacionJusticia/InstLibraryCartographyJudProv/Madrid/Alcobendas.pdf"
+  },
+  "torrejon": {
+   "nombre": "Partido judicial de Torrejón de Ardoz",
+   "codigo_cgpj": "132802TRJON",
+   "etiqueta_excel_cgpj": "TORREJON DE ARDOZ",
+   "municipios": [
+    {
+     "nombre": "Torrejón de Ardoz",
+     "poblacion_2025": 143526,
+     "censo2021_viviendas_principales_alquiler": 8841,
+     "censo2021_viviendas_principales_total": 47253
+    },
+    {
+     "nombre": "Ajalvir",
+     "poblacion_2025": 4868,
+     "censo2021_viviendas_principales_alquiler": 396,
+     "censo2021_viviendas_principales_total": 1605
+    },
+    {
+     "nombre": "Algete",
+     "poblacion_2025": 21144,
+     "censo2021_viviendas_principales_alquiler": 885,
+     "censo2021_viviendas_principales_total": 6723
+    },
+    {
+     "nombre": "Cobeña",
+     "poblacion_2025": 7670,
+     "censo2021_viviendas_principales_alquiler": 330,
+     "censo2021_viviendas_principales_total": 2412
+    },
+    {
+     "nombre": "Daganzo de Arriba",
+     "poblacion_2025": 10764,
+     "censo2021_viviendas_principales_alquiler": 354,
+     "censo2021_viviendas_principales_total": 3444
+    },
+    {
+     "nombre": "Fresno de Torote",
+     "poblacion_2025": 2561,
+     "censo2021_viviendas_principales_alquiler": 102,
+     "censo2021_viviendas_principales_total": 858
+    },
+    {
+     "nombre": "Fuente el Saz de Jarama",
+     "poblacion_2025": 7413,
+     "censo2021_viviendas_principales_alquiler": 531,
+     "censo2021_viviendas_principales_total": 2352
+    },
+    {
+     "nombre": "Paracuellos de Jarama",
+     "poblacion_2025": 27650,
+     "censo2021_viviendas_principales_alquiler": 1359,
+     "censo2021_viviendas_principales_total": 8481
+    },
+    {
+     "nombre": "Ribatejada",
+     "poblacion_2025": 905,
+     "censo2021_viviendas_principales_alquiler": 57,
+     "censo2021_viviendas_principales_total": 357
+    },
+    {
+     "nombre": "Valdeolmos-Alalpardo",
+     "poblacion_2025": 4626,
+     "censo2021_viviendas_principales_alquiler": 270,
+     "censo2021_viviendas_principales_total": 1470
+    },
+    {
+     "nombre": "Valdetorres de Jarama",
+     "poblacion_2025": 5175,
+     "censo2021_viviendas_principales_alquiler": 321,
+     "censo2021_viviendas_principales_total": 1677
+    }
+   ],
+   "n_municipios": 11,
+   "poblacion_ine": {
+    "2013": 202935,
+    "2014": 206831,
+    "2015": 207827,
+    "2016": 209102,
+    "2017": 211500,
+    "2018": 214474,
+    "2019": 217934,
+    "2020": 220898,
+    "2021": 221562,
+    "2022": 224477,
+    "2023": 228919,
+    "2024": 232777,
+    "2025": 236302
+   },
+   "poblacion_2025_mapa_ministerio": 236302,
+   "censo2021_viviendas_principales_alquiler": 13446,
+   "municipios_del_proyecto": [
+    "torrejon"
+   ],
+   "coincide_con_municipio": false,
+   "lanzamientos": {
+    "2013": {
+     "total": 287,
+     "ejecucion_hipotecaria": 112,
+     "lau_arrendamientos": 168,
+     "otros": 7,
+     "juzgados": {
+      "total": 287,
+      "ejecucion_hipotecaria": 112,
+      "lau_arrendamientos": 168,
+      "otros": 7
+     },
+     "por_100000_hab": 141.4,
+     "lau_por_100000_hab": 82.8
+    },
+    "2014": {
+     "total": 244,
+     "ejecucion_hipotecaria": 91,
+     "lau_arrendamientos": 141,
+     "otros": 12,
+     "juzgados": {
+      "total": 244,
+      "ejecucion_hipotecaria": 91,
+      "lau_arrendamientos": 141,
+      "otros": 12
+     },
+     "por_100000_hab": 118.0,
+     "lau_por_100000_hab": 68.2
+    },
+    "2015": {
+     "total": 243,
+     "ejecucion_hipotecaria": 80,
+     "lau_arrendamientos": 161,
+     "otros": 2,
+     "juzgados": {
+      "total": 243,
+      "ejecucion_hipotecaria": 80,
+      "lau_arrendamientos": 161,
+      "otros": 2
+     },
+     "por_100000_hab": 116.9,
+     "lau_por_100000_hab": 77.5
+    },
+    "2016": {
+     "total": 221,
+     "ejecucion_hipotecaria": 65,
+     "lau_arrendamientos": 150,
+     "otros": 6,
+     "juzgados": {
+      "total": 221,
+      "ejecucion_hipotecaria": 65,
+      "lau_arrendamientos": 150,
+      "otros": 6
+     },
+     "por_100000_hab": 105.7,
+     "lau_por_100000_hab": 71.7
+    },
+    "2017": {
+     "total": 236,
+     "ejecucion_hipotecaria": 70,
+     "lau_arrendamientos": 164,
+     "otros": 2,
+     "juzgados": {
+      "total": 236,
+      "ejecucion_hipotecaria": 70,
+      "lau_arrendamientos": 164,
+      "otros": 2
+     },
+     "por_100000_hab": 111.6,
+     "lau_por_100000_hab": 77.5
+    },
+    "2018": {
+     "total": 250,
+     "ejecucion_hipotecaria": 81,
+     "lau_arrendamientos": 158,
+     "otros": 11,
+     "juzgados": {
+      "total": 250,
+      "ejecucion_hipotecaria": 81,
+      "lau_arrendamientos": 158,
+      "otros": 11
+     },
+     "por_100000_hab": 116.6,
+     "lau_por_100000_hab": 73.7
+    },
+    "2019": {
+     "total": 277,
+     "ejecucion_hipotecaria": 79,
+     "lau_arrendamientos": 185,
+     "otros": 13,
+     "juzgados": {
+      "total": 277,
+      "ejecucion_hipotecaria": 79,
+      "lau_arrendamientos": 185,
+      "otros": 13
+     },
+     "por_100000_hab": 127.1,
+     "lau_por_100000_hab": 84.9
+    },
+    "2020": {
+     "total": 96,
+     "ejecucion_hipotecaria": 31,
+     "lau_arrendamientos": 62,
+     "otros": 3,
+     "juzgados": {
+      "total": 96,
+      "ejecucion_hipotecaria": 31,
+      "lau_arrendamientos": 62,
+      "otros": 3
+     },
+     "por_100000_hab": 43.5,
+     "lau_por_100000_hab": 28.1
+    },
+    "2021": {
+     "total": 145,
+     "ejecucion_hipotecaria": 26,
+     "lau_arrendamientos": 115,
+     "otros": 4,
+     "juzgados": {
+      "total": 145,
+      "ejecucion_hipotecaria": 26,
+      "lau_arrendamientos": 115,
+      "otros": 4
+     },
+     "por_100000_hab": 65.4,
+     "lau_por_100000_hab": 51.9
+    },
+    "2022": {
+     "total": 124,
+     "ejecucion_hipotecaria": 16,
+     "lau_arrendamientos": 103,
+     "otros": 5,
+     "juzgados": {
+      "total": 124,
+      "ejecucion_hipotecaria": 16,
+      "lau_arrendamientos": 103,
+      "otros": 5
+     },
+     "por_100000_hab": 55.2,
+     "lau_por_100000_hab": 45.9
+    },
+    "2023": {
+     "total": 79,
+     "ejecucion_hipotecaria": 11,
+     "lau_arrendamientos": 68,
+     "otros": 0,
+     "juzgados": {
+      "total": 79,
+      "ejecucion_hipotecaria": 11,
+      "lau_arrendamientos": 68,
+      "otros": 0
+     },
+     "por_100000_hab": 34.5,
+     "lau_por_100000_hab": 29.7
+    },
+    "2024": {
+     "total": 82,
+     "ejecucion_hipotecaria": 13,
+     "lau_arrendamientos": 63,
+     "otros": 6,
+     "juzgados": {
+      "total": 82,
+      "ejecucion_hipotecaria": 13,
+      "lau_arrendamientos": 63,
+      "otros": 6
+     },
+     "por_100000_hab": 35.2,
+     "lau_por_100000_hab": 27.1
+    },
+    "2025": {
+     "total": 71,
+     "ejecucion_hipotecaria": 17,
+     "lau_arrendamientos": 51,
+     "otros": 3,
+     "juzgados": {
+      "total": 48,
+      "ejecucion_hipotecaria": 15,
+      "lau_arrendamientos": 30,
+      "otros": 3
+     },
+     "servicio_comun_ejecucion": {
+      "organo": "SCEJ DE TORREJON DE ARDOZ",
+      "total": 23,
+      "ejecucion_hipotecaria": 2,
+      "lau_arrendamientos": 21,
+      "otros": 0
+     },
+     "por_100000_hab": 30.0,
+     "lau_por_100000_hab": 21.6
+    }
+   },
+   "asuntos_juzgados_civil": {
+    "2013": {
+     "verbales_arrendaticios_ingresados": 268,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 381,
+     "lanzamientos_suspendidos": 0
+    },
+    "2014": {
+     "verbales_arrendaticios_ingresados": 320,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 349,
+     "lanzamientos_suspendidos": 0
+    },
+    "2015": {
+     "verbales_arrendaticios_ingresados": 350,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 233,
+     "lanzamientos_suspendidos": 0
+    },
+    "2016": {
+     "verbales_arrendaticios_ingresados": 342,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 200,
+     "lanzamientos_suspendidos": 0
+    },
+    "2017": {
+     "verbales_arrendaticios_ingresados": 341,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 118,
+     "lanzamientos_suspendidos": 0
+    },
+    "2018": {
+     "verbales_arrendaticios_ingresados": 282,
+     "verbales_posesorios_ocupacion_ingresados": 6,
+     "ejecuciones_hipotecarias_ingresadas": 75,
+     "lanzamientos_suspendidos": 0
+    },
+    "2019": {
+     "verbales_arrendaticios_ingresados": 333,
+     "verbales_posesorios_ocupacion_ingresados": 6,
+     "ejecuciones_hipotecarias_ingresadas": 47,
+     "lanzamientos_suspendidos": 0
+    },
+    "2020": {
+     "verbales_arrendaticios_ingresados": 352,
+     "verbales_posesorios_ocupacion_ingresados": 4,
+     "ejecuciones_hipotecarias_ingresadas": 71,
+     "lanzamientos_suspendidos": 0
+    },
+    "2021": {
+     "verbales_arrendaticios_ingresados": 396,
+     "verbales_posesorios_ocupacion_ingresados": 2,
+     "ejecuciones_hipotecarias_ingresadas": 92,
+     "lanzamientos_suspendidos": 0
+    },
+    "2022": {
+     "verbales_arrendaticios_ingresados": 289,
+     "verbales_posesorios_ocupacion_ingresados": 3,
+     "ejecuciones_hipotecarias_ingresadas": 105,
+     "lanzamientos_suspendidos": 0
+    },
+    "2023": {
+     "verbales_arrendaticios_ingresados": 290,
+     "verbales_posesorios_ocupacion_ingresados": 3,
+     "ejecuciones_hipotecarias_ingresadas": 86,
+     "lanzamientos_suspendidos": 0
+    },
+    "2024": {
+     "verbales_arrendaticios_ingresados": 289,
+     "verbales_posesorios_ocupacion_ingresados": 3,
+     "ejecuciones_hipotecarias_ingresadas": 77,
+     "lanzamientos_suspendidos": 0
+    },
+    "2025": {
+     "verbales_arrendaticios_ingresados": 254,
+     "verbales_posesorios_ocupacion_ingresados": 4,
+     "ejecuciones_hipotecarias_ingresadas": 104,
+     "lanzamientos_suspendidos": 0
+    }
+   },
+   "resumen_2025": {
+    "lanzamientos_total": 71,
+    "lau": 51,
+    "hipotecarios": 17,
+    "otros": 3,
+    "por_100000_hab": 30.0,
+    "lau_por_1000_hogares_alquiler_censo2021": 3.79,
+    "total_por_1000_hogares_alquiler_censo2021": 5.28
+   },
+   "resumen_2024": {
+    "lanzamientos_total": 82,
+    "lau": 63,
+    "hipotecarios": 13,
+    "otros": 6,
+    "por_100000_hab": 35.2,
+    "lau_por_1000_hogares_alquiler_censo2021": 4.69
+   },
+   "ratio_lanzamientos_lau_sobre_verbales_arrendaticios_ingresados_2019_2025": 0.294,
+   "mapa_ministerio_url": "https://www.mjusticia.gob.es/es/JusticiaEspana/OrganizacionJusticia/InstLibraryCartographyJudProv/Madrid/Torrej%C3%B3n%20de%20Ardoz.pdf"
+  },
+  "pozuelo": {
+   "nombre": "Partido judicial de Pozuelo de Alarcón",
+   "codigo_cgpj": "132821POZUE",
+   "etiqueta_excel_cgpj": "POZUELO DE ALARCON",
+   "municipios": [
+    {
+     "nombre": "Pozuelo de Alarcón",
+     "poblacion_2025": 89770,
+     "censo2021_viviendas_principales_alquiler": 5046,
+     "censo2021_viviendas_principales_total": 27768
+    }
+   ],
+   "n_municipios": 1,
+   "poblacion_ine": {
+    "2013": 84474,
+    "2014": 84360,
+    "2015": 84558,
+    "2016": 84989,
+    "2017": 85605,
+    "2018": 86172,
+    "2019": 86422,
+    "2020": 87165,
+    "2021": 87134,
+    "2022": 87728,
+    "2023": 88784,
+    "2024": 89378,
+    "2025": 89770
+   },
+   "poblacion_2025_mapa_ministerio": 89770,
+   "censo2021_viviendas_principales_alquiler": 5046,
+   "municipios_del_proyecto": [
+    "pozuelo"
+   ],
+   "coincide_con_municipio": true,
+   "lanzamientos": {
+    "2013": {
+     "total": 75,
+     "ejecucion_hipotecaria": 6,
+     "lau_arrendamientos": 49,
+     "otros": 20,
+     "juzgados": {
+      "total": 75,
+      "ejecucion_hipotecaria": 6,
+      "lau_arrendamientos": 49,
+      "otros": 20
+     },
+     "por_100000_hab": 88.8,
+     "lau_por_100000_hab": 58.0
+    },
+    "2014": {
+     "total": 74,
+     "ejecucion_hipotecaria": 14,
+     "lau_arrendamientos": 52,
+     "otros": 8,
+     "juzgados": {
+      "total": 74,
+      "ejecucion_hipotecaria": 14,
+      "lau_arrendamientos": 52,
+      "otros": 8
+     },
+     "por_100000_hab": 87.7,
+     "lau_por_100000_hab": 61.6
+    },
+    "2015": {
+     "total": 66,
+     "ejecucion_hipotecaria": 11,
+     "lau_arrendamientos": 53,
+     "otros": 2,
+     "juzgados": {
+      "total": 66,
+      "ejecucion_hipotecaria": 11,
+      "lau_arrendamientos": 53,
+      "otros": 2
+     },
+     "por_100000_hab": 78.1,
+     "lau_por_100000_hab": 62.7
+    },
+    "2016": {
+     "total": 48,
+     "ejecucion_hipotecaria": 7,
+     "lau_arrendamientos": 38,
+     "otros": 3,
+     "juzgados": {
+      "total": 48,
+      "ejecucion_hipotecaria": 7,
+      "lau_arrendamientos": 38,
+      "otros": 3
+     },
+     "por_100000_hab": 56.5,
+     "lau_por_100000_hab": 44.7
+    },
+    "2017": {
+     "total": 67,
+     "ejecucion_hipotecaria": 5,
+     "lau_arrendamientos": 62,
+     "otros": 0,
+     "juzgados": {
+      "total": 67,
+      "ejecucion_hipotecaria": 5,
+      "lau_arrendamientos": 62,
+      "otros": 0
+     },
+     "por_100000_hab": 78.3,
+     "lau_por_100000_hab": 72.4
+    },
+    "2018": {
+     "total": 65,
+     "ejecucion_hipotecaria": 2,
+     "lau_arrendamientos": 63,
+     "otros": 0,
+     "juzgados": {
+      "total": 65,
+      "ejecucion_hipotecaria": 2,
+      "lau_arrendamientos": 63,
+      "otros": 0
+     },
+     "por_100000_hab": 75.4,
+     "lau_por_100000_hab": 73.1
+    },
+    "2019": {
+     "total": 85,
+     "ejecucion_hipotecaria": 8,
+     "lau_arrendamientos": 77,
+     "otros": 0,
+     "juzgados": {
+      "total": 85,
+      "ejecucion_hipotecaria": 8,
+      "lau_arrendamientos": 77,
+      "otros": 0
+     },
+     "por_100000_hab": 98.4,
+     "lau_por_100000_hab": 89.1
+    },
+    "2020": {
+     "total": 43,
+     "ejecucion_hipotecaria": 1,
+     "lau_arrendamientos": 39,
+     "otros": 3,
+     "juzgados": {
+      "total": 43,
+      "ejecucion_hipotecaria": 1,
+      "lau_arrendamientos": 39,
+      "otros": 3
+     },
+     "por_100000_hab": 49.3,
+     "lau_por_100000_hab": 44.7
+    },
+    "2021": {
+     "total": 61,
+     "ejecucion_hipotecaria": 2,
+     "lau_arrendamientos": 59,
+     "otros": 0,
+     "juzgados": {
+      "total": 61,
+      "ejecucion_hipotecaria": 2,
+      "lau_arrendamientos": 59,
+      "otros": 0
+     },
+     "por_100000_hab": 70.0,
+     "lau_por_100000_hab": 67.7
+    },
+    "2022": {
+     "total": 44,
+     "ejecucion_hipotecaria": 1,
+     "lau_arrendamientos": 41,
+     "otros": 2,
+     "juzgados": {
+      "total": 44,
+      "ejecucion_hipotecaria": 1,
+      "lau_arrendamientos": 41,
+      "otros": 2
+     },
+     "por_100000_hab": 50.2,
+     "lau_por_100000_hab": 46.7
+    },
+    "2023": {
+     "total": 19,
+     "ejecucion_hipotecaria": 3,
+     "lau_arrendamientos": 16,
+     "otros": 0,
+     "juzgados": {
+      "total": 19,
+      "ejecucion_hipotecaria": 3,
+      "lau_arrendamientos": 16,
+      "otros": 0
+     },
+     "por_100000_hab": 21.4,
+     "lau_por_100000_hab": 18.0
+    },
+    "2024": {
+     "total": 36,
+     "ejecucion_hipotecaria": 5,
+     "lau_arrendamientos": 29,
+     "otros": 2,
+     "juzgados": {
+      "total": 36,
+      "ejecucion_hipotecaria": 5,
+      "lau_arrendamientos": 29,
+      "otros": 2
+     },
+     "por_100000_hab": 40.3,
+     "lau_por_100000_hab": 32.4
+    },
+    "2025": {
+     "total": 21,
+     "ejecucion_hipotecaria": 5,
+     "lau_arrendamientos": 16,
+     "otros": 0,
+     "juzgados": {
+      "total": 21,
+      "ejecucion_hipotecaria": 5,
+      "lau_arrendamientos": 16,
+      "otros": 0
+     },
+     "por_100000_hab": 23.4,
+     "lau_por_100000_hab": 17.8
+    }
+   },
+   "asuntos_juzgados_civil": {
+    "2013": {
+     "verbales_arrendaticios_ingresados": 96,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 56,
+     "lanzamientos_suspendidos": 0
+    },
+    "2014": {
+     "verbales_arrendaticios_ingresados": 72,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 65,
+     "lanzamientos_suspendidos": 0
+    },
+    "2015": {
+     "verbales_arrendaticios_ingresados": 88,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 35,
+     "lanzamientos_suspendidos": 0
+    },
+    "2016": {
+     "verbales_arrendaticios_ingresados": 92,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 27,
+     "lanzamientos_suspendidos": 0
+    },
+    "2017": {
+     "verbales_arrendaticios_ingresados": 99,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 33,
+     "lanzamientos_suspendidos": 0
+    },
+    "2018": {
+     "verbales_arrendaticios_ingresados": 103,
+     "verbales_posesorios_ocupacion_ingresados": 0,
+     "ejecuciones_hipotecarias_ingresadas": 20,
+     "lanzamientos_suspendidos": 0
+    },
+    "2019": {
+     "verbales_arrendaticios_ingresados": 117,
+     "verbales_posesorios_ocupacion_ingresados": 1,
+     "ejecuciones_hipotecarias_ingresadas": 19,
+     "lanzamientos_suspendidos": 0
+    },
+    "2020": {
+     "verbales_arrendaticios_ingresados": 122,
+     "verbales_posesorios_ocupacion_ingresados": 2,
+     "ejecuciones_hipotecarias_ingresadas": 18,
+     "lanzamientos_suspendidos": 0
+    },
+    "2021": {
+     "verbales_arrendaticios_ingresados": 110,
+     "verbales_posesorios_ocupacion_ingresados": 1,
+     "ejecuciones_hipotecarias_ingresadas": 21,
+     "lanzamientos_suspendidos": 0
+    },
+    "2022": {
+     "verbales_arrendaticios_ingresados": 81,
+     "verbales_posesorios_ocupacion_ingresados": 1,
+     "ejecuciones_hipotecarias_ingresadas": 16,
+     "lanzamientos_suspendidos": 0
+    },
+    "2023": {
+     "verbales_arrendaticios_ingresados": 71,
+     "verbales_posesorios_ocupacion_ingresados": 0,
+     "ejecuciones_hipotecarias_ingresadas": 24,
+     "lanzamientos_suspendidos": 0
+    },
+    "2024": {
+     "verbales_arrendaticios_ingresados": 111,
+     "verbales_posesorios_ocupacion_ingresados": 1,
+     "ejecuciones_hipotecarias_ingresadas": 16,
+     "lanzamientos_suspendidos": 0
+    },
+    "2025": {
+     "verbales_arrendaticios_ingresados": 80,
+     "verbales_posesorios_ocupacion_ingresados": 0,
+     "ejecuciones_hipotecarias_ingresadas": 44,
+     "lanzamientos_suspendidos": 0
+    }
+   },
+   "resumen_2025": {
+    "lanzamientos_total": 21,
+    "lau": 16,
+    "hipotecarios": 5,
+    "otros": 0,
+    "por_100000_hab": 23.4,
+    "lau_por_1000_hogares_alquiler_censo2021": 3.17,
+    "total_por_1000_hogares_alquiler_censo2021": 4.16
+   },
+   "resumen_2024": {
+    "lanzamientos_total": 36,
+    "lau": 29,
+    "hipotecarios": 5,
+    "otros": 2,
+    "por_100000_hab": 40.3,
+    "lau_por_1000_hogares_alquiler_censo2021": 5.75
+   },
+   "ratio_lanzamientos_lau_sobre_verbales_arrendaticios_ingresados_2019_2025": 0.4,
+   "mapa_ministerio_url": "https://www.mjusticia.gob.es/es/JusticiaEspana/OrganizacionJusticia/InstLibraryCartographyJudProv/Madrid/Pozuelo%20de%20Alarc%C3%B3n.pdf"
+  },
+  "majadahonda": {
+   "nombre": "Partido judicial de Majadahonda",
+   "codigo_cgpj": "132812MAJAD",
+   "etiqueta_excel_cgpj": "MAJADAHONDA",
+   "municipios": [
+    {
+     "nombre": "Majadahonda",
+     "poblacion_2025": 73625,
+     "censo2021_viviendas_principales_alquiler": 5178,
+     "censo2021_viviendas_principales_total": 23829
+    },
+    {
+     "nombre": "Rozas de Madrid, Las",
+     "poblacion_2025": 99037,
+     "censo2021_viviendas_principales_alquiler": 5805,
+     "censo2021_viviendas_principales_total": 31305
+    }
+   ],
+   "n_municipios": 2,
+   "poblacion_ine": {
+    "2013": 162192,
+    "2014": 163143,
+    "2015": 164320,
+    "2016": 165226,
+    "2017": 166370,
+    "2018": 167335,
+    "2019": 167640,
+    "2020": 168268,
+    "2021": 166896,
+    "2022": 167904,
+    "2023": 170634,
+    "2024": 171945,
+    "2025": 172662
+   },
+   "poblacion_2025_mapa_ministerio": 172662,
+   "censo2021_viviendas_principales_alquiler": 10983,
+   "municipios_del_proyecto": [
+    "majadahonda"
+   ],
+   "coincide_con_municipio": false,
+   "lanzamientos": {
+    "2013": {
+     "total": 123,
+     "ejecucion_hipotecaria": 16,
+     "lau_arrendamientos": 103,
+     "otros": 4,
+     "juzgados": {
+      "total": 123,
+      "ejecucion_hipotecaria": 16,
+      "lau_arrendamientos": 103,
+      "otros": 4
+     },
+     "por_100000_hab": 75.8,
+     "lau_por_100000_hab": 63.5
+    },
+    "2014": {
+     "total": 133,
+     "ejecucion_hipotecaria": 18,
+     "lau_arrendamientos": 113,
+     "otros": 2,
+     "juzgados": {
+      "total": 133,
+      "ejecucion_hipotecaria": 18,
+      "lau_arrendamientos": 113,
+      "otros": 2
+     },
+     "por_100000_hab": 81.5,
+     "lau_por_100000_hab": 69.3
+    },
+    "2015": {
+     "total": 108,
+     "ejecucion_hipotecaria": 17,
+     "lau_arrendamientos": 87,
+     "otros": 4,
+     "juzgados": {
+      "total": 108,
+      "ejecucion_hipotecaria": 17,
+      "lau_arrendamientos": 87,
+      "otros": 4
+     },
+     "por_100000_hab": 65.7,
+     "lau_por_100000_hab": 52.9
+    },
+    "2016": {
+     "total": 76,
+     "ejecucion_hipotecaria": 16,
+     "lau_arrendamientos": 58,
+     "otros": 2,
+     "juzgados": {
+      "total": 76,
+      "ejecucion_hipotecaria": 16,
+      "lau_arrendamientos": 58,
+      "otros": 2
+     },
+     "por_100000_hab": 46.0,
+     "lau_por_100000_hab": 35.1
+    },
+    "2017": {
+     "total": 98,
+     "ejecucion_hipotecaria": 18,
+     "lau_arrendamientos": 79,
+     "otros": 1,
+     "juzgados": {
+      "total": 98,
+      "ejecucion_hipotecaria": 18,
+      "lau_arrendamientos": 79,
+      "otros": 1
+     },
+     "por_100000_hab": 58.9,
+     "lau_por_100000_hab": 47.5
+    },
+    "2018": {
+     "total": 89,
+     "ejecucion_hipotecaria": 18,
+     "lau_arrendamientos": 71,
+     "otros": 0,
+     "juzgados": {
+      "total": 89,
+      "ejecucion_hipotecaria": 18,
+      "lau_arrendamientos": 71,
+      "otros": 0
+     },
+     "por_100000_hab": 53.2,
+     "lau_por_100000_hab": 42.4
+    },
+    "2019": {
+     "total": 75,
+     "ejecucion_hipotecaria": 5,
+     "lau_arrendamientos": 69,
+     "otros": 1,
+     "juzgados": {
+      "total": 75,
+      "ejecucion_hipotecaria": 5,
+      "lau_arrendamientos": 69,
+      "otros": 1
+     },
+     "por_100000_hab": 44.7,
+     "lau_por_100000_hab": 41.2
+    },
+    "2020": {
+     "total": 26,
+     "ejecucion_hipotecaria": 2,
+     "lau_arrendamientos": 24,
+     "otros": 0,
+     "juzgados": {
+      "total": 26,
+      "ejecucion_hipotecaria": 2,
+      "lau_arrendamientos": 24,
+      "otros": 0
+     },
+     "por_100000_hab": 15.5,
+     "lau_por_100000_hab": 14.3
+    },
+    "2021": {
+     "total": 70,
+     "ejecucion_hipotecaria": 1,
+     "lau_arrendamientos": 65,
+     "otros": 4,
+     "juzgados": {
+      "total": 70,
+      "ejecucion_hipotecaria": 1,
+      "lau_arrendamientos": 65,
+      "otros": 4
+     },
+     "por_100000_hab": 41.9,
+     "lau_por_100000_hab": 38.9
+    },
+    "2022": {
+     "total": 45,
+     "ejecucion_hipotecaria": 1,
+     "lau_arrendamientos": 43,
+     "otros": 1,
+     "juzgados": {
+      "total": 45,
+      "ejecucion_hipotecaria": 1,
+      "lau_arrendamientos": 43,
+      "otros": 1
+     },
+     "por_100000_hab": 26.8,
+     "lau_por_100000_hab": 25.6
+    },
+    "2023": {
+     "total": 21,
+     "ejecucion_hipotecaria": 2,
+     "lau_arrendamientos": 19,
+     "otros": 0,
+     "juzgados": {
+      "total": 21,
+      "ejecucion_hipotecaria": 2,
+      "lau_arrendamientos": 19,
+      "otros": 0
+     },
+     "por_100000_hab": 12.3,
+     "lau_por_100000_hab": 11.1
+    },
+    "2024": {
+     "total": 39,
+     "ejecucion_hipotecaria": 5,
+     "lau_arrendamientos": 33,
+     "otros": 1,
+     "juzgados": {
+      "total": 39,
+      "ejecucion_hipotecaria": 5,
+      "lau_arrendamientos": 33,
+      "otros": 1
+     },
+     "por_100000_hab": 22.7,
+     "lau_por_100000_hab": 19.2
+    },
+    "2025": {
+     "total": 22,
+     "ejecucion_hipotecaria": 3,
+     "lau_arrendamientos": 18,
+     "otros": 1,
+     "juzgados": {
+      "total": 16,
+      "ejecucion_hipotecaria": 2,
+      "lau_arrendamientos": 13,
+      "otros": 1
+     },
+     "servicio_comun_ejecucion": {
+      "organo": "SCEJ DE MAJADAHONDA",
+      "total": 6,
+      "ejecucion_hipotecaria": 1,
+      "lau_arrendamientos": 5,
+      "otros": 0
+     },
+     "por_100000_hab": 12.7,
+     "lau_por_100000_hab": 10.4
+    }
+   },
+   "asuntos_juzgados_civil": {
+    "2013": {
+     "verbales_arrendaticios_ingresados": 281,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 153,
+     "lanzamientos_suspendidos": 0
+    },
+    "2014": {
+     "verbales_arrendaticios_ingresados": 279,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 142,
+     "lanzamientos_suspendidos": 0
+    },
+    "2015": {
+     "verbales_arrendaticios_ingresados": 248,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 106,
+     "lanzamientos_suspendidos": 0
+    },
+    "2016": {
+     "verbales_arrendaticios_ingresados": 187,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 75,
+     "lanzamientos_suspendidos": 0
+    },
+    "2017": {
+     "verbales_arrendaticios_ingresados": 274,
+     "verbales_posesorios_ocupacion_ingresados": null,
+     "ejecuciones_hipotecarias_ingresadas": 49,
+     "lanzamientos_suspendidos": 0
+    },
+    "2018": {
+     "verbales_arrendaticios_ingresados": 241,
+     "verbales_posesorios_ocupacion_ingresados": 2,
+     "ejecuciones_hipotecarias_ingresadas": 70,
+     "lanzamientos_suspendidos": 0
+    },
+    "2019": {
+     "verbales_arrendaticios_ingresados": 230,
+     "verbales_posesorios_ocupacion_ingresados": 12,
+     "ejecuciones_hipotecarias_ingresadas": 34,
+     "lanzamientos_suspendidos": 0
+    },
+    "2020": {
+     "verbales_arrendaticios_ingresados": 273,
+     "verbales_posesorios_ocupacion_ingresados": 3,
+     "ejecuciones_hipotecarias_ingresadas": 38,
+     "lanzamientos_suspendidos": 0
+    },
+    "2021": {
+     "verbales_arrendaticios_ingresados": 183,
+     "verbales_posesorios_ocupacion_ingresados": 4,
+     "ejecuciones_hipotecarias_ingresadas": 47,
+     "lanzamientos_suspendidos": 0
+    },
+    "2022": {
+     "verbales_arrendaticios_ingresados": 159,
+     "verbales_posesorios_ocupacion_ingresados": 5,
+     "ejecuciones_hipotecarias_ingresadas": 38,
+     "lanzamientos_suspendidos": 0
+    },
+    "2023": {
+     "verbales_arrendaticios_ingresados": 146,
+     "verbales_posesorios_ocupacion_ingresados": 1,
+     "ejecuciones_hipotecarias_ingresadas": 35,
+     "lanzamientos_suspendidos": 0
+    },
+    "2024": {
+     "verbales_arrendaticios_ingresados": 181,
+     "verbales_posesorios_ocupacion_ingresados": 3,
+     "ejecuciones_hipotecarias_ingresadas": 49,
+     "lanzamientos_suspendidos": 0
+    },
+    "2025": {
+     "verbales_arrendaticios_ingresados": 154,
+     "verbales_posesorios_ocupacion_ingresados": 1,
+     "ejecuciones_hipotecarias_ingresadas": 50,
+     "lanzamientos_suspendidos": 0
+    }
+   },
+   "resumen_2025": {
+    "lanzamientos_total": 22,
+    "lau": 18,
+    "hipotecarios": 3,
+    "otros": 1,
+    "por_100000_hab": 12.7,
+    "lau_por_1000_hogares_alquiler_censo2021": 1.64,
+    "total_por_1000_hogares_alquiler_censo2021": 2.0
+   },
+   "resumen_2024": {
+    "lanzamientos_total": 39,
+    "lau": 33,
+    "hipotecarios": 5,
+    "otros": 1,
+    "por_100000_hab": 22.7,
+    "lau_por_1000_hogares_alquiler_censo2021": 3.0
+   },
+   "ratio_lanzamientos_lau_sobre_verbales_arrendaticios_ingresados_2019_2025": 0.204,
+   "mapa_ministerio_url": "https://www.mjusticia.gob.es/es/JusticiaEspana/OrganizacionJusticia/InstLibraryCartographyJudProv/Madrid/Majadahonda.pdf"
+  }
+ },
+ "municipio_a_partido": {
+  "parla": {
+   "partido": "parla",
+   "coincide_con_municipio": false,
+   "peso_poblacion_2025_en_partido": 0.7082
+  },
+  "pinto": {
+   "partido": "parla",
+   "coincide_con_municipio": false,
+   "peso_poblacion_2025_en_partido": 0.2918
+  },
+  "getafe": {
+   "partido": "getafe",
+   "coincide_con_municipio": true,
+   "peso_poblacion_2025_en_partido": 1.0
+  },
+  "leganes": {
+   "partido": "leganes",
+   "coincide_con_municipio": true,
+   "peso_poblacion_2025_en_partido": 1.0
+  },
+  "fuenlabrada": {
+   "partido": "fuenlabrada",
+   "coincide_con_municipio": false,
+   "peso_poblacion_2025_en_partido": 0.9026
+  },
+  "mostoles": {
+   "partido": "mostoles",
+   "coincide_con_municipio": false,
+   "peso_poblacion_2025_en_partido": 0.6126
+  },
+  "alcorcon": {
+   "partido": "alcorcon",
+   "coincide_con_municipio": true,
+   "peso_poblacion_2025_en_partido": 1.0
+  },
+  "alcobendas": {
+   "partido": "alcobendas",
+   "coincide_con_municipio": false,
+   "peso_poblacion_2025_en_partido": 0.4818
+  },
+  "torrejon": {
+   "partido": "torrejon",
+   "coincide_con_municipio": false,
+   "peso_poblacion_2025_en_partido": 0.6074
+  },
+  "pozuelo": {
+   "partido": "pozuelo",
+   "coincide_con_municipio": true,
+   "peso_poblacion_2025_en_partido": 1.0
+  },
+  "majadahonda": {
+   "partido": "majadahonda",
+   "coincide_con_municipio": false,
+   "peso_poblacion_2025_en_partido": 0.4264
+  }
+ },
+ "comunidad_madrid": {
+  "lanzamientos_total": {
+   "2013": 8753,
+   "2014": 7966,
+   "2015": 7194,
+   "2016": 6674,
+   "2017": 6476,
+   "2018": 6435,
+   "2019": 5936,
+   "2020": 2872,
+   "2021": 4039,
+   "2022": 3679,
+   "2023": 2367,
+   "2024": 2756,
+   "2025": 2267
+  },
+  "lanzamientos_lau": {
+   "2013": 5553,
+   "2014": 5373,
+   "2015": 5278,
+   "2016": 4760,
+   "2017": 5001,
+   "2018": 5157,
+   "2019": 4850,
+   "2020": 2398,
+   "2021": 3327,
+   "2022": 3230,
+   "2023": 2029,
+   "2024": 2375,
+   "2025": 1931
+  },
+  "lanzamientos_hipotecarios": {
+   "2013": 2657,
+   "2014": 2211,
+   "2015": 1736,
+   "2016": 1657,
+   "2017": 1336,
+   "2018": 1038,
+   "2019": 859,
+   "2020": 377,
+   "2021": 541,
+   "2022": 366,
+   "2023": 280,
+   "2024": 293,
+   "2025": 252
+  },
+  "lanzamientos_otros": {
+   "2013": 543,
+   "2014": 382,
+   "2015": 180,
+   "2016": 257,
+   "2017": 139,
+   "2018": 240,
+   "2019": 227,
+   "2020": 97,
+   "2021": 171,
+   "2022": 83,
+   "2023": 58,
+   "2024": 88,
+   "2025": 84
+  },
+  "ejecuciones_hipotecarias_presentadas": {
+   "2013": 8508,
+   "2014": 7109,
+   "2015": 6122,
+   "2016": 4016,
+   "2017": 2725,
+   "2018": 2255,
+   "2019": 1583,
+   "2020": 1771,
+   "2021": 2523,
+   "2022": 2794,
+   "2023": 2036,
+   "2024": 2204,
+   "2025": 2889
+  },
+  "poblacion_ine": {
+   "2013": 6495551,
+   "2014": 6454440,
+   "2015": 6436996,
+   "2016": 6466996,
+   "2017": 6507184,
+   "2018": 6578079,
+   "2019": 6663394,
+   "2020": 6779888,
+   "2021": 6751251,
+   "2022": 6750336,
+   "2023": 6859914,
+   "2024": 7001715,
+   "2025": 7137031
+  },
+  "lanzamientos_por_100000_hab": {
+   "2013": 134.8,
+   "2014": 123.4,
+   "2015": 111.8,
+   "2016": 103.2,
+   "2017": 99.5,
+   "2018": 97.8,
+   "2019": 89.1,
+   "2020": 42.4,
+   "2021": 59.8,
+   "2022": 54.5,
+   "2023": 34.5,
+   "2024": 39.4,
+   "2025": 31.8
+  },
+  "nota": "Provincia/Comunidad de Madrid entera (incluye Madrid capital). Serie provincial del CGPJ; en 2025 incluye los lanzamientos de los servicios comunes de ejecución, por eso coincide con la suma de partidos + SCEJ (2.132 + 135 = 2.267).",
+  "ine_viviendas_con_ejecucion_hipotecaria_iniciada": {
+   "2025": 1343,
+   "2024": 1161,
+   "2023": 1185,
+   "2022": 1455,
+   "2021": 1750,
+   "2020": 1286,
+   "2019": 1466,
+   "2018": 1646,
+   "2017": 2305,
+   "2016": 3511,
+   "2015": 4250,
+   "2014": 4424
+  }
+ },
+ "ayudas_alquiler_municipio": {
+  "nota": "Datos por municipio (no por partido). Solicitudes y aceptadas según el municipio indicado en la solicitud. Las tasas por 10.000 hab. usan población INE 1-1-2025 (no la del año de la convocatoria): orientativas.",
+  "datos": {
+   "alcobendas": {
+    "programa_2_ayuda_alquiler": {
+     "2022": {
+      "solicitudes": 149,
+      "aceptadas": 51,
+      "rechazadas": 98
+     },
+     "2023": {
+      "solicitudes": 187,
+      "aceptadas": 68,
+      "rechazadas": 119
+     }
+    },
+    "programa_5_1_jovenes": {
+     "2022": {
+      "solicitudes": 87,
+      "aceptadas": 24,
+      "rechazadas": 63
+     },
+     "2023": {
+      "solicitudes": 180,
+      "aceptadas": 52,
+      "rechazadas": 128
+     }
+    },
+    "bono_alquiler_joven_2022": {
+     "solicitudes": 605,
+     "aceptadas": 158,
+     "rechazadas": 447,
+     "aceptadas_por_10000_hab_pob2025": 12.81
+    },
+    "aceptadas_2023_ambos_programas": 120,
+    "aceptadas_2023_por_10000_hab_pob2025": 9.73
+   },
+   "alcorcon": {
+    "programa_2_ayuda_alquiler": {
+     "2022": {
+      "solicitudes": 245,
+      "aceptadas": 58,
+      "rechazadas": 187
+     },
+     "2023": {
+      "solicitudes": 177,
+      "aceptadas": 84,
+      "rechazadas": 93
+     }
+    },
+    "programa_5_1_jovenes": {
+     "2022": {
+      "solicitudes": 171,
+      "aceptadas": 44,
+      "rechazadas": 127
+     },
+     "2023": {
+      "solicitudes": 221,
+      "aceptadas": 62,
+      "rechazadas": 159
+     }
+    },
+    "bono_alquiler_joven_2022": {
+     "solicitudes": 1006,
+     "aceptadas": 265,
+     "rechazadas": 741,
+     "aceptadas_por_10000_hab_pob2025": 15.08
+    },
+    "aceptadas_2023_ambos_programas": 146,
+    "aceptadas_2023_por_10000_hab_pob2025": 8.31
+   },
+   "fuenlabrada": {
+    "programa_2_ayuda_alquiler": {
+     "2022": {
+      "solicitudes": 346,
+      "aceptadas": 89,
+      "rechazadas": 257
+     },
+     "2023": {
+      "solicitudes": 320,
+      "aceptadas": 158,
+      "rechazadas": 162
+     }
+    },
+    "programa_5_1_jovenes": {
+     "2022": {
+      "solicitudes": 91,
+      "aceptadas": 32,
+      "rechazadas": 59
+     },
+     "2023": {
+      "solicitudes": 216,
+      "aceptadas": 69,
+      "rechazadas": 147
+     }
+    },
+    "bono_alquiler_joven_2022": {
+     "solicitudes": 898,
+     "aceptadas": 239,
+     "rechazadas": 659,
+     "aceptadas_por_10000_hab_pob2025": 12.57
+    },
+    "aceptadas_2023_ambos_programas": 227,
+    "aceptadas_2023_por_10000_hab_pob2025": 11.94
+   },
+   "getafe": {
+    "programa_2_ayuda_alquiler": {
+     "2022": {
+      "solicitudes": 284,
+      "aceptadas": 72,
+      "rechazadas": 212
+     },
+     "2023": {
+      "solicitudes": 346,
+      "aceptadas": 135,
+      "rechazadas": 211
+     }
+    },
+    "programa_5_1_jovenes": {
+     "2022": {
+      "solicitudes": 186,
+      "aceptadas": 54,
+      "rechazadas": 132
+     },
+     "2023": {
+      "solicitudes": 307,
+      "aceptadas": 101,
+      "rechazadas": 206
+     }
+    },
+    "bono_alquiler_joven_2022": {
+     "solicitudes": 1209,
+     "aceptadas": 282,
+     "rechazadas": 927,
+     "aceptadas_por_10000_hab_pob2025": 14.59
+    },
+    "aceptadas_2023_ambos_programas": 236,
+    "aceptadas_2023_por_10000_hab_pob2025": 12.21
+   },
+   "leganes": {
+    "programa_2_ayuda_alquiler": {
+     "2022": {
+      "solicitudes": 276,
+      "aceptadas": 63,
+      "rechazadas": 213
+     },
+     "2023": {
+      "solicitudes": 325,
+      "aceptadas": 136,
+      "rechazadas": 189
+     }
+    },
+    "programa_5_1_jovenes": {
+     "2022": {
+      "solicitudes": 152,
+      "aceptadas": 51,
+      "rechazadas": 101
+     },
+     "2023": {
+      "solicitudes": 293,
+      "aceptadas": 88,
+      "rechazadas": 205
+     }
+    },
+    "bono_alquiler_joven_2022": {
+     "solicitudes": 1143,
+     "aceptadas": 234,
+     "rechazadas": 909,
+     "aceptadas_por_10000_hab_pob2025": 11.96
+    },
+    "aceptadas_2023_ambos_programas": 224,
+    "aceptadas_2023_por_10000_hab_pob2025": 11.44
+   },
+   "majadahonda": {
+    "programa_2_ayuda_alquiler": {
+     "2022": {
+      "solicitudes": 50,
+      "aceptadas": 9,
+      "rechazadas": 41
+     },
+     "2023": {
+      "solicitudes": 48,
+      "aceptadas": 17,
+      "rechazadas": 31
+     }
+    },
+    "programa_5_1_jovenes": {
+     "2022": {
+      "solicitudes": 25,
+      "aceptadas": 9,
+      "rechazadas": 16
+     },
+     "2023": {
+      "solicitudes": 39,
+      "aceptadas": 13,
+      "rechazadas": 26
+     }
+    },
+    "bono_alquiler_joven_2022": {
+     "solicitudes": 189,
+     "aceptadas": 40,
+     "rechazadas": 149,
+     "aceptadas_por_10000_hab_pob2025": 5.43
+    },
+    "aceptadas_2023_ambos_programas": 30,
+    "aceptadas_2023_por_10000_hab_pob2025": 4.07
+   },
+   "mostoles": {
+    "programa_2_ayuda_alquiler": {
+     "2022": {
+      "solicitudes": 287,
+      "aceptadas": 63,
+      "rechazadas": 224
+     },
+     "2023": {
+      "solicitudes": 314,
+      "aceptadas": 129,
+      "rechazadas": 185
+     }
+    },
+    "programa_5_1_jovenes": {
+     "2022": {
+      "solicitudes": 185,
+      "aceptadas": 57,
+      "rechazadas": 128
+     },
+     "2023": {
+      "solicitudes": 318,
+      "aceptadas": 75,
+      "rechazadas": 243
+     }
+    },
+    "bono_alquiler_joven_2022": {
+     "solicitudes": 1269,
+     "aceptadas": 367,
+     "rechazadas": 902,
+     "aceptadas_por_10000_hab_pob2025": 17.08
+    },
+    "aceptadas_2023_ambos_programas": 204,
+    "aceptadas_2023_por_10000_hab_pob2025": 9.5
+   },
+   "parla": {
+    "programa_2_ayuda_alquiler": {
+     "2022": {
+      "solicitudes": 187,
+      "aceptadas": 45,
+      "rechazadas": 142
+     },
+     "2023": {
+      "solicitudes": 203,
+      "aceptadas": 86,
+      "rechazadas": 117
+     }
+    },
+    "programa_5_1_jovenes": {
+     "2022": {
+      "solicitudes": 103,
+      "aceptadas": 25,
+      "rechazadas": 78
+     },
+     "2023": {
+      "solicitudes": 173,
+      "aceptadas": 65,
+      "rechazadas": 108
+     }
+    },
+    "bono_alquiler_joven_2022": {
+     "solicitudes": 604,
+     "aceptadas": 128,
+     "rechazadas": 476,
+     "aceptadas_por_10000_hab_pob2025": 9.31
+    },
+    "aceptadas_2023_ambos_programas": 151,
+    "aceptadas_2023_por_10000_hab_pob2025": 10.98
+   },
+   "pinto": {
+    "programa_2_ayuda_alquiler": {
+     "2022": {
+      "solicitudes": 54,
+      "aceptadas": 10,
+      "rechazadas": 44
+     },
+     "2023": {
+      "solicitudes": 57,
+      "aceptadas": 29,
+      "rechazadas": 28
+     }
+    },
+    "programa_5_1_jovenes": {
+     "2022": {
+      "solicitudes": 85,
+      "aceptadas": 24,
+      "rechazadas": 61
+     },
+     "2023": {
+      "solicitudes": 126,
+      "aceptadas": 38,
+      "rechazadas": 88
+     }
+    },
+    "bono_alquiler_joven_2022": {
+     "solicitudes": 476,
+     "aceptadas": 136,
+     "rechazadas": 340,
+     "aceptadas_por_10000_hab_pob2025": 24.01
+    },
+    "aceptadas_2023_ambos_programas": 67,
+    "aceptadas_2023_por_10000_hab_pob2025": 11.83
+   },
+   "pozuelo": {
+    "programa_2_ayuda_alquiler": {
+     "2022": {
+      "solicitudes": 37,
+      "aceptadas": 13,
+      "rechazadas": 24
+     },
+     "2023": {
+      "solicitudes": 57,
+      "aceptadas": 26,
+      "rechazadas": 31
+     }
+    },
+    "programa_5_1_jovenes": {
+     "2022": {
+      "solicitudes": 37,
+      "aceptadas": 14,
+      "rechazadas": 23
+     },
+     "2023": {
+      "solicitudes": 38,
+      "aceptadas": 19,
+      "rechazadas": 19
+     }
+    },
+    "bono_alquiler_joven_2022": {
+     "solicitudes": 166,
+     "aceptadas": 25,
+     "rechazadas": 141,
+     "aceptadas_por_10000_hab_pob2025": 2.78
+    },
+    "aceptadas_2023_ambos_programas": 45,
+    "aceptadas_2023_por_10000_hab_pob2025": 5.01
+   },
+   "torrejon": {
+    "programa_2_ayuda_alquiler": {
+     "2022": {
+      "solicitudes": 157,
+      "aceptadas": 28,
+      "rechazadas": 129
+     },
+     "2023": {
+      "solicitudes": 149,
+      "aceptadas": 63,
+      "rechazadas": 86
+     }
+    },
+    "programa_5_1_jovenes": {
+     "2022": {
+      "solicitudes": 132,
+      "aceptadas": 26,
+      "rechazadas": 106
+     },
+     "2023": {
+      "solicitudes": 239,
+      "aceptadas": 54,
+      "rechazadas": 185
+     }
+    },
+    "bono_alquiler_joven_2022": {
+     "solicitudes": 895,
+     "aceptadas": 257,
+     "rechazadas": 638,
+     "aceptadas_por_10000_hab_pob2025": 17.91
+    },
+    "aceptadas_2023_ambos_programas": 117,
+    "aceptadas_2023_por_10000_hab_pob2025": 8.15
+   }
+  }
+ },
+ "fuentes": {
+  "cgpj_lanzamientos_pj": {
+   "organismo": "Consejo General del Poder Judicial (CGPJ), Sección de Estadística Judicial",
+   "titulo": "Lanzamientos por partidos judiciales 2013-2025 (Excel)",
+   "url": "https://www.poderjudicial.es/stfls/ESTADISTICA/FICHEROS/Crisis/Lanzamientos%20por%20PJs_2013_%202025.xlsx",
+   "pagina": "https://www.poderjudicial.es/cgpj/es/Temas/Estadistica-Judicial/Estadistica-por-temas/Datos-penales--civiles-y-laborales/Civil-y-laboral/Efecto-de-la-Crisis-en-los-organos-judiciales/",
+   "notas": "Lanzamientos practicados por los juzgados de primera instancia y de primera instancia e instrucción (y secciones civiles de los tribunales de instancia), por PJ y causa: ejecución hipotecaria, Ley de Arrendamientos Urbanos, otros. Coincide cifra a cifra con la tabla OUJII021 del PC-Axis (comprobado 2013-2025 para los 10 PJ). En 2025 NO incluye los lanzamientos practicados por los Servicios Comunes de Ejecución (SCEJ) creados con los tribunales de instancia; se suman aparte desde OUSCEJ008."
+  },
+  "cgpj_pcaxis": {
+   "organismo": "CGPJ",
+   "titulo": "Base de datos de la Estadística Judicial en PC-Axis para uso en equipo local (BOL19952025.zip, 1995-2025)",
+   "url": "https://www5.poderjudicial.es/estad/BOL19952025.zip",
+   "pagina": "https://www.poderjudicial.es/cgpj/es/Temas/Estadistica-Judicial/Base-de-datos-de-la-estadistica-judicial--PC-AXIS-/Estadistica-Judicial-en-PC-Axis-para-uso-en-equipo-local",
+   "consulta_web": "https://www6.poderjudicial.es/PXWeb-2025-v1/pxweb/es/",
+   "tablas": {
+    "OUJII021": "Lanzamientos practicados. Juzgados de Primera Instancia e Instrucción",
+    "OUJII008": "Asuntos. Total jurisdicción civil (procedimientos 114 verbales arrendaticios, 115 verbales posesorios por ocupación ilegal de viviendas, 208 ejecuciones de títulos hipotecarios, 215 lanzamientos suspendidos; situación 2 = ingresados)",
+    "OUSCEJ008": "Lanzamientos practicados. Servicio común de ejecución (solo con datos en 2025)",
+    "OUSCPG010": "Lanzamientos practicados. Servicio común procesal general (sin datos en Madrid 2013-2025)"
+   },
+   "agregacion": "Por órgano judicial agregado a PJ con el fichero de clasificación class/PJUDJ1IT.AGG del propio zip (último cambio del zip: 05-06-2026)."
+  },
+  "cgpj_series_provincia": {
+   "organismo": "CGPJ",
+   "titulo": "Series - Efecto de la crisis en los órganos judiciales por provincias 1T-2026 (revisado)",
+   "url": "https://www.poderjudicial.es/stfls/ESTADISTICA/FICHEROS/Crisis/Series%20-%20Efecto%20de%20la%20crisis%20en%20los%20organos%20judiciales%20por%20provincias%201T-2026_revisado.xlsx",
+   "notas": "Lanzamientos, ejecuciones hipotecarias presentadas y verbales posesorios por ocupación: solo por provincia/TSJ. Se usa como referencia de la Comunidad de Madrid."
+  },
+  "mjusticia_mapas_pj": {
+   "organismo": "Ministerio de la Presidencia, Justicia y Relaciones con las Cortes",
+   "titulo": "Cartografía judicial: mapa del partido judicial y municipios de su ámbito territorial (fichas de abril-mayo de 2026)",
+   "url_base": "https://www.mjusticia.gob.es/es/JusticiaEspana/OrganizacionJusticia/InstLibraryCartographyJudProv/Madrid/",
+   "url_provincia": "https://www.mjusticia.gob.es/es/JusticiaEspana/OrganizacionJusticia/InstLibraryCartographyJudProv/Madrid/Madrid.pdf",
+   "notas": "Cada ficha da municipios, población y unidades judiciales. La población de cada ficha coincide exactamente con la suma INE 1-1-2025 de los municipios listados (comprobado en los 10 PJ). Los nombres de Algete y Daganzo de Arriba (PJ Torrejón) y Las Rozas (PJ Majadahonda) se leyeron en la imagen del mapa, no en la capa de texto."
+  },
+  "ine_padron": {
+   "organismo": "INE",
+   "titulo": "Padrón. Población por municipios. Madrid: población por municipios y sexo (tabla 2881), 1-1-2013 a 1-1-2025",
+   "url": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/2881?nult=13&tip=A",
+   "pagina": "https://www.ine.es/jaxiT3/Tabla.htm?t=2881"
+  },
+  "censo2021_tenencia_cm": {
+   "organismo": "Comunidad de Madrid (Instituto de Estadística) a partir del Censo de Población y Viviendas 2021 del INE",
+   "titulo": "Censo de vivienda y locales 2021. Viviendas familiares principales por régimen de tenencia. Municipios",
+   "url": "https://datos.comunidad.madrid/dataset/e50045e7-5f31-4bfc-bccd-7f502ed7c95e/resource/9c9e2b00-a74d-461c-af49-82b1c168b23a/download/censo-de-vivienda-y-locales-2021.-viviendas-familiares-principales-por-regimen-de-tenencia.-muni.csv",
+   "notas": "Vivienda principal = hogar. Se usa «Alquiler» como denominador de hogares en alquiler (dato de 2021, no actualizado)."
+  },
+  "ine_ejecuciones_hipotecarias": {
+   "organismo": "INE",
+   "titulo": "Estadística sobre Ejecuciones Hipotecarias. Viviendas con ejecución hipotecaria iniciada según estado de la vivienda por provincia (tabla 10744)",
+   "url": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/10744?nult=12",
+   "lista_tablas": "https://servicios.ine.es/wstempus/js/ES/TABLAS_OPERACION/EH",
+   "notas": "Desagregación máxima: provincia (comprobado en la lista de tablas de la operación EH). No existe por municipio ni por PJ. Fuente: Registros de la Propiedad (ejecuciones iniciadas e inscritas), no juzgados."
+  },
+  "cm_ayudas_alquiler": {
+   "organismo": "Comunidad de Madrid",
+   "titulo": "Ayudas al alquiler de vivienda para jóvenes y sectores de escasos recursos (2022 y 2023)",
+   "url": "https://datos.comunidad.madrid/dataset/54bce6b2-5259-40e6-9c2b-063c24fc2b51/resource/e6fe51b8-5b5f-4649-998d-34b0f073ebd9/download/spacm_ayudas_alquiler_vivienda_jovenes_sectores_escasos_recursos.csv",
+   "pagina": "https://datos.comunidad.madrid/catalogo/dataset/spacm_ayudas_alquiler_vivienda_jovenes_sectores_escasos_recursos",
+   "notas": "Plan Estatal de acceso a la vivienda 2022-2025. Campo programa: 2.0 y 5.1 (la ficha describe las líneas «sectores con escasos medios económicos y mayores de 65 años» y «personas jóvenes menores de 35 años»; la asignación 2.0 = ayuda al alquiler general y 5.1 = jóvenes sigue la numeración del RD 42/2022 y no la explicita el CSV). Columnas: solicitudes, aceptadas, rechazadas."
+  },
+  "cm_bono_alquiler_joven": {
+   "organismo": "Comunidad de Madrid",
+   "titulo": "Bono Alquiler Joven (2022)",
+   "url": "https://datos.comunidad.madrid/dataset/ff697366-36f4-41a1-a966-f5ccf3b6db7c/resource/6fbda6ce-b479-4319-83c6-0b977d3fa8d5/download/spacm_bono_alquiler_joven_2022.csv",
+   "pagina": "https://datos.comunidad.madrid/catalogo/dataset/spacm_bono_alquiler_joven_2022",
+   "notas": "Solo convocatoria 2022 publicada en datos abiertos. 3.352 solicitudes sin municipio (sin contrato aportado) en la fila «Otro»."
+  }
+ }
+}

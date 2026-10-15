@@ -161,6 +161,10 @@ infraestructura.html  la página de los accesos en coche (/<ciudad>/infraestruct
 assets/infraestructura*.css/.js   su diseño y su render: lo común, el mapa y las colas
 datos/infraestructura.js   sus cifras; las escribe herramientas/infraestructura.py
 datos/mapa/<id>.js    las geometrías de cada mapa; las escribe herramientas/accesos/accesos.py --mapa
+vivienda.html         la página de la vivienda (/<ciudad>/vivienda/)
+assets/vivienda.css/.js   su diseño y su render: casas por cada 100 vecinos, líneas, barras y la rejilla de 100
+datos/vivienda.js     sus cifras; las escribe herramientas/vivienda.py
+herramientas/vivienda/fuentes/   lo extraído de cada fuente (.json) con sus URL y cautelas (.md)
 herramientas/         lo que rehace lo que no se teclea: el QR, las zonas verdes, los accesos
                       y el build que añade la vista previa de cada ciudad (compartir.mjs)
 ```
@@ -369,6 +373,49 @@ python3 herramientas/infraestructura.py                   # escribe datos/infrae
 - **Horas de congestión del Mapa de tráfico del Ministerio.** En 2024, en sentido Madrid, la estación de la A-42 en Parla (km 23,9) suma 373 horas; las de Getafe, entre 340 y 394 (A-42 km 11 y 15, A-4 km 13). Es el mismo orden: la congestión de la autovía no distingue a Parla. Además, no hay ninguna estación entre el km 16 y el 23,9, que es el tramo de Parla Norte.
 - **La R-4.** Es de peaje (0,55 € de Pinto-Parla a la M-50 en 2026) y apenas se usa: el 3 % de los viajes que salen de Parla pasa por ella. Su IMD creció un 37 % entre 2019 y 2025, frente al 3,6 % de la A-42.
 - **Concentración comparada.** Alcobendas concentra casi igual que Parla: el 62,6 % de sus salidas de la mañana va por la A-1 y la M-40. La página no dice que Parla sea la única.
+
+### Una casa: la página de la vivienda
+
+**La parte pública** está en `vivienda.html`, que se publica como `/<ciudad>/vivienda/`, y en la
+web principal: el bloque «Vivienda» antes del método, con las casas por cada 100 vecinos nuevos,
+y un botón azul con una casa en la portada («Vivienda»). Abre con los vecinos nuevos frente a las viviendas nuevas, y
+después una sección por tema:
+
+| Sección | Qué enseña | Fuente |
+|---|---|---|
+| Vecinos y viviendas | Viviendas nuevas por cada 100 vecinos nuevos 2015-2025, frente a los hogares que forman 100 personas al tamaño medio de hogar; vecinos y viviendas sumados año a año | Catastro (unidades residenciales) vía Almudena; INE padrón; INE ADRH 2023 |
+| Comprar | Valor de la vivienda media (tasado × superficie media); años de renta de un hogar; valor tasado €/m² trimestral 2005-2026; subida en 10 años; frente al máximo de 2007-08; recibo del IBI estimado de la vivienda media; compraventas por 1.000 hab. | MIVAU (valor tasado, transacciones); INE ADRH 2023; Censo 2021 vía Almudena; Hacienda (tipos IBI 2026) y Catastro (valor catastral residencial 2026) |
+| Alquilar | Alquiler mediano €/mes; de cada 100 € de renta del hogar, los del alquiler; €/m² 2015-2024; contratos nuevos 2024; % de hogares de alquiler | MIVAU SERPAVI (IRPF); AEAT viviendas declaradas en el IRPF; INE Censo 2021 |
+| De quién son | De cada 100 viviendas: personas, sociedades (y las de más de 100 en la ciudad), administraciones; vecinos que cobran un alquiler; vivienda pública de la AVS; la venta del IVIMA | Catastro (padrón del IBI 2026); AEAT IRPF por municipios 2024; AVS; Cámara de Cuentas y BOCM |
+| De un barrio a otro | Sección censal más barata y más cara en alquiler €/m² (≥ 30 alquileres) y más pobre y más rica en renta por hogar | SERPAVI por sección 2024; INE ADRH 2023 por sección |
+| Vivienda pública y ayudas | Viviendas de la AVS por 1.000 hab.; adjudicaciones a nuevos inquilinos 2023-2025; si la ciudad tiene viviendas del Plan Vive; ayudas al alquiler 2023 y Bono Alquiler Joven 2022 concedidos por 1.000 hogares de alquiler | AVS (patrimonio e informes de gestión); nota de prensa de la Comunidad (19-08-2026); datos abiertos de la Comunidad de Madrid |
+| Cuando no se puede pagar | Demandas por alquiler y desahucios por 100.000 hab., 2013-2025, en dos gráficos | CGPJ, por partido judicial |
+| Cómo son las casas | Vacías; antigüedad; hogares de 5 en 60 m²; jóvenes de 25-34 con sus padres; viviendas en edificios de 4+ plantas sin ascensor (2011); superficie media | INE Censo 2021 y Censo 2011 (tablas a medida) |
+
+**Para rehacerlo:**
+
+```
+python3 herramientas/vivienda.py       # lee herramientas/vivienda/fuentes/*.json, escribe datos/vivienda.js
+```
+
+Los `.json` de `herramientas/vivienda/fuentes/` son lo extraído de cada fichero oficial, con la URL
+exacta del fichero y de la página; cada `.md` dice cómo se sacó, las cautelas y lo que no se
+encontró.
+
+**Cautelas que la página dice:**
+- La tasación no es el precio de venta.
+- SERPAVI y la AEAT solo ven el alquiler que los particulares declaran en el IRPF. En 2021 los pisos declarados en Parla eran el 65,4 % de los hogares de alquiler del Censo, la cobertura más baja de las once.
+- Los juzgados cuentan por partido judicial. Parla comparte el suyo con Pinto, así que en esa sección Pinto y Parla tienen las mismas cifras. Getafe, Leganés, Alcorcón y Pozuelo coinciden con su partido; los demás incluyen otros municipios, y la página dice cuáles.
+- En 2025 parte de los desahucios los practicaron los servicios comunes de ejecución de los tribunales de instancia, que el Excel del CGPJ no incluye: se suman desde la base PC-Axis (tabla OUSCEJ008).
+- Las demandas «por alquiler» son los verbales arrendaticios ingresados: también las que reclaman el piso al acabar el contrato.
+
+**Lo que se buscó y no está:**
+- **% de fondos buitre.** No hay fuente oficial por municipio. El Catastro distingue personas de sociedades, pero no da nombres, y cuenta el tamaño de cada sociedad dentro del municipio.
+- **Fianzas de la Comunidad de Madrid.** Serían el dato de alquiler más reciente; no se publican por municipio.
+- **Precio notarial por municipio.** Exige registrarse en penotariado.com.
+- **Viviendas terminadas y protegidas por municipio.** Solo por provincia; la serie municipal de licencias de Almudena acaba en 2019 y tiene huecos.
+- **Reparto por municipio de la venta del IVIMA.** Solo en prensa (Público, 2022: 240 en Parla); la página lo dice así.
+- **Ayudas al alquiler por municipio.** Existen en datos abiertos de la Comunidad (2022-2023), pero son convocatorias sueltas y no entraron.
 
 ### CONPREL: qué se puede sacar de los presupuestos municipales
 

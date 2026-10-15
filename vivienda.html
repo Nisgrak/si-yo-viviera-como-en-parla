@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Una casa en Parla · Si yo viviera como en Parla</title>
+<meta name="description" content="Lo que cuesta comprar y alquilar en Parla y en tu ciudad, de quién son las casas, cuántas se construyen y cuántas demandas de desahucio llegan a los juzgados. Con datos oficiales.">
+<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Una casa en Parla">
+<meta property="og:description" content="Desde 2015 Parla ha ganado 12.415 vecinos y 762 viviendas. Lo que cuesta comprar y alquilar, de quién son las casas y cuántas demandas de desahucio llegan a los juzgados, con datos oficiales.">
+<meta property="og:locale" content="es_ES">
+<meta property="og:url" content="https://siyovivieracomoenparla.netlify.app/vivienda.html">
+<meta property="og:image" content="https://siyovivieracomoenparla.netlify.app/assets/compartir/general.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/icono.svg" type="image/svg+xml">
+<link rel="mask-icon" href="assets/icono.svg" color="#c02719">
+
+<link rel="preload" href="assets/fuentes/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/estilos.css">
+<link rel="stylesheet" href="assets/infraestructura.css">
+<link rel="stylesheet" href="assets/vivienda.css">
+</head>
+<body class="infra viv" data-pagina="vivienda">
+
+<a class="saltar" href="#casas">Saltar a las cifras</a>
+
+<noscript>
+  <p class="sin-js">
+    Esta página dibuja los gráficos en tu navegador y necesita JavaScript. Los datos, con sus
+    fuentes, están en
+    <a href="https://github.com/Nisgrak/si-yo-viviera-como-en-parla">github.com/Nisgrak/si-yo-viviera-como-en-parla</a>.
+  </p>
+</noscript>
+
+<nav class="volver">
+  <div class="env">
+    <a class="js-volver" href="index.html">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+        <path d="M15 6H2M6.5 1 1.5 6l5 5" stroke="currentColor" stroke-width="1.6"/>
+      </svg>
+      <span>El recuento de <span data-aqui>Getafe</span></span>
+    </a>
+  </div>
+</nav>
+
+<!-- ── Portada ───────────────────────────────────────────────────────── -->
+<header class="portada portada--infra">
+  <div class="env">
+    <h1 class="portada__titulo">
+      <span class="t1">Una casa en <span class="selector">
+        <span class="selector__eco" id="sel-texto" aria-hidden="true">Getafe</span>
+        <select id="sel-municipio" aria-label="Elige tu municipio"></select>
+      </span></span>
+      <span class="t2">y una casa en</span>
+      <span class="t3">Parla</span>
+    </h1>
+    <p class="portada__golpe" id="golpe"></p>
+  </div>
+</header>
+
+<main>
+
+<!-- ── Vecinos y viviendas ───────────────────────────────────────────── -->
+<section class="bloque bloque--resumen-viv" id="casas" data-indice="Vecinos nuevos, casas nuevas">
+  <div class="env">
+    <h2 class="bloque__h">Vecinos nuevos, casas nuevas</h2>
+    <p class="bloque__intro" id="casas-intro"></p>
+    <div class="hogares-pareja" id="casas-hogares"></div>
+    <h3 class="bloque__h3">Año a año, desde 2015</h3>
+    <p class="bloque__intro">
+      Los vecinos y las viviendas que suma cada ciudad desde el 1 de enero de 2015, con la misma
+      escala en los dos gráficos.
+    </p>
+    <div class="graf-pareja" id="casas-graf"></div>
+    <p class="colas__pie">
+      Fuentes: <a href="https://gestiona.comunidad.madrid/desvan/almudena/AccionDatosTemaMunicipal.icm?codTema=1002048">Catastro, unidades urbanas de uso residencial</a>, en el banco de datos municipal de la Comunidad de Madrid;
+      <a href="https://www.ine.es/jaxiT3/Tabla.htm?t=2881">INE, padrón a 1 de enero</a>, 2015 a 2025;
+      tamaño medio del hogar: <a href="https://www.ine.es/jaxiT3/Tabla.htm?t=31097">INE, Atlas de Distribución de Renta de los Hogares</a>, 2023.
+    </p>
+    <p class="cautela">
+      Las del Catastro son altas menos bajas de viviendas registradas, no viviendas terminadas: no
+      hay una estadística oficial reciente de viviendas terminadas por municipio. Una vivienda
+      registrada puede estar vacía, y un vecino nuevo puede vivir en una casa que ya existía.
+    </p>
+  </div>
+</section>
+
+<!-- ── Comprar ───────────────────────────────────────────────────────── -->
+<section class="bloque" id="comprar" data-indice="Comprar">
+  <div class="env">
+    <h2 class="bloque__h">Lo que cuesta comprar</h2>
+    <p class="bloque__intro">
+      Lo que vale la vivienda media de cada ciudad según las tasaciones, y cuántos años de la renta
+      de un hogar hacen falta para pagarla entera.
+    </p>
+    <div class="pareja" id="comprar-cifras"></div>
+    <div class="anios" id="comprar-anios"></div>
+    <h3 class="bloque__h3">El metro cuadrado, desde 2005</h3>
+    <figure class="graf" id="comprar-graf"></figure>
+    <div class="hechos" id="comprar-hechos"></div>
+    <p class="colas__pie">
+      Fuente: <a href="https://www.mivau.gob.es/el-ministerio/observatorios-y-estadisticas/estadisticas/valor-tasado-vivienda">Ministerio de Vivienda, valor tasado de la vivienda libre</a>
+      (<a href="https://apps.fomento.gob.es/BoletinOnline2/sedal/35103500.XLS">tabla 4, municipios de más de 25.000 habitantes</a>), hasta el segundo trimestre de 2026.
+      Compraventas: <a href="https://www.mivau.gob.es/el-ministerio/observatorios-y-estadisticas/estadisticas/transacciones-inmobiliarias-compraventa">Ministerio de Vivienda, transacciones inmobiliarias</a>, con datos de los notarios.
+      Renta: <a href="https://www.ine.es/jaxiT3/Tabla.htm?t=31097">INE, Atlas de Distribución de Renta de los Hogares</a>, 2023.
+      Superficie media: <a href="https://gestiona.comunidad.madrid/desvan/almudena/AccionDatosTemaMunicipal.icm?codTema=1929207">Instituto de Estadística de la Comunidad de Madrid</a>, Censo 2021.
+      IBI: <a href="https://serviciostelematicosext.hacienda.gob.es/SGFAL/ConsultaTipos/aspx/listado_municipiosm.aspx">Ministerio de Hacienda, tipos de gravamen de 2026</a>;
+      <a href="https://www.catastro.hacienda.gob.es/jaxi/tabla.do?path=/est2026/catastro/urbano/&amp;file=URBO4228.px&amp;type=pcaxis&amp;L=0">Catastro, valor catastral</a> e
+      <a href="https://www.catastro.hacienda.gob.es/jaxi/tabla.do?path=/est2026/catastro/urbano/&amp;file=URAO4228.px&amp;type=pcaxis&amp;L=0">inmuebles de uso residencial</a>, 2026.
+    </p>
+    <p class="cautela">
+      La tasación es lo que valora una sociedad de tasación antes de una hipoteca, no el precio de
+      venta. Solo cuenta las viviendas que se tasan, y en una ciudad pequeña un trimestre suelto se
+      mueve por la mezcla de pisos que tocan. El recibo del IBI es una estimación: el valor
+      catastral medio de las viviendas por el tipo del ayuntamiento, antes de bonificaciones y sin
+      garaje ni trastero. Ningún organismo publica el recibo de la vivienda media.
+    </p>
+  </div>
+</section>
+
+<!-- ── Alquilar ──────────────────────────────────────────────────────── -->
+<section class="bloque" id="alquilar" data-indice="Alquilar">
+  <div class="env">
+    <h2 class="bloque__h">Lo que cuesta alquilar</h2>
+    <p class="bloque__intro">
+      Cuántos hogares viven de alquiler, lo que cuesta un piso y qué parte de lo que entra en un
+      hogar medio se llevaría.
+    </p>
+    <div class="hogares-pareja" id="alquilar-hogares"></div>
+    <div class="pareja" id="alquilar-cifras"></div>
+    <div class="cien-euros" id="alquilar-euros"></div>
+    <h3 class="bloque__h3">El metro cuadrado, de 2015 a 2024</h3>
+    <figure class="graf" id="alquilar-graf"></figure>
+    <div class="hechos" id="alquilar-hechos"></div>
+    <p class="colas__pie">
+      Fuente: <a href="https://www.mivau.gob.es/vivienda/alquila-bien-es-tu-derecho/serpavi">Ministerio de Vivienda, Sistema Estatal de Referencia del Precio del Alquiler</a>,
+      con datos del IRPF de 2024; vivienda colectiva.
+      Contratos nuevos: <a href="https://sede.agenciatributaria.gob.es/Sede/estadisticas/estadisticas-impuesto/estadistica-viviendas-declaradas-irpf.html">Agencia Tributaria, estadística de viviendas declaradas en el IRPF</a>, 2024.
+      Renta de los hogares: <a href="https://www.ine.es/jaxiT3/Tabla.htm?t=31097">INE, ADRH</a>, 2023.
+      Hogares de alquiler: <a href="https://www.ine.es/jaxi/Tabla.htm?tpx=59529">INE, Censo de Población y Viviendas 2021</a>, viviendas principales por régimen de tenencia.
+    </p>
+    <p class="cautela">
+      Solo están los alquileres que los caseros particulares declaran a Hacienda. Quedan fuera los
+      pisos de empresas y fondos, la vivienda pública y el alquiler que no se declara. El último año
+      publicado es 2024.
+    </p>
+    <p class="cautela" id="alquilar-cautela"></p>
+  </div>
+</section>
+
+<!-- ── Barrios ──────────────────────────────────────────────────────── -->
+<section class="bloque" id="barrios" data-indice="De un barrio a otro">
+  <div class="env">
+    <h2 class="bloque__h">De un barrio a otro</h2>
+    <p class="bloque__intro">
+      Dentro de cada ciudad, la zona donde el alquiler es más barato y la más cara, y la zona con
+      menos renta por hogar y la que tiene más. Cuanto más larga la línea, más distancia entre
+      barrios.
+    </p>
+    <div class="rangos" id="barrios-rangos"></div>
+    <p class="colas__pie">
+      Fuentes: <a href="https://www.mivau.gob.es/vivienda/alquila-bien-es-tu-derecho/serpavi">Ministerio de Vivienda, SERPAVI</a>
+      (<a href="https://cdn.mivau.gob.es/portal-web-mivau/vivienda/serpavi/2026-03_09_bd_SERPAVI_2011-2024%20-%20DEFINITIVO%20WEB_v2.xlsx">base de datos por sección censal</a>), 2024;
+      <a href="https://www.ine.es/jaxiT3/Tabla.htm?t=31097">INE, Atlas de Distribución de Renta de los Hogares</a>, 2023.
+    </p>
+    <p class="cautela">
+      Las zonas son secciones censales, de unos pocos miles de vecinos, y no tienen nombre de barrio.
+      Para el alquiler solo cuentan las secciones con 30 o más alquileres declarados. En la renta,
+      el INE da 104.774 € a muchas secciones de toda la Comunidad, que parece un tope: cuando la
+      sección más rica de una ciudad lo tiene, la distancia no se calcula.
+    </p>
+  </div>
+</section>
+
+<!-- ── Dueños ────────────────────────────────────────────────────────── -->
+<section class="bloque" id="duenos" data-indice="De quién son">
+  <div class="env">
+    <h2 class="bloque__h">De quién son las casas</h2>
+    <p class="bloque__intro">
+      De cada 100 viviendas, a nombre de quién está el recibo del IBI. Con borde, las de las
+      sociedades que tienen más de 100 viviendas en la misma ciudad.
+    </p>
+    <div class="cien-pareja" id="duenos-cien"></div>
+    <div class="hechos" id="duenos-hechos"></div>
+    <p class="colas__pie">
+      Fuentes: <a href="https://www.catastro.hacienda.gob.es/es-ES/estadisticas_3_1.html">Dirección General del Catastro, padrón del IBI de 2026</a>
+      (<a href="https://www.catastro.hacienda.gob.es/documentos/estadisticas/propietarios/2026/P_SPI_mun_V_TPF.csv">uso residencial por tipo de titular</a>);
+      <a href="https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/home.html">Agencia Tributaria, declarantes del IRPF por municipios</a>, 2024.
+    </p>
+
+    <h3 class="bloque__h3">Fondos de inversión</h3>
+    <ol class="puerta-ficha">
+      <li>
+        <h3>Lo que no se puede contar</h3>
+        <p>
+          Ninguna fuente oficial dice cuántas viviendas de cada ciudad son de fondos de inversión.
+          El Catastro separa a las personas de las sociedades, pero no da nombres: en «sociedades»
+          están igual un fondo, un banco, la Sareb, una promotora, una cooperativa o una empresa
+          municipal de vivienda. Y cuenta el tamaño de cada sociedad dentro de la ciudad: un fondo
+          con 50 pisos en Parla y miles en España aparece entre las pequeñas.
+        </p>
+      </li>
+      <li>
+        <h3>Los pisos del IVIMA</h3>
+        <p>
+          En 2013 la Comunidad de Madrid vendió 2.935 viviendas públicas del IVIMA a Encasa
+          Cibeles, sociedad de Goldman Sachs y Azora, por 201 millones de euros. Los tribunales
+          anularon la venta, y en 2022 la Agencia de Vivienda Social pagó 107,7 millones por
+          recuperar 1.721 de esas viviendas; las demás ya se habían vendido a terceros.
+        </p>
+        <p>
+          La Cámara de Cuentas no publica el reparto por ciudades. Según la prensa, que lo atribuye
+          a la resolución judicial, 240 estaban en Parla.
+        </p>
+        <p class="ficha__fuente">
+          <a href="https://www.camaradecuentasmadrid.org/admin/uploads/definitivo-4.pdf">Cámara de Cuentas de la Comunidad de Madrid, fiscalización de las enajenaciones del IVIMA</a>
+          · <a href="https://www.bocm.es/boletin/CM_Orden_BOCM/2025/10/23/BOCM-20251023-23.PDF">BOCM, Decreto 85/2025</a>
+          · <a href="https://www.publico.es/economia/madrid-pagara-fondo-inversion-encasa-cibeles-107-millones-retorno-1-721-pisos-ivima.html">Público, 2022</a>
+        </p>
+      </li>
+      <li>
+        <h3>Zonas tensionadas</h3>
+        <p>
+          La ley de vivienda de 2023 permite limitar el alquiler en las zonas que una comunidad
+          declare tensionadas. La Comunidad de Madrid no ha declarado ninguna: en la relación que
+          publica cada trimestre el Ministerio de Vivienda solo hay zonas de Cataluña, el País
+          Vasco, Navarra, Galicia y Asturias.
+        </p>
+        <p class="ficha__fuente">
+          <a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-16532">BOE, resolución de 24 de julio de 2026 de la Secretaría de Estado de Vivienda</a>
+          · <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2023-12203">Ley 12/2023, artículo 18</a>
+        </p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── Vivienda pública y ayudas ─────────────────────────────────────── -->
+<section class="bloque" id="publica" data-indice="Vivienda pública y ayudas">
+  <div class="env">
+    <h2 class="bloque__h">Vivienda pública y ayudas</h2>
+    <p class="bloque__intro">
+      Las viviendas de la Comunidad de Madrid en cada ciudad, las que se adjudican a nuevos
+      inquilinos, el Plan Vive y las ayudas para pagar el alquiler.
+    </p>
+    <div class="pareja" id="publica-cifras"></div>
+    <div class="hechos" id="publica-hechos"></div>
+    <p class="colas__pie">
+      Fuentes: <a href="https://www.comunidad.madrid/gobierno/estadistica/patrimonio-datos-estadisticos-agencia-vivienda-social">Agencia de Vivienda Social, viviendas en propiedad por municipio</a>, a 30 de septiembre de 2026;
+      informes de gestión de la Agencia de
+      <a href="https://www.comunidad.madrid/docs/assets/2024/10/10/avs_informe_gestion_2023.pdf">2023</a>,
+      <a href="https://www.comunidad.madrid/docs/assets/2025/07/01/avs_informe_gestion_2024.pdf">2024</a> y
+      <a href="https://www.comunidad.madrid/docs/2026-06/avs-informe-gestion-2025.pdf">2025</a>;
+      <a href="https://www.comunidad.madrid/noticias/2026/08/19/comunidad-madrid-destina-tres-cada-cuatro-viviendas-plan-vive-menores-35-anos">Comunidad de Madrid, nota de prensa del Plan Vive</a>, 19 de agosto de 2026;
+      datos abiertos de la Comunidad de Madrid:
+      <a href="https://datos.comunidad.madrid/dataset/spacm_ayudas_alquiler_vivienda_jovenes_sectores_escasos_recursos">ayudas al alquiler a jóvenes y a sectores con escasos recursos</a> y
+      <a href="https://datos.comunidad.madrid/dataset/spacm_bono_alquiler_joven_2022">Bono Alquiler Joven 2022</a>;
+      hogares de alquiler: <a href="https://www.ine.es/jaxi/Tabla.htm?tpx=59529">INE, Censo 2021</a>.
+    </p>
+    <p class="cautela">
+      No hay una tabla oficial del Plan Vive por municipio: la Comunidad da las ciudades en notas de
+      prensa. Las ayudas son las de las convocatorias de 2022 y 2023, las últimas publicadas por
+      municipio. La Comunidad no publica por municipio cuántas personas esperan una vivienda pública.
+    </p>
+  </div>
+</section>
+
+<!-- ── Desahucios ────────────────────────────────────────────────────── -->
+<section class="bloque" id="desahucios" data-indice="Cuando no se puede pagar">
+  <div class="env">
+    <h2 class="bloque__h">Cuando no se puede pagar</h2>
+    <p class="bloque__intro" id="desahucios-intro"></p>
+    <div class="pareja" id="desahucios-cifras"></div>
+    <h3 class="bloque__h3">Demandas por alquiler, desde 2013</h3>
+    <figure class="graf" id="demandas-graf"></figure>
+    <h3 class="bloque__h3">Desahucios practicados, desde 2013</h3>
+    <figure class="graf" id="desahucios-graf"></figure>
+    <div class="hechos" id="desahucios-hechos"></div>
+    <p class="colas__pie">
+      Fuentes: <a href="https://www.poderjudicial.es/cgpj/es/Temas/Estadistica-Judicial/Estadistica-por-temas/Datos-penales--civiles-y-laborales/Civil-y-laboral/Efecto-de-la-Crisis-en-los-organos-judiciales/">CGPJ, lanzamientos por partido judicial, 2013-2025</a>
+      y <a href="https://www.poderjudicial.es/cgpj/es/Temas/Estadistica-Judicial/Base-de-datos-de-la-estadistica-judicial--PC-AXIS-/Estadistica-Judicial-en-PC-Axis-para-uso-en-equipo-local">base de datos de la estadística judicial</a>
+      (asuntos ingresados y servicios comunes de ejecución);
+      <a href="https://www.mjusticia.gob.es/es/JusticiaEspana/OrganizacionJusticia/InstLibraryCartographyJudProv/Madrid/">Ministerio de Justicia, mapas de los partidos judiciales</a>;
+      <a href="https://www.ine.es/jaxiT3/Tabla.htm?t=2881">INE, padrón de cada año</a>.
+    </p>
+    <p class="cautela">
+      Un desahucio no es lo mismo que un impago, y no todos los impagos acaban en el juzgado. Las
+      demandas de alquiler incluyen también las que piden el piso porque se acaba el contrato. Con
+      20 o 40 desahucios al año, unos pocos casos mueven mucho la tasa.
+    </p>
+  </div>
+</section>
+
+<!-- ── El parque ─────────────────────────────────────────────────────── -->
+<section class="bloque" id="parque" data-indice="Cómo son las casas">
+  <div class="env">
+    <h2 class="bloque__h">Cómo son las casas</h2>
+    <p class="bloque__intro">
+      Las que están vacías, las que tienen más de cuarenta años, las familias grandes en pisos
+      pequeños, los edificios sin ascensor y los jóvenes que siguen en casa de sus padres.
+    </p>
+    <div class="hechos" id="parque-hechos"></div>
+    <p class="colas__pie">
+      Fuentes: INE, Censo 2021: <a href="https://www.ine.es/jaxi/Tabla.htm?tpx=59531">viviendas vacías por consumo eléctrico</a>,
+      <a href="https://www.ine.es/jaxi/Tabla.htm?tpx=59527">año de construcción</a> y
+      <a href="https://www.ine.es/jaxi/Tabla.htm?tpx=59530">hogares por tamaño y superficie</a>;
+      jóvenes con sus padres: <a href="https://www.ine.es/Censo2021/Inicio.do">INE, Censo 2021, tablas a medida</a>
+      (personas en viviendas familiares por edad y convivencia con los progenitores);
+      ascensor: <a href="https://www.ine.es/censos2011/tablas/Inicio.do">INE, Censo 2011, tablas a medida</a>
+      (viviendas principales por plantas del edificio y ascensor).
+    </p>
+    <p class="cautela">
+      Las vacías son las que casi no gastan luz en todo el año, y el INE las da como provisionales.
+      El ascensor es un dato de 2011, porque el Censo de 2021 ya no lo pregunta: desde entonces se
+      han puesto ascensores, y es una estimación por muestra. Que un joven viva con sus padres no
+      dice por qué; el dato incluye también a los padres que viven en casa de un hijo.
+    </p>
+  </div>
+</section>
+
+<!-- ── Método ────────────────────────────────────────────────────────── -->
+<section class="bloque bloque--metodo" id="metodo" data-indice="Cómo está hecho">
+  <div class="env">
+    <h2 class="bloque__h">Cómo está hecho esto</h2>
+    <div class="metodo__cuerpo">
+      <h3>Contra qué se mide cada cosa</h3>
+      <p>
+        Los hogares que forman 100 vecinos nuevos dividen 100 entre el tamaño medio del hogar de
+        cada ciudad que da el INE en el Atlas de renta de 2023, con un decimal.
+        Los precios van por metro cuadrado, para que no cuente el tamaño de los pisos; la vivienda
+        media multiplica el valor tasado por la superficie media de las viviendas de cada ciudad. El esfuerzo
+        divide el alquiler mediano de un año entre la renta neta media de todos los hogares, no
+        solo de los que alquilan. Los años de renta multiplican el valor tasado por la superficie
+        media de las viviendas de cada ciudad y lo dividen entre la renta neta media por hogar.
+        Los desahucios y las demandas, por cada 100.000 habitantes del partido judicial con la
+        población de cada año.
+      </p>
+
+      <h3>Los juzgados no son las ciudades</h3>
+      <p id="metodo-partido"></p>
+
+      <h3>Lo que se buscó y no está</h3>
+      <p>
+        La Comunidad de Madrid no publica por municipio las fianzas de los contratos de alquiler,
+        que serían el dato más reciente. El Portal Estadístico del Notariado, que tiene el precio
+        escriturado, las hipotecas y las compras de empresas por municipio, solo permite el uso
+        personal de sus datos. Las viviendas terminadas y las protegidas calificadas solo se
+        publican por provincia o para toda la Comunidad. Ninguna fuente dice qué parte de las casas
+        es de fondos de inversión, ni cuántas personas esperan una vivienda pública en cada ciudad.
+      </p>
+
+      <h3>Fuentes, una por una</h3>
+      <ul class="fuentes">
+        <li><a href="https://www.mivau.gob.es/el-ministerio/observatorios-y-estadisticas/estadisticas/valor-tasado-vivienda">Ministerio de Vivienda, valor tasado de la vivienda</a>: 2005-2026, trimestral.</li>
+        <li><a href="https://www.mivau.gob.es/el-ministerio/observatorios-y-estadisticas/estadisticas/transacciones-inmobiliarias-compraventa">Ministerio de Vivienda, transacciones inmobiliarias</a>: compraventas de 2025.</li>
+        <li><a href="https://www.mivau.gob.es/vivienda/alquila-bien-es-tu-derecho/serpavi">Ministerio de Vivienda, SERPAVI</a> (<a href="https://cdn.mivau.gob.es/portal-web-mivau/vivienda/serpavi/2026-03-18_Metodologia_SERPAVI.pdf">metodología</a>): 2015-2024.</li>
+        <li><a href="https://sede.agenciatributaria.gob.es/Sede/estadisticas/estadisticas-impuesto/estadistica-viviendas-declaradas-irpf.html">Agencia Tributaria, viviendas declaradas en el IRPF</a> y <a href="https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/home.html">declarantes del IRPF por municipios</a>: 2024.</li>
+        <li><a href="https://www.catastro.hacienda.gob.es/es-ES/estadisticas_3_1.html">Dirección General del Catastro, sujetos pasivos e inmuebles del IBI</a>: 2026.</li>
+        <li><a href="https://www.comunidad.madrid/gobierno/estadistica/patrimonio-datos-estadisticos-agencia-vivienda-social">Agencia de Vivienda Social, patrimonio por municipio</a>: septiembre de 2026.</li>
+        <li><a href="https://www.poderjudicial.es/cgpj/es/Temas/Estadistica-Judicial/Estadistica-por-temas/Datos-penales--civiles-y-laborales/Civil-y-laboral/Efecto-de-la-Crisis-en-los-organos-judiciales/">CGPJ, lanzamientos por partido judicial</a> y <a href="https://www.poderjudicial.es/cgpj/es/Temas/Estadistica-Judicial/Base-de-datos-de-la-estadistica-judicial--PC-AXIS-/Estadistica-Judicial-en-PC-Axis-para-uso-en-equipo-local">base de datos PC-Axis</a>: 2013-2025.</li>
+        <li><a href="https://www.ine.es/jaxi/Tabla.htm?tpx=59529">INE, Censo de Población y Viviendas 2021</a>: tenencia, vacías, antigüedad, superficie y hogares.</li>
+        <li><a href="https://www.ine.es/jaxiT3/Tabla.htm?t=31097">INE, Atlas de Distribución de Renta de los Hogares</a>: 2023.</li>
+        <li><a href="https://gestiona.comunidad.madrid/desvan/almudena/AccionDatosTemaMunicipal.icm?codTema=1002048">Instituto de Estadística de la Comunidad de Madrid, banco de datos municipal</a>: unidades residenciales del Catastro y superficie media.</li>
+        <li><a href="https://www.ine.es/jaxiT3/Tabla.htm?t=2881">INE, cifras oficiales de población</a>: padrón de cada año.</li>
+      </ul>
+      <p class="cautela">
+        Los datos extraídos, con sus enlaces y sus cautelas, y el script que escribe los de esta
+        página están en
+        <a href="https://github.com/Nisgrak/si-yo-viviera-como-en-parla">el repositorio del proyecto</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="env">
+    <p class="pie__frase">Parla no es un caso raro.<br>Es lo que pasa cuando el reparto lo decide otro.</p>
+    <p class="pie__meta">
+      <a class="js-volver" href="index.html">Volver al recuento de <span data-aqui>Getafe</span></a>
+    </p>
+  </div>
+</footer>
+
+<script src="datos/datos.js"></script>
+<script src="datos/vivienda.js"></script>
+<script src="assets/indice.js"></script>
+<script src="assets/vivienda.js"></script>
+</body>
+</html>

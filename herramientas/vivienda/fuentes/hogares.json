@@ -1,0 +1,100 @@
+{
+ "_meta": {
+  "fuentes": {
+   "censo2021_tablas": "https://www.ine.es/Censo2021/Inicio.do",
+   "censo2011_tablas": "https://www.ine.es/censos2011/tablas/Inicio.do"
+  },
+  "notas": [
+   "Jóvenes: personas de 25 a 34 años en viviendas familiares que viven con al menos uno de sus progenitores (columnas «Vive con progenitor 1» y «Vive con progenitor 2»). Tabla a medida del Censo 2021; el INE altera levemente las cifras por confidencialidad.",
+   "Ascensor: viviendas principales en edificios de 4 o más plantas sobre rasante (incluida la baja) sin ascensor, Censo 2011, tabla a medida; dato muestral, el INE marca con * las celdas con mucho error."
+  ]
+ },
+ "parla": {
+  "jovenes_25_34": 15228,
+  "jovenes_con_padres": 6108,
+  "pct_jovenes_con_padres": 40.11,
+  "viv_principales_2011": 43710,
+  "viv_4plantas_sin_ascensor_2011": 13515,
+  "pct_sin_ascensor_2011": 30.92
+ },
+ "getafe": {
+  "jovenes_25_34": 19896,
+  "jovenes_con_padres": 8673,
+  "pct_jovenes_con_padres": 43.59,
+  "viv_principales_2011": 62510,
+  "viv_4plantas_sin_ascensor_2011": 25455,
+  "pct_sin_ascensor_2011": 40.72
+ },
+ "leganes": {
+  "jovenes_25_34": 19665,
+  "jovenes_con_padres": 10047,
+  "pct_jovenes_con_padres": 51.09,
+  "viv_principales_2011": 70950,
+  "viv_4plantas_sin_ascensor_2011": 22725,
+  "pct_sin_ascensor_2011": 32.03
+ },
+ "fuenlabrada": {
+  "jovenes_25_34": 22377,
+  "jovenes_con_padres": 12618,
+  "pct_jovenes_con_padres": 56.39,
+  "viv_principales_2011": 66655,
+  "viv_4plantas_sin_ascensor_2011": 8645,
+  "pct_sin_ascensor_2011": 12.97
+ },
+ "mostoles": {
+  "jovenes_25_34": 23895,
+  "jovenes_con_padres": 12123,
+  "pct_jovenes_con_padres": 50.73,
+  "viv_principales_2011": 74950,
+  "viv_4plantas_sin_ascensor_2011": 12305,
+  "pct_sin_ascensor_2011": 16.42
+ },
+ "alcorcon": {
+  "jovenes_25_34": 15846,
+  "jovenes_con_padres": 7806,
+  "pct_jovenes_con_padres": 49.26,
+  "viv_principales_2011": 66065,
+  "viv_4plantas_sin_ascensor_2011": 11340,
+  "pct_sin_ascensor_2011": 17.16
+ },
+ "alcobendas": {
+  "jovenes_25_34": 13413,
+  "jovenes_con_padres": 6729,
+  "pct_jovenes_con_padres": 50.17,
+  "viv_principales_2011": 39100,
+  "viv_4plantas_sin_ascensor_2011": 9995,
+  "pct_sin_ascensor_2011": 25.56
+ },
+ "pinto": {
+  "jovenes_25_34": 6012,
+  "jovenes_con_padres": 2442,
+  "pct_jovenes_con_padres": 40.62,
+  "viv_principales_2011": 17400,
+  "viv_4plantas_sin_ascensor_2011": 1625,
+  "pct_sin_ascensor_2011": 9.34
+ },
+ "torrejon": {
+  "jovenes_25_34": 15561,
+  "jovenes_con_padres": 6918,
+  "pct_jovenes_con_padres": 44.46,
+  "viv_principales_2011": 44580,
+  "viv_4plantas_sin_ascensor_2011": 7250,
+  "pct_sin_ascensor_2011": 16.26
+ },
+ "pozuelo": {
+  "jovenes_25_34": 8643,
+  "jovenes_con_padres": 5703,
+  "pct_jovenes_con_padres": 65.98,
+  "viv_principales_2011": 26770,
+  "viv_4plantas_sin_ascensor_2011": 1810,
+  "pct_sin_ascensor_2011": 6.76
+ },
+ "majadahonda": {
+  "jovenes_25_34": 7584,
+  "jovenes_con_padres": 4380,
+  "pct_jovenes_con_padres": 57.75,
+  "viv_principales_2011": 23070,
+  "viv_4plantas_sin_ascensor_2011": 1730,
+  "pct_sin_ascensor_2011": 7.5
+ }
+}

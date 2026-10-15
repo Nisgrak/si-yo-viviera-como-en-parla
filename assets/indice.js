@@ -23,8 +23,10 @@
 
   const PAGINAS = [
     { id: 'recuento', titulo: function (n) { return 'El recuento de ' + n; }, ruta: '', archivo: 'index.html' },
-    { id: 'infraestructura', titulo: function () { return 'Infraestructura: salir en coche'; },
-      ruta: 'infraestructura/', archivo: 'infraestructura.html' }
+    { id: 'infraestructura', titulo: function () { return 'Salir en coche'; },
+      ruta: 'infraestructura/', archivo: 'infraestructura.html' },
+    { id: 'vivienda', titulo: function () { return 'Vivienda'; },
+      ruta: 'vivienda/', archivo: 'vivienda.html' }
   ];
 
   const RAIL_REM = 15.5;    /* lo que necesita el índice lateral, con su aire */

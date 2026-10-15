@@ -544,6 +544,18 @@
 
   /* ── Portada ──────────────────────────────────────────────────────── */
 
+  /* Los atajos a las otras páginas: un icono, el nombre corto y la flecha. */
+  const ICONO_PAGINA = {
+    coche: '<svg class="compartir__icono" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-4.5L6.5 6h11l2.5 5.5V16z"/>' +
+      '<path d="M4 11.5h16"/><circle cx="8" cy="16" r="1.9" fill="currentColor"/><circle cx="16" cy="16" r="1.9" fill="currentColor"/></svg>',
+    casa: '<svg class="compartir__icono" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11 12 4l8.5 7"/><path d="M6 9.5V20h12V9.5"/>' +
+      '<path d="M10 20v-5.5h4V20"/></svg>'
+  };
+  const FLECHA = '<svg class="compartir__flecha" width="16" height="12" viewBox="0 0 16 12" ' +
+        'fill="none" aria-hidden="true"><path d="M1 6h13M9.5 1l5 5-5 5" stroke="currentColor" stroke-width="1.8"/></svg>';
+
   function portada() {
     $('#pob-a').textContent = entero(D.BASES.total.valores[AQUI]);
     $('#pob-b').textContent = entero(D.BASES.total.valores[REF]);
@@ -556,9 +568,15 @@
       const a = el('a', 'compartir compartir--salir');
       a.id = 'portada-salir';
       a.href = RUTAS ? RAIZ_WEB + AQUI + '/infraestructura/' : 'infraestructura.html#' + AQUI;
-      a.innerHTML = '<span>Infraestructura: salir en coche</span><svg width="16" height="12" viewBox="0 0 16 12" ' +
-        'fill="none" aria-hidden="true"><path d="M1 6h13M9.5 1l5 5-5 5" stroke="currentColor" stroke-width="1.8"/></svg>';
+      a.innerHTML = ICONO_PAGINA.coche + '<span>Salir en coche</span>' + FLECHA;
       hueco.appendChild(a);
+    }
+    if ((window.VIVIENDA || {}).ciudades) {
+      const v = el('a', 'compartir compartir--salir');
+      v.id = 'portada-vivienda';
+      v.href = RUTAS ? RAIZ_WEB + AQUI + '/vivienda/' : 'vivienda.html#' + AQUI;
+      v.innerHTML = ICONO_PAGINA.casa + '<span>Vivienda</span>' + FLECHA;
+      hueco.appendChild(v);
     }
 
     /* "Y ganarías 3, en educación." Las áreas, y no los servicios uno a uno,
@@ -1708,6 +1726,73 @@
     if (atajo) atajo.href = ir;
   }
 
+  /* ── Vivienda: el resumen de vivienda.html ───────────────────────────
+     Los datos los escribe herramientas/vivienda.py; aquí solo se enseñan
+     las viviendas nuevas por cada 100 vecinos nuevos y se manda a la página. */
+  function vivienda() {
+    const V = (window.VIVIENDA || {}).ciudades;
+    const caja = $('#vivienda');
+    if (!V || !V[REF] || !V[AQUI]) { if (caja) caja.hidden = true; return; }
+    function crece(c) {
+      const n = c.crece.pob.length - 1;
+      const p = c.crece.pob[n] - c.crece.pob[0], v = c.crece.casas[n] - c.crece.casas[0];
+      return { p: p, v: v, r: p > 0 ? v / p * 100 : null };
+    }
+    const r = crece(V[REF]), a = crece(V[AQUI]);
+    $('#vivienda-txt').textContent =
+      'Entre 2015 y 2025 Parla ganó ' + entero(r.p) + ' vecinos, y el Catastro registró ' + entero(r.v) +
+      ' viviendas más. ' + (a.r === null
+        ? NOMBRE[AQUI] + ' perdió ' + entero(-a.p) + ' vecinos y sumó ' + entero(a.v) + ' viviendas.'
+        : NOMBRE[AQUI] + ' ganó ' + entero(a.p) + ' vecinos y sumó ' + entero(a.v) + ' viviendas.') +
+      ' Abajo, la misma cuenta por cada 100 vecinos nuevos: con borde, los hogares que forman 100 personas al ' +
+      'tamaño medio de hogar de cada ciudad; llenas, las viviendas nuevas.';
+    const NS = 'http://www.w3.org/2000/svg';
+    let uid = 0;
+    function casa(lleno, hueco) {
+      const d = document.createElementNS(NS, 'svg');
+      d.setAttribute('viewBox', '0 0 20 20'); d.setAttribute('class', 'hogm__u'); d.setAttribute('aria-hidden', 'true');
+      const forma = 'M10 1.5 19 9v9.5H1V9z', id = 'hogm-' + (uid++);
+      const cp = document.createElementNS(NS, 'clipPath'); cp.setAttribute('id', id);
+      const f = document.createElementNS(NS, 'path'); f.setAttribute('d', forma); cp.appendChild(f); d.appendChild(cp);
+      if (hueco) { const b = document.createElementNS(NS, 'path'); b.setAttribute('d', forma); b.setAttribute('class', 'hogm__borde'); d.appendChild(b); }
+      if (lleno > 0) {
+        const q = document.createElementNS(NS, 'rect');
+        q.setAttribute('width', (20 * Math.min(1, lleno)).toFixed(2)); q.setAttribute('height', 20);
+        q.setAttribute('clip-path', 'url(#' + id + ')'); q.setAttribute('class', 'hogm__lleno');
+        d.appendChild(q);
+      }
+      return d;
+    }
+    const cont = $('#vivienda-hogares');
+    vaciar(cont);
+    [[REF, 'referencia', r], [AQUI, 'aqui', a]].forEach(function (g) {
+      const c = el('div', 'hogm');
+      c.setAttribute('data-quien', g[1]);
+      c.appendChild(el('p', 'hogm__nombre', NOMBRE[g[0]]));
+      if (g[2].r === null) {
+        c.appendChild(el('p', 'hogm__que', 'Pierde vecinos: no hay vecinos nuevos que contar.'));
+        cont.appendChild(c);
+        return;
+      }
+      const tam = V[g[0]].renta.tamano, hog = 100 / tam;
+      c.appendChild(el('p', 'hogm__v', num(g[2].r, 1)));
+      c.appendChild(el('p', 'hogm__que', 'viviendas nuevas por cada 100 vecinos nuevos, que son ' + num(hog, 1) +
+        ' hogares de ' + num(tam, 1) + ' personas'));
+      const fila = el('div', 'hogm__fila');
+      fila.setAttribute('role', 'img');
+      fila.setAttribute('aria-label', NOMBRE[g[0]] + ': ' + num(g[2].r, 1) + ' viviendas nuevas por cada 100 vecinos nuevos, que son ' +
+        num(hog, 1) + ' hogares');
+      const total = Math.max(Math.round(hog), Math.ceil(g[2].r));
+      for (let i = 0; i < total; i++) fila.appendChild(casa(g[2].r - i, i < Math.round(hog)));
+      c.appendChild(fila);
+      cont.appendChild(c);
+    });
+    const ir = RUTAS ? RAIZ_WEB + AQUI + '/vivienda/' : 'vivienda.html#' + AQUI;
+    $('#vivienda-ir').href = ir;
+    const atajo = $('#portada-vivienda');
+    if (atajo) atajo.href = ir;
+  }
+
   function pintar() {
     calcular();
     portada();
@@ -1717,6 +1802,7 @@
     tamano();
     dinero();
     salir();
+    vivienda();
     listas();
     metodo();
     movimiento();
