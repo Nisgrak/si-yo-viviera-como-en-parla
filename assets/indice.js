@@ -26,7 +26,9 @@
     { id: 'infraestructura', titulo: function () { return 'Salir en coche'; },
       ruta: 'infraestructura/', archivo: 'infraestructura.html' },
     { id: 'vivienda', titulo: function () { return 'Vivienda'; },
-      ruta: 'vivienda/', archivo: 'vivienda.html' }
+      ruta: 'vivienda/', archivo: 'vivienda.html' },
+    { id: 'economia', titulo: function () { return 'Economía'; },
+      ruta: 'economia/', archivo: 'economia.html' }
   ];
 
   const RAIL_REM = 15.5;    /* lo que necesita el índice lateral, con su aire */

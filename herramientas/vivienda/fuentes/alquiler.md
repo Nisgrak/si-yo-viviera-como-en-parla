@@ -1,5 +1,7 @@
 # Alquiler y régimen de tenencia: 11 municipios
 
+> **Al día con el ADRH 2024 (19-10-2026).** La renta, el tamaño del hogar y el esfuerzo del `.json` son ya de 2024: los escribe `herramientas/vivienda/adrh.py`, que con el año 2023 reproduce exactamente las cifras de las tablas de abajo. Estas tablas se quedan como estaban, de 2023.
+
 Datos descargados el 15-10-2026. JSON completo con series 2011-2024: `alquiler.json` (ids: parla, getafe, leganes, fuenlabrada, mostoles, alcorcon, alcobendas, pinto, torrejon, pozuelo, majadahonda). Las columnas con * son cálculo propio.
 
 ## Fuentes

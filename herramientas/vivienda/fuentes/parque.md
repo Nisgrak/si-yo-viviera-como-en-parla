@@ -1,5 +1,7 @@
 # Parque de viviendas, hogares y capacidad de pago (11 municipios)
 
+> **Al día con el ADRH 2024 (19-10-2026).** La renta, el tamaño del hogar del `.json` son ya de 2024: los escribe `herramientas/vivienda/adrh.py`, que con el año 2023 reproduce exactamente las cifras de las tablas de abajo. Estas tablas se quedan como estaban, de 2023.
+
 Generado el 15-10-2026. Datos en `parque.json` (mismo directorio). Cada cifra procede de una tabla oficial enlazada; los cálculos propios se señalan como tales.
 
 ## 1. Parque de viviendas. Censo 2021 (1-1-2021)

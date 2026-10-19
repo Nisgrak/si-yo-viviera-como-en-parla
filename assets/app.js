@@ -551,7 +551,10 @@
       '<path d="M4 11.5h16"/><circle cx="8" cy="16" r="1.9" fill="currentColor"/><circle cx="16" cy="16" r="1.9" fill="currentColor"/></svg>',
     casa: '<svg class="compartir__icono" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
       'stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11 12 4l8.5 7"/><path d="M6 9.5V20h12V9.5"/>' +
-      '<path d="M10 20v-5.5h4V20"/></svg>'
+      '<path d="M10 20v-5.5h4V20"/></svg>',
+    euro: '<svg class="compartir__icono" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M17.5 6.5A7 7 0 1 0 17.5 17.5"/>' +
+      '<path d="M4 10.5h9M4 13.5h9"/></svg>'
   };
   const FLECHA = '<svg class="compartir__flecha" width="16" height="12" viewBox="0 0 16 12" ' +
         'fill="none" aria-hidden="true"><path d="M1 6h13M9.5 1l5 5-5 5" stroke="currentColor" stroke-width="1.8"/></svg>';
@@ -577,6 +580,13 @@
       v.href = RUTAS ? RAIZ_WEB + AQUI + '/vivienda/' : 'vivienda.html#' + AQUI;
       v.innerHTML = ICONO_PAGINA.casa + '<span>Vivienda</span>' + FLECHA;
       hueco.appendChild(v);
+    }
+    if (window.ECONOMIA) {
+      const e = el('a', 'compartir compartir--salir');
+      e.id = 'portada-economia';
+      e.href = RUTAS ? RAIZ_WEB + AQUI + '/economia/' : 'economia.html#' + AQUI;
+      e.innerHTML = ICONO_PAGINA.euro + '<span>Economía</span>' + FLECHA;
+      hueco.appendChild(e);
     }
 
     /* "Y ganarías 3, en educación." Las áreas, y no los servicios uno a uno,
@@ -921,22 +931,17 @@
     return t;
   }
 
-  /* Arriba, inversión y gasto en euros al año, lo demás que decide o recibe el
-     ayuntamiento y el saldo de deuda. Debajo, lo que describe a los vecinos:
-     paro, renta, pobreza y PIB. Solo gasto e inversión llevan euros al año y
-     cartel. */
+  /* Solo el resumen: inversión y gasto en euros al año, con su cartel, y el
+     saldo de deuda. Las demás series, y lo que describe a los vecinos, van
+     en economia.html. */
   function dinero() {
     const arriba = $('#dinero-cuerpo');
-    const abajo = $('#dinero-contexto');
     vaciar(arriba);
-    vaciar(abajo);
-    const series = D.contexto.dinero;
+    const series = D.contexto.dinero.filter(function (s) { return s.portada; });
     const destacadas = series.filter(function (s) { return s.alAnio; }).reverse();
-    const municipales = series.filter(function (s) { return s.municipal; });
     const saldos = series.filter(function (s) { return s.saldoEuros; });
-    const resto = series.filter(function (s) { return !s.alAnio && !s.saldoEuros && !s.municipal; });
-    destacadas.concat(municipales, saldos, resto).forEach(function (s) {
-      const cont = s.alAnio || s.saldoEuros || s.municipal ? arriba : abajo;
+    destacadas.concat(saldos).forEach(function (s) {
+      const cont = arriba;
       const art = el('article', 'plata' + (s.saldoEuros ? ' plata--saldo' : ''));
       art.id = 'dinero-' + s.id;
       art.appendChild(el('h3', 'plata__h', s.titulo));
@@ -971,6 +976,10 @@
     $('#dinero-cierre').textContent = texto(D.contexto.dineroNota, {
       impuestosAqui: entero(imp[AQUI]), impuestosRef: entero(imp[REF])
     });
+    const ir = RUTAS ? RAIZ_WEB + AQUI + '/economia/' : 'economia.html#' + AQUI;
+    $('#dinero-ir').href = ir;
+    const atajo = $('#portada-economia');
+    if (atajo) atajo.href = ir;
   }
 
   /* Qué parte de la población tiene cada edad, una ciudad al lado de la otra.

@@ -21,7 +21,7 @@ Diez ciudades del área metropolitana de Madrid comparadas contra Parla, con nom
 | Pinto | 56.651 | **9** |
 
 **Pinto y Alcobendas** pierden poco, y por motivos opuestos. Pinto ya está casi tan mal dotado
-como Parla. Alcobendas es rica —29.659 € de renta por habitante, más del doble que Parla— pero
+como Parla. Alcobendas es rica —32.405 € de renta por habitante en 2024, más del doble que Parla— pero
 pequeña, y tampoco tiene universidad ni conservatorio. Ninguno de los dos tiene hospital público
 propio, así que en sanidad hospitalaria están **por debajo** de Parla. La web lo dice.
 
@@ -33,7 +33,7 @@ colegios y gana escuelas infantiles. Su campus público, de la Universidad de Al
 septiembre de 2025 con Enfermería y Fisioterapia: es pequeño, pero cuenta como los demás.
 
 **Pozuelo de Alarcón y Majadahonda** son, con Alcobendas, las ciudades ricas de la comparación:
-44.016 y 32.413 € de renta por habitante. Pozuelo pierde 18 y gana 9,2, casi todo en educación:
+47.217 y 35.059 € de renta por habitante en 2024. Pozuelo pierde 18 y gana 9,2, casi todo en educación:
 tiene campus (Somosaguas, de la Complutense), Hacienda y Seguridad Social, y no tiene hospital
 público. Majadahonda pierde 12 y tiene el Puerta de Hierro, con 613 camas y todas las unidades del
 Infanta Cristina más 23; pero no tiene Hacienda ni Seguridad Social, y con una sola biblioteca
@@ -165,6 +165,11 @@ vivienda.html         la página de la vivienda (/<ciudad>/vivienda/)
 assets/vivienda.css/.js   su diseño y su render: casas por cada 100 vecinos, líneas, barras y la rejilla de 100
 datos/vivienda.js     sus cifras; las escribe herramientas/vivienda.py
 herramientas/vivienda/fuentes/   lo extraído de cada fuente (.json) con sus URL y cautelas (.md)
+economia.html         la página de la economía (/<ciudad>/economia/)
+assets/economia.css/.js   su diseño y su render: fichas del dinero, líneas y el «de cada 100»
+assets/linea.js       el gráfico de líneas, compartido por vivienda.html y economia.html
+datos/economia.js     sus cifras; las escribe herramientas/economia.py
+herramientas/economia/fuentes/   lo extraído de cada fuente (.json) con sus URL y cautelas (.md)
 herramientas/         lo que rehace lo que no se teclea: el QR, las zonas verdes, los accesos
                       y el build que añade la vista previa de cada ciudad (compartir.mjs)
 ```
@@ -242,8 +247,8 @@ Todas oficiales y enlazadas una por una en el apartado «Cómo está hecho esto�
 - **INE** · Población por sexo, edad año a año y nacionalidad, 1 enero 2025 (tabla 68543)
 - **INE** · Indicadores Urbanos (Urban Audit): superficie total del municipio y tasa de paro, 2024
   (tablas 69333 y 69331)
-- **INE** · Atlas de Distribución de Renta de los Hogares: población bajo umbrales relativos, 2023
-  (tablas 31102 y 31103, las de la provincia de Madrid)
+- **INE** · Atlas de Distribución de Renta de los Hogares: renta bruta por persona y población bajo umbrales relativos, 2024
+  (tablas 31097, 31102 y 31103, las de la provincia de Madrid)
 - **Copernicus** · Urban Atlas 2018: zonas verdes urbanas e instalaciones deportivas y de ocio
 - **IGN** · Unidades administrativas (WFS INSPIRE): términos municipales
 - **Comunidad de Madrid, datos abiertos** · registro de centros sanitarios, centros educativos,
@@ -383,11 +388,11 @@ después una sección por tema:
 
 | Sección | Qué enseña | Fuente |
 |---|---|---|
-| Vecinos y viviendas | Viviendas nuevas por cada 100 vecinos nuevos 2015-2025, frente a los hogares que forman 100 personas al tamaño medio de hogar; vecinos y viviendas sumados año a año | Catastro (unidades residenciales) vía Almudena; INE padrón; INE ADRH 2023 |
-| Comprar | Valor de la vivienda media (tasado × superficie media); años de renta de un hogar; valor tasado €/m² trimestral 2005-2026; subida en 10 años; frente al máximo de 2007-08; recibo del IBI estimado de la vivienda media; compraventas por 1.000 hab. | MIVAU (valor tasado, transacciones); INE ADRH 2023; Censo 2021 vía Almudena; Hacienda (tipos IBI 2026) y Catastro (valor catastral residencial 2026) |
+| Vecinos y viviendas | Viviendas nuevas por cada 100 vecinos nuevos 2015-2025, frente a los hogares que forman 100 personas al tamaño medio de hogar; vecinos y viviendas sumados año a año | Catastro (unidades residenciales) vía Almudena; INE padrón; INE ADRH 2024 |
+| Comprar | Valor de la vivienda media (tasado × superficie media); años de renta de un hogar; valor tasado €/m² trimestral 2005-2026; subida en 10 años; frente al máximo de 2007-08; recibo del IBI estimado de la vivienda media; compraventas por 1.000 hab. | MIVAU (valor tasado, transacciones); INE ADRH 2024; Censo 2021 vía Almudena; Hacienda (tipos IBI 2026) y Catastro (valor catastral residencial 2026) |
 | Alquilar | Alquiler mediano €/mes; de cada 100 € de renta del hogar, los del alquiler; €/m² 2015-2024; contratos nuevos 2024; % de hogares de alquiler | MIVAU SERPAVI (IRPF); AEAT viviendas declaradas en el IRPF; INE Censo 2021 |
 | De quién son | De cada 100 viviendas: personas, sociedades (y las de más de 100 en la ciudad), administraciones; vecinos que cobran un alquiler; vivienda pública de la AVS; la venta del IVIMA | Catastro (padrón del IBI 2026); AEAT IRPF por municipios 2024; AVS; Cámara de Cuentas y BOCM |
-| De un barrio a otro | Sección censal más barata y más cara en alquiler €/m² (≥ 30 alquileres) y más pobre y más rica en renta por hogar | SERPAVI por sección 2024; INE ADRH 2023 por sección |
+| De un barrio a otro | Sección censal más barata y más cara en alquiler €/m² (≥ 30 alquileres) y más pobre y más rica en renta por hogar | SERPAVI por sección 2024; INE ADRH 2024 por sección |
 | Vivienda pública y ayudas | Viviendas de la AVS por 1.000 hab.; adjudicaciones a nuevos inquilinos 2023-2025; si la ciudad tiene viviendas del Plan Vive; ayudas al alquiler 2023 y Bono Alquiler Joven 2022 concedidos por 1.000 hogares de alquiler | AVS (patrimonio e informes de gestión); nota de prensa de la Comunidad (19-08-2026); datos abiertos de la Comunidad de Madrid |
 | Cuando no se puede pagar | Demandas por alquiler y desahucios por 100.000 hab., 2013-2025, en dos gráficos | CGPJ, por partido judicial |
 | Cómo son las casas | Vacías; antigüedad; hogares de 5 en 60 m²; jóvenes de 25-34 con sus padres; viviendas en edificios de 4+ plantas sin ascensor (2011); superficie media | INE Censo 2021 y Censo 2011 (tablas a medida) |
@@ -395,6 +400,7 @@ después una sección por tema:
 **Para rehacerlo:**
 
 ```
+python3 herramientas/vivienda/adrh.py 2024   # pone al día la renta del INE (ADRH) en parque, alquiler y barrios
 python3 herramientas/vivienda.py       # lee herramientas/vivienda/fuentes/*.json, escribe datos/vivienda.js
 ```
 
@@ -416,6 +422,50 @@ encontró.
 - **Viviendas terminadas y protegidas por municipio.** Solo por provincia; la serie municipal de licencias de Almudena acaba en 2019 y tiene huecos.
 - **Reparto por municipio de la venta del IVIMA.** Solo en prensa (Público, 2022: 240 en Parla); la página lo dice así.
 - **Ayudas al alquiler por municipio.** Existen en datos abiertos de la Comunidad (2022-2023), pero son convocatorias sueltas y no entraron.
+
+### El dinero: la página de la economía
+
+**La parte pública** está en `economia.html`, que se publica como `/<ciudad>/economia/`. En la web
+principal, «Detrás de todo, el dinero» se queda con inversión, gasto (con su cartel) y deuda viva
+—las series de `contexto.dinero` con `portada: true`— y enlaza a la página, que también tiene botón
+en la portada («Economía»). Abre con los puestos de trabajo por cada 100 vecinos que trabajan, y
+después:
+
+| Sección | Qué enseña | Fuente |
+|---|---|---|
+| Dónde se trabaja | Puestos de trabajo (afiliaciones por centro de trabajo, 31-12) por cada 100 vecinos afiliados (1-1 siguiente), 2013-2025; % de ocupados que trabaja en su municipio (2023) | Comunidad de Madrid (Seguridad Social), por ubicación y por residencia; INE, Censo anual (tabla 69986) |
+| Quien no encuentra trabajo | Tasa de paro (la de siempre); parados registrados por 100 hab. de 16-64, 2015-2025, con mujeres y menores de 25 en la nota; % de contratos indefinidos 2025 | INE Indicadores Urbanos; SEPE (paro y contratos); INE, Censo anual y padrón por edad |
+| Lo que entra en casa | Renta bruta por persona 2024 (la serie `renta` de `datos.js`, que antes era el indicador de la Comunidad de 2023: coincide al euro con el ADRH; la Comunidad no ha publicado 2024, así que su media va solo en la nota, con su año); renta neta por persona 2015-2024; por hogar; renta bruta por declaración, con el rendimiento del trabajo en la nota; pobreza (la de siempre); Gini y P80/P20; de cada 100 € de renta, de dónde salen | INE, ADRH 2024 (tablas 31097, 31098, 37727); Agencia Tributaria, IRPF por municipios 2024 |
+| Lo que se produce | PIB por habitante (el de siempre); empresas por 1.000 hab.; peso de la construcción en el PIB y en el empleo; de cada 100 empresas, de qué sector | INE, DIRCE 2025 (tabla 4721); Comunidad de Madrid, PIB por rama y afiliados por rama |
+| Las cuentas del ayuntamiento | Las cinco series municipales de siempre, y además: intereses + amortización (cap. 3 + 9 de gasto) y su peso en el gasto, con los intereses y la demora en la nota; ingresos propios (cap. 1-3); transferencias del Estado (art. 42); periodo medio de pago; remanente de tesorería ajustado a 31-12-2024 | CONPREL 2021-2024, con el mismo método que gasto e inversión; Hacienda, PMP mensual |
+
+**Para rehacerlo:**
+
+```
+python3 herramientas/economia/cuentas_extraer.py   # CONPREL y PMP → fuentes/cuentas.json (la primera vez, ~20 min)
+python3 herramientas/economia.py                   # lee herramientas/economia/fuentes/*.json, escribe datos/economia.js
+```
+
+Cada `.json` de `herramientas/economia/fuentes/` lleva la URL exacta de los ficheros, y cada `.md`
+cómo se sacó, las cautelas y lo que no se encontró.
+
+**Cautelas que la página dice:**
+- Un puesto es una afiliación con centro de trabajo en la ciudad, la ocupe quien la ocupe; los autónomos cuentan donde declaran el centro, y desde 2021 cada régimen va redondeado a 5.
+- El Censo saca el lugar de trabajo de registros: no ve el teletrabajo, y el porcentaje sale bajo en todas.
+- El paro registrado no es la tasa de paro, y los jóvenes se apuntan poco. En 2020 no hay cociente: no hay población por edad de ese año.
+- En contratos indefinidos Parla sale la primera de las once, y la página lo dice.
+- ADRH y Agencia Tributaria no se mezclan: uno divide entre personas y hogares; la otra, entre declaraciones, y Parla tiene el índice declarativo más bajo (51,5 por cada 100 habitantes).
+- El DIRCE cuenta la sede, y en 2023 rompió la serie: no se compara con años anteriores.
+- En los intereses de Parla, más de la mitad son de demora. Su amortización es baja porque ha refinanciado: 408 M€ de préstamos nuevos en 2022 y 2023.
+- El remanente es solo del ayuntamiento, sin organismos autónomos; es un saldo, así que vale el de 2024 y no la media.
+- Pinto y Majadahonda publican el periodo medio de pago por trimestres.
+
+**Lo que se buscó y no está:**
+- **Áreas de gasto (primer dígito de programas).** Cuadran con el total, pero el reparto entre las áreas 1, 4 y 9 depende de cada ayuntamiento: Parla apunta el tranvía en la 4 y Pinto las vías públicas, que el resto lleva a la 1.
+- **Ahorro neto.** El legal usa la anualidad teórica y Hacienda no lo publica por municipio; el calculado sobre la liquidación es nuestro, así que no entra.
+- **Plan de ajuste.** No hay una relación oficial descargable por municipio.
+- **Matriz origen-destino del Censo.** El INE no la publica en tablas.
+- **Locales, sociedades nuevas y altas de autónomos por municipio.** Solo por provincia o región.
 
 ### CONPREL: qué se puede sacar de los presupuestos municipales
 
@@ -474,8 +524,8 @@ los cuatro ejercicios. El gasto total por habitante también la deja abajo (medi
 ahí Leganés está a un pelo (782 €) y 2022 fue un año raro en Parla, así que no es un dato
 redondo. El de inversión sí.
 
-Estas dos cifras están en la web, en la sección **«Detrás de todo, el dinero»**, junto a la renta, al
-PIB municipal y a la tasa de paro. Van aparte del recuento porque son euros y no equipamientos, y
+Estas dos cifras están en la web, en la sección **«Detrás de todo, el dinero»**, y en
+`economia.html`, junto a la renta, al PIB municipal y a la tasa de paro. Van aparte del recuento porque son euros y no equipamientos, y
 la nota de cierre dice expresamente lo que la fuente no puede separar: cuánto de la inversión que
 falta es infrafinanciación y cuánto es la deuda que Parla arrastra en su plan de ajuste.
 
@@ -538,25 +588,28 @@ falta, entre otros datos, intereses y amortizaciones de las liquidaciones.
 
 ### Pobreza: el Atlas de Distribución de Renta de los Hogares del INE
 
-En «Y lo que hay debajo», junto al paro, la renta y el PIB. Porcentaje de población con ingresos
-por unidad de consumo por debajo del 60 % de la mediana, 2023. Desde la edición de 2023 la
+En `economia.html`, en «Lo que entra en casa». Porcentaje de población con ingresos
+por unidad de consumo por debajo del 60 % de la mediana, 2024. Desde la edición de 2023 la
 mediana es la de **toda España** (antes, solo territorio fiscal común), así que el umbral es el
 mismo para las once y se pueden comparar sin más. No hay fila de media: el atlas publica
 municipios, distritos y secciones, no la Comunidad.
 
 | | bajo el 60 % | bajo el 40 % | menores de 18, bajo el 60 % |
 |---|---:|---:|---:|
-| Parla | 27,2 | 12,5 | 35,8 |
-| Leganés | 18,8 | 7,9 | 25,7 |
-| Móstoles | 18,6 | 8,1 | 26,1 |
-| Fuenlabrada | 17,8 | 7,2 | 26,1 |
-| Torrejón de Ardoz | 17,1 | 7,1 | 22,4 |
-| Alcorcón | 16,0 | 6,7 | 21,2 |
-| Alcobendas | 15,9 | 7,3 | 19,5 |
-| Getafe | 15,8 | 6,8 | 20,3 |
-| Pinto | 14,9 | 6,2 | 18,4 |
-| Majadahonda | 11,9 | 5,7 | 13,6 |
-| Pozuelo de Alarcón | 8,5 | 4,3 | 9,8 |
+| Parla | 25,8 | 11,4 | 34,3 |
+| Leganés | 17,6 | 7,3 | 24,1 |
+| Móstoles | 17,2 | 7,2 | 24,4 |
+| Fuenlabrada | 16,3 | 6,5 | 24,8 |
+| Torrejón de Ardoz | 16,0 | 6,6 | 21,6 |
+| Alcorcón | 15,0 | 6,1 | 20,0 |
+| Getafe | 14,9 | 6,2 | 19,8 |
+| Alcobendas | 14,5 | 6,6 | 18,7 |
+| Pinto | 13,9 | 5,6 | 17,6 |
+| Majadahonda | 10,9 | 5,0 | 13,2 |
+| Pozuelo de Alarcón | 7,8 | 4,2 | 9,6 |
+
+Los de 2023, que estaban antes en la web, coinciden con los que da hoy el INE: la edición de 2024
+(publicada el 19-10-2026) no los revisó.
 
 Las barras son el 60 %; el 40 % y los menores van en la nota (`extra` en `datos.js`). Las
 tablas son de la provincia de Madrid: el INE las numera por provincia y el nombre no lo dice

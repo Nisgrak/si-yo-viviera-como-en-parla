@@ -1,0 +1,1370 @@
+{
+ "_meta": {
+  "fuentes": {
+   "adrh_31097": "https://www.ine.es/jaxiT3/Tabla.htm?t=31097",
+   "adrh_31097_api": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/31097?nult=12",
+   "adrh_31098": "https://www.ine.es/jaxiT3/Tabla.htm?t=31098",
+   "adrh_31098_api": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/31098?nult=12",
+   "adrh_37727": "https://www.ine.es/jaxiT3/Tabla.htm?t=37727",
+   "adrh_37727_api": "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/37727?nult=12",
+   "adrh_ultimos_datos": "https://www.ine.es/dyngs/INEbase/es/operacion.htm?c=Estadistica_C&cid=1254736177088&menu=ultiDatos&idp=1254735976608",
+   "adrh_metodologia": "https://www.ine.es/metodologia/metodologia_adrh.pdf",
+   "aeat_irpf_municipios_2024": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/home.html",
+   "aeat_irpf_2024_parla": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf158c18af4b846381dd4c14b7bb96cfaa3b47cdb6.html",
+   "aeat_irpf_2024_getafe": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubik411f4c9b5734bc6930ecbaaa3e7ab739543dc5b0.html",
+   "aeat_irpf_2024_leganes": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubik70a30faed4d8ea4e2116cb82f53cf438d62161c5.html",
+   "aeat_irpf_2024_fuenlabrada": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf4b278ebf4c3614821461952577059e39a9e04e94.html",
+   "aeat_irpf_2024_mostoles": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf7777155794d6db10804d1e0940a6740746111084.html",
+   "aeat_irpf_2024_alcorcon": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf2d94f8b3e044243b001640ef19fc2934f6f55b18.html",
+   "aeat_irpf_2024_alcobendas": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikb60fd34739369af9ac7cd927379dfa8b6248e02.html",
+   "aeat_irpf_2024_pinto": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf275fbdbf8c6a1ea6553ce3f63b43d7aed6ea05dc.html",
+   "aeat_irpf_2024_torrejon": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf7c11b5d2df0ccbbe0954b1e348d51fa9566d380d.html",
+   "aeat_irpf_2024_pozuelo": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubik5b0bb6ad71d22ec2a69410c181d779d35edabba1.html",
+   "aeat_irpf_2024_majadahonda": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubik5c16ec2c5696fab67eb238255ee8fcb06c149d06.html"
+  },
+  "extraido": "2026-10-19",
+  "notas": [
+   "ADRH (INE): último año publicado 2024, difundido el 19-10-2026 (tablas actualizadas el 15-10-2026). Las tablas de la provincia de Madrid son 31097 (renta media y mediana), 31098 (fuentes de ingreso) y 37727 (Gini y P80/P20). Los valores 2023 descargados hoy coinciden con los que ya usa la web (sin revisión).",
+   "ADRH: euros corrientes del año. 'Renta neta media por persona' = renta neta de los hogares / población encontrada (residentes con información fiscal), no padrón. Por hogar: dividido entre hogares. Incluye a no declarantes (modelos 190 etc.), no solo a quien hace la declaración. Excluye de la renta las rentas exentas no informadas, retribuciones en especie y alquileres imputados del propietario.",
+   "ADRH, fuentes de ingreso: desde la edición 2023 el INE solo publica el PORCENTAJE de cada fuente sobre la RENTA BRUTA (salario, pensiones, prestaciones por desempleo, otras prestaciones, otros ingresos; cinco categorías exhaustivas, suman 100 ± 0,1 por redondeo). 'Otros ingresos' = capital mobiliario, alquileres, actividades económicas, rentas imputadas y otras. Los campos *_eur_persona_*_derivado son un cálculo propio (porcentaje × renta bruta media por persona del mismo año), no un dato publicado; el error de redondeo es de hasta ±0,05 puntos del porcentaje (≈ ±7 € en Parla, ≈ ±22 € en Pozuelo).",
+   "ADRH, Gini (escala 0-100) y P80/P20 (cociente entre los percentiles 80 y 20) se calculan sobre la renta por unidad de consumo (escala OCDE modificada). Para el Gini el INE sustituye el 1,5 % de valores más bajos y más altos por el más próximo, así que es más bajo que un Gini sin recortar. Las rentas individuales se acotan a ±3 millones de euros. Son desigualdad DENTRO de cada municipio: Pozuelo tiene más desigualdad interna que Parla aunque sea mucho más rico.",
+   "La 'renta por habitante' que ya publica la web (Comunidad de Madrid, Indicador de Renta Disponible Bruta Municipal 2023: Parla 13.534, Alcobendas 29.659, Pozuelo 44.016, Majadahonda 32.413...) coincide al euro con la RENTA BRUTA media por persona del ADRH 2023 (tabla 31097), no con la neta. Es renta bruta, aunque el nombre de la Comunidad diga 'disponible'.",
+   "AEAT, IRPF por municipios 2024: solo declarantes de territorio de régimen común (excluye País Vasco y Navarra y a quien no declara). La unidad es la DECLARACIÓN (una conjunta puede tener dos titulares), no la persona ni el hogar. Renta bruta media y renta disponible media = importe total / número de declaraciones (comprobado). Renta disponible = renta bruta − cotizaciones sociales − cuota resultante de la autoliquidación.",
+   "AEAT: 'rendimiento medio del trabajo' (neto reducido) e 'ingresos íntegros del trabajo' tienen como denominador las declaraciones CON rendimientos del trabajo, no todas. 'rentas_trabajo_media_por_declaracion' es cálculo propio: rentas del trabajo del bloque de renta bruta / total de declaraciones. Las rentas del trabajo de la AEAT incluyen pensiones y prestaciones por desempleo sujetas (no solo salarios).",
+   "AEAT 'habitantes' es la población que la propia estadística asigna al municipio (coincide con las cifras oficiales a 1-1-2025 que usa la web); 'índice declarativo' = declaraciones / habitantes × 100, publicado por la AEAT.",
+   "AEAT, próxima edición (ejercicio 2025) no publicada: la URL .../irpfmunicipios/2025/home.html da 404 a 19-10-2026. La descarga con curl necesitó -k (certificado de la sede).",
+   "ADRH e IRPF no son comparables entre sí: el ADRH reparte la renta entre todas las personas y hogares (con no declarantes), la AEAT divide entre declaraciones. Por eso la renta bruta media por declaración de la AEAT (Parla 26.851 €) es muy superior a la renta bruta por persona del ADRH (14.349 €)."
+  ]
+ },
+ "parla": {
+  "nombre": "Parla",
+  "ine": "28106",
+  "adrh": {
+   "renta_neta_media_persona": {
+    "2015": 8522,
+    "2016": 8611,
+    "2017": 9004,
+    "2018": 9389,
+    "2019": 9717,
+    "2020": 9803,
+    "2021": 10251,
+    "2022": 10837,
+    "2023": 11522,
+    "2024": 12175
+   },
+   "renta_neta_media_hogar": {
+    "2015": 25546,
+    "2016": 26282,
+    "2017": 27142,
+    "2018": 28521,
+    "2019": 29932,
+    "2020": 29788,
+    "2021": 30961,
+    "2022": 32919,
+    "2023": 35177,
+    "2024": 37572
+   },
+   "renta_bruta_media_persona": {
+    "2015": 9809,
+    "2016": 9932,
+    "2017": 10418,
+    "2018": 10882,
+    "2019": 11280,
+    "2020": 11389,
+    "2021": 11965,
+    "2022": 12691,
+    "2023": 13534,
+    "2024": 14349
+   },
+   "renta_bruta_media_hogar": {
+    "2015": 29406,
+    "2016": 30315,
+    "2017": 31402,
+    "2018": 33057,
+    "2019": 34746,
+    "2020": 34606,
+    "2021": 36139,
+    "2022": 38554,
+    "2023": 41321,
+    "2024": 44281
+   },
+   "media_renta_unidad_consumo": {
+    "2015": 13350,
+    "2016": 13582,
+    "2017": 14185,
+    "2018": 14805,
+    "2019": 15346,
+    "2020": 15412,
+    "2021": 16098,
+    "2022": 17004,
+    "2023": 17942,
+    "2024": 18946
+   },
+   "mediana_renta_unidad_consumo": {
+    "2015": 12250,
+    "2016": 12250,
+    "2017": 12950,
+    "2018": 13650,
+    "2019": 14350,
+    "2020": 14350,
+    "2021": 15050,
+    "2022": 15750,
+    "2023": 16450,
+    "2024": 17850
+   },
+   "fuentes_ingreso_pct_renta_bruta_2024": {
+    "salario": 71.2,
+    "pensiones": 15.2,
+    "prestaciones_desempleo": 2.0,
+    "otras_prestaciones": 4.8,
+    "otros_ingresos": 6.9
+   },
+   "fuentes_ingreso_pct_renta_bruta_2023": {
+    "salario": 71.4,
+    "pensiones": 15.3,
+    "prestaciones_desempleo": 2.1,
+    "otras_prestaciones": 4.7,
+    "otros_ingresos": 6.5
+   },
+   "fuentes_ingreso_eur_persona_2024_derivado": {
+    "salario": 10216,
+    "pensiones": 2181,
+    "prestaciones_desempleo": 287,
+    "otras_prestaciones": 689,
+    "otros_ingresos": 990
+   },
+   "gini_2024": 28.3,
+   "p80_p20_2024": 2.4,
+   "gini_2023": 28.8,
+   "p80_p20_2023": 2.5
+  },
+  "irpf_2024": {
+   "url": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf158c18af4b846381dd4c14b7bb96cfaa3b47cdb6.html",
+   "declaraciones": 63046,
+   "titulares": 70855,
+   "habitantes_aeat": 137471,
+   "indice_declarativo": 51.54,
+   "renta_bruta_media": 26851,
+   "renta_disponible_media": 22420,
+   "renta_bruta_total": 1692832151,
+   "renta_disponible_total": 1413516254,
+   "rentas_trabajo_total": 1450990523,
+   "rentas_trabajo_media_por_declaracion": 23015,
+   "declaraciones_con_rto_trabajo": 58326,
+   "pct_declaraciones_con_rto_trabajo": 92.5,
+   "rto_trabajo_ingresos_integros_media": 24839,
+   "rto_trabajo_neto_reducido_declaraciones": 52574,
+   "rto_trabajo_neto_reducido_media": 21372
+  }
+ },
+ "getafe": {
+  "nombre": "Getafe",
+  "ine": "28065",
+  "adrh": {
+   "renta_neta_media_persona": {
+    "2015": 11729,
+    "2016": 11811,
+    "2017": 12250,
+    "2018": 12891,
+    "2019": 13326,
+    "2020": 13638,
+    "2021": 14205,
+    "2022": 15061,
+    "2023": 15867,
+    "2024": 16767
+   },
+   "renta_neta_media_hogar": {
+    "2015": 30680,
+    "2016": 31763,
+    "2017": 32545,
+    "2018": 34343,
+    "2019": 35402,
+    "2020": 35693,
+    "2021": 36962,
+    "2022": 39455,
+    "2023": 41792,
+    "2024": 44326
+   },
+   "renta_bruta_media_persona": {
+    "2015": 13970,
+    "2016": 14101,
+    "2017": 14676,
+    "2018": 15500,
+    "2019": 16095,
+    "2020": 16449,
+    "2021": 17279,
+    "2022": 18351,
+    "2023": 19413,
+    "2024": 20614
+   },
+   "renta_bruta_media_hogar": {
+    "2015": 36542,
+    "2016": 37923,
+    "2017": 38989,
+    "2018": 41294,
+    "2019": 42760,
+    "2020": 43050,
+    "2021": 44962,
+    "2022": 48074,
+    "2023": 51131,
+    "2024": 54497
+   },
+   "media_renta_unidad_consumo": {
+    "2015": 17666,
+    "2016": 17926,
+    "2017": 18614,
+    "2018": 19610,
+    "2019": 20305,
+    "2020": 20629,
+    "2021": 21509,
+    "2022": 22798,
+    "2023": 23896,
+    "2024": 25231
+   },
+   "mediana_renta_unidad_consumo": {
+    "2015": 15750,
+    "2016": 15750,
+    "2017": 16450,
+    "2018": 17150,
+    "2019": 18550,
+    "2020": 18550,
+    "2021": 19250,
+    "2022": 20650,
+    "2023": 21350,
+    "2024": 22750
+   },
+   "fuentes_ingreso_pct_renta_bruta_2024": {
+    "salario": 68.1,
+    "pensiones": 17.5,
+    "prestaciones_desempleo": 1.3,
+    "otras_prestaciones": 3.7,
+    "otros_ingresos": 9.4
+   },
+   "fuentes_ingreso_pct_renta_bruta_2023": {
+    "salario": 68.3,
+    "pensiones": 17.8,
+    "prestaciones_desempleo": 1.3,
+    "otras_prestaciones": 3.7,
+    "otros_ingresos": 8.9
+   },
+   "fuentes_ingreso_eur_persona_2024_derivado": {
+    "salario": 14038,
+    "pensiones": 3607,
+    "prestaciones_desempleo": 268,
+    "otras_prestaciones": 763,
+    "otros_ingresos": 1938
+   },
+   "gini_2024": 29.1,
+   "p80_p20_2024": 2.5,
+   "gini_2023": 29.4,
+   "p80_p20_2023": 2.6
+  },
+  "irpf_2024": {
+   "url": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubik411f4c9b5734bc6930ecbaaa3e7ab739543dc5b0.html",
+   "declaraciones": 109662,
+   "titulares": 120432,
+   "habitantes_aeat": 193238,
+   "indice_declarativo": 62.32,
+   "renta_bruta_media": 34579,
+   "renta_disponible_media": 27854,
+   "renta_bruta_total": 3792005480,
+   "renta_disponible_total": 3054529096,
+   "rentas_trabajo_total": 3186106398,
+   "rentas_trabajo_media_por_declaracion": 29054,
+   "declaraciones_con_rto_trabajo": 103087,
+   "pct_declaraciones_con_rto_trabajo": 94.0,
+   "rto_trabajo_ingresos_integros_media": 30829,
+   "rto_trabajo_neto_reducido_declaraciones": 95486,
+   "rto_trabajo_neto_reducido_media": 27744
+  }
+ },
+ "leganes": {
+  "nombre": "Leganés",
+  "ine": "28074",
+  "adrh": {
+   "renta_neta_media_persona": {
+    "2015": 10959,
+    "2016": 11211,
+    "2017": 11546,
+    "2018": 11985,
+    "2019": 12462,
+    "2020": 12584,
+    "2021": 13120,
+    "2022": 13703,
+    "2023": 14531,
+    "2024": 15370
+   },
+   "renta_neta_media_hogar": {
+    "2015": 29420,
+    "2016": 30164,
+    "2017": 30834,
+    "2018": 31996,
+    "2019": 33297,
+    "2020": 33176,
+    "2021": 34335,
+    "2022": 36260,
+    "2023": 38660,
+    "2024": 40995
+   },
+   "renta_bruta_media_persona": {
+    "2015": 12861,
+    "2016": 13194,
+    "2017": 13632,
+    "2018": 14171,
+    "2019": 14738,
+    "2020": 14917,
+    "2021": 15658,
+    "2022": 16463,
+    "2023": 17438,
+    "2024": 18564
+   },
+   "renta_bruta_media_hogar": {
+    "2015": 34526,
+    "2016": 35500,
+    "2017": 36405,
+    "2018": 37833,
+    "2019": 39379,
+    "2020": 39325,
+    "2021": 40974,
+    "2022": 43564,
+    "2023": 46394,
+    "2024": 49515
+   },
+   "media_renta_unidad_consumo": {
+    "2015": 16617,
+    "2016": 17004,
+    "2017": 17479,
+    "2018": 18155,
+    "2019": 18867,
+    "2020": 18964,
+    "2021": 19751,
+    "2022": 20684,
+    "2023": 21756,
+    "2024": 22999
+   },
+   "mediana_renta_unidad_consumo": {
+    "2015": 15050,
+    "2016": 15050,
+    "2017": 15750,
+    "2018": 16450,
+    "2019": 17150,
+    "2020": 17150,
+    "2021": 17850,
+    "2022": 18550,
+    "2023": 19950,
+    "2024": 20650
+   },
+   "fuentes_ingreso_pct_renta_bruta_2024": {
+    "salario": 65.3,
+    "pensiones": 21.0,
+    "prestaciones_desempleo": 1.4,
+    "otras_prestaciones": 3.9,
+    "otros_ingresos": 8.4
+   },
+   "fuentes_ingreso_pct_renta_bruta_2023": {
+    "salario": 65.6,
+    "pensiones": 21.4,
+    "prestaciones_desempleo": 1.4,
+    "otras_prestaciones": 3.9,
+    "otros_ingresos": 7.8
+   },
+   "fuentes_ingreso_eur_persona_2024_derivado": {
+    "salario": 12122,
+    "pensiones": 3898,
+    "prestaciones_desempleo": 260,
+    "otras_prestaciones": 724,
+    "otros_ingresos": 1559
+   },
+   "gini_2024": 28.8,
+   "p80_p20_2024": 2.4,
+   "gini_2023": 28.9,
+   "p80_p20_2023": 2.6
+  },
+  "irpf_2024": {
+   "url": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubik70a30faed4d8ea4e2116cb82f53cf438d62161c5.html",
+   "declaraciones": 103691,
+   "titulares": 115142,
+   "habitantes_aeat": 195734,
+   "indice_declarativo": 58.83,
+   "renta_bruta_media": 31320,
+   "renta_disponible_media": 25628,
+   "renta_bruta_total": 3247554535,
+   "renta_disponible_total": 2657430171,
+   "rentas_trabajo_total": 2754490202,
+   "rentas_trabajo_media_por_declaracion": 26564,
+   "declaraciones_con_rto_trabajo": 97186,
+   "pct_declaraciones_con_rto_trabajo": 93.7,
+   "rto_trabajo_ingresos_integros_media": 28280,
+   "rto_trabajo_neto_reducido_declaraciones": 89620,
+   "rto_trabajo_neto_reducido_media": 25070
+  }
+ },
+ "fuenlabrada": {
+  "nombre": "Fuenlabrada",
+  "ine": "28058",
+  "adrh": {
+   "renta_neta_media_persona": {
+    "2015": 9400,
+    "2016": 9509,
+    "2017": 10062,
+    "2018": 10525,
+    "2019": 11099,
+    "2020": 11205,
+    "2021": 11788,
+    "2022": 12574,
+    "2023": 13454,
+    "2024": 14321
+   },
+   "renta_neta_media_hogar": {
+    "2015": 28424,
+    "2016": 29183,
+    "2017": 30034,
+    "2018": 31321,
+    "2019": 32911,
+    "2020": 32807,
+    "2021": 34016,
+    "2022": 35891,
+    "2023": 38299,
+    "2024": 40350
+   },
+   "renta_bruta_media_persona": {
+    "2015": 10934,
+    "2016": 11078,
+    "2017": 11757,
+    "2018": 12300,
+    "2019": 12995,
+    "2020": 13134,
+    "2021": 13896,
+    "2022": 14850,
+    "2023": 15909,
+    "2024": 17033
+   },
+   "renta_bruta_media_hogar": {
+    "2015": 33065,
+    "2016": 33996,
+    "2017": 35096,
+    "2018": 36600,
+    "2019": 38532,
+    "2020": 38457,
+    "2021": 40098,
+    "2022": 42387,
+    "2023": 45288,
+    "2024": 47991
+   },
+   "media_renta_unidad_consumo": {
+    "2015": 14708,
+    "2016": 14889,
+    "2017": 15678,
+    "2018": 16373,
+    "2019": 17214,
+    "2020": 17270,
+    "2021": 18125,
+    "2022": 19260,
+    "2023": 20457,
+    "2024": 21701
+   },
+   "mediana_renta_unidad_consumo": {
+    "2015": 13650,
+    "2016": 13650,
+    "2017": 14350,
+    "2018": 15050,
+    "2019": 16450,
+    "2020": 15750,
+    "2021": 17150,
+    "2022": 17850,
+    "2023": 19250,
+    "2024": 20650
+   },
+   "fuentes_ingreso_pct_renta_bruta_2024": {
+    "salario": 67.5,
+    "pensiones": 19.6,
+    "prestaciones_desempleo": 1.7,
+    "otras_prestaciones": 4.4,
+    "otros_ingresos": 6.9
+   },
+   "fuentes_ingreso_pct_renta_bruta_2023": {
+    "salario": 68.2,
+    "pensiones": 19.1,
+    "prestaciones_desempleo": 1.8,
+    "otras_prestaciones": 4.4,
+    "otros_ingresos": 6.6
+   },
+   "fuentes_ingreso_eur_persona_2024_derivado": {
+    "salario": 11497,
+    "pensiones": 3338,
+    "prestaciones_desempleo": 290,
+    "otras_prestaciones": 749,
+    "otros_ingresos": 1175
+   },
+   "gini_2024": 25.5,
+   "p80_p20_2024": 2.2,
+   "gini_2023": 26.0,
+   "p80_p20_2023": 2.3
+  },
+  "irpf_2024": {
+   "url": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf4b278ebf4c3614821461952577059e39a9e04e94.html",
+   "declaraciones": 101195,
+   "titulares": 113552,
+   "habitantes_aeat": 190076,
+   "indice_declarativo": 59.74,
+   "renta_bruta_media": 28306,
+   "renta_disponible_media": 23472,
+   "renta_bruta_total": 2864473945,
+   "renta_disponible_total": 2375203119,
+   "rentas_trabajo_total": 2478842811,
+   "rentas_trabajo_media_por_declaracion": 24496,
+   "declaraciones_con_rto_trabajo": 94912,
+   "pct_declaraciones_con_rto_trabajo": 93.8,
+   "rto_trabajo_ingresos_integros_media": 26080,
+   "rto_trabajo_neto_reducido_declaraciones": 86740,
+   "rto_trabajo_neto_reducido_media": 22703
+  }
+ },
+ "mostoles": {
+  "nombre": "Móstoles",
+  "ine": "28092",
+  "adrh": {
+   "renta_neta_media_persona": {
+    "2015": 10499,
+    "2016": 10698,
+    "2017": 11004,
+    "2018": 11456,
+    "2019": 11980,
+    "2020": 12064,
+    "2021": 12566,
+    "2022": 13223,
+    "2023": 14045,
+    "2024": 14858
+   },
+   "renta_neta_media_hogar": {
+    "2015": 29582,
+    "2016": 30231,
+    "2017": 30826,
+    "2018": 32113,
+    "2019": 33574,
+    "2020": 33475,
+    "2021": 34529,
+    "2022": 36297,
+    "2023": 38622,
+    "2024": 40872
+   },
+   "renta_bruta_media_persona": {
+    "2015": 12267,
+    "2016": 12516,
+    "2017": 12899,
+    "2018": 13432,
+    "2019": 14090,
+    "2020": 14200,
+    "2021": 14875,
+    "2022": 15703,
+    "2023": 16710,
+    "2024": 17764
+   },
+   "renta_bruta_media_hogar": {
+    "2015": 34566,
+    "2016": 35368,
+    "2017": 36133,
+    "2018": 37653,
+    "2019": 39487,
+    "2020": 39403,
+    "2021": 40872,
+    "2022": 43105,
+    "2023": 45949,
+    "2024": 48864
+   },
+   "media_renta_unidad_consumo": {
+    "2015": 16020,
+    "2016": 16339,
+    "2017": 16791,
+    "2018": 17501,
+    "2019": 18284,
+    "2020": 18328,
+    "2021": 19081,
+    "2022": 20036,
+    "2023": 21168,
+    "2024": 22368
+   },
+   "mediana_renta_unidad_consumo": {
+    "2015": 14350,
+    "2016": 15050,
+    "2017": 15750,
+    "2018": 16450,
+    "2019": 17150,
+    "2020": 17150,
+    "2021": 17850,
+    "2022": 18550,
+    "2023": 19950,
+    "2024": 20650
+   },
+   "fuentes_ingreso_pct_renta_bruta_2024": {
+    "salario": 63.8,
+    "pensiones": 23.1,
+    "prestaciones_desempleo": 1.5,
+    "otras_prestaciones": 4.1,
+    "otros_ingresos": 7.4
+   },
+   "fuentes_ingreso_pct_renta_bruta_2023": {
+    "salario": 64.0,
+    "pensiones": 23.4,
+    "prestaciones_desempleo": 1.6,
+    "otras_prestaciones": 4.1,
+    "otros_ingresos": 7.0
+   },
+   "fuentes_ingreso_eur_persona_2024_derivado": {
+    "salario": 11333,
+    "pensiones": 4103,
+    "prestaciones_desempleo": 266,
+    "otras_prestaciones": 728,
+    "otros_ingresos": 1315
+   },
+   "gini_2024": 27.2,
+   "p80_p20_2024": 2.4,
+   "gini_2023": 27.6,
+   "p80_p20_2023": 2.4
+  },
+  "irpf_2024": {
+   "url": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf7777155794d6db10804d1e0940a6740746111084.html",
+   "declaraciones": 112543,
+   "titulares": 125338,
+   "habitantes_aeat": 214817,
+   "indice_declarativo": 58.35,
+   "renta_bruta_media": 30029,
+   "renta_disponible_media": 24752,
+   "renta_bruta_total": 3379506540,
+   "renta_disponible_total": 2785714607,
+   "rentas_trabajo_total": 2907306058,
+   "rentas_trabajo_media_por_declaracion": 25833,
+   "declaraciones_con_rto_trabajo": 105665,
+   "pct_declaraciones_con_rto_trabajo": 93.9,
+   "rto_trabajo_ingresos_integros_media": 27469,
+   "rto_trabajo_neto_reducido_declaraciones": 97433,
+   "rto_trabajo_neto_reducido_media": 24198
+  }
+ },
+ "alcorcon": {
+  "nombre": "Alcorcón",
+  "ine": "28007",
+  "adrh": {
+   "renta_neta_media_persona": {
+    "2015": 11917,
+    "2016": 11941,
+    "2017": 12437,
+    "2018": 12919,
+    "2019": 13355,
+    "2020": 13522,
+    "2021": 13993,
+    "2022": 14750,
+    "2023": 15667,
+    "2024": 16534
+   },
+   "renta_neta_media_hogar": {
+    "2015": 31794,
+    "2016": 32499,
+    "2017": 33100,
+    "2018": 34427,
+    "2019": 35675,
+    "2020": 35844,
+    "2021": 36837,
+    "2022": 39129,
+    "2023": 41634,
+    "2024": 44058
+   },
+   "renta_bruta_media_persona": {
+    "2015": 14193,
+    "2016": 14213,
+    "2017": 14837,
+    "2018": 15453,
+    "2019": 16002,
+    "2020": 16236,
+    "2021": 17004,
+    "2022": 17894,
+    "2023": 19055,
+    "2024": 20225
+   },
+   "renta_bruta_media_hogar": {
+    "2015": 37866,
+    "2016": 38683,
+    "2017": 39486,
+    "2018": 41180,
+    "2019": 42748,
+    "2020": 43036,
+    "2021": 44762,
+    "2022": 47468,
+    "2023": 50636,
+    "2024": 53892
+   },
+   "media_renta_unidad_consumo": {
+    "2015": 18134,
+    "2016": 18192,
+    "2017": 18882,
+    "2018": 19642,
+    "2019": 20289,
+    "2020": 20415,
+    "2021": 21213,
+    "2022": 22260,
+    "2023": 23503,
+    "2024": 24770
+   },
+   "mediana_renta_unidad_consumo": {
+    "2015": 16450,
+    "2016": 16450,
+    "2017": 17150,
+    "2018": 17850,
+    "2019": 18550,
+    "2020": 18550,
+    "2021": 19250,
+    "2022": 19950,
+    "2023": 21350,
+    "2024": 22750
+   },
+   "fuentes_ingreso_pct_renta_bruta_2024": {
+    "salario": 66.1,
+    "pensiones": 20.2,
+    "prestaciones_desempleo": 1.3,
+    "otras_prestaciones": 3.7,
+    "otros_ingresos": 8.8
+   },
+   "fuentes_ingreso_pct_renta_bruta_2023": {
+    "salario": 66.3,
+    "pensiones": 20.7,
+    "prestaciones_desempleo": 1.3,
+    "otras_prestaciones": 3.7,
+    "otros_ingresos": 8.2
+   },
+   "fuentes_ingreso_eur_persona_2024_derivado": {
+    "salario": 13369,
+    "pensiones": 4085,
+    "prestaciones_desempleo": 263,
+    "otras_prestaciones": 748,
+    "otros_ingresos": 1780
+   },
+   "gini_2024": 28.5,
+   "p80_p20_2024": 2.5,
+   "gini_2023": 28.8,
+   "p80_p20_2023": 2.5
+  },
+  "irpf_2024": {
+   "url": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf2d94f8b3e044243b001640ef19fc2934f6f55b18.html",
+   "declaraciones": 97232,
+   "titulares": 107085,
+   "habitantes_aeat": 175719,
+   "indice_declarativo": 60.94,
+   "renta_bruta_media": 33865,
+   "renta_disponible_media": 27371,
+   "renta_bruta_total": 3292799803,
+   "renta_disponible_total": 2661320604,
+   "rentas_trabajo_total": 2781968748,
+   "rentas_trabajo_media_por_declaracion": 28612,
+   "declaraciones_con_rto_trabajo": 91345,
+   "pct_declaraciones_con_rto_trabajo": 93.9,
+   "rto_trabajo_ingresos_integros_media": 30375,
+   "rto_trabajo_neto_reducido_declaraciones": 84722,
+   "rto_trabajo_neto_reducido_media": 27299
+  }
+ },
+ "alcobendas": {
+  "nombre": "Alcobendas",
+  "ine": "28006",
+  "adrh": {
+   "renta_neta_media_persona": {
+    "2015": 17417,
+    "2016": 18118,
+    "2017": 18925,
+    "2018": 20148,
+    "2019": 18653,
+    "2020": 18684,
+    "2021": 19394,
+    "2022": 20706,
+    "2023": 21644,
+    "2024": 23325
+   },
+   "renta_neta_media_hogar": {
+    "2015": 52826,
+    "2016": 55269,
+    "2017": 57678,
+    "2018": 61540,
+    "2019": 56931,
+    "2020": 56448,
+    "2021": 57962,
+    "2022": 62298,
+    "2023": 65139,
+    "2024": 70503
+   },
+   "renta_bruta_media_persona": {
+    "2015": 22844,
+    "2016": 23923,
+    "2017": 25100,
+    "2018": 27442,
+    "2019": 24950,
+    "2020": 24873,
+    "2021": 26065,
+    "2022": 28088,
+    "2023": 29659,
+    "2024": 32405
+   },
+   "renta_bruta_media_hogar": {
+    "2015": 69285,
+    "2016": 72974,
+    "2017": 76497,
+    "2018": 83819,
+    "2019": 76152,
+    "2020": 75144,
+    "2021": 77901,
+    "2022": 84506,
+    "2023": 89262,
+    "2024": 97948
+   },
+   "media_renta_unidad_consumo": {
+    "2015": 28353,
+    "2016": 29712,
+    "2017": 31156,
+    "2018": 33596,
+    "2019": 30542,
+    "2020": 30404,
+    "2021": 31388,
+    "2022": 33664,
+    "2023": 34744,
+    "2024": 37530
+   },
+   "mediana_renta_unidad_consumo": {
+    "2015": 18550,
+    "2016": 18550,
+    "2017": 19250,
+    "2018": 19950,
+    "2019": 20650,
+    "2020": 20650,
+    "2021": 21350,
+    "2022": 22750,
+    "2023": 24150,
+    "2024": 24850
+   },
+   "fuentes_ingreso_pct_renta_bruta_2024": {
+    "salario": 63.5,
+    "pensiones": 11.5,
+    "prestaciones_desempleo": 0.8,
+    "otras_prestaciones": 2.5,
+    "otros_ingresos": 21.8
+   },
+   "fuentes_ingreso_pct_renta_bruta_2023": {
+    "salario": 65.8,
+    "pensiones": 11.9,
+    "prestaciones_desempleo": 0.8,
+    "otras_prestaciones": 2.5,
+    "otros_ingresos": 19.0
+   },
+   "fuentes_ingreso_eur_persona_2024_derivado": {
+    "salario": 20577,
+    "pensiones": 3727,
+    "prestaciones_desempleo": 259,
+    "otras_prestaciones": 810,
+    "otros_ingresos": 7064
+   },
+   "gini_2024": 42.5,
+   "p80_p20_2024": 3.2,
+   "gini_2023": 42.1,
+   "p80_p20_2023": 3.4
+  },
+  "irpf_2024": {
+   "url": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikb60fd34739369af9ac7cd927379dfa8b6248e02.html",
+   "declaraciones": 62698,
+   "titulares": 67525,
+   "habitantes_aeat": 123342,
+   "indice_declarativo": 54.75,
+   "renta_bruta_media": 68574,
+   "renta_disponible_media": 50731,
+   "renta_bruta_total": 4299428661,
+   "renta_disponible_total": 3180740840,
+   "rentas_trabajo_total": 2826853876,
+   "rentas_trabajo_media_por_declaracion": 45087,
+   "declaraciones_con_rto_trabajo": 57537,
+   "pct_declaraciones_con_rto_trabajo": 91.8,
+   "rto_trabajo_ingresos_integros_media": 48949,
+   "rto_trabajo_neto_reducido_declaraciones": 53549,
+   "rto_trabajo_neto_reducido_media": 47023
+  }
+ },
+ "pinto": {
+  "nombre": "Pinto",
+  "ine": "28113",
+  "adrh": {
+   "renta_neta_media_persona": {
+    "2015": 11412,
+    "2016": 11449,
+    "2017": 11957,
+    "2018": 12406,
+    "2019": 13013,
+    "2020": 13063,
+    "2021": 13665,
+    "2022": 14433,
+    "2023": 15301,
+    "2024": 16162
+   },
+   "renta_neta_media_hogar": {
+    "2015": 31695,
+    "2016": 32303,
+    "2017": 33342,
+    "2018": 34791,
+    "2019": 36539,
+    "2020": 36498,
+    "2021": 38031,
+    "2022": 40277,
+    "2023": 42700,
+    "2024": 45164
+   },
+   "renta_bruta_media_persona": {
+    "2015": 13594,
+    "2016": 13721,
+    "2017": 14389,
+    "2018": 14944,
+    "2019": 15708,
+    "2020": 15799,
+    "2021": 16615,
+    "2022": 17672,
+    "2023": 18803,
+    "2024": 19929
+   },
+   "renta_bruta_media_hogar": {
+    "2015": 37755,
+    "2016": 38712,
+    "2017": 40123,
+    "2018": 41909,
+    "2019": 44105,
+    "2020": 44142,
+    "2021": 46240,
+    "2022": 49316,
+    "2023": 52472,
+    "2024": 55692
+   },
+   "media_renta_unidad_consumo": {
+    "2015": 17653,
+    "2016": 17815,
+    "2017": 18563,
+    "2018": 19278,
+    "2019": 20196,
+    "2020": 20185,
+    "2021": 21082,
+    "2022": 22272,
+    "2023": 23448,
+    "2024": 24666
+   },
+   "mediana_renta_unidad_consumo": {
+    "2015": 15750,
+    "2016": 16450,
+    "2017": 17150,
+    "2018": 17150,
+    "2019": 18550,
+    "2020": 18550,
+    "2021": 19250,
+    "2022": 19950,
+    "2023": 21350,
+    "2024": 22050
+   },
+   "fuentes_ingreso_pct_renta_bruta_2024": {
+    "salario": 72.4,
+    "pensiones": 13.7,
+    "prestaciones_desempleo": 1.4,
+    "otras_prestaciones": 3.4,
+    "otros_ingresos": 9.0
+   },
+   "fuentes_ingreso_pct_renta_bruta_2023": {
+    "salario": 73.3,
+    "pensiones": 13.5,
+    "prestaciones_desempleo": 1.5,
+    "otras_prestaciones": 3.4,
+    "otros_ingresos": 8.3
+   },
+   "fuentes_ingreso_eur_persona_2024_derivado": {
+    "salario": 14429,
+    "pensiones": 2730,
+    "prestaciones_desempleo": 279,
+    "otras_prestaciones": 678,
+    "otros_ingresos": 1794
+   },
+   "gini_2024": 27.8,
+   "p80_p20_2024": 2.3,
+   "gini_2023": 28.2,
+   "p80_p20_2023": 2.3
+  },
+  "irpf_2024": {
+   "url": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf275fbdbf8c6a1ea6553ce3f63b43d7aed6ea05dc.html",
+   "declaraciones": 30703,
+   "titulares": 33602,
+   "habitantes_aeat": 56651,
+   "indice_declarativo": 59.31,
+   "renta_bruta_media": 34299,
+   "renta_disponible_media": 27613,
+   "renta_bruta_total": 1053085847,
+   "renta_disponible_total": 847817284,
+   "rentas_trabajo_total": 887249815,
+   "rentas_trabajo_media_por_declaracion": 28898,
+   "declaraciones_con_rto_trabajo": 28892,
+   "pct_declaraciones_con_rto_trabajo": 94.1,
+   "rto_trabajo_ingresos_integros_media": 30645,
+   "rto_trabajo_neto_reducido_declaraciones": 26835,
+   "rto_trabajo_neto_reducido_media": 27351
+  }
+ },
+ "torrejon": {
+  "nombre": "Torrejón de Ardoz",
+  "ine": "28148",
+  "adrh": {
+   "renta_neta_media_persona": {
+    "2015": 10519,
+    "2016": 10454,
+    "2017": 11159,
+    "2018": 11638,
+    "2019": 12165,
+    "2020": 12188,
+    "2021": 12745,
+    "2022": 13541,
+    "2023": 14463,
+    "2024": 15331
+   },
+   "renta_neta_media_hogar": {
+    "2015": 30392,
+    "2016": 31289,
+    "2017": 32266,
+    "2018": 33651,
+    "2019": 35308,
+    "2020": 35052,
+    "2021": 36317,
+    "2022": 38759,
+    "2023": 41459,
+    "2024": 44015
+   },
+   "renta_bruta_media_persona": {
+    "2015": 12385,
+    "2016": 12335,
+    "2017": 13227,
+    "2018": 13813,
+    "2019": 14480,
+    "2020": 14534,
+    "2021": 15313,
+    "2022": 16301,
+    "2023": 17473,
+    "2024": 18701
+   },
+   "renta_bruta_media_hogar": {
+    "2015": 35783,
+    "2016": 36919,
+    "2017": 38247,
+    "2018": 39938,
+    "2019": 42029,
+    "2020": 41799,
+    "2021": 43635,
+    "2022": 46660,
+    "2023": 50089,
+    "2024": 53689
+   },
+   "media_renta_unidad_consumo": {
+    "2015": 16258,
+    "2016": 16246,
+    "2017": 17303,
+    "2018": 18043,
+    "2019": 18853,
+    "2020": 18809,
+    "2021": 19662,
+    "2022": 20845,
+    "2023": 22129,
+    "2024": 23450
+   },
+   "mediana_renta_unidad_consumo": {
+    "2015": 14350,
+    "2016": 15050,
+    "2017": 15750,
+    "2018": 16450,
+    "2019": 17150,
+    "2020": 17150,
+    "2021": 17850,
+    "2022": 19250,
+    "2023": 19950,
+    "2024": 21350
+   },
+   "fuentes_ingreso_pct_renta_bruta_2024": {
+    "salario": 71.3,
+    "pensiones": 15.7,
+    "prestaciones_desempleo": 1.6,
+    "otras_prestaciones": 3.8,
+    "otros_ingresos": 7.6
+   },
+   "fuentes_ingreso_pct_renta_bruta_2023": {
+    "salario": 71.4,
+    "pensiones": 16.0,
+    "prestaciones_desempleo": 1.7,
+    "otras_prestaciones": 3.8,
+    "otros_ingresos": 7.2
+   },
+   "fuentes_ingreso_eur_persona_2024_derivado": {
+    "salario": 13334,
+    "pensiones": 2936,
+    "prestaciones_desempleo": 299,
+    "otras_prestaciones": 711,
+    "otros_ingresos": 1421
+   },
+   "gini_2024": 27.9,
+   "p80_p20_2024": 2.4,
+   "gini_2023": 28.1,
+   "p80_p20_2023": 2.4
+  },
+  "irpf_2024": {
+   "url": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubikf7c11b5d2df0ccbbe0954b1e348d51fa9566d380d.html",
+   "declaraciones": 76322,
+   "titulares": 83122,
+   "habitantes_aeat": 143526,
+   "indice_declarativo": 57.91,
+   "renta_bruta_media": 32045,
+   "renta_disponible_media": 26009,
+   "renta_bruta_total": 2445713749,
+   "renta_disponible_total": 1985025359,
+   "rentas_trabajo_total": 2083976657,
+   "rentas_trabajo_media_por_declaracion": 27305,
+   "declaraciones_con_rto_trabajo": 71905,
+   "pct_declaraciones_con_rto_trabajo": 94.2,
+   "rto_trabajo_ingresos_integros_media": 28919,
+   "rto_trabajo_neto_reducido_declaraciones": 66265,
+   "rto_trabajo_neto_reducido_media": 25731
+  }
+ },
+ "pozuelo": {
+  "nombre": "Pozuelo de Alarcón",
+  "ine": "28115",
+  "adrh": {
+   "renta_neta_media_persona": {
+    "2015": 23861,
+    "2016": 25957,
+    "2017": 25903,
+    "2018": 28326,
+    "2019": 26367,
+    "2020": 26009,
+    "2021": 27167,
+    "2022": 29258,
+    "2023": 30524,
+    "2024": 32612
+   },
+   "renta_neta_media_hogar": {
+    "2015": 76887,
+    "2016": 83624,
+    "2017": 83388,
+    "2018": 90902,
+    "2019": 84460,
+    "2020": 82973,
+    "2021": 86403,
+    "2022": 92596,
+    "2023": 96290,
+    "2024": 102629
+   },
+   "renta_bruta_media_persona": {
+    "2015": 33239,
+    "2016": 35875,
+    "2017": 36098,
+    "2018": 39661,
+    "2019": 36436,
+    "2020": 36508,
+    "2021": 38361,
+    "2022": 41167,
+    "2023": 44016,
+    "2024": 47217
+   },
+   "renta_bruta_media_hogar": {
+    "2015": 107106,
+    "2016": 115836,
+    "2017": 116210,
+    "2018": 127276,
+    "2019": 116712,
+    "2020": 116467,
+    "2021": 122006,
+    "2022": 130284,
+    "2023": 138851,
+    "2024": 148589
+   },
+   "media_renta_unidad_consumo": {
+    "2015": 39362,
+    "2016": 42769,
+    "2017": 42312,
+    "2018": 45650,
+    "2019": 43655,
+    "2020": 43248,
+    "2021": 44872,
+    "2022": 48119,
+    "2023": 49811,
+    "2024": 52943
+   },
+   "mediana_renta_unidad_consumo": {
+    "2015": 28350,
+    "2016": 29050,
+    "2017": 29750,
+    "2018": 31150,
+    "2019": 31850,
+    "2020": 31850,
+    "2021": 33250,
+    "2022": 36050,
+    "2023": 37450,
+    "2024": 39550
+   },
+   "fuentes_ingreso_pct_renta_bruta_2024": {
+    "salario": 59.8,
+    "pensiones": 11.2,
+    "prestaciones_desempleo": 0.4,
+    "otras_prestaciones": 2.0,
+    "otros_ingresos": 26.6
+   },
+   "fuentes_ingreso_pct_renta_bruta_2023": {
+    "salario": 61.8,
+    "pensiones": 11.2,
+    "prestaciones_desempleo": 0.4,
+    "otras_prestaciones": 2.0,
+    "otros_ingresos": 24.7
+   },
+   "fuentes_ingreso_eur_persona_2024_derivado": {
+    "salario": 28236,
+    "pensiones": 5288,
+    "prestaciones_desempleo": 189,
+    "otras_prestaciones": 944,
+    "otros_ingresos": 12560
+   },
+   "gini_2024": 40.4,
+   "p80_p20_2024": 3.2,
+   "gini_2023": 39.7,
+   "p80_p20_2023": 3.3
+  },
+  "irpf_2024": {
+   "url": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubik5b0bb6ad71d22ec2a69410c181d779d35edabba1.html",
+   "declaraciones": 49827,
+   "titulares": 52864,
+   "habitantes_aeat": 89770,
+   "indice_declarativo": 58.89,
+   "renta_bruta_media": 92564,
+   "renta_disponible_media": 66690,
+   "renta_bruta_total": 4612163827,
+   "renta_disponible_total": 3322956248,
+   "rentas_trabajo_total": 2948412200,
+   "rentas_trabajo_media_por_declaracion": 59173,
+   "declaraciones_con_rto_trabajo": 44507,
+   "pct_declaraciones_con_rto_trabajo": 89.3,
+   "rto_trabajo_ingresos_integros_media": 65985,
+   "rto_trabajo_neto_reducido_declaraciones": 41922,
+   "rto_trabajo_neto_reducido_media": 64833
+  }
+ },
+ "majadahonda": {
+  "nombre": "Majadahonda",
+  "ine": "28080",
+  "adrh": {
+   "renta_neta_media_persona": {
+    "2015": 18627,
+    "2016": 18624,
+    "2017": 19282,
+    "2018": 20220,
+    "2019": 20652,
+    "2020": 20672,
+    "2021": 21248,
+    "2022": 22550,
+    "2023": 24019,
+    "2024": 25878
+   },
+   "renta_neta_media_hogar": {
+    "2015": 60173,
+    "2016": 60937,
+    "2017": 61838,
+    "2018": 64574,
+    "2019": 65484,
+    "2020": 65059,
+    "2021": 66390,
+    "2022": 70529,
+    "2023": 74987,
+    "2024": 80332
+   },
+   "renta_bruta_media_persona": {
+    "2015": 24627,
+    "2016": 24525,
+    "2017": 25508,
+    "2018": 26887,
+    "2019": 27586,
+    "2020": 27513,
+    "2021": 28750,
+    "2022": 30534,
+    "2023": 32413,
+    "2024": 35059
+   },
+   "renta_bruta_media_hogar": {
+    "2015": 79558,
+    "2016": 80243,
+    "2017": 81805,
+    "2018": 85867,
+    "2019": 87470,
+    "2020": 86588,
+    "2021": 89832,
+    "2022": 95500,
+    "2023": 101193,
+    "2024": 108835
+   },
+   "media_renta_unidad_consumo": {
+    "2015": 30705,
+    "2016": 30551,
+    "2017": 31407,
+    "2018": 32922,
+    "2019": 33631,
+    "2020": 33363,
+    "2021": 34446,
+    "2022": 36518,
+    "2023": 38270,
+    "2024": 40976
+   },
+   "mediana_renta_unidad_consumo": {
+    "2015": 24150,
+    "2016": 24150,
+    "2017": 25550,
+    "2018": 26250,
+    "2019": 26950,
+    "2020": 26950,
+    "2021": 28350,
+    "2022": 29750,
+    "2023": 31150,
+    "2024": 33250
+   },
+   "fuentes_ingreso_pct_renta_bruta_2024": {
+    "salario": 62.8,
+    "pensiones": 14.6,
+    "prestaciones_desempleo": 0.6,
+    "otras_prestaciones": 2.5,
+    "otros_ingresos": 19.5
+   },
+   "fuentes_ingreso_pct_renta_bruta_2023": {
+    "salario": 64.4,
+    "pensiones": 14.5,
+    "prestaciones_desempleo": 0.7,
+    "otras_prestaciones": 2.5,
+    "otros_ingresos": 17.9
+   },
+   "fuentes_ingreso_eur_persona_2024_derivado": {
+    "salario": 22017,
+    "pensiones": 5119,
+    "prestaciones_desempleo": 210,
+    "otras_prestaciones": 876,
+    "otros_ingresos": 6837
+   },
+   "gini_2024": 37.0,
+   "p80_p20_2024": 3.2,
+   "gini_2023": 37.1,
+   "p80_p20_2023": 3.4
+  },
+  "irpf_2024": {
+   "url": "https://sede.agenciatributaria.gob.es/AEAT/Contenidos_Comunes/La_Agencia_Tributaria/Estadisticas/Publicaciones/sites/irpfmunicipios/2024/jrubik5c16ec2c5696fab67eb238255ee8fcb06c149d06.html",
+   "declaraciones": 40119,
+   "titulares": 42841,
+   "habitantes_aeat": 73625,
+   "indice_declarativo": 58.19,
+   "renta_bruta_media": 64268,
+   "renta_disponible_media": 48089,
+   "renta_bruta_total": 2578362455,
+   "renta_disponible_total": 1929267049,
+   "rentas_trabajo_total": 1844383360,
+   "rentas_trabajo_media_por_declaracion": 45973,
+   "declaraciones_con_rto_trabajo": 36382,
+   "pct_declaraciones_con_rto_trabajo": 90.7,
+   "rto_trabajo_ingresos_integros_media": 50459,
+   "rto_trabajo_neto_reducido_declaraciones": 34124,
+   "rto_trabajo_neto_reducido_media": 48567
+  }
+ }
+}

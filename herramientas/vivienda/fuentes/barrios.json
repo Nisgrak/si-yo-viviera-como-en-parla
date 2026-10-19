@@ -7,7 +7,7 @@
   },
   "notas": [
    "Alquiler: mediana €/m² al mes, vivienda colectiva, 2024, por sección censal; solo secciones con 30 o más alquileres declarados.",
-   "Renta: renta neta media por hogar 2023 por sección censal. 104.774 € aparece repetido en 134 secciones de la Comunidad: se trata como tope y, si el máximo de una ciudad es ese valor, la distancia no se calcula."
+   "Renta: renta neta media por hogar 2024 por sección censal (ADRH, tabla 31097). 112.163 € aparece repetido en 135 secciones de la Comunidad: se trata como tope y, si el máximo de una ciudad es ese valor, la distancia no se calcula."
   ]
  },
  "parla": {
@@ -25,14 +25,15 @@
    }
   },
   "renta": {
+   "anio": 2024,
    "secciones": 67,
    "min": {
     "seccion": "2810601033",
-    "eur": 25755.0
+    "eur": 29194.0
    },
    "max": {
-    "seccion": "2810601053",
-    "eur": 53239.0
+    "seccion": "2810601048",
+    "eur": 55378.0
    },
    "tope": false
   }
@@ -52,14 +53,15 @@
    }
   },
   "renta": {
+   "anio": 2024,
    "secciones": 122,
    "min": {
-    "seccion": "2806502006",
-    "eur": 26434.0
+    "seccion": "2806502005",
+    "eur": 27854.0
    },
    "max": {
     "seccion": "2806502017",
-    "eur": 74959.0
+    "eur": 78979.0
    },
    "tope": false
   }
@@ -79,14 +81,15 @@
    }
   },
   "renta": {
+   "anio": 2024,
    "secciones": 142,
    "min": {
     "seccion": "2807402009",
-    "eur": 26714.0
+    "eur": 28130.0
    },
    "max": {
     "seccion": "2807403019",
-    "eur": 68882.0
+    "eur": 73749.0
    },
    "tope": false
   }
@@ -106,14 +109,15 @@
    }
   },
   "renta": {
+   "anio": 2024,
    "secciones": 119,
    "min": {
     "seccion": "2805804012",
-    "eur": 28621.0
+    "eur": 30595.0
    },
    "max": {
     "seccion": "2805807015",
-    "eur": 55078.0
+    "eur": 59372.0
    },
    "tope": false
   }
@@ -133,14 +137,15 @@
    }
   },
   "renta": {
+   "anio": 2024,
    "secciones": 139,
    "min": {
     "seccion": "2809202010",
-    "eur": 28192.0
+    "eur": 30513.0
    },
    "max": {
-    "seccion": "2809201022",
-    "eur": 61906.0
+    "seccion": "2809201020",
+    "eur": 69847.0
    },
    "tope": false
   }
@@ -160,14 +165,15 @@
    }
   },
   "renta": {
+   "anio": 2024,
    "secciones": 119,
    "min": {
     "seccion": "2800704017",
-    "eur": 27451.0
+    "eur": 28974.0
    },
    "max": {
-    "seccion": "2800702037",
-    "eur": 69410.0
+    "seccion": "2800704029",
+    "eur": 71204.0
    },
    "tope": false
   }
@@ -187,14 +193,15 @@
    }
   },
   "renta": {
+   "anio": 2024,
    "secciones": 66,
    "min": {
     "seccion": "2800601017",
-    "eur": 31224.0
+    "eur": 35021.0
    },
    "max": {
     "seccion": "2800601033",
-    "eur": 104774.0
+    "eur": 112163.0
    },
    "tope": true
   }
@@ -214,14 +221,15 @@
    }
   },
   "renta": {
+   "anio": 2024,
    "secciones": 31,
    "min": {
-    "seccion": "2811302002",
-    "eur": 31744.0
+    "seccion": "2811302005",
+    "eur": 33594.0
    },
    "max": {
     "seccion": "2811302016",
-    "eur": 60747.0
+    "eur": 62722.0
    },
    "tope": false
   }
@@ -241,14 +249,15 @@
    }
   },
   "renta": {
+   "anio": 2024,
    "secciones": 81,
    "min": {
-    "seccion": "2814804009",
-    "eur": 29844.0
+    "seccion": "2814802008",
+    "eur": 32134.0
    },
    "max": {
     "seccion": "2814803006",
-    "eur": 65194.0
+    "eur": 70337.0
    },
    "tope": false
   }
@@ -268,14 +277,15 @@
    }
   },
   "renta": {
+   "anio": 2024,
    "secciones": 56,
    "min": {
     "seccion": "2811501004",
-    "eur": 31960.0
+    "eur": 34237.0
    },
    "max": {
     "seccion": "2811501001",
-    "eur": 104774.0
+    "eur": 112163.0
    },
    "tope": true
   }
@@ -295,14 +305,15 @@
    }
   },
   "renta": {
+   "anio": 2024,
    "secciones": 46,
    "min": {
-    "seccion": "2808001003",
-    "eur": 35648.0
+    "seccion": "2808002003",
+    "eur": 39047.0
    },
    "max": {
-    "seccion": "2808001018",
-    "eur": 104774.0
+    "seccion": "2808002005",
+    "eur": 112163.0
    },
    "tope": true
   }

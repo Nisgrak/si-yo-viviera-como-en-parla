@@ -76,7 +76,9 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 
 ## Lo que no es
 
-- No es un dashboard. No hay filtros, ni selectores de rango, ni tooltips.
+- No es un dashboard. No hay filtros ni selectores de rango. Los gráficos de líneas y las barras
+  de «de cada 100» enseñan un recuadro con las cifras de las dos ciudades al pasar el ratón o el
+  dedo, y nada más: lo importante ya está escrito en la página sin tener que buscarlo.
 - No es una revista. Nada de serif italic, capitulares ni rejilla de broadsheet.
 - No es neutral, pero tampoco es tramposa: la sección «Y esto lo ganarías» existe precisamente
   para que la parte reivindicativa se sostenga.

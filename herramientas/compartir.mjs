@@ -5,6 +5,7 @@
      dist/<id>/infraestructura/      la página de los accesos en coche, ya
                                      con la ciudad puesta
      dist/<id>/vivienda/             la página de la vivienda, igual
+     dist/<id>/economia/             la página de la economía, igual
      dist/assets/compartir/*.png     la imagen de vista previa general y la de
                                      cada municipio, con su total
 
@@ -38,7 +39,7 @@ const D = globalThis.DATOS;
 
 await rm(DIST, { recursive: true, force: true });
 await mkdir(DIST);
-for (const x of ['index.html', 'infraestructura.html', 'vivienda.html', 'assets', 'datos']) {
+for (const x of ['index.html', 'infraestructura.html', 'vivienda.html', 'economia.html', 'assets', 'datos']) {
   await cp(join(RAIZ, x), join(DIST, x), { recursive: true });
 }
 /* La marca que le dice a app.js que aquí sí existen /getafe/ y compañía, así
@@ -55,6 +56,10 @@ const viv = await readFile(join(RAIZ, 'vivienda.html'), 'utf8');
 if (!viv.includes('<html lang="es">')) throw new Error('vivienda.html: no encuentro <html lang="es">');
 await writeFile(join(DIST, 'vivienda.html'),
   viv.replace('<html lang="es">', '<html lang="es" data-rutas>'));
+const eco = await readFile(join(RAIZ, 'economia.html'), 'utf8');
+if (!eco.includes('<html lang="es">')) throw new Error('economia.html: no encuentro <html lang="es">');
+await writeFile(join(DIST, 'economia.html'),
+  eco.replace('<html lang="es">', '<html lang="es" data-rutas>'));
 
 /* ── Las imágenes ───────────────────────────────────────────────────── */
 
@@ -151,7 +156,7 @@ function pagina(id, nombre, total) {
 `;
 }
 
-/* Las páginas de los accesos y de la vivienda son la página entera, no una
+/* Las páginas de los accesos, la vivienda y la economía son la página entera, no una
    redirección: la ciudad va escrita en el <html> y las rutas relativas se
    resuelven desde la raíz con <base>. Así /getafe/infraestructura/ es el
    enlace que se copia. */
@@ -172,6 +177,8 @@ const paginaInfra = (id, nombre) => paginaCiudad(id, 'Salir de ' + nombre + ' y 
   infra, 'infraestructura.html', 'infraestructura/');
 const paginaVivienda = (id, nombre) => paginaCiudad(id, 'Una casa en ' + nombre + ' y una casa en Parla',
   viv, 'vivienda.html', 'vivienda/');
+const paginaEconomia = (id, nombre) => paginaCiudad(id, 'El dinero de ' + nombre + ' y el dinero de Parla',
+  eco, 'economia.html', 'economia/');
 
 await mkdir(join(DIST, 'assets/compartir'), { recursive: true });
 await pintar(imagenGeneral(), join(DIST, 'assets/compartir/general.png'));
@@ -187,5 +194,7 @@ for (const m of D.MUNICIPIOS) {
   await writeFile(join(DIST, m.id, 'infraestructura', 'index.html'), paginaInfra(m.id, m.nombre));
   await mkdir(join(DIST, m.id, 'vivienda'), { recursive: true });
   await writeFile(join(DIST, m.id, 'vivienda', 'index.html'), paginaVivienda(m.id, m.nombre));
+  await mkdir(join(DIST, m.id, 'economia'), { recursive: true });
+  await writeFile(join(DIST, m.id, 'economia', 'index.html'), paginaEconomia(m.id, m.nombre));
   console.log(m.id.padEnd(12), total);
 }

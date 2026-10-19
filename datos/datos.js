@@ -190,12 +190,16 @@ window.DATOS = (function () {
       t: 'Comunidad de Madrid · Indicador de Renta Disponible Bruta Municipal, 2023',
       url: 'https://datos.comunidad.madrid/catalogo/dataset/irpf_indicador_renta'
     },
+    rentaAdrh: {
+      t: 'INE · Atlas de Distribución de Renta de los Hogares: renta bruta media por persona, 2024',
+      url: 'https://www.ine.es/jaxiT3/Tabla.htm?t=31097'
+    },
     pobreza: {
-      t: 'INE · Atlas de Distribución de Renta de los Hogares: población bajo umbrales relativos de ingresos, 2023',
+      t: 'INE · Atlas de Distribución de Renta de los Hogares: población bajo umbrales relativos de ingresos, 2024',
       url: 'https://www.ine.es/jaxiT3/Tabla.htm?t=31102'
     },
     pobrezaEdad: {
-      t: 'INE · Atlas de Distribución de Renta de los Hogares: población bajo umbrales relativos por edad, 2023',
+      t: 'INE · Atlas de Distribución de Renta de los Hogares: población bajo umbrales relativos por edad, 2024',
       url: 'https://www.ine.es/jaxiT3/Tabla.htm?t=31103'
     },
     camas: {
@@ -1354,75 +1358,76 @@ window.DATOS = (function () {
       },
       {
         id: 'renta',
-        refNombre: 'Media de la Comunidad',
-        mediaRegional: 23159,
+        /* Sin media regional: el INE no publica la de la Comunidad, y la de la
+           Comunidad de Madrid llega hasta 2023. Va en la nota, con su año. */
         titulo: 'Lo que gana quien vive aquí',
-        pie: 'Renta disponible bruta por habitante, 2023',
+        pie: 'Renta bruta media por persona, 2024',
         valores: {
-          getafe: 19413,
-          parla: 13534,
-          pinto: 18803,
-          fuenlabrada: 15909,
-          leganes: 17438,
-          alcorcon: 19055,
-          alcobendas: 29659,
-          mostoles: 16710,
-          torrejon: 17473,
-          pozuelo: 44016,
-          majadahonda: 32413
+          getafe: 20614,
+          parla: 14349,
+          pinto: 19929,
+          fuenlabrada: 17033,
+          leganes: 18564,
+          alcorcon: 20225,
+          alcobendas: 32405,
+          mostoles: 17764,
+          torrejon: 18701,
+          pozuelo: 47217,
+          majadahonda: 35059
         },
-        fuenteId: 'renta',
-        nota: 'Parla vive con el 58,4 % de la renta media de la Comunidad de Madrid, la más baja de los {N} municipios comparados.'
+        fuenteId: 'rentaAdrh',
+        masFuentes: [['renta', 'Media de la Comunidad, 2023: ']],
+        nota: 'Parla tiene la renta más baja de los {N} municipios comparados. En 2023, el último año con media de la Comunidad de Madrid, vivía con el 58,4 % de esa media.'
       },
       {
         id: 'pobreza',
         /* Sin media regional: el atlas da municipios, distritos y secciones, no
            la Comunidad. El umbral es el mismo para todos: la mediana de España. */
         titulo: 'Quien vive en riesgo de pobreza',
-        pie: 'Población con ingresos bajo el 60 % de la mediana de España, 2023',
+        pie: 'Población con ingresos bajo el 60 % de la mediana de España, 2024',
         unidad: '%',
         decimales: 1,
         valores: {
-          getafe: 15.8,
-          parla: 27.2,
-          pinto: 14.9,
-          fuenlabrada: 17.8,
-          leganes: 18.8,
-          alcorcon: 16,
-          alcobendas: 15.9,
-          mostoles: 18.6,
-          torrejon: 17.1,
-          pozuelo: 8.5,
-          majadahonda: 11.9
+          getafe: 14.9,
+          parla: 25.8,
+          pinto: 13.9,
+          fuenlabrada: 16.3,
+          leganes: 17.6,
+          alcorcon: 15.0,
+          alcobendas: 14.5,
+          mostoles: 17.2,
+          torrejon: 16.0,
+          pozuelo: 7.8,
+          majadahonda: 10.9
         },
         extra: {
           /* Bajo el 40 % de la mediana, misma tabla y año. */
           severa: {
-            getafe: 6.8,
-            parla: 12.5,
-            pinto: 6.2,
-            fuenlabrada: 7.2,
-            leganes: 7.9,
-            alcorcon: 6.7,
-            alcobendas: 7.3,
-            mostoles: 8.1,
-            torrejon: 7.1,
-            pozuelo: 4.3,
-            majadahonda: 5.7
+            getafe: 6.2,
+            parla: 11.4,
+            pinto: 5.6,
+            fuenlabrada: 6.5,
+            leganes: 7.3,
+            alcorcon: 6.1,
+            alcobendas: 6.6,
+            mostoles: 7.2,
+            torrejon: 6.6,
+            pozuelo: 4.2,
+            majadahonda: 5.0
           },
           /* Menores de 18 años bajo el 60 %, tabla por edad. */
           menores: {
-            getafe: 20.3,
-            parla: 35.8,
-            pinto: 18.4,
-            fuenlabrada: 26.1,
-            leganes: 25.7,
-            alcorcon: 21.2,
-            alcobendas: 19.5,
-            mostoles: 26.1,
-            torrejon: 22.4,
-            pozuelo: 9.8,
-            majadahonda: 13.6
+            getafe: 19.8,
+            parla: 34.3,
+            pinto: 17.6,
+            fuenlabrada: 24.8,
+            leganes: 24.1,
+            alcorcon: 20,
+            alcobendas: 18.7,
+            mostoles: 24.4,
+            torrejon: 21.6,
+            pozuelo: 9.6,
+            majadahonda: 13.2
           }
         },
         fuenteId: 'pobreza',
@@ -1467,6 +1472,8 @@ window.DATOS = (function () {
       },
       {
         id: 'gasto',
+        /* Con portada, también en el resumen de index.html; todas van en economia.html. */
+        portada: true,
         refNombre: 'Media de la Comunidad',
         mediaRegional: 1345,
         /* Madrid capital la empuja hacia arriba; se enseñan las dos. */
@@ -1499,6 +1506,7 @@ window.DATOS = (function () {
       },
       {
         id: 'inversion',
+        portada: true,
         refNombre: 'Media de la Comunidad',
         mediaRegional: 139,
         /* Madrid capital la empuja hacia arriba; se enseñan las dos. */
@@ -1610,6 +1618,7 @@ window.DATOS = (function () {
       },
       {
         id: 'deuda',
+        portada: true,
         titulo: 'Lo que debe tu ayuntamiento',
         pie: 'Deuda viva por habitante, 31 de diciembre de 2025',
         /* El XLSX publica miles de euros. Aquí se guardan euros, sin redondear

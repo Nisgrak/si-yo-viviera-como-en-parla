@@ -14,7 +14,7 @@ cautelas y lo que no se pudo conseguir):
                      AEAT: declarantes con alquileres; Agencia de Vivienda
                      Social: su parque por municipio
     parque.json      INE Censo 2021: viviendas, vacías, antigüedad,
-                     superficie; ADRH 2023: renta; Catastro (Almudena):
+                     superficie; ADRH: renta (la pone al día vivienda/adrh.py); Catastro (Almudena):
                      unidades residenciales; padrón
     desahucios.json  CGPJ: lanzamientos y demandas por partido judicial
     publica.json     Comunidad de Madrid: ayudas al alquiler por municipio,
@@ -90,7 +90,7 @@ def main():
         anios = [str(y) for y in range(ALQ_DESDE, ALQ_HASTA + 1)]
         u = sp[str(ALQ_HASTA)]
         ae = a['aeat_viviendas_irpf']
-        esf = a['esfuerzo_2023_calc']
+        esf = a['esfuerzo_calc']
         alquiler = {
             'desde': ALQ_DESDE,
             'm2': [sp[y]['renta_mediana_m2_mes_eur_colectiva'] for y in anios],
@@ -102,8 +102,8 @@ def main():
             # AEAT: medias, no medianas; los nuevos contratos solo en 2024.
             'medio': ae['2024']['alquiler_medio_mensual_eur'],
             'nuevos': ae['2024_nuevos_contratos']['alquiler_medio_mensual_eur_nuevos_contratos'],
-            'esfuerzo': {'anio': 2023, 'renta': esf['renta_neta_media_hogar_2023_eur_adrh'],
-                         'alquiler': esf['serpavi_renta_mediana_mes_colectiva_2023'],
+            'esfuerzo': {'anio': esf['anio'], 'renta': esf['renta_neta_media_hogar_eur_adrh'],
+                         'alquiler': esf['serpavi_renta_mediana_mes_colectiva'],
                          'pct': esf['pct_serpavi_mediana_colectiva_x12_sobre_renta_hogar_calc']},
             'cobertura': a['cobertura_serpavi_2021_sobre_censo_alquiler_pct_calc'],
         }
@@ -177,7 +177,7 @@ def main():
         ba = bar[i]
         barrios = {'alq': [ba['alquiler']['min']['m2'], ba['alquiler']['max']['m2']], 'alqSecc': ba['alquiler']['secciones'],
                    'renta': [ba['renta']['min']['eur'], ba['renta']['max']['eur']], 'rentaTope': ba['renta']['tope'],
-                   'rentaSecc': ba['renta']['secciones']}
+                   'rentaSecc': ba['renta']['secciones'], 'rentaAnio': ba['renta']['anio']}
 
         ciudades[i] = {
             'pob': pob, 'tasado': tasado, 'compraventas': compraventas, 'alquiler': alquiler,

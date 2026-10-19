@@ -1,0 +1,71 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   EL DINERO DE PARLA · la página de la economía (economia.html)
+   Hereda de estilos.css (las fichas del dinero), de infraestructura.css
+   (la vuelta, la portada corta y los pies) y de vivienda.css (las dos
+   cifras grandes y los gráficos de líneas). Aquí solo lo suyo: el
+   «de cada 100».
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.eco .dinero { margin-top: clamp(2rem, 7vw, 2.75rem); }
+.eco .bloque__h3 + .bloque__intro { margin-top: .5rem; }
+.eco .plata .ind__fuente { margin-top: .8rem; font-size: .75rem; line-height: 1.45; color: var(--ink-3); }
+.eco .plata .ind__fuente a { color: inherit; }
+.eco #ayto-mas[hidden] { display: none; }
+
+/* ── De cada 100 ──────────────────────────────────────────────────────
+   Una barra partida por ciudad, en su color, y cada parte más clara que
+   la anterior. Debajo, la tabla con las cifras de las dos. */
+
+.reparto { position: relative; max-width: 46rem; margin-top: clamp(1.25rem, 4vw, 1.75rem); }
+.reparto__fila { margin-top: .9rem; color: var(--ink-3); }
+.reparto__fila[data-quien='referencia'] { color: var(--ref); }
+.reparto__quien { font-size: .875rem; font-weight: 700; color: var(--ink); }
+.reparto__fila[data-quien='referencia'] .reparto__quien { color: var(--ref); }
+.reparto__barra {
+  display: flex;
+  height: 1.5rem;
+  margin-top: .35rem;
+  border-radius: 4px;
+  overflow: hidden;
+}
+/* Cada parte, el color de la ciudad mezclado con el fondo: sin opacidad, para
+   que el borde de la parte señalada se vea entero. */
+.reparto__s { display: block; flex-basis: 0; min-width: 0; --k: 100%; background: color-mix(in srgb, currentColor var(--k), var(--bg)); }
+.reparto__barra .reparto__s + .reparto__s { border-left: 2px solid var(--bg); }
+.reparto__s--1 { --k: 72%; }
+.reparto__s--2 { --k: 50%; }
+.reparto__s--3 { --k: 32%; }
+.reparto__s--4 { --k: 18%; }
+.reparto__barra { cursor: crosshair; touch-action: manipulation; }
+/* La parte señalada, en las dos barras: un borde de tinta por dentro. */
+.reparto__s--foco { box-shadow: inset 0 0 0 2px var(--ink); }
+.reparto__tip { min-width: 11rem; }
+.reparto__tabla tr.reparto__foco th, .reparto__tabla tr.reparto__foco td { background: var(--surface-2); }
+
+.reparto__tabla {
+  width: 100%;
+  margin-top: 1.25rem;
+  border-collapse: collapse;
+  font-size: .875rem;
+}
+.reparto__tabla th, .reparto__tabla td {
+  padding: .4rem 0;
+  border-top: 1px solid var(--line);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.reparto__tabla tr:last-child th, .reparto__tabla tr:last-child td { border-bottom: 1px solid var(--line); }
+.reparto__tabla thead th { border-top: 0; font-size: .8125rem; font-weight: 700; color: var(--ink); }
+.reparto__tabla tbody th { text-align: left; font-weight: 400; color: var(--ink-2); }
+.reparto__tabla td { width: 6.5rem; font-weight: 700; color: var(--ink); }
+.reparto__tabla .reparto__th--referencia, .reparto__tabla .reparto__td--referencia { color: var(--ref); }
+.reparto__marca {
+  display: inline-block;
+  width: .7rem; height: .7rem;
+  margin-right: .5rem;
+  border-radius: 2px;
+  vertical-align: -.05rem;
+  color: var(--ink-3);
+  background: color-mix(in srgb, currentColor var(--k, 100%), var(--bg));
+}
+@media (max-width: 30rem) { .reparto__tabla td { width: 4.75rem; } }

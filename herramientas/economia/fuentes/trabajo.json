@@ -1,0 +1,2797 @@
+{
+ "_meta": {
+  "fuentes": {
+   "censo_lugar_trabajo": "https://www.ine.es/jaxiT3/Tabla.htm?t=69986",
+   "censo_lugar_trabajo_csv": "https://www.ine.es/jaxiT3/files/t/es/csv_bdsc/69986.csv",
+   "censo_metodologia": "https://www.ine.es/censos2021/censos2021_meto.pdf",
+   "censo_anual_edad": "https://www.ine.es/jaxiT3/Tabla.htm?t=68543",
+   "censo_anual_edad_csv": "https://www.ine.es/jaxiT3/files/t/es/csv_bdsc/68543.csv",
+   "padron_edad_2015": "https://www.ine.es/jaxi/Tabla.htm?path=/t20/e245/p05/a2015/l0/&file=00028006.px",
+   "padron_edad_px_patron": "https://www.ine.es/jaxi/files/_px/es/px/t20/e245/p05/a{AÑO}/l0/00028006.px (AÑO = 2015…2019)",
+   "afiliados_lugar_trabajo": "https://datos.comunidad.madrid/dataset/afiliados_por_ubicacion_y_regimen",
+   "afiliados_lugar_trabajo_csv": "https://datos.comunidad.madrid/dataset/3bb17a03-5689-46fa-8cea-14e09111d834/resource/e2542872-7859-4c1b-9a2a-bb2fb0ae3398/download/trabajadores-afiliados-en-alta-laboral-a-la-seguridad-social-por-ubicacion-del-centro-de-trabajo.csv",
+   "afiliados_residencia": "https://datos.comunidad.madrid/dataset/afiliados_por_residencia_y_sexo",
+   "afiliados_residencia_csv": "https://datos.comunidad.madrid/dataset/ec2166a6-2988-45a1-a1bc-71450ce95c18/resource/419f7aa5-221a-4b20-9347-4f007519525e/download/afiliados-a-la-seguridad-social-por-lugar-de-residencia-y-sexo.-municipios.csv",
+   "afiliados_residencia_contrato": "https://datos.comunidad.madrid/dataset/afiliados_por_residencia_y_contrato",
+   "afiliados_residencia_contrato_csv": "https://datos.comunidad.madrid/dataset/005b7b16-a8eb-4f47-b249-9af13a5f7c4c/resource/6328dfff-92f8-4628-87c1-09cf755a055f/download/afiliados-a-la-seguridad-social-por-lugar-de-residencia-y-tipo-de-contrato.-municipios.csv",
+   "sepe_paro_ficha": "https://datos.gob.es/es/catalogo/ea0041513-paro-registrado-por-municipio",
+   "sepe_paro_csv_patron": "https://sede.sepe.gob.es/es/portaltrabaja/resources/sede/datos_abiertos/datos/Paro_por_municipios_{AÑO}_csv.csv (AÑO = 2015…2026)",
+   "sepe_paro_2025_csv": "https://sede.sepe.gob.es/es/portaltrabaja/resources/sede/datos_abiertos/datos/Paro_por_municipios_2025_csv.csv",
+   "sepe_paro_2026_csv": "https://sede.sepe.gob.es/es/portaltrabaja/resources/sede/datos_abiertos/datos/Paro_por_municipios_2026_csv.csv",
+   "sepe_paro_dic2020_pdf": "https://www.sepe.es/HomeSepe/dam/jcr:2fe83352-24ee-4052-99e1-e53d72c7ef2b/MUNI_MADRID_1220.pdf",
+   "sepe_contratos_ficha": "https://datos.gob.es/es/catalogo/ea0041513-contratos-registrados-por-municipio",
+   "sepe_contratos_2025_csv": "https://sede.sepe.gob.es/es/portaltrabaja/resources/sede/datos_abiertos/datos/Contratos_por_municipios_2025_csv.csv"
+  },
+  "notas": [
+   "Extraído el 19-10-2026. Detalle paso a paso en trabajo.md.",
+   "puestos_por_100_residentes = afiliados a la Seguridad Social cuyo centro de trabajo está en el municipio (31 de diciembre, suma de todos los regímenes) por cada 100 afiliados residentes en el municipio (1 de enero del año siguiente). Ambos de la explotación de los ficheros de la TGSS que hace el Instituto de Estadística de la Comunidad de Madrid. Desde 2021 las cifras por régimen vienen redondeadas a múltiplos de 5. Los autónomos se asignan al municipio de su centro de trabajo declarado, que a menudo es su domicilio. No cuenta funcionarios de MUFACE/ISFAS/MUGEJU que no coticen al régimen general ni empleo sumergido.",
+   "pct_mismo_municipio (Censo anual 2021-2023, INE tabla 69986) = ocupados de 16 y más años residentes en el municipio cuyo lugar de trabajo registrado está en el mismo municipio, sobre el total de ocupados residentes. El lugar de trabajo sale de registros (cuenta de cotización y domicilio de la actividad en la TGSS, contratos del SEPE, DIRCE para autónomos): no recoge teletrabajo ni trabajo en varios municipios, y una empresa que da de alta a sus trabajadores en una sede de otro municipio desplaza ese empleo. Leerlo como cota baja y compararlo solo entre municipios.",
+   "Paro registrado: demandantes parados el último día de cada mes según el SEPE. paro_medio = media de los 12 meses del año. Diciembre de 2020 no está en el CSV de datos abiertos del SEPE y se tomó del PDF mensual de municipios de Madrid del SEPE.",
+   "Denominador del paro: población de 16 a 64 años a 1 de enero del mismo año. 2015-2019: Estadística del Padrón Continuo (INE, edad año a año, fichero 00028006). 2021-2025: Censo anual de población del INE (tabla 68543, edad año a año), que es la serie municipal por edad simple que el INE publica desde 2021; el INE no publica la tabla del padrón por edad simple para esos años. 2020 queda sin tasa: no hay ninguna de las dos tablas a 1-1-2020. Los dos orígenes difieren muy poco (Parla 16-64: 87.454 en el padrón 2019 y 87.179 en el Censo 2021), pero la serie tiene un cambio de fuente en 2021. Censo anual 1-1-2025 de Parla: 138.012 habitantes; las cifras oficiales del padrón dan 137.471.",
+   "paro_pct_16_64 NO es la tasa de paro (que divide entre población activa). Es parados registrados por cada 100 personas en edad de trabajar. Menores de 25: parados <25 sobre población de 16 a 24 años. Mujeres: paradas sobre mujeres de 16 a 64 años.",
+   "Contratos: contratos de trabajo registrados en el SEPE en 2025 (12 meses sumados). Contratos = iniciales indefinidos + iniciales temporales + convertidos en indefinidos (cuadra exactamente en los 11). pct_indefinidos = (iniciales indefinidos + conversiones) / total. Se asignan, por lo que hemos podido comprobar, al municipio del centro de trabajo, no al de residencia del trabajador; la ficha del SEPE no lo dice expresamente. Desde la reforma laboral de 2022 los fijos discontinuos cuentan como indefinidos. Mide flujo de contratos firmados, no el stock de empleo: un trabajo temporal que se renueva cada semana suma muchos contratos.",
+   "afiliados_residentes_contrato_2026: afiliados residentes a 1-1-2026 según tipo de contrato (Comunidad de Madrid). pct_temporal_sobre_con_contrato = temporales / (indefinidos + temporales); 'no_consta' incluye sobre todo autónomos y otros sin contrato laboral. Es la temporalidad del stock de empleo de los vecinos, complementaria a la de los contratos."
+  ]
+ },
+ "parla": {
+  "puestos_por_100_residentes_2025": 32.5,
+  "afiliados_lugar_trabajo_31dic2025": 19110,
+  "afiliados_residentes_1ene2026": 58796,
+  "pct_trabaja_en_su_municipio_2023": 12.4,
+  "paro_medio_2025": 7077.1,
+  "paro_pct_16_64_2025": 7.6,
+  "paro_menores25_pct_16_24_2025": 3.78,
+  "paro_mujeres_pct_mujeres_16_64_2025": 9.73,
+  "contratos_2025": 10677,
+  "pct_contratos_indefinidos_2025": 55.71,
+  "pct_afiliados_residentes_temporales_2026": 9.79,
+  "detalle": {
+   "afiliados_serie": {
+    "2013": {
+     "afiliados_lugar_trabajo_31dic": 13544,
+     "afiliados_residentes_1ene_siguiente": 40536,
+     "puestos_por_100_residentes": 33.4
+    },
+    "2014": {
+     "afiliados_lugar_trabajo_31dic": 14057,
+     "afiliados_residentes_1ene_siguiente": 41973,
+     "puestos_por_100_residentes": 33.5
+    },
+    "2015": {
+     "afiliados_lugar_trabajo_31dic": 14794,
+     "afiliados_residentes_1ene_siguiente": 43839,
+     "puestos_por_100_residentes": 33.7
+    },
+    "2016": {
+     "afiliados_lugar_trabajo_31dic": 15766,
+     "afiliados_residentes_1ene_siguiente": 45972,
+     "puestos_por_100_residentes": 34.3
+    },
+    "2017": {
+     "afiliados_lugar_trabajo_31dic": 16386,
+     "afiliados_residentes_1ene_siguiente": 48312,
+     "puestos_por_100_residentes": 33.9
+    },
+    "2018": {
+     "afiliados_lugar_trabajo_31dic": 17145,
+     "afiliados_residentes_1ene_siguiente": 50404,
+     "puestos_por_100_residentes": 34.0
+    },
+    "2019": {
+     "afiliados_lugar_trabajo_31dic": 17474,
+     "afiliados_residentes_1ene_siguiente": 51493,
+     "puestos_por_100_residentes": 33.9
+    },
+    "2020": {
+     "afiliados_lugar_trabajo_31dic": 17347,
+     "afiliados_residentes_1ene_siguiente": 50124,
+     "puestos_por_100_residentes": 34.6
+    },
+    "2021": {
+     "afiliados_lugar_trabajo_31dic": 17815,
+     "afiliados_residentes_1ene_siguiente": 52816,
+     "puestos_por_100_residentes": 33.7
+    },
+    "2022": {
+     "afiliados_lugar_trabajo_31dic": 18295,
+     "afiliados_residentes_1ene_siguiente": 54613,
+     "puestos_por_100_residentes": 33.5
+    },
+    "2023": {
+     "afiliados_lugar_trabajo_31dic": 18570,
+     "afiliados_residentes_1ene_siguiente": 55880,
+     "puestos_por_100_residentes": 33.2
+    },
+    "2024": {
+     "afiliados_lugar_trabajo_31dic": 18665,
+     "afiliados_residentes_1ene_siguiente": 57321,
+     "puestos_por_100_residentes": 32.6
+    },
+    "2025": {
+     "afiliados_lugar_trabajo_31dic": 19110,
+     "afiliados_residentes_1ene_siguiente": 58796,
+     "puestos_por_100_residentes": 32.5
+    }
+   },
+   "afiliados_lugar_trabajo_2025_por_regimen": {
+    "Régimen general": 12620,
+    "Régimen agrario": 30,
+    "Régimen del mar": 0,
+    "Régimen de empleados del hogar": 145,
+    "Régimen de autónomos": 6315,
+    "Régimen del carbón": 0
+   },
+   "censo_lugar_trabajo": {
+    "2021": {
+     "ocupados_residentes": 53262,
+     "trabajan_mismo_municipio": 5995,
+     "otro_municipio_provincia": 43315,
+     "otra_ccaa": 3083,
+     "sin_info_lugar": 869,
+     "pct_mismo_municipio": 11.3,
+     "pct_mismo_municipio_sobre_conocidos": 11.4
+    },
+    "2022": {
+     "ocupados_residentes": 55703,
+     "trabajan_mismo_municipio": 6787,
+     "otro_municipio_provincia": 44464,
+     "otra_ccaa": 3277,
+     "sin_info_lugar": 1175,
+     "pct_mismo_municipio": 12.2,
+     "pct_mismo_municipio_sobre_conocidos": 12.4
+    },
+    "2023": {
+     "ocupados_residentes": 57167,
+     "trabajan_mismo_municipio": 7111,
+     "otro_municipio_provincia": 45361,
+     "otra_ccaa": 3374,
+     "sin_info_lugar": 1321,
+     "pct_mismo_municipio": 12.4,
+     "pct_mismo_municipio_sobre_conocidos": 12.7
+    }
+   },
+   "paro_serie_media_anual": {
+    "2015": {
+     "paro_medio": 13536.3,
+     "pob_16_64": 87228,
+     "paro_pct_16_64": 15.52,
+     "fuente_poblacion": "padron"
+    },
+    "2016": {
+     "paro_medio": 12176.8,
+     "pob_16_64": 85786,
+     "paro_pct_16_64": 14.19,
+     "fuente_poblacion": "padron"
+    },
+    "2017": {
+     "paro_medio": 10825.2,
+     "pob_16_64": 85810,
+     "paro_pct_16_64": 12.62,
+     "fuente_poblacion": "padron"
+    },
+    "2018": {
+     "paro_medio": 9910.1,
+     "pob_16_64": 86717,
+     "paro_pct_16_64": 11.43,
+     "fuente_poblacion": "padron"
+    },
+    "2019": {
+     "paro_medio": 9367.5,
+     "pob_16_64": 87454,
+     "paro_pct_16_64": 10.71,
+     "fuente_poblacion": "padron"
+    },
+    "2020": {
+     "paro_medio": 10843.9,
+     "pob_16_64": null,
+     "paro_pct_16_64": null,
+     "fuente_poblacion": null
+    },
+    "2021": {
+     "paro_medio": 10928.2,
+     "pob_16_64": 87179,
+     "paro_pct_16_64": 12.54,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2022": {
+     "paro_medio": 8569.8,
+     "pob_16_64": 86722,
+     "paro_pct_16_64": 9.88,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2023": {
+     "paro_medio": 8084.0,
+     "pob_16_64": 88680,
+     "paro_pct_16_64": 9.12,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2024": {
+     "paro_medio": 7529.8,
+     "pob_16_64": 90351,
+     "paro_pct_16_64": 8.33,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2025": {
+     "paro_medio": 7077.1,
+     "pob_16_64": 93075,
+     "paro_pct_16_64": 7.6,
+     "fuente_poblacion": "censo_anual"
+    }
+   },
+   "paro_2025_media": {
+    "total": 7077.1,
+    "menores_25": 567.6,
+    "mujeres": 4509.7,
+    "pct_mujeres_sobre_parados": 63.7,
+    "pob_16_64": 93075,
+    "pob_16_24": 15029,
+    "pob_mujeres_16_64": 46347,
+    "paro_pct_16_64": 7.6,
+    "paro_menores25_pct_16_24": 3.78,
+    "paro_mujeres_pct_mujeres_16_64": 9.73
+   },
+   "paro_ultimo_mes": {
+    "mes": "2026-08",
+    "total": 6732,
+    "menores_25": 567,
+    "mujeres": 4198,
+    "paro_pct_16_64": 7.23,
+    "paro_menores25_pct_16_24": 3.77,
+    "paro_mujeres_pct_mujeres_16_64": 9.06,
+    "denominador": "población a 1-1-2025 (Censo anual)"
+   },
+   "contratos_2025": {
+    "total": 10677,
+    "iniciales_indefinidos": 5641,
+    "iniciales_temporales": 4729,
+    "convertidos_indefinidos": 307,
+    "celdas_menor_5_omitidas": 0,
+    "cuadre_suma_menos_total": 0,
+    "pct_indefinidos": 55.71,
+    "pct_iniciales_indefinidos": 52.83,
+    "pct_temporales": 44.29
+   },
+   "afiliados_residentes_contrato_2026": {
+    "total": 58796,
+    "indefinido": 47329,
+    "temporal": 5138,
+    "no_consta": 6329,
+    "pct_temporal_sobre_con_contrato": 9.79
+   },
+   "poblacion_16_64": {
+    "2015": 87228,
+    "2016": 85786,
+    "2017": 85810,
+    "2018": 86717,
+    "2019": 87454,
+    "2021": 87179,
+    "2022": 86722,
+    "2023": 88680,
+    "2024": 90351,
+    "2025": 93075
+   },
+   "poblacion_total_misma_fuente": {
+    "2015": 125056,
+    "2016": 124661,
+    "2017": 125898,
+    "2018": 128256,
+    "2019": 130124,
+    "2021": 130550,
+    "2022": 130218,
+    "2023": 132842,
+    "2024": 134876,
+    "2025": 138012
+   }
+  }
+ },
+ "getafe": {
+  "puestos_por_100_residentes_2025": 95.1,
+  "afiliados_lugar_trabajo_31dic2025": 83410,
+  "afiliados_residentes_1ene2026": 87710,
+  "pct_trabaja_en_su_municipio_2023": 19.1,
+  "paro_medio_2025": 8270.4,
+  "paro_pct_16_64_2025": 6.52,
+  "paro_menores25_pct_16_24_2025": 3.44,
+  "paro_mujeres_pct_mujeres_16_64_2025": 7.93,
+  "contratos_2025": 63645,
+  "pct_contratos_indefinidos_2025": 42.58,
+  "pct_afiliados_residentes_temporales_2026": 9.91,
+  "detalle": {
+   "afiliados_serie": {
+    "2013": {
+     "afiliados_lugar_trabajo_31dic": 57803,
+     "afiliados_residentes_1ene_siguiente": 63140,
+     "puestos_por_100_residentes": 91.5
+    },
+    "2014": {
+     "afiliados_lugar_trabajo_31dic": 58320,
+     "afiliados_residentes_1ene_siguiente": 65037,
+     "puestos_por_100_residentes": 89.7
+    },
+    "2015": {
+     "afiliados_lugar_trabajo_31dic": 61497,
+     "afiliados_residentes_1ene_siguiente": 67436,
+     "puestos_por_100_residentes": 91.2
+    },
+    "2016": {
+     "afiliados_lugar_trabajo_31dic": 65052,
+     "afiliados_residentes_1ene_siguiente": 69282,
+     "puestos_por_100_residentes": 93.9
+    },
+    "2017": {
+     "afiliados_lugar_trabajo_31dic": 67555,
+     "afiliados_residentes_1ene_siguiente": 71955,
+     "puestos_por_100_residentes": 93.9
+    },
+    "2018": {
+     "afiliados_lugar_trabajo_31dic": 70756,
+     "afiliados_residentes_1ene_siguiente": 74417,
+     "puestos_por_100_residentes": 95.1
+    },
+    "2019": {
+     "afiliados_lugar_trabajo_31dic": 70473,
+     "afiliados_residentes_1ene_siguiente": 76549,
+     "puestos_por_100_residentes": 92.1
+    },
+    "2020": {
+     "afiliados_lugar_trabajo_31dic": 69533,
+     "afiliados_residentes_1ene_siguiente": 75114,
+     "puestos_por_100_residentes": 92.6
+    },
+    "2021": {
+     "afiliados_lugar_trabajo_31dic": 70220,
+     "afiliados_residentes_1ene_siguiente": 78648,
+     "puestos_por_100_residentes": 89.3
+    },
+    "2022": {
+     "afiliados_lugar_trabajo_31dic": 72925,
+     "afiliados_residentes_1ene_siguiente": 80998,
+     "puestos_por_100_residentes": 90.0
+    },
+    "2023": {
+     "afiliados_lugar_trabajo_31dic": 76080,
+     "afiliados_residentes_1ene_siguiente": 83682,
+     "puestos_por_100_residentes": 90.9
+    },
+    "2024": {
+     "afiliados_lugar_trabajo_31dic": 78465,
+     "afiliados_residentes_1ene_siguiente": 85734,
+     "puestos_por_100_residentes": 91.5
+    },
+    "2025": {
+     "afiliados_lugar_trabajo_31dic": 83410,
+     "afiliados_residentes_1ene_siguiente": 87710,
+     "puestos_por_100_residentes": 95.1
+    }
+   },
+   "afiliados_lugar_trabajo_2025_por_regimen": {
+    "Régimen general": 73270,
+    "Régimen agrario": 25,
+    "Régimen del mar": 5,
+    "Régimen de empleados del hogar": 850,
+    "Régimen de autónomos": 9260,
+    "Régimen del carbón": 0
+   },
+   "censo_lugar_trabajo": {
+    "2021": {
+     "ocupados_residentes": 78905,
+     "trabajan_mismo_municipio": 14819,
+     "otro_municipio_provincia": 59488,
+     "otra_ccaa": 3310,
+     "sin_info_lugar": 1288,
+     "pct_mismo_municipio": 18.8,
+     "pct_mismo_municipio_sobre_conocidos": 19.1
+    },
+    "2022": {
+     "ocupados_residentes": 82388,
+     "trabajan_mismo_municipio": 15328,
+     "otro_municipio_provincia": 61987,
+     "otra_ccaa": 3508,
+     "sin_info_lugar": 1565,
+     "pct_mismo_municipio": 18.6,
+     "pct_mismo_municipio_sobre_conocidos": 19.0
+    },
+    "2023": {
+     "ocupados_residentes": 84531,
+     "trabajan_mismo_municipio": 16145,
+     "otro_municipio_provincia": 62940,
+     "otra_ccaa": 3604,
+     "sin_info_lugar": 1842,
+     "pct_mismo_municipio": 19.1,
+     "pct_mismo_municipio_sobre_conocidos": 19.5
+    }
+   },
+   "paro_serie_media_anual": {
+    "2015": {
+     "paro_medio": 13990.5,
+     "pob_16_64": 114230,
+     "paro_pct_16_64": 12.25,
+     "fuente_poblacion": "padron"
+    },
+    "2016": {
+     "paro_medio": 12800.9,
+     "pob_16_64": 114710,
+     "paro_pct_16_64": 11.16,
+     "fuente_poblacion": "padron"
+    },
+    "2017": {
+     "paro_medio": 11408.8,
+     "pob_16_64": 115107,
+     "paro_pct_16_64": 9.91,
+     "fuente_poblacion": "padron"
+    },
+    "2018": {
+     "paro_medio": 10419.6,
+     "pob_16_64": 116084,
+     "paro_pct_16_64": 8.98,
+     "fuente_poblacion": "padron"
+    },
+    "2019": {
+     "paro_medio": 9864.0,
+     "pob_16_64": 117478,
+     "paro_pct_16_64": 8.4,
+     "fuente_poblacion": "padron"
+    },
+    "2020": {
+     "paro_medio": 11739.4,
+     "pob_16_64": null,
+     "paro_pct_16_64": null,
+     "fuente_poblacion": null
+    },
+    "2021": {
+     "paro_medio": 12192.8,
+     "pob_16_64": 117638,
+     "paro_pct_16_64": 10.36,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2022": {
+     "paro_medio": 9243.6,
+     "pob_16_64": 118593,
+     "paro_pct_16_64": 7.79,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2023": {
+     "paro_medio": 8875.2,
+     "pob_16_64": 120246,
+     "paro_pct_16_64": 7.38,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2024": {
+     "paro_medio": 8608.3,
+     "pob_16_64": 123550,
+     "paro_pct_16_64": 6.97,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2025": {
+     "paro_medio": 8270.4,
+     "pob_16_64": 126795,
+     "paro_pct_16_64": 6.52,
+     "fuente_poblacion": "censo_anual"
+    }
+   },
+   "paro_2025_media": {
+    "total": 8270.4,
+    "menores_25": 651.0,
+    "mujeres": 5064.9,
+    "pct_mujeres_sobre_parados": 61.2,
+    "pob_16_64": 126795,
+    "pob_16_24": 18927,
+    "pob_mujeres_16_64": 63880,
+    "paro_pct_16_64": 6.52,
+    "paro_menores25_pct_16_24": 3.44,
+    "paro_mujeres_pct_mujeres_16_64": 7.93
+   },
+   "paro_ultimo_mes": {
+    "mes": "2026-08",
+    "total": 8305,
+    "menores_25": 680,
+    "mujeres": 5118,
+    "paro_pct_16_64": 6.55,
+    "paro_menores25_pct_16_24": 3.59,
+    "paro_mujeres_pct_mujeres_16_64": 8.01,
+    "denominador": "población a 1-1-2025 (Censo anual)"
+   },
+   "contratos_2025": {
+    "total": 63645,
+    "iniciales_indefinidos": 25642,
+    "iniciales_temporales": 36547,
+    "convertidos_indefinidos": 1456,
+    "celdas_menor_5_omitidas": 0,
+    "cuadre_suma_menos_total": 0,
+    "pct_indefinidos": 42.58,
+    "pct_iniciales_indefinidos": 40.29,
+    "pct_temporales": 57.42
+   },
+   "afiliados_residentes_contrato_2026": {
+    "total": 87710,
+    "indefinido": 70663,
+    "temporal": 7770,
+    "no_consta": 9277,
+    "pct_temporal_sobre_con_contrato": 9.91
+   },
+   "poblacion_16_64": {
+    "2015": 114230,
+    "2016": 114710,
+    "2017": 115107,
+    "2018": 116084,
+    "2019": 117478,
+    "2021": 117638,
+    "2022": 118593,
+    "2023": 120246,
+    "2024": 123550,
+    "2025": 126795
+   },
+   "poblacion_total_misma_fuente": {
+    "2015": 174921,
+    "2016": 176659,
+    "2017": 178288,
+    "2018": 180747,
+    "2019": 183374,
+    "2021": 183872,
+    "2022": 185119,
+    "2023": 187525,
+    "2024": 191560,
+    "2025": 195628
+   }
+  }
+ },
+ "leganes": {
+  "puestos_por_100_residentes_2025": 74.8,
+  "afiliados_lugar_trabajo_31dic2025": 64705,
+  "afiliados_residentes_1ene2026": 86556,
+  "pct_trabaja_en_su_municipio_2023": 15.4,
+  "paro_medio_2025": 8444.8,
+  "paro_pct_16_64_2025": 6.78,
+  "paro_menores25_pct_16_24_2025": 3.45,
+  "paro_mujeres_pct_mujeres_16_64_2025": 8.11,
+  "contratos_2025": 37537,
+  "pct_contratos_indefinidos_2025": 44.98,
+  "pct_afiliados_residentes_temporales_2026": 10.35,
+  "detalle": {
+   "afiliados_serie": {
+    "2013": {
+     "afiliados_lugar_trabajo_31dic": 47987,
+     "afiliados_residentes_1ene_siguiente": 69883,
+     "puestos_por_100_residentes": 68.7
+    },
+    "2014": {
+     "afiliados_lugar_trabajo_31dic": 49882,
+     "afiliados_residentes_1ene_siguiente": 71063,
+     "puestos_por_100_residentes": 70.2
+    },
+    "2015": {
+     "afiliados_lugar_trabajo_31dic": 45964,
+     "afiliados_residentes_1ene_siguiente": 72824,
+     "puestos_por_100_residentes": 63.1
+    },
+    "2016": {
+     "afiliados_lugar_trabajo_31dic": 48335,
+     "afiliados_residentes_1ene_siguiente": 74162,
+     "puestos_por_100_residentes": 65.2
+    },
+    "2017": {
+     "afiliados_lugar_trabajo_31dic": 51932,
+     "afiliados_residentes_1ene_siguiente": 76268,
+     "puestos_por_100_residentes": 68.1
+    },
+    "2018": {
+     "afiliados_lugar_trabajo_31dic": 54014,
+     "afiliados_residentes_1ene_siguiente": 78192,
+     "puestos_por_100_residentes": 69.1
+    },
+    "2019": {
+     "afiliados_lugar_trabajo_31dic": 55797,
+     "afiliados_residentes_1ene_siguiente": 79360,
+     "puestos_por_100_residentes": 70.3
+    },
+    "2020": {
+     "afiliados_lugar_trabajo_31dic": 54574,
+     "afiliados_residentes_1ene_siguiente": 77481,
+     "puestos_por_100_residentes": 70.4
+    },
+    "2021": {
+     "afiliados_lugar_trabajo_31dic": 57685,
+     "afiliados_residentes_1ene_siguiente": 79952,
+     "puestos_por_100_residentes": 72.1
+    },
+    "2022": {
+     "afiliados_lugar_trabajo_31dic": 59525,
+     "afiliados_residentes_1ene_siguiente": 81898,
+     "puestos_por_100_residentes": 72.7
+    },
+    "2023": {
+     "afiliados_lugar_trabajo_31dic": 61255,
+     "afiliados_residentes_1ene_siguiente": 84103,
+     "puestos_por_100_residentes": 72.8
+    },
+    "2024": {
+     "afiliados_lugar_trabajo_31dic": 61905,
+     "afiliados_residentes_1ene_siguiente": 85277,
+     "puestos_por_100_residentes": 72.6
+    },
+    "2025": {
+     "afiliados_lugar_trabajo_31dic": 64705,
+     "afiliados_residentes_1ene_siguiente": 86556,
+     "puestos_por_100_residentes": 74.8
+    }
+   },
+   "afiliados_lugar_trabajo_2025_por_regimen": {
+    "Régimen general": 55320,
+    "Régimen agrario": 15,
+    "Régimen del mar": 0,
+    "Régimen de empleados del hogar": 710,
+    "Régimen de autónomos": 8660,
+    "Régimen del carbón": 0
+   },
+   "censo_lugar_trabajo": {
+    "2021": {
+     "ocupados_residentes": 77558,
+     "trabajan_mismo_municipio": 11666,
+     "otro_municipio_provincia": 61912,
+     "otra_ccaa": 2715,
+     "sin_info_lugar": 1265,
+     "pct_mismo_municipio": 15.0,
+     "pct_mismo_municipio_sobre_conocidos": 15.3
+    },
+    "2022": {
+     "ocupados_residentes": 79831,
+     "trabajan_mismo_municipio": 12395,
+     "otro_municipio_provincia": 63069,
+     "otra_ccaa": 2788,
+     "sin_info_lugar": 1579,
+     "pct_mismo_municipio": 15.5,
+     "pct_mismo_municipio_sobre_conocidos": 15.8
+    },
+    "2023": {
+     "ocupados_residentes": 81948,
+     "trabajan_mismo_municipio": 12631,
+     "otro_municipio_provincia": 64546,
+     "otra_ccaa": 2990,
+     "sin_info_lugar": 1781,
+     "pct_mismo_municipio": 15.4,
+     "pct_mismo_municipio_sobre_conocidos": 15.8
+    }
+   },
+   "paro_serie_media_anual": {
+    "2015": {
+     "paro_medio": 16134.0,
+     "pob_16_64": 120406,
+     "paro_pct_16_64": 13.4,
+     "fuente_poblacion": "padron"
+    },
+    "2016": {
+     "paro_medio": 14456.5,
+     "pob_16_64": 118911,
+     "paro_pct_16_64": 12.16,
+     "fuente_poblacion": "padron"
+    },
+    "2017": {
+     "paro_medio": 12788.3,
+     "pob_16_64": 118047,
+     "paro_pct_16_64": 10.83,
+     "fuente_poblacion": "padron"
+    },
+    "2018": {
+     "paro_medio": 11535.5,
+     "pob_16_64": 117630,
+     "paro_pct_16_64": 9.81,
+     "fuente_poblacion": "padron"
+    },
+    "2019": {
+     "paro_medio": 10888.1,
+     "pob_16_64": 118127,
+     "paro_pct_16_64": 9.22,
+     "fuente_poblacion": "padron"
+    },
+    "2020": {
+     "paro_medio": 12423.4,
+     "pob_16_64": null,
+     "paro_pct_16_64": null,
+     "fuente_poblacion": null
+    },
+    "2021": {
+     "paro_medio": 12585.8,
+     "pob_16_64": 117721,
+     "paro_pct_16_64": 10.69,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2022": {
+     "paro_medio": 9838.9,
+     "pob_16_64": 117494,
+     "paro_pct_16_64": 8.37,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2023": {
+     "paro_medio": 9247.2,
+     "pob_16_64": 119972,
+     "paro_pct_16_64": 7.71,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2024": {
+     "paro_medio": 8836.1,
+     "pob_16_64": 122816,
+     "paro_pct_16_64": 7.19,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2025": {
+     "paro_medio": 8444.8,
+     "pob_16_64": 124626,
+     "paro_pct_16_64": 6.78,
+     "fuente_poblacion": "censo_anual"
+    }
+   },
+   "paro_2025_media": {
+    "total": 8444.8,
+    "menores_25": 671.1,
+    "mujeres": 5104.6,
+    "pct_mujeres_sobre_parados": 60.4,
+    "pob_16_64": 124626,
+    "pob_16_24": 19466,
+    "pob_mujeres_16_64": 62947,
+    "paro_pct_16_64": 6.78,
+    "paro_menores25_pct_16_24": 3.45,
+    "paro_mujeres_pct_mujeres_16_64": 8.11
+   },
+   "paro_ultimo_mes": {
+    "mes": "2026-08",
+    "total": 8119,
+    "menores_25": 657,
+    "mujeres": 4974,
+    "paro_pct_16_64": 6.51,
+    "paro_menores25_pct_16_24": 3.38,
+    "paro_mujeres_pct_mujeres_16_64": 7.9,
+    "denominador": "población a 1-1-2025 (Censo anual)"
+   },
+   "contratos_2025": {
+    "total": 37537,
+    "iniciales_indefinidos": 15552,
+    "iniciales_temporales": 20652,
+    "convertidos_indefinidos": 1333,
+    "celdas_menor_5_omitidas": 0,
+    "cuadre_suma_menos_total": 0,
+    "pct_indefinidos": 44.98,
+    "pct_iniciales_indefinidos": 41.43,
+    "pct_temporales": 55.02
+   },
+   "afiliados_residentes_contrato_2026": {
+    "total": 86556,
+    "indefinido": 69828,
+    "temporal": 8064,
+    "no_consta": 8664,
+    "pct_temporal_sobre_con_contrato": 10.35
+   },
+   "poblacion_16_64": {
+    "2015": 120406,
+    "2016": 118911,
+    "2017": 118047,
+    "2018": 117630,
+    "2019": 118127,
+    "2021": 117721,
+    "2022": 117494,
+    "2023": 119972,
+    "2024": 122816,
+    "2025": 124626
+   },
+   "poblacion_total_misma_fuente": {
+    "2015": 186907,
+    "2016": 187173,
+    "2017": 187720,
+    "2018": 188425,
+    "2019": 189861,
+    "2021": 188687,
+    "2022": 188122,
+    "2023": 190974,
+    "2024": 193934,
+    "2025": 195946
+   }
+  }
+ },
+ "fuenlabrada": {
+  "puestos_por_100_residentes_2025": 52.2,
+  "afiliados_lugar_trabajo_31dic2025": 47920,
+  "afiliados_residentes_1ene2026": 91755,
+  "pct_trabaja_en_su_municipio_2023": 15.3,
+  "paro_medio_2025": 9245.8,
+  "paro_pct_16_64_2025": 7.29,
+  "paro_menores25_pct_16_24_2025": 3.97,
+  "paro_mujeres_pct_mujeres_16_64_2025": 8.93,
+  "contratos_2025": 31656,
+  "pct_contratos_indefinidos_2025": 51.14,
+  "pct_afiliados_residentes_temporales_2026": 9.77,
+  "detalle": {
+   "afiliados_serie": {
+    "2013": {
+     "afiliados_lugar_trabajo_31dic": 39448,
+     "afiliados_residentes_1ene_siguiente": 78516,
+     "puestos_por_100_residentes": 50.2
+    },
+    "2014": {
+     "afiliados_lugar_trabajo_31dic": 41666,
+     "afiliados_residentes_1ene_siguiente": 80397,
+     "puestos_por_100_residentes": 51.8
+    },
+    "2015": {
+     "afiliados_lugar_trabajo_31dic": 42439,
+     "afiliados_residentes_1ene_siguiente": 83152,
+     "puestos_por_100_residentes": 51.0
+    },
+    "2016": {
+     "afiliados_lugar_trabajo_31dic": 43578,
+     "afiliados_residentes_1ene_siguiente": 85196,
+     "puestos_por_100_residentes": 51.2
+    },
+    "2017": {
+     "afiliados_lugar_trabajo_31dic": 45290,
+     "afiliados_residentes_1ene_siguiente": 87506,
+     "puestos_por_100_residentes": 51.8
+    },
+    "2018": {
+     "afiliados_lugar_trabajo_31dic": 45623,
+     "afiliados_residentes_1ene_siguiente": 89359,
+     "puestos_por_100_residentes": 51.1
+    },
+    "2019": {
+     "afiliados_lugar_trabajo_31dic": 45671,
+     "afiliados_residentes_1ene_siguiente": 89774,
+     "puestos_por_100_residentes": 50.9
+    },
+    "2020": {
+     "afiliados_lugar_trabajo_31dic": 44422,
+     "afiliados_residentes_1ene_siguiente": 86755,
+     "puestos_por_100_residentes": 51.2
+    },
+    "2021": {
+     "afiliados_lugar_trabajo_31dic": 45465,
+     "afiliados_residentes_1ene_siguiente": 89447,
+     "puestos_por_100_residentes": 50.8
+    },
+    "2022": {
+     "afiliados_lugar_trabajo_31dic": 46170,
+     "afiliados_residentes_1ene_siguiente": 90115,
+     "puestos_por_100_residentes": 51.2
+    },
+    "2023": {
+     "afiliados_lugar_trabajo_31dic": 47665,
+     "afiliados_residentes_1ene_siguiente": 90925,
+     "puestos_por_100_residentes": 52.4
+    },
+    "2024": {
+     "afiliados_lugar_trabajo_31dic": 47665,
+     "afiliados_residentes_1ene_siguiente": 91484,
+     "puestos_por_100_residentes": 52.1
+    },
+    "2025": {
+     "afiliados_lugar_trabajo_31dic": 47920,
+     "afiliados_residentes_1ene_siguiente": 91755,
+     "puestos_por_100_residentes": 52.2
+    }
+   },
+   "afiliados_lugar_trabajo_2025_por_regimen": {
+    "Régimen general": 38505,
+    "Régimen agrario": 35,
+    "Régimen del mar": 0,
+    "Régimen de empleados del hogar": 320,
+    "Régimen de autónomos": 9060,
+    "Régimen del carbón": 0
+   },
+   "censo_lugar_trabajo": {
+    "2021": {
+     "ocupados_residentes": 83727,
+     "trabajan_mismo_municipio": 12465,
+     "otro_municipio_provincia": 66618,
+     "otra_ccaa": 3353,
+     "sin_info_lugar": 1291,
+     "pct_mismo_municipio": 14.9,
+     "pct_mismo_municipio_sobre_conocidos": 15.1
+    },
+    "2022": {
+     "ocupados_residentes": 86040,
+     "trabajan_mismo_municipio": 12906,
+     "otro_municipio_provincia": 67903,
+     "otra_ccaa": 3610,
+     "sin_info_lugar": 1621,
+     "pct_mismo_municipio": 15.0,
+     "pct_mismo_municipio_sobre_conocidos": 15.3
+    },
+    "2023": {
+     "ocupados_residentes": 86670,
+     "trabajan_mismo_municipio": 13267,
+     "otro_municipio_provincia": 68005,
+     "otra_ccaa": 3641,
+     "sin_info_lugar": 1757,
+     "pct_mismo_municipio": 15.3,
+     "pct_mismo_municipio_sobre_conocidos": 15.6
+    }
+   },
+   "paro_serie_media_anual": {
+    "2015": {
+     "paro_medio": 19399.8,
+     "pob_16_64": 143258,
+     "paro_pct_16_64": 13.54,
+     "fuente_poblacion": "padron"
+    },
+    "2016": {
+     "paro_medio": 17080.5,
+     "pob_16_64": 141301,
+     "paro_pct_16_64": 12.09,
+     "fuente_poblacion": "padron"
+    },
+    "2017": {
+     "paro_medio": 15067.6,
+     "pob_16_64": 140718,
+     "paro_pct_16_64": 10.71,
+     "fuente_poblacion": "padron"
+    },
+    "2018": {
+     "paro_medio": 13647.1,
+     "pob_16_64": 138087,
+     "paro_pct_16_64": 9.88,
+     "fuente_poblacion": "padron"
+    },
+    "2019": {
+     "paro_medio": 12880.2,
+     "pob_16_64": 136769,
+     "paro_pct_16_64": 9.42,
+     "fuente_poblacion": "padron"
+    },
+    "2020": {
+     "paro_medio": 14605.2,
+     "pob_16_64": null,
+     "paro_pct_16_64": null,
+     "fuente_poblacion": null
+    },
+    "2021": {
+     "paro_medio": 14795.8,
+     "pob_16_64": 133589,
+     "paro_pct_16_64": 11.08,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2022": {
+     "paro_medio": 11303.8,
+     "pob_16_64": 130432,
+     "paro_pct_16_64": 8.67,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2023": {
+     "paro_medio": 10711.4,
+     "pob_16_64": 128326,
+     "paro_pct_16_64": 8.35,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2024": {
+     "paro_medio": 9931.3,
+     "pob_16_64": 128216,
+     "paro_pct_16_64": 7.75,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2025": {
+     "paro_medio": 9245.8,
+     "pob_16_64": 126822,
+     "paro_pct_16_64": 7.29,
+     "fuente_poblacion": "censo_anual"
+    }
+   },
+   "paro_2025_media": {
+    "total": 9245.8,
+    "menores_25": 821.3,
+    "mujeres": 5763.3,
+    "pct_mujeres_sobre_parados": 62.3,
+    "pob_16_64": 126822,
+    "pob_16_24": 20672,
+    "pob_mujeres_16_64": 64537,
+    "paro_pct_16_64": 7.29,
+    "paro_menores25_pct_16_24": 3.97,
+    "paro_mujeres_pct_mujeres_16_64": 8.93
+   },
+   "paro_ultimo_mes": {
+    "mes": "2026-08",
+    "total": 8914,
+    "menores_25": 779,
+    "mujeres": 5538,
+    "paro_pct_16_64": 7.03,
+    "paro_menores25_pct_16_24": 3.77,
+    "paro_mujeres_pct_mujeres_16_64": 8.58,
+    "denominador": "población a 1-1-2025 (Censo anual)"
+   },
+   "contratos_2025": {
+    "total": 31656,
+    "iniciales_indefinidos": 15444,
+    "iniciales_temporales": 15466,
+    "convertidos_indefinidos": 746,
+    "celdas_menor_5_omitidas": 0,
+    "cuadre_suma_menos_total": 0,
+    "pct_indefinidos": 51.14,
+    "pct_iniciales_indefinidos": 48.79,
+    "pct_temporales": 48.86
+   },
+   "afiliados_residentes_contrato_2026": {
+    "total": 91755,
+    "indefinido": 74606,
+    "temporal": 8078,
+    "no_consta": 9071,
+    "pct_temporal_sobre_con_contrato": 9.77
+   },
+   "poblacion_16_64": {
+    "2015": 143258,
+    "2016": 141301,
+    "2017": 140718,
+    "2018": 138087,
+    "2019": 136769,
+    "2021": 133589,
+    "2022": 130432,
+    "2023": 128326,
+    "2024": 128216,
+    "2025": 126822
+   },
+   "poblacion_total_misma_fuente": {
+    "2015": 195180,
+    "2016": 194171,
+    "2017": 194669,
+    "2018": 193586,
+    "2019": 193700,
+    "2021": 192612,
+    "2022": 190215,
+    "2023": 189287,
+    "2024": 190496,
+    "2025": 189814
+   }
+  }
+ },
+ "mostoles": {
+  "puestos_por_100_residentes_2025": 48.8,
+  "afiliados_lugar_trabajo_31dic2025": 46245,
+  "afiliados_residentes_1ene2026": 94844,
+  "pct_trabaja_en_su_municipio_2023": 15.0,
+  "paro_medio_2025": 9388.8,
+  "paro_pct_16_64_2025": 6.98,
+  "paro_menores25_pct_16_24_2025": 3.46,
+  "paro_mujeres_pct_mujeres_16_64_2025": 8.38,
+  "contratos_2025": 22397,
+  "pct_contratos_indefinidos_2025": 52.88,
+  "pct_afiliados_residentes_temporales_2026": 9.46,
+  "detalle": {
+   "afiliados_serie": {
+    "2013": {
+     "afiliados_lugar_trabajo_31dic": 35837,
+     "afiliados_residentes_1ene_siguiente": 81082,
+     "puestos_por_100_residentes": 44.2
+    },
+    "2014": {
+     "afiliados_lugar_trabajo_31dic": 40511,
+     "afiliados_residentes_1ene_siguiente": 82076,
+     "puestos_por_100_residentes": 49.4
+    },
+    "2015": {
+     "afiliados_lugar_trabajo_31dic": 37665,
+     "afiliados_residentes_1ene_siguiente": 84098,
+     "puestos_por_100_residentes": 44.8
+    },
+    "2016": {
+     "afiliados_lugar_trabajo_31dic": 38926,
+     "afiliados_residentes_1ene_siguiente": 85573,
+     "puestos_por_100_residentes": 45.5
+    },
+    "2017": {
+     "afiliados_lugar_trabajo_31dic": 40674,
+     "afiliados_residentes_1ene_siguiente": 87487,
+     "puestos_por_100_residentes": 46.5
+    },
+    "2018": {
+     "afiliados_lugar_trabajo_31dic": 42825,
+     "afiliados_residentes_1ene_siguiente": 89597,
+     "puestos_por_100_residentes": 47.8
+    },
+    "2019": {
+     "afiliados_lugar_trabajo_31dic": 43040,
+     "afiliados_residentes_1ene_siguiente": 90340,
+     "puestos_por_100_residentes": 47.6
+    },
+    "2020": {
+     "afiliados_lugar_trabajo_31dic": 42252,
+     "afiliados_residentes_1ene_siguiente": 87295,
+     "puestos_por_100_residentes": 48.4
+    },
+    "2021": {
+     "afiliados_lugar_trabajo_31dic": 43705,
+     "afiliados_residentes_1ene_siguiente": 89947,
+     "puestos_por_100_residentes": 48.6
+    },
+    "2022": {
+     "afiliados_lugar_trabajo_31dic": 44420,
+     "afiliados_residentes_1ene_siguiente": 91515,
+     "puestos_por_100_residentes": 48.5
+    },
+    "2023": {
+     "afiliados_lugar_trabajo_31dic": 44790,
+     "afiliados_residentes_1ene_siguiente": 92918,
+     "puestos_por_100_residentes": 48.2
+    },
+    "2024": {
+     "afiliados_lugar_trabajo_31dic": 45510,
+     "afiliados_residentes_1ene_siguiente": 94134,
+     "puestos_por_100_residentes": 48.3
+    },
+    "2025": {
+     "afiliados_lugar_trabajo_31dic": 46245,
+     "afiliados_residentes_1ene_siguiente": 94844,
+     "puestos_por_100_residentes": 48.8
+    }
+   },
+   "afiliados_lugar_trabajo_2025_por_regimen": {
+    "Régimen general": 36260,
+    "Régimen agrario": 20,
+    "Régimen del mar": 0,
+    "Régimen de empleados del hogar": 515,
+    "Régimen de autónomos": 9450,
+    "Régimen del carbón": 0
+   },
+   "censo_lugar_trabajo": {
+    "2021": {
+     "ocupados_residentes": 85568,
+     "trabajan_mismo_municipio": 12553,
+     "otro_municipio_provincia": 68500,
+     "otra_ccaa": 3236,
+     "sin_info_lugar": 1279,
+     "pct_mismo_municipio": 14.7,
+     "pct_mismo_municipio_sobre_conocidos": 14.9
+    },
+    "2022": {
+     "ocupados_residentes": 88375,
+     "trabajan_mismo_municipio": 13275,
+     "otro_municipio_provincia": 69966,
+     "otra_ccaa": 3482,
+     "sin_info_lugar": 1652,
+     "pct_mismo_municipio": 15.0,
+     "pct_mismo_municipio_sobre_conocidos": 15.3
+    },
+    "2023": {
+     "ocupados_residentes": 90150,
+     "trabajan_mismo_municipio": 13567,
+     "otro_municipio_provincia": 71008,
+     "otra_ccaa": 3690,
+     "sin_info_lugar": 1885,
+     "pct_mismo_municipio": 15.0,
+     "pct_mismo_municipio_sobre_conocidos": 15.4
+    }
+   },
+   "paro_serie_media_anual": {
+    "2015": {
+     "paro_medio": 18523.1,
+     "pob_16_64": 142579,
+     "paro_pct_16_64": 12.99,
+     "fuente_poblacion": "padron"
+    },
+    "2016": {
+     "paro_medio": 16498.8,
+     "pob_16_64": 139401,
+     "paro_pct_16_64": 11.84,
+     "fuente_poblacion": "padron"
+    },
+    "2017": {
+     "paro_medio": 14636.8,
+     "pob_16_64": 137803,
+     "paro_pct_16_64": 10.62,
+     "fuente_poblacion": "padron"
+    },
+    "2018": {
+     "paro_medio": 13233.0,
+     "pob_16_64": 135794,
+     "paro_pct_16_64": 9.74,
+     "fuente_poblacion": "padron"
+    },
+    "2019": {
+     "paro_medio": 12361.1,
+     "pob_16_64": 135361,
+     "paro_pct_16_64": 9.13,
+     "fuente_poblacion": "padron"
+    },
+    "2020": {
+     "paro_medio": 14179.9,
+     "pob_16_64": null,
+     "paro_pct_16_64": null,
+     "fuente_poblacion": null
+    },
+    "2021": {
+     "paro_medio": 14444.2,
+     "pob_16_64": 132544,
+     "paro_pct_16_64": 10.9,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2022": {
+     "paro_medio": 11243.8,
+     "pob_16_64": 131544,
+     "paro_pct_16_64": 8.55,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2023": {
+     "paro_medio": 10536.1,
+     "pob_16_64": 132351,
+     "paro_pct_16_64": 7.96,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2024": {
+     "paro_medio": 10016.7,
+     "pob_16_64": 133814,
+     "paro_pct_16_64": 7.49,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2025": {
+     "paro_medio": 9388.8,
+     "pob_16_64": 134511,
+     "paro_pct_16_64": 6.98,
+     "fuente_poblacion": "censo_anual"
+    }
+   },
+   "paro_2025_media": {
+    "total": 9388.8,
+    "menores_25": 673.4,
+    "mujeres": 5693.6,
+    "pct_mujeres_sobre_parados": 60.6,
+    "pob_16_64": 134511,
+    "pob_16_24": 19446,
+    "pob_mujeres_16_64": 67903,
+    "paro_pct_16_64": 6.98,
+    "paro_menores25_pct_16_24": 3.46,
+    "paro_mujeres_pct_mujeres_16_64": 8.38
+   },
+   "paro_ultimo_mes": {
+    "mes": "2026-08",
+    "total": 9154,
+    "menores_25": 625,
+    "mujeres": 5523,
+    "paro_pct_16_64": 6.81,
+    "paro_menores25_pct_16_24": 3.21,
+    "paro_mujeres_pct_mujeres_16_64": 8.13,
+    "denominador": "población a 1-1-2025 (Censo anual)"
+   },
+   "contratos_2025": {
+    "total": 22397,
+    "iniciales_indefinidos": 11196,
+    "iniciales_temporales": 10554,
+    "convertidos_indefinidos": 647,
+    "celdas_menor_5_omitidas": 0,
+    "cuadre_suma_menos_total": 0,
+    "pct_indefinidos": 52.88,
+    "pct_iniciales_indefinidos": 49.99,
+    "pct_temporales": 47.12
+   },
+   "afiliados_residentes_contrato_2026": {
+    "total": 94844,
+    "indefinido": 77309,
+    "temporal": 8075,
+    "no_consta": 9460,
+    "pct_temporal_sobre_con_contrato": 9.46
+   },
+   "poblacion_16_64": {
+    "2015": 142579,
+    "2016": 139401,
+    "2017": 137803,
+    "2018": 135794,
+    "2019": 135361,
+    "2021": 132544,
+    "2022": 131544,
+    "2023": 132351,
+    "2024": 133814,
+    "2025": 134511
+   },
+   "poblacion_total_misma_fuente": {
+    "2015": 206263,
+    "2016": 205614,
+    "2017": 206589,
+    "2018": 207095,
+    "2019": 209184,
+    "2021": 208632,
+    "2022": 208532,
+    "2023": 210592,
+    "2024": 213268,
+    "2025": 214293
+   }
+  }
+ },
+ "alcorcon": {
+  "puestos_por_100_residentes_2025": 64.0,
+  "afiliados_lugar_trabajo_31dic2025": 51630,
+  "afiliados_residentes_1ene2026": 80702,
+  "pct_trabaja_en_su_municipio_2023": 15.9,
+  "paro_medio_2025": 7092.2,
+  "paro_pct_16_64_2025": 6.28,
+  "paro_menores25_pct_16_24_2025": 2.9,
+  "paro_mujeres_pct_mujeres_16_64_2025": 7.6,
+  "contratos_2025": 30477,
+  "pct_contratos_indefinidos_2025": 50.71,
+  "pct_afiliados_residentes_temporales_2026": 9.09,
+  "detalle": {
+   "afiliados_serie": {
+    "2013": {
+     "afiliados_lugar_trabajo_31dic": 39277,
+     "afiliados_residentes_1ene_siguiente": 64297,
+     "puestos_por_100_residentes": 61.1
+    },
+    "2014": {
+     "afiliados_lugar_trabajo_31dic": 40199,
+     "afiliados_residentes_1ene_siguiente": 65299,
+     "puestos_por_100_residentes": 61.6
+    },
+    "2015": {
+     "afiliados_lugar_trabajo_31dic": 42143,
+     "afiliados_residentes_1ene_siguiente": 67145,
+     "puestos_por_100_residentes": 62.8
+    },
+    "2016": {
+     "afiliados_lugar_trabajo_31dic": 44418,
+     "afiliados_residentes_1ene_siguiente": 68563,
+     "puestos_por_100_residentes": 64.8
+    },
+    "2017": {
+     "afiliados_lugar_trabajo_31dic": 45990,
+     "afiliados_residentes_1ene_siguiente": 70309,
+     "puestos_por_100_residentes": 65.4
+    },
+    "2018": {
+     "afiliados_lugar_trabajo_31dic": 47225,
+     "afiliados_residentes_1ene_siguiente": 72140,
+     "puestos_por_100_residentes": 65.5
+    },
+    "2019": {
+     "afiliados_lugar_trabajo_31dic": 48451,
+     "afiliados_residentes_1ene_siguiente": 73359,
+     "puestos_por_100_residentes": 66.0
+    },
+    "2020": {
+     "afiliados_lugar_trabajo_31dic": 52706,
+     "afiliados_residentes_1ene_siguiente": 71523,
+     "puestos_por_100_residentes": 73.7
+    },
+    "2021": {
+     "afiliados_lugar_trabajo_31dic": 56515,
+     "afiliados_residentes_1ene_siguiente": 73991,
+     "puestos_por_100_residentes": 76.4
+    },
+    "2022": {
+     "afiliados_lugar_trabajo_31dic": 50700,
+     "afiliados_residentes_1ene_siguiente": 75818,
+     "puestos_por_100_residentes": 66.9
+    },
+    "2023": {
+     "afiliados_lugar_trabajo_31dic": 50930,
+     "afiliados_residentes_1ene_siguiente": 77896,
+     "puestos_por_100_residentes": 65.4
+    },
+    "2024": {
+     "afiliados_lugar_trabajo_31dic": 51390,
+     "afiliados_residentes_1ene_siguiente": 79380,
+     "puestos_por_100_residentes": 64.7
+    },
+    "2025": {
+     "afiliados_lugar_trabajo_31dic": 51630,
+     "afiliados_residentes_1ene_siguiente": 80702,
+     "puestos_por_100_residentes": 64.0
+    }
+   },
+   "afiliados_lugar_trabajo_2025_por_regimen": {
+    "Régimen general": 42425,
+    "Régimen agrario": 10,
+    "Régimen del mar": 5,
+    "Régimen de empleados del hogar": 1000,
+    "Régimen de autónomos": 8190,
+    "Régimen del carbón": 0
+   },
+   "censo_lugar_trabajo": {
+    "2021": {
+     "ocupados_residentes": 71128,
+     "trabajan_mismo_municipio": 11178,
+     "otro_municipio_provincia": 56428,
+     "otra_ccaa": 2435,
+     "sin_info_lugar": 1087,
+     "pct_mismo_municipio": 15.7,
+     "pct_mismo_municipio_sobre_conocidos": 16.0
+    },
+    "2022": {
+     "ocupados_residentes": 73711,
+     "trabajan_mismo_municipio": 11654,
+     "otro_municipio_provincia": 58183,
+     "otra_ccaa": 2543,
+     "sin_info_lugar": 1331,
+     "pct_mismo_municipio": 15.8,
+     "pct_mismo_municipio_sobre_conocidos": 16.1
+    },
+    "2023": {
+     "ocupados_residentes": 75835,
+     "trabajan_mismo_municipio": 12068,
+     "otro_municipio_provincia": 59539,
+     "otra_ccaa": 2716,
+     "sin_info_lugar": 1512,
+     "pct_mismo_municipio": 15.9,
+     "pct_mismo_municipio_sobre_conocidos": 16.2
+    }
+   },
+   "paro_serie_media_anual": {
+    "2015": {
+     "paro_medio": 13155.3,
+     "pob_16_64": 105295,
+     "paro_pct_16_64": 12.49,
+     "fuente_poblacion": "padron"
+    },
+    "2016": {
+     "paro_medio": 11871.2,
+     "pob_16_64": 104591,
+     "paro_pct_16_64": 11.35,
+     "fuente_poblacion": "padron"
+    },
+    "2017": {
+     "paro_medio": 10538.4,
+     "pob_16_64": 104300,
+     "paro_pct_16_64": 10.1,
+     "fuente_poblacion": "padron"
+    },
+    "2018": {
+     "paro_medio": 9526.7,
+     "pob_16_64": 104403,
+     "paro_pct_16_64": 9.12,
+     "fuente_poblacion": "padron"
+    },
+    "2019": {
+     "paro_medio": 9032.5,
+     "pob_16_64": 104898,
+     "paro_pct_16_64": 8.61,
+     "fuente_poblacion": "padron"
+    },
+    "2020": {
+     "paro_medio": 10543.2,
+     "pob_16_64": null,
+     "paro_pct_16_64": null,
+     "fuente_poblacion": null
+    },
+    "2021": {
+     "paro_medio": 10638.7,
+     "pob_16_64": 106751,
+     "paro_pct_16_64": 9.97,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2022": {
+     "paro_medio": 8175.0,
+     "pob_16_64": 107248,
+     "paro_pct_16_64": 7.62,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2023": {
+     "paro_medio": 7720.0,
+     "pob_16_64": 108895,
+     "paro_pct_16_64": 7.09,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2024": {
+     "paro_medio": 7337.0,
+     "pob_16_64": 110761,
+     "paro_pct_16_64": 6.62,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2025": {
+     "paro_medio": 7092.2,
+     "pob_16_64": 112856,
+     "paro_pct_16_64": 6.28,
+     "fuente_poblacion": "censo_anual"
+    }
+   },
+   "paro_2025_media": {
+    "total": 7092.2,
+    "menores_25": 522.1,
+    "mujeres": 4330.2,
+    "pct_mujeres_sobre_parados": 61.1,
+    "pob_16_64": 112856,
+    "pob_16_24": 18024,
+    "pob_mujeres_16_64": 56999,
+    "paro_pct_16_64": 6.28,
+    "paro_menores25_pct_16_24": 2.9,
+    "paro_mujeres_pct_mujeres_16_64": 7.6
+   },
+   "paro_ultimo_mes": {
+    "mes": "2026-08",
+    "total": 7056,
+    "menores_25": 515,
+    "mujeres": 4255,
+    "paro_pct_16_64": 6.25,
+    "paro_menores25_pct_16_24": 2.86,
+    "paro_mujeres_pct_mujeres_16_64": 7.47,
+    "denominador": "población a 1-1-2025 (Censo anual)"
+   },
+   "contratos_2025": {
+    "total": 30477,
+    "iniciales_indefinidos": 14319,
+    "iniciales_temporales": 15021,
+    "convertidos_indefinidos": 1137,
+    "celdas_menor_5_omitidas": 0,
+    "cuadre_suma_menos_total": 0,
+    "pct_indefinidos": 50.71,
+    "pct_iniciales_indefinidos": 46.98,
+    "pct_temporales": 49.29
+   },
+   "afiliados_residentes_contrato_2026": {
+    "total": 80702,
+    "indefinido": 65915,
+    "temporal": 6592,
+    "no_consta": 8195,
+    "pct_temporal_sobre_con_contrato": 9.09
+   },
+   "poblacion_16_64": {
+    "2015": 105295,
+    "2016": 104591,
+    "2017": 104300,
+    "2018": 104403,
+    "2019": 104898,
+    "2021": 106751,
+    "2022": 107248,
+    "2023": 108895,
+    "2024": 110761,
+    "2025": 112856
+   },
+   "poblacion_total_misma_fuente": {
+    "2015": 167136,
+    "2016": 167354,
+    "2017": 168141,
+    "2018": 169502,
+    "2019": 170514,
+    "2021": 171575,
+    "2022": 171435,
+    "2023": 172845,
+    "2024": 174740,
+    "2025": 176806
+   }
+  }
+ },
+ "alcobendas": {
+  "puestos_por_100_residentes_2025": 227.5,
+  "afiliados_lugar_trabajo_31dic2025": 133415,
+  "afiliados_residentes_1ene2026": 58632,
+  "pct_trabaja_en_su_municipio_2023": 22.3,
+  "paro_medio_2025": 3792.2,
+  "paro_pct_16_64_2025": 4.65,
+  "paro_menores25_pct_16_24_2025": 1.5,
+  "paro_mujeres_pct_mujeres_16_64_2025": 5.36,
+  "contratos_2025": 45982,
+  "pct_contratos_indefinidos_2025": 51.24,
+  "pct_afiliados_residentes_temporales_2026": 7.96,
+  "detalle": {
+   "afiliados_serie": {
+    "2013": {
+     "afiliados_lugar_trabajo_31dic": 101422,
+     "afiliados_residentes_1ene_siguiente": 45360,
+     "puestos_por_100_residentes": 223.6
+    },
+    "2014": {
+     "afiliados_lugar_trabajo_31dic": 99423,
+     "afiliados_residentes_1ene_siguiente": 46261,
+     "puestos_por_100_residentes": 214.9
+    },
+    "2015": {
+     "afiliados_lugar_trabajo_31dic": 100434,
+     "afiliados_residentes_1ene_siguiente": 47802,
+     "puestos_por_100_residentes": 210.1
+    },
+    "2016": {
+     "afiliados_lugar_trabajo_31dic": 106010,
+     "afiliados_residentes_1ene_siguiente": 48978,
+     "puestos_por_100_residentes": 216.4
+    },
+    "2017": {
+     "afiliados_lugar_trabajo_31dic": 109424,
+     "afiliados_residentes_1ene_siguiente": 50518,
+     "puestos_por_100_residentes": 216.6
+    },
+    "2018": {
+     "afiliados_lugar_trabajo_31dic": 117952,
+     "afiliados_residentes_1ene_siguiente": 52431,
+     "puestos_por_100_residentes": 225.0
+    },
+    "2019": {
+     "afiliados_lugar_trabajo_31dic": 117497,
+     "afiliados_residentes_1ene_siguiente": 53468,
+     "puestos_por_100_residentes": 219.8
+    },
+    "2020": {
+     "afiliados_lugar_trabajo_31dic": 113525,
+     "afiliados_residentes_1ene_siguiente": 51948,
+     "puestos_por_100_residentes": 218.5
+    },
+    "2021": {
+     "afiliados_lugar_trabajo_31dic": 118895,
+     "afiliados_residentes_1ene_siguiente": 53779,
+     "puestos_por_100_residentes": 221.1
+    },
+    "2022": {
+     "afiliados_lugar_trabajo_31dic": 123920,
+     "afiliados_residentes_1ene_siguiente": 55382,
+     "puestos_por_100_residentes": 223.8
+    },
+    "2023": {
+     "afiliados_lugar_trabajo_31dic": 127615,
+     "afiliados_residentes_1ene_siguiente": 57192,
+     "puestos_por_100_residentes": 223.1
+    },
+    "2024": {
+     "afiliados_lugar_trabajo_31dic": 130295,
+     "afiliados_residentes_1ene_siguiente": 57899,
+     "puestos_por_100_residentes": 225.0
+    },
+    "2025": {
+     "afiliados_lugar_trabajo_31dic": 133415,
+     "afiliados_residentes_1ene_siguiente": 58632,
+     "puestos_por_100_residentes": 227.5
+    }
+   },
+   "afiliados_lugar_trabajo_2025_por_regimen": {
+    "Régimen general": 122685,
+    "Régimen agrario": 15,
+    "Régimen del mar": 20,
+    "Régimen de empleados del hogar": 2975,
+    "Régimen de autónomos": 7720,
+    "Régimen del carbón": 0
+   },
+   "censo_lugar_trabajo": {
+    "2021": {
+     "ocupados_residentes": 50240,
+     "trabajan_mismo_municipio": 11492,
+     "otro_municipio_provincia": 36252,
+     "otra_ccaa": 1736,
+     "sin_info_lugar": 760,
+     "pct_mismo_municipio": 22.9,
+     "pct_mismo_municipio_sobre_conocidos": 23.2
+    },
+    "2022": {
+     "ocupados_residentes": 51730,
+     "trabajan_mismo_municipio": 11466,
+     "otro_municipio_provincia": 37456,
+     "otra_ccaa": 1856,
+     "sin_info_lugar": 952,
+     "pct_mismo_municipio": 22.2,
+     "pct_mismo_municipio_sobre_conocidos": 22.6
+    },
+    "2023": {
+     "ocupados_residentes": 53265,
+     "trabajan_mismo_municipio": 11889,
+     "otro_municipio_provincia": 38251,
+     "otra_ccaa": 2037,
+     "sin_info_lugar": 1088,
+     "pct_mismo_municipio": 22.3,
+     "pct_mismo_municipio_sobre_conocidos": 22.8
+    }
+   },
+   "paro_serie_media_anual": {
+    "2015": {
+     "paro_medio": 6740.1,
+     "pob_16_64": 76444,
+     "paro_pct_16_64": 8.82,
+     "fuente_poblacion": "padron"
+    },
+    "2016": {
+     "paro_medio": 6057.9,
+     "pob_16_64": 75894,
+     "paro_pct_16_64": 7.98,
+     "fuente_poblacion": "padron"
+    },
+    "2017": {
+     "paro_medio": 5328.2,
+     "pob_16_64": 76336,
+     "paro_pct_16_64": 6.98,
+     "fuente_poblacion": "padron"
+    },
+    "2018": {
+     "paro_medio": 4799.4,
+     "pob_16_64": 76652,
+     "paro_pct_16_64": 6.26,
+     "fuente_poblacion": "padron"
+    },
+    "2019": {
+     "paro_medio": 4577.1,
+     "pob_16_64": 77123,
+     "paro_pct_16_64": 5.93,
+     "fuente_poblacion": "padron"
+    },
+    "2020": {
+     "paro_medio": 5639.9,
+     "pob_16_64": null,
+     "paro_pct_16_64": null,
+     "fuente_poblacion": null
+    },
+    "2021": {
+     "paro_medio": 5792.9,
+     "pob_16_64": 76922,
+     "paro_pct_16_64": 7.53,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2022": {
+     "paro_medio": 4329.3,
+     "pob_16_64": 76666,
+     "paro_pct_16_64": 5.65,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2023": {
+     "paro_medio": 4029.0,
+     "pob_16_64": 78614,
+     "paro_pct_16_64": 5.13,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2024": {
+     "paro_medio": 3985.5,
+     "pob_16_64": 80213,
+     "paro_pct_16_64": 4.97,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2025": {
+     "paro_medio": 3792.2,
+     "pob_16_64": 81564,
+     "paro_pct_16_64": 4.65,
+     "fuente_poblacion": "censo_anual"
+    }
+   },
+   "paro_2025_media": {
+    "total": 3792.2,
+    "menores_25": 200.8,
+    "mujeres": 2265.8,
+    "pct_mujeres_sobre_parados": 59.7,
+    "pob_16_64": 81564,
+    "pob_16_24": 13356,
+    "pob_mujeres_16_64": 42250,
+    "paro_pct_16_64": 4.65,
+    "paro_menores25_pct_16_24": 1.5,
+    "paro_mujeres_pct_mujeres_16_64": 5.36
+   },
+   "paro_ultimo_mes": {
+    "mes": "2026-08",
+    "total": 3864,
+    "menores_25": 209,
+    "mujeres": 2300,
+    "paro_pct_16_64": 4.74,
+    "paro_menores25_pct_16_24": 1.56,
+    "paro_mujeres_pct_mujeres_16_64": 5.44,
+    "denominador": "población a 1-1-2025 (Censo anual)"
+   },
+   "contratos_2025": {
+    "total": 45982,
+    "iniciales_indefinidos": 22048,
+    "iniciales_temporales": 22423,
+    "convertidos_indefinidos": 1511,
+    "celdas_menor_5_omitidas": 0,
+    "cuadre_suma_menos_total": 0,
+    "pct_indefinidos": 51.24,
+    "pct_iniciales_indefinidos": 47.95,
+    "pct_temporales": 48.76
+   },
+   "afiliados_residentes_contrato_2026": {
+    "total": 58632,
+    "indefinido": 46852,
+    "temporal": 4054,
+    "no_consta": 7726,
+    "pct_temporal_sobre_con_contrato": 7.96
+   },
+   "poblacion_16_64": {
+    "2015": 76444,
+    "2016": 75894,
+    "2017": 76336,
+    "2018": 76652,
+    "2019": 77123,
+    "2021": 76922,
+    "2022": 76666,
+    "2023": 78614,
+    "2024": 80213,
+    "2025": 81564
+   },
+   "poblacion_total_misma_fuente": {
+    "2015": 113055,
+    "2016": 113340,
+    "2017": 114864,
+    "2018": 116037,
+    "2019": 117040,
+    "2021": 116895,
+    "2022": 116935,
+    "2023": 119471,
+    "2024": 121446,
+    "2025": 123222
+   }
+  }
+ },
+ "pinto": {
+  "puestos_por_100_residentes_2025": 89.2,
+  "afiliados_lugar_trabajo_31dic2025": 22020,
+  "afiliados_residentes_1ene2026": 24677,
+  "pct_trabaja_en_su_municipio_2023": 17.0,
+  "paro_medio_2025": 2393.8,
+  "paro_pct_16_64_2025": 6.16,
+  "paro_menores25_pct_16_24_2025": 3.31,
+  "paro_mujeres_pct_mujeres_16_64_2025": 8.07,
+  "contratos_2025": 16901,
+  "pct_contratos_indefinidos_2025": 38.59,
+  "pct_afiliados_residentes_temporales_2026": 9.52,
+  "detalle": {
+   "afiliados_serie": {
+    "2013": {
+     "afiliados_lugar_trabajo_31dic": 15641,
+     "afiliados_residentes_1ene_siguiente": 16470,
+     "puestos_por_100_residentes": 95.0
+    },
+    "2014": {
+     "afiliados_lugar_trabajo_31dic": 24454,
+     "afiliados_residentes_1ene_siguiente": 17106,
+     "puestos_por_100_residentes": 143.0
+    },
+    "2015": {
+     "afiliados_lugar_trabajo_31dic": 15968,
+     "afiliados_residentes_1ene_siguiente": 17959,
+     "puestos_por_100_residentes": 88.9
+    },
+    "2016": {
+     "afiliados_lugar_trabajo_31dic": 16904,
+     "afiliados_residentes_1ene_siguiente": 18674,
+     "puestos_por_100_residentes": 90.5
+    },
+    "2017": {
+     "afiliados_lugar_trabajo_31dic": 17762,
+     "afiliados_residentes_1ene_siguiente": 19512,
+     "puestos_por_100_residentes": 91.0
+    },
+    "2018": {
+     "afiliados_lugar_trabajo_31dic": 19063,
+     "afiliados_residentes_1ene_siguiente": 20385,
+     "puestos_por_100_residentes": 93.5
+    },
+    "2019": {
+     "afiliados_lugar_trabajo_31dic": 19752,
+     "afiliados_residentes_1ene_siguiente": 21036,
+     "puestos_por_100_residentes": 93.9
+    },
+    "2020": {
+     "afiliados_lugar_trabajo_31dic": 20174,
+     "afiliados_residentes_1ene_siguiente": 20591,
+     "puestos_por_100_residentes": 98.0
+    },
+    "2021": {
+     "afiliados_lugar_trabajo_31dic": 19315,
+     "afiliados_residentes_1ene_siguiente": 21659,
+     "puestos_por_100_residentes": 89.2
+    },
+    "2022": {
+     "afiliados_lugar_trabajo_31dic": 20175,
+     "afiliados_residentes_1ene_siguiente": 22480,
+     "puestos_por_100_residentes": 89.7
+    },
+    "2023": {
+     "afiliados_lugar_trabajo_31dic": 20850,
+     "afiliados_residentes_1ene_siguiente": 23259,
+     "puestos_por_100_residentes": 89.6
+    },
+    "2024": {
+     "afiliados_lugar_trabajo_31dic": 21095,
+     "afiliados_residentes_1ene_siguiente": 23999,
+     "puestos_por_100_residentes": 87.9
+    },
+    "2025": {
+     "afiliados_lugar_trabajo_31dic": 22020,
+     "afiliados_residentes_1ene_siguiente": 24677,
+     "puestos_por_100_residentes": 89.2
+    }
+   },
+   "afiliados_lugar_trabajo_2025_por_regimen": {
+    "Régimen general": 18975,
+    "Régimen agrario": 15,
+    "Régimen del mar": 0,
+    "Régimen de empleados del hogar": 155,
+    "Régimen de autónomos": 2875,
+    "Régimen del carbón": 0
+   },
+   "censo_lugar_trabajo": {
+    "2021": {
+     "ocupados_residentes": 24743,
+     "trabajan_mismo_municipio": 4155,
+     "otro_municipio_provincia": 18965,
+     "otra_ccaa": 1271,
+     "sin_info_lugar": 352,
+     "pct_mismo_municipio": 16.8,
+     "pct_mismo_municipio_sobre_conocidos": 17.0
+    },
+    "2022": {
+     "ocupados_residentes": 25754,
+     "trabajan_mismo_municipio": 4437,
+     "otro_municipio_provincia": 19534,
+     "otra_ccaa": 1352,
+     "sin_info_lugar": 431,
+     "pct_mismo_municipio": 17.2,
+     "pct_mismo_municipio_sobre_conocidos": 17.5
+    },
+    "2023": {
+     "ocupados_residentes": 26529,
+     "trabajan_mismo_municipio": 4516,
+     "otro_municipio_provincia": 20119,
+     "otra_ccaa": 1373,
+     "sin_info_lugar": 521,
+     "pct_mismo_municipio": 17.0,
+     "pct_mismo_municipio_sobre_conocidos": 17.4
+    }
+   },
+   "paro_serie_media_anual": {
+    "2015": {
+     "paro_medio": 4157.9,
+     "pob_16_64": 33620,
+     "paro_pct_16_64": 12.37,
+     "fuente_poblacion": "padron"
+    },
+    "2016": {
+     "paro_medio": 3830.7,
+     "pob_16_64": 33999,
+     "paro_pct_16_64": 11.27,
+     "fuente_poblacion": "padron"
+    },
+    "2017": {
+     "paro_medio": 3436.1,
+     "pob_16_64": 34511,
+     "paro_pct_16_64": 9.96,
+     "fuente_poblacion": "padron"
+    },
+    "2018": {
+     "paro_medio": 3228.1,
+     "pob_16_64": 35038,
+     "paro_pct_16_64": 9.21,
+     "fuente_poblacion": "padron"
+    },
+    "2019": {
+     "paro_medio": 3055.6,
+     "pob_16_64": 35668,
+     "paro_pct_16_64": 8.57,
+     "fuente_poblacion": "padron"
+    },
+    "2020": {
+     "paro_medio": 3580.2,
+     "pob_16_64": null,
+     "paro_pct_16_64": null,
+     "fuente_poblacion": null
+    },
+    "2021": {
+     "paro_medio": 3624.3,
+     "pob_16_64": 36489,
+     "paro_pct_16_64": 9.93,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2022": {
+     "paro_medio": 2838.8,
+     "pob_16_64": 36868,
+     "paro_pct_16_64": 7.7,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2023": {
+     "paro_medio": 2674.3,
+     "pob_16_64": 37668,
+     "paro_pct_16_64": 7.1,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2024": {
+     "paro_medio": 2540.6,
+     "pob_16_64": 38327,
+     "paro_pct_16_64": 6.63,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2025": {
+     "paro_medio": 2393.8,
+     "pob_16_64": 38869,
+     "paro_pct_16_64": 6.16,
+     "fuente_poblacion": "censo_anual"
+    }
+   },
+   "paro_2025_media": {
+    "total": 2393.8,
+    "menores_25": 201.7,
+    "mujeres": 1580.1,
+    "pct_mujeres_sobre_parados": 66.0,
+    "pob_16_64": 38869,
+    "pob_16_24": 6099,
+    "pob_mujeres_16_64": 19578,
+    "paro_pct_16_64": 6.16,
+    "paro_menores25_pct_16_24": 3.31,
+    "paro_mujeres_pct_mujeres_16_64": 8.07
+   },
+   "paro_ultimo_mes": {
+    "mes": "2026-08",
+    "total": 2429,
+    "menores_25": 198,
+    "mujeres": 1559,
+    "paro_pct_16_64": 6.25,
+    "paro_menores25_pct_16_24": 3.25,
+    "paro_mujeres_pct_mujeres_16_64": 7.96,
+    "denominador": "población a 1-1-2025 (Censo anual)"
+   },
+   "contratos_2025": {
+    "total": 16901,
+    "iniciales_indefinidos": 5947,
+    "iniciales_temporales": 10379,
+    "convertidos_indefinidos": 575,
+    "celdas_menor_5_omitidas": 0,
+    "cuadre_suma_menos_total": 0,
+    "pct_indefinidos": 38.59,
+    "pct_iniciales_indefinidos": 35.19,
+    "pct_temporales": 61.41
+   },
+   "afiliados_residentes_contrato_2026": {
+    "total": 24677,
+    "indefinido": 19721,
+    "temporal": 2076,
+    "no_consta": 2880,
+    "pct_temporal_sobre_con_contrato": 9.52
+   },
+   "poblacion_16_64": {
+    "2015": 33620,
+    "2016": 33999,
+    "2017": 34511,
+    "2018": 35038,
+    "2019": 35668,
+    "2021": 36489,
+    "2022": 36868,
+    "2023": 37668,
+    "2024": 38327,
+    "2025": 38869
+   },
+   "poblacion_total_misma_fuente": {
+    "2015": 48660,
+    "2016": 49522,
+    "2017": 50442,
+    "2018": 51541,
+    "2019": 52526,
+    "2021": 53625,
+    "2022": 54149,
+    "2023": 55178,
+    "2024": 55989,
+    "2025": 56592
+   }
+  }
+ },
+ "torrejon": {
+  "puestos_por_100_residentes_2025": 60.9,
+  "afiliados_lugar_trabajo_31dic2025": 40175,
+  "afiliados_residentes_1ene2026": 65933,
+  "pct_trabaja_en_su_municipio_2023": 19.7,
+  "paro_medio_2025": 6343.3,
+  "paro_pct_16_64_2025": 6.49,
+  "paro_menores25_pct_16_24_2025": 3.34,
+  "paro_mujeres_pct_mujeres_16_64_2025": 8.05,
+  "contratos_2025": 30342,
+  "pct_contratos_indefinidos_2025": 42.05,
+  "pct_afiliados_residentes_temporales_2026": 9.4,
+  "detalle": {
+   "afiliados_serie": {
+    "2013": {
+     "afiliados_lugar_trabajo_31dic": 26764,
+     "afiliados_residentes_1ene_siguiente": 47025,
+     "puestos_por_100_residentes": 56.9
+    },
+    "2014": {
+     "afiliados_lugar_trabajo_31dic": 27237,
+     "afiliados_residentes_1ene_siguiente": 48440,
+     "puestos_por_100_residentes": 56.2
+    },
+    "2015": {
+     "afiliados_lugar_trabajo_31dic": 28964,
+     "afiliados_residentes_1ene_siguiente": 50267,
+     "puestos_por_100_residentes": 57.6
+    },
+    "2016": {
+     "afiliados_lugar_trabajo_31dic": 30296,
+     "afiliados_residentes_1ene_siguiente": 51956,
+     "puestos_por_100_residentes": 58.3
+    },
+    "2017": {
+     "afiliados_lugar_trabajo_31dic": 31791,
+     "afiliados_residentes_1ene_siguiente": 53984,
+     "puestos_por_100_residentes": 58.9
+    },
+    "2018": {
+     "afiliados_lugar_trabajo_31dic": 33091,
+     "afiliados_residentes_1ene_siguiente": 55768,
+     "puestos_por_100_residentes": 59.3
+    },
+    "2019": {
+     "afiliados_lugar_trabajo_31dic": 35029,
+     "afiliados_residentes_1ene_siguiente": 57221,
+     "puestos_por_100_residentes": 61.2
+    },
+    "2020": {
+     "afiliados_lugar_trabajo_31dic": 34206,
+     "afiliados_residentes_1ene_siguiente": 55620,
+     "puestos_por_100_residentes": 61.5
+    },
+    "2021": {
+     "afiliados_lugar_trabajo_31dic": 37445,
+     "afiliados_residentes_1ene_siguiente": 58532,
+     "puestos_por_100_residentes": 64.0
+    },
+    "2022": {
+     "afiliados_lugar_trabajo_31dic": 37820,
+     "afiliados_residentes_1ene_siguiente": 60141,
+     "puestos_por_100_residentes": 62.9
+    },
+    "2023": {
+     "afiliados_lugar_trabajo_31dic": 38550,
+     "afiliados_residentes_1ene_siguiente": 62185,
+     "puestos_por_100_residentes": 62.0
+    },
+    "2024": {
+     "afiliados_lugar_trabajo_31dic": 39080,
+     "afiliados_residentes_1ene_siguiente": 64097,
+     "puestos_por_100_residentes": 61.0
+    },
+    "2025": {
+     "afiliados_lugar_trabajo_31dic": 40175,
+     "afiliados_residentes_1ene_siguiente": 65933,
+     "puestos_por_100_residentes": 60.9
+    }
+   },
+   "afiliados_lugar_trabajo_2025_por_regimen": {
+    "Régimen general": 33140,
+    "Régimen agrario": 25,
+    "Régimen del mar": 5,
+    "Régimen de empleados del hogar": 400,
+    "Régimen de autónomos": 6605,
+    "Régimen del carbón": 0
+   },
+   "censo_lugar_trabajo": {
+    "2021": {
+     "ocupados_residentes": 59025,
+     "trabajan_mismo_municipio": 11002,
+     "otro_municipio_provincia": 44135,
+     "otra_ccaa": 2818,
+     "sin_info_lugar": 1070,
+     "pct_mismo_municipio": 18.6,
+     "pct_mismo_municipio_sobre_conocidos": 19.0
+    },
+    "2022": {
+     "ocupados_residentes": 62617,
+     "trabajan_mismo_municipio": 12254,
+     "otro_municipio_provincia": 45947,
+     "otra_ccaa": 3070,
+     "sin_info_lugar": 1346,
+     "pct_mismo_municipio": 19.6,
+     "pct_mismo_municipio_sobre_conocidos": 20.0
+    },
+    "2023": {
+     "ocupados_residentes": 64817,
+     "trabajan_mismo_municipio": 12748,
+     "otro_municipio_provincia": 47369,
+     "otra_ccaa": 3167,
+     "sin_info_lugar": 1533,
+     "pct_mismo_municipio": 19.7,
+     "pct_mismo_municipio_sobre_conocidos": 20.1
+    }
+   },
+   "paro_serie_media_anual": {
+    "2015": {
+     "paro_medio": 12102.4,
+     "pob_16_64": 88187,
+     "paro_pct_16_64": 13.72,
+     "fuente_poblacion": "padron"
+    },
+    "2016": {
+     "paro_medio": 10842.3,
+     "pob_16_64": 87570,
+     "paro_pct_16_64": 12.38,
+     "fuente_poblacion": "padron"
+    },
+    "2017": {
+     "paro_medio": 9493.3,
+     "pob_16_64": 87432,
+     "paro_pct_16_64": 10.86,
+     "fuente_poblacion": "padron"
+    },
+    "2018": {
+     "paro_medio": 8604.2,
+     "pob_16_64": 87886,
+     "paro_pct_16_64": 9.79,
+     "fuente_poblacion": "padron"
+    },
+    "2019": {
+     "paro_medio": 8161.9,
+     "pob_16_64": 88500,
+     "paro_pct_16_64": 9.22,
+     "fuente_poblacion": "padron"
+    },
+    "2020": {
+     "paro_medio": 9495.5,
+     "pob_16_64": null,
+     "paro_pct_16_64": null,
+     "fuente_poblacion": null
+    },
+    "2021": {
+     "paro_medio": 10093.2,
+     "pob_16_64": 89812,
+     "paro_pct_16_64": 11.24,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2022": {
+     "paro_medio": 7795.2,
+     "pob_16_64": 91280,
+     "paro_pct_16_64": 8.54,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2023": {
+     "paro_medio": 7195.0,
+     "pob_16_64": 93186,
+     "paro_pct_16_64": 7.72,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2024": {
+     "paro_medio": 6745.9,
+     "pob_16_64": 95409,
+     "paro_pct_16_64": 7.07,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2025": {
+     "paro_medio": 6343.3,
+     "pob_16_64": 97738,
+     "paro_pct_16_64": 6.49,
+     "fuente_poblacion": "censo_anual"
+    }
+   },
+   "paro_2025_media": {
+    "total": 6343.3,
+    "menores_25": 481.3,
+    "mujeres": 3944.8,
+    "pct_mujeres_sobre_parados": 62.2,
+    "pob_16_64": 97738,
+    "pob_16_24": 14417,
+    "pob_mujeres_16_64": 49014,
+    "paro_pct_16_64": 6.49,
+    "paro_menores25_pct_16_24": 3.34,
+    "paro_mujeres_pct_mujeres_16_64": 8.05
+   },
+   "paro_ultimo_mes": {
+    "mes": "2026-08",
+    "total": 6318,
+    "menores_25": 477,
+    "mujeres": 3913,
+    "paro_pct_16_64": 6.46,
+    "paro_menores25_pct_16_24": 3.31,
+    "paro_mujeres_pct_mujeres_16_64": 7.98,
+    "denominador": "población a 1-1-2025 (Censo anual)"
+   },
+   "contratos_2025": {
+    "total": 30342,
+    "iniciales_indefinidos": 11798,
+    "iniciales_temporales": 17584,
+    "convertidos_indefinidos": 960,
+    "celdas_menor_5_omitidas": 0,
+    "cuadre_suma_menos_total": 0,
+    "pct_indefinidos": 42.05,
+    "pct_iniciales_indefinidos": 38.88,
+    "pct_temporales": 57.95
+   },
+   "afiliados_residentes_contrato_2026": {
+    "total": 65933,
+    "indefinido": 53738,
+    "temporal": 5576,
+    "no_consta": 6619,
+    "pct_temporal_sobre_con_contrato": 9.4
+   },
+   "poblacion_16_64": {
+    "2015": 88187,
+    "2016": 87570,
+    "2017": 87432,
+    "2018": 87886,
+    "2019": 88500,
+    "2021": 89812,
+    "2022": 91280,
+    "2023": 93186,
+    "2024": 95409,
+    "2025": 97738
+   },
+   "poblacion_total_misma_fuente": {
+    "2015": 126934,
+    "2016": 126981,
+    "2017": 128013,
+    "2018": 129729,
+    "2019": 131376,
+    "2021": 133377,
+    "2022": 135540,
+    "2023": 138197,
+    "2024": 141047,
+    "2025": 144211
+   }
+  }
+ },
+ "pozuelo": {
+  "puestos_por_100_residentes_2025": 214.9,
+  "afiliados_lugar_trabajo_31dic2025": 86730,
+  "afiliados_residentes_1ene2026": 40362,
+  "pct_trabaja_en_su_municipio_2023": 16.2,
+  "paro_medio_2025": 1913.9,
+  "paro_pct_16_64_2025": 3.34,
+  "paro_menores25_pct_16_24_2025": 0.68,
+  "paro_mujeres_pct_mujeres_16_64_2025": 3.63,
+  "contratos_2025": 32736,
+  "pct_contratos_indefinidos_2025": 41.64,
+  "pct_afiliados_residentes_temporales_2026": 7.22,
+  "detalle": {
+   "afiliados_serie": {
+    "2013": {
+     "afiliados_lugar_trabajo_31dic": 65266,
+     "afiliados_residentes_1ene_siguiente": 31774,
+     "puestos_por_100_residentes": 205.4
+    },
+    "2014": {
+     "afiliados_lugar_trabajo_31dic": 67318,
+     "afiliados_residentes_1ene_siguiente": 32520,
+     "puestos_por_100_residentes": 207.0
+    },
+    "2015": {
+     "afiliados_lugar_trabajo_31dic": 72917,
+     "afiliados_residentes_1ene_siguiente": 33256,
+     "puestos_por_100_residentes": 219.3
+    },
+    "2016": {
+     "afiliados_lugar_trabajo_31dic": 78385,
+     "afiliados_residentes_1ene_siguiente": 33916,
+     "puestos_por_100_residentes": 231.1
+    },
+    "2017": {
+     "afiliados_lugar_trabajo_31dic": 76429,
+     "afiliados_residentes_1ene_siguiente": 34796,
+     "puestos_por_100_residentes": 219.6
+    },
+    "2018": {
+     "afiliados_lugar_trabajo_31dic": 78814,
+     "afiliados_residentes_1ene_siguiente": 35758,
+     "puestos_por_100_residentes": 220.4
+    },
+    "2019": {
+     "afiliados_lugar_trabajo_31dic": 83217,
+     "afiliados_residentes_1ene_siguiente": 36388,
+     "puestos_por_100_residentes": 228.7
+    },
+    "2020": {
+     "afiliados_lugar_trabajo_31dic": 79234,
+     "afiliados_residentes_1ene_siguiente": 36054,
+     "puestos_por_100_residentes": 219.8
+    },
+    "2021": {
+     "afiliados_lugar_trabajo_31dic": 80730,
+     "afiliados_residentes_1ene_siguiente": 37304,
+     "puestos_por_100_residentes": 216.4
+    },
+    "2022": {
+     "afiliados_lugar_trabajo_31dic": 85190,
+     "afiliados_residentes_1ene_siguiente": 38276,
+     "puestos_por_100_residentes": 222.6
+    },
+    "2023": {
+     "afiliados_lugar_trabajo_31dic": 87660,
+     "afiliados_residentes_1ene_siguiente": 39177,
+     "puestos_por_100_residentes": 223.8
+    },
+    "2024": {
+     "afiliados_lugar_trabajo_31dic": 90195,
+     "afiliados_residentes_1ene_siguiente": 39903,
+     "puestos_por_100_residentes": 226.0
+    },
+    "2025": {
+     "afiliados_lugar_trabajo_31dic": 86730,
+     "afiliados_residentes_1ene_siguiente": 40362,
+     "puestos_por_100_residentes": 214.9
+    }
+   },
+   "afiliados_lugar_trabajo_2025_por_regimen": {
+    "Régimen general": 73565,
+    "Régimen agrario": 10,
+    "Régimen del mar": 5,
+    "Régimen de empleados del hogar": 4600,
+    "Régimen de autónomos": 8550,
+    "Régimen del carbón": 0
+   },
+   "censo_lugar_trabajo": {
+    "2021": {
+     "ocupados_residentes": 36889,
+     "trabajan_mismo_municipio": 6016,
+     "otro_municipio_provincia": 28642,
+     "otra_ccaa": 1638,
+     "sin_info_lugar": 593,
+     "pct_mismo_municipio": 16.3,
+     "pct_mismo_municipio_sobre_conocidos": 16.6
+    },
+    "2022": {
+     "ocupados_residentes": 38111,
+     "trabajan_mismo_municipio": 6162,
+     "otro_municipio_provincia": 29327,
+     "otra_ccaa": 1799,
+     "sin_info_lugar": 823,
+     "pct_mismo_municipio": 16.2,
+     "pct_mismo_municipio_sobre_conocidos": 16.5
+    },
+    "2023": {
+     "ocupados_residentes": 38924,
+     "trabajan_mismo_municipio": 6309,
+     "otro_municipio_provincia": 29843,
+     "otra_ccaa": 1878,
+     "sin_info_lugar": 894,
+     "pct_mismo_municipio": 16.2,
+     "pct_mismo_municipio_sobre_conocidos": 16.6
+    }
+   },
+   "paro_serie_media_anual": {
+    "2015": {
+     "paro_medio": 3077.0,
+     "pob_16_64": 55074,
+     "paro_pct_16_64": 5.59,
+     "fuente_poblacion": "padron"
+    },
+    "2016": {
+     "paro_medio": 2717.0,
+     "pob_16_64": 55003,
+     "paro_pct_16_64": 4.94,
+     "fuente_poblacion": "padron"
+    },
+    "2017": {
+     "paro_medio": 2521.6,
+     "pob_16_64": 55072,
+     "paro_pct_16_64": 4.58,
+     "fuente_poblacion": "padron"
+    },
+    "2018": {
+     "paro_medio": 2330.8,
+     "pob_16_64": 55344,
+     "paro_pct_16_64": 4.21,
+     "fuente_poblacion": "padron"
+    },
+    "2019": {
+     "paro_medio": 2236.8,
+     "pob_16_64": 55470,
+     "paro_pct_16_64": 4.03,
+     "fuente_poblacion": "padron"
+    },
+    "2020": {
+     "paro_medio": 2623.3,
+     "pob_16_64": null,
+     "paro_pct_16_64": null,
+     "fuente_poblacion": null
+    },
+    "2021": {
+     "paro_medio": 2700.6,
+     "pob_16_64": 56164,
+     "paro_pct_16_64": 4.81,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2022": {
+     "paro_medio": 2139.6,
+     "pob_16_64": 56308,
+     "paro_pct_16_64": 3.8,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2023": {
+     "paro_medio": 2062.1,
+     "pob_16_64": 56851,
+     "paro_pct_16_64": 3.63,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2024": {
+     "paro_medio": 2053.3,
+     "pob_16_64": 57333,
+     "paro_pct_16_64": 3.58,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2025": {
+     "paro_medio": 1913.9,
+     "pob_16_64": 57323,
+     "paro_pct_16_64": 3.34,
+     "fuente_poblacion": "censo_anual"
+    }
+   },
+   "paro_2025_media": {
+    "total": 1913.9,
+    "menores_25": 78.3,
+    "mujeres": 1084.6,
+    "pct_mujeres_sobre_parados": 56.7,
+    "pob_16_64": 57323,
+    "pob_16_24": 11509,
+    "pob_mujeres_16_64": 29859,
+    "paro_pct_16_64": 3.34,
+    "paro_menores25_pct_16_24": 0.68,
+    "paro_mujeres_pct_mujeres_16_64": 3.63
+   },
+   "paro_ultimo_mes": {
+    "mes": "2026-08",
+    "total": 1965,
+    "menores_25": 82,
+    "mujeres": 1139,
+    "paro_pct_16_64": 3.43,
+    "paro_menores25_pct_16_24": 0.71,
+    "paro_mujeres_pct_mujeres_16_64": 3.81,
+    "denominador": "población a 1-1-2025 (Censo anual)"
+   },
+   "contratos_2025": {
+    "total": 32736,
+    "iniciales_indefinidos": 13050,
+    "iniciales_temporales": 19105,
+    "convertidos_indefinidos": 581,
+    "celdas_menor_5_omitidas": 0,
+    "cuadre_suma_menos_total": 0,
+    "pct_indefinidos": 41.64,
+    "pct_iniciales_indefinidos": 39.86,
+    "pct_temporales": 58.36
+   },
+   "afiliados_residentes_contrato_2026": {
+    "total": 40362,
+    "indefinido": 29510,
+    "temporal": 2297,
+    "no_consta": 8555,
+    "pct_temporal_sobre_con_contrato": 7.22
+   },
+   "poblacion_16_64": {
+    "2015": 55074,
+    "2016": 55003,
+    "2017": 55072,
+    "2018": 55344,
+    "2019": 55470,
+    "2021": 56164,
+    "2022": 56308,
+    "2023": 56851,
+    "2024": 57333,
+    "2025": 57323
+   },
+   "poblacion_total_misma_fuente": {
+    "2015": 84558,
+    "2016": 84989,
+    "2017": 85605,
+    "2018": 86172,
+    "2019": 86422,
+    "2021": 87080,
+    "2022": 87633,
+    "2023": 88504,
+    "2024": 89123,
+    "2025": 89474
+   }
+  }
+ },
+ "majadahonda": {
+  "puestos_por_100_residentes_2025": 105.9,
+  "afiliados_lugar_trabajo_31dic2025": 35530,
+  "afiliados_residentes_1ene2026": 33541,
+  "pct_trabaja_en_su_municipio_2023": 16.5,
+  "paro_medio_2025": 1826.9,
+  "paro_pct_16_64_2025": 3.85,
+  "paro_menores25_pct_16_24_2025": 0.89,
+  "paro_mujeres_pct_mujeres_16_64_2025": 4.14,
+  "contratos_2025": 17573,
+  "pct_contratos_indefinidos_2025": 49.02,
+  "pct_afiliados_residentes_temporales_2026": 7.8,
+  "detalle": {
+   "afiliados_serie": {
+    "2013": {
+     "afiliados_lugar_trabajo_31dic": 26125,
+     "afiliados_residentes_1ene_siguiente": 26278,
+     "puestos_por_100_residentes": 99.4
+    },
+    "2014": {
+     "afiliados_lugar_trabajo_31dic": 27265,
+     "afiliados_residentes_1ene_siguiente": 27008,
+     "puestos_por_100_residentes": 101.0
+    },
+    "2015": {
+     "afiliados_lugar_trabajo_31dic": 28934,
+     "afiliados_residentes_1ene_siguiente": 27649,
+     "puestos_por_100_residentes": 104.6
+    },
+    "2016": {
+     "afiliados_lugar_trabajo_31dic": 29893,
+     "afiliados_residentes_1ene_siguiente": 28384,
+     "puestos_por_100_residentes": 105.3
+    },
+    "2017": {
+     "afiliados_lugar_trabajo_31dic": 30838,
+     "afiliados_residentes_1ene_siguiente": 29094,
+     "puestos_por_100_residentes": 106.0
+    },
+    "2018": {
+     "afiliados_lugar_trabajo_31dic": 31604,
+     "afiliados_residentes_1ene_siguiente": 30047,
+     "puestos_por_100_residentes": 105.2
+    },
+    "2019": {
+     "afiliados_lugar_trabajo_31dic": 31288,
+     "afiliados_residentes_1ene_siguiente": 30710,
+     "puestos_por_100_residentes": 101.9
+    },
+    "2020": {
+     "afiliados_lugar_trabajo_31dic": 31179,
+     "afiliados_residentes_1ene_siguiente": 30043,
+     "puestos_por_100_residentes": 103.8
+    },
+    "2021": {
+     "afiliados_lugar_trabajo_31dic": 32525,
+     "afiliados_residentes_1ene_siguiente": 31185,
+     "puestos_por_100_residentes": 104.3
+    },
+    "2022": {
+     "afiliados_lugar_trabajo_31dic": 33200,
+     "afiliados_residentes_1ene_siguiente": 31900,
+     "puestos_por_100_residentes": 104.1
+    },
+    "2023": {
+     "afiliados_lugar_trabajo_31dic": 33835,
+     "afiliados_residentes_1ene_siguiente": 32626,
+     "puestos_por_100_residentes": 103.7
+    },
+    "2024": {
+     "afiliados_lugar_trabajo_31dic": 33990,
+     "afiliados_residentes_1ene_siguiente": 33054,
+     "puestos_por_100_residentes": 102.8
+    },
+    "2025": {
+     "afiliados_lugar_trabajo_31dic": 35530,
+     "afiliados_residentes_1ene_siguiente": 33541,
+     "puestos_por_100_residentes": 105.9
+    }
+   },
+   "afiliados_lugar_trabajo_2025_por_regimen": {
+    "Régimen general": 27495,
+    "Régimen agrario": 5,
+    "Régimen del mar": 5,
+    "Régimen de empleados del hogar": 2270,
+    "Régimen de autónomos": 5755,
+    "Régimen del carbón": 0
+   },
+   "censo_lugar_trabajo": {
+    "2021": {
+     "ocupados_residentes": 30622,
+     "trabajan_mismo_municipio": 4798,
+     "otro_municipio_provincia": 24141,
+     "otra_ccaa": 1223,
+     "sin_info_lugar": 460,
+     "pct_mismo_municipio": 15.7,
+     "pct_mismo_municipio_sobre_conocidos": 15.9
+    },
+    "2022": {
+     "ocupados_residentes": 31383,
+     "trabajan_mismo_municipio": 5028,
+     "otro_municipio_provincia": 24444,
+     "otra_ccaa": 1292,
+     "sin_info_lugar": 619,
+     "pct_mismo_municipio": 16.0,
+     "pct_mismo_municipio_sobre_conocidos": 16.3
+    },
+    "2023": {
+     "ocupados_residentes": 31814,
+     "trabajan_mismo_municipio": 5242,
+     "otro_municipio_provincia": 24554,
+     "otra_ccaa": 1357,
+     "sin_info_lugar": 661,
+     "pct_mismo_municipio": 16.5,
+     "pct_mismo_municipio_sobre_conocidos": 16.8
+    }
+   },
+   "paro_serie_media_anual": {
+    "2015": {
+     "paro_medio": 3145.2,
+     "pob_16_64": 46613,
+     "paro_pct_16_64": 6.75,
+     "fuente_poblacion": "padron"
+    },
+    "2016": {
+     "paro_medio": 2809.0,
+     "pob_16_64": 46296,
+     "paro_pct_16_64": 6.07,
+     "fuente_poblacion": "padron"
+    },
+    "2017": {
+     "paro_medio": 2478.0,
+     "pob_16_64": 46254,
+     "paro_pct_16_64": 5.36,
+     "fuente_poblacion": "padron"
+    },
+    "2018": {
+     "paro_medio": 2267.3,
+     "pob_16_64": 46437,
+     "paro_pct_16_64": 4.88,
+     "fuente_poblacion": "padron"
+    },
+    "2019": {
+     "paro_medio": 2130.9,
+     "pob_16_64": 46339,
+     "paro_pct_16_64": 4.6,
+     "fuente_poblacion": "padron"
+    },
+    "2020": {
+     "paro_medio": 2631.2,
+     "pob_16_64": null,
+     "paro_pct_16_64": null,
+     "fuente_poblacion": null
+    },
+    "2021": {
+     "paro_medio": 2730.0,
+     "pob_16_64": 46736,
+     "paro_pct_16_64": 5.84,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2022": {
+     "paro_medio": 2066.5,
+     "pob_16_64": 46785,
+     "paro_pct_16_64": 4.42,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2023": {
+     "paro_medio": 1926.3,
+     "pob_16_64": 47078,
+     "paro_pct_16_64": 4.09,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2024": {
+     "paro_medio": 1909.6,
+     "pob_16_64": 47550,
+     "paro_pct_16_64": 4.02,
+     "fuente_poblacion": "censo_anual"
+    },
+    "2025": {
+     "paro_medio": 1826.9,
+     "pob_16_64": 47501,
+     "paro_pct_16_64": 3.85,
+     "fuente_poblacion": "censo_anual"
+    }
+   },
+   "paro_2025_media": {
+    "total": 1826.9,
+    "menores_25": 80.8,
+    "mujeres": 1030.9,
+    "pct_mujeres_sobre_parados": 56.4,
+    "pob_16_64": 47501,
+    "pob_16_24": 9112,
+    "pob_mujeres_16_64": 24879,
+    "paro_pct_16_64": 3.85,
+    "paro_menores25_pct_16_24": 0.89,
+    "paro_mujeres_pct_mujeres_16_64": 4.14
+   },
+   "paro_ultimo_mes": {
+    "mes": "2026-08",
+    "total": 1849,
+    "menores_25": 74,
+    "mujeres": 1086,
+    "paro_pct_16_64": 3.89,
+    "paro_menores25_pct_16_24": 0.81,
+    "paro_mujeres_pct_mujeres_16_64": 4.37,
+    "denominador": "población a 1-1-2025 (Censo anual)"
+   },
+   "contratos_2025": {
+    "total": 17573,
+    "iniciales_indefinidos": 8112,
+    "iniciales_temporales": 8958,
+    "convertidos_indefinidos": 503,
+    "celdas_menor_5_omitidas": 0,
+    "cuadre_suma_menos_total": 0,
+    "pct_indefinidos": 49.02,
+    "pct_iniciales_indefinidos": 46.16,
+    "pct_temporales": 50.98
+   },
+   "afiliados_residentes_contrato_2026": {
+    "total": 33541,
+    "indefinido": 25619,
+    "temporal": 2166,
+    "no_consta": 5756,
+    "pct_temporal_sobre_con_contrato": 7.8
+   },
+   "poblacion_16_64": {
+    "2015": 46613,
+    "2016": 46296,
+    "2017": 46254,
+    "2018": 46437,
+    "2019": 46339,
+    "2021": 46736,
+    "2022": 46785,
+    "2023": 47078,
+    "2024": 47550,
+    "2025": 47501
+   },
+   "poblacion_total_misma_fuente": {
+    "2015": 70800,
+    "2016": 70755,
+    "2017": 71299,
+    "2018": 71785,
+    "2019": 71826,
+    "2021": 72173,
+    "2022": 72395,
+    "2023": 72833,
+    "2024": 73547,
+    "2025": 73662
+   }
+  }
+ }
+}

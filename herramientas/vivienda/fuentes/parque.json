@@ -273,13 +273,13 @@
    "mediana_consumo_anual_kwh": 2357
   },
   "adrh": {
-   "anyo": 2023,
-   "renta_neta_media_por_hogar": 35177,
-   "renta_neta_media_por_persona": 11522,
-   "mediana_renta_por_unidad_consumo": 16450,
-   "media_renta_por_unidad_consumo": 17942,
-   "renta_bruta_media_por_hogar": 41321,
-   "renta_bruta_media_por_persona": 13534,
+   "anyo": 2024,
+   "renta_neta_media_por_hogar": 37572,
+   "renta_neta_media_por_persona": 12175,
+   "mediana_renta_por_unidad_consumo": 17850,
+   "media_renta_por_unidad_consumo": 18946,
+   "renta_bruta_media_por_hogar": 44281,
+   "renta_bruta_media_por_persona": 14349,
    "serie_2021_2023": {
     "Renta neta media por persona": {
      "2023": 11522,
@@ -313,7 +313,7 @@
     }
    },
    "tamano_medio_hogar": 3.0,
-   "pct_hogares_unipersonales": 18.8,
+   "pct_hogares_unipersonales": 18.7,
    "indicadores_demograficos_2021_2023": {
     "Edad media de la población": {
      "2023": 39.0,
@@ -609,13 +609,13 @@
    "mediana_consumo_anual_kwh": 2239
   },
   "adrh": {
-   "anyo": 2023,
-   "renta_neta_media_por_hogar": 41792,
-   "renta_neta_media_por_persona": 15867,
-   "mediana_renta_por_unidad_consumo": 21350,
-   "media_renta_por_unidad_consumo": 23896,
-   "renta_bruta_media_por_hogar": 51131,
-   "renta_bruta_media_por_persona": 19413,
+   "anyo": 2024,
+   "renta_neta_media_por_hogar": 44326,
+   "renta_neta_media_por_persona": 16767,
+   "mediana_renta_por_unidad_consumo": 22750,
+   "media_renta_por_unidad_consumo": 25231,
+   "renta_bruta_media_por_hogar": 54497,
+   "renta_bruta_media_por_persona": 20614,
    "serie_2021_2023": {
     "Renta neta media por persona": {
      "2023": 15867,
@@ -649,7 +649,7 @@
     }
    },
    "tamano_medio_hogar": 2.6,
-   "pct_hogares_unipersonales": 24.4,
+   "pct_hogares_unipersonales": 24.1,
    "indicadores_demograficos_2021_2023": {
     "Edad media de la población": {
      "2023": 42.7,
@@ -945,13 +945,13 @@
    "mediana_consumo_anual_kwh": 2097
   },
   "adrh": {
-   "anyo": 2023,
-   "renta_neta_media_por_hogar": 38660,
-   "renta_neta_media_por_persona": 14531,
-   "mediana_renta_por_unidad_consumo": 19950,
-   "media_renta_por_unidad_consumo": 21756,
-   "renta_bruta_media_por_hogar": 46394,
-   "renta_bruta_media_por_persona": 17438,
+   "anyo": 2024,
+   "renta_neta_media_por_hogar": 40995,
+   "renta_neta_media_por_persona": 15370,
+   "mediana_renta_por_unidad_consumo": 20650,
+   "media_renta_por_unidad_consumo": 22999,
+   "renta_bruta_media_por_hogar": 49515,
+   "renta_bruta_media_por_persona": 18564,
    "serie_2021_2023": {
     "Renta neta media por persona": {
      "2023": 14531,
@@ -984,8 +984,8 @@
      "2021": 40974
     }
    },
-   "tamano_medio_hogar": 2.6,
-   "pct_hogares_unipersonales": 23.7,
+   "tamano_medio_hogar": 2.7,
+   "pct_hogares_unipersonales": 23.8,
    "indicadores_demograficos_2021_2023": {
     "Edad media de la población": {
      "2023": 44.6,
@@ -1281,13 +1281,13 @@
    "mediana_consumo_anual_kwh": 2268
   },
   "adrh": {
-   "anyo": 2023,
-   "renta_neta_media_por_hogar": 38299,
-   "renta_neta_media_por_persona": 13454,
-   "mediana_renta_por_unidad_consumo": 19250,
-   "media_renta_por_unidad_consumo": 20457,
-   "renta_bruta_media_por_hogar": 45288,
-   "renta_bruta_media_por_persona": 15909,
+   "anyo": 2024,
+   "renta_neta_media_por_hogar": 40350,
+   "renta_neta_media_por_persona": 14321,
+   "mediana_renta_por_unidad_consumo": 20650,
+   "media_renta_por_unidad_consumo": 21701,
+   "renta_bruta_media_por_hogar": 47991,
+   "renta_bruta_media_por_persona": 17033,
    "serie_2021_2023": {
     "Renta neta media por persona": {
      "2023": 13454,
@@ -1321,7 +1321,7 @@
     }
    },
    "tamano_medio_hogar": 2.8,
-   "pct_hogares_unipersonales": 17.4,
+   "pct_hogares_unipersonales": 17.7,
    "indicadores_demograficos_2021_2023": {
     "Edad media de la población": {
      "2023": 42.5,
@@ -1617,13 +1617,13 @@
    "mediana_consumo_anual_kwh": 2109
   },
   "adrh": {
-   "anyo": 2023,
-   "renta_neta_media_por_hogar": 38622,
-   "renta_neta_media_por_persona": 14045,
-   "mediana_renta_por_unidad_consumo": 19950,
-   "media_renta_por_unidad_consumo": 21168,
-   "renta_bruta_media_por_hogar": 45949,
-   "renta_bruta_media_por_persona": 16710,
+   "anyo": 2024,
+   "renta_neta_media_por_hogar": 40872,
+   "renta_neta_media_por_persona": 14858,
+   "mediana_renta_por_unidad_consumo": 20650,
+   "media_renta_por_unidad_consumo": 22368,
+   "renta_bruta_media_por_hogar": 48864,
+   "renta_bruta_media_por_persona": 17764,
    "serie_2021_2023": {
     "Renta neta media por persona": {
      "2023": 14045,
@@ -1657,7 +1657,7 @@
     }
    },
    "tamano_medio_hogar": 2.7,
-   "pct_hogares_unipersonales": 21.0,
+   "pct_hogares_unipersonales": 21.1,
    "indicadores_demograficos_2021_2023": {
     "Edad media de la población": {
      "2023": 44.2,
@@ -1953,13 +1953,13 @@
    "mediana_consumo_anual_kwh": 2054
   },
   "adrh": {
-   "anyo": 2023,
-   "renta_neta_media_por_hogar": 41634,
-   "renta_neta_media_por_persona": 15667,
-   "mediana_renta_por_unidad_consumo": 21350,
-   "media_renta_por_unidad_consumo": 23503,
-   "renta_bruta_media_por_hogar": 50636,
-   "renta_bruta_media_por_persona": 19055,
+   "anyo": 2024,
+   "renta_neta_media_por_hogar": 44058,
+   "renta_neta_media_por_persona": 16534,
+   "mediana_renta_por_unidad_consumo": 22750,
+   "media_renta_por_unidad_consumo": 24770,
+   "renta_bruta_media_por_hogar": 53892,
+   "renta_bruta_media_por_persona": 20225,
    "serie_2021_2023": {
     "Renta neta media por persona": {
      "2023": 15667,
@@ -1993,7 +1993,7 @@
     }
    },
    "tamano_medio_hogar": 2.6,
-   "pct_hogares_unipersonales": 24.8,
+   "pct_hogares_unipersonales": 24.7,
    "indicadores_demograficos_2021_2023": {
     "Edad media de la población": {
      "2023": 44.9,
@@ -2289,13 +2289,13 @@
    "mediana_consumo_anual_kwh": 2311
   },
   "adrh": {
-   "anyo": 2023,
-   "renta_neta_media_por_hogar": 65139,
-   "renta_neta_media_por_persona": 21644,
-   "mediana_renta_por_unidad_consumo": 24150,
-   "media_renta_por_unidad_consumo": 34744,
-   "renta_bruta_media_por_hogar": 89262,
-   "renta_bruta_media_por_persona": 29659,
+   "anyo": 2024,
+   "renta_neta_media_por_hogar": 70503,
+   "renta_neta_media_por_persona": 23325,
+   "mediana_renta_por_unidad_consumo": 24850,
+   "media_renta_por_unidad_consumo": 37530,
+   "renta_bruta_media_por_hogar": 97948,
+   "renta_bruta_media_por_persona": 32405,
    "serie_2021_2023": {
     "Renta neta media por persona": {
      "2023": 21644,
@@ -2329,7 +2329,7 @@
     }
    },
    "tamano_medio_hogar": 3.0,
-   "pct_hogares_unipersonales": 20.5,
+   "pct_hogares_unipersonales": 19.9,
    "indicadores_demograficos_2021_2023": {
     "Edad media de la población": {
      "2023": 41.6,
@@ -2625,13 +2625,13 @@
    "mediana_consumo_anual_kwh": 2602
   },
   "adrh": {
-   "anyo": 2023,
-   "renta_neta_media_por_hogar": 42700,
-   "renta_neta_media_por_persona": 15301,
-   "mediana_renta_por_unidad_consumo": 21350,
-   "media_renta_por_unidad_consumo": 23448,
-   "renta_bruta_media_por_hogar": 52472,
-   "renta_bruta_media_por_persona": 18803,
+   "anyo": 2024,
+   "renta_neta_media_por_hogar": 45164,
+   "renta_neta_media_por_persona": 16162,
+   "mediana_renta_por_unidad_consumo": 22050,
+   "media_renta_por_unidad_consumo": 24666,
+   "renta_bruta_media_por_hogar": 55692,
+   "renta_bruta_media_por_persona": 19929,
    "serie_2021_2023": {
     "Renta neta media por persona": {
      "2023": 15301,
@@ -2961,13 +2961,13 @@
    "mediana_consumo_anual_kwh": 2221
   },
   "adrh": {
-   "anyo": 2023,
-   "renta_neta_media_por_hogar": 41459,
-   "renta_neta_media_por_persona": 14463,
-   "mediana_renta_por_unidad_consumo": 19950,
-   "media_renta_por_unidad_consumo": 22129,
-   "renta_bruta_media_por_hogar": 50089,
-   "renta_bruta_media_por_persona": 17473,
+   "anyo": 2024,
+   "renta_neta_media_por_hogar": 44015,
+   "renta_neta_media_por_persona": 15331,
+   "mediana_renta_por_unidad_consumo": 21350,
+   "media_renta_por_unidad_consumo": 23450,
+   "renta_bruta_media_por_hogar": 53689,
+   "renta_bruta_media_por_persona": 18701,
    "serie_2021_2023": {
     "Renta neta media por persona": {
      "2023": 14463,
@@ -3000,7 +3000,7 @@
      "2021": 43635
     }
    },
-   "tamano_medio_hogar": 2.8,
+   "tamano_medio_hogar": 2.9,
    "pct_hogares_unipersonales": 19.9,
    "indicadores_demograficos_2021_2023": {
     "Edad media de la población": {
@@ -3297,13 +3297,13 @@
    "mediana_consumo_anual_kwh": 2983
   },
   "adrh": {
-   "anyo": 2023,
-   "renta_neta_media_por_hogar": 96290,
-   "renta_neta_media_por_persona": 30524,
-   "mediana_renta_por_unidad_consumo": 37450,
-   "media_renta_por_unidad_consumo": 49811,
-   "renta_bruta_media_por_hogar": 138851,
-   "renta_bruta_media_por_persona": 44016,
+   "anyo": 2024,
+   "renta_neta_media_por_hogar": 102629,
+   "renta_neta_media_por_persona": 32612,
+   "mediana_renta_por_unidad_consumo": 39550,
+   "media_renta_por_unidad_consumo": 52943,
+   "renta_bruta_media_por_hogar": 148589,
+   "renta_bruta_media_por_persona": 47217,
    "serie_2021_2023": {
     "Renta neta media por persona": {
      "2023": 30524,
@@ -3633,13 +3633,13 @@
    "mediana_consumo_anual_kwh": 2698
   },
   "adrh": {
-   "anyo": 2023,
-   "renta_neta_media_por_hogar": 74987,
-   "renta_neta_media_por_persona": 24019,
-   "mediana_renta_por_unidad_consumo": 31150,
-   "media_renta_por_unidad_consumo": 38270,
-   "renta_bruta_media_por_hogar": 101193,
-   "renta_bruta_media_por_persona": 32413,
+   "anyo": 2024,
+   "renta_neta_media_por_hogar": 80332,
+   "renta_neta_media_por_persona": 25878,
+   "mediana_renta_por_unidad_consumo": 33250,
+   "media_renta_por_unidad_consumo": 40976,
+   "renta_bruta_media_por_hogar": 108835,
+   "renta_bruta_media_por_persona": 35059,
    "serie_2021_2023": {
     "Renta neta media por persona": {
      "2023": 24019,
@@ -3673,7 +3673,7 @@
     }
    },
    "tamano_medio_hogar": 3.1,
-   "pct_hogares_unipersonales": 19.0,
+   "pct_hogares_unipersonales": 18.9,
    "indicadores_demograficos_2021_2023": {
     "Edad media de la población": {
      "2023": 41.9,

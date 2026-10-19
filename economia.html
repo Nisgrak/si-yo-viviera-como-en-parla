@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El dinero de Parla · Si yo viviera como en Parla</title>
+<meta name="description" content="Dónde se trabaja, quién no encuentra trabajo, lo que entra en casa, lo que se produce y las cuentas del ayuntamiento, en Parla y en tu ciudad. Con datos oficiales.">
+<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="El dinero de Parla">
+<meta property="og:description" content="Por cada 100 vecinos de Parla que trabajan hay 32,5 puestos de trabajo en Parla. El trabajo, la renta, las empresas y las cuentas del ayuntamiento, con datos oficiales.">
+<meta property="og:locale" content="es_ES">
+<meta property="og:url" content="https://siyovivieracomoenparla.netlify.app/economia.html">
+<meta property="og:image" content="https://siyovivieracomoenparla.netlify.app/assets/compartir/general.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/icono.svg" type="image/svg+xml">
+<link rel="mask-icon" href="assets/icono.svg" color="#c02719">
+
+<link rel="preload" href="assets/fuentes/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/estilos.css">
+<link rel="stylesheet" href="assets/infraestructura.css">
+<link rel="stylesheet" href="assets/vivienda.css">
+<link rel="stylesheet" href="assets/economia.css">
+</head>
+<body class="infra viv eco" data-pagina="economia">
+
+<a class="saltar" href="#trabajo">Saltar a las cifras</a>
+
+<noscript>
+  <p class="sin-js">
+    Esta página dibuja los gráficos en tu navegador y necesita JavaScript. Los datos, con sus
+    fuentes, están en
+    <a href="https://github.com/Nisgrak/si-yo-viviera-como-en-parla">github.com/Nisgrak/si-yo-viviera-como-en-parla</a>.
+  </p>
+</noscript>
+
+<nav class="volver">
+  <div class="env">
+    <a class="js-volver" href="index.html">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+        <path d="M15 6H2M6.5 1 1.5 6l5 5" stroke="currentColor" stroke-width="1.6"/>
+      </svg>
+      <span>El recuento de <span data-aqui>Getafe</span></span>
+    </a>
+  </div>
+</nav>
+
+<!-- ── Portada ───────────────────────────────────────────────────────── -->
+<header class="portada portada--infra">
+  <div class="env">
+    <h1 class="portada__titulo">
+      <span class="t1">El dinero de <span class="selector">
+        <span class="selector__eco" id="sel-texto" aria-hidden="true">Getafe</span>
+        <select id="sel-municipio" aria-label="Elige tu municipio"></select>
+      </span></span>
+      <span class="t2">y el dinero de</span>
+      <span class="t3">Parla</span>
+    </h1>
+    <p class="portada__golpe" id="golpe"></p>
+  </div>
+</header>
+
+<main>
+
+<!-- ── Dónde se trabaja ──────────────────────────────────────────────── -->
+<section class="bloque bloque--resumen-viv" id="trabajo" data-indice="Dónde se trabaja">
+  <div class="env">
+    <h2 class="bloque__h">Dónde se trabaja</h2>
+    <p class="bloque__intro">
+      Los puestos de trabajo que hay dentro de cada ciudad por cada 100 vecinos que trabajan, vivan
+      donde vivan los que los ocupan, y cuántos vecinos trabajan sin salir de su ciudad.
+    </p>
+    <div class="pareja" id="trabajo-cifras"></div>
+    <h3 class="bloque__h3">Año a año, desde 2013</h3>
+    <figure class="graf" id="trabajo-graf"></figure>
+    <div class="dinero dinero--contexto" id="trabajo-fichas"></div>
+    <p class="colas__pie">
+      Fuentes: <a data-fuente="afilCentro"></a> y <a data-fuente="afilResidencia"></a>, a 31 de
+      diciembre y a 1 de enero del año siguiente, con datos de la Seguridad Social;
+      <a data-fuente="censoTrabajo"></a>.
+    </p>
+    <p class="cautela">
+      Un puesto es una afiliación con centro de trabajo en la ciudad, la ocupe un vecino o alguien
+      de fuera. Cada autónomo cuenta donde declara su centro de trabajo, que muchas veces es su
+      casa, y no están los funcionarios de mutualidades como MUFACE. Desde 2021 la Seguridad Social
+      redondea cada régimen a múltiplos de 5. El Censo saca el lugar de trabajo de registros
+      administrativos y no ve el teletrabajo ni a quien trabaja en varias ciudades, así que su
+      porcentaje sale bajo en todas. Sirve para comparar unas ciudades con otras.
+    </p>
+  </div>
+</section>
+
+<!-- ── Paro ──────────────────────────────────────────────────────────── -->
+<section class="bloque" id="paro" data-indice="Quien no encuentra trabajo">
+  <div class="env">
+    <h2 class="bloque__h">Quien no encuentra trabajo</h2>
+    <p class="bloque__intro">
+      La tasa de paro, las personas apuntadas al paro por cada 100 vecinos en edad de trabajar, y
+      cuántos de los contratos que se firman son indefinidos.
+    </p>
+    <h3 class="bloque__h3">Paro registrado, de 2015 a 2025</h3>
+    <figure class="graf" id="paro-graf"></figure>
+    <div class="dinero dinero--contexto" id="paro-fichas"></div>
+    <p class="colas__pie">
+      Fuentes: <a data-fuente="sepeParo"></a>, media de los doce meses de cada año;
+      <a data-fuente="sepeContratos"></a>; población de 16 a 64 años: <a data-fuente="censoEdad"></a>
+      y, hasta 2019, padrón continuo del INE.
+    </p>
+    <p class="cautela">
+      El paro registrado cuenta solo a quien se apunta en una oficina de empleo, y los jóvenes se
+      apuntan poco. La tasa de paro, en cambio, sale de una encuesta. En 2020 no hay cociente: el INE
+      no publica la población por edad de ese año. Desde 2022 los fijos discontinuos cuentan como
+      indefinidos, y una persona que firma varios contratos en el año cuenta varias veces.
+    </p>
+  </div>
+</section>
+
+<!-- ── Lo que entra en casa ──────────────────────────────────────────── -->
+<section class="bloque" id="renta" data-indice="Lo que entra en casa">
+  <div class="env">
+    <h2 class="bloque__h">Lo que entra en casa</h2>
+    <p class="bloque__intro">
+      Lo que ingresan los vecinos, de dónde sale y cómo se reparte dentro de cada ciudad.
+    </p>
+    <h3 class="bloque__h3">Renta neta por persona, de 2015 a 2024</h3>
+    <figure class="graf" id="renta-graf"></figure>
+    <div class="dinero dinero--contexto" id="renta-fichas"></div>
+    <h3 class="bloque__h3">De cada 100 euros que entran</h3>
+    <p class="bloque__intro">
+      De dónde sale la renta bruta de los hogares en 2024: el trabajo, las pensiones, el paro, las
+      demás prestaciones y lo demás, que son sobre todo rentas del capital y de alquileres.
+    </p>
+    <div class="reparto" id="renta-reparto"></div>
+    <p class="colas__pie">
+      Fuentes: <a data-fuente="adrh"></a>; <a data-fuente="adrhFuentes"></a>;
+      <a data-fuente="adrhGini"></a>; <a data-fuente="irpf"></a>.
+    </p>
+    <p class="cautela">
+      Las cifras del INE dividen entre todas las personas y los hogares, declaren o no; las de la
+      Agencia Tributaria, entre las declaraciones, y una conjunta puede llevar dos titulares. En
+      Parla presentan declaración 51,5 vecinos de cada 100, menos que en ninguna de las otras diez,
+      así que su media por declaración probablemente sale más alta de lo que sería con todos. Son
+      euros de cada año, sin descontar la inflación.
+    </p>
+  </div>
+</section>
+
+<!-- ── Lo que se produce ─────────────────────────────────────────────── -->
+<section class="bloque" id="produce" data-indice="Lo que se produce">
+  <div class="env">
+    <h2 class="bloque__h">Lo que se produce</h2>
+    <p class="bloque__intro">
+      El valor de lo que se genera dentro de cada ciudad, cuántas empresas tienen allí su sede y a
+      qué se dedican.
+    </p>
+    <div class="dinero dinero--contexto" id="produce-fichas"></div>
+    <h3 class="bloque__h3">De cada 100 empresas</h3>
+    <div class="reparto" id="produce-reparto"></div>
+    <p class="colas__pie">
+      Fuentes: <a data-fuente="dirce"></a>; <a data-fuente="pibRamas"></a>;
+      <a data-fuente="afilRama"></a>.
+    </p>
+    <p class="cautela">
+      Cada empresa cuenta una vez, en la ciudad de su sede, aunque tenga tiendas o trabajadores en
+      otras. Eso sube las cifras de Pozuelo, Majadahonda y Alcobendas. El directorio no incluye la agricultura,
+      la Administración ni los hogares. En 2023 el INE cambió la definición de empresa activa, así
+      que no se compara con los años anteriores (<a data-fuente="dirceRuptura"></a>).
+    </p>
+  </div>
+</section>
+
+<!-- ── Las cuentas del ayuntamiento ──────────────────────────────────── -->
+<section class="bloque bloque--dinero" id="ayuntamiento" data-indice="Las cuentas del ayuntamiento">
+  <div class="env">
+    <h2 class="bloque__h">Las cuentas del ayuntamiento</h2>
+    <p class="bloque__intro">
+      Lo que tu ayuntamiento gasta, invierte, ingresa, recibe y debe, por habitante, y lo que tarda
+      en pagar. Casi todo sale de las liquidaciones de los presupuestos que publica el Ministerio de
+      Hacienda; la deuda viva y el plazo de pago, de otras dos estadísticas del mismo ministerio.
+    </p>
+    <div class="dinero" id="ayto-fichas"></div>
+    <div class="dinero dinero--contexto" id="ayto-mas"></div>
+    <p class="dinero__cierre" id="ayto-cierre"></p>
+  </div>
+</section>
+
+<!-- ── Método ────────────────────────────────────────────────────────── -->
+<section class="bloque bloque--metodo" id="metodo" data-indice="Cómo está hecho">
+  <div class="env">
+    <h2 class="bloque__h">Cómo está hecho esto</h2>
+    <div class="metodo__cuerpo">
+      <h3>Contra qué se mide cada cosa</h3>
+      <p>
+        Los puestos de trabajo, contra los vecinos afiliados a la Seguridad Social, que son los que
+        trabajan. El paro registrado, contra la población de 16 a 64 años del mismo año; el de los
+        menores de 25, contra la de 16 a 24, y el de las mujeres, contra las mujeres de 16 a 64. Las
+        empresas, por cada 1.000 habitantes del padrón del mismo 1 de enero. Las cuentas del
+        ayuntamiento, por habitante del padrón a 1 de enero de 2025, el mismo de toda la web, y en
+        media de los ejercicios de 2021 a 2024, porque la inversión cambia mucho de un año a otro.
+        La deuda viva y el remanente de tesorería son saldos a 31 de diciembre, así que va el último
+        publicado, y el plazo de pago es la media de los últimos doce meses.
+      </p>
+
+      <h3>Lo que se buscó y no está</h3>
+      <p>
+        El INE no publica en tablas cuántos vecinos de cada ciudad trabajan en cada otra, ni los
+        ocupados por municipio de trabajo: por eso los puestos salen de la Seguridad Social. Los
+        locales y establecimientos solo se publican por provincia, y no hay estadística oficial
+        municipal de sociedades nuevas ni de altas de autónomos. Desde 2023 el INE da las fuentes
+        de ingreso solo en porcentaje.
+      </p>
+
+      <h3>Fuentes, una por una</h3>
+      <ul class="fuentes" id="metodo-fuentes"></ul>
+      <p class="cautela">
+        Los datos extraídos, con sus enlaces y sus cautelas, y el script que escribe los de esta
+        página están en
+        <a href="https://github.com/Nisgrak/si-yo-viviera-como-en-parla">el repositorio del proyecto</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="env">
+    <p class="pie__frase">Parla es lo que pasa<br>cuando el reparto lo decide otro.</p>
+    <p class="pie__meta">
+      <a class="js-volver" href="index.html">Volver al recuento de <span data-aqui>Getafe</span></a>
+    </p>
+  </div>
+</footer>
+
+<script src="datos/datos.js"></script>
+<script src="datos/economia.js"></script>
+<script src="assets/indice.js"></script>
+<script src="assets/linea.js"></script>
+<script src="assets/economia.js"></script>
+</body>
+</html>

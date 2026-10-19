@@ -142,16 +142,20 @@
   <div class="env">
     <h2 class="bloque__h">Detrás de todo, el dinero</h2>
     <p class="bloque__intro">
-      Hasta aquí se han contado cosas. Esto es lo que tu ayuntamiento invierte, gasta, recibe y
-      debe. Debajo, el trabajo, la renta, la pobreza y lo que se produce en cada ciudad.
+      Hasta aquí se han contado cosas. Esto es lo que tu ayuntamiento invierte, gasta y debe.
+      Lo que recibe, la renta, el trabajo y lo que se produce en cada ciudad están en su propia
+      página.
     </p>
 
     <div class="dinero" id="dinero-cuerpo"></div>
 
-    <h3 class="bloque__h3">Y lo que hay debajo</h3>
-    <div class="dinero dinero--contexto" id="dinero-contexto"></div>
-
     <p class="dinero__cierre" id="dinero-cierre"></p>
+    <a class="salir__ir" id="dinero-ir" href="economia.html">
+      <span>Ver la economía de <span data-aqui>Getafe</span> y de Parla</span>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+        <path d="M1 6h13M9.5 1l5 5-5 5" stroke="currentColor" stroke-width="1.6"/>
+      </svg>
+    </a>
   </div>
 </section>
 
@@ -184,7 +188,7 @@
     <div class="hogm-pareja" id="vivienda-hogares"></div>
     <p class="salir__pie">
       Viviendas nuevas por cada 100 vecinos nuevos entre 2015 y 2025, y tamaño medio del hogar
-      (<a href="https://www.ine.es/jaxiT3/Tabla.htm?t=31097">INE, Atlas de renta</a>, 2023).
+      (<a href="https://www.ine.es/jaxiT3/Tabla.htm?t=31105">INE, Atlas de renta</a>, 2024).
       <a href="https://gestiona.comunidad.madrid/desvan/almudena/AccionDatosTemaMunicipal.icm?codTema=1002048">Catastro, unidades urbanas de uso residencial</a>
       e <a href="https://www.ine.es/jaxiT3/Tabla.htm?t=2881">INE, padrón</a>.
     </p>
@@ -283,7 +287,7 @@
 
 <footer class="pie">
   <div class="env">
-    <p class="pie__frase">Parla no es un caso raro.<br>Es lo que pasa cuando el reparto lo decide otro.</p>
+    <p class="pie__frase">Parla es lo que pasa<br>cuando el reparto lo decide otro.</p>
     <p class="pie__meta">
       Hecho con datos abiertos del INE, la Comunidad de Madrid, los ministerios de Hacienda y de
       Sanidad, el IGN y Copernicus, por un parleño preocupado por su municipio.
@@ -299,6 +303,7 @@
 <script src="datos/datos.js"></script>
 <script src="datos/infraestructura.js"></script>
 <script src="datos/vivienda.js"></script>
+<script src="datos/economia.js"></script>
 <script src="assets/calculo.js"></script>
 <script src="assets/qr.js"></script>
 <script src="assets/indice.js"></script>
