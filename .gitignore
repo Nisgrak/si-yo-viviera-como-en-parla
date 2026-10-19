@@ -6,3 +6,9 @@ herramientas/.cache/
 
 # lo que monta el build de Netlify (herramientas/compartir.mjs)
 dist/
+
+# el vídeo: lo que se renderiza (herramientas/video)
+herramientas/video/salida/
+
+# claves (la de NaN, para la voz del vídeo)
+.env
