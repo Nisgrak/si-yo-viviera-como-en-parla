@@ -1444,6 +1444,18 @@ html[data-indice='barra'] .pie { padding-bottom: calc(clamp(3.5rem, 11vw, 6rem) 
   .indice, .indice-barra, .indice-hoja { display: none !important; }
 }
 
+/* ── Al pulsar ────────────────────────────────────────────────────────
+   Los botones ceden un poco al pulsarlos, como uno de verdad. Va con
+   «scale» y no con «transform», para no pisar las flechas que se mueven. */
+
+.compartir, .tp__min, .fondo, details.plegable > summary {
+  transition-property: scale, background, border-color, color;
+  transition-duration: .14s; transition-timing-function: var(--sal-corta);
+}
+.compartir:active, .tp__min:active, .fondo:active, details.plegable > summary:active { scale: .965; }
+.fondo:hover { translate: 0 -2px; }
+.fondo { transition-property: scale, translate, border-color; }
+
 /* ── Movimiento reducido ──────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {

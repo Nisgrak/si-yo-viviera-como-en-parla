@@ -208,6 +208,22 @@
     history.replaceState(null, '', location.pathname + (s ? '?' + s : ''));
   }
 
+  /* ── Movimiento ──────────────────────────────────────────────────────
+     Solo entra lo nuevo: una tarjeta recién elegida, una columna nueva en
+     la tabla, una gráfica que cambia. Lo que ya estaba no se mueve, salvo
+     las filas de la tabla al reordenar, que se deslizan a su sitio. Con
+     «reducir movimiento», nada (estilos.css lo anula todo). */
+  const quieto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let pintado = { vista: null, claves: [], graficas: {} };
+
+  /* Quitar: la tarjeta se va y luego se repinta. */
+  function despedir(key, luego) {
+    const art = !quieto && $('#resultados [data-clave="' + key + '"]');
+    if (!art) { luego(); return; }
+    art.classList.add('res--sale');
+    setTimeout(luego, 180);
+  }
+
   function cifra(d, v) {
     if (v == null) return 'sin dato';
     const n = num(v, d.dec);
@@ -240,8 +256,9 @@
           if (ch.checked) { if (elegidos.indexOf(d.id) < 0) elegidos.push(d.id); }
           else elegidos = elegidos.filter(function (x) { return x !== d.id; });
           guardar();
-          resultados();
           cuenta();
+          if (ch.checked || vista !== 'barras') resultados();
+          else despedir(d.id, resultados);
         });
         lab.appendChild(ch);
         const t = el('span', 'cat__t');
@@ -255,7 +272,14 @@
     if (!cont.firstChild) cont.appendChild(el('p', 'cat__nada', 'Ningún dato tiene esas palabras.'));
   }
   function cuenta() {
-    $('#cat-cuenta').textContent = elegidos.length === 1 ? '1 dato elegido' : elegidos.length + ' datos elegidos';
+    const c = $('#cat-cuenta');
+    const antes = c.textContent;
+    c.textContent = elegidos.length === 1 ? '1 dato elegido' : elegidos.length + ' datos elegidos';
+    if (antes && antes !== c.textContent) {
+      c.classList.remove('cat__cuenta--salta');
+      void c.offsetWidth;   /* para que la animación vuelva a empezar */
+      c.classList.add('cat__cuenta--salta');
+    }
     $('#cat-limpiar').hidden = !elegidos.length;
   }
 
@@ -273,6 +297,8 @@
     elegidos.forEach(function (key) {
       const d = POR_ID[key];
       const art = el('article', 'res');
+      art.dataset.clave = key;
+      if (!quieto && (pintado.vista !== 'barras' || pintado.claves.indexOf(key) < 0)) art.classList.add('res--nuevo');
       art.appendChild(el('p', 'res__g', d.grupo));
       art.appendChild(el('h3', 'res__h', d.titulo));
       art.appendChild(el('p', 'res__u', d.unidad));
@@ -280,8 +306,9 @@
       /* Las barras van de cero a la mayor; si hay negativos, sin barra. */
       const tope = fs.reduce(function (t, x) { return x.v != null ? Math.max(t, x.v) : t; }, 0);
       const ul = el('ul', 'res__filas');
-      fs.forEach(function (x) {
+      fs.forEach(function (x, n) {
         const li = el('li', 'res__fila');
+        li.style.setProperty('--i', n);
         if (x.id === REF) li.dataset.quien = 'referencia';
         /* Los empates comparten puesto. */
         const pos = x.v == null ? '' : 1 + fs.filter(function (y) { return y.v != null && y.v > x.v; }).length;
@@ -315,8 +342,8 @@
         elegidos = elegidos.filter(function (x) { return x !== key; });
         guardar();
         catalogo();
-        resultados();
         cuenta();
+        despedir(key, resultados);
       });
       art.appendChild(quitar);
       cont.appendChild(art);
@@ -363,13 +390,15 @@
     const tb = el('tbody');
     ids.forEach(function (id) {
       const tr = el('tr');
+      tr.dataset.id = id;
       if (id === REF) tr.dataset.quien = 'referencia';
       const th = el('th', 'tabla__ciudad', NOMBRE[id]);
       th.setAttribute('scope', 'row');
       tr.appendChild(th);
       elegidos.forEach(function (key) {
         const d = POR_ID[key];
-        tr.appendChild(el('td', 'tabla__v', cifra(d, d.v(id))));
+        const nueva = !quieto && pintado.vista === 'tabla' && pintado.claves.indexOf(key) < 0;
+        tr.appendChild(el('td', 'tabla__v' + (nueva ? ' tabla__v--nuevo' : ''), cifra(d, d.v(id))));
       });
       tb.appendChild(tr);
     });
@@ -478,7 +507,7 @@
           const v = d.v(id);
           if (v == null || v === 0) return;
           svg.appendChild(s('rect', { class: 'gj__col', 'data-s': k + 1, x: CX(i) - gw / 2 + cw * k + .5, y: Y(Math.max(v, 0)),
-            width: Math.max(1, cw - 1), height: Math.abs(Y(0) - Y(v)) }));
+            width: Math.max(1, cw - 1), height: Math.abs(Y(0) - Y(v)), style: '--i:' + i }));
         });
       });
     } else {
@@ -491,11 +520,12 @@
           camino += (antes ? 'L' : 'M') + CX(i).toFixed(1) + ' ' + Y(v).toFixed(1);
           antes = true;
         });
-        svg.appendChild(s('path', { class: 'gj__lin', 'data-s': k + 1, d: camino }));
+        svg.appendChild(s('path', { class: 'gj__lin', 'data-s': k + 1, d: camino, pathLength: 1, style: '--k:' + k }));
         ids.forEach(function (id, i) {
           const v = d.v(id);
           if (v == null) return;
-          svg.appendChild(s('circle', { class: 'gj__pt', 'data-s': k + 1, cx: CX(i), cy: Y(v), r: id === REF ? 4.5 : 3.5 }));
+          svg.appendChild(s('circle', { class: 'gj__pt', 'data-s': k + 1, cx: CX(i), cy: Y(v), r: id === REF ? 4.5 : 3.5,
+            style: '--i:' + i + ';--k:' + k }));
         });
       });
     }
@@ -559,6 +589,9 @@
       const ks = fam.ks.slice(0, MAX_SERIES);
       const ds = ks.map(function (k) { return POR_ID[k]; });
       const art = el('article', 'res gj');
+      const firma = forma + '|' + ks.join(',') + '|' + (ordenJuntos[fam.f] || '');
+      if (pintado.graficas['j:' + fam.f] !== firma && !redibujo && !quieto) art.classList.add('gj--anima');
+      pintado.graficas['j:' + fam.f] = firma;
       art.appendChild(el('p', 'res__g', NOMBRE_FAMILIA[fam.f] ||
         (fam.f.indexOf('solo:') === 0 ? ds[0].grupo : fam.f.charAt(0).toUpperCase() + fam.f.slice(1))));
       if (ks.length === 1) {
@@ -686,6 +719,9 @@
     cont.appendChild(mando);
 
     const art = el('article', 'res graf');
+    const firma = ejes.x + '|' + ejes.y;
+    if (pintado.graficas.cruce !== firma && !redibujo && !quieto) art.classList.add('graf--anima');
+    pintado.graficas.cruce = firma;
     art.appendChild(el('p', 'graf__ey', '↑ ' + dy.titulo + ', ' + dy.unidad));
 
     const pts = IDS.map(function (id) { return { id: id, x: dx.v(id), y: dy.v(id) }; })
@@ -734,7 +770,7 @@
     const g = s('g');
     turno.forEach(function (p) {
       const px = X(p.x), py = Y(p.y), ref = p.id === REF;
-      const c = s('circle', { class: 'graf__p', cx: px, cy: py, r: ref ? 6.5 : 5 });
+      const c = s('circle', { class: 'graf__p', cx: px, cy: py, r: ref ? 6.5 : 5, style: '--i:' + IDS.indexOf(p.id) });
       if (ref) c.setAttribute('data-quien', 'referencia');
       c.appendChild(s('title', {}, NOMBRE[p.id] + ': ' + cifra(dx, p.x) + ' · ' + cifra(dy, p.y)));
       g.appendChild(c);
@@ -763,7 +799,7 @@
         g.appendChild(s('line', { class: 'graf__raya', x1: px, y1: py,
           x2: elegido.a === 'start' ? tx - 2 : tx + 2, y2: elegido.y + h / 2 }));
       }
-      const t = s('text', { class: 'graf__q', x: tx, y: elegido.y + 11, 'text-anchor': elegido.a }, nom);
+      const t = s('text', { class: 'graf__q', x: tx, y: elegido.y + 11, 'text-anchor': elegido.a, style: '--i:' + IDS.indexOf(p.id) }, nom);
       if (ref) t.setAttribute('data-quien', 'referencia');
       g.appendChild(t);
     });
@@ -793,8 +829,15 @@
     cont.appendChild(fu);
   }
 
+  let redibujo = false;   /* al cambiar el ancho: se rehace, sin animar */
   function resultados() {
     const cont = $('#resultados');
+    /* Dónde estaba cada fila de la tabla, para deslizarla luego. */
+    const antes = {};
+    if (!quieto && pintado.vista === 'tabla' && vista === 'tabla') {
+      cont.querySelectorAll('tr[data-id]').forEach(function (tr) { antes[tr.dataset.id] = tr.getBoundingClientRect().top; });
+    }
+    if (pintado.vista !== vista) cont.classList.remove('con__cambia');
     vaciar(cont);
     document.querySelectorAll('.vista > .vista__op[data-vista]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.vista === vista)); });
     if (!elegidos.length) {
@@ -802,6 +845,27 @@
       return;
     }
     if (vista === 'tabla') tabla(cont); else if (vista === 'grafica') grafica(cont); else barras(cont);
+    if (pintado.vista !== vista && pintado.vista !== null && !quieto) {
+      void cont.offsetWidth;
+      cont.classList.add('con__cambia');
+    }
+    Object.keys(antes).forEach(function (id) {
+      const tr = cont.querySelector('tr[data-id="' + id + '"]');
+      if (!tr) return;
+      const d = antes[id] - tr.getBoundingClientRect().top;
+      if (!d) return;
+      /* Celda a celda: la fila de una tabla no se mueve bien con la
+         columna de la ciudad fija al hacer scroll. */
+      const celdas = tr.querySelectorAll('th, td');
+      celdas.forEach(function (c) { c.style.transition = 'none'; c.style.transform = 'translateY(' + d + 'px)'; });
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          celdas.forEach(function (c) { c.style.transition = ''; c.style.transform = ''; });
+        });
+      });
+    });
+    pintado.vista = vista;
+    pintado.claves = elegidos.slice();
   }
 
   /* ── Arranque ─────────────────────────────────────────────────────── */
@@ -811,8 +875,10 @@
     elegidos = [];
     guardar();
     catalogo();
-    resultados();
     cuenta();
+    if (quieto) { resultados(); return; }
+    $('#resultados').querySelectorAll('.res, .tabla-caja, .tabla__fuentes').forEach(function (n) { n.classList.add('res--sale'); });
+    setTimeout(resultados, 180);
   });
   document.querySelectorAll('.vista__op[data-vista]').forEach(function (b) {
     b.addEventListener('click', function () {
@@ -828,7 +894,7 @@
     if (vista !== 'grafica' || window.innerWidth === ancho) return;
     ancho = window.innerWidth;
     clearTimeout(espera);
-    espera = setTimeout(resultados, 150);
+    espera = setTimeout(function () { redibujo = true; resultados(); redibujo = false; }, 150);
   });
   $('#cat-total').textContent = CAT.length + ' datos de las ' + IDS.length + ' ciudades';
   catalogo();

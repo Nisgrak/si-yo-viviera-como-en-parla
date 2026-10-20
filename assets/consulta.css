@@ -214,3 +214,74 @@
 .gj__tip-f { display: grid; grid-template-columns: .7rem minmax(0, 1fr) auto; gap: .45rem; align-items: baseline; margin-top: .25rem; font-size: .75rem; line-height: 1.3; color: var(--ink-2); }
 .gj__tip-f .gj__color { width: .7rem; height: .7rem; margin: 0; }
 .gj__tip-f b { color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* ── Movimiento ───────────────────────────────────────────────────────
+   Lo justo para seguir lo que pasa: lo que entra aparece, lo que se va
+   desaparece, las barras crecen y las líneas se trazan. Con «reducir
+   movimiento», estilos.css deja todo en su sitio final. */
+
+@keyframes con-entra { from { opacity: 0; transform: translateY(10px); } }
+@keyframes con-sale { to { opacity: 0; transform: translateY(-6px) scale(.985); } }
+@keyframes con-crece { from { transform: scaleX(0); } }
+@keyframes con-sube { from { transform: scaleY(0); } }
+@keyframes con-traza { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes con-asoma { from { opacity: 0; transform: scale(0); } }
+@keyframes con-funde { from { opacity: 0; } }
+@keyframes con-salta { 40% { transform: scale(1.12); color: var(--ref); } }
+@keyframes con-marca { 50% { transform: scale(1.25); } }
+
+/* Al cambiar de vista. */
+#resultados.con__cambia > * { animation: con-entra .4s var(--sal) both; }
+#resultados.con__cambia > :nth-child(2) { animation-delay: .05s; }
+#resultados.con__cambia > :nth-child(3) { animation-delay: .1s; }
+#resultados.con__cambia > :nth-child(n+4) { animation-delay: .15s; }
+
+/* Uno a uno: la tarjeta nueva entra y sus barras crecen una tras otra. */
+.res--nuevo { animation: con-entra .45s var(--sal) both; }
+.res__barra i { transform-origin: left center; }
+.res--nuevo .res__barra i { animation: con-crece .7s var(--sal) both; animation-delay: calc(var(--i, 0) * 35ms + 120ms); }
+.res--nuevo .res__v { animation: con-funde .4s var(--sal-corta) both; animation-delay: calc(var(--i, 0) * 35ms + 160ms); }
+.res--sale { animation: con-sale .18s var(--sal-corta) forwards; pointer-events: none; }
+.res__x { transition: border-color .16s var(--sal-corta), color .16s var(--sal-corta), background .16s var(--sal-corta); }
+.res__x:hover { background: var(--surface); }
+.res__fila { transition: background .16s var(--sal-corta); }
+.res__fila:hover { background: var(--surface); }
+.res__barra i { transition: filter .16s var(--sal-corta); }
+.res__fila:hover .res__barra i { filter: brightness(1.15); }
+
+/* En tabla: las filas se deslizan al reordenar y la columna nueva aparece. */
+.tabla tbody th, .tabla tbody td { transition: transform .45s var(--sal), background .16s var(--sal-corta); }
+.tabla tbody tr:hover th, .tabla tbody tr:hover td { background: var(--surface); }
+.tabla__v--nuevo { animation: con-funde .5s var(--sal-corta) both; }
+.tabla__orden .tabla__flecha { display: inline-block; animation: con-entra .3s var(--sal) both; }
+
+/* En gráfica, juntos: las líneas se trazan y los puntos asoman; las
+   columnas suben desde el cero, ciudad a ciudad. */
+.gj__pt, .gj__col, .graf__p { transform-box: fill-box; }
+.gj__pt, .graf__p { transform-origin: center; }
+.gj__col { transform-origin: center bottom; }
+.gj--anima .gj__lin { stroke-dasharray: 1; animation: con-traza 1.1s var(--sal) both; animation-delay: calc(var(--k, 0) * 120ms); }
+.gj--anima .gj__pt { animation: con-asoma .35s var(--sal) both; animation-delay: calc(var(--i, 0) * 70ms + var(--k, 0) * 120ms + 100ms); }
+.gj--anima .gj__col { animation: con-sube .6s var(--sal) both; animation-delay: calc(var(--i, 0) * 40ms); }
+.gj__pt { transition: r .15s var(--sal-corta); }
+.gj__tip:not([hidden]) { animation: con-entra .18s var(--sal-corta) both; }
+
+/* Uno frente a otro: los puntos asoman y luego los nombres. */
+.graf--anima .graf__p { animation: con-asoma .4s var(--sal) both; animation-delay: calc(var(--i, 0) * 45ms); }
+.graf--anima .graf__q { animation: con-funde .4s var(--sal-corta) both; animation-delay: calc(var(--i, 0) * 45ms + 250ms); }
+.graf__p { transition: transform .15s var(--sal-corta); }
+.graf__p:hover { transform: scale(1.35); }
+
+/* La lista: al marcar, la casilla late y el contador salta. */
+.cat__item { transition: background .16s var(--sal-corta); border-radius: 4px; }
+.cat__item:hover { background: var(--bg); }
+.cat__item input:checked { animation: con-marca .25s var(--sal-corta); }
+.cat__item:has(input:checked) .cat__q { color: var(--ref); }
+.cat__q { transition: color .16s var(--sal-corta); }
+.cat__cuenta--salta { display: inline-block; animation: con-salta .35s var(--sal-corta); }
+.cat__limpiar:hover { text-decoration: underline; }
+.graf__eje select, .cat__buscar input { transition: border-color .16s var(--sal-corta), box-shadow .16s var(--sal-corta); }
+.graf__eje select:hover, .cat__buscar input:hover { border-color: var(--ink-3); }
+@media (prefers-reduced-motion: reduce) {
+  .con [class], .con svg * { animation: none !important; }
+}
