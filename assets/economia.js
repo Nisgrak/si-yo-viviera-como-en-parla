@@ -135,7 +135,6 @@
       ul.appendChild(li);
     });
     art.appendChild(ul);
-    art.appendChild(once(f.v, f.fmt));
     if (f.cartel && window.CARTEL) art.appendChild(cartel(f.cartel.id, f.titulo, f.cartel.datos));
     if (f.nota) art.appendChild(el('p', 'renta__nota', f.nota));
     if (f.fuentes) art.appendChild(pieFuente(f.fuentes));
@@ -151,34 +150,6 @@
     });
   }
 
-  /* «Ver las once»: la misma cifra en todas, de la más alta a la más baja,
-     con Parla en azul y la ciudad elegida en negrita. Plegado de entrada. */
-  function once(v, fmt) {
-    const det = el('details', 'once');
-    det.appendChild(el('summary', 'once__ver', 'Ver las ' + N));
-    const filas = IDS.map(function (id) { return { id: id, v: v(id) }; });
-    filas.sort(function (a, b) {
-      if (a.v == null) return 1;
-      if (b.v == null) return -1;
-      return b.v - a.v;
-    });
-    const t = el('table', 'once__tabla');
-    const tb = el('tbody');
-    filas.forEach(function (x, k) {
-      const tr = el('tr');
-      if (x.id === REF) tr.dataset.quien = 'referencia';
-      else if (x.id === AQUI) tr.dataset.quien = 'aqui';
-      /* Los empates comparten puesto: el de la primera con esa cifra. */
-      const pos = 1 + filas.filter(function (y) { return y.v != null && y.v > x.v; }).length;
-      tr.appendChild(el('td', 'once__n', x.v == null ? '' : pos + '.'));
-      tr.appendChild(el('th', null, NOMBRE[x.id]));
-      tr.appendChild(el('td', 'once__v', x.v == null ? 'sin dato' : fmt(x.v)));
-      tb.appendChild(tr);
-    });
-    t.appendChild(tb);
-    det.appendChild(t);
-    return det;
-  }
   function fichas(sel, lista) {
     const cont = $(sel);
     vaciar(cont);

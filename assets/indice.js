@@ -28,7 +28,10 @@
     { id: 'vivienda', titulo: function () { return 'Vivienda'; },
       ruta: 'vivienda/', archivo: 'vivienda.html' },
     { id: 'economia', titulo: function () { return 'Economía'; },
-      ruta: 'economia/', archivo: 'economia.html' }
+      ruta: 'economia/', archivo: 'economia.html' },
+    /* Sin ciudad: las once a la vez. */
+    { id: 'consulta', titulo: function () { return 'Todos los datos'; },
+      archivo: 'consulta.html', sinCiudad: true }
   ];
 
   const RAIL_REM = 15.5;    /* lo que necesita el índice lateral, con su aire */
@@ -162,7 +165,8 @@
       otras.forEach(function (p) {
         const li = el('li');
         const a = el('a', 'indice__pagina');
-        a.href = RUTAS && ciudad ? RAIZ + ciudad + '/' + p.ruta : p.archivo + (ciudad ? '#' + ciudad : '');
+        a.href = p.sinCiudad ? (RUTAS ? RAIZ : '') + p.archivo
+          : RUTAS && ciudad ? RAIZ + ciudad + '/' + p.ruta : p.archivo + (ciudad ? '#' + ciudad : '');
         a.appendChild(el('span', null, p.titulo(nombre)));
         a.insertAdjacentHTML('beforeend', FLECHA);
         li.appendChild(a);
@@ -243,6 +247,29 @@
 
   window.addEventListener('scroll', alScroll, { passive: true });
   window.addEventListener('resize', function () { modo(); alScroll(); }, { passive: true });
+
+  /* Un enlace a un apartado (economia.html#dinero-renta, desde «Todos los
+     datos»): el # no es una ciudad, así que la página lo cambia por la suya
+     antes de que el navegador baje, y el apartado aún no existe. Se guarda
+     aquí, que va antes que el script de la página, y se baja al cargar; otra
+     vez un poco después, por si los mapas han movido algo y nadie ha tocado
+     la página. */
+  (function () {
+    const h = decodeURIComponent((location.hash || '').replace('#', ''));
+    const ciudades = ((window.DATOS || {}).MUNICIPIOS || []).map(function (m) { return m.id; });
+    if (!h || ciudades.indexOf(h) >= 0) return;
+    function bajar() {
+      const e = document.getElementById(h);
+      if (!e) return null;
+      e.scrollIntoView({ block: 'start' });
+      return window.scrollY;
+    }
+    window.addEventListener('load', function () {
+      const y = bajar();
+      if (y === null) return;
+      setTimeout(function () { if (Math.abs(window.scrollY - y) < 2) bajar(); }, 700);
+    });
+  })();
 
   window.INDICE = {
     /* ciudad: el id de la ciudad elegida; nombre: cómo se escribe */

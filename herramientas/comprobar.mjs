@@ -24,12 +24,23 @@ const PAGINAS = {
   'index.html': ['#golpe', '#resumen-total', '#dinero-cuerpo', '#salir-txt', '#salir-tren', '#vivienda-txt'],
   'economia.html': ['#golpe', '#trabajo-cifras', '#paro-fichas', '#renta-fichas', '#produce-fichas', '#ayto-fichas', '#ayto-mas'],
   'vivienda.html': ['#golpe', '#comprar-cifras', '#alquilar-cifras', '#barrios-rangos', '#desahucios-cifras'],
-  'infraestructura.html': ['#golpe', '#golpe-tren', '#cob-cifras', '#abono-cifras', '#tp-frase', '#tp-dato-parla', '#tp-dato-aqui']
+  'infraestructura.html': ['#golpe', '#golpe-tren', '#cob-cifras', '#abono-cifras', '#tp-frase', '#tp-dato-parla', '#tp-dato-aqui'],
+  'consulta.html': ['#cat-lista', '#resultados', '#cat-total']
 };
 /* Y lo que tiene que existir, aunque no lleve texto. */
 const PIEZAS = {
   'infraestructura.html': ['#tp-parla svg .tp__zona', '#tp-aqui svg .tp__zona', '#tp-ley li'],
-  'economia.html': ['#trabajo-graf svg', '#renta-reparto .reparto__barra']
+  'economia.html': ['#trabajo-graf svg', '#renta-reparto .reparto__barra'],
+  'consulta.html': ['#resultados .res__fila', '.cat__item input']
+};
+
+/* «Todos los datos» no depende de la ciudad, sino de lo elegido: se abre
+   una vez en cada vista, con datos de varias medidas y alguno negativo. */
+const CONSULTAS = {
+  'consulta.html?d=renta-persona,remanente,cobertura,hogares-alquiler,casas-por-vecino&vista=tabla': ['.tabla td'],
+  'consulta.html?d=renta-persona,remanente,cobertura,hogares-alquiler,casas-por-vecino&vista=grafica': ['.gj__lin', '.gj__zona'],
+  'consulta.html?d=remanente,abono&vista=grafica&f=columnas': ['.gj__col'],
+  'consulta.html?d=paro-registrado,renta-persona&vista=grafica&g=cruce': ['.graf__p', '.graf__q']
 };
 
 const TIPOS = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml',
@@ -97,6 +108,16 @@ for (const [pagina, conTexto] of Object.entries(PAGINAS)) {
   }
   process.stdout.write(' ' + pagina + '\n');
 }
+for (const [url, piezas] of Object.entries(CONSULTAS)) {
+  const { dom, errores } = await abrir(url, 'getafe');
+  const doc = dom.window.document;
+  const mal = errores.map((e) => 'error: ' + e.split('\n')[0]);
+  piezas.forEach((s) => { if (!doc.querySelector(s)) mal.push('falta ' + s); });
+  if (mal.length) fallos.push(`${url}: ${mal.join('; ')}`);
+  process.stdout.write(mal.length ? '✗' : '·');
+  dom.window.close();
+}
+process.stdout.write(' consulta.html, sus vistas\n');
 servidor.close();
 
 if (fallos.length) {

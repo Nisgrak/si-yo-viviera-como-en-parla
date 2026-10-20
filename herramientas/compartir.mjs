@@ -44,7 +44,7 @@ const D = globalThis.DATOS;
 
 await rm(DIST, { recursive: true, force: true });
 await mkdir(DIST);
-for (const x of ['index.html', 'infraestructura.html', 'vivienda.html', 'economia.html', 'assets', 'datos']) {
+for (const x of ['index.html', 'infraestructura.html', 'vivienda.html', 'economia.html', 'consulta.html', 'assets', 'datos']) {
   await cp(join(RAIZ, x), join(DIST, x), { recursive: true });
 }
 /* La marca que le dice a app.js que aquí sí existen /getafe/ y compañía, así

@@ -553,6 +553,9 @@
     casa: '<svg class="compartir__icono" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
       'stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11 12 4l8.5 7"/><path d="M6 9.5V20h12V9.5"/>' +
       '<path d="M10 20v-5.5h4V20"/></svg>',
+    tabla: '<svg class="compartir__icono" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/>' +
+      '<path d="M3.5 9.5h17M3.5 14.5h17M9.5 9.5v10"/></svg>',
     euro: '<svg class="compartir__icono" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
       'stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M17.5 6.5A7 7 0 1 0 17.5 17.5"/>' +
       '<path d="M4 10.5h9M4 13.5h9"/></svg>'
@@ -589,6 +592,11 @@
       e.innerHTML = ICONO_PAGINA.euro + '<span>Economía</span>' + FLECHA;
       hueco.appendChild(e);
     }
+    /* Y la consulta de todos los datos, que es de las once a la vez. */
+    const todos = el('a', 'compartir compartir--salir');
+    todos.href = (RUTAS ? RAIZ_WEB : '') + 'consulta.html';
+    todos.innerHTML = ICONO_PAGINA.tabla + '<span>Todos los datos</span>' + FLECHA;
+    hueco.appendChild(todos);
 
     /* "Y ganarías 3, en educación." Las áreas, y no los servicios uno a uno,
        porque en la portada no cabe una lista. */

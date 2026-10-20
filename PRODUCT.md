@@ -76,7 +76,10 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 
 ## Lo que no es
 
-- No es un dashboard. No hay filtros ni selectores de rango. Los gráficos de líneas y las barras
+- No es un dashboard. No hay filtros ni selectores de rango. La excepción va aparte y avisada:
+  «Todos los datos» (`consulta.html`), una página de consulta para quien quiere contrastar
+  (periodistas, plataformas vecinales), con las once ciudades a la vez. Las páginas de campaña
+  siguen siendo Parla frente a tu ciudad. Los gráficos de líneas y las barras
   de «de cada 100» enseñan un recuadro con las cifras de las dos ciudades al pasar el ratón o el
   dedo, y nada más: lo importante ya está escrito en la página sin tener que buscarlo.
 - No es una revista. Nada de serif italic, capitulares ni rejilla de broadsheet.

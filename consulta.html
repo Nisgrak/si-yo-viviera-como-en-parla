@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Todos los datos · Si yo viviera como en Parla</title>
+<meta name="description" content="Todos los datos de la web, de las once ciudades a la vez: equipamientos, renta, trabajo, cuentas del ayuntamiento, vivienda y transporte. Elige uno o varios y compáralos. Con sus fuentes oficiales.">
+<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Todos los datos de las once ciudades">
+<meta property="og:description" content="Equipamientos, renta, trabajo, cuentas del ayuntamiento, vivienda y transporte de Parla y las otras diez ciudades, dato a dato y con sus fuentes oficiales.">
+<meta property="og:locale" content="es_ES">
+<meta property="og:url" content="https://siyovivieracomoenparla.netlify.app/consulta.html">
+<meta property="og:image" content="https://siyovivieracomoenparla.netlify.app/assets/compartir/general.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/icono.svg" type="image/svg+xml">
+<link rel="mask-icon" href="assets/icono.svg" color="#c02719">
+
+<link rel="preload" href="assets/fuentes/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/estilos.css">
+<link rel="stylesheet" href="assets/infraestructura.css">
+<link rel="stylesheet" href="assets/consulta.css">
+</head>
+<body class="infra con" data-pagina="consulta">
+
+<a class="saltar" href="#consulta">Saltar a los datos</a>
+
+<noscript>
+  <p class="sin-js">
+    Esta página monta las tablas en tu navegador y necesita JavaScript. Los datos, con sus
+    fuentes, están en
+    <a href="https://github.com/Nisgrak/si-yo-viviera-como-en-parla">github.com/Nisgrak/si-yo-viviera-como-en-parla</a>.
+  </p>
+</noscript>
+
+<nav class="volver">
+  <div class="env">
+    <a href="index.html">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+        <path d="M15 6H2M6.5 1 1.5 6l5 5" stroke="currentColor" stroke-width="1.6"/>
+      </svg>
+      <span>El recuento</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ── Portada ───────────────────────────────────────────────────────── -->
+<header class="portada portada--infra">
+  <div class="env">
+    <h1 class="portada__titulo">
+      <span class="t1">Todos los datos</span>
+      <span class="t2">de las once ciudades</span>
+    </h1>
+    <p class="portada__golpe">
+      Lo que cuenta la web, dato a dato y con las once ciudades a la vez. Elige uno o varios en la
+      lista: cada uno sale ordenado de la cifra más alta a la más baja, con Parla en azul; en
+      tabla se comparan varios, y en gráfica van juntos los que se miden igual.
+    </p>
+  </div>
+</header>
+
+<main>
+
+<section class="bloque con__bloque" id="consulta">
+  <div class="env con__env">
+    <div class="con__rejilla">
+      <aside class="cat" aria-label="Elige los datos">
+        <div class="cat__cab">
+          <label class="cat__buscar">
+            <span class="cat__buscar-t">Buscar</span>
+            <input type="search" id="cat-buscar" placeholder="paro, alquiler, deuda…" autocomplete="off">
+          </label>
+          <p class="cat__meta"><span id="cat-cuenta"></span> · <span id="cat-total"></span></p>
+          <button type="button" class="cat__limpiar" id="cat-limpiar">Quitar todos</button>
+        </div>
+        <div class="cat__lista" id="cat-lista"></div>
+      </aside>
+
+      <div class="con__res">
+        <div class="vista" role="group" aria-label="Cómo verlos">
+          <button type="button" class="vista__op tp__min" data-vista="barras" aria-pressed="true">Uno a uno</button>
+          <button type="button" class="vista__op tp__min" data-vista="tabla" aria-pressed="false">En tabla</button>
+          <button type="button" class="vista__op tp__min" data-vista="grafica" aria-pressed="false">En gráfica</button>
+        </div>
+        <div id="resultados" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Método ────────────────────────────────────────────────────────── -->
+<section class="bloque bloque--metodo" id="metodo">
+  <div class="env">
+    <h2 class="bloque__h">Cómo está hecho esto</h2>
+    <div class="metodo__cuerpo">
+      <p>
+        Esta página no calcula nada nuevo: junta las cifras de las otras páginas, con las mismas
+        cuentas y los mismos ficheros. Cada dato lleva su fuente y un enlace a la página donde se
+        explica, con sus cautelas, que aquí no caben. Léelas antes de citar una cifra.
+      </p>
+      <p>
+        Los equipamientos van contra la población que los usa, como en el recuento: los colegios,
+        por cada 10.000 niños de 3 a 11 años; las residencias, por cada 10.000 personas de 65 años o
+        más. Las cuentas del ayuntamiento son medias de 2021 a 2024 por habitante. Las ciudades con
+        la misma cifra comparten puesto.
+      </p>
+      <p>
+        En gráfica, los datos que se miden igual van juntos, con una línea de cada color: los que
+        van de cada 100, los que van en euros, los que van por cada 100.000 habitantes… Comparten
+        escala, de cero a la cifra más alta, y las ciudades van en orden del dato que elijas en la
+        leyenda; los demás salen en su propia gráfica. La línea solo une ciudades para que se lea
+        mejor: entre una y otra no hay nada. También se puede ver en columnas. «Uno frente a
+        otro» pone un dato en cada eje y una ciudad en cada punto; ahí los ejes no empiezan en
+        cero, para que se vean las diferencias. Que dos datos vayan juntos en once ciudades no
+        quiere decir que uno cause el otro.
+      </p>
+      <p>
+        No están los desahucios, que se publican por partido judicial y no por ciudad, ni los
+        tiempos de los mapas de transporte, que cambian de un punto a otro de la ciudad.
+      </p>
+      <p class="cautela">
+        La selección queda en la dirección de la página: copiándola se comparte con los datos ya
+        elegidos.
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="env">
+    <p class="pie__frase">Parla es lo que pasa<br>cuando el reparto lo decide otro.</p>
+    <p class="pie__meta"><a href="index.html">Volver al recuento</a></p>
+  </div>
+</footer>
+
+<script src="datos/datos.js"></script>
+<script src="datos/economia.js"></script>
+<script src="datos/vivienda.js"></script>
+<script src="datos/infraestructura.js"></script>
+<script src="datos/transporte.js"></script>
+<script src="assets/consulta.js"></script>
+</body>
+</html>

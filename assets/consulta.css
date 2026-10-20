@@ -1,0 +1,216 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   TODOS LOS DATOS · consulta.html
+   Hereda de estilos.css y de infraestructura.css (la vuelta, la portada
+   corta, los botones de pastilla). A la izquierda, la lista de datos; a la
+   derecha, cada dato elegido con las once ciudades. Parla en azul, como en
+   toda la web; las demás, en tinta.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.con__bloque { padding-top: clamp(1rem, 4vw, 2rem); }
+.con__rejilla { display: grid; gap: clamp(1.5rem, 5vw, 2.5rem); }
+@media (min-width: 62rem) {
+  .con__rejilla {
+    grid-template-columns: minmax(16rem, 21rem) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+/* En pantallas anchas la consulta se sale del ancho del texto, como los mapas. */
+@media (min-width: 70rem) {
+  .con__rejilla {
+    width: min(100vw - 2 * var(--gutter), 84rem);
+    margin-inline: calc((100% - min(100vw - 2 * var(--gutter), 84rem)) / 2);
+  }
+}
+
+/* ── La lista ─────────────────────────────────────────────────────────── */
+
+.cat {
+  border: 1px solid var(--line); border-radius: 6px;
+  background: var(--surface);
+  min-width: 0;
+}
+@media (min-width: 62rem) {
+  .cat { position: sticky; top: 1rem; max-height: calc(100vh - 2rem); display: flex; flex-direction: column; }
+}
+.cat__cab { padding: .9rem 1rem .75rem; border-bottom: 1px solid var(--line); }
+.cat__buscar { display: grid; gap: .3rem; }
+.cat__buscar-t { font-size: .75rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.cat__buscar input {
+  width: 100%; padding: .55rem .7rem;
+  border: 1px solid var(--line-alta); border-radius: 6px;
+  background: var(--bg); color: var(--ink);
+  font: inherit; font-size: .9375rem;
+}
+.cat__buscar input:focus-visible { outline: 2px solid var(--ref); outline-offset: 1px; }
+.cat__meta { margin-top: .55rem; font-size: .8125rem; color: var(--ink-3); }
+.cat__limpiar {
+  margin-top: .4rem; padding: 0;
+  border: 0; background: none; color: var(--ref);
+  font: inherit; font-size: .8125rem; font-weight: 700; cursor: pointer;
+}
+.cat__lista { padding: .25rem 1rem 1rem; overflow-y: auto; max-height: 55vh; }
+@media (min-width: 62rem) { .cat__lista { max-height: none; flex: 1 1 auto; } }
+.cat__grupo { margin: 0; padding: 0; border: 0; }
+.cat__grupo + .cat__grupo { margin-top: .6rem; }
+.cat__g {
+  padding: .75rem 0 .35rem;
+  font-size: .75rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink);
+}
+.cat__item {
+  display: grid; grid-template-columns: 1.1rem minmax(0, 1fr); gap: .55rem; align-items: start;
+  padding: .4rem 0;
+  border-top: 1px solid var(--line);
+  cursor: pointer;
+}
+.cat__item input { width: 1rem; height: 1rem; margin: .15rem 0 0; accent-color: var(--ref); cursor: pointer; }
+.cat__t { display: grid; gap: .1rem; min-width: 0; }
+.cat__q { font-size: .875rem; font-weight: 700; line-height: 1.3; color: var(--ink); }
+.cat__u { font-size: .75rem; line-height: 1.35; color: var(--ink-3); }
+.cat__nada { padding: 1rem 0; font-size: .875rem; color: var(--ink-3); }
+
+/* ── Los resultados ───────────────────────────────────────────────────── */
+
+.con__res { min-width: 0; }
+.vista { display: flex; gap: .5rem; margin-bottom: 1.25rem; }
+.res__vacio { padding: 2rem 0; font-size: 1rem; color: var(--ink-3); }
+
+#resultados { display: grid; gap: clamp(1.75rem, 5vw, 2.5rem); }
+@media (min-width: 90rem) { #resultados:not(:has(.tabla-caja, .graf, .gj)) { grid-template-columns: 1fr 1fr; column-gap: 3rem; } }
+.res { position: relative; min-width: 0; padding-top: 1rem; border-top: 2px solid var(--ink); }
+.res__g { font-size: .75rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.res__h {
+  margin-top: .3rem; padding-right: 4.5rem;
+  font-weight: 800; font-stretch: 84%;
+  font-size: clamp(1.15rem, 4.5vw, 1.4rem); line-height: 1.12; letter-spacing: -.02em;
+  color: var(--ink);
+}
+.res__u { margin-top: .25rem; font-size: .8125rem; color: var(--ink-3); }
+.res__x {
+  position: absolute; top: 1rem; right: 0;
+  padding: .2rem .6rem;
+  border: 1px solid var(--line-alta); border-radius: 999px;
+  background: var(--bg); color: var(--ink-2);
+  font: inherit; font-size: .75rem; font-weight: 700; cursor: pointer;
+}
+.res__x:hover { border-color: var(--ink-3); color: var(--ink); }
+.res__filas { list-style: none; margin: .8rem 0 0; padding: 0; }
+.res__fila {
+  display: grid; grid-template-columns: 1.9rem minmax(0, 1fr) auto minmax(0, 34%);
+  align-items: center; column-gap: .7rem;
+  padding-block: .32rem;
+  border-top: 1px solid var(--line);
+}
+.res__fila:last-child { border-bottom: 1px solid var(--line); }
+.res__n { font-size: .8125rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.res__q { font-size: .875rem; color: var(--ink-2); min-width: 0; }
+.res__v { font-size: .875rem; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right; }
+.res__barra { height: 7px; border-radius: 4px; background: var(--surface-2); overflow: hidden; }
+.res__barra i { display: block; height: 100%; border-radius: 4px; background: var(--ink-3); }
+.res__fila[data-quien='referencia'] .res__q,
+.res__fila[data-quien='referencia'] .res__v,
+.res__fila[data-quien='referencia'] .res__n { color: var(--ref); font-weight: 800; }
+.res__fila[data-quien='referencia'] .res__barra i { background: var(--ref); }
+@media (max-width: 30rem) {
+  .res__fila { grid-template-columns: 1.6rem minmax(0, 1fr) auto; row-gap: .3rem; }
+  .res__barra { grid-column: 2 / -1; }
+}
+.res__pie { margin-top: .7rem; font-size: .75rem; line-height: 1.45; color: var(--ink-3); }
+.res__pie a { color: inherit; }
+.res__ir { font-weight: 700; color: var(--ref) !important; }
+
+/* ── En tabla: una columna por dato, se ordena pulsando la cabecera ───── */
+
+.tabla-caja { overflow-x: auto; border-top: 2px solid var(--ink); }
+.tabla { width: 100%; border-collapse: collapse; font-size: .875rem; }
+.tabla th, .tabla td { padding: .45rem .6rem; border-bottom: 1px solid var(--line); text-align: right; vertical-align: bottom; }
+.tabla .tabla__ciudad { text-align: left; font-weight: 700; color: var(--ink); white-space: nowrap; position: sticky; left: 0; background: var(--bg); }
+.tabla thead th { vertical-align: bottom; }
+.tabla__orden {
+  display: grid; justify-items: end; gap: .15rem;
+  width: 100%; min-width: 8.5rem; padding: 0;
+  border: 0; background: none; color: inherit;
+  font: inherit; text-align: right; cursor: pointer;
+}
+.tabla__q { font-size: .8125rem; font-weight: 800; line-height: 1.25; color: var(--ink); }
+.tabla__u { font-size: .6875rem; font-weight: 400; line-height: 1.3; color: var(--ink-3); }
+.tabla__flecha { font-size: .875rem; font-weight: 800; color: var(--ref); }
+.tabla__orden:focus-visible { outline: 2px solid var(--ref); outline-offset: 2px; }
+.tabla__v { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink-2); }
+.tabla tr[data-quien='referencia'] th, .tabla tr[data-quien='referencia'] td { color: var(--ref); font-weight: 800; }
+.tabla__fuentes { margin: 1rem 0 0; padding: 0; list-style: none; font-size: .75rem; line-height: 1.5; color: var(--ink-3); }
+.tabla__fuentes a { color: inherit; }
+
+/* ── En gráfica: un dato en cada eje ─────────────────────────────────── */
+
+.graf__mando { display: flex; flex-wrap: wrap; align-items: end; gap: .75rem 1rem; }
+.graf__eje { display: grid; gap: .3rem; flex: 1 1 14rem; min-width: 0; }
+.graf__eje-t { font-size: .75rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.graf__eje select {
+  width: 100%; padding: .5rem .6rem;
+  border: 1px solid var(--line-alta); border-radius: 6px;
+  background: var(--bg); color: var(--ink);
+  font: inherit; font-size: .9375rem;
+}
+.graf__eje select:focus-visible { outline: 2px solid var(--ref); outline-offset: 1px; }
+.graf__ey, .graf__ex { font-size: .8125rem; font-weight: 700; line-height: 1.35; color: var(--ink-2); }
+.graf__ey { margin-bottom: .6rem; }
+.graf__ex { margin-top: .35rem; text-align: right; }
+.graf__caja { overflow: hidden; }
+.graf__svg { display: block; max-width: 100%; height: auto; overflow: visible; }
+.graf__rej { stroke: var(--line); stroke-width: 1; }
+.graf__m { font-size: 11px; fill: var(--ink-3); font-variant-numeric: tabular-nums; }
+.graf__raya { stroke: var(--ink-3); stroke-width: 1; opacity: .6; }
+.graf__p { fill: var(--ink-3); stroke: var(--bg); stroke-width: 1.5; }
+.graf__p[data-quien='referencia'] { fill: var(--ref); }
+.graf__q { font-size: 12px; fill: var(--ink-2); paint-order: stroke; stroke: var(--bg); stroke-width: 3px; stroke-linejoin: round; }
+.graf__q[data-quien='referencia'] { font-weight: 800; fill: var(--ref); }
+
+/* ── En gráfica, juntos: una barra de cada color por dato ─────────────── */
+
+.graf__barra { display: flex; flex-wrap: wrap; gap: .6rem 1.5rem; }
+.vista--sub { flex-wrap: wrap; margin-bottom: 0; }
+.vista--sub .vista__op { font-size: .8125rem; }
+.con__res .gj, .con__res .graf__mando { margin-top: 0; }
+.gj { --s1: #3a3a3a; --s2: #c98a0b; --s3: #2a8a6c; --s4: #8a58c0; --s5: #b8467a; --s6: #6f8f1f; }
+@media (prefers-color-scheme: dark) {
+  .gj { --s1: #d6d6d6; --s2: #f0b440; --s3: #4cc29d; --s4: #b58ae8; --s5: #e57aa9; --s6: #a5c457; }
+}
+.gj [data-s='1'] { --c: var(--s1); } .gj [data-s='2'] { --c: var(--s2); } .gj [data-s='3'] { --c: var(--s3); }
+.gj [data-s='4'] { --c: var(--s4); } .gj [data-s='5'] { --c: var(--s5); } .gj [data-s='6'] { --c: var(--s6); }
+
+.gj__ley { list-style: none; margin: .7rem 0 0; padding: 0; display: grid; gap: .35rem; }
+.gj__serie {
+  display: grid; grid-template-columns: .9rem minmax(0, 1fr); gap: .55rem; align-items: start;
+  width: 100%; padding: .35rem .5rem;
+  border: 1px solid transparent; border-radius: 6px;
+  background: none; color: inherit; font: inherit; text-align: left; cursor: pointer;
+}
+.gj__serie:hover { border-color: var(--line-alta); }
+.gj__serie[aria-pressed='true'] { border-color: var(--line-alta); background: var(--surface); }
+.gj__color { width: .9rem; height: .9rem; margin-top: .1rem; border-radius: 3px; background: var(--c); }
+.gj__t { display: grid; gap: .05rem; min-width: 0; }
+.gj__q { font-size: .875rem; font-weight: 700; line-height: 1.3; color: var(--ink); }
+.gj__u { font-size: .75rem; line-height: 1.35; color: var(--ink-3); }
+
+.gj__caja { position: relative; margin-top: .8rem; }
+.gj__svg { display: block; max-width: 100%; height: auto; overflow: visible; touch-action: pan-y; }
+.gj__ref { fill: var(--aura-ref); }
+.gj__cero { stroke: var(--ink-3); stroke-width: 1; }
+.gj__x { font-size: 12px; fill: var(--ink-2); }
+.gj__x[data-quien='referencia'] { fill: var(--ref); font-weight: 800; }
+.gj__lin { fill: none; stroke: var(--c); stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; }
+.gj__pt { fill: var(--c); stroke: var(--bg); stroke-width: 1.5; }
+.gj__col { fill: var(--c); }
+.gj__guia { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 3 3; }
+.gj__zona { fill: transparent; cursor: crosshair; }
+.gj__tip {
+  position: absolute; top: .5rem; z-index: 2; max-width: min(18rem, 80%);
+  padding: .55rem .7rem; border: 1px solid var(--line-alta); border-radius: 6px;
+  background: var(--bg); box-shadow: 0 4px 16px rgba(0, 0, 0, .12);
+  pointer-events: none;
+}
+.gj__tip-h { font-size: .875rem; font-weight: 800; color: var(--ink); }
+.gj__tip-f { display: grid; grid-template-columns: .7rem minmax(0, 1fr) auto; gap: .45rem; align-items: baseline; margin-top: .25rem; font-size: .75rem; line-height: 1.3; color: var(--ink-2); }
+.gj__tip-f .gj__color { width: .7rem; height: .7rem; margin: 0; }
+.gj__tip-f b { color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }

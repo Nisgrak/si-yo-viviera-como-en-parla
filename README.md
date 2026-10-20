@@ -153,6 +153,7 @@ assets/estilos.css    todo el diseño
 assets/calculo.js     la cuenta: qué se pierde, qué se gana y cuánto suma la portada
 assets/app.js         el render
 assets/cartel.js      el cartel A4 de economía e infraestructuras (la portada tiene el suyo en app.js)
+consulta.html         todos los datos de las once ciudades a la vez (assets/consulta.css/.js)
 assets/indice.js      el índice de cada página (lateral o barra de abajo); lo lee de la página
 assets/fuentes/       la tipografía Archivo, servida desde aquí (OFL 1.1)
 assets/cartel/        los dos fondos del cartel para compartir
@@ -441,13 +442,21 @@ el mismo QR que el de la portada; cada página le pasa la frase de entrada, la c
 las cajas, calculados al pulsar con la ciudad elegida. El del abono no sale si las dos ciudades
 están en la misma zona.
 
-### Ver las once
+### Todos los datos: la página de consulta
 
-Debajo de cada comparación de economía y de transporte público (el tren a mano y el abono) hay un
-desplegable «Ver las once», plegado de entrada: la misma cifra en las once ciudades, de la más alta
-a la más baja, con Parla en azul y la ciudad elegida en negrita. Los empates comparten puesto: en el
-abono, las seis ciudades de la zona B2 son todas «1.». Está pensado para quien quiere contrastar
-(periodistas, plataformas vecinales) sin cargar la lectura de quien no.
+`consulta.html` junta casi todos los datos de la web (73: población, equipamientos, vecinos y
+economía, cuentas del ayuntamiento, vivienda e infraestructuras) con las once ciudades a la vez.
+A la izquierda, la lista, con buscador; a la derecha, cada dato elegido con las once ordenadas en
+barras, Parla en azul, su fuente y un enlace a la página que lo explica; todos en una tabla,
+ordenable por cualquier columna; o en gráfica, de dos formas: juntos, con los que se miden igual
+(%, euros, «por cada 100.000»…) en líneas o columnas de colores sobre una misma escala, o uno frente a
+otro, en una gráfica de puntos con un dato en cada eje. La selección va en la dirección
+(`?d=dinero-renta,cobertura&vista=grafica&g=cruce&x=dinero-renta&y=cobertura`) para compartirla.
+
+No calcula nada nuevo: el catálogo (`assets/consulta.js`) repite las cuentas de cada página sobre
+los mismos ficheros de `datos/`. Al añadir un dato a una página, añádelo también ahí. Se quedan
+fuera los desahucios (por partido judicial) y los tiempos de los mapas de transporte (cambian de
+un punto a otro). Enlaza desde un botón de la portada y desde el índice de las demás páginas.
 
 ### Una casa: la página de la vivienda
 
