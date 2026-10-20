@@ -1,0 +1,23 @@
+{
+ "_meta": {
+  "notas": [
+   "Estaciones en obras que todavía no dan servicio: no están en los GTFS del Consorcio y no cuentan en los tiempos ni en el tren a mano. La página las pinta aparte, en amarillo.",
+   "Posición: el nodo de OpenStreetMap de la estación (14063949035), que coincide a unos 40 m con la de Wikidata (Q129747281). Ninguna fuente oficial da las coordenadas: la nota del Ministerio solo dice que está entre Getafe Sector 3 y Parla, en la C-4."
+  ]
+ },
+ "estaciones": [
+  {
+   "nombre": "Parla Norte",
+   "ciudad": "parla",
+   "linea": "C-4",
+   "lat": 40.243348,
+   "lon": -3.752131,
+   "estado": "En obras: terminados el edificio y los andenes el 8-7-2026; faltan las instalaciones, la señalización y la autorización de la Agencia Estatal de Seguridad Ferroviaria. Sin fecha de apertura.",
+   "fuentes": [
+    ["Ministerio de Transportes, nota del 8-7-2026", "https://www.transportes.gob.es/ministerio/comunicacion/sala-prensa/mie-08072026-1307"],
+    ["Vía Libre, 9-7-2026", "https://vialibre-ffe.com/noticias.asp?not=49186&cs=infr"],
+    ["OpenStreetMap, posición", "https://www.openstreetmap.org/node/14063949035"]
+   ]
+  }
+ ]
+}

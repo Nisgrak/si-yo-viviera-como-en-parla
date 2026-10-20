@@ -95,3 +95,14 @@ casi todas campo (el término de Getafe es grande y la ciudad ocupa el oeste).
 - El color cubre todo el término, también campos y polígonos: las manzanas grises son la ciudad.
 - El GTFS de Metro está caducado: se usa su servicio de los martes.
 - El fichero de Getafe pesa 1,1 MB (muchas celdas de campo); la página solo lo carga al verlo.
+
+## Estaciones en obras
+
+`obras.json` lista las que se están construyendo y aún no dan servicio. Se pintan en amarillo y no
+cuentan en los tiempos ni en el tren a mano, porque no están en los GTFS. Hoy solo está **Parla
+Norte** (C-4, entre Getafe Sector 3 y Parla): el Ministerio de Transportes dio por terminados el
+edificio y los andenes el 8-7-2026 y quedan las instalaciones, la señalización y la autorización de
+la Agencia Estatal de Seguridad Ferroviaria, sin fecha. La posición es la de OpenStreetMap (nodo
+14063949035), que coincide a unos 40 m con la de Wikidata: ninguna fuente oficial publica las
+coordenadas. Cuando abra y entre en el GTFS, hay que quitarla de `obras.json` y recalcular.
+

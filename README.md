@@ -412,7 +412,9 @@ Antes del mapa va **el tren a mano** (de cada 100 viviendas del Catastro, las qu
 estación de Cercanías, Metro o Metro Ligero que sale de su municipio a 15 minutos andando, con 5 y
 10 en la nota; `cobertura.py` y `fuentes/cobertura.md`), y después **lo que cuesta el
 abono** (zona tarifaria de cada ciudad y precio del de 30 días en 2026 según el BOCM; `abono.py` y
-`fuentes/abono.md`). `indice.py` los junta en `datos/transporte.js` sin recalcular los tiempos, y la
+`fuentes/abono.md`). `indice.py` los junta en `datos/transporte.js` sin recalcular los tiempos, junto con las estaciones
+en obras de `fuentes/obras.json` (hoy, Parla Norte, en amarillo en el mapa de Parla: sin horario,
+no cuenta en ningún cálculo), y la
 portada saca de ahí la línea del tren de «Salir de la ciudad». `aligerar.py` deja cada
 `datos/transporte/<id>.js` en la mitad sin cambiar lo que se ve: quita las celdas de campo sin
 tiempo, recorta las manzanas al encuadre y guarda los tiempos como texto en base 36 (dos

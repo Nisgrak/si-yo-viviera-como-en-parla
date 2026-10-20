@@ -136,6 +136,12 @@
     tren.appendChild(el('i', 'tp__c tp__c--linea'));
     tren.appendChild(el('span', null, 'Cercanías'));
     ley.appendChild(tren);
+    if ((T.obras || []).some(function (o) { return o.ciudad === REF || o.ciudad === I.AQUI; })) {
+      const obra = el('li', 'tp__l');
+      obra.appendChild(el('i', 'tp__c tp__c--obra'));
+      obra.appendChild(el('span', null, 'Estación en obras, sin servicio'));
+      ley.appendChild(obra);
+    }
   }
 
   /* ── Un mapa ──────────────────────────────────────────────────────── */
@@ -219,6 +225,17 @@
       const t = svg('text', { x: (x + (izq ? -7 : 7)).toFixed(1), y: (py(e.y) + 4).toFixed(1),
         class: 'tp__rest', 'text-anchor': izq ? 'end' : 'start' });
       t.textContent = e.nombre.split(' / ')[0];
+      rot.appendChild(t);
+    });
+    /* Las estaciones en obras, en amarillo: no tienen horario, así que no
+       cuentan en los tiempos. */
+    (T.obras || []).filter(function (o) { return o.ciudad === id; }).forEach(function (o) {
+      rot.appendChild(svg('circle', { cx: px(o.x).toFixed(1), cy: py(o.y).toFixed(1), r: 6, class: 'tp__obra' }));
+      const x = px(o.x), texto = o.nombre + ' · en obras';
+      const izq = x + 9 + texto.length * 6.5 * kRot > ANCHO - 6;
+      const t = svg('text', { x: (x + (izq ? -9 : 9)).toFixed(1), y: (py(o.y) + 4).toFixed(1),
+        class: 'tp__rest tp__rest--obra', 'text-anchor': izq ? 'end' : 'start' });
+      t.textContent = texto;
       rot.appendChild(t);
     });
     d.appendChild(rot);

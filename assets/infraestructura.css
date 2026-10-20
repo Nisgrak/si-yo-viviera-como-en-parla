@@ -330,6 +330,11 @@
 .tp__linea--metro, .tp__linea--ligero { stroke: var(--ink-3); stroke-width: 1.2; stroke-dasharray: 4 3; }
 .tp__est { fill: var(--bg); stroke: var(--ink); stroke-width: 2; pointer-events: none; }
 .tp__est--metro { fill: var(--ink-3); stroke: var(--bg); stroke-width: 1; }
+/* La estación en obras: amarillo de obra, con borde de tinta para que se
+   lea sobre el azul de Parla y en los dos temas. */
+:root { --obra: #f5c400; }
+.tp__obra { fill: var(--obra); stroke: var(--ink); stroke-width: 2; pointer-events: none; }
+.tp__rest--obra { fill: var(--ink); }
 .tp__rest {
   fill: var(--ink); font-size: calc(11px * var(--k, 1)); font-weight: 700;
   paint-order: stroke; stroke: var(--bg); stroke-width: calc(3px * var(--k, 1)); stroke-linejoin: round;
@@ -357,6 +362,7 @@
 }
 .tp__c--nada { background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-alta); }
 .tp__c--linea { height: 2px; background: var(--ink); }
+.tp__c--obra { border-radius: 50%; background: var(--obra); box-shadow: inset 0 0 0 2px var(--ink); }
 
 /* El recuadro, como el de los gráficos de líneas de vivienda.css. */
 .tp__tip {
