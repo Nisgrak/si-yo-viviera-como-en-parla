@@ -430,6 +430,14 @@ máquina de 2 GB. Para otra ciudad, su ayuntamiento en `ORIGENES` de `isocronas.
 estación de referencia) y añadirla a `--ciudades`. Mientras no esté calculada, su mapa lo dice. `isocronas.py` hace el mapa al revés (hasta dónde se llega desde el
 ayuntamiento), que se descartó para la web y queda para medir los empleos a los que se llega.
 
+### Ver las once
+
+Debajo de cada comparación de economía y de transporte público (el tren a mano y el abono) hay un
+desplegable «Ver las once», plegado de entrada: la misma cifra en las once ciudades, de la más alta
+a la más baja, con Parla en azul y la ciudad elegida en negrita. Los empates comparten puesto: en el
+abono, las seis ciudades de la zona B2 son todas «1.». Está pensado para quien quiere contrastar
+(periodistas, plataformas vecinales) sin cargar la lectura de quien no.
+
 ### Una casa: la página de la vivienda
 
 **La parte pública** está en `vivienda.html`, que se publica como `/<ciudad>/vivienda/`, y en la

@@ -371,6 +371,38 @@
   const IDS = Object.keys(NOMBRE);
   const LETRA = ['cero', 'una', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez', 'once', 'doce'];
   function num(n, d) { return n.toLocaleString('es-ES', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+  /* «Ver las once», como en economía: plegado, de la cifra más alta a la
+     más baja, Parla en azul y la ciudad elegida en negrita. */
+  function once(v, fmt, extra) {
+    const det = el('details', 'once');
+    det.appendChild(el('summary', 'once__ver', 'Ver las ' + (LETRA[IDS.length] || IDS.length)));
+    const filas = IDS.map(function (id) { return { id: id, v: v(id) }; })
+      .sort(function (a, b) { return b.v - a.v; });
+    const t = el('table', 'once__tabla');
+    const tb = el('tbody');
+    filas.forEach(function (x, k) {
+      const tr = el('tr');
+      if (x.id === REF) tr.dataset.quien = 'referencia';
+      else if (x.id === I.AQUI) tr.dataset.quien = 'aqui';
+      /* Los empates comparten puesto: el de la primera con esa cifra. */
+      const pos = 1 + filas.filter(function (y) { return y.v > x.v; }).length;
+      tr.appendChild(el('td', 'once__n', pos + '.'));
+      tr.appendChild(el('th', null, NOMBRE[x.id] + (extra ? ' · ' + extra(x.id) : '')));
+      tr.appendChild(el('td', 'once__v', fmt(x.v)));
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);
+    det.appendChild(t);
+    return det;
+  }
+  function onceEn(sel, v, fmt, extra) {
+    const cont = $(sel);
+    const viejo = cont.parentNode.querySelector('.once[data-de="' + sel + '"]');
+    if (viejo) viejo.remove();
+    const det = once(v, fmt, extra);
+    det.dataset.de = sel;
+    cont.parentNode.insertBefore(det, cont.nextSibling);
+  }
   function pareja(sel, v, fmt, pie) {
     const cont = $(sel);
     vaciar(cont);
@@ -402,6 +434,7 @@
       return 'de las viviendas, a 15 minutos andando de una estación: ' + C[id].cerca['15'].toLocaleString('es-ES') +
         ' de ' + C[id].viviendas.toLocaleString('es-ES');
     });
+    onceEn('#cob-cifras', p, function (v) { return num(v, 1) + '\u00a0%'; });
     const menos = IDS.filter(function (id) { return C[id] && C[id].pct['15'] < C[REF].pct['15']; });
     $('#cob-nota').textContent = puesto(p) +
       (menos.length && menos.length <= 3 ? ' Por debajo quedan ' + menos.map(function (id) {
@@ -418,6 +451,7 @@
     pareja('#abono-cifras', function (id) { return A[id].precio; }, eur, function (id) {
       return 'el abono de 30 días, zona ' + A[id].zona;
     });
+    onceEn('#abono-cifras', function (id) { return A[id].precio; }, eur, function (id) { return 'zona ' + A[id].zona; });
     const dif = A[REF].precio - A[I.AQUI].precio;
     const igual = IDS.filter(function (id) { return id !== REF && A[id] && A[id].zona === A[REF].zona; });
     $('#abono-nota').textContent = (Math.abs(dif) < 0.005

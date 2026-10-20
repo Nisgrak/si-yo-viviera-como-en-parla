@@ -1459,3 +1459,25 @@ html[data-indice='barra'] .pie { padding-bottom: calc(clamp(3.5rem, 11vw, 6rem) 
   .contador { transition: none; }
   .indice-hoja[open] { animation: none; }
 }
+
+/* ── Ver las once ────────────────────────────────────────────────────────
+   Debajo de una comparación de dos, la misma cifra en todas las ciudades,
+   plegada de entrada. Parla en azul; la ciudad elegida, en negrita. */
+.once { max-width: 34rem; margin-top: .9rem; }
+.once__ver {
+  display: inline-flex; align-items: center; gap: .35rem;
+  font-size: .8125rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--ref); cursor: pointer; list-style: none;
+}
+.once__ver::-webkit-details-marker { display: none; }
+.once__ver::after { content: '+'; font-size: 1rem; line-height: 1; }
+.once[open] .once__ver::after { content: '−'; }
+.once__ver:focus-visible { outline: 2px solid var(--ref); outline-offset: 3px; border-radius: 2px; }
+.once__tabla { width: 100%; margin-top: .6rem; border-collapse: collapse; font-size: .875rem; }
+.once__tabla th, .once__tabla td { padding: .3rem 0; border-top: 1px solid var(--line); text-align: left; font-weight: 400; color: var(--ink-2); }
+.once__tabla tr:last-child th, .once__tabla tr:last-child td { border-bottom: 1px solid var(--line); }
+.once__n { width: 2.2rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.once__v { text-align: right !important; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.once__tabla tr[data-quien='referencia'] th, .once__tabla tr[data-quien='referencia'] td { color: var(--ref); font-weight: 800; }
+.once__tabla tr[data-quien='aqui'] th, .once__tabla tr[data-quien='aqui'] td { color: var(--ink); font-weight: 800; }
+
