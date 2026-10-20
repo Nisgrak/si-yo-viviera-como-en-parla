@@ -152,6 +152,7 @@ index.html            estructura y textos fijos
 assets/estilos.css    todo el diseño
 assets/calculo.js     la cuenta: qué se pierde, qué se gana y cuánto suma la portada
 assets/app.js         el render
+assets/cartel.js      el cartel A4 de economía e infraestructuras (la portada tiene el suyo en app.js)
 assets/indice.js      el índice de cada página (lateral o barra de abajo); lo lee de la página
 assets/fuentes/       la tipografía Archivo, servida desde aquí (OFL 1.1)
 assets/cartel/        los dos fondos del cartel para compartir
@@ -429,6 +430,16 @@ Necesita numpy y shapely, como `accesos.py`. Las once tardan unos 25 minutos y c
 máquina de 2 GB. Para otra ciudad, su ayuntamiento en `ORIGENES` de `isocronas.py` (para la
 estación de referencia) y añadirla a `--ciudades`. Mientras no esté calculada, su mapa lo dice. `isocronas.py` hace el mapa al revés (hasta dónde se llega desde el
 ayuntamiento), que se descartó para la web y queda para medir los empleos a los que se llega.
+
+### Los carteles de economía e infraestructuras
+
+Además del cartel de la portada (en `app.js`, que sabe del recuento), cinco datos de las otras
+páginas tienen su botón «Cartel para compartir»: los puestos de trabajo por cada 100 vecinos que
+trabajan, el plazo de pago a proveedores y la deuda por vecino, en economía; el tren a mano y el
+abono, en infraestructuras. Los monta `assets/cartel.js` con la misma maqueta, los mismos fondos y
+el mismo QR que el de la portada; cada página le pasa la frase de entrada, la cifra, lo que mide y
+las cajas, calculados al pulsar con la ciudad elegida. El del abono no sale si las dos ciudades
+están en la misma zona.
 
 ### Ver las once
 

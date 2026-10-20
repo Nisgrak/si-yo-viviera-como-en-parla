@@ -136,9 +136,19 @@
     });
     art.appendChild(ul);
     art.appendChild(once(f.v, f.fmt));
+    if (f.cartel && window.CARTEL) art.appendChild(cartel(f.cartel.id, f.titulo, f.cartel.datos));
     if (f.nota) art.appendChild(el('p', 'renta__nota', f.nota));
     if (f.fuentes) art.appendChild(pieFuente(f.fuentes));
     cont.appendChild(art);
+  }
+
+  /* El botón del cartel A4 (assets/cartel.js), con la ciudad elegida. */
+  function cartel(id, titulo, datos) {
+    return window.CARTEL.boton({
+      id: id, datos: datos,
+      ciudad: function () { return AQUI; },
+      titulo: function () { return 'Parla y ' + NOMBRE[AQUI] + ' · ' + titulo; }
+    });
   }
 
   /* «Ver las once»: la misma cifra en todas, de la más alta a la más baja,
@@ -384,6 +394,20 @@
         return 'puestos de trabajo en la ciudad por cada 100 vecinos que trabajan: ' +
           entero(t(id).enCentro) + ' puestos y ' + entero(t(id).residentes) + ' vecinos afiliados, a finales de 2025';
       });
+    const viejo = $('#trabajo-cartel');
+    if (viejo) viejo.remove();
+    if (window.CARTEL) {
+      const b = cartel('trabajo', 'Dónde se trabaja', function () {
+        return {
+          pre: 'Por cada 100 vecinos de Parla que trabajan, hay',
+          cifra: num(ultimo(t(REF).puestos), 1), que: 'puestos de trabajo en Parla',
+          cajas: [{ q: NOMBRE[AQUI], v: num(ultimo(t(AQUI).puestos), 1) + ' por cada 100 vecinos que trabajan' },
+            { q: 'Parla', v: entero(t(REF).enCentro) + ' puestos para ' + entero(t(REF).residentes) + ' vecinos afiliados', ref: true }]
+        };
+      });
+      b.id = 'trabajo-cartel';
+      $('#trabajo-cifras').after(b);
+    }
     const pp = t(REF).puestos, pa = t(AQUI).puestos;
     linea($('#trabajo-graf'), {
       etiquetas: anios(E.anios.puestos),
@@ -556,7 +580,16 @@
   /* ── Las cuentas del ayuntamiento ─────────────────────────────────── */
 
   function ayuntamiento() {
-    fichas('#ayto-fichas', ['inversion', 'gasto', 'servicios-sociales', 'comunidad', 'deuda'].map(desdeDinero));
+    const fs = ['inversion', 'gasto', 'servicios-sociales', 'comunidad', 'deuda'].map(desdeDinero);
+    const deuda = serieDinero('deuda');
+    fs[4].cartel = { id: 'deuda', datos: function () {
+      return {
+        pre: 'El Ayuntamiento de Parla debe', cifra: entero(deuda.valores[REF]) + ' €', que: 'por cada vecino',
+        cajas: [{ q: NOMBRE[AQUI], v: entero(deuda.valores[AQUI]) + ' € por vecino' },
+          { q: 'Parla', v: enEuros(deuda.saldoEuros[REF], false) + ' en total, a finales de 2025', ref: true }]
+      };
+    } };
+    fichas('#ayto-fichas', fs);
     const imp = D.contexto.impuestosDirectos;
     $('#ayto-cierre').textContent = texto(D.contexto.dineroNota, {
       impuestosAqui: entero(imp[AQUI]), impuestosRef: entero(imp[REF])
@@ -614,7 +647,14 @@
         nota: 'Los días que pasan de media desde que el ayuntamiento da por buena una factura hasta que la paga. En ' + mes(k(REF).pmpPeriodo) +
           ', ' + entero(k(REF).pmpUltimo) + ' días en Parla. ' + puesto(function (id) { return k(id).pmp; }) +
           (k(AQUI).pmpN < 12 ? ' ' + NOMBRE[AQUI] + ' lo publica por trimestres: es la media de cuatro.' : ''),
-        fuentes: ['pmp'] },
+        fuentes: ['pmp'],
+        cartel: { id: 'pmp', datos: function () {
+          return {
+            pre: 'El Ayuntamiento de Parla tarda de media', cifra: entero(k(REF).pmp) + ' días',
+            que: 'en pagar a sus proveedores',
+            cajas: [{ q: 'Máximo legal', v: '30 días' }, { q: NOMBRE[AQUI], v: entero(k(AQUI).pmp) + ' días' }]
+          };
+        } } },
       { titulo: 'Lo que le queda en caja',
         pie: 'Remanente de tesorería por habitante, descontadas las facturas pendientes de aplicar, 31 de diciembre de 2024',
         v: function (id) { return k(id).remanenteAjustado; }, fmt: eur,

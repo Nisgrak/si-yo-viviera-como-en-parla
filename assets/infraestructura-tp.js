@@ -403,6 +403,21 @@
     det.dataset.de = sel;
     cont.parentNode.insertBefore(det, cont.nextSibling);
   }
+  /* El botón del cartel A4 (assets/cartel.js), detrás de la nota. Sin
+     datos, no hay botón. */
+  function cartelEn(sel, id, titulo, datos) {
+    const nota = $(sel);
+    const viejo = nota.parentNode.querySelector('.compartir[data-cartel="' + id + '"]');
+    if (viejo) viejo.remove();
+    if (!datos || !window.CARTEL) return;
+    const b = window.CARTEL.boton({
+      id: id, datos: datos,
+      ciudad: function () { return I.AQUI; },
+      titulo: function () { return 'Parla y ' + NOMBRE[I.AQUI] + ' · ' + titulo; }
+    });
+    b.dataset.cartel = id;
+    nota.after(b);
+  }
   function pareja(sel, v, fmt, pie) {
     const cont = $(sel);
     vaciar(cont);
@@ -435,6 +450,14 @@
         ' de ' + C[id].viviendas.toLocaleString('es-ES');
     });
     onceEn('#cob-cifras', p, function (v) { return num(v, 1) + '\u00a0%'; });
+    cartelEn('#cob-nota', 'tren', 'El tren a mano', function () {
+      return {
+        pre: 'De cada 100 viviendas de Parla,', cifra: num(p(REF), 0),
+        que: 'tienen una estación de tren o de metro a 15 minutos andando',
+        cajas: [{ q: NOMBRE[I.AQUI], v: num(p(I.AQUI), 0) + ' de cada 100' },
+          { q: 'Parla', v: C[REF].cerca['15'].toLocaleString('es-ES') + ' de ' + C[REF].viviendas.toLocaleString('es-ES') + ' viviendas', ref: true }]
+      };
+    });
     const menos = IDS.filter(function (id) { return C[id] && C[id].pct['15'] < C[REF].pct['15']; });
     $('#cob-nota').textContent = puesto(p) +
       (menos.length && menos.length <= 3 ? ' Por debajo quedan ' + menos.map(function (id) {
@@ -453,6 +476,15 @@
     });
     onceEn('#abono-cifras', function (id) { return A[id].precio; }, eur, function (id) { return 'zona ' + A[id].zona; });
     const dif = A[REF].precio - A[I.AQUI].precio;
+    /* Con el mismo precio no hay cartel: no hay nada que contar. */
+    cartelEn('#abono-nota', 'abono', 'Lo que cuesta el abono', Math.abs(dif) < 0.005 ? null : function () {
+      return {
+        pre: 'Un vecino de Parla paga al año', cifra: eur(Math.abs(dif) * 12),
+        que: (dif > 0 ? 'más' : 'menos') + ' por su abono que uno de ' + NOMBRE[I.AQUI],
+        cajas: [{ q: NOMBRE[I.AQUI], v: eur(A[I.AQUI].precio) + ' al mes, zona ' + A[I.AQUI].zona },
+          { q: 'Parla', v: eur(A[REF].precio) + ' al mes, zona ' + A[REF].zona, ref: true }]
+      };
+    });
     const igual = IDS.filter(function (id) { return id !== REF && A[id] && A[id].zona === A[REF].zona; });
     $('#abono-nota').textContent = (Math.abs(dif) < 0.005
       ? 'Parla y ' + NOMBRE[I.AQUI] + ' están en la misma zona y pagan lo mismo.'
