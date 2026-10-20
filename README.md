@@ -209,7 +209,11 @@ imagen. Eso lo monta Netlify en cada publicación (`netlify.toml` → `npm run b
 - la web tal cual;
 - `dist/leganes/index.html`, una página mínima con la cifra en el título, que manda a
   `/#leganes`;
-- `dist/assets/compartir/leganes.png`, la imagen con la cifra, y `general.png`, la de la portada.
+- `dist/assets/compartir/leganes.png`, la imagen con la cifra, y `general.png`, la de la portada;
+- `dist/assets/compartir/leganes-economia.png`, `-infraestructura.png` y `-vivienda.png`: el dato
+  principal de cada página, Parla frente a la ciudad, con su texto de vista previa. Si el dato no
+  tiene sentido para una ciudad (Fuenlabrada ha perdido vecinos desde 2015, así que no hay
+  viviendas por cada 100 vecinos nuevos), esa página se queda con la imagen general.
 
 La cifra no se teclea: el build carga `datos.js` y `calculo.js`, los mismos archivos que el
 navegador, así que no hay una segunda cuenta que pueda separarse. Y como se rehace en cada push,

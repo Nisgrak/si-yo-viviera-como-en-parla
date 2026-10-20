@@ -7,7 +7,8 @@
      dist/<id>/vivienda/             la página de la vivienda, igual
      dist/<id>/economia/             la página de la economía, igual
      dist/assets/compartir/*.png     la imagen de vista previa general y la de
-                                     cada municipio, con su total
+                                     cada municipio, con su total; y la de cada
+                                     página de cada municipio, con su dato
 
    WhatsApp y las redes no ejecutan JavaScript ni leen lo que va detrás de «#»,
    así que la cifra de cada ciudad tiene que ir escrita en un HTML propio. No se
@@ -32,6 +33,10 @@ const BASE = 'https://siyovivieracomoenparla.netlify.app/';
 globalThis.window = globalThis;
 const require = createRequire(import.meta.url);
 require(join(RAIZ, 'datos/datos.js'));
+/* Y las cifras de las otras páginas, para su vista previa. */
+require(join(RAIZ, 'datos/economia.js'));
+require(join(RAIZ, 'datos/vivienda.js'));
+require(join(RAIZ, 'datos/transporte.js'));
 const CALCULO = require(join(RAIZ, 'assets/calculo.js'));
 const D = globalThis.DATOS;
 
@@ -113,6 +118,55 @@ function imagenCiudad(nombre, total) {
   </div>`;
 }
 
+/* Las páginas de vivienda, economía e infraestructuras: su dato principal,
+   Parla en azul y la ciudad en tinta, con la misma regla que la página. */
+const num = (v, d) => v.toLocaleString('es-ES', { minimumFractionDigits: d, maximumFractionDigits: d });
+function imagenPareja(seccion, titulo, nombre, vRef, vAqui, unidad, pie) {
+  const cifra = (quien, v, color) => `<div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font-size:38px;font-weight:800;font-stretch:75%;text-transform:uppercase;color:${color}">${esc(quien)}</span>
+      <span style="font-size:190px;font-weight:800;font-stretch:62%;line-height:.85;color:${color}">${esc(v)}<span style="font-size:96px">${esc(unidad)}</span></span>
+    </div>`;
+  return `<div style="${LIENZO}">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <span style="font-size:28px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#525252">${esc(seccion)} · Si yo viviera como en Parla</span>
+      <span style="font-size:50px;font-weight:700;font-stretch:80%;line-height:1.08;color:#161616">${esc(titulo)}</span>
+    </div>
+    <div style="display:flex;gap:110px">${cifra('Parla', vRef, '#1a67c2')}${cifra(nombre, vAqui, '#161616')}</div>
+    <div style="font-size:26px;line-height:1.25;color:#525252">${esc(pie)}</div>
+  </div>`;
+}
+
+const E = globalThis.ECONOMIA, V = globalThis.VIVIENDA, TP = globalThis.TRANSPORTE;
+const ultimo = (xs) => xs[xs.length - 1];
+/* El dato de cada página, como lo calcula la propia página. */
+const CIFRAS = {
+  economia: {
+    titulo: 'Puestos de trabajo en la ciudad por cada 100 vecinos que trabajan',
+    seccion: 'Economía', unidad: '',
+    v: (id) => num(ultimo(E.ciudades[id].trabajo.puestos), 1),
+    pie: 'Afiliados a la Seguridad Social por centro de trabajo y por residencia, a finales de 2025. Comunidad de Madrid.',
+    desc: (n, a, b) => `Por cada 100 vecinos de Parla que trabajan hay ${a} puestos de trabajo en Parla; en ${n}, ${b}. El trabajo, la renta, las empresas y las cuentas del ayuntamiento, con datos oficiales.`
+  },
+  infraestructura: {
+    titulo: 'De cada 100 viviendas, las que tienen una estación de Cercanías, Metro o Metro Ligero a 15 minutos andando',
+    seccion: 'Infraestructuras', unidad: '',
+    v: (id) => num(TP.cobertura.ciudades[id].pct['15'], 0),
+    pie: 'Edificios del Catastro y horarios del Consorcio Regional de Transportes de Madrid, 2026.',
+    desc: (n, a, b) => `De cada 100 viviendas de Parla, ${a} tienen una estación a 15 minutos andando; en ${n}, ${b}. Por dónde sale la gente en coche, cuánto se tarda en tren hasta el centro y lo que cuesta el abono.`
+  },
+  vivienda: {
+    titulo: 'Viviendas nuevas por cada 100 vecinos nuevos, de 2015 a 2025',
+    seccion: 'Vivienda', unidad: '',
+    v: (id) => {
+      const c = V.ciudades[id].crece, n = c.pob.length - 1;
+      const p = c.pob[n] - c.pob[0];
+      return p > 0 ? num((c.casas[n] - c.casas[0]) / p * 100, 1) : null;
+    },
+    pie: 'Catastro, unidades residenciales, y padrón del INE, 2015-2025.',
+    desc: (n, a, b) => `Por cada 100 vecinos nuevos desde 2015, Parla ha sumado ${a} viviendas; ${n}, ${b}. Lo que cuesta comprar y alquilar, de quién son las casas y los desahucios, con datos oficiales.`
+  }
+};
+
 async function pintar(html, destino) {
   const png = await renderer.render(fromHtml(html).node, { width: 1200, height: 630, fonts: fuentes });
   await writeFile(destino, png);
@@ -160,7 +214,7 @@ function pagina(id, nombre, total) {
    redirección: la ciudad va escrita en el <html> y las rutas relativas se
    resuelven desde la raíz con <base>. Así /getafe/infraestructura/ es el
    enlace que se copia. */
-function paginaCiudad(id, titulo, fuente, archivo, ruta, base = '../../') {
+function paginaCiudad(id, titulo, fuente, archivo, ruta, base = '../../', previa = null) {
   const url = BASE + id + '/' + ruta;
   let h = fuente
     .replace(/<html lang="es"[^>]*>/, (m) => m.replace('>', ` data-rutas data-ciudad="${id}">`))
@@ -168,17 +222,33 @@ function paginaCiudad(id, titulo, fuente, archivo, ruta, base = '../../') {
     .replace(/<title>[^<]*<\/title>/, `<title>${esc(titulo)} · Si yo viviera como en Parla</title>`)
     .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${esc(titulo)}">`)
     .replace(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${url}">\n<link rel="canonical" href="${url}">`);
+  /* La vista previa con la cifra de la ciudad, si la hay. */
+  if (previa) {
+    h = h.replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${esc(previa.desc)}">`)
+      .replace(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${BASE}assets/compartir/${previa.imagen}">`);
+    if (!h.includes(previa.imagen)) throw new Error(archivo + ': no se pudo poner la imagen de ' + id);
+  }
   for (const a of ['data-ciudad', '<base', url]) {
     if (!h.includes(a)) throw new Error(archivo + ': no se pudo marcar ' + a);
   }
   return h;
 }
-const paginaInfra = (id, nombre) => paginaCiudad(id, 'Salir de ' + nombre + ' y salir de Parla',
-  infra, 'infraestructura.html', 'infraestructura/');
-const paginaVivienda = (id, nombre) => paginaCiudad(id, 'Una casa en ' + nombre + ' y una casa en Parla',
-  viv, 'vivienda.html', 'vivienda/');
-const paginaEconomia = (id, nombre) => paginaCiudad(id, 'El dinero de ' + nombre + ' y el dinero de Parla',
-  eco, 'economia.html', 'economia/');
+const paginaInfra = (id, nombre, previa) => paginaCiudad(id, 'Salir de ' + nombre + ' y salir de Parla',
+  infra, 'infraestructura.html', 'infraestructura/', undefined, previa);
+const paginaVivienda = (id, nombre, previa) => paginaCiudad(id, 'Una casa en ' + nombre + ' y una casa en Parla',
+  viv, 'vivienda.html', 'vivienda/', undefined, previa);
+const paginaEconomia = (id, nombre, previa) => paginaCiudad(id, 'El dinero de ' + nombre + ' y el dinero de Parla',
+  eco, 'economia.html', 'economia/', undefined, previa);
+
+/* La imagen y el texto de la vista previa de una página para una ciudad. */
+async function previa(clave, m) {
+  const c = CIFRAS[clave];
+  const a = c.v(D.REFERENCIA), b = c.v(m.id);
+  if (a == null || b == null) return null;
+  const imagen = `${m.id}-${clave}.png`;
+  await pintar(imagenPareja(c.seccion, c.titulo, m.nombre, a, b, c.unidad, c.pie), join(DIST, 'assets/compartir', imagen));
+  return { imagen, desc: c.desc(m.nombre, a, b) };
+}
 
 await mkdir(join(DIST, 'assets/compartir'), { recursive: true });
 await pintar(imagenGeneral(), join(DIST, 'assets/compartir/general.png'));
@@ -191,10 +261,10 @@ for (const m of D.MUNICIPIOS) {
   await mkdir(join(DIST, m.id), { recursive: true });
   await writeFile(join(DIST, m.id, 'index.html'), pagina(m.id, m.nombre, total));
   await mkdir(join(DIST, m.id, 'infraestructura'), { recursive: true });
-  await writeFile(join(DIST, m.id, 'infraestructura', 'index.html'), paginaInfra(m.id, m.nombre));
+  await writeFile(join(DIST, m.id, 'infraestructura', 'index.html'), paginaInfra(m.id, m.nombre, await previa('infraestructura', m)));
   await mkdir(join(DIST, m.id, 'vivienda'), { recursive: true });
-  await writeFile(join(DIST, m.id, 'vivienda', 'index.html'), paginaVivienda(m.id, m.nombre));
+  await writeFile(join(DIST, m.id, 'vivienda', 'index.html'), paginaVivienda(m.id, m.nombre, await previa('vivienda', m)));
   await mkdir(join(DIST, m.id, 'economia'), { recursive: true });
-  await writeFile(join(DIST, m.id, 'economia', 'index.html'), paginaEconomia(m.id, m.nombre));
+  await writeFile(join(DIST, m.id, 'economia', 'index.html'), paginaEconomia(m.id, m.nombre, await previa('economia', m)));
   console.log(m.id.padEnd(12), total);
 }
