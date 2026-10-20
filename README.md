@@ -172,8 +172,9 @@ assets/economia.css/.js   su diseño y su render: fichas del dinero, líneas y e
 assets/linea.js       el gráfico de líneas, compartido por vivienda.html y economia.html
 datos/economia.js     sus cifras; las escribe herramientas/economia.py
 herramientas/economia/fuentes/   lo extraído de cada fuente (.json) con sus URL y cautelas (.md)
-herramientas/         lo que rehace lo que no se teclea: el QR, las zonas verdes, los accesos
-                      y el build que añade la vista previa de cada ciudad (compartir.mjs)
+herramientas/         lo que rehace lo que no se teclea: el QR, las zonas verdes, los accesos,
+                      la prueba de la web (comprobar.mjs) y el build que añade la vista
+                      previa de cada ciudad (compartir.mjs)
 ```
 
 La web no necesita build, ni dependencias, ni framework: se abre `index.html` y funciona. El
@@ -875,6 +876,18 @@ python3 -m http.server 8000      # en local
 ```
 
 En GitHub Pages, Netlify, Cloudflare Pages o Vercel: subir la carpeta, sin configuración.
+
+**La prueba.** Antes de cada build de Netlify, `herramientas/comprobar.mjs` abre las cuatro
+páginas con cada una de las diez ciudades en jsdom (JavaScript de verdad, sin pintar) y para el
+build si hay un error o si algo que tiene que salir sale vacío: la frase de arriba, el recuento,
+las fichas, los mapas de transporte. Tarda medio minuto. En local:
+
+```bash
+npm install && npm run comprobar
+```
+
+Mira que cada página arranca y escribe sus cifras, no cómo se ve: eso sigue haciendo falta
+mirarlo en un navegador.
 
 Nota: el contenido se calcula en el navegador, así que un buscador sin JavaScript solo verá
 la estructura. Si en algún momento importa el posicionamiento, el siguiente paso sería un

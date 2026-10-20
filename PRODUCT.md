@@ -85,12 +85,22 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 
 ## Estado
 
-v5: siete ciudades contra Parla —Leganés 69, Fuenlabrada 63, Móstoles 61, Alcorcón 61,
-Getafe 50, Alcobendas 24, Pinto 9—
-con 12 indicadores que suman, y aparte, fuera del recuento, las camas, las plazas
-residenciales públicas, los alumnos de enseñanzas artísticas, las zonas verdes, la cartera del
-hospital y el dinero. Pinto es el contraejemplo que sostiene la credibilidad: pierde poco y en
+v6 (octubre de 2026): diez ciudades contra Parla —Leganés 69, Fuenlabrada 63, Alcorcón 61,
+Móstoles 61, Getafe 50, Alcobendas 24, Pozuelo de Alarcón 18, Torrejón de Ardoz 14,
+Majadahonda 12, Pinto 9— con 12 indicadores que suman, y aparte, fuera del recuento, las camas,
+las plazas residenciales públicas, los alumnos de enseñanzas artísticas, las zonas verdes y la
+cartera del hospital. Pinto es el contraejemplo que sostiene la credibilidad: pierde poco y en
 hospital está por debajo de Parla, y la web lo dice en su propia portada.
 
-Siguiente: distritos de Madrid; después, deporte, zonas verdes y teatros cuando haya una fuente
-comparable entre municipios.
+Además del recuento, tres páginas por ciudad, cada una con su resumen en la portada:
+
+- **Vivienda**: comprar, alquilar, de quién son las casas, barrios, vivienda pública,
+  desahucios y cómo son las casas.
+- **Economía**: dónde se trabaja, el paro, lo que entra en casa, lo que se produce y las cuentas
+  del ayuntamiento.
+- **Infraestructuras**: en coche (por dónde sale la gente) y en transporte público (el tren a
+  mano, cuánto se tarda hasta el centro y lo que cuesta el abono).
+
+Siguiente: lo que paga un vecino en impuestos municipales, las listas de espera del hospital,
+los empleos a los que se llega en 45 minutos y los distritos de Madrid; después, deporte y
+teatros cuando haya una fuente comparable entre municipios.
