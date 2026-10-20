@@ -159,19 +159,26 @@
   </div>
 </section>
 
-<!-- ── Salir en coche ─────────────────────────────────────────────────
+<!-- ── Salir de la ciudad ─────────────────────────────────────────────
      Solo el resumen: lo demás está en infraestructura.html. -->
-<section class="bloque bloque--salir" id="salir" data-indice="Salir en coche">
+<section class="bloque bloque--salir" id="salir" data-indice="Salir de la ciudad">
   <div class="env">
-    <h2 class="bloque__h">Salir en coche</h2>
+    <h2 class="bloque__h">Salir de la ciudad</h2>
     <p class="bloque__intro" id="salir-txt"></p>
     <ul class="mun salir__filas" id="salir-filas"></ul>
     <p class="salir__pie">
       Parte de las salidas por carretera de 6 a 10 de la mañana que se lleva la salida más usada.
       <a href="https://www.transportes.gob.es/ministerio/proyectos-singulares/estudios-de-movilidad-con-big-data/rutas-por-carretera">Ministerio de Transportes, rutas por carretera</a>, 16-10-2024.
     </p>
+    <p class="bloque__intro salir__tren" id="salir-tren"></p>
+    <ul class="mun salir__filas" id="salir-tren-filas"></ul>
+    <p class="salir__pie" id="salir-tren-pie">
+      Viviendas con una estación de Cercanías, Metro o Metro Ligero a 15 minutos andando.
+      <a href="https://www.catastro.hacienda.gob.es/webinspire/index.html">Catastro, edificios</a> y
+      <a href="https://datos.crtm.es/">Consorcio Regional de Transportes de Madrid, horarios</a>, 2026.
+    </p>
     <a class="salir__ir" id="salir-ir" href="infraestructura.html">
-      <span>Ver las salidas de <span data-aqui>Getafe</span> y de Parla</span>
+      <span>Ver cómo se sale de <span data-aqui>Getafe</span> y de Parla, en coche y en tren</span>
       <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
         <path d="M1 6h13M9.5 1l5 5-5 5" stroke="currentColor" stroke-width="1.6"/>
       </svg>
@@ -304,6 +311,7 @@
 <script src="datos/infraestructura.js"></script>
 <script src="datos/vivienda.js"></script>
 <script src="datos/economia.js"></script>
+<script src="datos/transporte.js"></script>
 <script src="assets/calculo.js"></script>
 <script src="assets/qr.js"></script>
 <script src="assets/indice.js"></script>

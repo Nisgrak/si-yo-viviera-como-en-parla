@@ -285,3 +285,138 @@
   text-decoration: none;
 }
 
+
+/* ── En transporte público ─────────────────────────────────────────────
+   El término de cada ciudad pintado por zonas de 10 minutos: capas
+   semitransparentes que se cargan de color donde se tarda menos. Parla en
+   su azul y tu ciudad en tinta. Debajo, callado, el término y las manzanas
+   del Catastro; encima, las líneas de tren y sus estaciones (con nombre,
+   las de Cercanías; las de Metro y Metro Ligero, como puntos). */
+
+.tp { --tp-color: var(--ink); }
+.tp[data-quien='referencia'] { --tp-color: var(--ref); }
+
+.tp__mandos { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.5rem; margin-top: clamp(1.25rem, 4vw, 1.75rem); }
+.tp__destinos { display: flex; flex-wrap: wrap; gap: .5rem; }
+.tp__min {
+  padding: .45rem .9rem;
+  border: 1px solid var(--line-alta); border-radius: 999px;
+  background: var(--bg); color: var(--ink);
+  font: inherit; font-size: .875rem; font-weight: 700;
+  cursor: pointer;
+}
+.tp__min:hover { border-color: var(--ink-3); }
+.tp__min[aria-pressed='true'] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.tp__bus { display: inline-flex; align-items: center; gap: .5rem; font-size: .9375rem; color: var(--ink); cursor: pointer; }
+.tp__bus input { width: 1.1rem; height: 1.1rem; margin: 0; accent-color: var(--ink); cursor: pointer; }
+.tp__frase { margin-top: 1rem; max-width: 36rem; font-size: 1.0625rem; line-height: 1.45; color: var(--ink); }
+.tp__frase .parla { color: var(--ref); }
+
+.tp__marco { position: relative; }
+.tp__svg {
+  display: block; width: 100%; height: auto;
+  border: 1px solid var(--line); border-radius: 4px;
+  background: var(--bg);
+  touch-action: manipulation;
+}
+.tp__termino { fill: var(--surface); stroke: none; }
+.tp__manzanas { fill: var(--surface-2); stroke: var(--line-alta); stroke-width: .3; }
+.tp__zona { fill: var(--tp-color); fill-opacity: .15; stroke: var(--tp-color); stroke-opacity: .5; stroke-width: .7; }
+@media (prefers-color-scheme: dark) { .tp__zona { fill-opacity: .19; } }
+.tp__limite { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; }
+.tp[data-quien='referencia'] .tp__limite { stroke: var(--ref); stroke-width: 2; }
+.tp__linea { fill: none; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.tp__linea--cercanias { stroke: var(--ink); stroke-width: 2; }
+.tp__linea--metro, .tp__linea--ligero { stroke: var(--ink-3); stroke-width: 1.2; stroke-dasharray: 4 3; }
+.tp__est { fill: var(--bg); stroke: var(--ink); stroke-width: 2; pointer-events: none; }
+.tp__est--metro { fill: var(--ink-3); stroke: var(--bg); stroke-width: 1; }
+.tp__rest {
+  fill: var(--ink); font-size: calc(11px * var(--k, 1)); font-weight: 700;
+  paint-order: stroke; stroke: var(--bg); stroke-width: calc(3px * var(--k, 1)); stroke-linejoin: round;
+  pointer-events: none;
+}
+.tp__km { stroke: var(--ink-3); stroke-width: 2; }
+.tp__km-t { fill: var(--ink-3); font-size: calc(12px * var(--k, 1)); }
+.tp__falta {
+  display: grid; place-items: center;
+  aspect-ratio: 1; padding: 2rem;
+  border: 1px dashed var(--line-alta); border-radius: 4px;
+  font-size: .9375rem; color: var(--ink-3); text-align: center;
+}
+
+.tp__ley {
+  display: flex; flex-wrap: wrap; gap: .5rem 1.1rem;
+  margin: 1rem 0 0; padding: 0; list-style: none;
+  font-size: .8125rem; color: var(--ink-2);
+}
+.tp__l { display: inline-flex; align-items: center; gap: .4rem; }
+/* La muestra: la tinta con tantas capas como lleva esa zona. */
+.tp__c {
+  width: .9rem; height: .9rem; border-radius: 2px;
+  background: color-mix(in srgb, var(--ink) calc((1 - pow(.85, var(--capas, 1))) * 100%), var(--surface));
+}
+.tp__c--nada { background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-alta); }
+.tp__c--linea { height: 2px; background: var(--ink); }
+
+/* El recuadro, como el de los gráficos de líneas de vivienda.css. */
+.tp__tip {
+  position: absolute; z-index: 3;
+  min-width: 9rem; max-width: 15rem;
+  padding: .5rem .65rem .55rem;
+  border-radius: 6px;
+  background: var(--bg);
+  box-shadow: 0 0 0 1px var(--line-alta), 0 6px 18px rgb(0 0 0 / .12);
+  pointer-events: none;
+  translate: 0 -100%;
+}
+.tp__tip .graf__tip-h { margin-bottom: .2rem; font-size: .75rem; font-weight: 700; color: var(--ink-3); letter-spacing: .02em; }
+.tp__tip-v { font-size: 1.0625rem; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tp__tip-m { font-size: .75rem; color: var(--ink-3); }
+
+/* ── Los dos apartados: en coche y en transporte público ───────────────
+   Cada uno abre con su cabecera, más grande que los títulos de dentro. El
+   filete grueso, como un cambio de capítulo, solo separa uno del anterior:
+   el primero va justo después de la portada. */
+
+.grupo__cab { padding-block: clamp(3rem, 10vw, 5rem) clamp(.25rem, 1vw, .5rem); }
+.grupo + .grupo .grupo__cab { border-top: 4px solid var(--ink); }
+.grupo + .grupo .grupo__cab, .grupo + .bloque { margin-top: clamp(1rem, 4vw, 2rem); }
+.grupo__h {
+  font-weight: 800; font-stretch: 75%;
+  font-size: clamp(2.5rem, 11vw, 4.25rem);
+  line-height: .9; letter-spacing: -.035em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.grupo__intro {
+  max-width: 36rem;
+  margin-top: 1rem;
+  font-size: 1.0625rem; line-height: 1.5;
+  color: var(--ink-2);
+}
+/* Dentro de un apartado, los títulos bajan un punto. */
+.grupo .bloque__h { font-size: clamp(1.4rem, 6vw, 2rem); }
+.grupo__cab + .bloque { border-top: 0; padding-top: clamp(1.5rem, 5vw, 2.5rem); }
+
+/* ── El tren a mano y el abono: dos cifras grandes, Parla y tu ciudad ─── */
+
+.tp-cifras {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(1rem, 5vw, 3rem);
+  max-width: 44rem;
+  margin-top: clamp(1.25rem, 4vw, 1.75rem);
+}
+.tp-cifra { min-width: 0; }
+.tp-cifra__quien { font-size: .875rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--ink); }
+.tp-cifra__v {
+  margin-top: .2rem;
+  font-weight: 800; font-stretch: 80%;
+  font-size: clamp(2.25rem, 10vw, 3.5rem);
+  line-height: 1; letter-spacing: -.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.tp-cifra[data-quien='referencia'] .tp-cifra__quien,
+.tp-cifra[data-quien='referencia'] .tp-cifra__v { color: var(--ref); }
+.tp-cifra__que { margin-top: .4rem; font-size: .875rem; line-height: 1.4; color: var(--ink-3); }
+.tp-nota { max-width: 36rem; margin-top: 1.25rem; font-size: 1rem; line-height: 1.5; color: var(--ink-2); }

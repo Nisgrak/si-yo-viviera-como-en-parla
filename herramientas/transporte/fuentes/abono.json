@@ -1,0 +1,98 @@
+{
+ "_meta": {
+  "fuentes": {
+   "precios": "https://www.crtm.es/media/s1qi0nmo/bocm-20251231-precios_transporte.pdf",
+   "tarifas": "https://www.crtm.es/billetes-y-tarifas/",
+   "zonas": "https://datos.crtm.es/"
+  },
+  "notas": [
+   "Precio del título de 30 días, perfil normal, ordinario, con los descuentos aplicables desde el 1-1-2026 (BOCM 31-12-2025). El anual cuesta 10 veces el de 30 días.",
+   "Zona: la más repetida en el zone_id de las paradas de Metro, Metro Ligero y autobús del GTFS del Consorcio que caen dentro del término. Cercanías no trae zone_id."
+  ],
+  "joven": 10.0
+ },
+ "parla": {
+  "zona": "B2",
+  "abono30": 43.2,
+  "paradas": {
+   "B2": 297
+  }
+ },
+ "getafe": {
+  "zona": "B1",
+  "abono30": 38.2,
+  "paradas": {
+   "B1": 668,
+   "B2": 18
+  }
+ },
+ "leganes": {
+  "zona": "B1",
+  "abono30": 38.2,
+  "paradas": {
+   "B1": 608,
+   "A": 2
+  }
+ },
+ "fuenlabrada": {
+  "zona": "B2",
+  "abono30": 43.2,
+  "paradas": {
+   "B2": 356
+  }
+ },
+ "mostoles": {
+  "zona": "B2",
+  "abono30": 43.2,
+  "paradas": {
+   "B2": 564,
+   "B3": 2
+  }
+ },
+ "alcorcon": {
+  "zona": "B1",
+  "abono30": 38.2,
+  "paradas": {
+   "B1": 450,
+   "B2": 20
+  }
+ },
+ "alcobendas": {
+  "zona": "B1",
+  "abono30": 38.2,
+  "paradas": {
+   "B1": 492
+  }
+ },
+ "pinto": {
+  "zona": "B2",
+  "abono30": 43.2,
+  "paradas": {
+   "B2": 170,
+   "B3": 2
+  }
+ },
+ "torrejon": {
+  "zona": "B2",
+  "abono30": 43.2,
+  "paradas": {
+   "B2": 324
+  }
+ },
+ "pozuelo": {
+  "zona": "B1",
+  "abono30": 38.2,
+  "paradas": {
+   "B1": 627,
+   "B2": 4
+  }
+ },
+ "majadahonda": {
+  "zona": "B2",
+  "abono30": 43.2,
+  "paradas": {
+   "B2": 352,
+   "B1": 8
+  }
+ }
+}

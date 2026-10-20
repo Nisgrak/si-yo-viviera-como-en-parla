@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   SALIR EN COCHE · lo común de infraestructura.html: qué ciudad, el
+   SALIR · lo común de infraestructura.html: qué ciudad, el
    selector, los enlaces, la frase de arriba y la carga de geometrías.
    Cada parte de la página (mapa, colas) se apunta con
    INFRA.alPintar y se repinta al cambiar de ciudad.
@@ -91,7 +91,7 @@
     document.querySelectorAll('[data-aqui]').forEach(function (n) { n.textContent = NOMBRE[I.AQUI]; });
     const vuelta = RUTAS ? RAIZ_WEB + I.AQUI + '/' : 'index.html#' + I.AQUI;
     document.querySelectorAll('.js-volver').forEach(function (a) { a.href = vuelta; });
-    document.title = 'Salir de ' + NOMBRE[I.AQUI] + ' y de Parla en coche · Si yo viviera como en Parla';
+    document.title = 'Salir de ' + NOMBRE[I.AQUI] + ' y salir de Parla · Si yo viviera como en Parla';
     I.golpe();
   }
 

@@ -23,7 +23,7 @@
 
   const PAGINAS = [
     { id: 'recuento', titulo: function (n) { return 'El recuento de ' + n; }, ruta: '', archivo: 'index.html' },
-    { id: 'infraestructura', titulo: function () { return 'Salir en coche'; },
+    { id: 'infraestructura', titulo: function () { return 'Infraestructuras'; },
       ruta: 'infraestructura/', archivo: 'infraestructura.html' },
     { id: 'vivienda', titulo: function () { return 'Vivienda'; },
       ruta: 'vivienda/', archivo: 'vivienda.html' },

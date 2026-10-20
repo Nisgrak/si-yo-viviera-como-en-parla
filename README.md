@@ -157,10 +157,12 @@ assets/fuentes/       la tipografía Archivo, servida desde aquí (OFL 1.1)
 assets/cartel/        los dos fondos del cartel para compartir
 assets/qr.js          el QR de cada municipio, ya trazado (lo traza herramientas/qr.py)
 datos/datos.js        LOS DATOS  ←  lo único que hay que tocar
-infraestructura.html  la página de los accesos en coche (/<ciudad>/infraestructura/)
+infraestructura.html  la página de las infraestructuras: en coche y en transporte público (/<ciudad>/infraestructura/)
 assets/infraestructura*.css/.js   su diseño y su render: lo común, el mapa y las colas
 datos/infraestructura.js   sus cifras; las escribe herramientas/infraestructura.py
 datos/mapa/<id>.js    las geometrías de cada mapa; las escribe herramientas/accesos/accesos.py --mapa
+assets/infraestructura-tp.js   el mapa de tiempos en transporte público de infraestructura.html
+datos/transporte.js, datos/transporte/<id>.js   sus tiempos y su fondo; los escribe herramientas/transporte/ciudad.py
 vivienda.html         la página de la vivienda (/<ciudad>/vivienda/)
 assets/vivienda.css/.js   su diseño y su render: casas por cada 100 vecinos, líneas, barras y la rejilla de 100
 datos/vivienda.js     sus cifras; las escribe herramientas/vivienda.py
@@ -324,7 +326,7 @@ incorporarlos:
 - **Becas de comedor y bono social.** Solo hay totales regionales o provinciales.
 - **Accesos a autovías y autopistas, contados sobre el mapa.** Sigue fuera: no hay estadística
   municipal oficial y contar enlaces es un constructo propio. Lo que sí entró es por dónde sale
-  la gente, que viene del Ministerio de Transportes. Ver «Salir en coche», abajo.
+  la gente, que viene del Ministerio de Transportes. Ver «Infraestructuras: salir en coche», abajo.
 - **Escuelas deportivas municipales.** Sin registro, el mismo muro que los polideportivos.
 - **Autobuses urbanos e interurbanos.** El GTFS del CRTM trae los horarios reales, y el id de
   línea lleva dentro el código INE del municipio (`9__1__065_` es Getafe). Pero ese atajo miente:
@@ -332,11 +334,14 @@ incorporarlos:
   clasificados dentro de la red interurbana. Hacerlo bien exige cruzar las coordenadas de cada
   parada con los límites municipales del IGN. Es viable, pero es un día de trabajo.
 
-### Salir en coche: la página de los accesos
+### Infraestructuras: salir en coche
 
 **La parte pública** está en `infraestructura.html`, que se publica como `/<ciudad>/infraestructura/`, y
-en la web principal: el bloque «Salir en coche» antes del método y un botón azul en la portada
-(«Infraestructura: salir en coche»).
+en la web principal: el bloque «Salir de la ciudad» antes del método y un botón azul en la portada
+(«Infraestructuras»). La página se titula «Salir de [ciudad] y salir de Parla» y tiene dos partes, cada
+una con su cabecera (`.grupo`) y sus apartados dentro, que el índice enseña en dos niveles: «En
+coche» (mapa, colas y hora punta) y «En transporte público» (ver la sección
+siguiente).
 Cuenta por qué acceso cruzan el límite del municipio las personas que salen por carretera entre
 las 6 y las 10 de la mañana, de dos maneras:
 - **El mapa.** Las carreteras reales con la gente fluyendo. Los dos mapas tienen el mismo tamaño y cada uno su escala, para que cada término llene su marco; la barra de 1 km lo indica. El ancho de cada carretera es proporcional a la gente que sale por ella, con la misma regla en los dos mapas, y los puntos van igual de juntos dentro de cada banda. En escritorio los mapas se salen del ancho del texto.
@@ -363,9 +368,13 @@ python3 herramientas/infraestructura.py                   # escribe datos/infrae
 **Cautelas:**
 - Cuenta personas, no coches, y no separa el coche del autobús.
 - Comparado con los aforos, el dataset sale entre un 28 % y un 88 % por encima de los vehículos ligeros contados.
-- La cifra de 7 a 8 de la M-408 que da la página (1.304 vehículos por hora) es un aforo real de la Comunidad, estación 430. Solo hay datos de septiembre a diciembre de 2024.
 
 **Lo que se miró y no entró:**
+
+- **Las salidas de Parla, una a una.** Estuvo en la página hasta el 20-10-2026 y se quitó: la ficha
+  de cada salida con el aforo de 7 a 8 de la M-408 (1.304 vehículos por hora, estación 430 de la
+  Comunidad, septiembre a diciembre de 2024), el proyecto del tercer carril de la A-42 y el peaje
+  de la R-4.
 
 - **Contar accesos sobre OpenStreetMap, con capacidades de manual** (HCM, glorietas de Fomento). Parla, auditada vía a vía, tiene 5 accesos reales de las 87 vías que cruzan su límite:
   - los tres enlaces de la A-42;
@@ -378,6 +387,41 @@ python3 herramientas/infraestructura.py                   # escribe datos/infrae
 - **Horas de congestión del Mapa de tráfico del Ministerio.** En 2024, en sentido Madrid, la estación de la A-42 en Parla (km 23,9) suma 373 horas; las de Getafe, entre 340 y 394 (A-42 km 11 y 15, A-4 km 13). Es el mismo orden: la congestión de la autovía no distingue a Parla. Además, no hay ninguna estación entre el km 16 y el 23,9, que es el tramo de Parla Norte.
 - **La R-4.** Es de peaje (0,55 € de Pinto-Parla a la M-50 en 2026) y apenas se usa: el 3 % de los viajes que salen de Parla pasa por ella. Su IMD creció un 37 % entre 2019 y 2025, frente al 3,6 % de la A-42.
 - **Concentración comparada.** Alcobendas concentra casi igual que Parla: el 62,6 % de sus salidas de la mañana va por la A-1 y la M-40. La página no dice que Parla sea la única.
+
+### En transporte público: cuánto se tarda hasta el centro
+
+En `infraestructura.html`, sección «En transporte público», para las once ciudades. Se elige
+a dónde se va (Sol, Atocha, Nuevos Ministerios o Plaza de Castilla) y cada mapa enseña su término
+municipal pintado por zonas de 10 minutos: capas semitransparentes que se cargan de color donde se
+tarda menos, sobre las manzanas del Catastro y las líneas de tren. Parla en azul y la otra ciudad
+en tinta; al pasar el ratón, los minutos de ese punto. De entrada cuenta solo el tren (Cercanías,
+Metro y Metro Ligero); una casilla añade los autobuses, que en hora punta no siempre cumplen su
+horario. Tiempo mediano de salir a cada minuto entre las 7:30 y las 8:30 de un martes.
+
+Es, como las zonas verdes, una cuenta nuestra sobre los GTFS oficiales del Consorcio; de estación
+a estación da los mismos minutos que la consulta oficial de horarios de Renfe. Método, fuentes,
+resultados y cautelas en `herramientas/transporte/fuentes/ciudad.md`.
+
+```
+python3 herramientas/transporte/tiempos.py --descargar     # GTFS del Consorcio a /var/tmp/transporte
+python3 herramientas/transporte/ciudad.py --ciudades parla getafe leganes fuenlabrada mostoles alcorcon alcobendas pinto torrejon pozuelo majadahonda
+python3 herramientas/transporte/comprobar.py               # contrasta con horarios.renfe.com
+```
+
+Antes del mapa va **el tren a mano** (de cada 100 viviendas del Catastro, las que tienen una
+estación de Cercanías, Metro o Metro Ligero que sale de su municipio a 15 minutos andando, con 5 y
+10 en la nota; `cobertura.py` y `fuentes/cobertura.md`), y después **lo que cuesta el
+abono** (zona tarifaria de cada ciudad y precio del de 30 días en 2026 según el BOCM; `abono.py` y
+`fuentes/abono.md`). `indice.py` los junta en `datos/transporte.js` sin recalcular los tiempos, y la
+portada saca de ahí la línea del tren de «Salir de la ciudad». `aligerar.py` deja cada
+`datos/transporte/<id>.js` en la mitad sin cambiar lo que se ve: quita las celdas de campo sin
+tiempo, recorta las manzanas al encuadre y guarda los tiempos como texto en base 36 (dos
+caracteres por celda); `ciudad.py` lo aplica al escribir.
+
+Necesita numpy y shapely, como `accesos.py`. Las once tardan unos 25 minutos y caben en una
+máquina de 2 GB. Para otra ciudad, su ayuntamiento en `ORIGENES` de `isocronas.py` (para la
+estación de referencia) y añadirla a `--ciudades`. Mientras no esté calculada, su mapa lo dice. `isocronas.py` hace el mapa al revés (hasta dónde se llega desde el
+ayuntamiento), que se descartó para la web y queda para medir los empleos a los que se llega.
 
 ### Una casa: la página de la vivienda
 

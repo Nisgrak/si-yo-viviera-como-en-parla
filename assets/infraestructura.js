@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   SALIR EN COCHE · las colas, «De 7 a 8» y el método de infraestructura.html
+   SALIR · las colas, «De 7 a 8» y el método de infraestructura.html
    Los datos, en datos/infraestructura.js (los escribe
    herramientas/infraestructura.py). Aquí no se calcula nada que no sea
    repartir y contar: un punto por cada 100 personas. La ciudad, el

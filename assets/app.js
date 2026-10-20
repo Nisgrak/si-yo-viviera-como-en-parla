@@ -546,9 +546,10 @@
 
   /* Los atajos a las otras páginas: un icono, el nombre corto y la flecha. */
   const ICONO_PAGINA = {
-    coche: '<svg class="compartir__icono" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
-      'stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-4.5L6.5 6h11l2.5 5.5V16z"/>' +
-      '<path d="M4 11.5h16"/><circle cx="8" cy="16" r="1.9" fill="currentColor"/><circle cx="16" cy="16" r="1.9" fill="currentColor"/></svg>',
+    tren: '<svg class="compartir__icono" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect x="6" y="3" width="12" height="14" rx="3"/>' +
+      '<path d="M6 10h12"/><circle cx="9.5" cy="13.5" r=".9" fill="currentColor"/><circle cx="14.5" cy="13.5" r=".9" fill="currentColor"/>' +
+      '<path d="M8.5 17 6.5 21M15.5 17l2 4"/></svg>',
     casa: '<svg class="compartir__icono" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
       'stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11 12 4l8.5 7"/><path d="M6 9.5V20h12V9.5"/>' +
       '<path d="M10 20v-5.5h4V20"/></svg>',
@@ -571,7 +572,7 @@
       const a = el('a', 'compartir compartir--salir');
       a.id = 'portada-salir';
       a.href = RUTAS ? RAIZ_WEB + AQUI + '/infraestructura/' : 'infraestructura.html#' + AQUI;
-      a.innerHTML = ICONO_PAGINA.coche + '<span>Salir en coche</span>' + FLECHA;
+      a.innerHTML = ICONO_PAGINA.tren + '<span>Infraestructuras</span>' + FLECHA;
       hueco.appendChild(a);
     }
     if ((window.VIVIENDA || {}).ciudades) {
@@ -1696,7 +1697,7 @@
   }
 
 
-  /* ── Salir en coche: el resumen de infraestructura.html ───────────────
+  /* ── Salir de la ciudad: el resumen de infraestructura.html ──────────
      Los datos los escribe herramientas/infraestructura.py; aquí solo se
      enseña la puerta más usada de cada ciudad y se manda a la página. */
   function salir() {
@@ -1729,10 +1730,38 @@
       li.appendChild(b);
       ul.appendChild(li);
     });
+    salirTren();
     const ir = RUTAS ? RAIZ_WEB + AQUI + '/infraestructura/' : 'infraestructura.html#' + AQUI;
     $('#salir-ir').href = ir;
     const atajo = $('#portada-salir');
     if (atajo) atajo.href = ir;
+  }
+
+  /* Y el tren: de cada 100 viviendas, las que tienen una estación a 15
+     minutos andando (herramientas/transporte/cobertura.py). Si no está el
+     dato, el bloque se queda con el coche. */
+  function salirTren() {
+    const C = ((window.TRANSPORTE || {}).cobertura || {}).ciudades;
+    const n = $('#salir-tren'), ul = $('#salir-tren-filas'), pie = $('#salir-tren-pie');
+    const hay = !!(C && C[REF] && C[AQUI]);
+    [n, ul, pie].forEach(function (x) { if (x) x.hidden = !hay; });
+    if (!hay) return;
+    const p = function (id) { return C[id].pct['15']; };
+    n.textContent = 'En tren, de cada 100 viviendas de Parla, ' + num(p(REF), 0) +
+      ' tienen una estación a 15 minutos andando. En ' + NOMBRE[AQUI] + ', ' + num(p(AQUI), 0) + '.';
+    vaciar(ul);
+    [[REF, 'referencia'], [AQUI, 'aqui']].forEach(function (g) {
+      const li = el('li', 'mun__fila');
+      li.setAttribute('data-quien', g[1]);
+      li.appendChild(el('span', 'mun__q', NOMBRE[g[0]]));
+      li.appendChild(el('span', 'mun__v', num(p(g[0]), 1) + ' %'));
+      const b = el('span', 'mun__barra');
+      const i = el('i');
+      i.style.width = p(g[0]).toFixed(1) + '%';
+      b.appendChild(i);
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
   }
 
   /* ── Vivienda: el resumen de vivienda.html ───────────────────────────

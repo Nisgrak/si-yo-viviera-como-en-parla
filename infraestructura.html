@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Salir de Parla en coche · Si yo viviera como en Parla</title>
-<meta name="description" content="Por qué carreteras se sale en coche de Parla y de tu ciudad entre las 6 y las 10 de la mañana, y cuánta gente pasa por cada una. Con datos del Ministerio de Transportes.">
+<title>Salir de Parla · Si yo viviera como en Parla</title>
+<meta name="description" content="Cómo se sale por la mañana de Parla y de tu ciudad: por qué carreteras va la gente en coche y cuánto se tarda en transporte público hasta el centro de Madrid. Con datos oficiales.">
 <meta name="theme-color" content="#ffffff">
 <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Salir de Parla en coche">
-<meta property="og:description" content="De 6 a 10 de la mañana, 7 de cada 10 personas que salen de Parla por carretera lo hacen por la misma carretera: la A-42 hacia Madrid.">
+<meta property="og:title" content="Salir de Parla">
+<meta property="og:description" content="De 6 a 10 de la mañana, 7 de cada 10 personas que salen de Parla por carretera lo hacen por la A-42. En tren, desde la estación de Parla hasta Sol se tardan 36 minutos.">
 <meta property="og:locale" content="es_ES">
 <meta property="og:url" content="https://siyovivieracomoenparla.netlify.app/infraestructura.html">
 <meta property="og:image" content="https://siyovivieracomoenparla.netlify.app/assets/compartir/general.png">
@@ -56,7 +56,7 @@
         <span class="selector__eco" id="sel-texto" aria-hidden="true">Getafe</span>
         <select id="sel-municipio" aria-label="Elige tu municipio"></select>
       </span></span>
-      <span class="t2">en coche, y salir de</span>
+      <span class="t2">y salir de</span>
       <span class="t3">Parla</span>
     </h1>
     <p class="portada__golpe" id="golpe"></p>
@@ -65,10 +65,25 @@
 
 <main>
 
-<!-- ── El mapa ───────────────────────────────────────────────────────── -->
-<section class="bloque bloque--colas" id="mapas" data-indice="Por dónde sale la gente">
+<!-- ══ En coche ═══════════════════════════════════════════════════════
+     Las carreteras por las que sale la gente: el mapa, las colas y la hora
+     punta. -->
+<div class="grupo" id="coche" data-indice="En coche">
+<header class="grupo__cab">
   <div class="env">
-    <h2 class="bloque__h">Por dónde sale la gente</h2>
+    <h2 class="grupo__h">En coche</h2>
+    <p class="grupo__intro">
+      Por qué carreteras sale la gente de cada ciudad entre las 6 y las 10 de la mañana, y cuánta
+      pasa por cada salida. Con los estudios de movilidad del Ministerio de Transportes, que salen de
+      los teléfonos móviles.
+    </p>
+  </div>
+</header>
+
+<!-- ── El mapa ───────────────────────────────────────────────────────── -->
+<section class="bloque bloque--colas" id="mapas" data-indice-sub="Por dónde sale la gente">
+  <div class="env">
+    <h3 class="bloque__h">Por dónde sale la gente</h3>
     <p class="bloque__intro">
       El ancho de cada carretera es la gente que sale por ella, con la misma medida en los dos
       mapas.
@@ -97,9 +112,9 @@
 </section>
 
 <!-- ── Las colas ─────────────────────────────────────────────────────── -->
-<section class="bloque" id="colas" data-indice="Cuánta gente por salida">
+<section class="bloque" id="colas" data-indice-sub="Cuánta gente por salida">
   <div class="env">
-    <h2 class="bloque__h">Cuánta gente por cada salida</h2>
+    <h3 class="bloque__h">Cuánta gente por cada salida</h3>
     <p class="bloque__intro">
       La misma gente, en cola en la salida que toma. Cada punto son
       <b>100 personas</b>.
@@ -117,9 +132,9 @@
 </section>
 
 <!-- ── Salen y entran ────────────────────────────────────────────────── -->
-<section class="bloque" id="sentidos" data-indice="La hora punta">
+<section class="bloque" id="sentidos" data-indice-sub="La hora punta">
   <div class="env">
-    <h2 class="bloque__h">La hora punta, en los dos sentidos</h2>
+    <h3 class="bloque__h">La hora punta, en los dos sentidos</h3>
     <p class="bloque__intro" id="sentidos-intro"></p>
     <div class="sentidos" id="sentidos-filas"></div>
     <p class="colas__pie">
@@ -130,82 +145,119 @@
   </div>
 </section>
 
-<!-- ── Lo oficial ────────────────────────────────────────────────────── -->
-<section class="bloque" id="oficial" data-indice="Las salidas de Parla">
+</div>
+
+<!-- ══ En transporte público ════════════════════════════════════════ -->
+<div class="grupo" id="transporte" data-indice="En transporte público">
+<header class="grupo__cab">
   <div class="env">
-    <h2 class="bloque__h">Las salidas de Parla, una a una</h2>
-    <p class="bloque__intro">
-      Lo que dicen de cada acceso el Ministerio de Transportes y la Comunidad de Madrid.
+    <h2 class="grupo__h">En transporte público</h2>
+    <p class="grupo__intro">
+      Cuántas casas tienen una estación cerca, cuánto se tarda desde cada barrio hasta el centro de
+      Madrid y lo que cuesta el abono. Con los horarios del Consorcio de Transportes, los edificios
+      del Catastro y los precios del Boletín Oficial de la Comunidad.
     </p>
+  </div>
+</header>
 
-    <ol class="puerta-ficha">
-      <li>
-        <h3><span class="rotulo">A-42</span> hacia Madrid</h3>
-        <p>
-          En Parla Norte la autovía pasa de tres carriles a dos. Lleva hasta 90.000 vehículos al
-          día, y el Ministerio reconoce «retenciones que en horas punta se producen actualmente,
-          tanto en salida como en entrada».
-        </p>
-        <p>
-          El proyecto del tercer carril entre Parla Norte y Casarrubuelos se adjudicó en octubre
-          de 2024 por 1.413.000 euros. Es la redacción del proyecto; la obra se estima en 40
-          millones y no tiene fecha.
-        </p>
-        <p>
-          La estación de aforo del Ministerio dentro de Parla (kilómetro 23,9) registró en 2024
-          373 horas de tráfico alterado o congestionado en sentido Madrid. No hay ninguna entre
-          el kilómetro 16 y el 23,9, que es el tramo de Parla Norte.
-        </p>
-        <p class="ficha__fuente">
-          <a href="https://www.transportes.gob.es/el-ministerio/sala-de-prensa/noticias/lun-21102024-1319">Ministerio de Transportes, 21-10-2024</a>
-          · <a href="https://mapadetrafico.transportes.gob.es/">Mapa de tráfico, estación M-133-0</a>
-        </p>
-      </li>
-      <li>
-        <h3><span class="rotulo">M-408</span> hacia Pinto</h3>
-        <p>
-          Un carril por sentido. Un día laborable, entre las 7 y las 8 de la mañana, salen por ella 1.304
-          vehículos por hora, según el aforo de la Comunidad de Madrid de 2024. Es también el
-          único camino de Parla a la R-4.
-        </p>
-        <p class="ficha__fuente">
-          <a href="https://www.comunidad.madrid/servicios/transporte/estudio-intensidad-media-diaria-vehiculos-imd">Comunidad de Madrid, intensidad de tráfico 2024, estación 430 (septiembre a diciembre)</a>
-        </p>
-      </li>
-      <li>
-        <h3><span class="rotulo">R-4</span> de peaje</h3>
-        <p>
-          Pasa junto a Parla sin salida propia: se llega desde la M-408, por una glorieta que ya
-          está en Pinto. Ir de Pinto-Parla a la M-50 cuesta 0,55 euros con telepeaje. El 3 % de
-          los viajes por carretera que salen de Parla pasa por ella.
-        </p>
-        <p class="ficha__fuente">
-          <a href="https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_r4_2026_1.pdf">SEITT, tarifas de la R-4 en 2026</a>
-          · <a href="https://www.transportes.gob.es/ministerio/proyectos-singulares/estudios-de-movilidad-con-big-data/rutas-por-carretera">Ministerio de Transportes, rutas por carretera</a>
-        </p>
-      </li>
-      <li>
-        <h3><span class="rotulo">A-42 y M-410</span> hacia el sur</h3>
-        <p>
-          El enlace de la salida 24 y una glorieta sobre la M-410. Por aquí sale el tráfico que va
-          hacia el sur por la A-42 y hacia el oeste por la M-410.
-        </p>
-      </li>
-    </ol>
-
+<!-- ── El tren a mano ─────────────────────────────────────────────────
+     Las cuentas, en herramientas/transporte/cobertura.py. -->
+<section class="bloque" id="tren-a-mano" data-indice-sub="El tren a mano">
+  <div class="env">
+    <h3 class="bloque__h">El tren a mano</h3>
+    <p class="bloque__intro">
+      De cada 100 viviendas, las que tienen una estación de Cercanías, Metro o Metro Ligero a 15
+      minutos andando.
+    </p>
+    <div class="tp-cifras" id="cob-cifras"></div>
+    <p class="tp-nota" id="cob-nota"></p>
+    <p class="colas__pie">
+      Fuentes: <a href="https://www.catastro.hacienda.gob.es/webinspire/index.html">Dirección General del Catastro, edificios (INSPIRE)</a>,
+      con el número de viviendas de cada uno; estaciones: <a href="https://datos.crtm.es/">Consorcio Regional de Transportes de Madrid, GTFS de Cercanías, Metro y Metro Ligero</a>.
+    </p>
     <p class="cautela">
-      La A-42 la usan también los municipios vecinos y quien viene de más al sur, y su atasco lo
-      comparten todos. Las horas de congestión de arriba miden la autovía entera.
+      Cada edificio cuenta en el centro de su planta, y se anda como en el mapa de abajo: en línea
+      recta, un 30 % más largo para contar las calles, a 4,5 km/h. Cuenta cualquier estación,
+      aunque esté en el municipio de al lado. Del Metro Ligero cuentan las líneas que salen de su
+      municipio y enlazan con el Metro (Pozuelo, Boadilla, Sanchinarro); el tranvía de Parla no,
+      porque da la vuelta a la ciudad y no sale de ella.
     </p>
   </div>
 </section>
+
+<!-- ── En transporte público ───────────────────────────────────────────
+     Los tiempos los calcula herramientas/transporte/ciudad.py. -->
+<section class="bloque" id="tiempos" data-indice-sub="Cuánto se tarda hasta el centro">
+  <div class="env">
+    <h3 class="bloque__h">Cuánto se tarda hasta el centro</h3>
+    <p class="bloque__intro">
+      Desde cada punto de la ciudad, un martes por la mañana, andando hasta la parada y con los
+      transbordos que hagan falta. Elige a dónde vas.
+    </p>
+    <div class="tp__mandos">
+      <div class="tp__destinos" id="tp-destinos" role="group" aria-label="A dónde vas"></div>
+      <label class="tp__bus"><input type="checkbox" id="tp-bus"> Contar también los autobuses</label>
+    </div>
+    <p class="tp__frase" id="tp-frase"></p>
+
+    <div class="mapas" data-indice-ancho>
+      <figure class="mapa tp" data-quien="referencia">
+        <figcaption class="mapa__pie"><span class="mapa__nombre">Parla</span> <span class="mapa__dato" id="tp-dato-parla"></span></figcaption>
+        <div class="tp__marco" id="tp-parla"></div>
+      </figure>
+      <figure class="mapa tp" data-quien="aqui">
+        <figcaption class="mapa__pie"><span class="mapa__nombre" data-aqui>Getafe</span> <span class="mapa__dato" id="tp-dato-aqui"></span></figcaption>
+        <div class="tp__marco" id="tp-aqui"></div>
+      </figure>
+    </div>
+    <ul class="tp__ley" id="tp-ley"></ul>
+
+    <p class="colas__pie" id="tp-fuentes"></p>
+    <p class="cautela">
+      Los tiempos son una cuenta nuestra sobre los horarios oficiales: para cada punto, el tiempo
+      mediano de salir a cada minuto entre las 7:30 y las 8:30, para que no dependa de llegar
+      justo al tren. Se anda en línea recta, un 30 % más largo para contar las calles, a
+      4,5 km/h, hasta 1.200 metros. No cuenta retrasos ni esperas por trenes llenos. El horario
+      de los autobuses no tiene en cuenta el tráfico de la hora punta; por eso, de entrada, el mapa
+      cuenta solo el tren. Se pinta todo punto a menos de 1.200 metros de una parada, también
+      campos y polígonos donde no vive nadie: las manzanas grises son la ciudad. Cada mapa encuadra
+      la zona del término donde hay viviendas, según los edificios del Catastro. El horario de Metro
+      que publica el Consorcio caducó en mayo de 2026, y se usa el de un martes de ese horario.
+    </p>
+  </div>
+</section>
+
+<!-- ── Lo que cuesta el abono ─────────────────────────────────────────
+     Zonas y precios, en herramientas/transporte/abono.py. -->
+<section class="bloque" id="abono" data-indice-sub="Lo que cuesta el abono">
+  <div class="env">
+    <h3 class="bloque__h">Lo que cuesta el abono</h3>
+    <p class="bloque__intro">
+      El abono de 30 días para moverse entre tu ciudad y Madrid. Su precio depende de la zona
+      tarifaria en la que está cada ciudad.
+    </p>
+    <div class="tp-cifras" id="abono-cifras"></div>
+    <p class="tp-nota" id="abono-nota"></p>
+    <p class="colas__pie">
+      Fuentes: <a href="https://www.crtm.es/media/s1qi0nmo/bocm-20251231-precios_transporte.pdf">BOCM del 31 de diciembre de 2025, precios del transporte público para 2026</a>,
+      con los descuentos vigentes; zona de cada ciudad: <a href="https://datos.crtm.es/">Consorcio Regional de Transportes de Madrid</a>,
+      la de las paradas de su término.
+    </p>
+    <p class="cautela">
+      Es el abono ordinario, sin descuentos de familia numerosa ni de discapacidad. Las zonas se
+      trazan por distancia a Madrid, y Parla está más lejos que Getafe, Leganés o Alcorcón.
+    </p>
+  </div>
+</section>
+
+</div>
 
 <!-- ── Método ────────────────────────────────────────────────────────── -->
 <section class="bloque bloque--metodo" id="metodo" data-indice="Cómo está hecho">
   <div class="env">
     <h2 class="bloque__h">Cómo está hecho esto</h2>
     <div class="metodo__cuerpo">
-      <h3>De dónde sale el dato</h3>
+      <h3>En coche: de dónde sale el dato</h3>
       <p>
         El Ministerio de Transportes publica, a partir de la telefonía móvil, el recorrido por
         carretera de los viajes de más de 5 kilómetros entre municipios en días sueltos. Se usa el
@@ -235,16 +287,32 @@
         una fila aparte, y en las ciudades pegadas a otras es bastante.
       </p>
 
+      <h3>En transporte público</h3>
+      <p>
+        Los tiempos se calculan sobre los horarios oficiales que publica el Consorcio Regional de
+        Transportes de Madrid: Cercanías, Metro, Metro Ligero y, si se marcan, los autobuses
+        urbanos e interurbanos. Para el centro de cada cuadro de 100 metros del término se busca,
+        para cada minuto de salida entre las 7:30 y las 8:30, la combinación que llega antes al
+        destino, andando hasta una parada a menos de 1.200 metros; se enseña la mediana de esos 61
+        viajes. De estación a estación, el cálculo da los mismos minutos que la consulta oficial
+        de horarios de Renfe. Las manzanas del fondo son las del Catastro.
+      </p>
+      <p>
+        Las viviendas con una estación cerca salen de los edificios del Catastro, que dicen cuántas
+        viviendas tiene cada uno, y de las paradas de Cercanías, Metro y Metro Ligero de esos mismos
+        horarios. La zona tarifaria de cada ciudad es la de las paradas de su término, y el precio
+        del abono, el del Boletín Oficial de la Comunidad de Madrid para 2026.
+      </p>
+
       <h3>Fuentes, una por una</h3>
       <ul class="fuentes">
         <li><a href="https://movilidad-opendata.mitma.es/">Ministerio de Transportes, Open Data Movilidad</a>: rutas por carretera y estudio básico por municipios, 16-10-2024 y 17-10-2023.</li>
         <li><a href="https://www.transportes.gob.es/recursos_mfom/paginabasica/recursos/a3_informe_metodologico_resumen_v11.pdf">Informe metodológico de los estudios de movilidad</a>.</li>
         <li><a href="https://www.ign.es/wfs-inspire/unidades-administrativas">IGN, unidades administrativas</a>: términos municipales.</li>
-        <li><a href="https://www.comunidad.madrid/servicios/transporte/estudio-intensidad-media-diaria-vehiculos-imd">Comunidad de Madrid, intensidad media diaria de tráfico 2024</a>.</li>
-        <li><a href="https://mapadetrafico.transportes.gob.es/">Ministerio de Transportes, Mapa de tráfico</a>.</li>
-        <li><a href="https://www.transportes.gob.es/el-ministerio/sala-de-prensa/noticias/lun-21102024-1319">Ministerio de Transportes, adjudicación del proyecto del tercer carril de la A-42</a>.</li>
-        <li><a href="https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_r4_2026_1.pdf">SEITT, tarifas de la R-4</a>.</li>
         <li><a href="https://www.ine.es/jaxiT3/Tabla.htm?t=2881">INE, cifras oficiales de población a 1 de enero de 2025</a>.</li>
+        <li><a href="https://datos.crtm.es/">Consorcio Regional de Transportes de Madrid, datos abiertos</a>: horarios (GTFS) de Cercanías, Metro, Metro Ligero y autobuses urbanos e interurbanos, octubre de 2026 (el de Metro, de mayo de 2025).</li>
+        <li><a href="https://horarios.renfe.com/cer/">Renfe Cercanías, consulta de horarios</a>: comprobación de los tiempos.</li>
+        <li><a href="https://www.catastro.hacienda.gob.es/webinspire/index.html">Dirección General del Catastro, cartografía INSPIRE</a>: manzanas.</li>
       </ul>
       <p class="cautela">
         El cálculo, con sus scripts, está en
@@ -271,5 +339,7 @@
 <script src="assets/infraestructura-comun.js"></script>
 <script src="assets/infraestructura-mapa.js"></script>
 <script src="assets/infraestructura.js"></script>
+<script src="datos/transporte.js"></script>
+<script src="assets/infraestructura-tp.js"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
      la web tal cual                 index.html, assets/, datos/
      dist/<id>/index.html            una página mínima por municipio, con sus
                                      etiquetas og, que manda a /#<id>
-     dist/<id>/infraestructura/      la página de los accesos en coche, ya
+     dist/<id>/infraestructura/      la página de las infraestructuras, ya
                                      con la ciudad puesta
      dist/<id>/vivienda/             la página de la vivienda, igual
      dist/<id>/economia/             la página de la economía, igual
@@ -173,7 +173,7 @@ function paginaCiudad(id, titulo, fuente, archivo, ruta, base = '../../') {
   }
   return h;
 }
-const paginaInfra = (id, nombre) => paginaCiudad(id, 'Salir de ' + nombre + ' y de Parla en coche',
+const paginaInfra = (id, nombre) => paginaCiudad(id, 'Salir de ' + nombre + ' y salir de Parla',
   infra, 'infraestructura.html', 'infraestructura/');
 const paginaVivienda = (id, nombre) => paginaCiudad(id, 'Una casa en ' + nombre + ' y una casa en Parla',
   viv, 'vivienda.html', 'vivienda/');

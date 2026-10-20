@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   SALIR EN COCHE · el mapa de infraestructura.html
+   SALIR · el mapa de carreteras de infraestructura.html
    La misma gente que en las colas, pero sobre las carreteras de verdad.
    Las geometrías van en datos/mapa/<id>.js, en metros desde el centro de
    cada término (las escribe herramientas/accesos/accesos.py --mapa).
