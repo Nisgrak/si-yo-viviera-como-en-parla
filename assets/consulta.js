@@ -173,6 +173,16 @@
         fuente: ['Catastro, edificios, y horarios del Consorcio Regional de Transportes', T.cobertura.fuente], pagina: 'infraestructura.html#tren-a-mano' });
     });
   }
+  if (T && T.casa) {
+    dato({ id: 'casa-sol', grupo: 'Infraestructuras', titulo: 'Desde la vivienda mediana hasta Sol, en tren',
+      unidad: 'minutos, un martes de 7:30 a 8:30', dec: 0,
+      v: function (id) { return T.casa[id] ? T.casa[id].tren.sol[0] : null; },
+      fuente: ['Catastro, edificios, y horarios del Consorcio Regional de Transportes', T.cobertura ? T.cobertura.fuente : 'https://datos.crtm.es/'], pagina: 'infraestructura.html#tiempos' });
+    dato({ id: 'casa-sol-hora', grupo: 'Infraestructuras', titulo: 'Viviendas a más de una hora de Sol en tren',
+      unidad: 'de cada 100, un martes de 7:30 a 8:30', sim: '%', dec: 1,
+      v: function (id) { return T.casa[id] ? T.casa[id].tren.sol[1] : null; },
+      fuente: ['Catastro, edificios, y horarios del Consorcio Regional de Transportes', T.cobertura ? T.cobertura.fuente : 'https://datos.crtm.es/'], pagina: 'infraestructura.html#tiempos' });
+  }
   if (T && T.abono) {
     dato({ id: 'abono', grupo: 'Infraestructuras', titulo: 'Abono de transporte de 30 días', unidad: 'ordinario, 2026, según la zona tarifaria',
       sim: '€', dec: 2, v: function (id) { return T.abono.ciudades[id] ? T.abono.ciudades[id].precio : null; },

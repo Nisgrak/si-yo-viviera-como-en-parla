@@ -461,6 +461,38 @@
         .join(', ').replace(/, ([^,]*)$/, ' y $1') + '. El abono joven cuesta ' + eur(T.abono.joven) + ' en todas.';
   }
 
+  /* Desde la vivienda mediana (vivienda_media.py): cambia con el destino
+     y con la casilla de los autobuses. Sin cifra, más de la mitad de las
+     viviendas no tiene parada a 1.200 m. */
+  function casa() {
+    const K = T.casa;
+    if (!K || !K[REF] || !K[I.AQUI]) return;
+    const d = D(), v = function (id) { return K[id] && K[id][modo][d.id] ? K[id][modo][d.id] : null; };
+    const pie = function (id) {
+      return v(id)[0] == null
+        ? 'más de la mitad de las viviendas no tiene ' + (modo === 'tren' ? 'estación' : 'parada') + ' a 1,2 km andando'
+        : 'minutos hasta ' + d.nombre + (modo === 'tren' ? ' en tren' : ' en tren o autobús') + ' desde la vivienda mediana';
+    };
+    pareja('#casa-cifras', function (id) { return v(id)[0]; },
+      function (x) { return x == null ? (modo === 'tren' ? 'Sin estación' : 'Sin parada') : String(x); }, pie);
+    /* Sin cifra cuenta como la que más tarda. */
+    const t = function (id) { const x = v(id); return x ? (x[0] == null ? Infinity : x[0]) : null; };
+    const peores = IDS.filter(function (id) { return t(id) != null && t(id) > t(REF); }).length;
+    const N = LETRA[IDS.filter(function (id) { return t(id) != null; }).length];
+    const lugar = peores === 0 ? 'Parla es la que más tarda de las ' + N + '.'
+      : 'Parla es la ' + (peores + 1) + '.ª que más tarda de las ' + N + '.';
+    const est = function (id) {
+      const c = window.TRANSPORTE_CIUDAD && window.TRANSPORTE_CIUDAD[id];
+      const e = c && estacion(c);
+      return e && e.t != null && v(id)[0] != null ? v(id)[0] - e.t : null;
+    };
+    const ep = est(REF), ea = est(I.AQUI);
+    $('#casa-nota').textContent = lugar + ' A más de una hora de ' + d.nombre + ' están ' +
+      num(v(REF)[1], 0) + ' de cada 100 viviendas de Parla y ' + num(v(I.AQUI)[1], 0) + ' de ' + NOMBRE[I.AQUI] + '.' +
+      (ep != null && ea != null ? ' La vivienda mediana tarda ' + ep + ' minutos más que la estación en Parla y ' +
+        ea + ' más en ' + NOMBRE[I.AQUI] + '.' : '');
+  }
+
   let pidiendo = 0;
   function pintar() {
     const AQUI = I.AQUI, yo = ++pidiendo;
@@ -475,6 +507,7 @@
       dato('#tp-dato-aqui', ra);
       frase(rp, ra);
       golpe();
+      casa();
     }).catch(function () {
       $('#tp-parla').textContent = 'No se pudo cargar el mapa.';
     });

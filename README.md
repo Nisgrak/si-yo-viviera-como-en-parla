@@ -416,7 +416,10 @@ resultados y cautelas en `herramientas/transporte/fuentes/ciudad.md`.
 python3 herramientas/transporte/tiempos.py --descargar     # GTFS del Consorcio a /var/tmp/transporte
 python3 herramientas/transporte/ciudad.py --ciudades parla getafe leganes fuenlabrada mostoles alcorcon alcobendas pinto torrejon pozuelo majadahonda
 python3 herramientas/transporte/comprobar.py               # contrasta con horarios.renfe.com
+python3 herramientas/transporte/vivienda_media.py          # la vivienda mediana; luego indice.py
 ```
+
+Debajo del mapa va **la vivienda mediana**: lo que tarda hasta el destino elegido la vivienda del medio de cada ciudad, contando cada edificio del Catastro en su cuadro de 100 m tantas veces como viviendas tiene (`vivienda_media.py` y `fuentes/vivienda_media.json`, que lee los tiempos ya escritos en `datos/transporte/<id>.js`). Hasta Sol en tren, Parla es la 4.ª que más tarda de las once (49 min; Getafe, 38); hasta Plaza de Castilla, la que más.
 
 Antes del mapa va **el tren a mano** (de cada 100 viviendas del Catastro, las que tienen una
 estación de Cercanías, Metro o Metro Ligero que sale de su municipio a 15 minutos andando, con 5 y

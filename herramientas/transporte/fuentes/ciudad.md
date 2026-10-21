@@ -88,6 +88,29 @@ El ayuntamiento de Alcorcón no está en CartoCiudad por su dirección (plaza de
 Celdas sin tiempo en la cuenta de solo tren: 984 de 2.495 en Parla y 5.764 de 7.868 en Getafe,
 casi todas campo (el término de Getafe es grande y la ciudad ocupa el oeste).
 
+## Desde la vivienda mediana (`vivienda_media.py`)
+
+Cada edificio con viviendas del Catastro (los de `cobertura.py`) toma el tiempo de su celda de 100 m y cuenta tantas
+veces como viviendas tiene. Las que no tienen parada a 1.200 m cuentan como las que más tardan. Mediana, en minutos,
+y de cada 100 viviendas las que pasan de una hora:
+
+| Ciudad | Sol, tren | Sol, con bus | Plaza de Castilla, tren | Sol, tren, > 1 h |
+|---|---:|---:|---:|---:|
+| Parla | 49 | 48 | 63 | 2,1 |
+| Getafe | 38 | 38 | 52 | 5,8 |
+| Leganés | 41 | 40 | 55 | 0,3 |
+| Fuenlabrada | 48 | 47 | 62 | 11,4 |
+| Móstoles | 52 | 52 | 62 | 14,2 |
+| Alcorcón | 43 | 43 | 51 | 12,0 |
+| Alcobendas | 47 | 43 | 40 | 11,5 |
+| Pinto | 46 | 46 | 61 | 27,4 |
+| Torrejón de Ardoz | 61 | 45 | 70 | 51,9 |
+| Pozuelo de Alarcón | 47 | 46 | 51 | 15,3 |
+| Majadahonda | sin estación | 55 | sin estación | 89,4 |
+
+Parla no es la peor hasta Sol; sí hasta Plaza de Castilla. El tranvía de Parla cuenta como tren aquí (lleva a la
+estación), por eso en Parla casi ninguna vivienda se queda sin tiempo.
+
 ## Cautelas
 
 - Es una cuenta nuestra sobre horarios oficiales: no cuenta retrasos, trenes llenos ni obras.

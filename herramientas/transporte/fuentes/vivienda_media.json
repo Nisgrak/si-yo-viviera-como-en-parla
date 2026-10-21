@@ -1,0 +1,614 @@
+{
+ "_meta": {
+  "notas": [
+   "Tiempos de datos/transporte/<id>.js (ciudad.py): mediana de las salidas de 7:30 a 8:30 de un martes, desde el centro de cada celda de 100 m.",
+   "Viviendas: numberOfDwellings de los edificios del Catastro (INSPIRE Buildings), en el centro de su planta; cada edificio toma el tiempo de su celda.",
+   "Sin tiempo (ninguna parada a 1.200 m andando): cuentan como las que más tardan."
+  ]
+ },
+ "parla": {
+  "viviendas": 47197,
+  "tren": {
+   "sol": {
+    "mediana": 49,
+    "p75": 55,
+    "masHora": 2.1,
+    "sinTiempo": 0.0
+   },
+   "atocha": {
+    "mediana": 45,
+    "p75": 51,
+    "masHora": 0.0,
+    "sinTiempo": 0.0
+   },
+   "nuevos_ministerios": {
+    "mediana": 54,
+    "p75": 60,
+    "masHora": 22.7,
+    "sinTiempo": 0.0
+   },
+   "plaza_castilla": {
+    "mediana": 63,
+    "p75": 70,
+    "masHora": 66.3,
+    "sinTiempo": 0.0
+   }
+  },
+  "todo": {
+   "sol": {
+    "mediana": 48,
+    "p75": 55,
+    "masHora": 1.0,
+    "sinTiempo": 0.0
+   },
+   "atocha": {
+    "mediana": 44,
+    "p75": 50,
+    "masHora": 0.0,
+    "sinTiempo": 0.0
+   },
+   "nuevos_ministerios": {
+    "mediana": 53,
+    "p75": 60,
+    "masHora": 21.2,
+    "sinTiempo": 0.0
+   },
+   "plaza_castilla": {
+    "mediana": 63,
+    "p75": 69,
+    "masHora": 66.3,
+    "sinTiempo": 0.0
+   }
+  }
+ },
+ "getafe": {
+  "viviendas": 81340,
+  "tren": {
+   "sol": {
+    "mediana": 38,
+    "p75": 42,
+    "masHora": 5.8,
+    "sinTiempo": 5.8
+   },
+   "atocha": {
+    "mediana": 34,
+    "p75": 38,
+    "masHora": 5.8,
+    "sinTiempo": 5.8
+   },
+   "nuevos_ministerios": {
+    "mediana": 43,
+    "p75": 47,
+    "masHora": 6.5,
+    "sinTiempo": 5.8
+   },
+   "plaza_castilla": {
+    "mediana": 52,
+    "p75": 56,
+    "masHora": 15.2,
+    "sinTiempo": 5.8
+   }
+  },
+  "todo": {
+   "sol": {
+    "mediana": 38,
+    "p75": 42,
+    "masHora": 0.2,
+    "sinTiempo": 0.0
+   },
+   "atocha": {
+    "mediana": 34,
+    "p75": 38,
+    "masHora": 0.0,
+    "sinTiempo": 0.0
+   },
+   "nuevos_ministerios": {
+    "mediana": 43,
+    "p75": 47,
+    "masHora": 2.0,
+    "sinTiempo": 0.0
+   },
+   "plaza_castilla": {
+    "mediana": 52,
+    "p75": 56,
+    "masHora": 14.4,
+    "sinTiempo": 0.0
+   }
+  }
+ },
+ "leganes": {
+  "viviendas": 78280,
+  "tren": {
+   "sol": {
+    "mediana": 41,
+    "p75": 46,
+    "masHora": 0.3,
+    "sinTiempo": 0.3
+   },
+   "atocha": {
+    "mediana": 35,
+    "p75": 40,
+    "masHora": 0.3,
+    "sinTiempo": 0.3
+   },
+   "nuevos_ministerios": {
+    "mediana": 45,
+    "p75": 50,
+    "masHora": 1.3,
+    "sinTiempo": 0.3
+   },
+   "plaza_castilla": {
+    "mediana": 55,
+    "p75": 60,
+    "masHora": 22.6,
+    "sinTiempo": 0.3
+   }
+  },
+  "todo": {
+   "sol": {
+    "mediana": 40,
+    "p75": 42,
+    "masHora": 0.0,
+    "sinTiempo": 0.0
+   },
+   "atocha": {
+    "mediana": 34,
+    "p75": 36,
+    "masHora": 0.0,
+    "sinTiempo": 0.0
+   },
+   "nuevos_ministerios": {
+    "mediana": 44,
+    "p75": 46,
+    "masHora": 0.0,
+    "sinTiempo": 0.0
+   },
+   "plaza_castilla": {
+    "mediana": 54,
+    "p75": 56,
+    "masHora": 9.1,
+    "sinTiempo": 0.0
+   }
+  }
+ },
+ "fuenlabrada": {
+  "viviendas": 71748,
+  "tren": {
+   "sol": {
+    "mediana": 48,
+    "p75": 53,
+    "masHora": 11.4,
+    "sinTiempo": 5.8
+   },
+   "atocha": {
+    "mediana": 42,
+    "p75": 47,
+    "masHora": 6.2,
+    "sinTiempo": 5.8
+   },
+   "nuevos_ministerios": {
+    "mediana": 52,
+    "p75": 57,
+    "masHora": 16.8,
+    "sinTiempo": 5.8
+   },
+   "plaza_castilla": {
+    "mediana": 62,
+    "p75": 67,
+    "masHora": 67.0,
+    "sinTiempo": 5.8
+   }
+  },
+  "todo": {
+   "sol": {
+    "mediana": 47,
+    "p75": 53,
+    "masHora": 5.3,
+    "sinTiempo": 0.1
+   },
+   "atocha": {
+    "mediana": 41,
+    "p75": 47,
+    "masHora": 0.1,
+    "sinTiempo": 0.1
+   },
+   "nuevos_ministerios": {
+    "mediana": 52,
+    "p75": 57,
+    "masHora": 12.1,
+    "sinTiempo": 0.1
+   },
+   "plaza_castilla": {
+    "mediana": 62,
+    "p75": 67,
+    "masHora": 65.4,
+    "sinTiempo": 0.1
+   }
+  }
+ },
+ "mostoles": {
+  "viviendas": 83419,
+  "tren": {
+   "sol": {
+    "mediana": 52,
+    "p75": 57,
+    "masHora": 14.2,
+    "sinTiempo": 8.9
+   },
+   "atocha": {
+    "mediana": 45,
+    "p75": 50,
+    "masHora": 9.2,
+    "sinTiempo": 8.9
+   },
+   "nuevos_ministerios": {
+    "mediana": 56,
+    "p75": 61,
+    "masHora": 26.8,
+    "sinTiempo": 8.9
+   },
+   "plaza_castilla": {
+    "mediana": 62,
+    "p75": 67,
+    "masHora": 63.9,
+    "sinTiempo": 8.9
+   }
+  },
+  "todo": {
+   "sol": {
+    "mediana": 52,
+    "p75": 55,
+    "masHora": 5.6,
+    "sinTiempo": 0.2
+   },
+   "atocha": {
+    "mediana": 45,
+    "p75": 48,
+    "masHora": 2.8,
+    "sinTiempo": 0.2
+   },
+   "nuevos_ministerios": {
+    "mediana": 55,
+    "p75": 58,
+    "masHora": 8.5,
+    "sinTiempo": 0.2
+   },
+   "plaza_castilla": {
+    "mediana": 62,
+    "p75": 64,
+    "masHora": 57.5,
+    "sinTiempo": 0.2
+   }
+  }
+ },
+ "alcorcon": {
+  "viviendas": 71222,
+  "tren": {
+   "sol": {
+    "mediana": 43,
+    "p75": 48,
+    "masHora": 12.0,
+    "sinTiempo": 12.0
+   },
+   "atocha": {
+    "mediana": 37,
+    "p75": 42,
+    "masHora": 12.0,
+    "sinTiempo": 12.0
+   },
+   "nuevos_ministerios": {
+    "mediana": 45,
+    "p75": 51,
+    "masHora": 13.1,
+    "sinTiempo": 12.0
+   },
+   "plaza_castilla": {
+    "mediana": 51,
+    "p75": 57,
+    "masHora": 18.1,
+    "sinTiempo": 12.0
+   }
+  },
+  "todo": {
+   "sol": {
+    "mediana": 43,
+    "p75": 46,
+    "masHora": 0.2,
+    "sinTiempo": 0.1
+   },
+   "atocha": {
+    "mediana": 37,
+    "p75": 40,
+    "masHora": 0.1,
+    "sinTiempo": 0.1
+   },
+   "nuevos_ministerios": {
+    "mediana": 45,
+    "p75": 49,
+    "masHora": 0.3,
+    "sinTiempo": 0.1
+   },
+   "plaza_castilla": {
+    "mediana": 51,
+    "p75": 55,
+    "masHora": 6.6,
+    "sinTiempo": 0.1
+   }
+  }
+ },
+ "alcobendas": {
+  "viviendas": 42589,
+  "tren": {
+   "sol": {
+    "mediana": 47,
+    "p75": 50,
+    "masHora": 11.5,
+    "sinTiempo": 9.1
+   },
+   "atocha": {
+    "mediana": 52,
+    "p75": 54,
+    "masHora": 13.7,
+    "sinTiempo": 9.1
+   },
+   "nuevos_ministerios": {
+    "mediana": 41,
+    "p75": 44,
+    "masHora": 9.3,
+    "sinTiempo": 9.1
+   },
+   "plaza_castilla": {
+    "mediana": 40,
+    "p75": 43,
+    "masHora": 9.1,
+    "sinTiempo": 9.1
+   }
+  },
+  "todo": {
+   "sol": {
+    "mediana": 43,
+    "p75": 46,
+    "masHora": 4.3,
+    "sinTiempo": 1.0
+   },
+   "atocha": {
+    "mediana": 47,
+    "p75": 50,
+    "masHora": 5.1,
+    "sinTiempo": 1.0
+   },
+   "nuevos_ministerios": {
+    "mediana": 36,
+    "p75": 40,
+    "masHora": 3.3,
+    "sinTiempo": 1.0
+   },
+   "plaza_castilla": {
+    "mediana": 36,
+    "p75": 39,
+    "masHora": 2.4,
+    "sinTiempo": 1.0
+   }
+  }
+ },
+ "pinto": {
+  "viviendas": 21418,
+  "tren": {
+   "sol": {
+    "mediana": 46,
+    "p75": null,
+    "masHora": 27.4,
+    "sinTiempo": 27.4
+   },
+   "atocha": {
+    "mediana": 42,
+    "p75": null,
+    "masHora": 27.4,
+    "sinTiempo": 27.4
+   },
+   "nuevos_ministerios": {
+    "mediana": 51,
+    "p75": null,
+    "masHora": 27.4,
+    "sinTiempo": 27.4
+   },
+   "plaza_castilla": {
+    "mediana": 61,
+    "p75": null,
+    "masHora": 54.3,
+    "sinTiempo": 27.4
+   }
+  },
+  "todo": {
+   "sol": {
+    "mediana": 46,
+    "p75": 51,
+    "masHora": 0.0,
+    "sinTiempo": 0.0
+   },
+   "atocha": {
+    "mediana": 42,
+    "p75": 47,
+    "masHora": 0.0,
+    "sinTiempo": 0.0
+   },
+   "nuevos_ministerios": {
+    "mediana": 51,
+    "p75": 56,
+    "masHora": 14.1,
+    "sinTiempo": 0.0
+   },
+   "plaza_castilla": {
+    "mediana": 61,
+    "p75": 66,
+    "masHora": 53.8,
+    "sinTiempo": 0.0
+   }
+  }
+ },
+ "torrejon": {
+  "viviendas": 53437,
+  "tren": {
+   "sol": {
+    "mediana": 61,
+    "p75": null,
+    "masHora": 51.9,
+    "sinTiempo": 38.4
+   },
+   "atocha": {
+    "mediana": 53,
+    "p75": null,
+    "masHora": 38.4,
+    "sinTiempo": 38.4
+   },
+   "nuevos_ministerios": {
+    "mediana": 61,
+    "p75": null,
+    "masHora": 57.1,
+    "sinTiempo": 38.4
+   },
+   "plaza_castilla": {
+    "mediana": 70,
+    "p75": null,
+    "masHora": 85.7,
+    "sinTiempo": 38.4
+   }
+  },
+  "todo": {
+   "sol": {
+    "mediana": 45,
+    "p75": 50,
+    "masHora": 4.2,
+    "sinTiempo": 0.0
+   },
+   "atocha": {
+    "mediana": 48,
+    "p75": 51,
+    "masHora": 3.0,
+    "sinTiempo": 0.0
+   },
+   "nuevos_ministerios": {
+    "mediana": 35,
+    "p75": 38,
+    "masHora": 0.0,
+    "sinTiempo": 0.0
+   },
+   "plaza_castilla": {
+    "mediana": 39,
+    "p75": 42,
+    "masHora": 0.5,
+    "sinTiempo": 0.0
+   }
+  }
+ },
+ "pozuelo": {
+  "viviendas": 31435,
+  "tren": {
+   "sol": {
+    "mediana": 47,
+    "p75": 56,
+    "masHora": 15.3,
+    "sinTiempo": 12.3
+   },
+   "atocha": {
+    "mediana": 48,
+    "p75": 58,
+    "masHora": 18.5,
+    "sinTiempo": 12.3
+   },
+   "nuevos_ministerios": {
+    "mediana": 46,
+    "p75": 54,
+    "masHora": 13.4,
+    "sinTiempo": 12.3
+   },
+   "plaza_castilla": {
+    "mediana": 51,
+    "p75": 59,
+    "masHora": 20.1,
+    "sinTiempo": 12.3
+   }
+  },
+  "todo": {
+   "sol": {
+    "mediana": 46,
+    "p75": 50,
+    "masHora": 6.2,
+    "sinTiempo": 0.6
+   },
+   "atocha": {
+    "mediana": 45,
+    "p75": 49,
+    "masHora": 5.7,
+    "sinTiempo": 0.6
+   },
+   "nuevos_ministerios": {
+    "mediana": 45,
+    "p75": 49,
+    "masHora": 5.5,
+    "sinTiempo": 0.6
+   },
+   "plaza_castilla": {
+    "mediana": 50,
+    "p75": 54,
+    "masHora": 7.3,
+    "sinTiempo": 0.6
+   }
+  }
+ },
+ "majadahonda": {
+  "viviendas": 26191,
+  "tren": {
+   "sol": {
+    "mediana": null,
+    "p75": null,
+    "masHora": 89.4,
+    "sinTiempo": 89.4
+   },
+   "atocha": {
+    "mediana": null,
+    "p75": null,
+    "masHora": 89.4,
+    "sinTiempo": 89.4
+   },
+   "nuevos_ministerios": {
+    "mediana": null,
+    "p75": null,
+    "masHora": 89.4,
+    "sinTiempo": 89.4
+   },
+   "plaza_castilla": {
+    "mediana": null,
+    "p75": null,
+    "masHora": 89.6,
+    "sinTiempo": 89.4
+   }
+  },
+  "todo": {
+   "sol": {
+    "mediana": 55,
+    "p75": 59,
+    "masHora": 21.8,
+    "sinTiempo": 0.1
+   },
+   "atocha": {
+    "mediana": 56,
+    "p75": 60,
+    "masHora": 19.6,
+    "sinTiempo": 0.1
+   },
+   "nuevos_ministerios": {
+    "mediana": 50,
+    "p75": 52,
+    "masHora": 7.3,
+    "sinTiempo": 0.1
+   },
+   "plaza_castilla": {
+    "mediana": 58,
+    "p75": 61,
+    "masHora": 30.5,
+    "sinTiempo": 0.1
+   }
+  }
+ }
+}
