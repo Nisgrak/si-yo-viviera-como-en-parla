@@ -451,9 +451,6 @@
       document.title = NOMBRES[r.value] + ' · prototipo';
     });
   });
-  document.querySelectorAll('input[name="marca"]').forEach(function (r) {
-    r.addEventListener('change', function () { document.body.dataset.marca = r.value; });
-  });
 
   function pintar() {
     calcular();
