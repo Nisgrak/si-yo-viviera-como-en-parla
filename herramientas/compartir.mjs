@@ -6,8 +6,10 @@
                                      con la ciudad puesta
      dist/<id>/vivienda/             la página de la vivienda, igual
      dist/<id>/economia/             la página de la economía, igual
-     dist/<id>/espera/               una página mínima con la vista previa de
-                                     «La espera», que manda al recuento
+     dist/<id>/sanidad/              la página de la sanidad, igual
+     dist/<id>/educacion/            la de la educación, igual
+     dist/<id>/espera/, cabecera/    una página mínima con la vista previa de
+       infantil/                     cada sección, que manda a su página
      dist/<id>/impuestos/            y la de «Lo que paga un vecino», que
                                      manda a la economía
      dist/assets/compartir/*.png     la imagen de vista previa general y la de
@@ -43,6 +45,8 @@ require(join(RAIZ, 'datos/vivienda.js'));
 require(join(RAIZ, 'datos/transporte.js'));
 require(join(RAIZ, 'datos/sanidad.js'));
 require(join(RAIZ, 'datos/impuestos.js'));
+require(join(RAIZ, 'datos/primaria.js'));
+require(join(RAIZ, 'datos/infantil.js'));
 const CALCULO = require(join(RAIZ, 'assets/calculo.js'));
 const D = globalThis.DATOS;
 
@@ -50,7 +54,8 @@ const D = globalThis.DATOS;
 
 await rm(DIST, { recursive: true, force: true });
 await mkdir(DIST);
-for (const x of ['index.html', 'infraestructura.html', 'vivienda.html', 'economia.html', 'consulta.html', 'assets', 'datos']) {
+for (const x of ['index.html', 'infraestructura.html', 'vivienda.html', 'economia.html', 'sanidad.html', 'educacion.html',
+  'consulta.html', 'assets', 'datos']) {
   await cp(join(RAIZ, x), join(DIST, x), { recursive: true });
 }
 /* La marca que le dice a app.js que aquí sí existen /getafe/ y compañía, así
@@ -71,6 +76,12 @@ const eco = await readFile(join(RAIZ, 'economia.html'), 'utf8');
 if (!eco.includes('<html lang="es">')) throw new Error('economia.html: no encuentro <html lang="es">');
 await writeFile(join(DIST, 'economia.html'),
   eco.replace('<html lang="es">', '<html lang="es" data-rutas>'));
+const san = await readFile(join(RAIZ, 'sanidad.html'), 'utf8');
+const edu = await readFile(join(RAIZ, 'educacion.html'), 'utf8');
+for (const [f, h] of [['sanidad.html', san], ['educacion.html', edu]]) {
+  if (!h.includes('<html lang="es">')) throw new Error(f + ': no encuentro <html lang="es">');
+  await writeFile(join(DIST, f), h.replace('<html lang="es">', '<html lang="es" data-rutas>'));
+}
 
 /* ── Las imágenes ───────────────────────────────────────────────────── */
 
@@ -143,7 +154,7 @@ function imagenPareja(seccion, titulo, nombre, vRef, vAqui, unidad, pie) {
 }
 
 const E = globalThis.ECONOMIA, V = globalThis.VIVIENDA, TP = globalThis.TRANSPORTE;
-const SA = globalThis.SANIDAD, IM = globalThis.IMPUESTOS;
+const SA = globalThis.SANIDAD, IM = globalThis.IMPUESTOS, PR = globalThis.PRIMARIA, IN = globalThis.INFANTIL;
 const ultimo = (xs) => xs[xs.length - 1];
 /* El dato de cada página, como lo calcula la propia página. */
 const CIFRAS = {
@@ -167,6 +178,20 @@ const CIFRAS = {
     v: (id) => SA.ciudades[id] ? num(SA.ciudades[id].quirurgica.dias, 1) : null,
     pie: 'Servicio Madrileño de Salud, listas de espera por hospital, ' + SA.mes + '.',
     desc: (n, a, b) => `Quien espera una operación en el hospital de Parla lleva de media ${a} días; en el que le toca a ${n}, ${b} días. La espera para operarse, para el especialista y para una prueba, con datos oficiales.`
+  },
+  cabecera: {
+    titulo: 'Tarjetas sanitarias de 14 años o más por cada plaza de médico de familia en los centros de salud',
+    seccion: 'El médico de cabecera', unidad: '',
+    v: (id) => PR.ciudades[id] ? PR.ciudades[id].familia.toLocaleString('es-ES', { useGrouping: true }) : null,
+    pie: 'Plantilla de Atención Primaria del SERMAS, octubre de 2026, y tarjetas sanitarias de ' + PR.anioTarjetas + '.',
+    desc: (n, a, b) => `En los centros de salud de Parla hay una plaza de médico de familia por cada ${a} tarjetas sanitarias; en los de ${n}, una por cada ${b}. Y la espera en el hospital, con datos oficiales.`
+  },
+  infantil: {
+    titulo: 'De cada 100 solicitudes de plaza en una escuela infantil pública, las que se quedan sin plaza',
+    seccion: 'La escuela infantil', unidad: '',
+    v: (id) => IN.ciudades[id] ? num(IN.ciudades[id].pctSinPlaza, 1) : null,
+    pie: 'Comunidad de Madrid, proceso de admisión «' + IN.cursoAdmision + '» de las escuelas infantiles públicas.',
+    desc: (n, a, b) => `De cada 100 solicitudes de plaza en una escuela infantil pública, en Parla se quedan sin plaza ${a}; en ${n}, ${b}. Y los colegios, institutos y escuelas que hay, con datos oficiales.`
   },
   impuestos: {
     titulo: 'IBI y coche al año con la vivienda media de cada ciudad, ' + IM.anio,
@@ -294,6 +319,10 @@ const paginaVivienda = (id, nombre, previa) => paginaCiudad(id, 'Una casa en ' +
   viv, 'vivienda.html', 'vivienda/', undefined, previa);
 const paginaEconomia = (id, nombre, previa) => paginaCiudad(id, 'El dinero de ' + nombre + ' y el dinero de Parla',
   eco, 'economia.html', 'economia/', undefined, previa);
+const paginaSanidad = (id, nombre, previa) => paginaCiudad(id, 'La sanidad de ' + nombre + ' y la sanidad de Parla',
+  san, 'sanidad.html', 'sanidad/', undefined, previa);
+const paginaEducacion = (id, nombre, previa) => paginaCiudad(id, 'La educación de ' + nombre + ' y la educación de Parla',
+  edu, 'educacion.html', 'educacion/', undefined, previa);
 
 /* La imagen y el texto de la vista previa de una página para una ciudad. */
 async function previa(clave, m) {
@@ -356,9 +385,16 @@ for (const m of D.MUNICIPIOS) {
   await writeFile(join(DIST, m.id, 'vivienda', 'index.html'), paginaVivienda(m.id, m.nombre, await previa('vivienda', m)));
   await mkdir(join(DIST, m.id, 'economia'), { recursive: true });
   await writeFile(join(DIST, m.id, 'economia', 'index.html'), paginaEconomia(m.id, m.nombre, await previa('economia', m)));
-  /* Las dos secciones con enlace propio. */
+  /* La sanidad y la educación, con la vista previa de su sección principal. */
+  for (const [ruta, hacer, clave] of [['sanidad', paginaSanidad, 'espera'], ['educacion', paginaEducacion, 'infantil']]) {
+    await mkdir(join(DIST, m.id, ruta), { recursive: true });
+    await writeFile(join(DIST, m.id, ruta, 'index.html'), hacer(m.id, m.nombre, await previa(clave, m)));
+  }
+  /* Las secciones con enlace propio. */
   for (const [clave, destino, titulo] of [
-    ['espera', `../../?ir=espera#${m.id}`, 'La espera en el hospital que le toca a ' + m.nombre + ' y en el de Parla'],
+    ['espera', `../sanidad/?ir=espera`, 'La espera en el hospital que le toca a ' + m.nombre + ' y en el de Parla'],
+    ['cabecera', `../sanidad/?ir=cabecera`, 'El médico de cabecera en ' + m.nombre + ' y en Parla'],
+    ['infantil', `../educacion/?ir=infantil`, 'La escuela infantil en ' + m.nombre + ' y en Parla'],
     ['impuestos', `../economia/?ir=paga`, 'Lo que paga un vecino de ' + m.nombre + ' y uno de Parla']]) {
     const p = await previa(clave, m);
     if (!p) continue;

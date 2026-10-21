@@ -170,6 +170,9 @@ assets/vivienda.css/.js   su diseño y su render: casas por cada 100 vecinos, l�
 datos/vivienda.js     sus cifras; las escribe herramientas/vivienda.py
 herramientas/vivienda/fuentes/   lo extraído de cada fuente (.json) con sus URL y cautelas (.md)
 economia.html         la página de la economía (/<ciudad>/economia/)
+sanidad.html          la sanidad: lo que hay, la espera y el médico de cabecera (/<ciudad>/sanidad/)
+educacion.html        la educación: lo que hay y la escuela infantil (/<ciudad>/educacion/);
+                      las dos con assets/servicios.js
 assets/economia.css/.js   su diseño y su render: fichas del dinero, líneas y el «de cada 100»
 assets/linea.js       el gráfico de líneas, compartido por vivienda.html y economia.html
 datos/economia.js     sus cifras; las escribe herramientas/economia.py
@@ -754,7 +757,7 @@ por un ajuste de consolidación (cuenta `7t`, −2.716.967,45 €).
 
 ### La espera: las listas de espera de los hospitales
 
-Sección `#espera` del recuento (`espera()` en `assets/app.js`), con `datos/sanidad.js`, que
+Sección `#espera` de `sanidad.html` (`espera()` en `assets/servicios.js`), con `datos/sanidad.js`, que
 escribe `herramientas/sanidad.py` desde `herramientas/sanidad/espera.json`. Ese JSON lo
 sacan `herramientas/sanidad/descarga_espera.py` (descarga en `/var/tmp/espera/`) y
 `espera.py`, del servicio de consulta del SERMAS por hospital (opción «Total», mes a mes) y
@@ -783,7 +786,16 @@ sanitarias a 31-12-2024; Torrejón, a 31-12-2023).
 
 ### El médico de cabecera y la escuela infantil
 
-Dos secciones del recuento (`cabecera()` e `infantil()` en `assets/app.js`).
+`#cabecera` en `sanidad.html` e `#infantil` en `educacion.html` (`cabecera()` e `infantil()` en
+`assets/servicios.js`).
+
+**Las dos páginas** salieron del recuento cuando este se hizo largo. Las dos las pinta
+`assets/servicios.js`, que mira `<body data-pagina>`. Arriba, «Lo que hay»: los indicadores del
+recuento de su grupo (`grupo: 'Sanidad'` o `'Educación'` en `datos/datos.js`), con la misma base
+y un enlace a su apartado (`index.html?ir=ind-farmacias#getafe`). Cada sección lleva su cartel y
+«Compartir esta sección» (`/<ciudad>/espera/`, `/cabecera/`, `/infantil/`, con su vista
+previa). En el recuento queda un resumen, «Sanidad y educación», con una frase de cada página, y
+la portada tiene un botón para cada una.
 
 - **`datos/primaria.js`** lo escribe `herramientas/primaria.py` desde
   `herramientas/primaria/primaria.json` (`primaria/descarga.py` y `primaria/primaria.py`, con
@@ -969,7 +981,16 @@ Es una web pública, así que la copia sigue tres reglas:
    datos la frase cambia sola. Un empate a la cola cuenta como última, porque ninguna tiene
    menos: de esos ocho, en cinco (Metro, universidad, conservatorio, Hacienda y Seguridad Social)
    Parla tiene cero y alguna otra también.
-5. **Nada de antítesis.** La construcción «no es X: es Y» estaba doce veces y es lo que hacía
+5. **Hacia dónde es mejor, solo donde está claro.** Justo debajo de las cifras de cada dato (las
+   barras de Parla y tu ciudad, el gráfico, las dos cifras grandes) va «cuanto más, mejor» o
+   «cuanto menos, mejor» (`assets/sentido.js`, con una sola lista por id del catálogo de «Todos
+   los datos»). El título, o el bloque de cifras, lleva `data-sentido="mas"` o `"menos"`; el
+   script busca las cifras que le siguen (`CIFRAS`, `FILAS`) y pone la línea, también en lo que
+   se pinta después, y la mueve si el gráfico se dibuja más tarde. Es una lectura, y se dice en el
+   método: donde depende de quién mire (lo que vale una casa, la población mayor, el peso de
+   la industria, lo que recauda el ayuntamiento) no lleva línea. Un dato nuevo: su id en
+   `MAPA` si tiene sentido claro.
+6. **Nada de antítesis.** La construcción «no es X: es Y» estaba doce veces y es lo que hacía
    que la web sonara a texto generado. Los datos se enuncian y punto.
 
 **La población de referencia de cada hospital** se descartó como indicador, pero la búsqueda dio

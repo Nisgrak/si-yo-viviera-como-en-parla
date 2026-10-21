@@ -95,7 +95,7 @@ las plazas residenciales públicas, los alumnos de enseñanzas artísticas, las 
 cartera del hospital. Pinto es el contraejemplo que sostiene la credibilidad: pierde poco y en
 hospital está por debajo de Parla, y la web lo dice en su propia portada.
 
-Además del recuento, tres páginas por ciudad, cada una con su resumen en la portada:
+Además del recuento, cinco páginas por ciudad, cada una con su resumen en la portada:
 
 - **Vivienda**: comprar, alquilar, de quién son las casas, barrios, vivienda pública,
   desahucios y cómo son las casas.
@@ -104,10 +104,12 @@ Además del recuento, tres páginas por ciudad, cada una con su resumen en la po
 - **Infraestructuras**: en coche (por dónde sale la gente) y en transporte público (el tren a
   mano, cuánto se tarda hasta el centro y lo que cuesta el abono).
 
-En el recuento, fuera del total: «La espera», las listas de espera del hospital que le toca a
-cada ciudad; «El médico de cabecera», tarjetas sanitarias por plaza de médico de familia y de
-pediatra, y «La escuela infantil», quién se queda sin plaza en la pública de 0 a 2 años. En la
-espera y en la escuela infantil Parla sale mejor que varias, y se dice. En economía, «Lo que paga un vecino»: el IBI y el coche
+- **Sanidad**: lo que hay del recuento, la espera en el hospital que le toca a cada ciudad y las
+  tarjetas sanitarias por plaza de médico de familia y de pediatra.
+- **Educación**: lo que hay del recuento y quién se queda sin plaza en la escuela infantil
+  pública de 0 a 2 años.
+
+En la espera y en la escuela infantil Parla sale mejor que varias, y se dice. En economía, «Lo que paga un vecino»: el IBI y el coche
 con la misma casa y con la de cada ciudad. Y aparte, «Todos los datos», la consulta de las once
 ciudades a la vez.
 

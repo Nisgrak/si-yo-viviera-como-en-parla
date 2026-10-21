@@ -200,19 +200,19 @@
     const fP = PR.fuentes.plantilla;
     dato({ id: 'tarjetas-medico', grupo: 'Sanidad', titulo: 'Tarjetas sanitarias por plaza de médico de familia',
       unidad: 'de 14 años o más, en los centros de salud de la ciudad; plazas de octubre de 2026, tarjetas de ' + PR.anioTarjetas,
-      dec: 0, v: function (id) { return PR.ciudades[id].familia; }, fuente: fP, pagina: 'index.html#cabecera' });
+      dec: 0, v: function (id) { return PR.ciudades[id].familia; }, fuente: fP, pagina: 'sanidad.html#cabecera' });
     dato({ id: 'tarjetas-pediatra', grupo: 'Sanidad', titulo: 'Tarjetas sanitarias por plaza de pediatra',
       unidad: 'de 0 a 13 años, en los centros de salud de la ciudad; plazas de octubre de 2026, tarjetas de ' + PR.anioTarjetas,
-      dec: 0, v: function (id) { return PR.ciudades[id].pediatria; }, fuente: fP, pagina: 'index.html#cabecera' });
+      dec: 0, v: function (id) { return PR.ciudades[id].pediatria; }, fuente: fP, pagina: 'sanidad.html#cabecera' });
   }
   if (IN) {
     const fI = IN.fuentes.buscador;
     dato({ id: 'infantil-sin-plaza', grupo: 'Equipamientos', titulo: 'Solicitudes sin plaza en la escuela infantil pública',
       unidad: 'de cada 100, de 0 a 2 años, proceso de admisión ' + IN.cursoAdmision, sim: '%', dec: 1,
-      v: function (id) { return IN.ciudades[id].pctSinPlaza; }, fuente: fI, pagina: 'index.html#infantil' });
+      v: function (id) { return IN.ciudades[id].pctSinPlaza; }, fuente: fI, pagina: 'educacion.html#infantil' });
     dato({ id: 'infantil-matriculados', grupo: 'Equipamientos', titulo: 'Niños en la escuela infantil pública',
       unidad: 'por cada 100 niños de 0 a 2 años, curso ' + IN.cursoMatricula, dec: 1,
-      v: function (id) { return IN.ciudades[id].matriculadosPor100; }, fuente: fI, pagina: 'index.html#infantil' });
+      v: function (id) { return IN.ciudades[id].matriculadosPor100; }, fuente: fI, pagina: 'educacion.html#infantil' });
   }
 
   /* La espera: la del hospital que le toca a cada ciudad (Pinto, el de
@@ -228,12 +228,12 @@
       dato({ id: x[0], grupo: 'Sanidad', titulo: x[2],
         unidad: 'días de media en el hospital que le toca, ' + SA.mes, sim: 'días', dec: 1,
         v: function (id) { return h(id) && h(id)[x[1]] ? h(id)[x[1]].dias : null; },
-        etiqueta: nombreH, fuente: fuenteSA, pagina: 'index.html#espera' });
+        etiqueta: nombreH, fuente: fuenteSA, pagina: 'sanidad.html#espera' });
     });
     dato({ id: 'lista-operarse', grupo: 'Sanidad', titulo: 'En lista para operarse',
       unidad: 'por cada 1.000 personas que tiene asignadas su hospital, ' + SA.mes, sim: '', dec: 1,
       v: function (id) { return h(id) ? h(id).quirurgica.por1000 : null; },
-      etiqueta: nombreH, fuente: fuenteSA, pagina: 'index.html#espera' });
+      etiqueta: nombreH, fuente: fuenteSA, pagina: 'sanidad.html#espera' });
   }
 
   const POR_ID = {};
@@ -283,6 +283,12 @@
     if (!art) { luego(); return; }
     art.classList.add('res--sale');
     setTimeout(luego, 180);
+  }
+
+  /* «· cuanto más, mejor», donde no cabe la línea entera (assets/sentido.js). */
+  function sentidoCorto(id) {
+    const s = window.SENTIDO && window.SENTIDO.de(id);
+    return s ? ' · ' + window.SENTIDO.texto(s).toLowerCase() : '';
   }
 
   function cifra(d, v) {
@@ -361,7 +367,10 @@
       art.dataset.clave = key;
       if (!quieto && (pintado.vista !== 'barras' || pintado.claves.indexOf(key) < 0)) art.classList.add('res--nuevo');
       art.appendChild(el('p', 'res__g', d.grupo));
-      art.appendChild(el('h3', 'res__h', d.titulo));
+      const hd = el('h3', 'res__h', d.titulo);
+      const sen = window.SENTIDO && window.SENTIDO.de(d.id);
+      if (sen) hd.dataset.sentido = sen;
+      art.appendChild(hd);
       art.appendChild(el('p', 'res__u', d.unidad));
       const fs = filas(d);
       /* Las barras van de cero a la mayor; si hay negativos, sin barra. */
@@ -423,7 +432,7 @@
       const b = el('button', 'tabla__orden');
       b.type = 'button';
       b.appendChild(el('span', 'tabla__q', d.titulo));
-      b.appendChild(el('span', 'tabla__u', d.unidad));
+      b.appendChild(el('span', 'tabla__u', d.unidad + sentidoCorto(d.id)));
       if (orden.id === key) {
         th.setAttribute('aria-sort', orden.desc ? 'descending' : 'ascending');
         b.appendChild(el('span', 'tabla__flecha', orden.desc ? '↓' : '↑'));
@@ -697,7 +706,7 @@
           b.appendChild(el('i', 'gj__color'));
           const t = el('span', 'gj__t');
           t.appendChild(el('span', 'gj__q', POR_ID[k].titulo));
-          t.appendChild(el('span', 'gj__u', POR_ID[k].unidad + (k === por ? ' · ordenado por este' : '')));
+          t.appendChild(el('span', 'gj__u', POR_ID[k].unidad + sentidoCorto(k) + (k === por ? ' · ordenado por este' : '')));
           b.appendChild(t);
           b.addEventListener('click', function () { ordenJuntos[fam.f] = k; resultados(); });
           li.appendChild(b);
@@ -806,7 +815,7 @@
     const firma = ejes.x + '|' + ejes.y;
     if (pintado.graficas.cruce !== firma && !redibujo && !quieto) art.classList.add('graf--anima');
     pintado.graficas.cruce = firma;
-    art.appendChild(el('p', 'graf__ey', '↑ ' + dy.titulo + ', ' + dy.unidad));
+    art.appendChild(el('p', 'graf__ey', '↑ ' + dy.titulo + ', ' + dy.unidad + sentidoCorto(dy.id)));
 
     const pts = IDS.map(function (id) { return { id: id, x: dx.v(id), y: dy.v(id) }; })
       .filter(function (p) { return p.x != null && p.y != null; });
@@ -923,7 +932,7 @@
     caja.appendChild(svg);
     caja.appendChild(tip);
     art.appendChild(caja);
-    art.appendChild(el('p', 'graf__ex', dx.titulo + ', ' + dx.unidad + ' →'));
+    art.appendChild(el('p', 'graf__ex', dx.titulo + ', ' + dx.unidad + sentidoCorto(dx.id) + ' →'));
     if (sin.length) art.appendChild(el('p', 'res__u', 'Sin dato: ' + sin.map(function (id) { return NOMBRE[id]; }).join(', ') + '.'));
     cont.appendChild(art);
 

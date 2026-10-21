@@ -71,7 +71,7 @@
   <div class="env">
     <h2 class="bloque__h">Vecinos nuevos, casas nuevas</h2>
     <p class="bloque__intro" id="casas-intro"></p>
-    <div class="hogares-pareja" id="casas-hogares"></div>
+    <div class="hogares-pareja" id="casas-hogares" data-sentido="mas"></div>
     <h3 class="bloque__h3">Año a año, desde 2015</h3>
     <p class="bloque__intro">
       Los vecinos y las viviendas que suma cada ciudad desde el 1 de enero de 2015, con la misma
@@ -135,7 +135,7 @@
     <div class="hogares-pareja" id="alquilar-hogares"></div>
     <div class="pareja" id="alquilar-cifras"></div>
     <div class="cien-euros" id="alquilar-euros"></div>
-    <h3 class="bloque__h3">El metro cuadrado, de 2015 a 2024</h3>
+    <h3 class="bloque__h3" data-sentido="menos">El metro cuadrado, de 2015 a 2024</h3>
     <figure class="graf" id="alquilar-graf"></figure>
     <div class="hechos" id="alquilar-hechos"></div>
     <p class="colas__pie">
@@ -277,9 +277,9 @@
     <h2 class="bloque__h">Cuando no se puede pagar</h2>
     <p class="bloque__intro" id="desahucios-intro"></p>
     <div class="pareja" id="desahucios-cifras"></div>
-    <h3 class="bloque__h3">Demandas por alquiler, desde 2013</h3>
+    <h3 class="bloque__h3" data-sentido="menos">Demandas por alquiler, desde 2013</h3>
     <figure class="graf" id="demandas-graf"></figure>
-    <h3 class="bloque__h3">Desahucios practicados, desde 2013</h3>
+    <h3 class="bloque__h3" data-sentido="menos">Desahucios practicados, desde 2013</h3>
     <figure class="graf" id="desahucios-graf"></figure>
     <div class="hechos" id="desahucios-hechos"></div>
     <p class="colas__pie">
@@ -394,6 +394,7 @@
 </footer>
 
 <script src="datos/datos.js"></script>
+<script src="assets/sentido.js"></script>
 <script src="datos/vivienda.js"></script>
 <script src="assets/indice.js"></script>
 <script src="assets/linea.js"></script>

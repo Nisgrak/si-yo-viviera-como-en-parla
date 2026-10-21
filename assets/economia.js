@@ -109,7 +109,10 @@
   function ficha(cont, f) {
     const art = el('article', 'plata' + (f.saldo ? ' plata--saldo' : ''));
     if (f.id) art.id = f.id;
-    art.appendChild(el('h3', 'plata__h', f.titulo));
+    const h = el('h3', 'plata__h', f.titulo);
+    const sen = f.sentido || (window.SENTIDO && f.id && window.SENTIDO.de(f.id));
+    if (sen) h.dataset.sentido = sen;
+    art.appendChild(h);
     if (f.pie) art.appendChild(el('p', 'plata__pie', f.pie));
     if (f.titular) {
       const t = el('p', 'plata__titular');
@@ -431,7 +434,7 @@
     });
     fichas('#paro-fichas', [
       desdeDinero('paro'),
-      { titulo: 'Apuntados al paro',
+      { titulo: 'Apuntados al paro', sentido: 'menos',
         pie: 'Parados registrados por cada 100 habitantes de 16 a 64 años, media de 2025',
         v: function (id) { return ultimo(t(id).paro); }, fmt: function (v) { return num(v, 2); },
         nota: (siempreArriba() ? 'Parla tiene la cifra más alta de las ' + N + ' todos los años desde 2015 en los que hay dato. ' :
@@ -442,7 +445,7 @@
           '. Por cada 100 vecinos de 16 a 24 años, ' + num(t(REF).paroJoven, 2) + ' parados menores de 25 en Parla y ' +
           num(t(AQUI).paroJoven, 2) + ' en ' + NOMBRE[AQUI] + '; los jóvenes se apuntan poco, así que esta cifra se queda corta en todas.',
         fuentes: ['sepeParo', 'censoEdad'] },
-      { titulo: 'Los contratos indefinidos',
+      { titulo: 'Los contratos indefinidos', sentido: 'mas',
         pie: 'De cada 100 contratos firmados en 2025, los indefinidos y las conversiones a indefinido',
         v: function (id) { return t(id).indefinidos; }, fmt: function (v) { return pct(v); },
         nota: (IDS.every(function (id) { return t(id).indefinidos <= t(REF).indefinidos; })
@@ -495,12 +498,12 @@
     });
     fichas('#renta-fichas', [
       desdeDinero('renta'),
-      { titulo: 'Lo que entra en un hogar',
+      { titulo: 'Lo que entra en un hogar', sentido: 'mas',
         pie: 'Renta neta media por hogar, 2024',
         v: function (id) { return r(id).hogar; }, fmt: euros,
         nota: puesto(function (id) { return r(id).hogar; }),
         fuentes: ['adrh'] },
-      { titulo: 'Lo que se declara a Hacienda',
+      { titulo: 'Lo que se declara a Hacienda', sentido: 'mas',
         pie: 'Renta bruta media por declaración del IRPF, 2024',
         v: function (id) { return r(id).irpf.bruta; }, fmt: euros,
         nota: 'Después de impuestos, ' + euros(r(REF).irpf.disponible) + ' por declaración en Parla y ' +
@@ -509,7 +512,7 @@
           ' por declaración en Parla y ' + euros(r(AQUI).irpf.trabajo) + ' en ' + NOMBRE[AQUI] + '.',
         fuentes: ['irpf'] },
       desdeDinero('pobreza'),
-      { titulo: 'Cómo se reparte dentro',
+      { titulo: 'Cómo se reparte dentro', sentido: 'menos',
         pie: 'Índice de Gini de la renta por unidad de consumo, 2024',
         v: function (id) { return r(id).gini; }, fmt: function (v) { return num(v, 1); },
         nota: 'De 0, si todos los vecinos ingresaran lo mismo, a 100, si uno se lo llevara todo: cuanto más bajo, ' +
@@ -529,7 +532,7 @@
     const e = function (id) { return C[id].empresas; };
     fichas('#produce-fichas', [
       desdeDinero('pib'),
-      { titulo: 'Las empresas que hay',
+      { titulo: 'Las empresas que hay', sentido: 'mas',
         pie: 'Empresas activas con sede en la ciudad por cada 1.000 habitantes, 1 de enero de 2025',
         v: function (id) { return e(id).por1000; }, fmt: function (v) { return num(v, 1); },
         nota: entero(e(REF).n) + ' empresas en Parla y ' + entero(e(AQUI).n) + ' en ' + NOMBRE[AQUI] + '. ' +
@@ -591,7 +594,9 @@
     function todas(f) {
       const ids = IDS.slice().sort(function (a, b) { return f.v(a) - f.v(b); });
       const art = el('article', 'plata');
-      art.appendChild(el('h3', 'plata__h', f.titulo));
+      const h = el('h3', 'plata__h', f.titulo);
+      if (f.sentido) h.dataset.sentido = f.sentido;
+      art.appendChild(h);
       art.appendChild(el('p', 'plata__pie', f.pie));
       const t = el('p', 'plata__titular');
       t.innerHTML = f.titular;
@@ -618,7 +623,7 @@
     vaciar(cont);
     const k1 = barato(misma, REF), k2 = barato(suya, REF);
     cont.appendChild(todas({
-      titulo: 'La misma casa en las once', v: misma,
+      titulo: 'La misma casa en las once', v: misma, sentido: 'menos',
       pie: 'IBI y coche al año, ' + P.anio + ', para una vivienda de ' + entero(P.comun.vc) +
         ' € de valor catastral (la mediana de las once) y un coche de 12 a 15,99 caballos fiscales',
       titular: 'Con la misma casa, en Parla se pagan <b>' + eur(misma(REF)) + '</b>; en ' + NOMBRE[AQUI] + ', <b>' +
@@ -628,7 +633,7 @@
         'De las ' + N + ', ' + IDS.filter(function (id) { return c(id).tipo < c(REF).tipo; }).length + ' cobran un tipo más bajo que Parla.'
     }));
     cont.appendChild(todas({
-      titulo: 'La casa media de cada ciudad', v: suya,
+      titulo: 'La casa media de cada ciudad', v: suya, sentido: 'menos',
       pie: 'IBI de la vivienda media de cada ciudad y el mismo coche, ' + P.anio,
       titular: 'Con su casa media, un vecino de Parla paga <b>' + eur(suya(REF)) + '</b>; uno de ' + NOMBRE[AQUI] +
         ', <b>' + eur(suya(AQUI)) + '</b>. Parla es la ' + k2 + '.ª más barata de las ' + N + '.',
@@ -714,7 +719,7 @@
     };
     fichas('#ayto-mas', [
       { id: 'dinero-deuda-anual',
-        titulo: 'Lo que se va en la deuda cada año',
+        titulo: 'Lo que se va en la deuda cada año', sentido: 'menos',
         pie: pie('Intereses y devolución de préstamos por habitante, media de 2021 a 2024'),
         medias: medias('deuda_3_mas_9'),
         v: function (id) { return k(id).deuda; }, fmt: eur,
@@ -740,7 +745,7 @@
           'más de 75.000 habitantes la reciben con un sistema distinto del de las pequeñas, y la media de la Comunidad ' +
           'mezcla los dos. ' + puesto(function (id) { return k(id).estado; }),
         fuentes: ['conprel'] },
-      { titulo: 'Lo que tarda en pagar',
+      { titulo: 'Lo que tarda en pagar', sentido: 'menos',
         pie: 'Periodo medio de pago a proveedores en días, media de agosto de 2025 a julio de 2026',
         medias: [['Máximo legal', 30]],
         v: function (id) { return k(id).pmp; }, fmt: function (v) { return entero(v) + ' días'; },
@@ -755,7 +760,7 @@
             cajas: [{ q: 'Máximo legal', v: '30 días' }, { q: NOMBRE[AQUI], v: entero(k(AQUI).pmp) + ' días' }]
           };
         } } },
-      { titulo: 'Lo que le queda en caja',
+      { titulo: 'Lo que le queda en caja', sentido: 'mas',
         pie: 'Remanente de tesorería por habitante, descontadas las facturas pendientes de aplicar, 31 de diciembre de 2024',
         v: function (id) { return k(id).remanenteAjustado; }, fmt: eur,
         nota: 'Lo que tendría el ayuntamiento si cobrara lo que le deben y pagara lo que debe a corto plazo. ' +

@@ -29,6 +29,10 @@
       ruta: 'vivienda/', archivo: 'vivienda.html' },
     { id: 'economia', titulo: function () { return 'Economía'; },
       ruta: 'economia/', archivo: 'economia.html' },
+    { id: 'sanidad', titulo: function () { return 'Sanidad'; },
+      ruta: 'sanidad/', archivo: 'sanidad.html' },
+    { id: 'educacion', titulo: function () { return 'Educación'; },
+      ruta: 'educacion/', archivo: 'educacion.html' },
     /* Sin ciudad: las once a la vez. */
     { id: 'consulta', titulo: function () { return 'Todos los datos'; },
       archivo: 'consulta.html', sinCiudad: true }

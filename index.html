@@ -137,40 +137,25 @@
   <div id="lista-ganancias"></div>
 </section>
 
-<!-- ── La espera ─────────────────────────────────────────────────────────
-     Las listas de espera del hospital de cada ciudad (datos/sanidad.js). -->
-<section class="bloque bloque--salir" id="espera" data-indice="La espera">
+<!-- ── Sanidad y educación ───────────────────────────────────────────────
+     Solo el resumen: lo demás está en sanidad.html y educacion.html. -->
+<section class="bloque bloque--salir" id="servicios" data-indice="Sanidad y educación">
   <div class="env">
-    <h2 class="bloque__h">La espera</h2>
-    <p class="bloque__intro" id="espera-txt"></p>
-    <div id="espera-listas"></div>
-    <p class="bloque__intro salir__tren" id="espera-cuenta"></p>
-    <p class="salir__pie" id="espera-pie"></p>
-    <div class="seccion__botones" id="espera-botones"></div>
-  </div>
-</section>
-
-<!-- ── El médico de cabecera ─────────────────────────────────────────────
-     Tarjetas sanitarias por plaza en los centros de salud (datos/primaria.js). -->
-<section class="bloque bloque--salir" id="cabecera" data-indice="El médico de cabecera">
-  <div class="env">
-    <h2 class="bloque__h">El médico de cabecera</h2>
-    <p class="bloque__intro" id="cabecera-txt"></p>
-    <div id="cabecera-listas"></div>
-    <p class="bloque__intro salir__tren" id="cabecera-cuenta"></p>
-    <p class="salir__pie" id="cabecera-pie"></p>
-  </div>
-</section>
-
-<!-- ── La escuela infantil ───────────────────────────────────────────────
-     Quién se queda sin plaza en la pública de 0 a 2 años (datos/infantil.js). -->
-<section class="bloque bloque--salir" id="infantil" data-indice="La escuela infantil">
-  <div class="env">
-    <h2 class="bloque__h">La escuela infantil</h2>
-    <p class="bloque__intro" id="infantil-txt"></p>
-    <div id="infantil-listas"></div>
-    <p class="bloque__intro salir__tren" id="infantil-cuenta"></p>
-    <p class="salir__pie" id="infantil-pie"></p>
+    <h2 class="bloque__h">Sanidad y educación</h2>
+    <p class="bloque__intro" id="servicios-sanidad"></p>
+    <a class="salir__ir" id="sanidad-ir" href="sanidad.html">
+      <span>Ver la sanidad de <span data-aqui>Getafe</span> y de Parla</span>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+        <path d="M1 6h13M9.5 1l5 5-5 5" stroke="currentColor" stroke-width="1.6"/>
+      </svg>
+    </a>
+    <p class="bloque__intro salir__tren" id="servicios-educacion"></p>
+    <a class="salir__ir" id="educacion-ir" href="educacion.html">
+      <span>Ver la educación de <span data-aqui>Getafe</span> y de Parla</span>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+        <path d="M1 6h13M9.5 1l5 5-5 5" stroke="currentColor" stroke-width="1.6"/>
+      </svg>
+    </a>
   </div>
 </section>
 
@@ -310,25 +295,13 @@
         Comunidad de Madrid, que se dan solo por habitante.
       </p>
 
-      <h3>La espera</h3>
-      <p>
-        Las listas de espera son las que publica cada mes el Servicio Madrileño de Salud por
-        hospital: cuántos pacientes siguen en lista y cuántos días llevan esperando de media. Se
-        compara el hospital que le corresponde a cada ciudad según su memoria de 2024: Pinto no
-        tiene, y le toca el de Getafe; Pozuelo y Majadahonda comparten el Puerta de Hierro;
-        Móstoles tiene dos, y se usa el de Móstoles, que atiende a dos de cada tres vecinos. La
-        lista para operarse es la completa, no solo la «estructural» que la Comunidad da como
-        titular. La espera no suma al recuento, que cuenta los servicios que hay en cada ciudad.
-      </p>
 
-      <h3>El médico de cabecera y la escuela infantil</h3>
+
+      <h3>Cuanto más, mejor</h3>
       <p>
-        Los médicos son las plazas de médico de familia y de pediatra de la plantilla del Servicio
-        Madrileño de Salud en los centros de salud de cada término, contra las tarjetas sanitarias
-        de esos centros: las de 0 a 13 años, con pediatría; las de 14 o más, con medicina de familia.
-        Las escuelas infantiles son las públicas de 0 a 2 años, con lo que publica la Comunidad de
-        Madrid en la ficha de cada una: solicitudes, admitidos y alumnos. Ninguna de las dos suma al
-        recuento, que ya cuenta los centros de salud y las escuelas infantiles que hay.
+        Bajo cada dato, «cuanto más, mejor» o «cuanto menos, mejor» dice hacia dónde le conviene a
+        un vecino. Es una lectura, no un dato, y solo va donde está clara; donde depende de quién
+        mire, como lo que vale una casa, no hay línea.
       </p>
 
       <h3>De dónde sale la población</h3>
@@ -370,6 +343,7 @@
 <div class="cartel" id="cartel" aria-hidden="true"></div>
 
 <script src="datos/datos.js"></script>
+<script src="assets/sentido.js"></script>
 <script src="datos/infraestructura.js"></script>
 <script src="datos/vivienda.js"></script>
 <script src="datos/economia.js"></script>
@@ -379,7 +353,6 @@
 <script src="datos/infantil.js"></script>
 <script src="assets/calculo.js"></script>
 <script src="assets/qr.js"></script>
-<script src="assets/cartel.js"></script>
 <script src="assets/indice.js"></script>
 <script src="assets/app.js"></script>
 </body>

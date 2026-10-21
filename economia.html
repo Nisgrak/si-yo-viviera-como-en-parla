@@ -76,7 +76,7 @@
       donde vivan los que los ocupan, y cuántos vecinos trabajan sin salir de su ciudad.
     </p>
     <div class="pareja" id="trabajo-cifras"></div>
-    <h3 class="bloque__h3">Año a año, desde 2013</h3>
+    <h3 class="bloque__h3" data-sentido="mas">Año a año, desde 2013</h3>
     <figure class="graf" id="trabajo-graf"></figure>
     <div class="dinero dinero--contexto" id="trabajo-fichas"></div>
     <p class="colas__pie">
@@ -103,7 +103,7 @@
       La tasa de paro, las personas apuntadas al paro por cada 100 vecinos en edad de trabajar, y
       cuántos de los contratos que se firman son indefinidos.
     </p>
-    <h3 class="bloque__h3">Paro registrado, de 2015 a 2025</h3>
+    <h3 class="bloque__h3" data-sentido="menos">Paro registrado, de 2015 a 2025</h3>
     <figure class="graf" id="paro-graf"></figure>
     <div class="dinero dinero--contexto" id="paro-fichas"></div>
     <p class="colas__pie">
@@ -127,7 +127,7 @@
     <p class="bloque__intro">
       Lo que ingresan los vecinos, de dónde sale y cómo se reparte dentro de cada ciudad.
     </p>
-    <h3 class="bloque__h3">Renta neta por persona, de 2015 a 2024</h3>
+    <h3 class="bloque__h3" data-sentido="mas">Renta neta por persona, de 2015 a 2024</h3>
     <figure class="graf" id="renta-graf"></figure>
     <div class="dinero dinero--contexto" id="renta-fichas"></div>
     <h3 class="bloque__h3">De cada 100 euros que entran</h3>
@@ -201,7 +201,7 @@
     </p>
     <div class="dinero" id="paga-fichas"></div>
     <p class="dinero__cierre" id="paga-cierre"></p>
-    <h3 class="espera__h">La tasa de basuras, aparte</h3>
+    <h3 class="espera__h" data-sentido="menos">La tasa de basuras, aparte</h3>
     <ul class="mun salir__filas" id="paga-basuras"></ul>
     <p class="salir__pie" id="paga-basuras-pie"></p>
     <div class="seccion__botones" id="paga-botones"></div>
@@ -274,6 +274,7 @@
 </footer>
 
 <script src="datos/datos.js"></script>
+<script src="assets/sentido.js"></script>
 <script src="datos/economia.js"></script>
 <script src="datos/impuestos.js"></script>
 <script src="assets/indice.js"></script>

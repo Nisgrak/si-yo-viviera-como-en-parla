@@ -21,18 +21,23 @@ const D = globalThis.DATOS;
 
 /* Lo que tiene que salir con texto en cada página. */
 const PAGINAS = {
-  'index.html': ['#golpe', '#resumen-total', '#dinero-cuerpo', '#salir-txt', '#salir-tren', '#espera-txt', '#espera-cuenta', '#cabecera-txt', '#cabecera-cuenta', '#infantil-txt', '#infantil-cuenta', '#vivienda-txt'],
+  'index.html': ['#golpe', '#resumen-total', '#dinero-cuerpo', '#salir-txt', '#salir-tren', '#servicios-sanidad', '#servicios-educacion', '#vivienda-txt'],
   'economia.html': ['#golpe', '#trabajo-cifras', '#paro-fichas', '#renta-fichas', '#produce-fichas', '#ayto-fichas', '#ayto-mas', '#paga-fichas', '#paga-cierre', '#paga-basuras-pie'],
   'vivienda.html': ['#golpe', '#comprar-cifras', '#alquilar-cifras', '#barrios-rangos', '#desahucios-cifras'],
   'infraestructura.html': ['#golpe', '#golpe-tren', '#cob-cifras', '#abono-cifras', '#tp-frase', '#tp-dato-parla', '#tp-dato-aqui'],
+  'sanidad.html': ['#golpe', '#hay-listas', '#espera-txt', '#espera-cuenta', '#cabecera-txt', '#cabecera-cuenta'],
+  'educacion.html': ['#golpe', '#hay-listas', '#infantil-txt', '#infantil-cuenta'],
   'consulta.html': ['#cat-lista', '#resultados', '#cat-total']
 };
 /* Y lo que tiene que existir, aunque no lleve texto. */
 const PIEZAS = {
-  'infraestructura.html': ['#tp-parla svg .tp__zona', '#tp-aqui svg .tp__zona', '#tp-ley li'],
-  'index.html': ['#espera-botones .compartir'],
-  'economia.html': ['#trabajo-graf svg', '#renta-reparto .reparto__barra', '#paga-botones .compartir'],
-  'consulta.html': ['#resultados .res__fila', '.cat__item input']
+  'index.html': ['.sentido'],
+  'vivienda.html': ['.sentido'],
+  'infraestructura.html': ['.sentido', '#tp-parla svg .tp__zona', '#tp-aqui svg .tp__zona', '#tp-ley li'],
+  'sanidad.html': ['.sentido', '#espera-botones .compartir', '#cabecera-botones .compartir'],
+  'educacion.html': ['.sentido', '#infantil-botones .compartir'],
+  'economia.html': ['.sentido', '#trabajo-graf svg', '#renta-reparto .reparto__barra', '#paga-botones .compartir'],
+  'consulta.html': ['.sentido', '#resultados .res__fila', '.cat__item input']
 };
 
 /* «Todos los datos» no depende de la ciudad, sino de lo elegido: se abre

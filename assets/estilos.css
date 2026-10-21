@@ -1446,6 +1446,22 @@ html[data-indice='barra'] .pie { padding-bottom: calc(clamp(3.5rem, 11vw, 6rem) 
   .indice, .indice-barra, .indice-hoja { display: none !important; }
 }
 
+/* Hacia dónde es mejor (assets/sentido.js): una línea bajo el título del dato. */
+.sentido {
+  display: flex; align-items: center; gap: .35rem;
+  margin: .5rem 0 .25rem;
+  font-size: .8125rem; font-weight: 700; line-height: 1.2; letter-spacing: 0; text-transform: none;
+  color: var(--ink-2);
+}
+.sentido__f {
+  flex: none; width: .8rem; height: .8rem;
+  fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* Sanidad y educación: el enlace de cada indicador a su apartado del recuento. */
+.hay__ir { display: inline-block; margin-top: .55rem; font-size: .8125rem; font-weight: 700; color: var(--ref); }
+.hay__ir:hover { color: var(--ref-deep); }
+
 /* Los botones del final de una sección: el cartel y el enlace. */
 .seccion__botones { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem; }
 .seccion__botones:empty { display: none; }

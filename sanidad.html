@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La sanidad de Parla · Si yo viviera como en Parla</title>
+<meta name="description" content="La espera en el hospital, el médico de cabecera y los equipamientos sanitarios de Parla y de tu ciudad. Con datos oficiales.">
+<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="La sanidad de Parla">
+<meta property="og:description" content="La espera para operarse, para el especialista y para una prueba, las tarjetas sanitarias por médico de cabecera y los equipamientos sanitarios, con datos oficiales.">
+<meta property="og:locale" content="es_ES">
+<meta property="og:url" content="https://siyovivieracomoenparla.netlify.app/sanidad.html">
+<meta property="og:image" content="https://siyovivieracomoenparla.netlify.app/assets/compartir/general.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/icono.svg" type="image/svg+xml">
+<link rel="mask-icon" href="assets/icono.svg" color="#c02719">
+
+<link rel="preload" href="assets/fuentes/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/estilos.css">
+<link rel="stylesheet" href="assets/infraestructura.css">
+</head>
+<body class="infra" data-pagina="sanidad">
+
+<a class="saltar" href="#hay">Saltar a las cifras</a>
+
+<noscript>
+  <p class="sin-js">
+    Esta página escribe las cifras en tu navegador y necesita JavaScript. Los datos, con sus
+    fuentes, están en
+    <a href="https://github.com/Nisgrak/si-yo-viviera-como-en-parla">github.com/Nisgrak/si-yo-viviera-como-en-parla</a>.
+  </p>
+</noscript>
+
+<nav class="volver">
+  <div class="env">
+    <a class="js-volver" href="index.html">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+        <path d="M15 6H2M6.5 1 1.5 6l5 5" stroke="currentColor" stroke-width="1.6"/>
+      </svg>
+      <span>El recuento de <span data-aqui>Getafe</span></span>
+    </a>
+  </div>
+</nav>
+
+<!-- ── Portada ───────────────────────────────────────────────────────── -->
+<header class="portada portada--infra">
+  <div class="env">
+    <h1 class="portada__titulo">
+      <span class="t1">La sanidad de <span class="selector">
+        <span class="selector__eco" id="sel-texto" aria-hidden="true">Getafe</span>
+        <select id="sel-municipio" aria-label="Elige tu municipio"></select>
+      </span></span>
+      <span class="t2">y la sanidad de</span>
+      <span class="t3">Parla</span>
+    </h1>
+    <p class="portada__golpe" id="golpe"></p>
+  </div>
+</header>
+
+<main>
+
+<!-- ── Lo que hay ────────────────────────────────────────────────────────
+     Los indicadores del recuento de esta área (datos/datos.js). -->
+<section class="bloque bloque--salir" id="hay" data-indice="Lo que hay">
+  <div class="env">
+    <h2 class="bloque__h">Lo que hay</h2>
+    <p class="bloque__intro">Los equipamientos sanitarios del recuento, con la misma cuenta: cuántos hay por cada 100.000 habitantes. Cada uno lleva a su apartado, con sus nombres y su fuente.</p>
+    <div id="hay-listas"></div>
+  </div>
+</section>
+
+<section class="bloque bloque--salir" id="espera" data-indice="La espera">
+  <div class="env">
+    <h2 class="bloque__h">La espera</h2>
+    <p class="bloque__intro" id="espera-txt"></p>
+    <div id="espera-listas"></div>
+    <p class="bloque__intro salir__tren" id="espera-cuenta"></p>
+    <p class="salir__pie" id="espera-pie"></p>
+    <div class="seccion__botones" id="espera-botones"></div>
+  </div>
+</section>
+
+<section class="bloque bloque--salir" id="cabecera" data-indice="El médico de cabecera">
+  <div class="env">
+    <h2 class="bloque__h">El médico de cabecera</h2>
+    <p class="bloque__intro" id="cabecera-txt"></p>
+    <div id="cabecera-listas"></div>
+    <p class="bloque__intro salir__tren" id="cabecera-cuenta"></p>
+    <p class="salir__pie" id="cabecera-pie"></p>
+    <div class="seccion__botones" id="cabecera-botones"></div>
+  </div>
+</section>
+
+<!-- ── Método ────────────────────────────────────────────────────────── -->
+<section class="bloque bloque--metodo" id="metodo" data-indice="Cómo está hecho">
+  <div class="env">
+    <h2 class="bloque__h">Cómo está hecho esto</h2>
+    <div class="metodo__cuerpo">
+      <h3>La espera</h3>
+      <p>
+        Las listas de espera son las que publica cada mes el Servicio Madrileño de Salud por
+        hospital: cuántos pacientes siguen en lista y cuántos días llevan esperando de media. Se
+        compara el hospital que le corresponde a cada ciudad según su memoria de 2024: Pinto no
+        tiene, y le toca el de Getafe; Pozuelo y Majadahonda comparten el Puerta de Hierro;
+        Móstoles tiene dos, y se usa el de Móstoles, que atiende a dos de cada tres vecinos. La
+        lista para operarse es la completa, no solo la «estructural» que la Comunidad da como
+        titular. La espera no suma al recuento, que cuenta los servicios que hay en cada ciudad.
+      </p>
+
+      <h3>Lo que hay</h3>
+      <p>
+        Las cifras de arriba son las del recuento, con su misma base: las farmacias, los centros de
+        salud y las camas del hospital público, por cada 100.000 habitantes. Las camas son las de los
+        hospitales públicos del término: Pinto, Alcobendas y Pozuelo de Alarcón no tienen ninguno, y por eso salen a cero.
+      </p>
+
+      <h3>El médico de cabecera</h3>
+      <p>
+        Los médicos son las plazas de médico de familia y de pediatra de la plantilla del Servicio
+        Madrileño de Salud en los centros de salud de cada término, contra las tarjetas sanitarias
+        de esos centros: las de 0 a 13 años, con pediatría; las de 14 o más, con medicina de familia.
+        No suma al recuento, que ya cuenta los centros de salud que hay.
+      </p>
+
+      <h3>Cuanto más, mejor</h3>
+      <p>
+        Bajo cada dato, «cuanto más, mejor» o «cuanto menos, mejor» dice hacia dónde le conviene a
+        un vecino. Es una lectura, no un dato, y solo va donde está clara.
+      </p>
+
+      <p class="cautela">
+        Los datos extraídos, con sus enlaces y sus cautelas, y los scripts que escriben los de esta
+        página están en
+        <a href="https://github.com/Nisgrak/si-yo-viviera-como-en-parla">el repositorio del proyecto</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="env">
+    <p class="pie__frase">Parla es lo que pasa<br>cuando el reparto lo decide otro.</p>
+    <p class="pie__meta">
+      <a class="js-volver" href="index.html">Volver al recuento de <span data-aqui>Getafe</span></a>
+    </p>
+    <p class="pie__meta pie__fecha">
+      Datos revisados en <span data-actualizado>octubre de 2026</span>.
+      <a href="consulta.html#al-dia">De cuándo es cada uno</a>
+    </p>
+  </div>
+</footer>
+
+<script src="datos/datos.js"></script>
+<script src="assets/sentido.js"></script>
+<script src="datos/sanidad.js"></script>
+<script src="datos/primaria.js"></script>
+<script src="assets/qr.js"></script>
+<script src="assets/cartel.js"></script>
+<script src="assets/indice.js"></script>
+<script src="assets/servicios.js"></script>
+</body>
+</html>
