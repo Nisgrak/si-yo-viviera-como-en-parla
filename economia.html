@@ -189,6 +189,24 @@
   </div>
 </section>
 
+<!-- ── Lo que paga un vecino ─────────────────────────────────────────────
+     Los impuestos municipales de una casa y un coche (datos/impuestos.js). -->
+<section class="bloque bloque--dinero" id="paga" data-indice="Lo que paga un vecino">
+  <div class="env">
+    <h2 class="bloque__h">Lo que paga un vecino</h2>
+    <p class="bloque__intro">
+      En impuestos directos, Parla es la que menos recauda por habitante de las once. Eso no dice si
+      cobra menos o si sus vecinos tienen menos. Aquí se aplican los impuestos de cada ayuntamiento en 2026 a una casa y
+      un coche: el IBI, que paga el dueño de cada vivienda, y el impuesto de vehículos.
+    </p>
+    <div class="dinero" id="paga-fichas"></div>
+    <p class="dinero__cierre" id="paga-cierre"></p>
+    <h3 class="espera__h">La tasa de basuras, aparte</h3>
+    <ul class="mun salir__filas" id="paga-basuras"></ul>
+    <p class="salir__pie" id="paga-basuras-pie"></p>
+  </div>
+</section>
+
 <!-- ── Método ────────────────────────────────────────────────────────── -->
 <section class="bloque bloque--metodo" id="metodo" data-indice="Cómo está hecho">
   <div class="env">
@@ -204,6 +222,19 @@
         media de los ejercicios de 2021 a 2024, porque la inversión cambia mucho de un año a otro.
         La deuda viva y el remanente de tesorería son saldos a 31 de diciembre, así que va el último
         publicado, y el plazo de pago es la media de los últimos doce meses.
+      </p>
+
+      <h3>Lo que paga un vecino</h3>
+      <p>
+        El IBI y el impuesto de vehículos de 2026, con los tipos que publica el Ministerio de
+        Hacienda para cada municipio. El IBI es el valor catastral de la vivienda por el tipo, antes
+        de bonificaciones; el coche, uno de 12 a 15,99 caballos fiscales. Se hacen dos cuentas: la
+        misma vivienda en las once (la de valor catastral mediano), para que solo cambie lo que cobra
+        cada ayuntamiento, y la vivienda media de cada ciudad según el Catastro. La tasa de basuras va
+        aparte y no se suma: en 2026 Parla la tiene aprobada y, según la prensa, el alcalde anunció
+        que no la cobrará;
+        Alcorcón ha aplazado el cobro, y Pinto no publica el coeficiente con que se calcula. Quedan
+        fuera la plusvalía y el impuesto de obras, que no paga un vecino cada año.
       </p>
 
       <h3>Lo que se buscó y no está</h3>
@@ -234,11 +265,16 @@
     <p class="pie__meta">
       <a class="js-volver" href="index.html">Volver al recuento de <span data-aqui>Getafe</span></a>
     </p>
+    <p class="pie__meta pie__fecha">
+      Datos revisados en <span data-actualizado>octubre de 2026</span>.
+      <a href="consulta.html#al-dia">De cuándo es cada uno</a>
+    </p>
   </div>
 </footer>
 
 <script src="datos/datos.js"></script>
 <script src="datos/economia.js"></script>
+<script src="datos/impuestos.js"></script>
 <script src="assets/indice.js"></script>
 <script src="assets/linea.js"></script>
 <script src="assets/qr.js"></script>

@@ -271,6 +271,11 @@
     });
   })();
 
+  /* La fecha de la última revisión, en el pie de cada página. */
+  document.querySelectorAll('[data-actualizado]').forEach(function (n) {
+    if (window.DATOS && window.DATOS.ACTUALIZADO) n.textContent = window.DATOS.ACTUALIZADO;
+  });
+
   window.INDICE = {
     /* ciudad: el id de la ciudad elegida; nombre: cómo se escribe */
     refrescar: function (o) {

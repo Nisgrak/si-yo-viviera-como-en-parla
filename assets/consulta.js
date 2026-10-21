@@ -175,6 +175,46 @@
       fuente: ['BOCM del 31-12-2025, precios del transporte público para 2026', T.abono.fuente], pagina: 'infraestructura.html#abono' });
   }
 
+  /* Lo que paga un vecino: el IBI y el coche, con los tipos de 2026. */
+  const IM = window.IMPUESTOS;
+  if (IM) {
+    const c = function (id) { return IM.ciudades[id]; };
+    const fT = IM.fuentes.tipos;
+    dato({ id: 'paga-misma', grupo: 'Cuentas del ayuntamiento', titulo: 'IBI y coche de la misma casa',
+      unidad: 'euros al año, vivienda de ' + IM.comun.vc.toLocaleString('es-ES') + ' € de valor catastral y coche de 12 a 15,99 CV, ' + IM.anio,
+      sim: '€', dec: 2, v: function (id) { return c(id).comunIbi + c(id).coche; }, fuente: fT, pagina: 'economia.html#paga' });
+    dato({ id: 'paga-suya', grupo: 'Cuentas del ayuntamiento', titulo: 'IBI y coche de la casa media',
+      unidad: 'euros al año, la vivienda media de cada ciudad y un coche de 12 a 15,99 CV, ' + IM.anio,
+      sim: '€', dec: 2, v: function (id) { return c(id).ibi + c(id).coche; }, fuente: fT, pagina: 'economia.html#paga' });
+    dato({ id: 'ibi-tipo', grupo: 'Cuentas del ayuntamiento', titulo: 'Tipo del IBI',
+      unidad: 'de cada 100 € de valor catastral de una vivienda, ' + IM.anio,
+      sim: '%', dec: 3, v: function (id) { return c(id).tipo; }, fuente: fT, pagina: 'economia.html#paga' });
+    dato({ id: 'coche', grupo: 'Cuentas del ayuntamiento', titulo: 'Impuesto de un coche',
+      unidad: 'de 12 a 15,99 caballos fiscales, euros al año, ' + IM.anio,
+      sim: '€', dec: 2, v: function (id) { return c(id).coche; }, fuente: fT, pagina: 'economia.html#paga' });
+  }
+
+  /* La espera: la del hospital que le toca a cada ciudad (Pinto, el de
+     Getafe; Pozuelo y Majadahonda comparten el Puerta de Hierro). */
+  const SA = window.SANIDAD;
+  if (SA) {
+    const h = function (id) { return SA.ciudades[id]; };
+    const nombreH = function (id) { return h(id).corto.replace(/^(el|la) /, ''); };
+    const fuenteSA = SA.fuentes.consulta;
+    [['espera-operarse', 'quirurgica', 'Espera para operarse'],
+      ['espera-consulta', 'consultas', 'Espera para la primera consulta con el especialista'],
+      ['espera-prueba', 'pruebas', 'Espera para una prueba diagnóstica']].forEach(function (x) {
+      dato({ id: x[0], grupo: 'Sanidad', titulo: x[2],
+        unidad: 'días de media en el hospital que le toca, ' + SA.mes, sim: 'días', dec: 1,
+        v: function (id) { return h(id) && h(id)[x[1]] ? h(id)[x[1]].dias : null; },
+        etiqueta: nombreH, fuente: fuenteSA, pagina: 'index.html#espera' });
+    });
+    dato({ id: 'lista-operarse', grupo: 'Sanidad', titulo: 'En lista para operarse',
+      unidad: 'por cada 1.000 personas que tiene asignadas su hospital, ' + SA.mes, sim: '', dec: 1,
+      v: function (id) { return h(id) ? h(id).quirurgica.por1000 : null; },
+      etiqueta: nombreH, fuente: fuenteSA, pagina: 'index.html#espera' });
+  }
+
   const POR_ID = {};
   CAT.forEach(function (d) { POR_ID[d.id] = d; });
   const GRUPOS = [];
@@ -561,9 +601,32 @@
       svg.appendChild(r);
     });
     svg.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') ocultar(); });
+    teclado(svg, n, ver, ocultar);
+    tip.setAttribute('role', 'status');
     caja.appendChild(svg);
     caja.appendChild(tip);
     return caja;
+  }
+
+  /* Con el teclado: la gráfica se enfoca con el tabulador y las flechas
+     pasan de una ciudad a otra; Inicio y Fin, a la primera y la última;
+     Escape cierra la caja. La caja lo dice en voz alta (role=status). */
+  function teclado(svg, n, ver, ocultar) {
+    let i = -1;
+    svg.setAttribute('tabindex', '0');
+    svg.setAttribute('aria-keyshortcuts', 'ArrowLeft ArrowRight Home End Escape');
+    svg.addEventListener('focus', function () { i = Math.max(0, i); ver(i); });
+    svg.addEventListener('blur', ocultar);
+    svg.addEventListener('keydown', function (e) {
+      const k = e.key;
+      if (k === 'Escape') { ocultar(); return; }
+      const sig = k === 'ArrowRight' || k === 'ArrowDown' ? i + 1 : k === 'ArrowLeft' || k === 'ArrowUp' ? i - 1 :
+        k === 'Home' ? 0 : k === 'End' ? n - 1 : null;
+      if (sig === null) return;
+      e.preventDefault();
+      i = Math.min(n - 1, Math.max(0, sig));
+      ver(i);
+    });
   }
 
   function juntos(cont, barra) {
@@ -772,7 +835,9 @@
       const px = X(p.x), py = Y(p.y), ref = p.id === REF;
       const c = s('circle', { class: 'graf__p', cx: px, cy: py, r: ref ? 6.5 : 5, style: '--i:' + IDS.indexOf(p.id) });
       if (ref) c.setAttribute('data-quien', 'referencia');
-      c.appendChild(s('title', {}, NOMBRE[p.id] + ': ' + cifra(dx, p.x) + ' · ' + cifra(dy, p.y)));
+      c.addEventListener('pointerenter', function () { verPunto(pts.indexOf(p)); });
+      c.addEventListener('click', function () { verPunto(pts.indexOf(p)); });
+      p.nodo = c;
       g.appendChild(c);
       const nom = NOMBRE[p.id].replace(' de Alarcón', '').replace(' de Ardoz', '');
       const w = nom.length * (ref ? 7.6 : 6.9), h = 14;
@@ -805,7 +870,37 @@
     });
     svg.appendChild(g);
     const caja = el('div', 'graf__caja');
+    const tip = el('div', 'gj__tip');
+    tip.hidden = true;
+    tip.setAttribute('role', 'status');
+    /* Con el teclado se recorren de izquierda a derecha. */
+    pts.sort(function (a, b) { return a.x - b.x; });
+    function verPunto(i) {
+      const p = pts[i];
+      pts.forEach(function (q) { q.nodo.classList.toggle('graf__p--activo', q === p); });
+      vaciar(tip);
+      tip.appendChild(el('p', 'gj__tip-h', NOMBRE[p.id]));
+      [[dx, p.x, '→'], [dy, p.y, '↑']].forEach(function (x) {
+        const f = el('p', 'gj__tip-f gj__tip-f--eje');
+        f.appendChild(el('i', null, x[2]));
+        f.appendChild(el('span', null, x[0].titulo));
+        f.appendChild(el('b', null, cifra(x[0], x[1])));
+        tip.appendChild(f);
+      });
+      tip.hidden = false;
+      const px = X(p.x), py = Y(p.y);
+      tip.style.left = px > W / 2 ? '' : (px + 14) + 'px';
+      tip.style.right = px > W / 2 ? (W - px + 14) + 'px' : '';
+      tip.style.top = Math.max(0, Math.min(H - 110, py - 40)) + 'px';
+    }
+    function ocultarPunto() {
+      tip.hidden = true;
+      pts.forEach(function (q) { q.nodo.classList.remove('graf__p--activo'); });
+    }
+    svg.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') ocultarPunto(); });
+    teclado(svg, pts.length, verPunto, ocultarPunto);
     caja.appendChild(svg);
+    caja.appendChild(tip);
     art.appendChild(caja);
     art.appendChild(el('p', 'graf__ex', dx.titulo + ', ' + dx.unidad + ' →'));
     if (sin.length) art.appendChild(el('p', 'res__u', 'Sin dato: ' + sin.map(function (id) { return NOMBRE[id]; }).join(', ') + '.'));
@@ -866,11 +961,80 @@
     });
     pintado.vista = vista;
     pintado.claves = elegidos.slice();
+    herramientas();
   }
 
   /* ── Arranque ─────────────────────────────────────────────────────── */
 
-  $('#cat-buscar').addEventListener('input', catalogo);
+  /* En el móvil la lista va plegada, para que se vean los resultados. */
+  const cat = $('.cat'), abrir = $('#cat-abrir');
+  function plegar(abierta) {
+    cat.classList.toggle('cat--abierta', abierta);
+    abrir.setAttribute('aria-expanded', String(abierta));
+    abrir.textContent = abierta ? 'Plegar la lista' : 'Ver la lista de datos';
+  }
+  abrir.addEventListener('click', function () { plegar(!cat.classList.contains('cat--abierta')); });
+
+  /* El CSV: punto y coma y coma decimal, como lo abre una hoja de cálculo
+     en español, y con BOM para que respete las tildes. */
+  function csv() {
+    const c = function (t) { t = String(t); return /[;"\n]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t; };
+    const filas = [['Ciudad'].concat(elegidos.map(function (k) { return POR_ID[k].titulo + ' (' + POR_ID[k].unidad + ')'; }))];
+    IDS.forEach(function (id) {
+      filas.push([NOMBRE[id]].concat(elegidos.map(function (k) {
+        const d = POR_ID[k], v = d.v(id);
+        return v == null ? '' : v.toFixed(d.dec).replace('.', ',');
+      })));
+    });
+    filas.push([]);
+    filas.push(['Dato', 'Unidad', 'Fuente', 'Enlace']);
+    elegidos.forEach(function (k) {
+      const d = POR_ID[k];
+      filas.push([d.titulo, d.unidad + (d.sim && d.sim !== '%' ? ' (' + d.sim + ')' : ''), d.fuente ? d.fuente[0] : '', d.fuente ? d.fuente[1] : '']);
+    });
+    filas.push([]);
+    filas.push(['Si yo viviera como en Parla', location.href]);
+    return '\ufeff' + filas.map(function (f) { return f.map(c).join(';'); }).join('\r\n');
+  }
+  $('#con-csv').addEventListener('click', function () {
+    if (!elegidos.length) return;
+    const url = URL.createObjectURL(new Blob([csv()], { type: 'text/csv;charset=utf-8' }));
+    const a = el('a');
+    a.href = url;
+    a.download = 'si-yo-viviera-como-en-parla-datos.csv';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  });
+
+  /* Copiar el enlace con lo elegido. Si el navegador no deja, se enseña
+     para copiarlo a mano. */
+  const bEnlace = $('#con-enlace');
+  function avisar(t) {
+    bEnlace.textContent = t;
+    bEnlace.classList.add('con__boton--hecho');
+    setTimeout(function () { bEnlace.textContent = 'Copiar enlace'; bEnlace.classList.remove('con__boton--hecho'); }, 1800);
+  }
+  bEnlace.addEventListener('click', function () {
+    guardar();
+    const url = location.href;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function () { avisar('Enlace copiado'); },
+        function () { window.prompt('Copia el enlace:', url); });
+    } else {
+      window.prompt('Copia el enlace:', url);
+    }
+  });
+  function herramientas() {
+    $('#con-csv').disabled = !elegidos.length;
+    bEnlace.disabled = !elegidos.length;
+  }
+
+  $('#cat-buscar').addEventListener('input', function () {
+    if ($('#cat-buscar').value) plegar(true);
+    catalogo();
+  });
   $('#cat-limpiar').addEventListener('click', function () {
     elegidos = [];
     guardar();
@@ -896,6 +1060,66 @@
     clearTimeout(espera);
     espera = setTimeout(function () { redibujo = true; resultados(); redibujo = false; }, 150);
   });
+  /* ── De cuándo es cada dato ────────────────────────────────────────
+     A mano: la fecha de la cifra que usa la web y cada cuánto sale una
+     nueva. Al actualizar un fichero de datos/, cámbiese aquí también. */
+  const AL_DIA = [
+    ['Padrón (INE): habitantes y edades', '1 de enero de 2025', 'Cada año'],
+    ['Equipamientos: estaciones, farmacias, bibliotecas, centros de salud, colegios, residencias, oficinas', '2025', 'Se revisa a mano'],
+    ['Camas de hospital (Catálogo Nacional de Hospitales)', '2025', 'Cada año'],
+    ['Listas de espera de los hospitales (SERMAS)', (window.SANIDAD || {}).mes || '—', 'Cada mes'],
+    ['Población asignada a cada hospital (memorias de los hospitales)', '31 de diciembre de 2024', 'Cada año'],
+    ['Zonas verdes (Copernicus, Urban Atlas)', '2018', 'Cada seis años'],
+    ['Paro registrado (SEPE)', 'Media de 2025', 'Cada mes'],
+    ['Contratos (SEPE)', '2025', 'Cada mes'],
+    ['Puestos de trabajo (afiliados por centro de trabajo)', 'Finales de 2025', 'Cada trimestre'],
+    ['Dónde trabajan los vecinos (Censo anual, INE)', '2023', 'Cada año'],
+    ['Tasa de paro municipal (INE, Indicadores Urbanos)', '2024', 'Cada año'],
+    ['Renta, Gini y fuentes de ingreso (Atlas de renta, INE)', '2024', 'Cada año, con dos de retraso'],
+    ['IRPF por municipios (Agencia Tributaria)', '2024', 'Cada año, con dos de retraso'],
+    ['Empresas activas (DIRCE, INE)', '2025', 'Cada año'],
+    ['PIB municipal (Comunidad de Madrid)', '2023', 'Cada año'],
+    ['Cuentas del ayuntamiento (liquidaciones, Hacienda)', '2021 a 2024', 'Cada año'],
+    ['Deuda viva (Hacienda)', '31 de diciembre de 2025', 'Cada año'],
+    ['Periodo medio de pago (Hacienda)', 'Julio de 2026', 'Cada mes'],
+    ['Valor tasado de la vivienda (Ministerio de Vivienda)', 'Último trimestre publicado', 'Cada trimestre'],
+    ['Alquiler (SERPAVI, Ministerio de Vivienda)', '2024', 'Cada año'],
+    ['Compraventas (Ministerio de Vivienda)', '2025', 'Cada trimestre'],
+    ['Censo de viviendas y hogares (INE)', '2021', 'Cada diez años'],
+    ['Titulares de las viviendas (padrón del IBI, Catastro)', '2026', 'Cada año'],
+    ['Tipos del IBI y del impuesto de vehículos (Hacienda)', '2026', 'Cada año'],
+    ['Valor catastral de las viviendas (Catastro)', '2026', 'Cada año'],
+    ['Tasa de basuras (ordenanzas en el BOCM)', '2026', 'Cada año'],
+    ['Viajes en coche (Ministerio de Transportes)', '16 de octubre de 2024', 'Sin fecha fija'],
+    ['Horarios del transporte público (Consorcio Regional de Transportes)', 'Los de octubre de 2026', 'Cuando cambian los horarios'],
+    ['Precio del abono (BOCM)', '2026', 'Cada año']
+  ];
+  (function () {
+    const t = $('#al-dia-tabla');
+    if (!t) return;
+    const cab = el('thead');
+    const tr = el('tr');
+    ['Datos', 'La cifra es de', 'Sale una nueva'].forEach(function (x, i) {
+      const th = el('th', i ? null : 'tabla__ciudad', x);
+      th.setAttribute('scope', 'col');
+      tr.appendChild(th);
+    });
+    cab.appendChild(tr);
+    t.appendChild(cab);
+    const tb = el('tbody');
+    AL_DIA.forEach(function (f) {
+      const r = el('tr');
+      const th = el('th', 'tabla__ciudad', f[0]);
+      th.setAttribute('scope', 'row');
+      r.appendChild(th);
+      r.appendChild(el('td', null, f[1]));
+      r.appendChild(el('td', null, f[2]));
+      tb.appendChild(r);
+    });
+    t.appendChild(tb);
+    document.querySelectorAll('[data-actualizado]').forEach(function (n) { n.textContent = D.ACTUALIZADO; });
+  })();
+
   $('#cat-total').textContent = CAT.length + ' datos de las ' + IDS.length + ' ciudades';
   catalogo();
   cuenta();

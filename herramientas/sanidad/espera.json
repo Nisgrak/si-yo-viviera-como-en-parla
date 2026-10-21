@@ -1,0 +1,1629 @@
+{
+ "generado": "herramientas/sanidad/espera.py",
+ "mes": "agosto de 2026",
+ "ciudades": {
+  "parla": {
+   "hospital": "Hospital Universitario Infanta Cristina (Parla)",
+   "hospitalId": "infanta_cristina",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "valor": 181404,
+    "anio": 2024,
+    "fecha": "31/12/2024",
+    "metodo": "fila TOTAL de la tabla «Población de referencia» (SIP-CIBELES)",
+    "fuente": "memoria2024_infanta_cristina"
+   },
+   "quirurgica": {
+    "pacientes": 2888,
+    "demoraDias": 98.6,
+    "mes": "agosto de 2026",
+    "por1000": 15.9
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 2215,
+     "demoraDias": 83.62,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 2237,
+     "demoraDias": 79.65,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 15390,
+    "demoraDias": 58.97,
+    "mes": "agosto de 2026",
+    "por1000": 84.8
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 13542,
+     "demoraDias": 55.92,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 11594,
+     "demoraDias": 52.08,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 1873,
+    "demoraDias": 31.86,
+    "mes": "agosto de 2026",
+    "por1000": 10.3
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 4640,
+     "demoraDias": 107.81,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 4789,
+     "demoraDias": 153.17,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "getafe": {
+   "hospital": "Hospital Universitario de Getafe",
+   "hospitalId": "getafe",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "valor": 242715,
+    "anio": 2024,
+    "fecha": "31/12/2024",
+    "metodo": "suma de las filas por centro de salud de la tabla «Población de referencia» (la tabla no trae fila TOTAL)",
+    "fuente": "memoria2024_getafe"
+   },
+   "quirurgica": {
+    "pacientes": 5675,
+    "demoraDias": 119.08,
+    "mes": "agosto de 2026",
+    "por1000": 23.4
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 4716,
+     "demoraDias": 91.12,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 4991,
+     "demoraDias": 82.04,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 27010,
+    "demoraDias": 87.97,
+    "mes": "agosto de 2026",
+    "por1000": 111.3
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 25246,
+     "demoraDias": 78.94,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 30637,
+     "demoraDias": 82.8,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 6332,
+    "demoraDias": 76.52,
+    "mes": "agosto de 2026",
+    "por1000": 26.1
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 8205,
+     "demoraDias": 92.77,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 11622,
+     "demoraDias": 77.92,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "pinto": {
+   "hospital": "Hospital Universitario de Getafe",
+   "hospitalId": "getafe",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "valor": 242715,
+    "anio": 2024,
+    "fecha": "31/12/2024",
+    "metodo": "suma de las filas por centro de salud de la tabla «Población de referencia» (la tabla no trae fila TOTAL)",
+    "fuente": "memoria2024_getafe"
+   },
+   "quirurgica": {
+    "pacientes": 5675,
+    "demoraDias": 119.08,
+    "mes": "agosto de 2026",
+    "por1000": 23.4
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 4716,
+     "demoraDias": 91.12,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 4991,
+     "demoraDias": 82.04,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 27010,
+    "demoraDias": 87.97,
+    "mes": "agosto de 2026",
+    "por1000": 111.3
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 25246,
+     "demoraDias": 78.94,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 30637,
+     "demoraDias": 82.8,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 6332,
+    "demoraDias": 76.52,
+    "mes": "agosto de 2026",
+    "por1000": 26.1
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 8205,
+     "demoraDias": 92.77,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 11622,
+     "demoraDias": 77.92,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "fuenlabrada": {
+   "hospital": "Hospital Universitario de Fuenlabrada",
+   "hospitalId": "fuenlabrada",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "valor": 226428,
+    "anio": 2024,
+    "fecha": "31/12/2024",
+    "metodo": "fila TOTAL de la tabla «Población de referencia» (SIP-CIBELES)",
+    "fuente": "memoria2024_fuenlabrada"
+   },
+   "quirurgica": {
+    "pacientes": 2853,
+    "demoraDias": 52.95,
+    "mes": "agosto de 2026",
+    "por1000": 12.6
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 2582,
+     "demoraDias": 60.67,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 2448,
+     "demoraDias": 55.3,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 32487,
+    "demoraDias": 81.46,
+    "mes": "agosto de 2026",
+    "por1000": 143.5
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 33159,
+     "demoraDias": 81.17,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 34547,
+     "demoraDias": 78.42,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 9305,
+    "demoraDias": 77.51,
+    "mes": "agosto de 2026",
+    "por1000": 41.1
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 8824,
+     "demoraDias": 71.35,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 12442,
+     "demoraDias": 100.81,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "leganes": {
+   "hospital": "Hospital Universitario Severo Ochoa (Leganés)",
+   "hospitalId": "severo_ochoa",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "valor": 196797,
+    "anio": 2024,
+    "fecha": "31/12/2024",
+    "metodo": "fila TOTAL de la tabla «Población de referencia» (SIP-CIBELES)",
+    "fuente": "memoria2024_severo_ochoa"
+   },
+   "quirurgica": {
+    "pacientes": 2608,
+    "demoraDias": 67.06,
+    "mes": "agosto de 2026",
+    "por1000": 13.3
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 1602,
+     "demoraDias": 43.06,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 1811,
+     "demoraDias": 43.29,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 22191,
+    "demoraDias": 61.62,
+    "mes": "agosto de 2026",
+    "por1000": 112.8
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 21464,
+     "demoraDias": 66.4,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 21054,
+     "demoraDias": 65.35,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 2965,
+    "demoraDias": 82.59,
+    "mes": "agosto de 2026",
+    "por1000": 15.1
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 2989,
+     "demoraDias": 69.4,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 2408,
+     "demoraDias": 65.53,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "alcorcon": {
+   "hospital": "Hospital Universitario Fundación Alcorcón",
+   "hospitalId": "alcorcon",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "valor": 175780,
+    "anio": 2024,
+    "fecha": "31/12/2024",
+    "metodo": "fila TOTAL de la tabla «Población de referencia» (SIP-CIBELES)",
+    "fuente": "memoria2024_alcorcon"
+   },
+   "quirurgica": {
+    "pacientes": 3200,
+    "demoraDias": 80.37,
+    "mes": "agosto de 2026",
+    "por1000": 18.2
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 2748,
+     "demoraDias": 72.42,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 3013,
+     "demoraDias": 70.34,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 24852,
+    "demoraDias": 82.01,
+    "mes": "agosto de 2026",
+    "por1000": 141.4
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 24852,
+     "demoraDias": 80.73,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 23396,
+     "demoraDias": 69.15,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 1284,
+    "demoraDias": 65.81,
+    "mes": "agosto de 2026",
+    "por1000": 7.3
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 1753,
+     "demoraDias": 56.69,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 1785,
+     "demoraDias": 51.3,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "alcobendas": {
+   "hospital": "Hospital Universitario Infanta Sofía (San Sebastián de los Reyes)",
+   "hospitalId": "infanta_sofia",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "valor": 353796,
+    "anio": 2024,
+    "fecha": "31/12/2024",
+    "metodo": "suma de las filas por centro de salud de la tabla «Población de referencia» (la tabla no trae fila TOTAL)",
+    "fuente": "memoria2024_infanta_sofia"
+   },
+   "quirurgica": {
+    "pacientes": 3308,
+    "demoraDias": 78.11,
+    "mes": "agosto de 2026",
+    "por1000": 9.4
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 2555,
+     "demoraDias": 73.84,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 3795,
+     "demoraDias": 93.32,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 39062,
+    "demoraDias": 91.69,
+    "mes": "agosto de 2026",
+    "por1000": 110.4
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 40585,
+     "demoraDias": 90.42,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 42136,
+     "demoraDias": 91.09,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 10898,
+    "demoraDias": 70.41,
+    "mes": "agosto de 2026",
+    "por1000": 30.8
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 9317,
+     "demoraDias": 67.64,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 10879,
+     "demoraDias": 129.61,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "mostoles": {
+   "hospital": "Hospital Universitario de Móstoles",
+   "hospitalId": "mostoles",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "valor": 182234,
+    "anio": 2024,
+    "fecha": "31/12/2024",
+    "metodo": "fila TOTAL de la tabla «Población de referencia» (SIP-CIBELES)",
+    "fuente": "memoria2024_mostoles"
+   },
+   "quirurgica": {
+    "pacientes": 3376,
+    "demoraDias": 87.78,
+    "mes": "agosto de 2026",
+    "por1000": 18.5
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 2622,
+     "demoraDias": 77.32,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 1948,
+     "demoraDias": 69.14,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 20026,
+    "demoraDias": 66.78,
+    "mes": "agosto de 2026",
+    "por1000": 109.9
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 20377,
+     "demoraDias": 69.36,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 20191,
+     "demoraDias": 70.0,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 8285,
+    "demoraDias": 84.68,
+    "mes": "agosto de 2026",
+    "por1000": 45.5
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 8583,
+     "demoraDias": 84.94,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 7468,
+     "demoraDias": 67.62,
+     "mes": "agosto de 2024"
+    }
+   },
+   "hospitalSecundario": {
+    "hospital": "Hospital Universitario Rey Juan Carlos (Móstoles)",
+    "hospitalId": "rey_juan_carlos",
+    "gestion": "concesión",
+    "poblacionReferencia": {
+     "valor": 190169,
+     "anio": 2024,
+     "fecha": "31/12/2024",
+     "fuente": "memoria2024_rey_juan_carlos"
+    },
+    "quirurgica": {
+     "pacientes": 3106,
+     "demoraDias": 19.11,
+     "mes": "agosto de 2026",
+     "por1000": 16.3
+    },
+    "consultas": {
+     "pacientes": 18098,
+     "demoraDias": 27.25,
+     "mes": "agosto de 2026",
+     "por1000": 95.2
+    },
+    "pruebas": {
+     "pacientes": 7169,
+     "demoraDias": 51.21,
+     "mes": "agosto de 2026",
+     "por1000": 37.7
+    },
+    "quirurgicaAnterior": {
+     "2025": {
+      "pacientes": 2448,
+      "demoraDias": 16.28,
+      "mes": "agosto de 2025"
+     },
+     "2024": {
+      "pacientes": 3208,
+      "demoraDias": 28.29,
+      "mes": "agosto de 2024"
+     }
+    },
+    "consultasAnterior": {
+     "2025": {
+      "pacientes": 18280,
+      "demoraDias": 28.96,
+      "mes": "agosto de 2025"
+     },
+     "2024": {
+      "pacientes": 23067,
+      "demoraDias": 43.76,
+      "mes": "agosto de 2024"
+     }
+    },
+    "pruebasAnterior": {
+     "2025": {
+      "pacientes": 6055,
+      "demoraDias": 63.48,
+      "mes": "agosto de 2025"
+     },
+     "2024": {
+      "pacientes": 5501,
+      "demoraDias": 47.24,
+      "mes": "agosto de 2024"
+     }
+    }
+   },
+   "repartoMunicipio": {
+    "hospitalMostoles": 149867,
+    "reyJuanCarlos": 69833,
+    "cuotaHospitalMostoles": 0.682,
+    "nota": "Población (SIP-CIBELES, 31/12/2024) de los centros de salud situados en Móstoles en cada tabla: H.U. de Móstoles = todos sus centros salvo el consultorio de Arroyomolinos; Rey Juan Carlos = C.S. Barcelona, La Princesa y Presentación Sabio."
+   }
+  },
+  "torrejon": {
+   "hospital": "Hospital Universitario de Torrejón",
+   "hospitalId": "torrejon",
+   "gestion": "concesión",
+   "poblacionReferencia": {
+    "valor": 164487,
+    "anio": 2023,
+    "fecha": "31/12/2023",
+    "metodo": "fila TOTAL de la tabla «Población de referencia» (SIP-CIBELES)",
+    "fuente": "memoria2024_torrejon"
+   },
+   "quirurgica": {
+    "pacientes": 3915,
+    "demoraDias": 63.29,
+    "mes": "agosto de 2026",
+    "por1000": 23.8
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 3599,
+     "demoraDias": 61.68,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 3822,
+     "demoraDias": 71.64,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": null,
+   "consultasUltimoDisponible": {
+    "pacientes": 21125,
+    "demoraDias": 32.98,
+    "mes": "junio de 2026",
+    "por1000": 128.4
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 24185,
+     "demoraDias": 43.23,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 24129,
+     "demoraDias": 47.21,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": null,
+   "pruebasUltimoDisponible": {
+    "pacientes": 3673,
+    "demoraDias": 15.48,
+    "mes": "junio de 2026",
+    "por1000": 22.3
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 3340,
+     "demoraDias": 14.85,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 3227,
+     "demoraDias": 14.33,
+     "mes": "agosto de 2024"
+    }
+   },
+   "sinDato": [
+    "consultas: agosto de 2026 publicado como 0 pacientes / 0 días",
+    "pruebas: agosto de 2026 publicado como 0 pacientes / 0 días"
+   ]
+  },
+  "pozuelo": {
+   "hospital": "Hospital Universitario Puerta de Hierro Majadahonda",
+   "hospitalId": "puerta_hierro",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "valor": 424164,
+    "anio": 2024,
+    "fecha": "31/12/2024",
+    "metodo": "fila TOTAL de la tabla «Población de referencia» (SIP-CIBELES)",
+    "fuente": "memoria2024_puerta_hierro"
+   },
+   "quirurgica": {
+    "pacientes": 6230,
+    "demoraDias": 97.02,
+    "mes": "agosto de 2026",
+    "por1000": 14.7
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 5059,
+     "demoraDias": 84.76,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 4548,
+     "demoraDias": 78.31,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 44898,
+    "demoraDias": 79.45,
+    "mes": "agosto de 2026",
+    "por1000": 105.9
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 47360,
+     "demoraDias": 89.94,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 47493,
+     "demoraDias": 86.86,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 5657,
+    "demoraDias": 55.35,
+    "mes": "agosto de 2026",
+    "por1000": 13.3
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 5881,
+     "demoraDias": 75.8,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 5470,
+     "demoraDias": 46.04,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "majadahonda": {
+   "hospital": "Hospital Universitario Puerta de Hierro Majadahonda",
+   "hospitalId": "puerta_hierro",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "valor": 424164,
+    "anio": 2024,
+    "fecha": "31/12/2024",
+    "metodo": "fila TOTAL de la tabla «Población de referencia» (SIP-CIBELES)",
+    "fuente": "memoria2024_puerta_hierro"
+   },
+   "quirurgica": {
+    "pacientes": 6230,
+    "demoraDias": 97.02,
+    "mes": "agosto de 2026",
+    "por1000": 14.7
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 5059,
+     "demoraDias": 84.76,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 4548,
+     "demoraDias": 78.31,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 44898,
+    "demoraDias": 79.45,
+    "mes": "agosto de 2026",
+    "por1000": 105.9
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 47360,
+     "demoraDias": 89.94,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 47493,
+     "demoraDias": 86.86,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 5657,
+    "demoraDias": 55.35,
+    "mes": "agosto de 2026",
+    "por1000": 13.3
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 5881,
+     "demoraDias": 75.8,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 5470,
+     "demoraDias": 46.04,
+     "mes": "agosto de 2024"
+    }
+   }
+  }
+ },
+ "hospitales": {
+  "infanta_cristina": {
+   "nombre": "Hospital Universitario Infanta Cristina (Parla)",
+   "codigoServicio": "2664",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "fuente": "memoria2024_infanta_cristina",
+    "fecha": "31/12/2024",
+    "sumaFilas": 181404,
+    "valor": 181404,
+    "metodo": "fila TOTAL de la tabla «Población de referencia» (SIP-CIBELES)",
+    "cuadra": true,
+    "anio": 2024
+   },
+   "quirurgica": {
+    "pacientes": 2888,
+    "demoraDias": 98.6,
+    "mes": "agosto de 2026",
+    "por1000": 15.9
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 2215,
+     "demoraDias": 83.62,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 2237,
+     "demoraDias": 79.65,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 15390,
+    "demoraDias": 58.97,
+    "mes": "agosto de 2026",
+    "por1000": 84.8
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 13542,
+     "demoraDias": 55.92,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 11594,
+     "demoraDias": 52.08,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 1873,
+    "demoraDias": 31.86,
+    "mes": "agosto de 2026",
+    "por1000": 10.3
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 4640,
+     "demoraDias": 107.81,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 4789,
+     "demoraDias": 153.17,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "getafe": {
+   "nombre": "Hospital Universitario de Getafe",
+   "codigoServicio": "2558",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "fuente": "memoria2024_getafe",
+    "fecha": "31/12/2024",
+    "sumaFilas": 242715,
+    "valor": 242715,
+    "metodo": "suma de las filas por centro de salud de la tabla «Población de referencia» (la tabla no trae fila TOTAL)",
+    "anio": 2024
+   },
+   "quirurgica": {
+    "pacientes": 5675,
+    "demoraDias": 119.08,
+    "mes": "agosto de 2026",
+    "por1000": 23.4
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 4716,
+     "demoraDias": 91.12,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 4991,
+     "demoraDias": 82.04,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 27010,
+    "demoraDias": 87.97,
+    "mes": "agosto de 2026",
+    "por1000": 111.3
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 25246,
+     "demoraDias": 78.94,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 30637,
+     "demoraDias": 82.8,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 6332,
+    "demoraDias": 76.52,
+    "mes": "agosto de 2026",
+    "por1000": 26.1
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 8205,
+     "demoraDias": 92.77,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 11622,
+     "demoraDias": 77.92,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "fuenlabrada": {
+   "nombre": "Hospital Universitario de Fuenlabrada",
+   "codigoServicio": "2555",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "fuente": "memoria2024_fuenlabrada",
+    "fecha": "31/12/2024",
+    "sumaFilas": 226468,
+    "valor": 226428,
+    "metodo": "fila TOTAL de la tabla «Población de referencia» (SIP-CIBELES)",
+    "cuadra": false,
+    "anio": 2024
+   },
+   "quirurgica": {
+    "pacientes": 2853,
+    "demoraDias": 52.95,
+    "mes": "agosto de 2026",
+    "por1000": 12.6
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 2582,
+     "demoraDias": 60.67,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 2448,
+     "demoraDias": 55.3,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 32487,
+    "demoraDias": 81.46,
+    "mes": "agosto de 2026",
+    "por1000": 143.5
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 33159,
+     "demoraDias": 81.17,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 34547,
+     "demoraDias": 78.42,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 9305,
+    "demoraDias": 77.51,
+    "mes": "agosto de 2026",
+    "por1000": 41.1
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 8824,
+     "demoraDias": 71.35,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 12442,
+     "demoraDias": 100.81,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "severo_ochoa": {
+   "nombre": "Hospital Universitario Severo Ochoa (Leganés)",
+   "codigoServicio": "2544",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "fuente": "memoria2024_severo_ochoa",
+    "fecha": "31/12/2024",
+    "sumaFilas": 196797,
+    "valor": 196797,
+    "metodo": "fila TOTAL de la tabla «Población de referencia» (SIP-CIBELES)",
+    "cuadra": true,
+    "anio": 2024
+   },
+   "quirurgica": {
+    "pacientes": 2608,
+    "demoraDias": 67.06,
+    "mes": "agosto de 2026",
+    "por1000": 13.3
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 1602,
+     "demoraDias": 43.06,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 1811,
+     "demoraDias": 43.29,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 22191,
+    "demoraDias": 61.62,
+    "mes": "agosto de 2026",
+    "por1000": 112.8
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 21464,
+     "demoraDias": 66.4,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 21054,
+     "demoraDias": 65.35,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 2965,
+    "demoraDias": 82.59,
+    "mes": "agosto de 2026",
+    "por1000": 15.1
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 2989,
+     "demoraDias": 69.4,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 2408,
+     "demoraDias": 65.53,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "alcorcon": {
+   "nombre": "Hospital Universitario Fundación Alcorcón",
+   "codigoServicio": "2541",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "fuente": "memoria2024_alcorcon",
+    "fecha": "31/12/2024",
+    "sumaFilas": 175780,
+    "valor": 175780,
+    "metodo": "fila TOTAL de la tabla «Población de referencia» (SIP-CIBELES)",
+    "cuadra": true,
+    "anio": 2024
+   },
+   "quirurgica": {
+    "pacientes": 3200,
+    "demoraDias": 80.37,
+    "mes": "agosto de 2026",
+    "por1000": 18.2
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 2748,
+     "demoraDias": 72.42,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 3013,
+     "demoraDias": 70.34,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 24852,
+    "demoraDias": 82.01,
+    "mes": "agosto de 2026",
+    "por1000": 141.4
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 24852,
+     "demoraDias": 80.73,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 23396,
+     "demoraDias": 69.15,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 1284,
+    "demoraDias": 65.81,
+    "mes": "agosto de 2026",
+    "por1000": 7.3
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 1753,
+     "demoraDias": 56.69,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 1785,
+     "demoraDias": 51.3,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "infanta_sofia": {
+   "nombre": "Hospital Universitario Infanta Sofía (San Sebastián de los Reyes)",
+   "codigoServicio": "2660",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "fuente": "memoria2024_infanta_sofia",
+    "fecha": "31/12/2024",
+    "sumaFilas": 353796,
+    "valor": 353796,
+    "metodo": "suma de las filas por centro de salud de la tabla «Población de referencia» (la tabla no trae fila TOTAL)",
+    "anio": 2024
+   },
+   "quirurgica": {
+    "pacientes": 3308,
+    "demoraDias": 78.11,
+    "mes": "agosto de 2026",
+    "por1000": 9.4
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 2555,
+     "demoraDias": 73.84,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 3795,
+     "demoraDias": 93.32,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 39062,
+    "demoraDias": 91.69,
+    "mes": "agosto de 2026",
+    "por1000": 110.4
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 40585,
+     "demoraDias": 90.42,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 42136,
+     "demoraDias": 91.09,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 10898,
+    "demoraDias": 70.41,
+    "mes": "agosto de 2026",
+    "por1000": 30.8
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 9317,
+     "demoraDias": 67.64,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 10879,
+     "demoraDias": 129.61,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "mostoles": {
+   "nombre": "Hospital Universitario de Móstoles",
+   "codigoServicio": "2540",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "fuente": "memoria2024_mostoles",
+    "fecha": "31/12/2024",
+    "sumaFilas": 182234,
+    "valor": 182234,
+    "metodo": "fila TOTAL de la tabla «Población de referencia» (SIP-CIBELES)",
+    "cuadra": true,
+    "anio": 2024
+   },
+   "quirurgica": {
+    "pacientes": 3376,
+    "demoraDias": 87.78,
+    "mes": "agosto de 2026",
+    "por1000": 18.5
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 2622,
+     "demoraDias": 77.32,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 1948,
+     "demoraDias": 69.14,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 20026,
+    "demoraDias": 66.78,
+    "mes": "agosto de 2026",
+    "por1000": 109.9
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 20377,
+     "demoraDias": 69.36,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 20191,
+     "demoraDias": 70.0,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 8285,
+    "demoraDias": 84.68,
+    "mes": "agosto de 2026",
+    "por1000": 45.5
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 8583,
+     "demoraDias": 84.94,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 7468,
+     "demoraDias": 67.62,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "rey_juan_carlos": {
+   "nombre": "Hospital Universitario Rey Juan Carlos (Móstoles)",
+   "codigoServicio": "2829",
+   "gestion": "concesión",
+   "poblacionReferencia": {
+    "fuente": "memoria2024_rey_juan_carlos",
+    "fecha": "31/12/2024",
+    "sumaFilas": 190169,
+    "valor": 190169,
+    "metodo": "fila TOTAL de la tabla «Población de referencia» (SIP-CIBELES)",
+    "cuadra": true,
+    "anio": 2024
+   },
+   "quirurgica": {
+    "pacientes": 3106,
+    "demoraDias": 19.11,
+    "mes": "agosto de 2026",
+    "por1000": 16.3
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 2448,
+     "demoraDias": 16.28,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 3208,
+     "demoraDias": 28.29,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 18098,
+    "demoraDias": 27.25,
+    "mes": "agosto de 2026",
+    "por1000": 95.2
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 18280,
+     "demoraDias": 28.96,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 23067,
+     "demoraDias": 43.76,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 7169,
+    "demoraDias": 51.21,
+    "mes": "agosto de 2026",
+    "por1000": 37.7
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 6055,
+     "demoraDias": 63.48,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 5501,
+     "demoraDias": 47.24,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "torrejon": {
+   "nombre": "Hospital Universitario de Torrejón",
+   "codigoServicio": "2828",
+   "gestion": "concesión",
+   "poblacionReferencia": {
+    "fuente": "memoria2024_torrejon",
+    "fecha": "31/12/2023",
+    "sumaFilas": 164487,
+    "valor": 164487,
+    "metodo": "fila TOTAL de la tabla «Población de referencia» (SIP-CIBELES)",
+    "cuadra": true,
+    "anio": 2023
+   },
+   "quirurgica": {
+    "pacientes": 3915,
+    "demoraDias": 63.29,
+    "mes": "agosto de 2026",
+    "por1000": 23.8
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 3599,
+     "demoraDias": 61.68,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 3822,
+     "demoraDias": 71.64,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultasUltimoDisponible": {
+    "pacientes": 21125,
+    "demoraDias": 32.98,
+    "mes": "junio de 2026",
+    "por1000": 128.4
+   },
+   "sinDato": [
+    "consultas: agosto de 2026 publicado como 0 pacientes / 0 días",
+    "pruebas: agosto de 2026 publicado como 0 pacientes / 0 días"
+   ],
+   "consultas": null,
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 24185,
+     "demoraDias": 43.23,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 24129,
+     "demoraDias": 47.21,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebasUltimoDisponible": {
+    "pacientes": 3673,
+    "demoraDias": 15.48,
+    "mes": "junio de 2026",
+    "por1000": 22.3
+   },
+   "pruebas": null,
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 3340,
+     "demoraDias": 14.85,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 3227,
+     "demoraDias": 14.33,
+     "mes": "agosto de 2024"
+    }
+   }
+  },
+  "puerta_hierro": {
+   "nombre": "Hospital Universitario Puerta de Hierro Majadahonda",
+   "codigoServicio": "2712",
+   "gestion": "pública",
+   "poblacionReferencia": {
+    "fuente": "memoria2024_puerta_hierro",
+    "fecha": "31/12/2024",
+    "sumaFilas": 424164,
+    "valor": 424164,
+    "metodo": "fila TOTAL de la tabla «Población de referencia» (SIP-CIBELES)",
+    "cuadra": true,
+    "anio": 2024
+   },
+   "quirurgica": {
+    "pacientes": 6230,
+    "demoraDias": 97.02,
+    "mes": "agosto de 2026",
+    "por1000": 14.7
+   },
+   "quirurgicaAnterior": {
+    "2025": {
+     "pacientes": 5059,
+     "demoraDias": 84.76,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 4548,
+     "demoraDias": 78.31,
+     "mes": "agosto de 2024"
+    }
+   },
+   "consultas": {
+    "pacientes": 44898,
+    "demoraDias": 79.45,
+    "mes": "agosto de 2026",
+    "por1000": 105.9
+   },
+   "consultasAnterior": {
+    "2025": {
+     "pacientes": 47360,
+     "demoraDias": 89.94,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 47493,
+     "demoraDias": 86.86,
+     "mes": "agosto de 2024"
+    }
+   },
+   "pruebas": {
+    "pacientes": 5657,
+    "demoraDias": 55.35,
+    "mes": "agosto de 2026",
+    "por1000": 13.3
+   },
+   "pruebasAnterior": {
+    "2025": {
+     "pacientes": 5881,
+     "demoraDias": 75.8,
+     "mes": "agosto de 2025"
+    },
+    "2024": {
+     "pacientes": 5470,
+     "demoraDias": 46.04,
+     "mes": "agosto de 2024"
+    }
+   }
+  }
+ },
+ "comprobacion": {
+  "quirurgica": {
+   "sumaHospitalesAgosto2026": 120168,
+   "demoraMediaPonderada": 79.79,
+   "hospitales": 29,
+   "hospitalesSinDato": [],
+   "totalRegionalLEQ": 120168,
+   "totalRegionalEstructural": 92525,
+   "demoraRegionalEstructural": 71.88
+  },
+  "consultas": {
+   "sumaHospitalesAgosto2026": 698522,
+   "demoraMediaPonderada": 76.62,
+   "hospitales": 31,
+   "hospitalesSinDato": [
+    "HOSPITAL CENTRAL DE LA DEFENSA GOMEZ ULLA",
+    "HOSPITAL DE GUADARRAMA",
+    "HOSPITAL UNIVERSITARIO DE TORREJON"
+   ],
+   "totalRegionalEstructural": 698522,
+   "demoraRegional": 76.62
+  },
+  "pruebas": {
+   "sumaHospitalesAgosto2026": 168441,
+   "demoraMediaPonderada": 66.51,
+   "hospitales": 29,
+   "hospitalesSinDato": [
+    "HOSPITAL CENTRAL DE LA DEFENSA GOMEZ ULLA",
+    "HOSPITAL UNIVERSITARIO DE TORREJON"
+   ],
+   "totalRegionalEstructural": 168443,
+   "demoraRegional": 66.51
+  }
+ },
+ "fuentes": {
+  "servicioConsulta": {
+   "titulo": "SERMAS. Servicio de consulta de la situación de listas de espera por hospital (opción «Total», intervalo mensual)",
+   "urls": {
+    "quirurgica": "https://servicioselectronicos.sanidadmadrid.org/LEQ/Consulta.aspx",
+    "consultas": "https://servicioselectronicos.sanidadmadrid.org/LEQ/ConsultaEspecialidades.aspx",
+    "pruebas": "https://servicioselectronicos.sanidadmadrid.org/LEQ/ConsultaPruebas.aspx"
+   }
+  },
+  "portalQuirurgica": {
+   "titulo": "Comunidad de Madrid. Lista de espera quirúrgica (datos globales mensuales)",
+   "url": "https://www.comunidad.madrid/salud/lista-espera-quirurgica"
+  },
+  "portalConsultas": {
+   "titulo": "Comunidad de Madrid. Lista de espera en consultas externas",
+   "url": "https://www.comunidad.madrid/salud/lista-espera-consultas-externas"
+  },
+  "portalPruebas": {
+   "titulo": "Comunidad de Madrid. Lista de espera de pruebas diagnósticas y terapéuticas",
+   "url": "https://www.comunidad.madrid/salud/lista-espera-pruebas-diagnosticas-terapeuticas"
+  },
+  "globalQuirurgicaAgosto2026": {
+   "titulo": "Datos del Registro Unificado de LEQ, agosto 2026 (CSV)",
+   "url": "https://www.comunidad.madrid/docs/2026-09/le_q_agosto_2026.csv"
+  },
+  "globalConsultasAgosto2026": {
+   "titulo": "Datos de lista de espera de consultas externas, agosto 2026 (CSV)",
+   "url": "https://www.comunidad.madrid/docs/2026-09/le_c_agosto_2026.csv"
+  },
+  "globalPruebasAgosto2026": {
+   "titulo": "Datos de lista de espera de pruebas diagnósticas/terapéuticas, agosto 2026 (CSV)",
+   "url": "https://www.comunidad.madrid/docs/2026-09/le_t_agosto_2026.csv"
+  },
+  "concesiones": {
+   "titulo": "Comunidad de Madrid. H.U. Rey Juan Carlos: hospitales «gestionados bajo la modalidad de concesión administrativa» (Infanta Elena, Rey Juan Carlos, Torrejón, Villalba)",
+   "url": "https://www.comunidad.madrid/hospital/reyjuancarlos/node/276"
+  },
+  "datosAbiertosAnuales": {
+   "titulo": "datos.comunidad.madrid. Lista de espera quirúrgica / consultas / pruebas por hospitales (a 31 de diciembre; no usados aquí, solo referencia)",
+   "url": "https://datos.comunidad.madrid/dataset/lista_de_espera_quirurgica_por_hospitales"
+  },
+  "memoria2024_infanta_cristina": {
+   "titulo": "Memoria 2024 del Hospital Universitario Infanta Cristina (Parla). Servicio Madrileño de Salud (apartado «Área de influencia» / «Población de referencia»)",
+   "url": "https://www.comunidad.madrid/docs/assets/2025/11/06/memoria_2024_hui_cristrina.pdf"
+  },
+  "memoria2024_getafe": {
+   "titulo": "Memoria 2024 del Hospital Universitario de Getafe. Servicio Madrileño de Salud (apartado «Área de influencia» / «Población de referencia»)",
+   "url": "https://www.comunidad.madrid/docs/assets/2025/11/06/memoria_2024_hu_getafe.pdf"
+  },
+  "memoria2024_fuenlabrada": {
+   "titulo": "Memoria 2024 del Hospital Universitario de Fuenlabrada. Servicio Madrileño de Salud (apartado «Área de influencia» / «Población de referencia»)",
+   "url": "https://www.comunidad.madrid/docs/assets/2025/11/06/memoria_2024_hu_fuenlabrada.pdf"
+  },
+  "memoria2024_severo_ochoa": {
+   "titulo": "Memoria 2024 del Hospital Universitario Severo Ochoa (Leganés). Servicio Madrileño de Salud (apartado «Área de influencia» / «Población de referencia»)",
+   "url": "https://www.comunidad.madrid/docs/assets/2025/11/06/memoria_2024_hu_severo_ochoa_.pdf"
+  },
+  "memoria2024_alcorcon": {
+   "titulo": "Memoria 2024 del Hospital Universitario Fundación Alcorcón. Servicio Madrileño de Salud (apartado «Área de influencia» / «Población de referencia»)",
+   "url": "https://www.comunidad.madrid/docs/assets/2025/11/06/memoria_2024_hu_fundacion_alcorcon.pdf"
+  },
+  "memoria2024_infanta_sofia": {
+   "titulo": "Memoria 2024 del Hospital Universitario Infanta Sofía (San Sebastián de los Reyes). Servicio Madrileño de Salud (apartado «Área de influencia» / «Población de referencia»)",
+   "url": "https://www.comunidad.madrid/docs/assets/2025/11/06/memoria_2024_hu_infanta_sofia.pdf"
+  },
+  "memoria2024_mostoles": {
+   "titulo": "Memoria 2024 del Hospital Universitario de Móstoles. Servicio Madrileño de Salud (apartado «Área de influencia» / «Población de referencia»)",
+   "url": "https://www.comunidad.madrid/docs/assets/2025/11/06/memoria_2024_hu_mostoles.pdf"
+  },
+  "memoria2024_rey_juan_carlos": {
+   "titulo": "Memoria 2024 del Hospital Universitario Rey Juan Carlos (Móstoles). Servicio Madrileño de Salud (apartado «Área de influencia» / «Población de referencia»)",
+   "url": "https://www.comunidad.madrid/docs/assets/2025/11/06/memoria_2024_hu_rey_juan_carlos.pdf"
+  },
+  "memoria2024_torrejon": {
+   "titulo": "Memoria 2024 del Hospital Universitario de Torrejón. Servicio Madrileño de Salud (apartado «Área de influencia» / «Población de referencia»)",
+   "url": "https://www.comunidad.madrid/docs/assets/2025/11/06/memoria_2024_hu_torrejon.pdf"
+  },
+  "memoria2024_puerta_hierro": {
+   "titulo": "Memoria 2024 del Hospital Universitario Puerta de Hierro Majadahonda. Servicio Madrileño de Salud (apartado «Área de influencia» / «Población de referencia»)",
+   "url": "https://www.comunidad.madrid/docs/assets/2025/11/06/memoria_2024_hu_puerta_de_hierro.pdf"
+  }
+ },
+ "notas": [
+  "Último mes publicado: agosto de 2026 (actualización del 16/09/2026). Se da también agosto de 2025 y agosto de 2024, el mismo mes, para evitar el efecto estacional (agosto es un mes de poca actividad programada y las listas suelen crecer).",
+  "Las cifras por hospital son la opción «Total» del servicio de consulta del SERMAS: número de pacientes en lista y demora media en días naturales «a fecha de corte» (lo que llevan esperando los que siguen en lista, no lo que esperaron los ya atendidos). Consultas = primera consulta externa (no incluye Obstetricia); pruebas = TC, RM, ecografía, mamografía, hemodinámica, ecocardiografía, ergometría, electromiograma, densitometría, colonoscopia y gastroscopia.",
+  "Qué cuenta cada cifra por hospital (ver «comprobacion»). Consultas y pruebas: la suma de hospitales y la demora ponderada cuadran con el total regional de espera ESTRUCTURAL (698.522 pacientes, 76,62 días; 168.441 frente a 168.443 y 66,51 días en pruebas). Quirúrgica: la suma de hospitales da 120.168, que es el TOTAL de la lista (estructural + rechazo de derivación + transitoriamente no programables), no los 92.525 estructurales que la Comunidad destaca; y la demora ponderada (79,79 días) no coincide con la «demora media estructural» regional (71,88). Las cifras quirúrgicas por hospital son comparables entre sí, pero NO con el titular regional de 92.525 / 71,88.",
+  "Torrejón (concesión, Ribera Salud): el servicio publica 0 pacientes y 0 días en consultas y en pruebas en julio y agosto de 2026, lo que es ausencia de dato, no lista vacía. Se deja a null y se da el último mes con dato (junio de 2026) en «consultasUltimoDisponible» / «pruebasUltimoDisponible». El total regional de consultas de agosto de 2026 (698.522) no incluye, por tanto, a Torrejón (unos 21.000 pacientes en junio). La quirúrgica de Torrejón sí está publicada en agosto de 2026.",
+  "Rey Juan Carlos (concesión, Quirónsalud) muestra demoras mucho menores que el resto (19 días en quirúrgica frente a 50-120). Es el dato oficial; no se ha corregido.",
+  "Libre elección (Decreto 51/2010): cualquier madrileño puede apuntarse en la lista de otro hospital, y los hospitales con servicios de referencia atienden a pacientes de fuera de su área. La lista de un hospital no son solo vecinos de su área ni todos los vecinos del área esperan en él. Los «por1000» (pacientes / población de referencia × 1.000) son por eso una aproximación de la presión sobre el hospital, no una tasa de vecinos en espera.",
+  "Población de referencia: tabla «Población de referencia» de la Memoria 2024 de cada hospital (SIP-CIBELES, tarjetas sanitarias a 31/12/2024; Torrejón la da a 31/12/2023). Es de un año y medio antes que las listas. No hay cifra de 2025 publicada en las memorias consultadas.",
+  "Getafe: la tabla no trae fila TOTAL; se suman los diez centros de salud (242.715). El texto de la misma memoria dice «algo más de 223.000 habitantes», cifra que no cuadra con su propia tabla; usamos la tabla.",
+  "Infanta Sofía: la tabla no trae fila TOTAL; la suma de sus filas por centro da 353.796, mientras el texto de la misma memoria dice que «atiende una población de 330.756 habitantes». Usamos la tabla (mismo criterio que en el resto de hospitales); la diferencia es de un 7 %.",
+  "Fuenlabrada: la fila TOTAL de su tabla (226.428) es 40 personas menor que la suma de sus propias filas (226.468). Usamos la fila TOTAL; la diferencia es despreciable.",
+  "Puerta de Hierro: la tabla suma 424.164 (31/12/2024); el texto habla de 411.922 habitantes de diez municipios y de más de 586.922 en especialidades en las que es referencia del noroeste. Es el hospital de Majadahonda y de Pozuelo (C.S. Pozuelo-Estación, San Juan de la Cruz y Somosaguas), así que ambas ciudades comparten las mismas cifras.",
+  "Pinto no tiene hospital. Según la Memoria 2024 del H.U. de Getafe, «el área de referencia del Hospital Universitario de Getafe se corresponde en la actualidad con la totalidad de los centros de salud de las localidades de Getafe y Pinto» (C.S. Pinto y C.S. Parque Europa). No es el Infanta Cristina (Parla) ni el Infanta Elena (Valdemoro). Getafe y Pinto comparten cifras.",
+  "Móstoles tiene dos hospitales de referencia: el H.U. de Móstoles (gestión pública; centros de salud de Móstoles salvo tres, más Arroyomolinos) y el H.U. Rey Juan Carlos (concesión, Quirónsalud; C.S. Barcelona, La Princesa y Presentación Sabio de Móstoles, más Villaviciosa, Navalcarnero y la Sierra Oeste). Se toma como principal el H.U. de Móstoles, que cubre a la mayoría de la población del municipio (ver «repartoMunicipio»); el Rey Juan Carlos va en «hospitalSecundario».",
+  "Gestión: Rey Juan Carlos y Torrejón son concesiones administrativas (la Comunidad lo dice así en la web del Rey Juan Carlos; la Memoria 2024 de Torrejón: «gestión de servicios públicos en la modalidad de concesión administrativa»). Infanta Cristina e Infanta Sofía son de gestión sanitaria pública, pero se construyeron por concesión de obra: una sociedad concesionaria explota el edificio y los servicios no sanitarios. Fundación Alcorcón es una fundación pública del sector público.",
+  "Los datos abiertos de datos.comunidad.madrid por hospital son anuales (a 31 de diciembre) y llegan a 2025 en quirúrgica y a 2024 en consultas y pruebas; no se usan aquí, pero sirven para contrastar.",
+  "Datos globales de consultas de agosto 2026: la Comunidad publica «Tasa por 1000 habitantes 140,26» con 698.522 pacientes y 7.175.375 habitantes asignados, pero 698.522 / 7.175.375 × 1.000 = 97,3. No usamos esa tasa."
+ ]
+}

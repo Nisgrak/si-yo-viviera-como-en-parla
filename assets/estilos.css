@@ -1184,6 +1184,8 @@ code {
 .salir__filas { margin-top: 1.5rem; max-width: 34rem; }
 /* El tren, debajo del coche y separado de su fuente. */
 .salir__tren { margin-top: clamp(1.75rem, 6vw, 2.5rem); }
+.espera__h { margin-top: clamp(1.5rem, 5vw, 2rem); font-size: .8125rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-2); }
+.espera__filas { margin-top: .6rem; }
 .salir__pie { margin-top: .7rem; max-width: 34rem; font-size: .8125rem; color: var(--ink-3); }
 .salir__pie a { color: var(--ink-3); }
 .salir__ir {
@@ -1443,6 +1445,9 @@ html[data-indice='barra'] .pie { padding-bottom: calc(clamp(3.5rem, 11vw, 6rem) 
 @media print {
   .indice, .indice-barra, .indice-hoja { display: none !important; }
 }
+
+/* La fecha de la revisión, al pie de cada página. */
+.pie__fecha { margin-top: .5rem; }
 
 /* ── Al pulsar ────────────────────────────────────────────────────────
    Los botones ceden un poco al pulsarlos, como uno de verdad. Va con

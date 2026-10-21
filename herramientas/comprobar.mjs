@@ -21,8 +21,8 @@ const D = globalThis.DATOS;
 
 /* Lo que tiene que salir con texto en cada página. */
 const PAGINAS = {
-  'index.html': ['#golpe', '#resumen-total', '#dinero-cuerpo', '#salir-txt', '#salir-tren', '#vivienda-txt'],
-  'economia.html': ['#golpe', '#trabajo-cifras', '#paro-fichas', '#renta-fichas', '#produce-fichas', '#ayto-fichas', '#ayto-mas'],
+  'index.html': ['#golpe', '#resumen-total', '#dinero-cuerpo', '#salir-txt', '#salir-tren', '#espera-txt', '#espera-cuenta', '#vivienda-txt'],
+  'economia.html': ['#golpe', '#trabajo-cifras', '#paro-fichas', '#renta-fichas', '#produce-fichas', '#ayto-fichas', '#ayto-mas', '#paga-fichas', '#paga-cierre', '#paga-basuras-pie'],
   'vivienda.html': ['#golpe', '#comprar-cifras', '#alquilar-cifras', '#barrios-rangos', '#desahucios-cifras'],
   'infraestructura.html': ['#golpe', '#golpe-tren', '#cob-cifras', '#abono-cifras', '#tp-frase', '#tp-dato-parla', '#tp-dato-aqui'],
   'consulta.html': ['#cat-lista', '#resultados', '#cat-total']

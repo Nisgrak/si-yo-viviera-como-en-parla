@@ -77,19 +77,39 @@
           </label>
           <p class="cat__meta"><span id="cat-cuenta"></span> · <span id="cat-total"></span></p>
           <button type="button" class="cat__limpiar" id="cat-limpiar">Quitar todos</button>
+          <button type="button" class="cat__abrir" id="cat-abrir" aria-expanded="false" aria-controls="cat-lista">Ver la lista de datos</button>
         </div>
         <div class="cat__lista" id="cat-lista"></div>
       </aside>
 
       <div class="con__res">
+        <div class="con__barra">
         <div class="vista" role="group" aria-label="Cómo verlos">
           <button type="button" class="vista__op tp__min" data-vista="barras" aria-pressed="true">Uno a uno</button>
           <button type="button" class="vista__op tp__min" data-vista="tabla" aria-pressed="false">En tabla</button>
           <button type="button" class="vista__op tp__min" data-vista="grafica" aria-pressed="false">En gráfica</button>
         </div>
+        <div class="con__herr">
+          <button type="button" class="con__boton" id="con-enlace">Copiar enlace</button>
+          <button type="button" class="con__boton" id="con-csv">Descargar CSV</button>
+        </div>
+        </div>
         <div id="resultados" aria-live="polite"></div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ── Al día ────────────────────────────────────────────────────────── -->
+<section class="bloque" id="al-dia">
+  <div class="env">
+    <h2 class="bloque__h">De cuándo es cada dato</h2>
+    <p class="al-dia__intro">
+      Cada fuente publica a su ritmo: el paro, cada mes; la renta, una vez al año y con dos años de
+      retraso. Esta es la fecha de la cifra que usa la web y cada cuánto sale una nueva. La web se
+      revisó por última vez en <span data-actualizado>octubre de 2026</span>.
+    </p>
+    <div class="tabla-caja al-dia__caja"><table class="tabla al-dia" id="al-dia-tabla"></table></div>
   </div>
 </section>
 
@@ -123,9 +143,14 @@
         No están los desahucios, que se publican por partido judicial y no por ciudad, ni los
         tiempos de los mapas de transporte, que cambian de un punto a otro de la ciudad.
       </p>
+      <p>
+        «Descargar CSV» baja los datos elegidos, con las once ciudades, la unidad y la fuente de
+        cada uno, separados por punto y coma y con coma decimal, que es como los abre una hoja de
+        cálculo en español. Las cifras van sin redondear más de lo que se ve en la página.
+      </p>
       <p class="cautela">
-        La selección queda en la dirección de la página: copiándola se comparte con los datos ya
-        elegidos.
+        La selección queda en la dirección de la página: «Copiar enlace» la copia con los datos ya
+        elegidos y la vista en que estén.
       </p>
     </div>
   </div>
@@ -137,6 +162,7 @@
   <div class="env">
     <p class="pie__frase">Parla es lo que pasa<br>cuando el reparto lo decide otro.</p>
     <p class="pie__meta"><a href="index.html">Volver al recuento</a></p>
+    <p class="pie__meta pie__fecha">Datos revisados en <span data-actualizado>octubre de 2026</span>.</p>
   </div>
 </footer>
 
@@ -145,6 +171,8 @@
 <script src="datos/vivienda.js"></script>
 <script src="datos/infraestructura.js"></script>
 <script src="datos/transporte.js"></script>
+<script src="datos/sanidad.js"></script>
+<script src="datos/impuestos.js"></script>
 <script src="assets/consulta.js"></script>
 </body>
 </html>

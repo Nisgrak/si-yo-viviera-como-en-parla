@@ -1314,13 +1314,20 @@
     return n;
   }
 
-  /* Los dos fondos van precargados: el cartel se monta y se imprime en el
-     mismo gesto, y una imagen a medio cargar saldría en blanco. */
+  /* Los dos fondos (medio mega) se piden cuando alguien va a por un
+     cartel: al pasar por un botón o llegar a él con el teclado. Antes de
+     imprimir se espera a que estén, que a medio cargar saldrían en blanco. */
   const FONDOS = ['papel', 'barrio'];
   /* La ruta se resuelve ya, al cargar: luego la barra de direcciones pasa a
      /getafe/ y una ruta relativa se iría a buscar a /getafe/assets/. */
   const CARTEL = new URL('assets/cartel/', location.href).href;
-  FONDOS.forEach(function (f) { (new Image()).src = CARTEL + f + '.jpg'; });
+  let precargados = false;
+  function precargar(e) {
+    if (precargados || !e.target.closest || !e.target.closest('.compartir, .fondos')) return;
+    precargados = true;
+    FONDOS.forEach(function (f) { (new Image()).src = CARTEL + f + '.jpg'; });
+  }
+  ['pointerover', 'focusin', 'touchstart'].forEach(function (t) { document.addEventListener(t, precargar, { passive: true }); });
 
   function fondoElegido() {
     try {
@@ -1678,8 +1685,12 @@
       window.removeEventListener('afterprint', limpiar);
     }
     window.addEventListener('afterprint', limpiar);
-    window.print();
-    setTimeout(limpiar, 1500);   /* Safari no siempre dispara afterprint */
+    const fondo = document.querySelector('.cartel--afiche .kfondo');
+    const listo = fondo && fondo.decode ? fondo.decode().catch(function () {}) : Promise.resolve();
+    listo.then(function () {
+      window.print();
+      setTimeout(limpiar, 1500);   /* Safari no siempre dispara afterprint */
+    });
   }
 
   function botonCartel(c, modo) {
@@ -1772,6 +1783,93 @@
     });
   }
 
+  /* ── La espera: las listas del hospital de cada ciudad ───────────────
+     Los datos los escribe herramientas/sanidad.py. Se compara el hospital
+     que le corresponde a cada ciudad (Pinto no tiene: le toca el de
+     Getafe), con la demora media de los que siguen en lista. Si en alguna
+     lista Parla espera menos, se dice. */
+  function espera() {
+    const S = window.SANIDAD;
+    const caja = $('#espera');
+    if (!S || !S.ciudades[REF] || !S.ciudades[AQUI]) { if (caja) caja.hidden = true; return; }
+    const r = S.ciudades[REF], a = S.ciudades[AQUI];
+    const dias = function (v) { return num(v, 1) + ' días'; };
+    const de = function (c, id) {
+      if (c.fuera) return c.corto + (c.corto.indexOf(c.fuera) >= 0 ? '' : ', en ' + c.fuera) + ', que es el que le toca a ' + NOMBRE[id];
+      /* «el Hospital de Getafe» ya dice de dónde es. */
+      return c.corto.indexOf(NOMBRE[id].split(' ')[0]) >= 0 ? c.corto : c.corto + ', el hospital de ' + NOMBRE[id];
+    };
+    $('#espera-txt').textContent = 'Quien espera una operación en ' + de(r, REF) + ', lleva de media ' +
+      dias(r.quirurgica.dias) + '. En ' + de(a, AQUI) + ', ' + dias(a.quirurgica.dias) + '.';
+
+    const LISTAS = [['quirurgica', 'Para operarse'], ['consultas', 'Para la primera consulta con el especialista'],
+      ['pruebas', 'Para una prueba: escáner, resonancia, ecografía, colonoscopia…']];
+    const cont = $('#espera-listas');
+    vaciar(cont);
+    let menos = 0, comparadas = 0;
+    LISTAS.forEach(function (L) {
+      const k = L[0];
+      /* La barra va contra la espera más larga de los hospitales de las once. */
+      const tope = Object.keys(S.ciudades).reduce(function (t, id) {
+        const x = S.ciudades[id][k]; return x ? Math.max(t, x.dias) : t;
+      }, 0);
+      cont.appendChild(el('h3', 'espera__h', L[1]));
+      const ul = el('ul', 'mun salir__filas espera__filas');
+      [[REF, 'referencia', r], [AQUI, 'aqui', a]].forEach(function (g) {
+        const x = g[2][k];
+        const li = el('li', 'mun__fila');
+        li.setAttribute('data-quien', g[1]);
+        li.appendChild(el('span', 'mun__q', NOMBRE[g[0]] + ' · ' + g[2].corto.replace(/^(el|la) /, '')));
+        li.appendChild(el('span', 'mun__v', x ? dias(x.dias) : 'sin dato'));
+        const b = el('span', 'mun__barra');
+        const i = el('i');
+        i.style.width = (x ? x.dias / tope * 100 : 0).toFixed(1) + '%';
+        b.appendChild(i);
+        li.appendChild(b);
+        ul.appendChild(li);
+      });
+      cont.appendChild(ul);
+      if (r[k] && a[k]) { comparadas++; if (r[k].dias < a[k].dias) menos++; }
+      else if (!a[k]) {
+        cont.appendChild(el('p', 'salir__pie', a.corto.charAt(0).toUpperCase() + a.corto.slice(1) +
+          ' da esta lista a cero, sin pacientes ni días, desde julio de 2026. Se trata como sin dato.'));
+      }
+    });
+
+    /* El balance, sin adornos, y cómo ha cambiado la espera en Parla. */
+    const misma = r.hid === a.hid;
+    const cuantas = ['', 'una', 'dos', 'tres'];
+    let t = misma ? '' : comparadas === 1
+      ? 'En la única lista que publican los dos, la de operarse, se espera ' + (menos ? 'menos' : 'más') + ' en el hospital de Parla. '
+      : menos === comparadas ? 'En las ' + cuantas[comparadas] + ' listas se espera menos en el hospital de Parla. '
+      : menos === 0 ? 'En las ' + cuantas[comparadas] + ' listas se espera más en el hospital de Parla. '
+      : 'En ' + cuantas[menos] + ' de las ' + cuantas[comparadas] + ' listas se espera menos en el hospital de Parla. ';
+    const q = r.quirurgica;
+    if (q.antes != null) {
+      t += 'Hace dos años, en ' + S.antes + ', la espera para operarse en ' + r.corto + ' era de ' + dias(q.antes) +
+        (q.dias > q.antes ? '; ha subido ' + dias(q.dias - q.antes) + '.' : '; ha bajado ' + dias(q.antes - q.dias) + '.');
+    }
+    $('#espera-cuenta').textContent = t;
+
+    const pie = $('#espera-pie');
+    vaciar(pie);
+    pie.appendChild(document.createTextNode('Demora media, en días naturales, de los que seguían en lista en ' + S.mes +
+      '. Con la libre elección, cualquiera puede pedir otro hospital, y cada hospital atiende también a gente de fuera de su zona, ' +
+      'así que la lista no es solo de los vecinos. Pacientes en lista para operarse por cada 1.000 personas que tiene asignadas: ' +
+      num(r.quirurgica.por1000, 1) + ' en ' + r.corto + ' y ' + num(a.quirurgica.por1000, 1) + ' en ' + a.corto + '. '));
+    const f1 = el('a', null, S.fuentes.consulta[0]);
+    f1.href = S.fuentes.consulta[1];
+    pie.appendChild(f1);
+    pie.appendChild(document.createTextNode('; población asignada, memorias de 2024 '));
+    [r, a].filter(function (c, i, xs) { return xs.indexOf(c) === i && (i === 0 || c.hid !== r.hid); }).forEach(function (c, i) {
+      if (i) pie.appendChild(document.createTextNode(' y '));
+      const m = el('a', null, c.corto.replace(/^el /, 'del ').replace(/^la /, 'de la '));
+      m.href = S.memorias[c.hid];
+      pie.appendChild(m);
+    });
+    pie.appendChild(document.createTextNode('.'));
+  }
+
   /* ── Vivienda: el resumen de vivienda.html ───────────────────────────
      Los datos los escribe herramientas/vivienda.py; aquí solo se enseñan
      las viviendas nuevas por cada 100 vecinos nuevos y se manda a la página. */
@@ -1848,6 +1946,7 @@
     tamano();
     dinero();
     salir();
+    espera();
     vivienda();
     listas();
     metodo();

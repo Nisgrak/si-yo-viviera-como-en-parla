@@ -25,12 +25,20 @@
   }
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return '&#' + c.charCodeAt(0) + ';'; }); }
 
-  /* Los fondos, precargados: una imagen a medio cargar saldría en blanco. La
-     ruta se resuelve al cargar, antes de que la barra pase a /getafe/…/. */
+  /* Los fondos se piden al ir a por un cartel (pasar por el botón, llegar con
+     el teclado) y se espera a que estén antes de imprimir: a medio cargar
+     saldrían en blanco. La ruta se resuelve al cargar, antes de que la barra
+     pase a /getafe/…/. */
   const FONDOS = ['papel', 'barrio'];
   const ROTULO_FONDO = { papel: 'Papel', barrio: 'El barrio' };
   const RUTA = new URL('assets/cartel/', document.baseURI).href;
-  FONDOS.forEach(function (f) { (new Image()).src = RUTA + f + '.jpg'; });
+  let precargados = false;
+  function precargar(e) {
+    if (precargados || !e.target.closest || !e.target.closest('.compartir, .fondos')) return;
+    precargados = true;
+    FONDOS.forEach(function (f) { (new Image()).src = RUTA + f + '.jpg'; });
+  }
+  ['pointerover', 'focusin', 'touchstart'].forEach(function (t) { document.addEventListener(t, precargar, { passive: true }); });
 
   function fondoElegido() {
     try {
@@ -154,8 +162,12 @@
       window.removeEventListener('afterprint', limpiar);
     }
     window.addEventListener('afterprint', limpiar);
-    window.print();
-    setTimeout(limpiar, 1500);   /* Safari no siempre dispara afterprint */
+    const img = document.querySelector('.cartel--afiche .kfondo');
+    const listo = img && img.decode ? img.decode().catch(function () {}) : Promise.resolve();
+    listo.then(function () {
+      window.print();
+      setTimeout(limpiar, 1500);   /* Safari no siempre dispara afterprint */
+    });
   }
 
   let pendiente = null;

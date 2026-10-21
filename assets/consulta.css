@@ -72,7 +72,36 @@
 /* ── Los resultados ───────────────────────────────────────────────────── */
 
 .con__res { min-width: 0; }
-.vista { display: flex; gap: .5rem; margin-bottom: 1.25rem; }
+.vista { display: flex; flex-wrap: wrap; gap: .5rem; }
+.con__barra { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 1rem; margin-bottom: 1.25rem; }
+.con__herr { display: flex; flex-wrap: wrap; gap: .5rem; }
+.con__boton {
+  padding: .4rem .8rem;
+  border: 1px solid var(--line-alta); border-radius: 6px;
+  background: none; color: var(--ink-2);
+  font: inherit; font-size: .8125rem; font-weight: 700; cursor: pointer;
+  transition: border-color .16s var(--sal-corta), color .16s var(--sal-corta), background .16s var(--sal-corta), scale .14s var(--sal-corta);
+}
+.con__boton:hover:not(:disabled) { border-color: var(--ink-3); color: var(--ink); }
+.con__boton:active:not(:disabled) { scale: .965; }
+.con__boton:disabled { opacity: .45; cursor: default; }
+.con__boton--hecho { border-color: var(--ref); color: var(--ref); }
+.con__boton:focus-visible { outline: 2px solid var(--ref); outline-offset: 2px; }
+
+/* En el móvil la lista va plegada hasta que se pide o se busca. */
+.cat__abrir {
+  display: none;
+  margin: .55rem 0 0; padding: .45rem .8rem; width: 100%;
+  border: 1px solid var(--line-alta); border-radius: 6px;
+  background: var(--bg); color: var(--ink);
+  font: inherit; font-size: .875rem; font-weight: 700; cursor: pointer;
+}
+@media (max-width: 61.99rem) {
+  .cat__abrir { display: block; }
+  .cat:not(.cat--abierta) .cat__lista { display: none; }
+  .cat:not(.cat--abierta) .cat__cab { border-bottom: 0; }
+  .cat--abierta .cat__lista { animation: con-entra .3s var(--sal) both; }
+}
 .res__vacio { padding: 2rem 0; font-size: 1rem; color: var(--ink-3); }
 
 #resultados { display: grid; gap: clamp(1.75rem, 5vw, 2.5rem); }
@@ -285,3 +314,17 @@
 @media (prefers-reduced-motion: reduce) {
   .con [class], .con svg * { animation: none !important; }
 }
+
+/* Con el teclado, la gráfica enfocada se marca y el punto activo crece. */
+.gj__svg:focus-visible, .graf__svg:focus-visible { outline: 2px solid var(--ref); outline-offset: 4px; border-radius: 4px; }
+.gj__svg:focus:not(:focus-visible), .graf__svg:focus:not(:focus-visible) { outline: none; }
+.graf__caja { position: relative; overflow: visible; }
+.graf__p--activo { transform: scale(1.45); stroke: var(--ink); stroke-width: 1.5; }
+.gj__tip-f--eje i { font-style: normal; font-weight: 800; color: var(--ink-3); }
+
+/* ── De cuándo es cada dato ───────────────────────────────────────────── */
+.al-dia__intro { max-width: 40rem; margin-bottom: 1.25rem; color: var(--ink-2); }
+.al-dia th, .al-dia td { text-align: left; vertical-align: top; }
+.al-dia .tabla__ciudad { white-space: normal; font-weight: 600; position: static; max-width: 30rem; }
+.al-dia td { color: var(--ink-2); white-space: nowrap; }
+@media (max-width: 40rem) { .al-dia td { white-space: normal; } }

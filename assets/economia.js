@@ -568,6 +568,118 @@
     cuentas();
   }
 
+  /* ── Lo que paga un vecino ───────────────────────────────────────────
+     El IBI y el impuesto de un coche de 12 a 15,99 caballos, en 2026, con
+     los tipos de cada ayuntamiento (herramientas/impuestos.py). Dos casos:
+     la misma casa en las once, para que solo cambie lo que cobra cada uno, y
+     la casa media de cada ciudad. Las basuras, aparte. */
+  function paga() {
+    const P = window.IMPUESTOS;
+    const caja = $('#paga');
+    if (!P || !P.ciudades[REF] || !P.ciudades[AQUI]) { if (caja) caja.hidden = true; return; }
+    const c = function (id) { return P.ciudades[id]; };
+    const misma = function (id) { return c(id).comunIbi + c(id).coche; };
+    const suya = function (id) { return c(id).ibi + c(id).coche; };
+    /* Con espacio duro: la cifra y su unidad no se separan de línea. */
+    const eur = function (v) { return num(v, 2) + '\u00a0€'; };
+    const tipo = function (v) {
+      return v.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 4 }) + '\u00a0%';
+    };
+    /* El puesto de la más barata a la más cara; los empates lo comparten. */
+    const barato = function (v, id) { return 1 + IDS.filter(function (x) { return v(x) < v(id) - 0.005; }).length; };
+
+    function todas(f) {
+      const ids = IDS.slice().sort(function (a, b) { return f.v(a) - f.v(b); });
+      const art = el('article', 'plata');
+      art.appendChild(el('h3', 'plata__h', f.titulo));
+      art.appendChild(el('p', 'plata__pie', f.pie));
+      const t = el('p', 'plata__titular');
+      t.innerHTML = f.titular;
+      art.appendChild(t);
+      const tope = f.v(ids[ids.length - 1]);
+      const ul = el('ul', 'mun');
+      ids.forEach(function (id) {
+        const li = el('li', 'mun__fila');
+        li.dataset.quien = id === REF ? 'referencia' : id === AQUI ? 'aqui' : 'otro';
+        li.appendChild(el('span', 'mun__q', NOMBRE[id]));
+        li.appendChild(el('span', 'mun__v', eur(f.v(id))));
+        const b = el('span', 'mun__barra');
+        const i = el('i');
+        i.style.width = (f.v(id) / tope * 100).toFixed(1) + '%';
+        b.appendChild(i);
+        li.appendChild(b);
+        ul.appendChild(li);
+      });
+      art.appendChild(ul);
+      if (f.nota) art.appendChild(el('p', 'renta__nota', f.nota));
+      return art;
+    }
+    const cont = $('#paga-fichas');
+    vaciar(cont);
+    const k1 = barato(misma, REF), k2 = barato(suya, REF);
+    cont.appendChild(todas({
+      titulo: 'La misma casa en las once', v: misma,
+      pie: 'IBI y coche al año, ' + P.anio + ', para una vivienda de ' + entero(P.comun.vc) +
+        ' € de valor catastral (la mediana de las once) y un coche de 12 a 15,99 caballos fiscales',
+      titular: 'Con la misma casa, en Parla se pagan <b>' + eur(misma(REF)) + '</b>; en ' + NOMBRE[AQUI] + ', <b>' +
+        eur(misma(AQUI)) + '</b>. Parla es la ' + k1 + '.ª más barata de las ' + N + '.',
+      nota: 'El tipo del IBI de Parla es del ' + tipo(c(REF).tipo) + '; el de ' + NOMBRE[AQUI] + ', del ' +
+        tipo(c(AQUI).tipo) + '. ' +
+        'De las ' + N + ', ' + IDS.filter(function (id) { return c(id).tipo < c(REF).tipo; }).length + ' cobran un tipo más bajo que Parla.'
+    }));
+    cont.appendChild(todas({
+      titulo: 'La casa media de cada ciudad', v: suya,
+      pie: 'IBI de la vivienda media de cada ciudad y el mismo coche, ' + P.anio,
+      titular: 'Con su casa media, un vecino de Parla paga <b>' + eur(suya(REF)) + '</b>; uno de ' + NOMBRE[AQUI] +
+        ', <b>' + eur(suya(AQUI)) + '</b>. Parla es la ' + k2 + '.ª más barata de las ' + N + '.',
+      nota: 'Para el Catastro, la vivienda media vale ' + entero(c(REF).vc) + ' € en Parla y ' + entero(c(AQUI).vc) +
+        ' € en ' + NOMBRE[AQUI] + '. El recibo es antes de bonificaciones, como la de familia numerosa.'
+    }));
+    /* El cierre dice qué pesa más, el tipo o el valor de las casas, solo si
+       los dos puestos lo dicen. */
+    const lugar = 'Con la misma casa, Parla es la ' + k1 + '.ª más barata de las ' + N + '; con la suya, la ' + k2 + '.ª. ';
+    $('#paga-cierre').textContent = lugar + (k2 < k1
+      ? 'Los tipos son los mismos en las dos cuentas; lo que cambia es el valor de la casa. Para el Catastro, la vivienda media de Parla es la ' +
+        barato(function (id) { return c(id).vc; }, REF) + '.ª más barata de las ' + N + '.'
+      : k2 > k1 ? 'Los tipos son los mismos en las dos cuentas; lo que cambia es el valor de la casa.' : '');
+
+    const ul = $('#paga-basuras');
+    vaciar(ul);
+    const tb = Math.max.apply(null, IDS.map(function (id) { return c(id).basuras || 0; }));
+    [[REF, 'referencia'], [AQUI, 'aqui']].forEach(function (g) {
+      const x = c(g[0]);
+      const li = el('li', 'mun__fila');
+      li.dataset.quien = g[1];
+      li.appendChild(el('span', 'mun__q', NOMBRE[g[0]]));
+      li.appendChild(el('span', 'mun__v', x.basuras == null ? 'sin calcular' : x.basuras ? eur(x.basuras) : 'no hay'));
+      const b = el('span', 'mun__barra');
+      const i = el('i');
+      i.style.width = ((x.basuras || 0) / tb * 100).toFixed(1) + '%';
+      b.appendChild(i);
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+    const pie = $('#paga-basuras-pie');
+    vaciar(pie);
+    pie.appendChild(document.createTextNode('Para la casa media de cada ciudad y tres vecinos empadronados, sin reducciones. '));
+    [REF, AQUI].forEach(function (id) {
+      pie.appendChild(document.createTextNode(NOMBRE[id] + ': '));
+      const a = el('a', null, c(id).basurasNota);
+      a.href = c(id).basurasFuente;
+      pie.appendChild(a);
+      pie.appendChild(document.createTextNode(' '));
+    });
+    pie.appendChild(document.createTextNode('Tipos: '));
+    const f1 = el('a', null, P.fuentes.tipos[0]);
+    f1.href = P.fuentes.tipos[1];
+    pie.appendChild(f1);
+    pie.appendChild(document.createTextNode('. Valor de las viviendas: '));
+    const f2 = el('a', null, P.fuentes.valor[0]);
+    f2.href = P.fuentes.valor[1];
+    pie.appendChild(f2);
+    pie.appendChild(document.createTextNode('.'));
+  }
+
   /* Lo que añade cuentas.json: lo que se paga por la deuda, los ingresos y
      el plazo de pago. Si no está, la sección se queda con lo de siempre. */
   function cuentas() {
@@ -680,6 +792,7 @@
     renta();
     produce();
     ayuntamiento();
+    paga();
     if (window.INDICE) window.INDICE.refrescar({ ciudad: AQUI, nombre: NOMBRE[AQUI] });
   }
 

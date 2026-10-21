@@ -137,6 +137,18 @@
   <div id="lista-ganancias"></div>
 </section>
 
+<!-- ── La espera ─────────────────────────────────────────────────────────
+     Las listas de espera del hospital de cada ciudad (datos/sanidad.js). -->
+<section class="bloque bloque--salir" id="espera" data-indice="La espera">
+  <div class="env">
+    <h2 class="bloque__h">La espera</h2>
+    <p class="bloque__intro" id="espera-txt"></p>
+    <div id="espera-listas"></div>
+    <p class="bloque__intro salir__tren" id="espera-cuenta"></p>
+    <p class="salir__pie" id="espera-pie"></p>
+  </div>
+</section>
+
 <!-- ── El dinero ─────────────────────────────────────────────────────── -->
 <section class="bloque bloque--dinero" id="dinero" data-indice="El dinero">
   <div class="env">
@@ -273,6 +285,17 @@
         Comunidad de Madrid, que se dan solo por habitante.
       </p>
 
+      <h3>La espera</h3>
+      <p>
+        Las listas de espera son las que publica cada mes el Servicio Madrileño de Salud por
+        hospital: cuántos pacientes siguen en lista y cuántos días llevan esperando de media. Se
+        compara el hospital que le corresponde a cada ciudad según su memoria de 2024: Pinto no
+        tiene, y le toca el de Getafe; Pozuelo y Majadahonda comparten el Puerta de Hierro;
+        Móstoles tiene dos, y se usa el de Móstoles, que atiende a dos de cada tres vecinos. La
+        lista para operarse es la completa, no solo la «estructural» que la Comunidad da como
+        titular. La espera no suma al recuento, que cuenta los servicios que hay en cada ciudad.
+      </p>
+
       <h3>De dónde sale la población</h3>
       <p>
         Cifras oficiales del INE a 1 de enero de 2025: <span id="pob-metodo">—</span>.
@@ -299,6 +322,10 @@
       Hecho con datos abiertos del INE, la Comunidad de Madrid, los ministerios de Hacienda y de
       Sanidad, el IGN y Copernicus, por un parleño preocupado por su municipio.
     </p>
+    <p class="pie__meta pie__fecha">
+      Datos revisados en <span data-actualizado>octubre de 2026</span>.
+      <a href="consulta.html#al-dia">De cuándo es cada uno</a>
+    </p>
   </div>
 </footer>
 
@@ -312,6 +339,7 @@
 <script src="datos/vivienda.js"></script>
 <script src="datos/economia.js"></script>
 <script src="datos/transporte.js"></script>
+<script src="datos/sanidad.js"></script>
 <script src="assets/calculo.js"></script>
 <script src="assets/qr.js"></script>
 <script src="assets/indice.js"></script>

@@ -104,6 +104,10 @@ Además del recuento, tres páginas por ciudad, cada una con su resumen en la po
 - **Infraestructuras**: en coche (por dónde sale la gente) y en transporte público (el tren a
   mano, cuánto se tarda hasta el centro y lo que cuesta el abono).
 
-Siguiente: lo que paga un vecino en impuestos municipales, las listas de espera del hospital,
-los empleos a los que se llega en 45 minutos y los distritos de Madrid; después, deporte y
-teatros cuando haya una fuente comparable entre municipios.
+En el recuento, «La espera»: las listas de espera del hospital que le toca a cada ciudad, donde
+Parla sale mejor que varias y se dice. En economía, «Lo que paga un vecino»: el IBI y el coche
+con la misma casa y con la de cada ciudad. Y aparte, «Todos los datos», la consulta de las once
+ciudades a la vez.
+
+Siguiente: los empleos a los que se llega en 45 minutos y los distritos de Madrid; después,
+deporte y teatros cuando haya una fuente comparable entre municipios.

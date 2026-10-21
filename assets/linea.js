@@ -39,7 +39,10 @@
     const W = Math.max(280, fig.clientWidth || 600);
     const estrecho = W < 520;
     const H = op.alto ? op.alto(estrecho) : (estrecho ? 220 : 280);
-    const M = { t: 18, r: op.der || (estrecho ? 58 : 92), b: 26, l: op.izq || (estrecho ? 38 : 48) };
+    /* A la derecha caben los nombres del final de la línea: se mide el más
+       largo (unos 7 px por letra) para que «Móstoles» no se corte. */
+    const largo = op.series.reduce(function (m, s) { return Math.max(m, (s.corto || s.nombre || '').length); }, 0);
+    const M = { t: 18, r: op.der || Math.max(estrecho ? 58 : 92, Math.round(largo * 7 + 14)), b: 26, l: op.izq || (estrecho ? 38 : 48) };
     const n = op.etiquetas.length;
     let max = 0, min = 0;
     op.series.forEach(function (s) {

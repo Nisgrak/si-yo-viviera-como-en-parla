@@ -502,6 +502,27 @@ encontró.
 - **Reparto por municipio de la venta del IVIMA.** Solo en prensa (Público, 2022: 240 en Parla); la página lo dice así.
 - **Ayudas al alquiler por municipio.** Existen en datos abiertos de la Comunidad (2022-2023), pero son convocatorias sueltas y no entraron.
 
+### Lo que paga un vecino: los impuestos municipales
+
+Sección `#paga` de `economia.html` (`paga()` en `assets/economia.js`), con `datos/impuestos.js`,
+que escribe `herramientas/impuestos.py` desde `herramientas/impuestos/impuestos.json`. Ese JSON
+lo saca `herramientas/impuestos/impuestos.py` (`python3 -I`; descargas en `/var/tmp/impuestos/`)
+de los tipos de 2026 de Hacienda (IBI, vehículos, ICIO, IAE), el valor catastral medio
+residencial del Catastro (tablas URBO4228 y URAO4228) y la ordenanza de basuras de cada ciudad.
+Los tipos del IBI cuadran con los que ya usa la vivienda.
+
+- **Dos cuentas**: la misma vivienda en las once (valor catastral mediano, 83.647 €) y la
+  vivienda media de cada una; en las dos, IBI más un coche de 12 a 15,99 CV (cuota mínima legal
+  de 71,94 € por el coeficiente de cada ciudad). Responde a «Parla recauda lo que menos: ¿cobra
+  menos o sus vecinos tienen menos?». En 2026, con la misma casa Parla es la 7.ª más barata de 11
+  y su tipo del IBI (0,433 %) es más alto que el de seis; con su casa, la 3.ª. Lo que la abarata
+  es el valor de las casas.
+- **Basuras, aparte y sin sumar**: Parla tiene la tasa aprobada para 2026 y, según la prensa, el
+  alcalde anunció que no se cobrará, sin acto oficial; Alcorcón aplazó el cobro a 2027; Pinto
+  cobra con un coeficiente anual que no publica; Pozuelo es una estimación por tramo. Las notas
+  cortas que salen en la página están en `BASURAS`, en `herramientas/impuestos.py`.
+- **Fuera**: plusvalía e ICIO (en el JSON, no en la página) y las bonificaciones.
+
 ### El dinero: la página de la economía
 
 **La parte pública** está en `economia.html`, que se publica como `/<ciudad>/economia/`. En la web
@@ -720,6 +741,35 @@ y UE): ahí Parla queda en 23,88 €, casi todo del concepto 797, otras transfer
 El capítulo 7 entero no va como serie: es demasiado volátil, y en Alcobendas 2021 sale negativo
 por un ajuste de consolidación (cuenta `7t`, −2.716.967,45 €).
 
+### La espera: las listas de espera de los hospitales
+
+Sección `#espera` del recuento (`espera()` en `assets/app.js`), con `datos/sanidad.js`, que
+escribe `herramientas/sanidad.py` desde `herramientas/sanidad/espera.json`. Ese JSON lo
+sacan `herramientas/sanidad/descarga_espera.py` (descarga en `/var/tmp/espera/`) y
+`espera.py`, del servicio de consulta del SERMAS por hospital (opción «Total», mes a mes) y
+de la tabla «Población de referencia» de la memoria 2024 de cada hospital (tarjetas
+sanitarias a 31-12-2024; Torrejón, a 31-12-2023).
+
+- **El hospital de cada ciudad**, según las memorias: Parla, Infanta Cristina; Getafe y
+  **Pinto**, el de Getafe («la totalidad de los centros de salud de las localidades de Getafe y
+  Pinto»); Fuenlabrada, el suyo; Leganés, Severo Ochoa; Alcorcón, Fundación Alcorcón;
+  Alcobendas, Infanta Sofía; Móstoles, el de Móstoles (68 % de su población; el 32 % restante
+  va al Rey Juan Carlos, que no se usa); Torrejón, el suyo (concesión); Pozuelo y Majadahonda,
+  Puerta de Hierro.
+- **Lo que se enseña**: la demora media (días naturales que llevan esperando los que siguen en
+  lista, no lo que esperaron los atendidos) para operarse, para la primera consulta y para las
+  pruebas, en el último mes publicado y el mismo mes de dos años antes. Y los pacientes por cada
+  1.000 personas asignadas, solo en el pie: con la libre elección, la lista de un hospital no es
+  solo de sus vecinos, así que eso mide la presión sobre el hospital, no cuántos vecinos esperan.
+- **Quirúrgica completa**: la suma de los hospitales (120.168 en agosto de 2026) es la lista
+  entera, no los 92.525 «estructurales» del titular de la Comunidad. Son comparables entre sí,
+  no con ese titular.
+- **Torrejón** publica consultas y pruebas a cero desde julio de 2026: se trata como sin dato.
+- **Para actualizar**: `python3 -I herramientas/sanidad/descarga_espera.py AAAA-MM …` (el mes
+  nuevo y el mismo mes de uno y dos años antes; por defecto 2026-08 2025-08 2024-08),
+  `python3 -I herramientas/sanidad/espera.py` (necesita `pdftotext` para las memorias) y
+  `python3 herramientas/sanidad.py`. El año de comparación es `ANTES` en `sanidad.py`.
+
 ### Plantilla médica de los hospitales: mirado y descartado
 
 Sí se publica, y con mucho detalle. Dos fuentes:
@@ -895,9 +945,11 @@ cubre ocho municipios (Parla, Torrejón de Velasco, Torrejón de la Calzada, Bat
 Sagra, Casarrubuelos, Serranillos del Valle y Griñón), que suman 182.030 habitantes, mientras
 que el de Getafe cubre Getafe y Pinto, 249.889. El hospital de Parla atiende a más municipios
 pero a 68.000 personas menos. La lista de espera quirúrgica de la Comunidad de Madrid lo
-confirma: en 2025, 88 días de demora media en Getafe frente a 64 en Parla. Además, ni
-Fuenlabrada ni el Severo Ochoa publican su cobertura, así que tampoco sería un indicador
-uniforme.
+confirma: en 2025, 88 días de demora media en Getafe frente a 64 en Parla. Esa lista sí entró
+después, en su propia sección («La espera», más arriba), y ahí se dice cuando Parla espera
+menos. La población que tiene asignada cada hospital sale de su memoria de 2024, que también
+la publican Fuenlabrada y el Severo Ochoa; se usa solo para dar los pacientes por cada 1.000,
+en el pie.
 
 ## Desplegar
 

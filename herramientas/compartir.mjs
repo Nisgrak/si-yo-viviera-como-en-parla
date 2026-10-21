@@ -253,6 +253,41 @@ async function previa(clave, m) {
 await mkdir(join(DIST, 'assets/compartir'), { recursive: true });
 await pintar(imagenGeneral(), join(DIST, 'assets/compartir/general.png'));
 
+/* «Todos los datos»: el título y las once en barras con un dato de verdad,
+   la renta neta por persona, como se ven en la página. */
+function imagenConsulta() {
+  const filas = D.MUNICIPIOS.map((m) => ({ id: m.id, n: m.nombre, v: ultimo(E.ciudades[m.id].renta.persona) }))
+    .sort((a, b) => b.v - a.v);
+  const tope = filas[0].v;
+  const barras = filas.map((f) => {
+    const ref = f.id === D.REFERENCIA, color = ref ? '#1a67c2' : '#717171';
+    return `<div style="display:flex;align-items:center;gap:14px;height:24px">
+      <span style="width:170px;font-size:21px;font-weight:${ref ? 800 : 400};color:${ref ? '#1a67c2' : '#3a3a3a'}">${esc(f.n.replace(' de Alarcón', '').replace(' de Ardoz', ''))}</span>
+      <span style="width:${Math.round(f.v / tope * 240)}px;height:12px;border-radius:6px;background:${color}"></span>
+    </div>`;
+  }).join('');
+  return `<div style="${LIENZO};flex-direction:row;align-items:stretch;gap:56px">
+    <div style="display:flex;flex-direction:column;justify-content:space-between;flex:0 0 500px;width:500px">
+      <div style="display:flex;flex-direction:column;text-transform:uppercase;font-weight:800;font-stretch:62%;line-height:.9">
+        <span style="font-size:96px;color:#161616">Todos los datos</span>
+        <span style="font-size:48px;font-weight:700;color:#525252;margin-top:10px">de las once ciudades</span>
+      </div>
+      <div style="font-size:26px;line-height:1.3;color:#525252">Equipamientos, renta, trabajo, vivienda y transporte, con sus fuentes oficiales.</div>
+      <span style="font-size:22px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#c02719">Si yo viviera como en Parla</span>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:11px;flex:1;border-left:2px solid #161616;padding-left:40px">
+      <span style="font-size:20px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#717171">Renta neta por persona, 2024</span>
+      ${barras}
+    </div>
+  </div>`;
+}
+await pintar(imagenConsulta(), join(DIST, 'assets/compartir/consulta.png'));
+{
+  const f = join(DIST, 'consulta.html');
+  const h = await readFile(f, 'utf8');
+  await writeFile(f, h.replace(/(<meta property="og:image" content="[^"]*)general\.png"/, '$1consulta.png"'));
+}
+
 for (const m of D.MUNICIPIOS) {
   if (m.id === D.REFERENCIA) continue;
   /* Redondeado igual que la cifra grande de la portada. */
