@@ -194,6 +194,27 @@
       sim: '€', dec: 2, v: function (id) { return c(id).coche; }, fuente: fT, pagina: 'economia.html#paga' });
   }
 
+  /* El médico de cabecera y la escuela infantil. */
+  const PR = window.PRIMARIA, IN = window.INFANTIL;
+  if (PR) {
+    const fP = PR.fuentes.plantilla;
+    dato({ id: 'tarjetas-medico', grupo: 'Sanidad', titulo: 'Tarjetas sanitarias por plaza de médico de familia',
+      unidad: 'de 14 años o más, en los centros de salud de la ciudad; plazas de octubre de 2026, tarjetas de ' + PR.anioTarjetas,
+      dec: 0, v: function (id) { return PR.ciudades[id].familia; }, fuente: fP, pagina: 'index.html#cabecera' });
+    dato({ id: 'tarjetas-pediatra', grupo: 'Sanidad', titulo: 'Tarjetas sanitarias por plaza de pediatra',
+      unidad: 'de 0 a 13 años, en los centros de salud de la ciudad; plazas de octubre de 2026, tarjetas de ' + PR.anioTarjetas,
+      dec: 0, v: function (id) { return PR.ciudades[id].pediatria; }, fuente: fP, pagina: 'index.html#cabecera' });
+  }
+  if (IN) {
+    const fI = IN.fuentes.buscador;
+    dato({ id: 'infantil-sin-plaza', grupo: 'Equipamientos', titulo: 'Solicitudes sin plaza en la escuela infantil pública',
+      unidad: 'de cada 100, de 0 a 2 años, proceso de admisión ' + IN.cursoAdmision, sim: '%', dec: 1,
+      v: function (id) { return IN.ciudades[id].pctSinPlaza; }, fuente: fI, pagina: 'index.html#infantil' });
+    dato({ id: 'infantil-matriculados', grupo: 'Equipamientos', titulo: 'Niños en la escuela infantil pública',
+      unidad: 'por cada 100 niños de 0 a 2 años, curso ' + IN.cursoMatricula, dec: 1,
+      v: function (id) { return IN.ciudades[id].matriculadosPor100; }, fuente: fI, pagina: 'index.html#infantil' });
+  }
+
   /* La espera: la del hospital que le toca a cada ciudad (Pinto, el de
      Getafe; Pozuelo y Majadahonda comparten el Puerta de Hierro). */
   const SA = window.SANIDAD;
@@ -1069,6 +1090,9 @@
     ['Camas de hospital (Catálogo Nacional de Hospitales)', '2025', 'Cada año'],
     ['Listas de espera de los hospitales (SERMAS)', (window.SANIDAD || {}).mes || '—', 'Cada mes'],
     ['Población asignada a cada hospital (memorias de los hospitales)', '31 de diciembre de 2024', 'Cada año'],
+    ['Plazas de médico de familia y pediatra (plantilla del SERMAS)', '15 de octubre de 2026', 'Cuando cambia la plantilla'],
+    ['Tarjetas sanitarias por centro de salud (Observatorio del SERMAS)', '2024', 'Cada año'],
+    ['Admisión y alumnos de las escuelas infantiles públicas (Comunidad de Madrid)', 'Admisión ' + ((window.INFANTIL || {}).cursoAdmision || '—') + '; alumnos ' + ((window.INFANTIL || {}).cursoMatricula || '—'), 'Cada curso'],
     ['Zonas verdes (Copernicus, Urban Atlas)', '2018', 'Cada seis años'],
     ['Paro registrado (SEPE)', 'Media de 2025', 'Cada mes'],
     ['Contratos (SEPE)', '2025', 'Cada mes'],

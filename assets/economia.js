@@ -678,6 +678,23 @@
     f2.href = P.fuentes.valor[1];
     pie.appendChild(f2);
     pie.appendChild(document.createTextNode('.'));
+
+    /* El cartel y el enlace con su vista previa (/getafe/impuestos/). */
+    const bot = $('#paga-botones');
+    vaciar(bot);
+    if (!window.CARTEL) return;
+    bot.appendChild(cartel('impuestos', 'Lo que paga un vecino', function () {
+      return {
+        pre: 'Con su casa media y un coche, un vecino de ' + NOMBRE[AQUI] + ' paga al año',
+        cifra: entero(suya(AQUI)) + ' €', que: 'de IBI e impuesto de vehículos', fin: String(P.anio),
+        cajas: [{ q: 'Parla, con su casa media', v: entero(suya(REF)) + ' €', ref: true },
+          { q: 'Con la misma casa en las dos', v: NOMBRE[AQUI] + ' ' + entero(misma(AQUI)) + ' €; Parla ' + entero(misma(REF)) + ' €' }]
+      };
+    }));
+    bot.appendChild(window.CARTEL.enlace({
+      url: function () { return RUTAS ? RAIZ_WEB + AQUI + '/impuestos/' : 'economia.html?ir=paga#' + AQUI; },
+      titulo: function () { return 'Lo que paga un vecino de ' + NOMBRE[AQUI] + ' y uno de Parla'; }
+    }));
   }
 
   /* Lo que añade cuentas.json: lo que se paga por la deuda, los ingresos y

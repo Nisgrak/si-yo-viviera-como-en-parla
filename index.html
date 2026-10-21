@@ -146,6 +146,31 @@
     <div id="espera-listas"></div>
     <p class="bloque__intro salir__tren" id="espera-cuenta"></p>
     <p class="salir__pie" id="espera-pie"></p>
+    <div class="seccion__botones" id="espera-botones"></div>
+  </div>
+</section>
+
+<!-- ── El médico de cabecera ─────────────────────────────────────────────
+     Tarjetas sanitarias por plaza en los centros de salud (datos/primaria.js). -->
+<section class="bloque bloque--salir" id="cabecera" data-indice="El médico de cabecera">
+  <div class="env">
+    <h2 class="bloque__h">El médico de cabecera</h2>
+    <p class="bloque__intro" id="cabecera-txt"></p>
+    <div id="cabecera-listas"></div>
+    <p class="bloque__intro salir__tren" id="cabecera-cuenta"></p>
+    <p class="salir__pie" id="cabecera-pie"></p>
+  </div>
+</section>
+
+<!-- ── La escuela infantil ───────────────────────────────────────────────
+     Quién se queda sin plaza en la pública de 0 a 2 años (datos/infantil.js). -->
+<section class="bloque bloque--salir" id="infantil" data-indice="La escuela infantil">
+  <div class="env">
+    <h2 class="bloque__h">La escuela infantil</h2>
+    <p class="bloque__intro" id="infantil-txt"></p>
+    <div id="infantil-listas"></div>
+    <p class="bloque__intro salir__tren" id="infantil-cuenta"></p>
+    <p class="salir__pie" id="infantil-pie"></p>
   </div>
 </section>
 
@@ -296,6 +321,16 @@
         titular. La espera no suma al recuento, que cuenta los servicios que hay en cada ciudad.
       </p>
 
+      <h3>El médico de cabecera y la escuela infantil</h3>
+      <p>
+        Los médicos son las plazas de médico de familia y de pediatra de la plantilla del Servicio
+        Madrileño de Salud en los centros de salud de cada término, contra las tarjetas sanitarias
+        de esos centros: las de 0 a 13 años, con pediatría; las de 14 o más, con medicina de familia.
+        Las escuelas infantiles son las públicas de 0 a 2 años, con lo que publica la Comunidad de
+        Madrid en la ficha de cada una: solicitudes, admitidos y alumnos. Ninguna de las dos suma al
+        recuento, que ya cuenta los centros de salud y las escuelas infantiles que hay.
+      </p>
+
       <h3>De dónde sale la población</h3>
       <p>
         Cifras oficiales del INE a 1 de enero de 2025: <span id="pob-metodo">—</span>.
@@ -340,8 +375,11 @@
 <script src="datos/economia.js"></script>
 <script src="datos/transporte.js"></script>
 <script src="datos/sanidad.js"></script>
+<script src="datos/primaria.js"></script>
+<script src="datos/infantil.js"></script>
 <script src="assets/calculo.js"></script>
 <script src="assets/qr.js"></script>
+<script src="assets/cartel.js"></script>
 <script src="assets/indice.js"></script>
 <script src="assets/app.js"></script>
 </body>

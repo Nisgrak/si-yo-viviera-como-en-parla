@@ -104,8 +104,10 @@ Además del recuento, tres páginas por ciudad, cada una con su resumen en la po
 - **Infraestructuras**: en coche (por dónde sale la gente) y en transporte público (el tren a
   mano, cuánto se tarda hasta el centro y lo que cuesta el abono).
 
-En el recuento, «La espera»: las listas de espera del hospital que le toca a cada ciudad, donde
-Parla sale mejor que varias y se dice. En economía, «Lo que paga un vecino»: el IBI y el coche
+En el recuento, fuera del total: «La espera», las listas de espera del hospital que le toca a
+cada ciudad; «El médico de cabecera», tarjetas sanitarias por plaza de médico de familia y de
+pediatra, y «La escuela infantil», quién se queda sin plaza en la pública de 0 a 2 años. En la
+espera y en la escuela infantil Parla sale mejor que varias, y se dice. En economía, «Lo que paga un vecino»: el IBI y el coche
 con la misma casa y con la de cada ciudad. Y aparte, «Todos los datos», la consulta de las once
 ciudades a la vez.
 

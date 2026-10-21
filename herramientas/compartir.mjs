@@ -6,6 +6,10 @@
                                      con la ciudad puesta
      dist/<id>/vivienda/             la página de la vivienda, igual
      dist/<id>/economia/             la página de la economía, igual
+     dist/<id>/espera/               una página mínima con la vista previa de
+                                     «La espera», que manda al recuento
+     dist/<id>/impuestos/            y la de «Lo que paga un vecino», que
+                                     manda a la economía
      dist/assets/compartir/*.png     la imagen de vista previa general y la de
                                      cada municipio, con su total; y la de cada
                                      página de cada municipio, con su dato
@@ -37,6 +41,8 @@ require(join(RAIZ, 'datos/datos.js'));
 require(join(RAIZ, 'datos/economia.js'));
 require(join(RAIZ, 'datos/vivienda.js'));
 require(join(RAIZ, 'datos/transporte.js'));
+require(join(RAIZ, 'datos/sanidad.js'));
+require(join(RAIZ, 'datos/impuestos.js'));
 const CALCULO = require(join(RAIZ, 'assets/calculo.js'));
 const D = globalThis.DATOS;
 
@@ -137,6 +143,7 @@ function imagenPareja(seccion, titulo, nombre, vRef, vAqui, unidad, pie) {
 }
 
 const E = globalThis.ECONOMIA, V = globalThis.VIVIENDA, TP = globalThis.TRANSPORTE;
+const SA = globalThis.SANIDAD, IM = globalThis.IMPUESTOS;
 const ultimo = (xs) => xs[xs.length - 1];
 /* El dato de cada página, como lo calcula la propia página. */
 const CIFRAS = {
@@ -153,6 +160,20 @@ const CIFRAS = {
     v: (id) => num(TP.cobertura.ciudades[id].pct['15'], 0),
     pie: 'Edificios del Catastro y horarios del Consorcio Regional de Transportes de Madrid, 2026.',
     desc: (n, a, b) => `De cada 100 viviendas de Parla, ${a} tienen una estación a 15 minutos andando; en ${n}, ${b}. Por dónde sale la gente en coche, cuánto se tarda en tren hasta el centro y lo que cuesta el abono.`
+  },
+  espera: {
+    titulo: 'Días que llevan de media en lista los que esperan una operación, en el hospital que le toca a cada ciudad',
+    seccion: 'La espera', unidad: ' días',
+    v: (id) => SA.ciudades[id] ? num(SA.ciudades[id].quirurgica.dias, 1) : null,
+    pie: 'Servicio Madrileño de Salud, listas de espera por hospital, ' + SA.mes + '.',
+    desc: (n, a, b) => `Quien espera una operación en el hospital de Parla lleva de media ${a} días; en el que le toca a ${n}, ${b} días. La espera para operarse, para el especialista y para una prueba, con datos oficiales.`
+  },
+  impuestos: {
+    titulo: 'IBI y coche al año con la vivienda media de cada ciudad, ' + IM.anio,
+    seccion: 'Lo que paga un vecino', unidad: ' €',
+    v: (id) => IM.ciudades[id] ? num(IM.ciudades[id].ibi + IM.ciudades[id].coche, 0) : null,
+    pie: 'Tipos del Ministerio de Hacienda y valor catastral del Catastro, ' + IM.anio + '.',
+    desc: (n, a, b) => `Con su casa media y un coche, un vecino de Parla paga ${a} € al año de IBI e impuesto de vehículos; uno de ${n}, ${b} €. Y con la misma casa en las dos, lo que cobra cada ayuntamiento.`
   },
   vivienda: {
     titulo: 'Viviendas nuevas por cada 100 vecinos nuevos, de 2015 a 2025',
@@ -205,6 +226,40 @@ function pagina(id, nombre, total) {
 </head>
 <body>
 <p><a href="../#${id}">Si yo viviera como en Parla · ${esc(nombre)}</a></p>
+</body>
+</html>
+`;
+}
+
+/* La vista previa de una sección: una página mínima, como la de cada
+   municipio, que manda a la sección con ?ir= (assets/indice.js baja hasta
+   ella) y deja el # para la ciudad. */
+function paginaSeccion(id, ruta, destino, titulo, previa) {
+  const url = BASE + id + '/' + ruta;
+  return `<!doctype html>
+<!-- GENERADO por herramientas/compartir.mjs en cada publicación. Solo existe
+     para la vista previa del enlace; quien lo abre va a la sección. -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>${esc(titulo)}</title>
+<meta name="description" content="${esc(previa.desc)}">
+<link rel="canonical" href="${url}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="${esc(titulo)}">
+<meta property="og:description" content="${esc(previa.desc)}">
+<meta property="og:url" content="${url}">
+<meta property="og:image" content="${BASE}assets/compartir/${previa.imagen}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${esc(titulo)}">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta http-equiv="refresh" content="0; url=${destino}">
+<script>location.replace('${destino}');</script>
+</head>
+<body>
+<p><a href="${destino}">${esc(titulo)}</a></p>
 </body>
 </html>
 `;
@@ -301,5 +356,14 @@ for (const m of D.MUNICIPIOS) {
   await writeFile(join(DIST, m.id, 'vivienda', 'index.html'), paginaVivienda(m.id, m.nombre, await previa('vivienda', m)));
   await mkdir(join(DIST, m.id, 'economia'), { recursive: true });
   await writeFile(join(DIST, m.id, 'economia', 'index.html'), paginaEconomia(m.id, m.nombre, await previa('economia', m)));
+  /* Las dos secciones con enlace propio. */
+  for (const [clave, destino, titulo] of [
+    ['espera', `../../?ir=espera#${m.id}`, 'La espera en el hospital que le toca a ' + m.nombre + ' y en el de Parla'],
+    ['impuestos', `../economia/?ir=paga`, 'Lo que paga un vecino de ' + m.nombre + ' y uno de Parla']]) {
+    const p = await previa(clave, m);
+    if (!p) continue;
+    await mkdir(join(DIST, m.id, clave), { recursive: true });
+    await writeFile(join(DIST, m.id, clave, 'index.html'), paginaSeccion(m.id, clave + '/', destino, titulo, p));
+  }
   console.log(m.id.padEnd(12), total);
 }

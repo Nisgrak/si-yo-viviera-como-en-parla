@@ -1868,6 +1868,131 @@
       pie.appendChild(m);
     });
     pie.appendChild(document.createTextNode('.'));
+
+    /* El cartel y el enlace con su vista previa (/getafe/espera/). */
+    const bot = $('#espera-botones');
+    vaciar(bot);
+    if (!window.CARTEL) return;
+    const sinArticulo = function (c) { return c.corto.replace(/^(el|la) /, ''); };
+    bot.appendChild(window.CARTEL.boton({
+      id: 'espera', ciudad: function () { return AQUI; },
+      titulo: function () { return 'Parla y ' + NOMBRE[AQUI] + ' · La espera'; },
+      datos: function () {
+        return {
+          pre: NOMBRE[AQUI] + ' · ' + a.hospital + ' · ' + S.mes,
+          cifra: num(a.quirurgica.dias, 1), que: 'días de espera media para operarse',
+          cajas: [{ q: 'Parla · ' + sinArticulo(r), v: dias(r.quirurgica.dias) + ' para operarse', ref: true },
+            { q: NOMBRE[AQUI] + ', primera consulta', v: a.consultas ? dias(a.consultas.dias) : 'sin dato' },
+            { q: 'Parla, primera consulta', v: dias(r.consultas.dias), ref: true }]
+        };
+      }
+    }));
+    bot.appendChild(window.CARTEL.enlace({
+      url: function () { return RUTAS ? RAIZ_WEB + AQUI + '/espera/' : 'index.html?ir=espera#' + AQUI; },
+      titulo: function () { return 'La espera en el hospital que le toca a ' + NOMBRE[AQUI] + ' y en el de Parla'; }
+    }));
+  }
+
+  /* Dos filas con barra (Parla y tu ciudad, y si hace falta una tercera
+     de referencia), con un título encima: lo que usan el médico de cabecera
+     y la escuela infantil. La barra va contra la mayor de las once. */
+  function filasPar(cont, titulo, filas, tope, fmt) {
+    cont.appendChild(el('h3', 'espera__h', titulo));
+    const ul = el('ul', 'mun salir__filas espera__filas');
+    filas.forEach(function (f) {
+      const li = el('li', 'mun__fila');
+      li.setAttribute('data-quien', f[2]);
+      li.appendChild(el('span', 'mun__q', f[0]));
+      li.appendChild(el('span', 'mun__v', fmt(f[1])));
+      const b = el('span', 'mun__barra');
+      const i = el('i');
+      i.style.width = (f[1] / tope * 100).toFixed(1) + '%';
+      b.appendChild(i);
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+    cont.appendChild(ul);
+  }
+  /* El puesto de Parla de la cifra más baja a la más alta; los empates lo comparten. */
+  function deMenos(v) { return 1 + IDS_TODAS().filter(function (id) { return v(id) < v(REF); }).length; }
+  const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  function fechaLarga(iso) { const f = iso.split('-'); return +f[2] + ' de ' + MESES[+f[1] - 1] + ' de ' + f[0]; }
+  function IDS_TODAS() { return D.MUNICIPIOS.map(function (m) { return m.id; }); }
+  function pieFuentes(pie, texto, fuentes) {
+    vaciar(pie);
+    pie.appendChild(document.createTextNode(texto + ' '));
+    fuentes.forEach(function (f, i) {
+      if (i) pie.appendChild(document.createTextNode('; '));
+      const a = el('a', null, f[0]);
+      a.href = f[1];
+      pie.appendChild(a);
+    });
+    pie.appendChild(document.createTextNode('.'));
+  }
+
+  /* ── El médico de cabecera ────────────────────────────────────────────
+     Tarjetas sanitarias por cada plaza de médico de familia y de pediatra
+     en los centros de salud de cada ciudad (herramientas/primaria.py). Más
+     tarjetas por plaza es más gente para cada médico. */
+  function cabecera() {
+    const P = window.PRIMARIA;
+    const caja = $('#cabecera');
+    if (!P || !P.ciudades[REF] || !P.ciudades[AQUI]) { if (caja) caja.hidden = true; return; }
+    const c = function (id) { return P.ciudades[id]; };
+    $('#cabecera-txt').textContent = 'En los centros de salud de Parla hay una plaza de médico de familia por cada ' +
+      entero(c(REF).familia) + ' tarjetas sanitarias de 14 años o más; en los de ' + NOMBRE[AQUI] + ', una por cada ' +
+      entero(c(AQUI).familia) + '. En pediatría, una plaza por cada ' + entero(c(REF).pediatria) + ' tarjetas de niños en Parla y por cada ' +
+      entero(c(AQUI).pediatria) + ' en ' + NOMBRE[AQUI] + '.';
+    const cont = $('#cabecera-listas');
+    vaciar(cont);
+    [['familia', 'Tarjetas por plaza de médico de familia'], ['pediatria', 'Tarjetas de 0 a 13 años por plaza de pediatra']].forEach(function (L) {
+      const k = L[0];
+      const tope = Math.max.apply(null, IDS_TODAS().map(function (id) { return c(id)[k]; }));
+      filasPar(cont, L[1], [['Parla', c(REF)[k], 'referencia'], [NOMBRE[AQUI], c(AQUI)[k], 'aqui'],
+        ['Toda la Comunidad de Madrid', P.comunidad[k], 'otro']], tope, entero);
+    });
+    $('#cabecera-cuenta').textContent = 'Ordenadas de menos a más tarjetas por plaza, Parla es la ' +
+      deMenos(function (id) { return c(id).familia; }) + '.ª de las ' + letra(IDS_TODAS().length) + ' en medicina de familia y la ' +
+      deMenos(function (id) { return c(id).pediatria; }) + '.ª en pediatría.';
+    pieFuentes($('#cabecera-pie'), 'Se cuentan las plazas de la plantilla del Servicio Madrileño de Salud a ' +
+      fechaLarga(P.fechaPlantilla) + '; una plaza puede estar vacante. Las tarjetas son de ' + P.anioTarjetas +
+      ': donde haya más vecinos desde entonces, hoy habrá más tarjetas por plaza. Entran los centros de salud de cada ' +
+      'término, que pueden atender también a vecinos de al lado.', [P.fuentes.plantilla, P.fuentes.tarjetas]);
+  }
+
+  /* ── La escuela infantil ─────────────────────────────────────────────
+     Quién se queda sin plaza en la pública de 0 a 2 años, en el proceso
+     de admisión, y cuántos niños van a ella (herramientas/infantil.py). */
+  function infantil() {
+    const I = window.INFANTIL;
+    const caja = $('#infantil');
+    if (!I || !I.ciudades[REF] || !I.ciudades[AQUI]) { if (caja) caja.hidden = true; return; }
+    const c = function (id) { return I.ciudades[id]; };
+    const frase = function (id) {
+      return entero(c(id).solicitudes) + ' solicitudes y ' + entero(c(id).admitidos) + ' admitidos; sin plaza, unos ' +
+        entero(c(id).sinPlaza) + ', ' + num(c(id).pctSinPlaza, 1) + ' de cada 100';
+    };
+    $('#infantil-txt').textContent = 'En el proceso de admisión «' + I.cursoAdmision +
+      '» de las escuelas infantiles públicas, de 0 a 2 años, Parla tuvo ' + frase(REF) + '. En ' + NOMBRE[AQUI] + ', ' + frase(AQUI) + '.';
+    const cont = $('#infantil-listas');
+    vaciar(cont);
+    const todas = IDS_TODAS();
+    [['pctSinPlaza', 'De cada 100 solicitudes, sin plaza'],
+      ['matriculadosPor100', 'Niños de 0 a 2 años en la escuela infantil pública, por cada 100']].forEach(function (L) {
+      const k = L[0];
+      const tope = Math.max.apply(null, todas.map(function (id) { return c(id)[k]; }));
+      filasPar(cont, L[1], [['Parla', c(REF)[k], 'referencia'], [NOMBRE[AQUI], c(AQUI)[k], 'aqui']], tope,
+        function (v) { return num(v, 1); });
+    });
+    $('#infantil-cuenta').textContent = 'De las ' + letra(todas.length) + ', Parla es la ' +
+      deMenos(function (id) { return c(id).pctSinPlaza; }) + '.ª que menos solicitudes deja sin plaza. En Parla se presentan ' +
+      num(c(REF).solicitudesPor100, 0) + ' solicitudes por cada 100 niños de 0 a 2 años; en ' + NOMBRE[AQUI] + ', ' +
+      num(c(AQUI).solicitudesPor100, 0) + '.';
+    pieFuentes($('#infantil-pie'), 'Sin plaza es una estimación: las solicitudes no admitidas menos las que entraron desde la ' +
+      'lista de otra escuela de la ciudad. Solo cuenta el proceso ordinario: no están los niños que siguen del curso anterior ni ' +
+      'las familias que no piden plaza. Niños en la escuela infantil pública: matriculados en el curso ' + I.cursoMatricula +
+      ', contra los niños de 0 a 2 años del padrón a 1 de enero de 2025.', [I.fuentes.buscador,
+      ['INE · Población por edad, 1 de enero de 2025', 'https://www.ine.es/jaxiT3/Tabla.htm?t=68543']]);
   }
 
   /* ── Vivienda: el resumen de vivienda.html ───────────────────────────
@@ -1947,6 +2072,8 @@
     dinero();
     salir();
     espera();
+    cabecera();
+    infantil();
     vivienda();
     listas();
     metodo();

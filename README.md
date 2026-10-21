@@ -432,6 +432,17 @@ máquina de 2 GB. Para otra ciudad, su ayuntamiento en `ORIGENES` de `isocronas.
 estación de referencia) y añadirla a `--ciudades`. Mientras no esté calculada, su mapa lo dice. `isocronas.py` hace el mapa al revés (hasta dónde se llega desde el
 ayuntamiento), que se descartó para la web y queda para medir los empleos a los que se llega.
 
+### Compartir una sección: «La espera» y «Lo que paga un vecino»
+
+Las dos secciones nuevas llevan al final su cartel A4 (`CARTEL.boton`, de `assets/cartel.js`,
+que ahora carga también el recuento; su diálogo es `#elige-fondo-dato` para no chocar con el
+de `app.js`) y un botón «Compartir esta sección» (`CARTEL.enlace`): en el móvil abre el menú
+de compartir; si no, copia el enlace. El enlace es `/<ciudad>/espera/` o
+`/<ciudad>/impuestos/`, una página mínima que escribe `compartir.mjs` (`paginaSeccion`) con su
+vista previa —las dos cifras, como las de las páginas— y manda a la sección con `?ir=espera` o
+`?ir=paga`. `assets/indice.js` lee ese `?ir=` igual que un `#` que no es una ciudad y baja hasta
+la sección. Abierta desde la carpeta, sin build, el enlace es `index.html?ir=espera#getafe`.
+
 ### Los carteles de economía e infraestructuras
 
 Además del cartel de la portada (en `app.js`, que sabe del recuento), cinco datos de las otras
@@ -769,6 +780,30 @@ sanitarias a 31-12-2024; Torrejón, a 31-12-2023).
   nuevo y el mismo mes de uno y dos años antes; por defecto 2026-08 2025-08 2024-08),
   `python3 -I herramientas/sanidad/espera.py` (necesita `pdftotext` para las memorias) y
   `python3 herramientas/sanidad.py`. El año de comparación es `ANTES` en `sanidad.py`.
+
+### El médico de cabecera y la escuela infantil
+
+Dos secciones del recuento (`cabecera()` e `infantil()` en `assets/app.js`).
+
+- **`datos/primaria.js`** lo escribe `herramientas/primaria.py` desde
+  `herramientas/primaria/primaria.json` (`primaria/descarga.py` y `primaria/primaria.py`, con
+  `python3 -I`; hace falta `pdftotext`). Plazas de médico de familia y pediatra de la plantilla
+  orgánica de Atención Primaria del SERMAS (15-10-2026), por centro de salud; tarjetas
+  sanitarias de cada centro, del Observatorio de Resultados (2024); los centros de cada ciudad,
+  del buscador de libre elección. Tarjetas de 0 a 13 años contra pediatras; de 14 o más, contra
+  médicos de familia. El SIAP del Ministerio no baja de área de salud y Madrid es una sola, así
+  que no sirve. Se cuentan plazas, y una plaza puede estar vacante; el buscador da los
+  médicos con nombre de hoy (en el JSON), que no son una estadística oficial. Parla Este no
+  tiene tarjetas de 2024: el total de la ciudad es comparable, el centro suelto no.
+- **`datos/infantil.js`** lo escribe `herramientas/infantil.py` desde
+  `herramientas/infantil/infantil.json` (`infantil/infantil.py`, con `python3 -I`; `--sin-red`
+  lo rehace con lo descargado en `/var/tmp/infantil/`). Las gráficas «Proceso de admisión» y
+  «Número de alumnos» de la ficha de cada escuela infantil pública en el buscador de colegios.
+  Las solicitudes cuentan una vez, en la escuela de primera opción; «sin plaza» son las no
+  admitidas menos las admitidas desde la lista de otra escuela, así que es una estimación. Solo
+  el proceso ordinario. No hay fuente comparable de plazas ofertadas. Las escuelas encontradas
+  coinciden una a una con las del indicador de escuelas infantiles del recuento. En esto Parla
+  sale mejor que la mayoría, y la sección lo dice.
 
 ### Plantilla médica de los hospitales: mirado y descartado
 

@@ -255,7 +255,10 @@
      vez un poco después, por si los mapas han movido algo y nadie ha tocado
      la página. */
   (function () {
-    const h = decodeURIComponent((location.hash || '').replace('#', ''));
+    /* O ?ir=espera, que deja el # para la ciudad: es como llegan los
+       enlaces con vista previa (/getafe/espera/). */
+    const ir = new URLSearchParams(location.search).get('ir');
+    const h = ir || decodeURIComponent((location.hash || '').replace('#', ''));
     const ciudades = ((window.DATOS || {}).MUNICIPIOS || []).map(function (m) { return m.id; });
     if (!h || ciudades.indexOf(h) >= 0) return;
     function bajar() {

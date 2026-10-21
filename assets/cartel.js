@@ -11,7 +11,8 @@
        return { pre, cifra, que, fin, cajas: [{ q, v, ref }] };
      } })
    devuelve el botón «Cartel para compartir»; el dato se calcula al pulsar,
-   con la ciudad elegida en ese momento.
+   con la ciudad elegida en ese momento. Y CARTEL.enlace({ url, titulo }),
+   el de «Compartir esta sección».
    ═══════════════════════════════════════════════════════════════════════ */
 
 (function () {
@@ -172,10 +173,10 @@
 
   let pendiente = null;
   function dialogo() {
-    let d = document.getElementById('elige-fondo');
+    let d = document.getElementById('elige-fondo-dato');
     if (d) return d;
     d = el('dialog', 'fondos');
-    d.id = 'elige-fondo';
+    d.id = 'elige-fondo-dato';   /* el de app.js es «elige-fondo»: conviven en el recuento */
     d.appendChild(el('h2', 'fondos__h', 'Elige el cartel'));
     d.appendChild(el('p', 'fondos__p', 'Se abrirá el diálogo de impresión: elige ' +
       '«Guardar como PDF» para quedártelo, o imprime directamente en A4.'));
@@ -225,5 +226,35 @@
     return b;
   }
 
-  window.CARTEL = { boton: boton };
+  /* «Compartir esta sección»: el enlace con su propia vista previa
+     (/getafe/espera/, que escribe herramientas/compartir.mjs). En el móvil
+     abre el menú de compartir del sistema; si no, lo copia. */
+  const ENLACE = '<span class="compartir__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+    'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
+    '<path d="M10 14a4.5 4.5 0 0 0 6.4 0l3.2-3.2a4.5 4.5 0 0 0-6.4-6.4L11.8 5.8"/>' +
+    '<path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3.2 3.2a4.5 4.5 0 0 0 6.4 6.4l1.4-1.4"/></svg></span>';
+  function enlace(op) {
+    const b = el('button', 'compartir', ENLACE + '<span>Compartir esta sección</span>');
+    b.type = 'button';
+    const rotulo = b.lastChild;
+    function avisar(t) {
+      rotulo.textContent = t;
+      setTimeout(function () { rotulo.textContent = 'Compartir esta sección'; }, 1800);
+    }
+    b.addEventListener('click', function () {
+      const url = new URL(op.url(), location.href).href;
+      const tactil = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+      if (tactil && navigator.share) {
+        navigator.share({ title: op.titulo(), url: url }).catch(function () { /* cancelado */ });
+      } else if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () { avisar('Enlace copiado'); },
+          function () { window.prompt('Copia el enlace:', url); });
+      } else {
+        window.prompt('Copia el enlace:', url);
+      }
+    });
+    return b;
+  }
+
+  window.CARTEL = { boton: boton, enlace: enlace };
 })();

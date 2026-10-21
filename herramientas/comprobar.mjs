@@ -21,7 +21,7 @@ const D = globalThis.DATOS;
 
 /* Lo que tiene que salir con texto en cada página. */
 const PAGINAS = {
-  'index.html': ['#golpe', '#resumen-total', '#dinero-cuerpo', '#salir-txt', '#salir-tren', '#espera-txt', '#espera-cuenta', '#vivienda-txt'],
+  'index.html': ['#golpe', '#resumen-total', '#dinero-cuerpo', '#salir-txt', '#salir-tren', '#espera-txt', '#espera-cuenta', '#cabecera-txt', '#cabecera-cuenta', '#infantil-txt', '#infantil-cuenta', '#vivienda-txt'],
   'economia.html': ['#golpe', '#trabajo-cifras', '#paro-fichas', '#renta-fichas', '#produce-fichas', '#ayto-fichas', '#ayto-mas', '#paga-fichas', '#paga-cierre', '#paga-basuras-pie'],
   'vivienda.html': ['#golpe', '#comprar-cifras', '#alquilar-cifras', '#barrios-rangos', '#desahucios-cifras'],
   'infraestructura.html': ['#golpe', '#golpe-tren', '#cob-cifras', '#abono-cifras', '#tp-frase', '#tp-dato-parla', '#tp-dato-aqui'],
@@ -30,7 +30,8 @@ const PAGINAS = {
 /* Y lo que tiene que existir, aunque no lleve texto. */
 const PIEZAS = {
   'infraestructura.html': ['#tp-parla svg .tp__zona', '#tp-aqui svg .tp__zona', '#tp-ley li'],
-  'economia.html': ['#trabajo-graf svg', '#renta-reparto .reparto__barra'],
+  'index.html': ['#espera-botones .compartir'],
+  'economia.html': ['#trabajo-graf svg', '#renta-reparto .reparto__barra', '#paga-botones .compartir'],
   'consulta.html': ['#resultados .res__fila', '.cat__item input']
 };
 
