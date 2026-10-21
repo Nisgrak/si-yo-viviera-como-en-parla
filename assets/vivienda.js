@@ -136,6 +136,7 @@
      Sin barra cuando la cifra puede ser negativa. */
   function hecho(cont, h) {
     const art = el('article', 'hecho');
+    if (h.id) art.id = h.id;
     const t = el('h3', 'hecho__h', h.titulo);
     if (h.sentido) t.dataset.sentido = h.sentido;
     art.appendChild(t);
@@ -412,21 +413,21 @@
 
     const p = m(REF);
     hechos('#comprar-hechos', [
-      { titulo: 'Subida en diez años',
+      { id: 'subida-10', titulo: 'Subida en diez años',
         pie: 'Del ' + trimestre(cp.tasado.hace10.p) + ' al ' + trimestre(cp.tasado.ult.p) + '.',
         v: function (id) { return m(id).subida10; }, fmt: function (v) { return conSigno(v) + ' %'; } },
-      { titulo: 'Frente al máximo de 2007-2008',
+      { id: 'frente-maximo', titulo: 'Frente al máximo de 2007-2008',
         pie: 'Cuánto está hoy por encima o por debajo de lo más alto de la burbuja.',
         v: function (id) { return m(id).frenteMax; }, fmt: function (v) { return conSigno(v) + ' %'; }, barra: false,
         nota: 'De la burbuja al suelo, el metro cuadrado cayó un ' + num(-p.caida, 1) + ' % en Parla y un ' +
           num(-m(AQUI).caida, 1) + ' % en ' + NOMBRE[AQUI] + '.' },
-      { titulo: 'El recibo del IBI de una vivienda media, 2026', sentido: 'menos',
+      { id: 'ibi', titulo: 'El recibo del IBI de una vivienda media, 2026', sentido: 'menos',
         pie: 'El valor catastral medio de las viviendas por el tipo del impuesto que fija cada ayuntamiento.',
         v: function (id) { return C[id].ibi.recibo; }, fmt: function (v) { return euros(v) + '/año'; },
         nota: 'Parla: ' + euros(cp.ibi.vc) + ' de valor catastral al ' + tipo(cp.ibi.tipo) + ' %, con la última revisión del Catastro en ' +
           cp.ibi.revision + '. ' + NOMBRE[AQUI] + ': ' + euros(ca.ibi.vc) + ' al ' + tipo(ca.ibi.tipo) +
           ' %, revisión de ' + ca.ibi.revision + '.' },
-      { titulo: 'Compraventas de viviendas por 1.000 habitantes, 2025',
+      { id: 'compraventas', titulo: 'Compraventas de viviendas por 1.000 habitantes, 2025',
         v: function (id) { return m(id).compraventas; }, fmt: function (v) { return num(v, 2); },
         nota: 'Parla: ' + entero(cp.compraventas.total) + ', de ellas ' + entero(cp.compraventas.nueva) + ' nuevas. ' +
           NOMBRE[AQUI] + ': ' + entero(ca.compraventas.total) + ', de ellas ' + entero(ca.compraventas.nueva) + ' nuevas.' }
@@ -502,12 +503,12 @@
         conSigno(m(REF).subidaAlquiler) + ' % desde 2015. ' + NOMBRE[AQUI] + ': ' + conSigno(m(AQUI).subidaAlquiler) + ' %.'
     });
     hechos('#alquilar-hechos', [
-      { titulo: 'Los contratos nuevos de 2024', sentido: 'menos',
+      { id: 'contratos-nuevos', titulo: 'Los contratos nuevos de 2024', sentido: 'menos',
         pie: 'Alquiler medio de los contratos firmados en el año, según Hacienda.',
         v: function (id) { return m(id).nuevos; }, fmt: function (v) { return euros(v) + '/mes'; },
         nota: 'Los contratos en vigor ese año salían de media a ' + euros(cp.alquiler.medio) + ' en Parla y a ' +
           euros(ca.alquiler.medio) + ' en ' + NOMBRE[AQUI] + '.' },
-      { titulo: 'Pisos alquilados por 100.000 habitantes, 2024',
+      { id: 'pisos-alquilados', titulo: 'Pisos alquilados por 100.000 habitantes, 2024',
         pie: 'Los que los caseros particulares declaran a Hacienda como alquiler de vivienda.',
         v: function (id) { return m(id).alquiladas; }, fmt: function (v) { return num(v, 1); } }
     ]);
@@ -527,11 +528,11 @@
     });
     const cp = C[REF], ca = C[AQUI];
     hechos('#duenos-hechos', [
-      { titulo: 'Viviendas de sociedades con más de 100 en la ciudad',
+      { id: 'grandes-tenedores', titulo: 'Viviendas de sociedades con más de 100 en la ciudad',
         v: function (id) { return m(id).pctSoc100; }, fmt: function (v) { return pct(v, 2); },
         nota: 'Parla: ' + entero(cp.titular.soc100.inm) + ' viviendas de ' + cp.titular.soc100.n + ' sociedades. ' +
           NOMBRE[AQUI] + ': ' + entero(ca.titular.soc100.inm) + ' de ' + ca.titular.soc100.n + '.' },
-      { titulo: 'Vecinos que cobran un alquiler, por 1.000 habitantes',
+      { id: 'caseros', titulo: 'Vecinos que cobran un alquiler, por 1.000 habitantes',
         pie: 'Declaraciones del IRPF de 2024 con rendimientos de inmuebles alquilados. Cuenta dónde vive el casero, no dónde está el piso.',
         v: function (id) { return m(id).caseros; }, fmt: function (v) { return num(v, 1); } }
     ]);
@@ -545,12 +546,13 @@
     const cont = $('#barrios-rangos');
     vaciar(cont);
     [
-      { h: 'Alquiler del metro cuadrado, 2024', k: 'alq', fmt: function (v) { return num(v, 2) + ' €'; },
+      { id: 'barrios-alquiler', h: 'Alquiler del metro cuadrado, 2024', k: 'alq', fmt: function (v) { return num(v, 2) + ' €'; },
         pie: function (b) { return b.alqSecc + ' secciones con 30 o más alquileres'; } },
-      { h: 'Renta neta media por hogar, ' + C[REF].barrios.rentaAnio, k: 'renta', fmt: function (v) { return entero(v) + ' €'; },
+      { id: 'barrios-renta', h: 'Renta neta media por hogar, ' + C[REF].barrios.rentaAnio, k: 'renta', fmt: function (v) { return entero(v) + ' €'; },
         pie: function (b) { return b.rentaSecc + ' secciones'; } }
     ].forEach(function (g) {
       const art = el('article', 'rango');
+      art.id = g.id;
       art.appendChild(el('h3', 'hecho__h', g.h));
       let lo = Infinity, hi = 0;
       [REF, AQUI].forEach(function (id) { const r = C[id].barrios[g.k]; lo = Math.min(lo, r[0]); hi = Math.max(hi, r[1]); });
@@ -603,22 +605,22 @@
     const conc = function (x) { return x.ok / x.sol * 100; };
     const porHog = function (id, x) { return x.ok / C[id].censo.alquiler * 1000; };
     hechos('#publica-hechos', [
-      { titulo: 'Viviendas de la Agencia adjudicadas a nuevos inquilinos, 2023-2025', sentido: 'mas',
+      { id: 'avs-adjudicadas', titulo: 'Viviendas de la Agencia adjudicadas a nuevos inquilinos, 2023-2025', sentido: 'mas',
         pie: 'Viviendas que ya eran de la Agencia y que quedan libres y se entregan a otro hogar.',
         v: function (id) { return suma(C[id].publica.adj); }, fmt: function (v) { return entero(v); },
         nota: 'Por años, 2023, 2024 y 2025: ' + cp.publica.adj.join(', ') + ' en Parla y ' + ca.publica.adj.join(', ') +
           ' en ' + NOMBRE[AQUI] + '.' },
-      { titulo: 'El Plan Vive en agosto de 2026',
+      { id: 'plan-vive', titulo: 'El Plan Vive en agosto de 2026',
         pie: 'El programa de alquiler asequible de la Comunidad de Madrid.',
         v: function (id) { return C[id].publica.planVive ? 1 : 0; }, fmt: function (v) { return v ? 'Sí' : 'No'; }, barra: false,
         nota: 'Parla ' + plan(REF) + '. ' + NOMBRE[AQUI] + ' ' + plan(AQUI) + '.' },
-      { titulo: 'Ayudas al alquiler concedidas por 1.000 hogares de alquiler, 2023', sentido: 'mas',
+      { id: 'ayudas-alquiler', titulo: 'Ayudas al alquiler concedidas por 1.000 hogares de alquiler, 2023', sentido: 'mas',
         pie: 'Las dos ayudas de la Comunidad de 2023, a jóvenes y a hogares con pocos recursos o mayores de 65, entre los hogares de alquiler del Censo.',
         v: function (id) { return porHog(id, C[id].publica.ayudas2023); }, fmt: function (v) { return num(v, 1); },
         nota: 'Parla: ' + entero(cp.publica.ayudas2023.ok) + ' concedidas de ' + entero(cp.publica.ayudas2023.sol) +
           ' pedidas, el ' + pct(conc(cp.publica.ayudas2023)) + '. ' + NOMBRE[AQUI] + ': ' + entero(ca.publica.ayudas2023.ok) +
           ' de ' + entero(ca.publica.ayudas2023.sol) + ', el ' + pct(conc(ca.publica.ayudas2023)) + '.' },
-      { titulo: 'Bono Alquiler Joven concedido por 1.000 hogares de alquiler, 2022', sentido: 'mas',
+      { id: 'bono-joven', titulo: 'Bono Alquiler Joven concedido por 1.000 hogares de alquiler, 2022', sentido: 'mas',
         pie: 'La ayuda estatal para menores de 35 años, que gestiona la Comunidad.',
         v: function (id) { return porHog(id, C[id].publica.bono2022); }, fmt: function (v) { return num(v, 1); },
         nota: 'Parla: ' + entero(cp.publica.bono2022.ok) + ' concedidos de ' + entero(cp.publica.bono2022.sol) +
@@ -684,7 +686,7 @@
     });
 
     hechos('#desahucios-hechos', [
-      { titulo: 'Demandas por alquiler por 1.000 hogares de alquiler', sentido: 'menos',
+      { id: 'demandas', titulo: 'Demandas por alquiler por 1.000 hogares de alquiler', sentido: 'menos',
         pie: 'Las demandas de 2025 entre los hogares que vivían de alquiler en el Censo de 2021.',
         v: function (id) { return m(id).demandasHog; }, fmt: function (v) { return num(v, 2); } }
     ]);
@@ -705,25 +707,25 @@
   function parque() {
     const cp = C[REF], ca = C[AQUI];
     hechos('#parque-hechos', [
-      { titulo: 'Viviendas vacías, 2021',
+      { id: 'vacias', titulo: 'Viviendas vacías, 2021',
         pie: 'Sin contrato de luz o con un consumo mínimo durante todo 2020.',
         v: function (id) { return m(id).vacias; }, fmt: function (v) { return pct(v, 2); },
         nota: 'Parla: ' + entero(cp.censo.vacias) + ' de ' + entero(cp.censo.viviendas) + '. ' +
           NOMBRE[AQUI] + ': ' + entero(ca.censo.vacias) + ' de ' + entero(ca.censo.viviendas) + '.' },
-      { titulo: 'Viviendas en edificios de 1980 o antes',
+      { id: 'antiguas', titulo: 'Viviendas en edificios de 1980 o antes',
         v: function (id) { return m(id).antes81; }, fmt: function (v) { return pct(v, 2); } },
-      { titulo: 'Hogares de 5 o más personas en 60 m² o menos', sentido: 'menos',
+      { id: 'hacinamiento', titulo: 'Hogares de 5 o más personas en 60 m² o menos', sentido: 'menos',
         v: function (id) { return m(id).hog5; }, fmt: function (v) { return pct(v, 2); },
         nota: 'Parla: ' + entero(cp.censo.hog5en60) + ' hogares. ' + NOMBRE[AQUI] + ': ' + entero(ca.censo.hog5en60) + '.' },
-      { titulo: 'Jóvenes de 25 a 34 años que viven con sus padres, 2021', sentido: 'menos',
+      { id: 'jovenes-padres', titulo: 'Jóvenes de 25 a 34 años que viven con sus padres, 2021', sentido: 'menos',
         v: function (id) { return C[id].hogares.pctConPadres; }, fmt: function (v) { return pct(v); },
         nota: 'Parla: ' + entero(cp.hogares.conPadres) + ' de ' + entero(cp.hogares.jovenes) + '. ' + NOMBRE[AQUI] + ': ' +
           entero(ca.hogares.conPadres) + ' de ' + entero(ca.hogares.jovenes) + '.' },
-      { titulo: 'Viviendas en edificios de 4 o más plantas sin ascensor, 2011', sentido: 'menos',
+      { id: 'sin-ascensor', titulo: 'Viviendas en edificios de 4 o más plantas sin ascensor, 2011', sentido: 'menos',
         v: function (id) { return C[id].hogares.pctSinAscensor; }, fmt: function (v) { return pct(v); },
         nota: 'Parla: ' + entero(cp.hogares.sinAscensor) + ' de ' + entero(cp.hogares.viv2011) + ' viviendas principales. ' +
           NOMBRE[AQUI] + ': ' + entero(ca.hogares.sinAscensor) + ' de ' + entero(ca.hogares.viv2011) + '.' },
-      { titulo: 'Superficie media de las viviendas',
+      { id: 'superficie', titulo: 'Superficie media de las viviendas',
         v: function (id) { return C[id].censo.superficie; }, fmt: function (v) { return num(v, 2) + ' m²'; } }
     ]);
   }

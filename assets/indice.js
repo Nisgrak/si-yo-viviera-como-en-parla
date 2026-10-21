@@ -305,6 +305,7 @@
       let id = base, k = 2;
       while (document.getElementById(id)) id = base + '-' + k++;
       h.id = id;
+      h.dataset.idTexto = '';   /* sin nombre en clave: herramientas/comprobar.mjs lo avisa */
     }
     return h.id;
   }

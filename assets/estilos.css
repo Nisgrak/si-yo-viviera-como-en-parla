@@ -1524,5 +1524,5 @@ html[data-indice='barra'] .pie { padding-bottom: calc(clamp(3.5rem, 11vw, 6rem) 
   pointer-events: none;
 }
 /* Quien llega por el enlace ve el título con aire encima. */
-:is(.bloque__h3, .plata__h, .ind__h, .espera__h, .hecho__h)[id] { scroll-margin-top: 1.5rem; }
+:is(.bloque__h3, .plata__h, .ind__h, .espera__h, .hecho__h, .plata, .ind, .hecho, .rango)[id] { scroll-margin-top: 1.5rem; }
 @media print { .cadena { display: none; } }

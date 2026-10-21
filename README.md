@@ -208,10 +208,13 @@ No hay nada escrito a mano en él:
 (`.bloque__h`, `.bloque__h3`, `.plata__h`, `.ind__h`, `.espera__h`, `.hecho__h`), un botón con
 una cadena que copia el enlace a ese sitio con la ciudad elegida: `/getafe/economia/?ir=paro`
 publicado, `economia.html?ir=paro#getafe` desde la carpeta. Lleva a la sección o a la ficha si el
-título es el primero de ella y tiene `id`; si no, al propio título, con un `id` sacado de su texto
-al cargar la página (cambiar el texto de un título cambia su enlace). Un título nuevo con una de
-esas clases tiene cadena sin hacer nada; para otra clase, se añade a `TITULOS`. «Todos los datos»
-no la lleva: guarda su vista en la dirección.
+título es el primero de ella y tiene `id`; si no, al propio título. Todos llevan un `id` puesto a
+mano, su **nombre en clave**, para que los enlaces compartidos no se rompan si cambia el texto: en
+el HTML, o en el `id` de la ficha al pintarla (`ficha`, `todas` y `hecho` lo pasan a su
+`<article>`; `filasPar` lo pone en el título). Un título nuevo con una de esas clases tiene cadena
+sin hacer nada, pero necesita su nombre en clave: si no lo lleva, `indice.js` saca uno del texto y
+`herramientas/comprobar.mjs` falla diciendo cuál. Para otra clase de título, se añade a `TITULOS`.
+«Todos los datos» no la lleva: guarda su vista en la dirección.
 
 ### La vista previa de cada ciudad
 

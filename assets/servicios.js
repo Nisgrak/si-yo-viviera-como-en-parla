@@ -94,7 +94,7 @@
       };
       filasPar(cont, ind.titulo + ', por cada ' + entero(base.por) + ' ' + (base.etiqueta || 'habitantes'),
         [['Parla' + cuenta(REF), tasa(REF), 'referencia'], [NOMBRE[AQUI] + cuenta(AQUI), tasa(AQUI), 'aqui']], tope, dec,
-        (window.SENTIDO && window.SENTIDO.de(ind.id)) || 'mas');
+        (window.SENTIDO && window.SENTIDO.de(ind.id)) || 'mas', 'hay-' + ind.id);
       const ir = el('a', 'hay__ir', 'Ver en el recuento');
       ir.href = (RUTAS ? RAIZ_WEB : 'index.html') + '?ir=ind-' + ind.id + '#' + AQUI;
       cont.appendChild(ir);
@@ -132,6 +132,7 @@
         const x = S.ciudades[id][k]; return x ? Math.max(t, x.dias) : t;
       }, 0);
       const hL = el('h3', 'espera__h', L[1]);
+      hL.id = 'espera-' + k;
       hL.dataset.sentido = 'menos';
       cont.appendChild(hL);
       const ul = el('ul', 'mun salir__filas espera__filas');
@@ -216,8 +217,9 @@
   /* Dos filas con barra (Parla y tu ciudad, y si hace falta una tercera
      de referencia), con un título encima: lo que usan el médico de cabecera
      y la escuela infantil. La barra va contra la mayor de las once. */
-  function filasPar(cont, titulo, filas, tope, fmt, sentido) {
+  function filasPar(cont, titulo, filas, tope, fmt, sentido, id) {
     const h = el('h3', 'espera__h', titulo);
+    if (id) h.id = id;   /* el nombre en clave del enlace de la cadena (indice.js) */
     if (sentido) h.dataset.sentido = sentido;
     cont.appendChild(h);
     const ul = el('ul', 'mun salir__filas espera__filas');
@@ -271,7 +273,7 @@
       const k = L[0];
       const tope = Math.max.apply(null, IDS_TODAS().map(function (id) { return c(id)[k]; }));
       filasPar(cont, L[1], [['Parla', c(REF)[k], 'referencia'], [NOMBRE[AQUI], c(AQUI)[k], 'aqui'],
-        ['Toda la Comunidad de Madrid', P.comunidad[k], 'otro']], tope, entero, 'menos');
+        ['Toda la Comunidad de Madrid', P.comunidad[k], 'otro']], tope, entero, 'menos', 'cabecera-' + k);
     });
     $('#cabecera-cuenta').textContent = 'Ordenadas de menos a más tarjetas por plaza, Parla es la ' +
       deMenos(function (id) { return c(id).familia; }) + '.ª de las ' + letra(IDS_TODAS().length) + ' en medicina de familia y la ' +
@@ -308,12 +310,12 @@
     const cont = $('#infantil-listas');
     vaciar(cont);
     const todas = IDS_TODAS();
-    [['pctSinPlaza', 'De cada 100 solicitudes, sin plaza', 'menos'],
-      ['matriculadosPor100', 'Niños de 0 a 2 años en la escuela infantil pública, por cada 100', 'mas']].forEach(function (L) {
+    [['pctSinPlaza', 'De cada 100 solicitudes, sin plaza', 'menos', 'infantil-sin-plaza'],
+      ['matriculadosPor100', 'Niños de 0 a 2 años en la escuela infantil pública, por cada 100', 'mas', 'infantil-matriculados']].forEach(function (L) {
       const k = L[0];
       const tope = Math.max.apply(null, todas.map(function (id) { return c(id)[k]; }));
       filasPar(cont, L[1], [['Parla', c(REF)[k], 'referencia'], [NOMBRE[AQUI], c(AQUI)[k], 'aqui']], tope,
-        function (v) { return num(v, 1); }, L[2]);
+        function (v) { return num(v, 1); }, L[2], L[3]);
     });
     $('#infantil-cuenta').textContent = 'De las ' + letra(todas.length) + ', Parla es la ' +
       deMenos(function (id) { return c(id).pctSinPlaza; }) + '.ª que menos solicitudes deja sin plaza. En Parla se presentan ' +

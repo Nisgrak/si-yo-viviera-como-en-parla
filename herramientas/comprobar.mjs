@@ -108,6 +108,9 @@ for (const [pagina, conTexto] of Object.entries(PAGINAS)) {
       else if (!n.textContent.trim()) mal.push('vacío ' + s);
     });
     (PIEZAS[pagina] || []).forEach((s) => { if (!doc.querySelector(s)) mal.push('falta ' + s); });
+    /* Cada título con cadena lleva un id puesto a mano: si no, indice.js lo
+       saca del texto, y el enlace compartido se rompe al cambiar el texto. */
+    doc.querySelectorAll('[data-id-texto]').forEach((h) => mal.push('título sin nombre en clave: «' + h.textContent.trim() + '»'));
     if (mal.length) fallos.push(`${pagina} #${m.id}: ${mal.join('; ')}`);
     process.stdout.write(mal.length ? '✗' : '·');
     dom.window.close();

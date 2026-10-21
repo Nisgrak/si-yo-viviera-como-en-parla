@@ -1121,6 +1121,7 @@
       'No suma a los ' + Math.round(TOTAL) + ' de la portada');
     if (empates.length) {
       const art = el('article', 'ind');
+      art.id = 'ind-empates';
       art.appendChild(el('p', 'ind__grupo', 'Empate técnico'));
       art.appendChild(el('h3', 'ind__h', 'Y en esto las dos ciudades están igual'));
       const ul = el('ul', 'pendientes');
