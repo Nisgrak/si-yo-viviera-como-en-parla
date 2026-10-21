@@ -266,6 +266,7 @@
     const ciudades = ((window.DATOS || {}).MUNICIPIOS || []).map(function (m) { return m.id; });
     if (!h || ciudades.indexOf(h) >= 0) return;
     function bajar() {
+      cadenas();   /* los títulos sin id lo reciben aquí */
       const e = document.getElementById(h);
       if (!e) return null;
       e.scrollIntoView({ block: 'start' });
@@ -277,6 +278,99 @@
       setTimeout(function () { if (Math.abs(window.scrollY - y) < 2) bajar(); }, 700);
     });
   })();
+
+  /* ── La cadena: copiar el enlace a una métrica ──────────────────────
+     Junto a cada título de sección, de apartado y de dato, un botón que
+     copia el enlace a ese sitio con la ciudad elegida: /getafe/economia/?ir=
+     publicado, economia.html?ir=…#getafe desde la carpeta. El ?ir= lo baja
+     al llegar (arriba). El destino es la sección o la ficha si el título es
+     el primero de ella y tiene id; si no, el propio título, con un id
+     sacado de su texto, que se pone al cargar para que el enlace lo
+     encuentre. Lo que se pinta después lo coge un MutationObserver. */
+  const TITULOS = '.bloque__h, .bloque__h3, .plata__h, .ind__h, .espera__h, .hecho__h';
+  const CADENA = '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6.6 9.4a3 3 0 0 0 4.2 0l2.3-2.3a3 3 0 0 0-4.2-4.2L7.8 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+    '<path d="M9.4 6.6a3 3 0 0 0-4.2 0L2.9 8.9a3 3 0 0 0 4.2 4.2L8.2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+  const HECHO = '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  let aviso = null;
+
+  function slug(t) {
+    return t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60).replace(/-$/, '');
+  }
+  function destino(h) {
+    const caja = h.closest('article[id], section[id]');
+    if (caja && caja.querySelector(TITULOS) === h) return caja.id;
+    if (!h.id) {
+      const base = slug(h.textContent) || 'dato';
+      let id = base, k = 2;
+      while (document.getElementById(id)) id = base + '-' + k++;
+      h.id = id;
+    }
+    return h.id;
+  }
+  function enlaceA(id) {
+    const p = PAGINAS.filter(function (x) { return x.id === PAGINA; })[0];
+    /* Si la página aún no ha dicho su ciudad, la de la dirección. */
+    const h = (location.hash || '').replace('#', '');
+    const esCiudad = ((window.DATOS || {}).MUNICIPIOS || []).some(function (m) { return m.id === h; });
+    const c = ciudad || document.documentElement.getAttribute('data-ciudad') || (esCiudad ? h : null);
+    const ruta = p && RUTAS && c ? RAIZ + c + '/' + p.ruta : RAIZ + (p ? p.archivo : '');
+    return new URL(ruta + '?ir=' + encodeURIComponent(id) + (!RUTAS && c ? '#' + c : ''), location.href).href;
+  }
+  function copiar(texto) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(texto);
+    return new Promise(function (ok, mal) {
+      const t = el('textarea');
+      t.value = texto;
+      t.setAttribute('readonly', '');
+      t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t);
+      t.select();
+      const bien = document.execCommand('copy');
+      t.remove();
+      bien ? ok() : mal(new Error('copiar'));
+    });
+  }
+  function cadena(h) {
+    if (h.querySelector(':scope > .cadena')) return;
+    const b = el('button', 'cadena');
+    b.type = 'button';
+    b.title = 'Copiar el enlace';
+    b.setAttribute('aria-label', 'Copiar el enlace');
+    b.innerHTML = CADENA;
+    b.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const url = enlaceA(destino(h));
+      copiar(url).then(function () {
+        b.innerHTML = HECHO;
+        b.classList.add('cadena--ok');
+        if (aviso) aviso.textContent = 'Enlace copiado';
+        clearTimeout(b._t);
+        b._t = setTimeout(function () {
+          b.innerHTML = CADENA;
+          b.classList.remove('cadena--ok');
+          if (aviso) aviso.textContent = '';
+        }, 1800);
+      }).catch(function () { window.prompt('Copia el enlace:', url); });
+    });
+    h.appendChild(b);
+  }
+  function cadenas() {
+    if (!aviso) {
+      aviso = el('p', 'oculto');
+      aviso.setAttribute('aria-live', 'polite');
+      document.body.appendChild(aviso);
+    }
+    /* El id, ya al cargar: quien llega con ?ir= lo busca antes de pulsar nada. */
+    document.querySelectorAll(TITULOS).forEach(function (h) { destino(h); cadena(h); });
+  }
+  cadenas();
+  /* Los botones que se ponen aquí vuelven a avisar una vez, y entonces ya
+     no queda título sin cadena: no hay bucle. */
+  if ('MutationObserver' in window) {
+    new MutationObserver(cadenas).observe(document.body, { childList: true, subtree: true });
+  }
 
   /* La fecha de la última revisión, en el pie de cada página. */
   document.querySelectorAll('[data-actualizado]').forEach(function (n) {

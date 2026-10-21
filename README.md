@@ -204,6 +204,15 @@ No hay nada escrito a mano en él:
   `<script src="assets/indice.js">` antes de su render, una llamada a `INDICE.refrescar()` cada vez
   que se pinta, y su ruta por ciudad en `herramientas/compartir.mjs`.
 
+**La cadena.** `indice.js` pone también, junto a cada título de sección, de apartado y de dato
+(`.bloque__h`, `.bloque__h3`, `.plata__h`, `.ind__h`, `.espera__h`, `.hecho__h`), un botón con
+una cadena que copia el enlace a ese sitio con la ciudad elegida: `/getafe/economia/?ir=paro`
+publicado, `economia.html?ir=paro#getafe` desde la carpeta. Lleva a la sección o a la ficha si el
+título es el primero de ella y tiene `id`; si no, al propio título, con un `id` sacado de su texto
+al cargar la página (cambiar el texto de un título cambia su enlace). Un título nuevo con una de
+esas clases tiene cadena sin hacer nada; para otra clase, se añade a `TITULOS`. «Todos los datos»
+no la lleva: guarda su vista en la dirección.
+
 ### La vista previa de cada ciudad
 
 WhatsApp y las redes no ejecutan JavaScript ni leen lo que va detrás de `#`, así que para que

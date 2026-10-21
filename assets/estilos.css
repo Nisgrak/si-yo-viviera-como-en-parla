@@ -1496,3 +1496,33 @@ html[data-indice='barra'] .pie { padding-bottom: calc(clamp(3.5rem, 11vw, 6rem) 
   .contador { transition: none; }
   .indice-hoja[open] { animation: none; }
 }
+
+/* ── La cadena: copiar el enlace a una métrica (assets/indice.js) ───── */
+.cadena {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.75rem; height: 1.75rem; margin: -.25rem 0 0 .3rem;
+  vertical-align: middle;
+  padding: 0; border: 0; border-radius: .375rem;
+  background: none; color: var(--ink-3);
+  opacity: .5; cursor: pointer;
+  transition: opacity .15s, background-color .15s;
+}
+.cadena svg { width: 1rem; height: 1rem; }
+.cadena:hover, .cadena:focus-visible, .cadena--ok { opacity: 1; }
+.cadena:hover { background: color-mix(in srgb, var(--ink) 7%, transparent); }
+.cadena:focus-visible { outline: 2px solid var(--ref); outline-offset: 1px; }
+.cadena--ok { color: var(--ref); }
+.cadena--ok::after {
+  content: 'Copiado';
+  /* Encima y hacia la izquierda: al final de una línea no se sale de la pantalla. */
+  position: absolute; right: 0; bottom: 100%;
+  margin-bottom: .25rem; padding: .15rem .4rem; border-radius: .25rem;
+  font-size: .75rem; font-weight: 700; font-stretch: 100%; line-height: 1.2;
+  letter-spacing: 0; text-transform: none; white-space: nowrap;
+  color: var(--bg); background: var(--ink);
+  pointer-events: none;
+}
+/* Quien llega por el enlace ve el título con aire encima. */
+:is(.bloque__h3, .plata__h, .ind__h, .espera__h, .hecho__h)[id] { scroll-margin-top: 1.5rem; }
+@media print { .cadena { display: none; } }
