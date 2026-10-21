@@ -1,0 +1,7 @@
+<!-- El hueco: la misma unidad que la tira, vacía y con el borde discontinuo
+     en rojo. Lo que debería estar y no está. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="7" fill="#ffffff"/>
+  <rect x="6" y="6" width="20" height="20" rx="3" fill="none" stroke="#c02719" stroke-width="2.6"
+        stroke-dasharray="5.2 3.2" stroke-dashoffset="2.6"/>
+</svg>

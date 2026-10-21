@@ -1,0 +1,135 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   PROTOTIPO · Parla en el centro
+   Encima de estilos.css. Los papeles cambian:
+   rojo = lo que le falta a Parla · negro = lo que tiene
+   azul = la ciudad con la que se compara · verde = donde Parla tiene más
+   La marca deja de ser la unidad tachada y pasa a ser el hueco.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Mandos del prototipo ─────────────────────────────────────────────── */
+
+.proto {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .9rem;
+  padding: .55rem var(--gutter);
+  border-bottom: 1px dashed var(--line-alta);
+  background: var(--surface);
+  font-size: .75rem; color: var(--ink-2);
+}
+.proto__rot { font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.proto fieldset { display: flex; gap: .6rem; margin: 0; padding: 0; border: 0; }
+.proto legend { float: left; margin-right: .4rem; font-weight: 700; color: var(--ink); }
+.proto label { display: inline-flex; align-items: center; gap: .25rem; cursor: pointer; }
+
+/* ── La marca del nombre ──────────────────────────────────────────────── */
+
+.marca {
+  display: inline-flex; align-items: center; gap: .55rem;
+  margin-bottom: clamp(1.4rem, 5vw, 2.2rem);
+  font-size: .8125rem; font-weight: 800; font-stretch: 85%;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink);
+}
+.marca__ico {
+  width: 1.05rem; height: 1.05rem; border-radius: 3px;
+  border: 2px dashed var(--loss);
+}
+body[data-marca='contorno'] .marca__ico { border-style: solid; }
+
+/* ── Portada ──────────────────────────────────────────────────────────── */
+
+/* Parla ya no es la palabra gigante en rojo: lo es la ciudad elegida, en
+   azul, porque es la que se toca. Parla va arriba, en negro, como sujeto. */
+.portada__titulo .t1 { color: var(--ink); }
+.portada__titulo .t3 {
+  font-size: clamp(2.6rem, 15vw, 4.75rem);
+  line-height: 1.02;
+  color: var(--ref);
+  padding-bottom: .1em;
+}
+.portada__titulo .t3 .selector { padding-right: .55em; }
+.selector:hover .selector__eco { background: var(--aura-ref); }
+
+.marcador__rejilla { display: block; margin-top: 1.1rem; }
+.marcador__rejilla .tira { margin-top: 0; }
+.marcador__ley {
+  grid-area: k;
+  display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .5rem;
+  margin-top: .7rem;
+  font-size: .75rem; color: var(--ink-3);
+}
+.ley { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }
+.ley--hay { background: var(--ink); }
+.ley--hueco { margin-left: .5rem; border: 1.5px dashed var(--loss); }
+body[data-marca='contorno'] .ley--hueco { border-style: solid; }
+
+/* ── El hueco ─────────────────────────────────────────────────────────── */
+
+.u--hueco {
+  background: transparent;
+  border: 1.5px dashed var(--loss);
+  opacity: 0; transform: scale(.55);
+  transition: opacity .3s var(--sal-corta), transform .42s var(--sal);
+  transition-delay: var(--retraso, 0ms);
+}
+body[data-marca='contorno'] .u--hueco { border-style: solid; }
+.ind.visto .u--hueco,
+.marcador.visto .u--hueco { opacity: 1; transform: none; }
+
+/* La parte de un hueco: solo el trozo que falta lleva borde. */
+.u--hueco-parte {
+  border-color: var(--line-alta);
+  background: linear-gradient(to right, var(--loss-veil) 0 var(--parte, 50%), transparent var(--parte, 50%));
+}
+.u--hueco-parte::after {
+  content: ''; position: absolute; inset: -1.5px;
+  width: var(--parte, 50%);
+  border: 1.5px dashed var(--loss); border-right: 0;
+  border-radius: inherit; border-top-right-radius: 0; border-bottom-right-radius: 0;
+}
+body[data-marca='contorno'] .u--hueco-parte::after { border-style: solid; }
+
+/* ── Cifras ───────────────────────────────────────────────────────────── */
+
+.cifra--cero { font-size: 1em !important; text-transform: none; }
+
+/* ── Recuento ─────────────────────────────────────────────────────────── */
+
+.rec__columnas {
+  display: flex; justify-content: flex-end;
+  margin-bottom: .4rem;
+  font-size: .6875rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--loss);
+}
+.area--mejor .area__n,
+.rec--mejor .rec__n,
+.rec--mejor .rec__ico { color: var(--gain); }
+.rec--mejor .rec__a:hover .rec__q { color: var(--gain); }
+.recuento__pie b.mejor { color: var(--gain-ink); }
+
+/* ── Fichas ───────────────────────────────────────────────────────────── */
+
+/* La barra de Parla en negro, la de la otra ciudad en azul. */
+.tasa[data-quien='aqui'] .tasa__pista i { background: var(--ink); }
+.tasas__pie { margin-top: .55rem; }
+
+.nombres__rot--falta { color: var(--loss); }
+.nombres__rot--mejor { color: var(--gain-ink); margin-top: 1.1rem; }
+.nombres-bloque .nombres__rot:not(:first-child) { margin-top: 1.2rem; }
+
+.nombre .nombre__m { background: var(--ink); }
+.nombre--hueco .nombre__m {
+  width: 11px; height: 11px;
+  background: transparent;
+  border: 1.5px dashed var(--loss);
+}
+body[data-marca='contorno'] .nombre--hueco .nombre__m { border-style: solid; }
+.nombre--hueco .nombre__t { color: var(--loss); font-weight: 600; }
+.nombre--hueco.nombre--nombrado .nombre__t { color: var(--ink); font-weight: 400; }
+.nombre--parte .nombre__m { border-color: var(--line-alta); }
+.nombre--parte .nombre__p { color: var(--loss); }
+.nombre--ref .nombre__m { background: var(--ref); }
+.nombre--mejor .nombre__m { background: var(--gain); }
+
+.ind--mejor .ind__grupo { color: var(--gain-ink); }
+.ind--mejor .ind__titular .cifra { color: var(--gain-ink); }
