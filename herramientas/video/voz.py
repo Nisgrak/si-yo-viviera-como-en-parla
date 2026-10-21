@@ -3,6 +3,9 @@
 # en la API de NaN (clave NAN_KEY en el .env de la raíz) y la deja en
 # salida/voz.wav, con las frases ya colocadas; audio.py la mezcla con los efectos.
 #     python3 voz.py [voz]      voces: ef_dora (por defecto), em_alex, em_santa
+# Una voz sin guion bajo es de Phonon (gradium/phonon-40m-es, CC BY-NC), que corre
+# en local con el comando ptts (o el que diga PTTS) y HF_TOKEN o `hf auth login`:
+#     python3 voz.py Alicia     mujeres de España: Noa, Lucía-Sol, Candela, Celia, Alba, Alicia, Nerea
 # Las cifras van en letra para que no dependan de cómo lea los números el modelo,
 # y son las de la pantalla, sin redondear.
 import os, sys, json, hashlib, subprocess
@@ -10,6 +13,9 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 import numpy as np, wave
 
 VOZ = sys.argv[1] if len(sys.argv) > 1 else 'ef_dora'
+# Phonon no tiene speed: duration_delta -0,2 habla un 18 % más deprisa. Lee más
+# despacio que Kokoro, así que parte de BASE para que las frases quepan en su escena
+BASE = -0.15
 SR = 48000; D = 84.5
 S = dict(s1=0, sq=4, sa=9.5, s2=15.5, s3=21, s4=28.5, s5=34, s6=40.5, c1=47.5, c2=52,
          m0=56.5, m1=60, m2=67.5, s8=75, s9=79.5)
@@ -41,15 +47,20 @@ def clave():
 
 def sintetiza(texto, vel):
   """Una frase, a 48 kHz mono. Se guarda por texto, voz y velocidad: solo se pide lo que cambia."""
-  h = hashlib.sha1(f'{VOZ}|{vel}|{texto}'.encode()).hexdigest()[:12]
+  dd = f'{BASE - (vel - 1) * 1.15:.3f}'
+  h = hashlib.sha1(f'{VOZ}|{vel}|{texto}'.encode() if '_' in VOZ else f'{VOZ}|{dd}|{texto}'.encode()).hexdigest()[:12]
   bruto, fino = f'salida/voz/{h}.wav', f'salida/voz/{h}-48k.wav'
   if not os.path.exists(fino):
     os.makedirs('salida/voz', exist_ok=True)
-    cuerpo = json.dumps(dict(model='kokoro', voice=VOZ, input=texto, speed=vel, response_format='wav'))
-    # la clave entra por stdin (-K -) para que no salga en ningún mensaje de error
-    subprocess.run(['curl', '-sSf', '-m', '120', '--retry', '4', '--retry-all-errors', '-K', '-',
-      'https://api.nan.builders/v1/audio/speech', '-o', bruto, '-H', 'Content-Type: application/json', '-d', cuerpo],
-      input=f'header = "Authorization: Bearer {clave()}"\n', text=True, check=True)
+    if '_' not in VOZ:
+      subprocess.run([os.environ.get('PTTS', 'ptts'), '--lang', 'es', '-m', 'hf://gradium/phonon-40m-es', '--voice', VOZ,
+        '--condition', f'duration_delta={dd}', texto, '-o', bruto], check=True, capture_output=True)
+    else:
+      cuerpo = json.dumps(dict(model='kokoro', voice=VOZ, input=texto, speed=vel, response_format='wav'))
+      # la clave entra por stdin (-K -) para que no salga en ningún mensaje de error
+      subprocess.run(['curl', '-sSf', '-m', '120', '--retry', '4', '--retry-all-errors', '-K', '-',
+        'https://api.nan.builders/v1/audio/speech', '-o', bruto, '-H', 'Content-Type: application/json', '-d', cuerpo],
+        input=f'header = "Authorization: Bearer {clave()}"\n', text=True, check=True)
     subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', bruto, '-ac', '1', '-ar', str(SR), fino], check=True)
   with wave.open(fino) as w:
     x = np.frombuffer(w.readframes(w.getnframes()), np.int16) / 32768
