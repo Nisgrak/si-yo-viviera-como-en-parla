@@ -362,7 +362,7 @@
     document.querySelectorAll('[data-aqui]').forEach(function (n) { n.textContent = NOMBRE[AQUI]; });
     const vuelta = RUTAS ? RAIZ_WEB + AQUI + '/' : 'index.html#' + AQUI;
     document.querySelectorAll('.js-volver').forEach(function (a) { a.href = vuelta; });
-    document.title = TITULO + ' ' + NOMBRE[AQUI] + ' y ' + TITULO.replace(/ de$/, '').toLowerCase() + ' de Parla · Si yo viviera como en Parla';
+    document.title = TITULO + ' Parla y ' + TITULO.replace(/ de$/, '').toLowerCase() + ' de ' + NOMBRE[AQUI] + ' · ' + D.NOMBRE_WEB;
   }
   function pintar() {
     comun();

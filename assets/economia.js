@@ -833,7 +833,7 @@
     document.querySelectorAll('[data-aqui]').forEach(function (n) { n.textContent = NOMBRE[AQUI]; });
     const vuelta = RUTAS ? RAIZ_WEB + AQUI + '/' : 'index.html#' + AQUI;
     document.querySelectorAll('.js-volver').forEach(function (a) { a.href = vuelta; });
-    document.title = 'El dinero de ' + NOMBRE[AQUI] + ' y el dinero de Parla · Si yo viviera como en Parla';
+    document.title = 'El dinero de Parla y el dinero de ' + NOMBRE[AQUI] + ' · ' + D.NOMBRE_WEB;
   }
 
   function pintar() {

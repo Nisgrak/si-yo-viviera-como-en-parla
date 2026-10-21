@@ -26,8 +26,6 @@
 }
 .portada--infra .portada__golpe { max-width: 34rem; }
 .portada--infra .portada__golpe b.parla { color: var(--ref); }
-/* Aquí Parla va siempre en azul: el rojo es solo para lo que se pierde. */
-.portada--infra .portada__titulo .t3 { color: var(--ref); }
 @media (min-width: 62rem) {
   .portada--infra > .env { display: block; max-width: 64rem; }
 }

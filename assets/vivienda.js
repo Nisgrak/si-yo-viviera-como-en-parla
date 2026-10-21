@@ -737,7 +737,7 @@
     document.querySelectorAll('[data-aqui]').forEach(function (n) { n.textContent = NOMBRE[AQUI]; });
     const vuelta = RUTAS ? RAIZ_WEB + AQUI + '/' : 'index.html#' + AQUI;
     document.querySelectorAll('.js-volver').forEach(function (a) { a.href = vuelta; });
-    document.title = 'Una casa en ' + NOMBRE[AQUI] + ' y una casa en Parla · Si yo viviera como en Parla';
+    document.title = 'Una casa en Parla y una casa en ' + NOMBRE[AQUI] + ' · ' + D.NOMBRE_WEB;
   }
 
   function pintar() {

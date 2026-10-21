@@ -24,9 +24,10 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   SI YO VIVIERA COMO EN PARLA
+   PARLA, A LA COLA
    Paleta: near-black neutro (chroma 0) + tres colores con papel semántico.
-   rojo = lo que desaparece · azul = Parla, la vara de medir · verde = lo que ganas
+   rojo = lo que le falta a Parla · azul = Parla, y la ciudad que se elige en
+   el titular · verde = donde Parla tiene más
    Validada para daltonismo y contraste antes de escribirse.
    ═══════════════════════════════════════════════════════════════════════ */
 
@@ -203,6 +204,34 @@ a:hover { text-decoration-color: var(--ref); }
 }
 .contador b { color: var(--loss); font-weight: 800; font-variant-numeric: tabular-nums; }
 
+/* ── La marca: la cola de la ballena y el nombre ─────────────────────────
+   La cola de la escultura del Parque de la Ballena, en dos tonos, como al
+   sol: la cara iluminada más clara que la que queda en sombra. En oscuro se
+   invierten para que la luz siga siendo lo más claro. */
+
+:root {
+  --ballena-sombra: var(--ink);
+  --ballena-luz: color-mix(in srgb, var(--ink) 50%, var(--bg));
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ballena-sombra: color-mix(in srgb, var(--ink) 50%, var(--bg));
+    --ballena-luz: var(--ink);
+  }
+}
+.ballena__sombra { fill: var(--ballena-sombra); }
+.ballena__luz { fill: var(--ballena-luz); }
+
+.marca {
+  display: inline-flex; align-items: center; gap: .65rem;
+  margin-bottom: clamp(1.4rem, 5vw, 2.2rem);
+  font-size: .8125rem; font-weight: 800; font-stretch: 85%;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none;
+}
+.marca:hover span { text-decoration: underline; text-underline-offset: .25em; }
+.marca__ballena { display: block; width: 2.6rem; height: auto; flex: none; }
+
 /* ── Portada ──────────────────────────────────────────────────────────── */
 
 .portada {
@@ -239,7 +268,7 @@ a:hover { text-decoration-color: var(--ref); }
   transform: rotate(45deg);
   transition: transform .2s var(--sal-corta);
 }
-.selector:hover .selector__eco { background: var(--loss-veil); }
+.selector:hover .selector__eco { background: var(--aura-ref); }
 .selector:hover::after { transform: rotate(45deg) translate(.05em, .05em); }
 #sel-municipio {
   position: absolute; inset: 0;
@@ -260,11 +289,10 @@ a:hover { text-decoration-color: var(--ref); }
   display: grid;
   gap: .06em;
 }
-/* la línea del selector necesita aire para que el subrayado no toque la de abajo */
+/* Parla, el sujeto, arriba y en tinta. */
 .portada__titulo .t1 {
   font-size: clamp(1.95rem, 10.2vw, 3.5rem);
   line-height: 1.08;
-  padding-bottom: .14em;
   color: var(--ink);
 }
 .portada__titulo .t2 {
@@ -272,12 +300,16 @@ a:hover { text-decoration-color: var(--ref); }
   font-weight: 500; font-stretch: 92%; letter-spacing: -.012em;
   color: var(--ink-3);
 }
+/* La ciudad con la que se compara es la palabra grande y la que se toca:
+   en azul, con su subrayado. No tan grande como para que «Pozuelo de
+   Alarcón» no quepa en un móvil; el aire de abajo es para el subrayado. */
 .portada__titulo .t3 {
-  font-size: clamp(3.6rem, 22vw, 6rem);
-  line-height: .86;
-  color: var(--loss);
-  margin-top: -.02em;
+  font-size: clamp(2.6rem, 15vw, 4.75rem);
+  line-height: 1.02;
+  padding-bottom: .1em;
+  color: var(--ref);
 }
+.portada__titulo .t3 .selector { padding-right: .55em; }
 
 .portada__golpe {
   margin-top: clamp(1rem, 3.5vw, 1.4rem);
@@ -1261,7 +1293,7 @@ code {
   }
   .portada__titulo .t1 { font-size: 3.5rem; }
   .portada__titulo .t2 { font-size: 2.25rem; }
-  .portada__titulo .t3 { font-size: 6rem; }
+  .portada__titulo .t3 { font-size: 4.75rem; }
   .marcador__pre { font-size: 2.25rem; }
   .marcador__n { font-size: 4.5rem; }
 }

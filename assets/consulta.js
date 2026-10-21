@@ -1050,7 +1050,7 @@
       filas.push([d.titulo, d.unidad + (d.sim && d.sim !== '%' ? ' (' + d.sim + ')' : ''), d.fuente ? d.fuente[0] : '', d.fuente ? d.fuente[1] : '']);
     });
     filas.push([]);
-    filas.push(['Si yo viviera como en Parla', location.href]);
+    filas.push([D.NOMBRE_WEB, location.href]);
     return '\ufeff' + filas.map(function (f) { return f.map(c).join(';'); }).join('\r\n');
   }
   $('#con-csv').addEventListener('click', function () {

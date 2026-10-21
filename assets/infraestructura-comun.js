@@ -91,7 +91,7 @@
     document.querySelectorAll('[data-aqui]').forEach(function (n) { n.textContent = NOMBRE[I.AQUI]; });
     const vuelta = RUTAS ? RAIZ_WEB + I.AQUI + '/' : 'index.html#' + I.AQUI;
     document.querySelectorAll('.js-volver').forEach(function (a) { a.href = vuelta; });
-    document.title = 'Salir de ' + NOMBRE[I.AQUI] + ' y salir de Parla · Si yo viviera como en Parla';
+    document.title = 'Salir de Parla y salir de ' + NOMBRE[I.AQUI] + ' · ' + D.NOMBRE_WEB;
     I.golpe();
   }
 

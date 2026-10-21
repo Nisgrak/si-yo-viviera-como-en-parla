@@ -14,6 +14,9 @@
 window.DATOS = (function () {
   const ACTUALIZADO = 'octubre de 2026';
   const REFERENCIA = 'parla';
+  /* El nombre de la web. Lo que se escribe con JavaScript (títulos, carteles,
+     vistas previas) sale de aquí; en los HTML va escrito tal cual. */
+  const NOMBRE_WEB = 'Parla, a la cola';
 
   const MUNICIPIOS = [
     { id: 'getafe', nombre: 'Getafe', activo: true },
@@ -1693,7 +1696,7 @@ window.DATOS = (function () {
   });
 
   return {
-    ACTUALIZADO, REFERENCIA, MUNICIPIOS, BASES,
+    ACTUALIZADO, REFERENCIA, NOMBRE_WEB, MUNICIPIOS, BASES,
     indicadores, hospitales, contexto,
     fuentes: F,
   };
