@@ -85,10 +85,15 @@
     const r = function (id) { return E.ciudades[id].renta; };
     const e = function (id) { return E.ciudades[id].empresas; };
     const k = function (id) { return E.ciudades[id].cuentas; };
+    const o = function (id) { return E.ciudades[id].ocupacion.pct; };
     const G = 'Vecinos y economía', C = 'Cuentas del ayuntamiento';
     [
       ['puestos', G, 'Puestos de trabajo en la ciudad', 'por cada 100 vecinos que trabajan, finales de 2025', '', 1, function (id) { return ultimo(t(id).puestos); }, 'afilCentro', 'economia.html#trabajo'],
       ['mismo-municipio', G, 'Quien trabaja en su propia ciudad', 'de cada 100 vecinos ocupados, 2023', '%', 1, function (id) { return t(id).mismoMun; }, 'censoTrabajo', 'economia.html#trabajo'],
+      ['ocup-carrera', G, 'Vecinos en dirección y profesiones con carrera', 'de cada 100 vecinos con trabajo, 2023', '%', 1, function (id) { return o(id)[0] + o(id)[1]; }, 'censoOcupacion', 'economia.html#trabajo'],
+      ['ocup-servicios', G, 'Vecinos en hostelería, comercio, cuidados y seguridad', 'de cada 100 vecinos con trabajo, 2023', '%', 1, function (id) { return o(id)[4]; }, 'censoOcupacion', 'economia.html#trabajo'],
+      ['ocup-oficios', G, 'Vecinos en oficios de obra, taller y fábrica, y conductores', 'de cada 100 vecinos con trabajo, 2023', '%', 1, function (id) { return o(id)[5] + o(id)[6] + o(id)[7]; }, 'censoOcupacion', 'economia.html#trabajo'],
+      ['ocup-elementales', G, 'Vecinos en limpieza, peones y reparto', 'de cada 100 vecinos con trabajo, ocupaciones elementales, 2023', '%', 1, function (id) { return o(id)[8]; }, 'censoOcupacion', 'economia.html#trabajo'],
       ['paro-registrado', G, 'Apuntados al paro', 'por cada 100 habitantes de 16 a 64 años, media de 2025', '', 2, function (id) { return ultimo(t(id).paro); }, 'sepeParo', 'economia.html#paro'],
       ['paro-mujeres', G, 'Paradas registradas', 'por cada 100 mujeres de 16 a 64 años, media de 2025', '', 2, function (id) { return t(id).paroMujer; }, 'sepeParo', 'economia.html#paro'],
       ['paro-jovenes', G, 'Parados de menos de 25 años', 'por cada 100 habitantes de 16 a 24 años, media de 2025', '', 2, function (id) { return t(id).paroJoven; }, 'sepeParo', 'economia.html#paro'],

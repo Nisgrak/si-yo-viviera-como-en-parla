@@ -10,6 +10,8 @@ cautelas y lo que no se pudo conseguir):
                      centro de trabajo y por residencia; INE, Censo anual:
                      lugar de trabajo y población de 16 a 64 años; SEPE: paro
                      registrado y contratos
+    ocupacion.json   INE, Censo anual: los vecinos que trabajan, por
+                     ocupación (lo escribe economia/ocupacion.py)
     renta.json       INE, Atlas de Distribución de Renta de los Hogares:
                      renta, fuentes de ingreso y desigualdad; Agencia
                      Tributaria: IRPF por municipios
@@ -80,6 +82,18 @@ def trabajo(t):
     }
 
 
+def ocupacion(o, anio='2023'):
+    """De cada 100 vecinos ocupados cuya ocupación consta, los de cada gran
+    grupo de la CNO-11, del 1 al 9, y cuántos no la tienen."""
+    d = o[anio]
+    conocidos = d['total'] - d['no_consta']
+    return {
+        'pct': [round(100 * d[str(k)] / conocidos, 2) for k in range(1, 10)],
+        'n': d['total'],
+        'sinOcupacion': d['no_consta'],
+    }
+
+
 def renta(r):
     a = r['adrh']
     i = r['irpf_2024']
@@ -144,12 +158,13 @@ def cuentas(c):
 
 
 def main():
-    tr, re, em, cu = (leer(n) for n in ('trabajo', 'renta', 'empresas', 'cuentas'))
+    tr, re, em, cu, oc = (leer(n) for n in ('trabajo', 'renta', 'empresas', 'cuentas', 'ocupacion'))
 
     ciudades = {}
     for i in IDS:
         c = {
             'trabajo': trabajo(tr[i]),
+            'ocupacion': ocupacion(oc[i]),
             'renta': renta(re[i]),
             'empresas': empresas(em[i]),
         }
@@ -166,6 +181,8 @@ def main():
         'afilResidencia': ['Comunidad de Madrid · Afiliados a la Seguridad Social por lugar de residencia',
                            f(tr, 'afiliados_residencia')],
         'censoTrabajo': ['INE · Censo anual de población: lugar de trabajo, 2023', f(tr, 'censo_lugar_trabajo')],
+        'censoOcupacion': ['INE · Censo anual de población: ocupados por ocupación, 2023',
+                           oc['_meta']['fuentes']['censo_ocupacion']],
         'censoEdad': ['INE · Censo anual de población por edad, 2021-2025', f(tr, 'censo_anual_edad')],
         'sepeParo': ['SEPE · Paro registrado por municipios', f(tr, 'sepe_paro_ficha')],
         'sepeContratos': ['SEPE · Contratos registrados por municipios, 2025', f(tr, 'sepe_contratos_ficha')],

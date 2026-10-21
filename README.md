@@ -547,7 +547,7 @@ después:
 
 | Sección | Qué enseña | Fuente |
 |---|---|---|
-| Dónde se trabaja | Puestos de trabajo (afiliaciones por centro de trabajo, 31-12) por cada 100 vecinos afiliados (1-1 siguiente), 2013-2025; % de ocupados que trabaja en su municipio (2023) | Comunidad de Madrid (Seguridad Social), por ubicación y por residencia; INE, Censo anual (tabla 69986) |
+| Dónde se trabaja | Puestos de trabajo (afiliaciones por centro de trabajo, 31-12) por cada 100 vecinos afiliados (1-1 siguiente), 2013-2025; % de ocupados que trabaja en su municipio (2023); en qué trabajan los vecinos: de cada 100 con trabajo, los de cada tipo de ocupación (los nueve grandes grupos del INE juntados en cinco, 2023) | Comunidad de Madrid (Seguridad Social), por ubicación y por residencia; INE, Censo anual (tabla 69986) |
 | Quien no encuentra trabajo | Tasa de paro (la de siempre); parados registrados por 100 hab. de 16-64, 2015-2025, con mujeres y menores de 25 en la nota; % de contratos indefinidos 2025 | INE Indicadores Urbanos; SEPE (paro y contratos); INE, Censo anual y padrón por edad |
 | Lo que entra en casa | Renta bruta por persona 2024 (la serie `renta` de `datos.js`, que antes era el indicador de la Comunidad de 2023: coincide al euro con el ADRH; la Comunidad no ha publicado 2024, así que su media va solo en la nota, con su año); renta neta por persona 2015-2024; por hogar; renta bruta por declaración, con el rendimiento del trabajo en la nota; pobreza (la de siempre); Gini y P80/P20; de cada 100 € de renta, de dónde salen | INE, ADRH 2024 (tablas 31097, 31098, 37727); Agencia Tributaria, IRPF por municipios 2024 |
 | Lo que se produce | PIB por habitante (el de siempre); empresas por 1.000 hab.; peso de la construcción en el PIB y en el empleo; de cada 100 empresas, de qué sector | INE, DIRCE 2025 (tabla 4721); Comunidad de Madrid, PIB por rama y afiliados por rama |
@@ -557,6 +557,7 @@ después:
 
 ```
 python3 herramientas/economia/cuentas_extraer.py   # CONPREL y PMP → fuentes/cuentas.json (la primera vez, ~20 min)
+python3 herramientas/economia/ocupacion.py         # INE, tabla 69986 → fuentes/ocupacion.json
 python3 herramientas/economia.py                   # lee herramientas/economia/fuentes/*.json, escribe datos/economia.js
 ```
 

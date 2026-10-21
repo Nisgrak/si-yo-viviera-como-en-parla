@@ -410,6 +410,36 @@
     ]);
   }
 
+  /* En qué trabajan los vecinos: los nueve grandes grupos de ocupación del
+     INE, juntados en cinco para que la barra se lea. */
+  const OCUPACION = [
+    ['Dirección y profesiones con carrera', [0, 1]],
+    ['Técnicos de apoyo y oficina', [2, 3]],
+    ['Hostelería, comercio, cuidados y seguridad', [4]],
+    ['Oficios de obra, taller y fábrica, y conductores', [5, 6, 7]],
+    ['Limpieza, peones y reparto', [8]]
+  ];
+  function ocupacion() {
+    const o = function (id) {
+      const p = C[id].ocupacion.pct;
+      return OCUPACION.map(function (g) { return g[1].reduce(function (s, i) { return s + p[i]; }, 0); });
+    };
+    reparto('#ocupacion-reparto', OCUPACION.map(function (g) { return g[0]; }), o, function (v) { return pct(v); });
+    /* Dónde queda Parla en las dos puntas, si está en una de ellas. */
+    const extremo = function (i) {
+      const vs = IDS.map(function (id) { return o(id)[i]; }), v = o(REF)[i];
+      return v === Math.max.apply(null, vs) ? 'más' : v === Math.min.apply(null, vs) ? 'menos' : null;
+    };
+    const dichos = [0, 4].filter(extremo).map(function (i, k) {
+      return 'la que ' + extremo(i) + (k ? '' : ' vecinos tiene') + ' en ' + OCUPACION[i][0].toLowerCase();
+    });
+    const r = C[REF].ocupacion;
+    $('#ocupacion-nota').textContent =
+      (dichos.length ? 'De las ' + N + ', Parla es ' + dichos.join(' y ') + '. ' : '') +
+      'A ' + entero(r.sinOcupacion) + ' de los ' + entero(r.n) +
+      ' vecinos de Parla con trabajo no les consta la ocupación.';
+  }
+
   /* ── Quien no encuentra trabajo ───────────────────────────────────── */
 
   function paro() {
@@ -810,6 +840,7 @@
     comun();
     golpe();
     trabajo();
+    ocupacion();
     paro();
     renta();
     produce();
