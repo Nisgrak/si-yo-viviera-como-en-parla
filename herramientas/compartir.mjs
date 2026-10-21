@@ -91,47 +91,78 @@ const renderer = new Renderer();
 
 const esc = (t) => String(t).replace(/[&<>"]/g, (c) => '&#' + c.charCodeAt(0) + ';');
 
-/* La unidad tachada, la misma del cartel. */
-const UNIDAD = 'data:image/svg+xml;base64,' + Buffer.from(
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">' +
-  '<rect x="1.6" y="1.6" width="28.8" height="28.8" rx="4.8" fill="#f3f1ec" stroke="#c02719" stroke-width="3.2"/>' +
-  '<path d="M0 32 32 0" stroke="#c02719" stroke-width="8.15"/></svg>').toString('base64');
+/* La cola de la ballena (assets/ballena.svg), en dos tonos que se eligen. */
+const svgBallena = (await readFile(join(RAIZ, 'assets/ballena.svg'), 'utf8')).replace(/<!--[\s\S]*?-->\s*/, '');
+const ballena = (sombra, luz) => 'data:image/svg+xml;base64,' + Buffer.from(
+  svgBallena.replace('fill="#161616"', `fill="${sombra}"`).replace('fill="#8c8c8c"', `fill="${luz}"`)
+).toString('base64');
+const PROPORCION = 384 / 256;
 
-/* Los cuadrados caben en una fila si son pocos y en dos si no: el lado se
-   aprieta lo justo. Con el lado máximo caben 19 en el ancho. */
-function tira(n) {
-  const porFila = n <= 19 ? n : Math.ceil(n / 2);
-  const lado = Math.min(44, Math.floor((1040 - 10 * (porFila - 1)) / porFila));
-  const u = `<img src="${UNIDAD}" style="width:${lado}px;height:${lado}px">`;
-  const ancho = porFila * lado + (porFila - 1) * 10;   /* las dos filas, iguales */
-  return `<div style="display:flex;flex-wrap:wrap;gap:10px;width:${ancho}px">${u.repeat(n)}</div>`;
+/* El hueco, el mismo de la web: esquina corta y un trazo largo centrado en
+   cada lado. Y la unidad llena, lo que hay. */
+const HUECO = 'data:image/svg+xml;base64,' + Buffer.from(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" fill="none" stroke="#c02719" stroke-width="1.5">' +
+  '<path d="M.75 4.25V3.75a3 3 0 0 1 3-3H4.25M10.75 .75h0.5a3 3 0 0 1 3 3V4.25M14.25 10.75v0.5a3 3 0 0 1-3 3H10.75' +
+  'M4.25 14.25H3.75a3 3 0 0 1-3-3V10.75M5.5 .75H9.5M14.25 5.5V9.5M9.5 14.25H5.5M.75 9.5V5.5"/></svg>').toString('base64');
+const LLENO = 'data:image/svg+xml;base64,' + Buffer.from(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15"><rect width="15" height="15" rx="3" fill="#161616"/></svg>'
+).toString('base64');
+
+/* Lo que hay en negro y detrás los huecos, con el lado más grande que deje
+   caber todo en 150 px de alto. */
+function tira(hay, faltan, ancho) {
+  const n = hay + faltan;
+  let lado = 30, gap = 7;
+  while (lado > 8) {
+    const porFila = Math.floor((ancho + gap) / (lado + gap));
+    if (Math.ceil(n / porFila) * (lado + gap) <= 150) break;
+    lado -= 1; gap = Math.max(4, Math.round(lado / 4));
+  }
+  const u = (src) => `<img src="${src}" style="width:${lado}px;height:${lado}px">`;
+  return `<div style="display:flex;flex-wrap:wrap;gap:${gap}px;width:${ancho}px">${u(LLENO).repeat(hay)}${u(HUECO).repeat(faltan)}</div>`;
 }
 
-const LIENZO = 'width:1200px;height:630px;padding:72px 80px;background:#fff;color:#161616;' +
-  'font-family:Archivo;display:flex;flex-direction:column;justify-content:space-between';
+const LIENZO = 'width:1200px;height:630px;padding:64px 72px;background:#fff;color:#161616;' +
+  'font-family:Archivo;display:flex;flex-direction:column;justify-content:space-between;position:relative';
 
-function imagenGeneral() {
-  return `<div style="${LIENZO}">
-    <div style="display:flex;flex-direction:column;text-transform:uppercase;font-weight:800;font-stretch:62%;line-height:.88">
-      <span style="font-size:92px;font-weight:700;color:#525252">Si yo viviera como en</span>
-      <span style="font-size:230px;color:#c02719">Parla</span>
-    </div>
-    ${tira(18)}
-    <div style="font-size:34px;line-height:1.25;color:#525252"><span style="color:#161616;font-weight:700">Cuántos servicios públicos perdería tu ciudad</span> si estuviera dotada igual que Parla. Con datos oficiales y con sus nombres.</div>
+/* La marca: la ballena y el nombre. */
+function marca() {
+  return `<div style="display:flex;align-items:center;gap:18px">
+    <img src="${ballena('#161616', '#8c8c8c')}" style="width:${Math.round(40 * PROPORCION)}px;height:40px">
+    <span style="font-size:30px;font-weight:800;font-stretch:85%;letter-spacing:.14em;text-transform:uppercase">${esc(D.NOMBRE_WEB)}</span>
   </div>`;
 }
 
-function imagenCiudad(nombre, total) {
+/* La general: el titular y la ballena grande, de fondo, saliendo del borde. */
+function imagenGeneral() {
+  const alto = 400;
   return `<div style="${LIENZO}">
-    <div style="font-size:50px;font-weight:700;font-stretch:75%;line-height:1;color:#525252;text-transform:uppercase">Si <span style="color:#1a67c2;font-weight:800">${esc(nombre)}</span> estuviera dotada como Parla</div>
-    <div style="display:flex;align-items:center;gap:36px">
-      <span style="font-size:250px;font-weight:800;font-stretch:62%;line-height:.8;color:#c02719">${total}</span>
-      <div style="display:flex;flex-direction:column;font-size:52px;font-weight:700;line-height:1.1">
-        <span>equipamientos y</span><span>servicios públicos</span><span style="color:#c02719">menos</span>
+    <img src="${ballena('#e2e2e2', '#efefef')}" style="position:absolute;right:40px;bottom:0;width:${Math.round(alto * PROPORCION)}px;height:${alto}px">
+    ${marca()}
+    <div style="display:flex;flex-direction:column;text-transform:uppercase;font-weight:800;font-stretch:62%;line-height:.88">
+      <span style="font-size:96px;color:#161616">Vivo en Parla</span>
+      <span style="font-size:64px;font-weight:600;font-stretch:80%;color:#717171">y si viviera como en</span>
+      <span style="font-size:150px;color:#1a67c2">Getafe, Leganés…</span>
+    </div>
+    <div style="font-size:32px;line-height:1.25;color:#525252;width:760px"><span style="color:#161616;font-weight:700">Lo que le falta a Parla</span> para estar dotada como las ciudades de alrededor. Con datos oficiales.</div>
+  </div>`;
+}
+
+/* La de cada ciudad: lo que le falta a Parla y la tira de lo que hay y lo
+   que falta. */
+function imagenCiudad(nombre, total, tiene) {
+  return `<div style="${LIENZO}">
+    ${marca()}
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="font-size:${nombre.length > 12 ? 38 : 46}px;font-weight:700;font-stretch:75%;line-height:1;color:#525252;text-transform:uppercase">Si Parla estuviera dotada como <span style="color:#1a67c2;font-weight:800">${esc(nombre)}</span></div>
+      <div style="display:flex;align-items:center;gap:32px">
+        <span style="font-size:230px;font-weight:800;font-stretch:62%;line-height:.8;color:#c02719">${total}</span>
+        <div style="display:flex;flex-direction:column;font-size:48px;font-weight:700;line-height:1.1">
+          <span>equipamientos y</span><span>servicios públicos</span><span style="color:#c02719">más</span>
+        </div>
       </div>
     </div>
-    ${tira(total)}
-    <div style="font-size:26px;line-height:1.25;color:#525252">Con sus nombres y sus fuentes oficiales. Datos del INE, la Comunidad de Madrid y los ministerios.</div>
+    ${tira(tiene, total, 1056)}
   </div>`;
 }
 
@@ -145,7 +176,7 @@ function imagenPareja(seccion, titulo, nombre, vRef, vAqui, unidad, pie) {
     </div>`;
   return `<div style="${LIENZO}">
     <div style="display:flex;flex-direction:column;gap:14px">
-      <span style="font-size:28px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#525252">${esc(seccion)} · Si yo viviera como en Parla</span>
+      <span style="font-size:28px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#525252">${esc(seccion)} · ${esc(D.NOMBRE_WEB)}</span>
       <span style="font-size:50px;font-weight:700;font-stretch:80%;line-height:1.08;color:#161616">${esc(titulo)}</span>
     </div>
     <div style="display:flex;gap:110px">${cifra('Parla', vRef, '#1a67c2')}${cifra(nombre, vAqui, '#161616')}</div>
@@ -221,10 +252,10 @@ async function pintar(html, destino) {
 /* ── Las páginas de cada municipio ──────────────────────────────────── */
 
 function pagina(id, nombre, total) {
-  const titulo = 'Si ' + nombre + ' estuviera dotada como Parla: ' + total +
-    ' equipamientos públicos menos';
-  const desc = 'Cuántos equipamientos y servicios públicos desaparecerían de ' + nombre +
-    ' si estuviera dotada igual que Parla. Con sus nombres y sus fuentes oficiales.';
+  const titulo = 'Si Parla estuviera dotada como ' + nombre + ': ' + total +
+    ' equipamientos públicos más';
+  const desc = 'Cuántos equipamientos y servicios públicos le faltan a Parla para estar dotada como ' +
+    nombre + '. Hueco a hueco, con sus fuentes oficiales.';
   const url = BASE + id + '/';
   return `<!doctype html>
 <!-- GENERADO por herramientas/compartir.mjs en cada publicación.
@@ -250,7 +281,7 @@ function pagina(id, nombre, total) {
 <script>location.replace('../#${id}');</script>
 </head>
 <body>
-<p><a href="../#${id}">Si yo viviera como en Parla · ${esc(nombre)}</a></p>
+<p><a href="../#${id}">${esc(D.NOMBRE_WEB)} · Parla y ${esc(nombre)}</a></p>
 </body>
 </html>
 `;
@@ -299,7 +330,7 @@ function paginaCiudad(id, titulo, fuente, archivo, ruta, base = '../../', previa
   let h = fuente
     .replace(/<html lang="es"[^>]*>/, (m) => m.replace('>', ` data-rutas data-ciudad="${id}">`))
     .replace('<head>', `<head>\n<base href="${base}">`)
-    .replace(/<title>[^<]*<\/title>/, `<title>${esc(titulo)} · Si yo viviera como en Parla</title>`)
+    .replace(/<title>[^<]*<\/title>/, `<title>${esc(titulo)} · ${esc(D.NOMBRE_WEB)}</title>`)
     .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${esc(titulo)}">`)
     .replace(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${url}">\n<link rel="canonical" href="${url}">`);
   /* La vista previa con la cifra de la ciudad, si la hay. */
@@ -313,15 +344,15 @@ function paginaCiudad(id, titulo, fuente, archivo, ruta, base = '../../', previa
   }
   return h;
 }
-const paginaInfra = (id, nombre, previa) => paginaCiudad(id, 'Salir de ' + nombre + ' y salir de Parla',
+const paginaInfra = (id, nombre, previa) => paginaCiudad(id, 'Salir de Parla y salir de ' + nombre,
   infra, 'infraestructura.html', 'infraestructura/', undefined, previa);
-const paginaVivienda = (id, nombre, previa) => paginaCiudad(id, 'Una casa en ' + nombre + ' y una casa en Parla',
+const paginaVivienda = (id, nombre, previa) => paginaCiudad(id, 'Una casa en Parla y una casa en ' + nombre,
   viv, 'vivienda.html', 'vivienda/', undefined, previa);
-const paginaEconomia = (id, nombre, previa) => paginaCiudad(id, 'El dinero de ' + nombre + ' y el dinero de Parla',
+const paginaEconomia = (id, nombre, previa) => paginaCiudad(id, 'El dinero de Parla y el dinero de ' + nombre,
   eco, 'economia.html', 'economia/', undefined, previa);
-const paginaSanidad = (id, nombre, previa) => paginaCiudad(id, 'La sanidad de ' + nombre + ' y la sanidad de Parla',
+const paginaSanidad = (id, nombre, previa) => paginaCiudad(id, 'La sanidad de Parla y la sanidad de ' + nombre,
   san, 'sanidad.html', 'sanidad/', undefined, previa);
-const paginaEducacion = (id, nombre, previa) => paginaCiudad(id, 'La educación de ' + nombre + ' y la educación de Parla',
+const paginaEducacion = (id, nombre, previa) => paginaCiudad(id, 'La educación de Parla y la educación de ' + nombre,
   edu, 'educacion.html', 'educacion/', undefined, previa);
 
 /* La imagen y el texto de la vista previa de una página para una ciudad. */
@@ -357,7 +388,7 @@ function imagenConsulta() {
         <span style="font-size:48px;font-weight:700;color:#525252;margin-top:10px">de las once ciudades</span>
       </div>
       <div style="font-size:26px;line-height:1.3;color:#525252">Equipamientos, renta, trabajo, vivienda y transporte, con sus fuentes oficiales.</div>
-      <span style="font-size:22px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#c02719">Si yo viviera como en Parla</span>
+      <span style="font-size:22px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#161616">${esc(D.NOMBRE_WEB)}</span>
     </div>
     <div style="display:flex;flex-direction:column;justify-content:center;gap:11px;flex:1;border-left:2px solid #161616;padding-left:40px">
       <span style="font-size:20px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#717171">Renta neta por persona, 2024</span>
@@ -375,8 +406,9 @@ await pintar(imagenConsulta(), join(DIST, 'assets/compartir/consulta.png'));
 for (const m of D.MUNICIPIOS) {
   if (m.id === D.REFERENCIA) continue;
   /* Redondeado igual que la cifra grande de la portada. */
-  const total = Math.round(CALCULO.comparar(D, m.id).TOTAL);
-  await pintar(imagenCiudad(m.nombre, total), join(DIST, 'assets/compartir', m.id + '.png'));
+  const cuenta = CALCULO.faltan(D, m.id);
+  const total = Math.round(cuenta.TOTAL);
+  await pintar(imagenCiudad(m.nombre, total, cuenta.TIENE), join(DIST, 'assets/compartir', m.id + '.png'));
   await mkdir(join(DIST, m.id), { recursive: true });
   await writeFile(join(DIST, m.id, 'index.html'), pagina(m.id, m.nombre, total));
   await mkdir(join(DIST, m.id, 'infraestructura'), { recursive: true });
@@ -392,10 +424,10 @@ for (const m of D.MUNICIPIOS) {
   }
   /* Las secciones con enlace propio. */
   for (const [clave, destino, titulo] of [
-    ['espera', `../sanidad/?ir=espera`, 'La espera en el hospital que le toca a ' + m.nombre + ' y en el de Parla'],
-    ['cabecera', `../sanidad/?ir=cabecera`, 'El médico de cabecera en ' + m.nombre + ' y en Parla'],
-    ['infantil', `../educacion/?ir=infantil`, 'La escuela infantil en ' + m.nombre + ' y en Parla'],
-    ['impuestos', `../economia/?ir=paga`, 'Lo que paga un vecino de ' + m.nombre + ' y uno de Parla']]) {
+    ['espera', `../sanidad/?ir=espera`, 'La espera en el hospital de Parla y en el que le toca a ' + m.nombre],
+    ['cabecera', `../sanidad/?ir=cabecera`, 'El médico de cabecera en Parla y en ' + m.nombre],
+    ['infantil', `../educacion/?ir=infantil`, 'La escuela infantil en Parla y en ' + m.nombre],
+    ['impuestos', `../economia/?ir=paga`, 'Lo que paga un vecino de Parla y uno de ' + m.nombre]]) {
     const p = await previa(clave, m);
     if (!p) continue;
     await mkdir(join(DIST, m.id, clave), { recursive: true });
