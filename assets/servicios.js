@@ -200,17 +200,17 @@
       titulo: function () { return 'Parla y ' + NOMBRE[AQUI] + ' · La espera'; },
       datos: function () {
         return {
-          pre: NOMBRE[AQUI] + ' · ' + a.hospital + ' · ' + S.mes,
-          cifra: num(a.quirurgica.dias, 1), que: 'días de espera media para operarse',
-          cajas: [{ q: 'Parla · ' + sinArticulo(r), v: dias(r.quirurgica.dias) + ' para operarse', ref: true },
-            { q: NOMBRE[AQUI] + ', primera consulta', v: a.consultas ? dias(a.consultas.dias) : 'sin dato' },
-            { q: 'Parla, primera consulta', v: dias(r.consultas.dias), ref: true }]
+          pre: 'Parla · ' + r.hospital + ' · ' + S.mes,
+          cifra: num(r.quirurgica.dias, 1), que: 'días de espera media para operarse',
+          cajas: [{ q: NOMBRE[AQUI] + ' · ' + sinArticulo(a), v: dias(a.quirurgica.dias) + ' para operarse' },
+            { q: 'Parla, primera consulta', v: dias(r.consultas.dias), ref: true },
+            { q: NOMBRE[AQUI] + ', primera consulta', v: a.consultas ? dias(a.consultas.dias) : 'sin dato' }]
         };
       }
     }));
     bot.appendChild(window.CARTEL.enlace({
       url: function () { return RUTAS ? RAIZ_WEB + AQUI + '/espera/' : 'sanidad.html?ir=espera#' + AQUI; },
-      titulo: function () { return 'La espera en el hospital que le toca a ' + NOMBRE[AQUI] + ' y en el de Parla'; }
+      titulo: function () { return 'La espera en el hospital de Parla y en el que le toca a ' + NOMBRE[AQUI]; }
     }));
   }
 
@@ -280,13 +280,13 @@
       deMenos(function (id) { return c(id).pediatria; }) + '.ª en pediatría.';
     botones('#cabecera-botones', 'cabecera', 'El médico de cabecera', function () {
       return {
-        pre: 'Centros de salud de ' + NOMBRE[AQUI] + ': tarjetas sanitarias de 14 años o más por cada plaza de médico de familia',
-        cifra: entero(c(AQUI).familia), que: 'tarjetas por plaza',
-        cajas: [{ q: 'Parla', v: entero(c(REF).familia) + ' tarjetas por plaza', ref: true },
-          { q: 'Pediatría en ' + NOMBRE[AQUI], v: entero(c(AQUI).pediatria) + ' tarjetas por plaza' },
-          { q: 'Pediatría en Parla', v: entero(c(REF).pediatria) + ' tarjetas por plaza', ref: true }]
+        pre: 'Centros de salud de Parla: tarjetas sanitarias de 14 años o más por cada plaza de médico de familia',
+        cifra: entero(c(REF).familia), que: 'tarjetas por plaza',
+        cajas: [{ q: NOMBRE[AQUI], v: entero(c(AQUI).familia) + ' tarjetas por plaza' },
+          { q: 'Pediatría en Parla', v: entero(c(REF).pediatria) + ' tarjetas por plaza', ref: true },
+          { q: 'Pediatría en ' + NOMBRE[AQUI], v: entero(c(AQUI).pediatria) + ' tarjetas por plaza' }]
       };
-    }, 'El médico de cabecera en ' + NOMBRE[AQUI] + ' y en Parla');
+    }, 'El médico de cabecera en Parla y en ' + NOMBRE[AQUI]);
     pieFuentes($('#cabecera-pie'), 'Se cuentan las plazas de la plantilla del Servicio Madrileño de Salud a ' +
       fechaLarga(P.fechaPlantilla) + '; una plaza puede estar vacante. Las tarjetas son de ' + P.anioTarjetas +
       ': donde haya más vecinos desde entonces, hoy habrá más tarjetas por plaza. Entran los centros de salud de cada ' +
@@ -323,13 +323,13 @@
       num(c(AQUI).solicitudesPor100, 0) + '.';
     botones('#infantil-botones', 'infantil', 'La escuela infantil', function () {
       return {
-        pre: 'Escuelas infantiles públicas de ' + NOMBRE[AQUI] + ', admisión «' + I.cursoAdmision + '»: de cada 100 solicitudes',
-        cifra: num(c(AQUI).pctSinPlaza, 1), que: 'se quedan sin plaza',
-        cajas: [{ q: 'Parla', v: num(c(REF).pctSinPlaza, 1) + ' de cada 100 sin plaza', ref: true },
-          { q: NOMBRE[AQUI], v: 'unos ' + entero(c(AQUI).sinPlaza) + ' niños sin plaza' },
-          { q: 'Parla', v: 'unos ' + entero(c(REF).sinPlaza) + ' niños sin plaza', ref: true }]
+        pre: 'Escuelas infantiles públicas de Parla, admisión «' + I.cursoAdmision + '»: de cada 100 solicitudes',
+        cifra: num(c(REF).pctSinPlaza, 1), que: 'se quedan sin plaza',
+        cajas: [{ q: NOMBRE[AQUI], v: num(c(AQUI).pctSinPlaza, 1) + ' de cada 100 sin plaza' },
+          { q: 'Parla', v: 'unos ' + entero(c(REF).sinPlaza) + ' niños sin plaza', ref: true },
+          { q: NOMBRE[AQUI], v: 'unos ' + entero(c(AQUI).sinPlaza) + ' niños sin plaza' }]
       };
-    }, 'La escuela infantil en ' + NOMBRE[AQUI] + ' y en Parla');
+    }, 'La escuela infantil en Parla y en ' + NOMBRE[AQUI]);
     pieFuentes($('#infantil-pie'), 'Sin plaza es una estimación: las solicitudes no admitidas menos las que entraron desde la ' +
       'lista de otra escuela de la ciudad. Solo cuenta el proceso ordinario: no están los niños que siguen del curso anterior ni ' +
       'las familias que no piden plaza. Niños en la escuela infantil pública: matriculados en el curso ' + I.cursoMatricula +

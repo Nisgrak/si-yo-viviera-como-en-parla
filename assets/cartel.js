@@ -100,7 +100,7 @@
     const q = qr(ciudad);
     if (q) banda.appendChild(q);
     const txt = el('div', 'kbanda__txt');
-    txt.appendChild(el('p', 'kbanda__h', 'Si yo viviera<br>como en Parla'));
+    txt.appendChild(el('p', 'kbanda__h', window.DATOS.NOMBRE_WEB.replace(', ', ',<br>')));
     txt.appendChild(el('span', 'kbanda__raya'));
     txt.appendChild(el('p', 'kbanda__url', 'siyovivieracomoenparla.netlify.app'));
     banda.appendChild(txt);

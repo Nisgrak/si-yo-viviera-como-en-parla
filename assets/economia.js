@@ -721,15 +721,15 @@
     if (!window.CARTEL) return;
     bot.appendChild(cartel('impuestos', 'Lo que paga un vecino', function () {
       return {
-        pre: 'Con su casa media y un coche, un vecino de ' + NOMBRE[AQUI] + ' paga al año',
-        cifra: entero(suya(AQUI)) + ' €', que: 'de IBI e impuesto de vehículos', fin: String(P.anio),
-        cajas: [{ q: 'Parla, con su casa media', v: entero(suya(REF)) + ' €', ref: true },
-          { q: 'Con la misma casa en las dos', v: NOMBRE[AQUI] + ' ' + entero(misma(AQUI)) + ' €; Parla ' + entero(misma(REF)) + ' €' }]
+        pre: 'Con su casa media y un coche, un vecino de Parla paga al año',
+        cifra: entero(suya(REF)) + ' €', que: 'de IBI e impuesto de vehículos', fin: String(P.anio),
+        cajas: [{ q: NOMBRE[AQUI] + ', con su casa media', v: entero(suya(AQUI)) + ' €' },
+          { q: 'Con la misma casa en las dos', v: 'Parla ' + entero(misma(REF)) + ' €; ' + NOMBRE[AQUI] + ' ' + entero(misma(AQUI)) + ' €' }]
       };
     }));
     bot.appendChild(window.CARTEL.enlace({
       url: function () { return RUTAS ? RAIZ_WEB + AQUI + '/impuestos/' : 'economia.html?ir=paga#' + AQUI; },
-      titulo: function () { return 'Lo que paga un vecino de ' + NOMBRE[AQUI] + ' y uno de Parla'; }
+      titulo: function () { return 'Lo que paga un vecino de Parla y uno de ' + NOMBRE[AQUI]; }
     }));
   }
 
