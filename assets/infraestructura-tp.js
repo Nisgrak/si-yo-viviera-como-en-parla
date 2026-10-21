@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════════════
    EN TRANSPORTE PÚBLICO · el mapa de tiempos de infraestructura.html
-   Se elige a dónde se va (Sol, Atocha…) y cada mapa enseña su término
+   Se elige a dónde se va (Atocha, Sol…) y cada mapa enseña su término
    municipal pintado por zonas de 10 minutos: capas semitransparentes que
    se cargan de color donde se tarda menos, sobre las manzanas del
    Catastro y las líneas de tren. Parla en azul y tu ciudad en tinta.
@@ -21,7 +21,8 @@
   const REF = I.REF, NOMBRE = I.NOMBRE, $ = I.$;
   const SVG = 'http://www.w3.org/2000/svg';
 
-  let destino = 0;
+  /* De entrada, Atocha: adonde llega el C-4 desde Parla. */
+  let destino = Math.max(0, T.destinos.map(function (d) { return d.id; }).indexOf('atocha'));
   /* De entrada, solo el tren: los autobuses no siempre cumplen su horario
      en hora punta. */
   let modo = 'tren';
@@ -342,26 +343,26 @@
   }
 
   /* La frase de arriba de la página habla del coche; aquí se le suma el
-     tren hasta Sol, siempre solo tren, salga el destino que salga abajo. */
+     tren hasta Atocha, siempre solo tren, salga el destino que salga abajo. */
   function golpe() {
     const n = $('#golpe');
     if (!n) return;
     let s = $('#golpe-tren');
     if (!s) { s = el('span', null); s.id = 'golpe-tren'; n.appendChild(s); }
-    const sol = T.destinos.filter(function (d) { return d.id === 'sol'; })[0];
-    const tSol = function (id) {
+    const ato = T.destinos.filter(function (d) { return d.id === 'atocha'; })[0];
+    const tAto = function (id) {
       const c = window.TRANSPORTE_CIUDAD && window.TRANSPORTE_CIUDAD[id];
-      if (!c || !sol) return null;
+      if (!c || !ato) return null;
       const m0 = modo, d0 = destino;
-      modo = 'tren'; destino = T.destinos.indexOf(sol);
+      modo = 'tren'; destino = T.destinos.indexOf(ato);
       const r = estacion(c);
       modo = m0; destino = d0;
       return r;
     };
-    const p = tSol(REF), a = tSol(I.AQUI);
+    const p = tAto(REF), a = tAto(I.AQUI);
     vaciar(s);
     if (!p) return;
-    s.appendChild(document.createTextNode(' En tren, de la estación de Parla a Sol se tardan '));
+    s.appendChild(document.createTextNode(' En tren, de la estación de Parla a Atocha se tardan '));
     s.appendChild(el('b', 'parla', p.t + ' minutos'));
     s.appendChild(document.createTextNode(a ? '; de la de ' + a.nombre + ', ' + a.t + '.' : '.'));
   }

@@ -174,13 +174,13 @@
     });
   }
   if (T && T.casa) {
-    dato({ id: 'casa-sol', grupo: 'Infraestructuras', titulo: 'Desde la vivienda mediana hasta Sol, en tren',
+    dato({ id: 'casa-atocha', grupo: 'Infraestructuras', titulo: 'Desde la vivienda mediana hasta Atocha, en tren',
       unidad: 'minutos, un martes de 7:30 a 8:30', dec: 0,
-      v: function (id) { return T.casa[id] ? T.casa[id].tren.sol[0] : null; },
+      v: function (id) { return T.casa[id] ? T.casa[id].tren.atocha[0] : null; },
       fuente: ['Catastro, edificios, y horarios del Consorcio Regional de Transportes', T.cobertura ? T.cobertura.fuente : 'https://datos.crtm.es/'], pagina: 'infraestructura.html#tiempos' });
-    dato({ id: 'casa-sol-hora', grupo: 'Infraestructuras', titulo: 'Viviendas a más de una hora de Sol en tren',
+    dato({ id: 'casa-atocha-hora', grupo: 'Infraestructuras', titulo: 'Viviendas a más de una hora de Atocha en tren',
       unidad: 'de cada 100, un martes de 7:30 a 8:30', sim: '%', dec: 1,
-      v: function (id) { return T.casa[id] ? T.casa[id].tren.sol[1] : null; },
+      v: function (id) { return T.casa[id] ? T.casa[id].tren.atocha[1] : null; },
       fuente: ['Catastro, edificios, y horarios del Consorcio Regional de Transportes', T.cobertura ? T.cobertura.fuente : 'https://datos.crtm.es/'], pagina: 'infraestructura.html#tiempos' });
   }
   if (T && T.abono) {

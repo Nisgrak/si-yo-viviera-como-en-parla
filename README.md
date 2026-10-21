@@ -401,7 +401,7 @@ python3 herramientas/infraestructura.py                   # escribe datos/infrae
 ### En transporte público: cuánto se tarda hasta el centro
 
 En `infraestructura.html`, sección «En transporte público», para las once ciudades. Se elige
-a dónde se va (Sol, Atocha, Nuevos Ministerios o Plaza de Castilla) y cada mapa enseña su término
+a dónde se va (Atocha, que es el destino de entrada, Sol, Nuevos Ministerios o Plaza de Castilla) y cada mapa enseña su término
 municipal pintado por zonas de 10 minutos: capas semitransparentes que se cargan de color donde se
 tarda menos, sobre las manzanas del Catastro y las líneas de tren. Parla en azul y la otra ciudad
 en tinta; al pasar el ratón, los minutos de ese punto. De entrada cuenta solo el tren (Cercanías,
@@ -419,7 +419,7 @@ python3 herramientas/transporte/comprobar.py               # contrasta con horar
 python3 herramientas/transporte/vivienda_media.py          # la vivienda mediana; luego indice.py
 ```
 
-Debajo del mapa va **la vivienda mediana**: lo que tarda hasta el destino elegido la vivienda del medio de cada ciudad, contando cada edificio del Catastro en su cuadro de 100 m tantas veces como viviendas tiene (`vivienda_media.py` y `fuentes/vivienda_media.json`, que lee los tiempos ya escritos en `datos/transporte/<id>.js`). Hasta Sol en tren, Parla es la 4.ª que más tarda de las once (49 min; Getafe, 38); hasta Plaza de Castilla, la que más.
+Debajo del mapa va **la vivienda mediana**: lo que tarda hasta el destino elegido la vivienda del medio de cada ciudad, contando cada edificio del Catastro en su cuadro de 100 m tantas veces como viviendas tiene (`vivienda_media.py` y `fuentes/vivienda_media.json`, que lee los tiempos ya escritos en `datos/transporte/<id>.js`). Hasta Atocha en tren, Parla es la 5.ª que más tarda de las once (45 min; Getafe, 34); hasta Plaza de Castilla, la que más. La frase de arriba de la página y «Todos los datos» usan Atocha.
 
 Antes del mapa va **el tren a mano** (de cada 100 viviendas del Catastro, las que tienen una
 estación de Cercanías, Metro o Metro Ligero que sale de su municipio a 15 minutos andando, con 5 y
