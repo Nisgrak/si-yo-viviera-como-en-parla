@@ -38,8 +38,24 @@
 /* La cola de la escultura del Parque de la Ballena. Junto al nombre ocupa
    el sitio del hueco; de fondo, sale del borde inferior de la portada, que
    hace de suelo, en un gris que no compite con el texto. */
+/* Dos tonos, como la escultura al sol: la cara iluminada más clara que la
+   que queda en sombra. En oscuro se invierten para que la luz siga siendo
+   lo más claro. */
+:root {
+  --ballena-sombra: var(--ink);
+  --ballena-luz: color-mix(in srgb, var(--ink) 50%, var(--bg));
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ballena-sombra: color-mix(in srgb, var(--ink) 50%, var(--bg));
+    --ballena-luz: var(--ink);
+  }
+}
+.ballena__sombra { fill: var(--ballena-sombra); }
+.ballena__luz { fill: var(--ballena-luz); }
+
 /* Junto al nombre, la cola entera: vista de lado se reconoce hasta en pequeño. */
-.marca__ballena { display: none; width: 2.6rem; height: auto; color: var(--ink); }
+.marca__ballena { display: none; width: 2.6rem; height: auto; }
 body[data-ballena-marca='1'] .marca__ballena { display: block; }
 body[data-ballena-marca='1'] .marca .marca__ico { display: none; }
 
@@ -49,10 +65,17 @@ body[data-ballena-marca='1'] .marca .marca__ico { display: none; }
   display: none;
   position: absolute; right: 3%; bottom: -1px;
   width: min(92%, 46rem); height: auto;
-  color: color-mix(in srgb, var(--ink) 6%, var(--bg));
+  --ballena-sombra: color-mix(in srgb, var(--ink) 8%, var(--bg));
+  --ballena-luz: color-mix(in srgb, var(--ink) 4%, var(--bg));
   pointer-events: none;
 }
 body[data-ballena-fondo='1'] .portada__ballena { display: block; }
+@media (prefers-color-scheme: dark) {
+  .portada__ballena {
+    --ballena-sombra: color-mix(in srgb, var(--ink) 5%, var(--bg));
+    --ballena-luz: color-mix(in srgb, var(--ink) 10%, var(--bg));
+  }
+}
 
 /* ── Portada ──────────────────────────────────────────────────────────── */
 
