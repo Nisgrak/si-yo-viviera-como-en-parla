@@ -8,7 +8,7 @@ Ministerio de Transportes, cruzadas con los términos municipales del IGN):
     salida/puertas11_<fecha>.csv    una fila por ciudad, sentido, franja y puerta
 
 y se queda con lo que pinta la web: los viajeros que salen y entran cada día,
-de 6 a 10 y de 7 a 8, y el reparto entre puertas de los que salen de 6 a 10.
+de 6 a 10, y el reparto entre puertas de los que salen de 6 a 10.
 
 Uso:
     python3 herramientas/infraestructura.py [carpeta-de-salida]
@@ -99,11 +99,9 @@ def main():
         salida[idw] = {
             'pob': int(c['poblacion']),
             'sale': {'dia': round(float(c['sale_dia']), 1),
-                     'h610': round(float(c['sale_6_10']), 1),
-                     'h78': round(float(c['sale_7_8']), 1)},
+                     'h610': round(float(c['sale_6_10']), 1)},
             'entra': {'dia': round(float(c['entra_dia']), 1),
-                      'h610': round(float(c['entra_6_10']), 1),
-                      'h78': round(float(c['entra_7_8']), 1)},
+                      'h610': round(float(c['entra_6_10']), 1)},
             'puertas': lista,
             'calles': calles,
             # La puerta más usada en 2023, en tanto por uno: para decir que el

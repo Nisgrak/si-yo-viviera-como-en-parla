@@ -350,7 +350,7 @@ incorporarlos:
 en la web principal: el bloque «Salir de la ciudad» antes del método y un botón azul en la portada
 («Infraestructuras»). La página se titula «Salir de [ciudad] y salir de Parla» y tiene dos partes, cada
 una con su cabecera (`.grupo`) y sus apartados dentro, que el índice enseña en dos niveles: «En
-coche» (mapa, colas y hora punta) y «En transporte público» (ver la sección
+coche» (mapa, colas y los dos sentidos, de 6 a 10) y «En transporte público» (ver la sección
 siguiente).
 Cuenta por qué acceso cruzan el límite del municipio las personas que salen por carretera entre
 las 6 y las 10 de la mañana, de dos maneras:

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   SALIR · las colas, «De 7 a 8» y el método de infraestructura.html
+   SALIR · las colas, los dos sentidos y el método de infraestructura.html
    Los datos, en datos/infraestructura.js (los escribe
    herramientas/infraestructura.py). Aquí no se calcula nada que no sea
    repartir y contar: un punto por cada 100 personas. La ciudad, el
@@ -221,7 +221,7 @@
 
   /* ── Textos que salen de los datos ────────────────────────────────── */
 
-  /* La hora punta, como un embudo por ciudad: arriba los que salen, abajo
+  /* De 6 a 10, como un embudo por ciudad: arriba los que salen, abajo
      los que entran, con la misma escala en las dos ciudades y la forma que
      los une. Si salen más, se estrecha; si entran más, se ensancha. Encima,
      la proporción, dicha en el sentido que pesa más. */
@@ -243,12 +243,12 @@
   function sentidos() {
     const p = A[REF], a = A[I.AQUI];
     $('#sentidos-intro').textContent =
-      'Personas que salen y que entran por carretera de 7 a 8 de la mañana.';
+      'Personas que salen y que entran por carretera, en coche o en autobús, de 6 a 10 de la mañana.';
     const caja = $('#sentidos-filas');
     vaciar(caja);
-    const max = Math.max(p.sale.h78, p.entra.h78, a.sale.h78, a.entra.h78);
+    const max = Math.max(p.sale.h610, p.entra.h610, a.sale.h610, a.entra.h610);
     [[REF, 'referencia', p], [I.AQUI, 'aqui', a]].forEach(function (g) {
-      const c = g[2], sale = c.sale.h78, entra = c.entra.h78;
+      const c = g[2], sale = c.sale.h610, entra = c.entra.h610;
       const col = el('div', 'sent');
       col.setAttribute('data-quien', g[1]);
       col.appendChild(el('h3', 'sent__nombre', NOMBRE[g[0]]));
