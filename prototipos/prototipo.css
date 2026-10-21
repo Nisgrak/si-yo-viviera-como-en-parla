@@ -38,9 +38,8 @@
 /* La cola de la escultura del Parque de la Ballena. Junto al nombre ocupa
    el sitio del hueco; de fondo, sale del borde inferior de la portada, que
    hace de suelo, en un gris que no compite con el texto. */
-/* Junto al nombre y en el icono, solo el final de la cola: entera y en
-   pequeño se confunde con otras siluetas; la aleta es lo que la hace ballena. */
-.marca__ballena { display: none; width: 2rem; height: 2rem; color: var(--ink); }
+/* Junto al nombre, la cola entera: vista de lado se reconoce hasta en pequeño. */
+.marca__ballena { display: none; width: 2.6rem; height: auto; color: var(--ink); }
 body[data-ballena-marca='1'] .marca__ballena { display: block; }
 body[data-ballena-marca='1'] .marca .marca__ico { display: none; }
 
@@ -48,8 +47,8 @@ body[data-ballena-marca='1'] .marca .marca__ico { display: none; }
 .portada > .env { position: relative; z-index: 1; }
 .portada__ballena {
   display: none;
-  position: absolute; right: -3%; bottom: -1px;
-  width: min(100%, 46rem); height: auto;
+  position: absolute; right: 3%; bottom: -1px;
+  width: min(92%, 46rem); height: auto;
   color: color-mix(in srgb, var(--ink) 6%, var(--bg));
   pointer-events: none;
 }
