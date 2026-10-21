@@ -30,10 +30,8 @@
   color: var(--ink);
 }
 .marca__ico {
-  width: 1.05rem; height: 1.05rem; border-radius: 3px;
-  border: 2px dashed var(--loss);
+  width: 1.05rem; height: 1.05rem;
 }
-body[data-marca='contorno'] .marca__ico { border-style: solid; }
 
 /* ── Portada ──────────────────────────────────────────────────────────── */
 
@@ -59,34 +57,47 @@ body[data-marca='contorno'] .marca__ico { border-style: solid; }
 }
 .ley { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }
 .ley--hay { background: var(--ink); }
-.ley--hueco { margin-left: .5rem; border: 1.5px dashed var(--loss); }
-body[data-marca='contorno'] .ley--hueco { border-style: solid; }
+.ley--hueco { margin-left: .5rem; }
 
 /* ── El hueco ─────────────────────────────────────────────────────────── */
 
+/* Un borde dashed de CSS reparte los trazos como le parece y corta las
+   esquinas. El hueco se dibuja con una máscara: las cuatro esquinas enteras
+   y un trazo centrado en cada lado, siempre igual a cualquier tamaño. El
+   color lo pone el fondo, así que sigue al tema claro y oscuro. */
+:root {
+  --hueco: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15' fill='none' stroke='%23000' stroke-width='1.5'%3E%3Cpath d='M.75 5.5V3.75a3 3 0 0 1 3-3H5.5M9.5.75h1.75a3 3 0 0 1 3 3V5.5M14.25 9.5v1.75a3 3 0 0 1-3 3H9.5M5.5 14.25H3.75a3 3 0 0 1-3-3V9.5M6.5.75h2M14.25 6.5v2M8.5 14.25h-2M.75 8.5v-2'/%3E%3C/svg%3E");
+}
+body[data-marca='contorno'] {
+  --hueco: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15' fill='none' stroke='%23000' stroke-width='1.5'%3E%3Crect x='.75' y='.75' width='13.5' height='13.5' rx='3'/%3E%3C/svg%3E");
+}
+
+.marca__ico,
+.ley--hueco,
+.u--hueco,
+.u--hueco-parte::after,
+.nombre.nombre--hueco .nombre__m {
+  border: 0; border-radius: 0;
+  background: var(--loss);
+  -webkit-mask: var(--hueco) center / 100% 100% no-repeat;
+  mask: var(--hueco) center / 100% 100% no-repeat;
+}
+
 .u--hueco {
-  background: transparent;
-  border: 1.5px dashed var(--loss);
   opacity: 0; transform: scale(.55);
   transition: opacity .3s var(--sal-corta), transform .42s var(--sal);
   transition-delay: var(--retraso, 0ms);
 }
-body[data-marca='contorno'] .u--hueco { border-style: solid; }
 .ind.visto .u--hueco,
 .marcador.visto .u--hueco { opacity: 1; transform: none; }
 
-/* La parte de un hueco: solo el trozo que falta lleva borde. */
-.u--hueco-parte {
-  border-color: var(--line-alta);
-  background: linear-gradient(to right, var(--loss-veil) 0 var(--parte, 50%), transparent var(--parte, 50%));
-}
+/* La parte de un hueco: el contorno entero en gris y, encima, en rojo solo
+   el trozo que falta. */
+.u--hueco-parte { background: var(--line-alta); }
 .u--hueco-parte::after {
-  content: ''; position: absolute; inset: -1.5px;
-  width: var(--parte, 50%);
-  border: 1.5px dashed var(--loss); border-right: 0;
-  border-radius: inherit; border-top-right-radius: 0; border-bottom-right-radius: 0;
+  content: ''; position: absolute; inset: 0;
+  clip-path: inset(0 calc(100% - var(--parte, 50%)) 0 0);
 }
-body[data-marca='contorno'] .u--hueco-parte::after { border-style: solid; }
 
 /* ── Cifras ───────────────────────────────────────────────────────────── */
 
@@ -118,15 +129,10 @@ body[data-marca='contorno'] .u--hueco-parte::after { border-style: solid; }
 .nombres-bloque .nombres__rot:not(:first-child) { margin-top: 1.2rem; }
 
 .nombre .nombre__m { background: var(--ink); }
-.nombre--hueco .nombre__m {
-  width: 11px; height: 11px;
-  background: transparent;
-  border: 1.5px dashed var(--loss);
-}
-body[data-marca='contorno'] .nombre--hueco .nombre__m { border-style: solid; }
+.nombre.nombre--hueco .nombre__m { width: 11px; height: 11px; }
 .nombre--hueco .nombre__t { color: var(--loss); font-weight: 600; }
 .nombre--hueco.nombre--nombrado .nombre__t { color: var(--ink); font-weight: 400; }
-.nombre--parte .nombre__m { border-color: var(--line-alta); }
+.nombre.nombre--parte .nombre__m { background: var(--line-alta); }
 .nombre--parte .nombre__p { color: var(--loss); }
 .nombre--ref .nombre__m { background: var(--ref); }
 .nombre--mejor .nombre__m { background: var(--gain); }

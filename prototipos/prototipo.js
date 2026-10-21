@@ -184,8 +184,15 @@
       const ord = function (k) {
         return i.gen === 'f' ? 'La ' + k + '.ª' : 'El ' + k + (k === 1 || k === 3 ? '.er' : '.º');
       };
-      for (let k = 1; k <= enteros; k++) {
+      /* Con muchos huecos la lista pesa más que lo que cuenta: se enseñan
+         los dos primeros y el resto en una sola fila. La tira ya los dibuja. */
+      const sueltos = enteros > 6 ? 2 : enteros;
+      for (let k = 1; k <= sueltos; k++) {
         ul.appendChild(fila(ord(c.n + k) + ' ' + i.sing, 'nombre--hueco', 'no existe'));
+      }
+      if (enteros > sueltos) {
+        ul.appendChild(fila('Y ' + (enteros - sueltos) + ' más, hasta ' + (i.gen === 'f' ? 'la ' : 'el ') +
+          (c.n + enteros) + (i.gen === 'f' ? '.ª' : '.º'), 'nombre--hueco', 'no existen'));
       }
       const parte = c.falta - enteros;
       if (parte > 0.15) {
