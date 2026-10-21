@@ -1,43 +1,48 @@
-# Si yo viviera como en Parla
+# Parla, a la cola
 
 Web reivindicativa que responde a una pregunta muy concreta:
 
-> **¿Cuántos servicios públicos desaparecerían de mi ciudad si estuviera dotada exactamente
-> igual que Parla?**
+> **¿Cuántos servicios públicos le faltan a Parla para estar dotada como las ciudades de
+> alrededor?**
 
-Diez ciudades del área metropolitana de Madrid comparadas contra Parla, con nombre y apellidos:
+Parla frente a diez ciudades del área metropolitana de Madrid, hueco a hueco:
 
-| Ciudad | Habitantes | Equipamientos que perdería |
-|---|---:|---:|
-| Leganés | 195.734 | **69** |
-| Fuenlabrada | 190.076 | **63** |
-| Móstoles | 214.817 | **61** |
-| Alcorcón | 175.719 | **61** |
-| Getafe | 193.238 | **50** |
-| Alcobendas | 123.342 | **24** |
-| Pozuelo de Alarcón | 89.770 | **18** |
-| Torrejón de Ardoz | 143.526 | **14** |
-| Majadahonda | 73.625 | **12** |
-| Pinto | 56.651 | **9** |
+| Si Parla estuviera dotada como… | Habitantes | Le faltarían | Tiene de más |
+|---|---:|---:|---:|
+| Leganés | 195.734 | **55** | 0 |
+| Fuenlabrada | 190.076 | **51** | 0 |
+| Alcorcón | 175.719 | **51** | 0 |
+| Móstoles | 214.817 | **43** | 0 |
+| Getafe | 193.238 | **37** | 0 |
+| Pozuelo de Alarcón | 89.770 | **27** | 16 |
+| Alcobendas | 123.342 | **26** | 6 |
+| Majadahonda | 73.625 | **23** | 7 |
+| Pinto | 56.651 | **22** | 7 |
+| Torrejón de Ardoz | 143.526 | **13** | 3 |
 
-**Pinto y Alcobendas** pierden poco, y por motivos opuestos. Pinto ya está casi tan mal dotado
-como Parla. Alcobendas es rica —32.405 € de renta por habitante en 2024, más del doble que Parla— pero
-pequeña, y tampoco tiene universidad ni conservatorio. Ninguno de los dos tiene hospital público
-propio, así que en sanidad hospitalaria están **por debajo** de Parla. La web lo dice.
+Parla tiene 137.471 habitantes y 76 equipamientos de los que suman al recuento.
+
+La web empezó como «Si yo viviera como en Parla» y le hablaba a la gente de las otras ciudades:
+cuántos servicios desaparecerían de la suya si estuviera dotada como Parla. En octubre de 2026 se
+le dio la vuelta para hablarle a la gente de Parla. La cuenta es la misma con los papeles
+cambiados, pero las cifras no son las de antes con el signo al revés: ahora se ajustan al tamaño
+de Parla y no al de la otra ciudad. Pinto, mucho más pequeño, pasa de 9 a 22.
+
+**Pozuelo, Alcobendas, Majadahonda, Pinto y Torrejón** son las ciudades con las que Parla tiene
+más en algo, casi siempre en educación: colegios, escuelas infantiles e institutos. Pozuelo,
+Alcobendas y Pinto no tienen hospital público propio, así que en la cartera del hospital Parla
+sale por encima. La web lo dice en la portada, debajo del total, y en «Donde Parla tiene más».
 
 **Móstoles** es el único con dos hospitales públicos (el Universitario de Móstoles y el Rey Juan
 Carlos); se compara la unión de sus dos carteras, 76 unidades frente a las 54 de Parla.
 
-**Torrejón de Ardoz** tiene más habitantes que Parla y pierde 14. Tampoco tiene Metro, empata en
-colegios y gana escuelas infantiles. Su campus público, de la Universidad de Alcalá, abrió en
-septiembre de 2025 con Enfermería y Fisioterapia: es pequeño, pero cuenta como los demás.
+**Torrejón de Ardoz** es con la que menos le falta a Parla. Tampoco tiene Metro, y Parla tiene
+más escuelas infantiles. Su campus público, de la Universidad de Alcalá, abrió en septiembre de
+2025 con Enfermería y Fisioterapia: es pequeño, pero cuenta como los demás.
 
 **Pozuelo de Alarcón y Majadahonda** son, con Alcobendas, las ciudades ricas de la comparación:
-47.217 y 35.059 € de renta por habitante en 2024. Pozuelo pierde 18 y gana 9,2, casi todo en educación:
-tiene campus (Somosaguas, de la Complutense), Hacienda y Seguridad Social, y no tiene hospital
-público. Majadahonda pierde 12 y tiene el Puerta de Hierro, con 613 camas y todas las unidades del
-Infanta Cristina más 23; pero no tiene Hacienda ni Seguridad Social, y con una sola biblioteca
-para 73.625 vecinos queda por debajo de Parla.
+47.217 y 35.059 € de renta por habitante en 2024. Majadahonda tiene el Puerta de Hierro, con 613
+camas y todas las unidades del Infanta Cristina más 23.
 
 Las 16 paradas de Metro Ligero de Pozuelo (ML-2 y ML-3) no cuentan como Metro, igual que el
 tranvía de Parla. La estación de El Barrial-Centro Comercial Pozuelo está en el término de Madrid
@@ -46,12 +51,17 @@ inversión e impuestos directos son la media de 2021 y 2024, y su pie en la web 
 
 ## Cómo funciona
 
-Para cada servicio:
+Para cada servicio, con la ciudad que se elige en el titular:
 
 ```
-lo que quedaría = servicios(Parla) / base(Parla) × base(tu ciudad)
-pérdida         = servicios(tu ciudad) − lo que quedaría
+lo que tendría Parla = servicios(otra) / base(otra) × base(Parla)
+lo que le falta      = lo que tendría Parla − servicios(Parla)
 ```
+
+Está en `assets/calculo.js`, `faltan()`, que es `comparar()` —la cuenta de la versión anterior—
+con los papeles cambiados y con nombres de campo que no dejan dudas (`parla`, `otra`, `tendria`,
+`falta`). La usan la web y el build de las vistas previas, así que no pueden decir cosas
+distintas.
 
 La **base** no siempre es la población total. Una farmacia sirve a todo el mundo; un colegio
 solo a los niños que tienen edad de ir. Parla es la ciudad más joven de la comarca, así que
@@ -80,21 +90,27 @@ las dos operaciones difieren en unos miles; ningún cálculo mezcla las dos.
 La **superficie** (INE Indicadores Urbanos, 2024) se enseña al final del punto de partida: Parla
 es la más pequeña de las once y la más densa, y eso se lee mejor con el dato delante.
 
-La web abre el recuento con un ejemplo resuelto con números reales del municipio elegido
-(«Parla tiene 2 bibliotecas para 137.471 habitantes: una por cada 68.736; a ese ritmo a Getafe
-le tocarían 2,8 y tiene 6»), y cada indicador enseña su ratio en lenguaje llano —«una
-biblioteca pública por cada 32.206 habitantes en Getafe; una por cada 68.736 en Parla»— además
-de la cifra por 100.000.
+La web abre el recuento con un ejemplo resuelto con números reales de la ciudad elegida («En
+Getafe hay una biblioteca pública por cada 32.206 habitantes. Parla tiene 137.471, así que con
+esa proporción le corresponderían 4,3. Tiene 2. Le faltan 2,3»), y cada indicador enseña su
+ratio en lenguaje llano —«una biblioteca pública por cada 68.736 habitantes en Parla; una por
+cada 32.206 en Getafe»— además de la cifra por 100.000.
 
-Cuando el cálculo dice que sobran tres bibliotecas, la web tacha tres nombres concretos.
-**Qué tres es ilustrativo** — no hay criterio técnico para decidir cuál cierra — y la web lo
-dice en su apartado de método. Lo que no es ilustrativo es *cuántas*.
+Lo que le falta a Parla no existe, así que no tiene nombre. Cada hueco se nombra por su puesto,
+«la 3.ª biblioteca pública», la que vendría detrás de las que hay; debajo van las que hay en
+Parla y, plegadas, las de la otra ciudad. Con más de seis huecos se enseñan los dos primeros y
+el resto en una fila («Y 13 más, hasta la 43.ª»). La parte de un hueco va aparte («Y la 44.ª, a
+medias · falta el 40 %»).
+
+Las fichas de lo que falta van de más a menos grave según la parte de lo que le correspondería
+que Parla no tiene: no tener ninguna estación de Metro, cuando le tocarían 5,7, va antes que
+tener 28 farmacias de 43.
 
 ## Lo que no suma al total de portada
 
 Varios indicadores se muestran aparte porque no se miden en equipamientos y sumarlos sería
-mezclar peras con manzanas. En la lista de la web van al final de «Lo que perderías» (y de «Lo que
-ganarías»), detrás de un separador, «Fuera del recuento», cuyo texto dice en qué se mide lo de
+mezclar peras con manzanas. En la lista de la web van al final de «Lo que le falta a Parla» (y
+de «Donde Parla tiene más»), detrás de un separador, «Fuera del recuento», cuyo texto dice en qué se mide lo de
 debajo con las unidades que de verdad aparecen para esa ciudad:
 
 - **Plazas en residencias públicas de mayores.** Se cuentan camas, no centros: es lo que de
@@ -118,8 +134,9 @@ debajo con las unidades que de verdad aparecen para esa ciudad:
   nosotros. Ver «Zonas verdes», más abajo.
 - **Servicios del hospital público.** Un hospital no se reparte por habitante, así que no sale de
   la tasa: se compara su cartera, las unidades asistenciales que declara uno y no el otro, en los
-  dos sentidos. Es una ficha más de Sanidad, montada en `app.js` (`cartera()`) a partir de
-  `hospitales`, y se tachan sus nombres como los de las bibliotecas. No suma porque una unidad
+  dos sentidos. Es una ficha más de Sanidad, montada en `calculo.js` (`faltan()`) a partir de
+  `hospitales`, y aquí los huecos sí llevan nombre: son unidades que el otro hospital declara y el
+  de Parla no. No suma porque una unidad
   asistencial no pesa lo que una farmacia —entre las de Getafe están Neurocirugía y Logopedia—,
   porque parte de la diferencia es cómo declara cada centro su cartera, y porque en Pinto y
   Alcobendas, sin hospital, un solo hospital pesaría como 54 farmacias.
@@ -131,7 +148,7 @@ debajo con las unidades que de verdad aparecen para esa ciudad:
   tiene, y es la réplica más fácil de toda la web. Se quitan de las listas y del total de
   unidades de cada ciudad.
 
-  Lo que se pierde va ordenado de más a menos grave (`hospitales.gravedad`), y es lo que decide
+  Lo que falta va ordenado de más a menos grave (`hospitales.gravedad`), y es lo que decide
   qué nombres caben en el cartel: sin orden, el de Getafe abría con Angiología y Banco de tejidos
   y dejaba fuera Neurocirugía. El orden no sale de ninguna fuente, es nuestro: primero lo que
   atiende una urgencia vital, después la cirugía y el diagnóstico complejos, luego lo que se hace
@@ -139,11 +156,12 @@ debajo con las unidades que de verdad aparecen para esa ciudad:
 
 Se marcan con `enTotal: false` en `datos/datos.js`, con un campo `mide` que dice en qué se miden.
 
-**La portada da lo que se pierde, no el neto.** Si la ciudad también gana algo que sí suma
-—Pinto gana colegios e institutos—, la portada lo dice debajo del total («Y ganarías 3, en
-educación»), el recuento lo enseña como un área más, «Lo que ganarías», y su pie da las dos cifras
-y la resta: «Pierdes 9 equipamientos y ganas 3: 6 menos en neto». No se resta del número grande
-porque lo que desaparece desaparece aunque aparezca otra cosa.
+**La portada da lo que falta, no el neto.** Si Parla tiene más en algo que sí suma —frente a
+Pinto, colegios e institutos—, la portada lo dice debajo del total («Y tendría 7 menos en
+educación, donde Parla está mejor»), el recuento lo enseña como un área más, «Donde Parla tiene
+más», y su pie da las dos cifras y la resta: «A Parla le faltan 22 equipamientos y tiene 7 de
+más: 15 menos en neto». No se resta del número grande porque lo que falta sigue faltando aunque
+sobre otra cosa.
 
 ## Estructura
 
@@ -197,7 +215,8 @@ No hay nada escrito a mano en él:
 - **Una sección nueva** entra sola si lleva `data-indice="Título corto"` y un `id`. Con
   `data-indice-dato` saca una cifra al lado (`data-indice-tono="loss"` o `"gain"` para el color).
 - **Un apartado** dentro de una sección es cualquier elemento con `data-indice-sub="Nombre"` y un
-  `id`. Las áreas de «Lo que perderías» y «Lo que ganarías» las marca `app.js` al pintarlas.
+  `id`. Las áreas de «Lo que le falta a Parla» y «Donde Parla tiene más» las marca `app.js` al
+  pintarlas.
 - **Algo que ocupe también los márgenes** (como los mapas) lleva `data-indice-ancho`: mientras está
   en pantalla, el índice lateral se aparta.
 - **Una página nueva**: una línea en `PAGINAS` (en `indice.js`), su id en `<body data-pagina>`,
@@ -255,8 +274,8 @@ En `datos/datos.js`:
 5. Rehaz el QR (`python3 herramientas/qr.py`). La vista previa se genera sola al publicar.
 
 El recuento de arriba y la lista con nombres de abajo van **en el mismo orden**: por áreas, la
-que más pierde primero, y dentro de cada una por porcentaje perdido: quedarse sin la única
-universidad pesa más que perder 3 institutos de 13. Lo calcula `porAreas()` una sola vez y lo
+que más le falta a Parla primero, y dentro de cada una por la parte que falta de lo que le
+correspondería: no tener ninguna estación de Metro pesa más que tener 28 farmacias de 43. Lo calcula `porAreas()` una sola vez y lo
 usan las dos, para que no puedan separarse al tocar cualquiera de las dos. Lo que no suma va al
 final de la lista, tras el separador, agrupado por área.
 
@@ -663,12 +682,12 @@ la nota de cierre dice expresamente lo que la fuente no puede separar: cuánto d
 falta es infrafinanciación y cuánto es la deuda que Parla arrastra en su plan de ajuste.
 
 Gasto e inversión se dicen además **en euros al año**, con la misma cuenta que el resto de la web:
-lo que Parla pone por habitante, por la población de tu ciudad. «Con la inversión de Parla, Getafe
-invertiría 25,7 millones de euros menos al año.» Por debajo de un 1 % de diferencia la web dice
-que se quedaría prácticamente igual —es el caso del gasto de Leganés— y no ofrece cartel. Renta,
+lo que la otra ciudad pone por habitante, por la población de Parla. «Con la inversión de Getafe,
+Parla invertiría 18,3 millones de euros más al año.» Por debajo de un 1 % de diferencia la web
+dice que se quedaría prácticamente igual —es el caso del gasto de Leganés— y no ofrece cartel. Renta,
 PIB y paro no se dicen así: describen a los vecinos, no lo que decide el ayuntamiento.
 
-Las series comparan como el resto de la web, tu ciudad contra Parla, con una fila más
+Las series comparan como el resto de la web, Parla contra la ciudad elegida, con una fila más
 arriba cuando hay una media de referencia comparable. La **tasa de paro** (INE Indicadores
 Urbanos, 2024) no lleva esa fila: la fuente da la tasa por ciudad y no publica una media de la
 Comunidad comparable, y la de la EPA es otra encuesta. No es el paro registrado: mide a quien
@@ -952,9 +971,9 @@ discutir:
    recortadas contra el término municipal.
 3. **El total, por habitante**, con el padrón.
 
-Va fuera del recuento porque es una superficie y no un equipamiento que se pueda contar y tachar.
-Es un indicador más (`medida: 'superficie'`), con su ficha, sus barras en m² por habitante y su
-cartel, y **se dice cuánta superficie se perdería** con la tasa de Parla. Dato incómodo pero
+Va fuera del recuento porque es una superficie y no un equipamiento que se pueda contar uno a
+uno. Es un indicador más (`medida: 'superficie'`), con su ficha, sus barras en m² por habitante y
+su cartel, y **se dice cuánta superficie le falta a Parla** con la proporción de la otra ciudad. Dato incómodo pero
 honesto: **con este cálculo Parla no es la última** (lo es Móstoles, y por poco; en Móstoles sale
 como empate). La nota de la web no lo comenta: las barras ya lo enseñan.
 
@@ -1001,7 +1020,7 @@ Es una web pública, así que la copia sigue tres reglas:
    menos: de esos ocho, en cinco (Metro, universidad, conservatorio, Hacienda y Seguridad Social)
    Parla tiene cero y alguna otra también.
 5. **Hacia dónde es mejor, solo donde está claro.** Justo debajo de las cifras de cada dato (las
-   barras de Parla y tu ciudad, el gráfico, las dos cifras grandes) va «cuanto más, mejor» o
+   barras de Parla y la ciudad elegida, el gráfico, las dos cifras grandes) va «cuanto más, mejor» o
    «cuanto menos, mejor» (`assets/sentido.js`, con una sola lista por id del catálogo de «Todos
    los datos»). El título, o el bloque de cifras, lleva `data-sentido="mas"` o `"menos"`; el
    script busca las cifras que le siguen (`CIFRAS`, `FILAS`) y pone la línea, también en lo que

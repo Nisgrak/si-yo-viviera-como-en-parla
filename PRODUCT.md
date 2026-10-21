@@ -1,23 +1,30 @@
-# Si yo viviera como en Parla
+# Parla, a la cola
 
 **Register:** brand — el diseño *es* el producto. Es una página de campaña, no una herramienta.
 
 ## Qué es
 
 Una web reivindicativa que convierte una desigualdad abstracta («Parla está peor dotada») en una
-lista concreta de cosas con nombre que desaparecerían de tu ciudad. El argumento no lo pone el
-texto: lo pone el recuento.
+lista concreta de huecos: lo que le falta a Parla para estar dotada como cada ciudad de
+alrededor. El argumento no lo pone el texto: lo pone el recuento.
+
+Empezó como «Si yo viviera como en Parla», que le hablaba a la gente de las otras ciudades de lo
+que perderían. En octubre de 2026 se le dio la vuelta para hablarle a la gente de Parla: la
+cuenta es la misma con los papeles cambiados (`calculo.js`, `faltan`). El nombre recoge la cola
+de la ballena, el monumento del Parque de la Ballena, que ya usaba Urge Parla («Salvemos la
+ballena»).
 
 ## A quién va dirigida
 
-Vecinos de las ciudades del sur de Madrid —el municipio se elige en la portada—, en el móvil, probablemente en el bus o el Cercanías. Gente que ya
-intuye el agravio y necesita munición verificable para discutirlo. Secundariamente: periodistas
-locales, concejales de la oposición, plataformas vecinales.
+Vecinos de Parla, en el móvil, probablemente en el bus o el Cercanías. Gente que ya intuye el
+agravio y necesita munición verificable para discutirlo; la ciudad con la que se compara se
+elige en la portada. Secundariamente: periodistas locales, concejales, plataformas vecinales
+como Urge Parla.
 
 ## La escena
 
-Las siete de la tarde de un martes de noviembre, en el andén. Alguien abre el enlace que le han
-pasado por WhatsApp, lo lee entero de pie y reenvía la captura del hospital. De ahí salen las
+Las siete de la tarde de un martes de noviembre, en el andén de Parla. Alguien abre el enlace que
+le han pasado por WhatsApp, lo lee entero de pie y reenvía la captura del hospital. De ahí salen las
 decisiones: fondo oscuro, una sola columna, cifras enormes, cero adornos, todo legible en
 treinta segundos y a la vez auditable hasta la fuente.
 
@@ -46,54 +53,64 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 - **Fondo:** blanco puro por defecto, con tema oscuro automático según el sistema. Se lee de día,
   se comparte en capturas y se parece más a un aviso público que a un panel de control.
 - **Papeles semánticos** (validados para daltonismo y contraste antes de escribir una línea):
-  - rojo `#c02719` — lo que desaparece
-  - azul `#1a67c2` — Parla, la vara de medir
-  - verde `#1d7635` — lo que se ganaría
-  - tinta `#161616` — lo que sobrevive
+  - rojo `#c02719` — lo que le falta a Parla
+  - azul `#1a67c2` — Parla en los gráficos, y la ciudad que se elige en el titular, que es lo
+    que se toca
+  - verde `#1d7635` — donde Parla tiene más
+  - tinta `#161616` — lo que hay
 - **Tipografía:** Archivo variable, una sola familia, servida desde el propio dominio para que
   abrir la web no genere ni una petición a terceros. Titulares en ancho condensado y peso 800;
   texto en ancho normal. El contraste lo dan el peso y el ancho, no una segunda fuente.
 - **El golpe se calcula, no se escribe.** La frase de la portada que resume el agravio sale de
   contar posiciones en los datos. Así no puede quedarse obsoleta ni decir más de lo que hay.
-- **El selector es la frase.** Elegir municipio no es un control aparte: es la primera palabra
-  del titular. «Vivo en [Getafe] y si viviera como en Parla… me faltarían 50». El desplegable
-  lleva el mismo tipo y el mismo peso que el resto del titular, en azul y subrayado para que se
-  vea que se toca.
-- **Jerarquía de lectura:** portada → «El recuento» (todo lo que cae, con nombre, en una
-  pantalla) → contexto → el detalle de cada cosa. Quien solo lea una sección tiene que salir
-  sabiendo qué desaparece y cómo se llama.
-- **Regla de los nombres:** lo que se pierde se ve siempre; lo que sobrevive se pliega. Nunca
-  al revés.
+- **El selector es la frase.** Elegir ciudad no es un control aparte: es la palabra grande del
+  titular. «Vivo en Parla y si viviera como en [Getafe]… tendría 37 más». El desplegable lleva
+  el mismo tipo y el mismo peso que el resto del titular, en azul y subrayado para que se vea
+  que se toca. En las páginas temáticas, igual: «La sanidad de Parla y la sanidad de [Getafe]».
+- **Jerarquía de lectura:** portada → «El recuento» (todo lo que falta, en una pantalla) →
+  contexto → el detalle de cada cosa. Quien solo lea una sección tiene que salir sabiendo qué le
+  falta a Parla.
+- **Regla de los huecos:** lo que falta se ve siempre; lo que hay en la otra ciudad se pliega.
+  Lo que falta no existe y no tiene nombre: cada hueco se nombra por su puesto («la 3.ª
+  biblioteca pública»). Con más de seis, los dos primeros y el resto en una fila. La excepción
+  es el hospital, donde lo que falta son unidades con nombre.
 - **Iconos:** un glifo de trazo por indicador, dibujados con la misma rejilla y el mismo grosor
   para que ninguno pese más que otro. Aparecen en el recuento y en la cabecera de cada apartado,
   nunca grandes ni decorativos.
-- **Marca recurrente:** la unidad tachada, que es también el icono de la web (`assets/icono.svg`):
-  un cuadrado de contorno rojo con una diagonal, sobre fondo blanco para que se lea en pestañas
-  claras y oscuras. Un cuadrado que se convierte en contorno rojo con una
-  diagonal. Es el único pictograma del sistema y aparece en todas las escalas.
-- **Movimiento:** el tachado entra escalonado cuando la sección se ve, y el contador de cabecera
-  acumula pérdidas según bajas. Nada más. Todo se apaga con `prefers-reduced-motion`.
+- **El hueco:** la unidad que falta. Un cuadrado vacío en rojo con la curva de cada esquina
+  entera y un trazo largo centrado en cada lado, dibujado con una máscara (`--hueco`) para que
+  sea igual a cualquier tamaño. En la tira va detrás de los cuadrados negros de lo que hay; la
+  parte de un hueco solo lleva en rojo el trozo que falta.
+- **La ballena:** la marca de Parla. La cola de la escultura del Parque de la Ballena, vista de
+  lado, recortada de una foto y en dos tonos, como al sol: la cara iluminada más clara que la
+  que queda en sombra (en oscuro se invierten). Va junto al nombre en todas las cabeceras, de
+  icono de la web y, entera y muy clara, de fondo en la portada saliendo del borde inferior. Se
+  usa siempre entera: recortada a la aleta se confunde con otras siluetas.
+- **Movimiento:** los huecos aparecen escalonados cuando la sección se ve, y el contador de
+  cabecera suma lo que falta según bajas. Nada más. Todo se apaga con `prefers-reduced-motion`.
 
 ## Lo que no es
 
 - No es un dashboard. No hay filtros ni selectores de rango. La excepción va aparte y avisada:
   «Todos los datos» (`consulta.html`), una página de consulta para quien quiere contrastar
   (periodistas, plataformas vecinales), con las once ciudades a la vez. Las páginas de campaña
-  siguen siendo Parla frente a tu ciudad. Los gráficos de líneas y las barras
+  siguen siendo Parla frente a una ciudad. Los gráficos de líneas y las barras
   de «de cada 100» enseñan un recuadro con las cifras de las dos ciudades al pasar el ratón o el
   dedo, y nada más: lo importante ya está escrito en la página sin tener que buscarlo.
 - No es una revista. Nada de serif italic, capitulares ni rejilla de broadsheet.
-- No es neutral, pero tampoco es tramposa: la sección «Y esto lo ganarías» existe precisamente
-  para que la parte reivindicativa se sostenga.
+- No es neutral, pero tampoco es tramposa: la sección «Donde Parla tiene más» existe
+  precisamente para que la parte reivindicativa se sostenga.
 
 ## Estado
 
-v6 (octubre de 2026): diez ciudades contra Parla —Leganés 69, Fuenlabrada 63, Alcorcón 61,
-Móstoles 61, Getafe 50, Alcobendas 24, Pozuelo de Alarcón 18, Torrejón de Ardoz 14,
-Majadahonda 12, Pinto 9— con 12 indicadores que suman, y aparte, fuera del recuento, las camas,
-las plazas residenciales públicas, los alumnos de enseñanzas artísticas, las zonas verdes y la
-cartera del hospital. Pinto es el contraejemplo que sostiene la credibilidad: pierde poco y en
-hospital está por debajo de Parla, y la web lo dice en su propia portada.
+v7 (octubre de 2026): Parla en el centro. Lo que le falta para estar dotada como cada una de las
+otras diez —Leganés 55, Fuenlabrada 51, Alcorcón 51, Móstoles 43, Getafe 37, Pozuelo de
+Alarcón 27, Alcobendas 26, Majadahonda 23, Pinto 22, Torrejón de Ardoz 13— con 12 indicadores
+que suman, y aparte, fuera del recuento, las camas, las plazas residenciales públicas, los
+alumnos de enseñanzas artísticas, las zonas verdes y la cartera del hospital. Las cifras no son
+las de antes con el signo cambiado: se ajustan al tamaño de Parla y no al de la otra ciudad (Pinto
+pasa de 9 a 22). Pozuelo, Alcobendas, Majadahonda, Pinto y Torrejón son el contraejemplo que
+sostiene la credibilidad: con ellas Parla tiene más en algo, y la portada lo dice.
 
 Además del recuento, cinco páginas por ciudad, cada una con su resumen en la portada:
 
