@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════════
    SALIR EN COCHE · la página de los accesos (infraestructura.html)
    Hereda todo de estilos.css: los mismos papeles de color, la misma
-   tipografía. Parla en azul, tu ciudad en tinta gris, como en el dinero.
+   tipografía. Parla en azul, la ciudad elegida en tinta gris, como en el dinero.
    ═══════════════════════════════════════════════════════════════════════ */
 
 /* ── Vuelta al recuento ───────────────────────────────────────────────── */
@@ -287,7 +287,7 @@
 /* ── En transporte público ─────────────────────────────────────────────
    El término de cada ciudad pintado por zonas de 10 minutos: capas
    semitransparentes que se cargan de color donde se tarda menos. Parla en
-   su azul y tu ciudad en tinta. Debajo, callado, el término y las manzanas
+   su azul y la ciudad elegida en tinta. Debajo, callado, el término y las manzanas
    del Catastro; encima, las líneas de tren y sus estaciones (con nombre,
    las de Cercanías; las de Metro y Metro Ligero, como puntos). */
 
@@ -402,7 +402,7 @@
 .grupo .bloque__h { font-size: clamp(1.4rem, 6vw, 2rem); }
 .grupo__cab + .bloque { border-top: 0; padding-top: clamp(1.5rem, 5vw, 2.5rem); }
 
-/* ── El tren a mano y el abono: dos cifras grandes, Parla y tu ciudad ─── */
+/* ── El tren a mano y el abono: dos cifras grandes, Parla y la otra ─────── */
 
 .tp-cifras {
   display: grid; grid-template-columns: 1fr 1fr;

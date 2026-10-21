@@ -830,6 +830,8 @@
 
   function comun() {
     $('#sel-texto').textContent = NOMBRE[AQUI];
+    /* Los nombres largos («Majadahonda») van más pequeños para caber en un móvil. */
+    document.querySelector('.portada__titulo .t3').dataset.largo = NOMBRE[AQUI].length > 9 ? '1' : '0';
     document.querySelectorAll('[data-aqui]').forEach(function (n) { n.textContent = NOMBRE[AQUI]; });
     const vuelta = RUTAS ? RAIZ_WEB + AQUI + '/' : 'index.html#' + AQUI;
     document.querySelectorAll('.js-volver').forEach(function (a) { a.href = vuelta; });

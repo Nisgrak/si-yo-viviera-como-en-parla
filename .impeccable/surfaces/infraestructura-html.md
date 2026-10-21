@@ -17,7 +17,7 @@ Restricciones: voz seca, sin antítesis, ningún número sin fuente enlazada; ci
 
 THESIS: Cada acceso por carretera es una puerta y la gente que sale de 6 a 10 hace cola delante de la suya, un punto por cada 100 personas. Rechaza el mapa con flechas y el gráfico de barras de tráfico.
 
-OWN-WORLD: Blanco/negro automático de la web, Archivo condensado 800 en mayúsculas, Parla en azul, tu ciudad en gris tinta, rejilla de puntos de 6-8 px como la rejilla de unidades de la portada, filetes de 1px, cada puerta rotulada con su carretera como un letrero de andén.
+OWN-WORLD: Blanco/negro automático de la web, Archivo condensado 800 en mayúsculas, Parla en azul, la ciudad elegida en gris tinta, rejilla de puntos de 6-8 px como la rejilla de unidades de la portada, filetes de 1px, cada puerta rotulada con su carretera como un letrero de andén.
 
 STORY: Ve que de Parla se sale por tres puertas y que en una se agolpan 7 de cada 10; ve las de su ciudad repartidas; lee que por la mañana sale de Parla mucha más gente de la que entra; lee lo que dice el Ministerio de la A-42 y lo que cuesta la R-4; vuelve al recuento.
 

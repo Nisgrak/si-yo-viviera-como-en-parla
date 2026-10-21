@@ -6,7 +6,7 @@
        lleva data-indice-dato, la cifra sale a su lado (data-indice-tono:
        loss o gain, para el color).
      - Dentro de una sección, cualquier elemento con data-indice-sub y un id
-       es un apartado (las áreas de «Lo que perderías», por ejemplo).
+       es un apartado (las áreas de «Lo que le falta a Parla», por ejemplo).
      - Un elemento con data-indice-ancho ocupa también los márgenes: mientras
        está en pantalla, el índice lateral se aparta.
      - Las otras páginas de la web van en PAGINAS, aquí abajo. Para añadir

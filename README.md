@@ -734,7 +734,7 @@ en los datos y en la tabla anterior.
 Hacienda [define el saldo financiero](https://www.hacienda.gob.es/es-ES/CDI/Paginas/SistemasFinanciacionDeuda/InformacionEELLs/DeudaViva.aspx)
 a partir de información del Banco de España. No representa toda la deuda comercial ni el pago
 anual de intereses y amortización. No se convierte a «euros menos al año», no genera un cartel de
-gasto y no entra en `indicadores`, en las pérdidas o ganancias ni en el total de equipamientos.
+gasto y no entra en `indicadores`, en lo que falta o sobra ni en el total de equipamientos.
 El saldo por sí solo no cuantifica cuánto explica de la baja inversión de Parla; para eso harían
 falta, entre otros datos, intereses y amortizaciones de las liquidaciones.
 

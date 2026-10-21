@@ -1243,12 +1243,16 @@
       sel.appendChild(o);
     });
     $('#sel-texto').textContent = NOMBRE[AQUI];
+    /* Los nombres largos («Majadahonda») van más pequeños para caber en un móvil. */
+    document.querySelector('.portada__titulo .t3').dataset.largo = NOMBRE[AQUI].length > 9 ? '1' : '0';
 
     sel.addEventListener('change', function () {
       AQUI = sel.value;
       try { localStorage.setItem('municipio', AQUI); } catch (e) { /* sin almacenamiento */ }
       enlace();
       $('#sel-texto').textContent = NOMBRE[AQUI];
+      /* Los nombres largos («Majadahonda») van más pequeños para caber en un móvil. */
+      document.querySelector('.portada__titulo .t3').dataset.largo = NOMBRE[AQUI].length > 9 ? '1' : '0';
       pintar();
     });
 
@@ -1265,8 +1269,8 @@
 
 
   /* ── Cartel A4 ────────────────────────────────────────────────────────
-     Un cartel por indicador, con formato de anuncio: la cifra, lo que se
-     tacha y un QR a la web. El PDF lo hace el propio navegador desde el
+     Un cartel por indicador, con formato de anuncio: la cifra, lo que le
+     falta a Parla y un QR a la web. El PDF lo hace el propio navegador desde el
      diálogo de impresión, así que no hace falta ninguna librería. El QR va
      ya trazado en assets/qr.js, generado por herramientas/qr.py. */
 

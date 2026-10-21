@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   SI YO VIVIERA COMO EN PARLA · la cuenta
+   PARLA, A LA COLA · la cuenta
    Todo lo que decide qué se pierde, qué se gana y cuánto suma la portada.
    Sin nada de pantalla: lo usan la web (app.js) y el build
    (herramientas/compartir.mjs), que escribe la cifra de cada ciudad en su

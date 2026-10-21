@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────────────────────────────────────
-   SI YO VIVIERA COMO EN PARLA · datos
+   PARLA, A LA COLA · datos
    ─────────────────────────────────────────────────────────────────────────
    Este archivo es el único sitio donde hay que tocar para actualizar la web.
    Todas las cifras proceden de fuentes oficiales, y cada indicador lleva

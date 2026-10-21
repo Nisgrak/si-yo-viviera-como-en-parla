@@ -322,7 +322,16 @@ a:hover { text-decoration-color: var(--ref); }
   padding-bottom: .1em;
   color: var(--ref);
 }
-.portada__titulo .t3 .selector { padding-right: .55em; }
+.portada__titulo .t3[data-largo='1'] { font-size: clamp(2.3rem, 11.5vw, 4.75rem); }
+/* En línea y no en bloque: si el nombre ocupa dos líneas («Torrejón de
+   Ardoz»), la flecha va detrás de la última palabra y no colgando a la
+   derecha de la primera. */
+.portada__titulo .t3 .selector { display: inline; padding-right: 0; }
+.portada__titulo .t3 .selector::after {
+  position: static; display: inline-block;
+  margin-left: .22em; vertical-align: .32em;
+}
+.portada__titulo .t3 .selector:hover::after { transform: rotate(45deg) translate(.05em, .05em); }
 
 .portada__golpe {
   margin-top: clamp(1rem, 3.5vw, 1.4rem);
@@ -445,7 +454,7 @@ a:hover { text-decoration-color: var(--ref); }
   color: var(--ink-2);
 }
 
-/* Las filas del dinero: la media de referencia, tu ciudad y Parla, cada una con
+/* Las filas del dinero: la media de referencia, Parla y la ciudad elegida, cada una con
    su barra proporcional a la mayor. Los papeles, los del resto de la web: tu
    ciudad en gris, Parla en azul, y la media más clara que las dos. */
 .mun { list-style: none; margin: 1.1rem 0 0; padding: 0; }
@@ -559,7 +568,7 @@ a:hover { text-decoration-color: var(--ref); }
 .compartir__ico { display: inline-flex; width: 15px; height: 15px; color: var(--ref); }
 .compartir__ico svg { width: 100%; height: 100%; }
 
-/* El cartel del total: la unidad tachada va en rojo, que es su color. */
+/* El cartel del total: el hueco va en rojo, que es su color. */
 .compartir--general .compartir__ico { color: var(--loss); }
 .portada__cartel { grid-area: k; justify-self: start; margin-top: 1.4rem; }
 
@@ -713,7 +722,7 @@ a:hover { text-decoration-color: var(--ref); }
 .kcaja--ref b { color: #161616; }
 
 /* El cartel general: cada área con su caja de nombre y cifra, y debajo su fila
-   de cuadrados tachados. El lado del cuadrado lo pone el propio cartel en --ku,
+   de huecos. El lado del hueco lo pone el propio cartel en --ku,
    para que la fila del área que más tiene quepa entera. */
 .kareas { list-style: none; margin: 7mm 0 0; padding: 0; --ku: 6mm; }
 .karea + .karea { margin-top: 3mm; }
