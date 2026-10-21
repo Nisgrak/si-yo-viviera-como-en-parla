@@ -33,6 +33,28 @@
   width: 1.05rem; height: 1.05rem;
 }
 
+/* ── La ballena ───────────────────────────────────────────────────────── */
+
+/* La cola de la escultura del Parque de la Ballena. Junto al nombre ocupa
+   el sitio del hueco; de fondo, sale del borde inferior de la portada, que
+   hace de suelo, en un gris que no compite con el texto. */
+/* Junto al nombre y en el icono, solo el final de la cola: entera y en
+   pequeño se confunde con otras siluetas; la aleta es lo que la hace ballena. */
+.marca__ballena { display: none; width: 2rem; height: 2rem; color: var(--ink); }
+body[data-ballena-marca='1'] .marca__ballena { display: block; }
+body[data-ballena-marca='1'] .marca .marca__ico { display: none; }
+
+.portada { overflow: hidden; }
+.portada > .env { position: relative; z-index: 1; }
+.portada__ballena {
+  display: none;
+  position: absolute; right: -3%; bottom: -1px;
+  width: min(100%, 46rem); height: auto;
+  color: color-mix(in srgb, var(--ink) 6%, var(--bg));
+  pointer-events: none;
+}
+body[data-ballena-fondo='1'] .portada__ballena { display: block; }
+
 /* ── Portada ──────────────────────────────────────────────────────────── */
 
 /* Parla ya no es la palabra gigante en rojo: lo es la ciudad elegida, en
@@ -136,3 +158,17 @@
 
 .ind--mejor .ind__grupo { color: var(--gain-ink); }
 .ind--mejor .ind__titular .cifra { color: var(--gain-ink); }
+
+/* En escritorio el nombre va arriba, a todo el ancho, sobre las dos columnas. */
+@media (min-width: 62rem) {
+  .portada > .env {
+    grid-template-areas:
+      'marca    marca'
+      'titulo   marcador'
+      'ayuda    marcador'
+      'pie      marcador'
+      'bajar    marcador';
+  }
+  .marca { grid-area: marca; justify-self: start; }
+  .portada__ballena { right: 3vw; width: min(52vw, 50rem); }
+}

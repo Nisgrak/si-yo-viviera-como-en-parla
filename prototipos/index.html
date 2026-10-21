@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Parla, a la cola · prototipo</title>
 <meta name="robots" content="noindex">
-<link rel="icon" href="icono.svg" type="image/svg+xml">
+<link rel="icon" href="icono-ballena.svg" type="image/svg+xml" id="favicon">
 <link rel="preload" href="../assets/fuentes/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/estilos.css">
 <link rel="stylesheet" href="prototipo.css">
 </head>
-<body>
+<body data-ballena-marca="1" data-ballena-fondo="1" data-ballena-icono="1">
 
 <!-- ── Mandos del prototipo: no forman parte del diseño ─────────────── -->
 <aside class="proto" aria-label="Opciones del prototipo">
@@ -20,12 +20,19 @@
     <label><input type="radio" name="nombre" value="cola" checked> Parla, a la cola</label>
     <label><input type="radio" name="nombre" value="pobre"> Pobre Parla</label>
   </fieldset>
+  <fieldset>
+    <legend>Ballena</legend>
+    <label><input type="checkbox" name="ballena" value="marca" checked> Junto al nombre</label>
+    <label><input type="checkbox" name="ballena" value="fondo" checked> De fondo</label>
+    <label><input type="checkbox" name="ballena" value="icono" checked> Icono</label>
+  </fieldset>
 </aside>
 
 <header class="portada" id="portada">
+  <svg class="portada__ballena" viewBox="16 0 73 56" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16.5 56C17.5 54.58 20.25 50.5 22.5 47.5C24.75 44.5 27.08 41.17 30 38C32.92 34.83 36.67 31.23 40 28.5C43.33 25.77 46.67 23.58 50 21.6C53.33 19.62 57.33 17.87 60 16.6C62.67 15.33 64.47 14.7 66 14C67.53 13.3 68.67 12.67 69.2 12.4C69.3 11.97 69.33 10.7 69.8 9.8C70.27 8.9 70.97 7.9 72 7C73.03 6.1 74.5 5.13 76 4.4C77.5 3.67 79 3.23 81 2.6C83 1.97 86.83 0.93 88 0.6C86.75 1.13 82.47 2.83 80.5 3.8C78.53 4.77 77.35 5.53 76.2 6.4C75.05 7.27 74.23 8.07 73.6 9C72.97 9.93 72.67 11 72.4 12C72.13 13 72.07 14.5 72 15C72.2 15.27 73.05 16.07 73.2 16.6C73.35 17.13 72.72 17.67 72.9 18.2C73.08 18.73 74.08 19.23 74.3 19.8C74.52 20.37 73.98 21.07 74.2 21.6C74.42 22.13 75.07 22.37 75.6 23C76.13 23.63 77.1 24.68 77.4 25.4C77.7 26.12 77.8 26.8 77.4 27.3C77 27.8 75.8 28.32 75 28.4C74.2 28.48 73.4 28.27 72.6 27.8C71.8 27.33 70.87 26.57 70.2 25.6C69.53 24.63 68.98 23.38 68.6 22C68.22 20.62 68.02 18.08 67.9 17.3C67 17.65 64.65 18.15 62.5 19.4C60.35 20.65 57.25 22.7 55 24.8C52.75 26.9 50.63 29.47 49 32C47.37 34.53 46.23 37.33 45.2 40C44.17 42.67 43.37 45.33 42.8 48C42.23 50.67 41.97 54.67 41.8 56Z"/></svg>
   <div class="env">
 
-    <p class="marca"><span class="marca__ico" aria-hidden="true"></span><span id="marca-txt">Parla, a la cola</span></p>
+    <p class="marca"><svg class="marca__ballena" viewBox="50 -2 40 40" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16.5 56C17.5 54.58 20.25 50.5 22.5 47.5C24.75 44.5 27.08 41.17 30 38C32.92 34.83 36.67 31.23 40 28.5C43.33 25.77 46.67 23.58 50 21.6C53.33 19.62 57.33 17.87 60 16.6C62.67 15.33 64.47 14.7 66 14C67.53 13.3 68.67 12.67 69.2 12.4C69.3 11.97 69.33 10.7 69.8 9.8C70.27 8.9 70.97 7.9 72 7C73.03 6.1 74.5 5.13 76 4.4C77.5 3.67 79 3.23 81 2.6C83 1.97 86.83 0.93 88 0.6C86.75 1.13 82.47 2.83 80.5 3.8C78.53 4.77 77.35 5.53 76.2 6.4C75.05 7.27 74.23 8.07 73.6 9C72.97 9.93 72.67 11 72.4 12C72.13 13 72.07 14.5 72 15C72.2 15.27 73.05 16.07 73.2 16.6C73.35 17.13 72.72 17.67 72.9 18.2C73.08 18.73 74.08 19.23 74.3 19.8C74.52 20.37 73.98 21.07 74.2 21.6C74.42 22.13 75.07 22.37 75.6 23C76.13 23.63 77.1 24.68 77.4 25.4C77.7 26.12 77.8 26.8 77.4 27.3C77 27.8 75.8 28.32 75 28.4C74.2 28.48 73.4 28.27 72.6 27.8C71.8 27.33 70.87 26.57 70.2 25.6C69.53 24.63 68.98 23.38 68.6 22C68.22 20.62 68.02 18.08 67.9 17.3C67 17.65 64.65 18.15 62.5 19.4C60.35 20.65 57.25 22.7 55 24.8C52.75 26.9 50.63 29.47 49 32C47.37 34.53 46.23 37.33 45.2 40C44.17 42.67 43.37 45.33 42.8 48C42.23 50.67 41.97 54.67 41.8 56Z"/></svg><span class="marca__ico" aria-hidden="true"></span><span id="marca-txt">Parla, a la cola</span></p>
 
     <h1 class="portada__titulo">
       <span class="t1">Vivo en Parla</span>

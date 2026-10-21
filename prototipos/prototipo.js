@@ -452,6 +452,14 @@
     });
   });
 
+  /* La ballena: cada sitio donde puede ir se enciende por separado. */
+  document.querySelectorAll('input[name="ballena"]').forEach(function (r) {
+    r.addEventListener('change', function () {
+      document.body.setAttribute('data-ballena-' + r.value, r.checked ? '1' : '0');
+      if (r.value === 'icono') $('#favicon').href = r.checked ? 'icono-ballena.svg' : 'icono.svg';
+    });
+  });
+
   function pintar() {
     calcular();
     portada();
