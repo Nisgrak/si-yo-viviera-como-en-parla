@@ -76,7 +76,7 @@
 
   /* ── Lo que hay: los indicadores del recuento de esta área ───────────
      Los mismos números y la misma base que el recuento; aquí solo Parla y
-     tu ciudad, con el enlace al apartado de cada uno. */
+     la ciudad elegida, con el enlace al apartado de cada uno. */
   const GRUPO = { sanidad: 'Sanidad', educacion: 'Educación' }[PAGINA];
   function hay() {
     const cont = $('#hay-listas');
@@ -214,7 +214,7 @@
     }));
   }
 
-  /* Dos filas con barra (Parla y tu ciudad, y si hace falta una tercera
+  /* Dos filas con barra (Parla y la ciudad elegida, y si hace falta una tercera
      de referencia), con un título encima: lo que usan el médico de cabecera
      y la escuela infantil. La barra va contra la mayor de las once. */
   function filasPar(cont, titulo, filas, tope, fmt, sentido, id) {

@@ -3,7 +3,7 @@
    Se elige a dónde se va (Atocha, Sol…) y cada mapa enseña su término
    municipal pintado por zonas de 10 minutos: capas semitransparentes que
    se cargan de color donde se tarda menos, sobre las manzanas del
-   Catastro y las líneas de tren. Parla en azul y tu ciudad en tinta.
+   Catastro y las líneas de tren. Parla en azul y la ciudad elegida en tinta.
 
    Como los mapas de las carreteras: el mismo marco en los dos, cada uno
    con su escala para que su término lo llene (la barra de 1 km lo dice).

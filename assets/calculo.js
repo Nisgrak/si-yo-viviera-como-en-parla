@@ -120,7 +120,78 @@
     };
   }
 
-  const CALCULO = { comparar: comparar, UMBRAL: UMBRAL, esSuperficie: esSuperficie, umbral: umbral };
+  /* ── Parla en el centro ──────────────────────────────────────────────
+     La misma cuenta, mirada desde Parla: con la proporción de OTRA, cuántos
+     equipamientos tendría Parla y cuántos le faltan.
+       lo que tendría = servicios(otra) / base(otra) × base(Parla)
+       falta          = lo que tendría − servicios(Parla)
+     Es comparar() con los papeles cambiados, con nombres que no dejan dudas
+     de quién es quién. La cartera del hospital va aparte: allí se compara qué
+     unidades declara cada uno, y eso no depende de quién mida a quién. */
+  function faltan(D, OTRA) {
+    const PARLA = D.REFERENCIA;
+    const r = comparar(Object.assign({}, D, { REFERENCIA: OTRA }), PARLA);
+    const leer = function (c) {
+      return {
+        ind: c.ind, base: c.base, por: c.por,
+        parla: c.n, otra: c.nRef, lista: c.lista,
+        baseParla: c.baseA, baseOtra: c.baseB,
+        tasaParla: c.tasaA, tasaOtra: c.tasaB,
+        tendria: c.equivalente,
+        falta: -c.delta,                       /* > 0 le falta a Parla */
+        faltaTotal: -c.deltaTotal,
+        /* La parte de lo que le correspondería que no tiene: no tener
+           ninguna estación de Metro pesa más que tener 28 farmacias de 43. */
+        pct: c.equivalente > 0 ? -c.delta / c.equivalente : 0
+      };
+    };
+    const cuenta = function (c) { return c.ind.enTotal !== false; };
+    const noCartera = function (c) { return c.ind.medida !== 'cartera'; };
+    const falta = r.ganancias.filter(noCartera).map(leer);
+    const sobra = r.perdidas.filter(noCartera).map(leer);
+    const empates = r.empates.map(leer);
+
+    /* Del hospital: lo que la otra declara y Parla no, y al revés. */
+    const fuera = D.hospitales.noComparables;
+    const vale = function (u) { return fuera.indexOf(u) < 0; };
+    const h = D.hospitales[OTRA];
+    const orden = D.hospitales.gravedad || [];
+    const puesto = function (u) { const i = orden.indexOf(u); return i < 0 ? orden.length : i; };
+    const leFaltan = h.faltanEnReferencia.filter(vale).sort(function (x, y) {
+      return (puesto(x) - puesto(y)) || x.localeCompare(y, 'es');
+    });
+    const soloParla = h.faltanAqui.filter(vale);
+    const hospital = {
+      ind: CARTERA, nombre: h.nombre,
+      parla: D.hospitales[PARLA].unidades, otra: h.unidades,
+      lista: leFaltan, soloParla: soloParla,
+      falta: leFaltan.length ? leFaltan.length : -soloParla.length,
+      pct: h.unidades ? leFaltan.length / h.unidades : 0
+    };
+    if (hospital.falta > 0) falta.push(hospital);
+    else if (hospital.falta < 0) sobra.push(hospital);
+
+    falta.sort(function (x, y) {
+      const ax = cuenta(x) ? 0 : 1, ay = cuenta(y) ? 0 : 1;
+      return (ax - ay) || (y.pct - x.pct) || (y.falta - x.falta);
+    });
+    sobra.sort(function (x, y) {
+      const ax = cuenta(x) ? 0 : 1, ay = cuenta(y) ? 0 : 1;
+      return (ax - ay) || (x.falta - y.falta);
+    });
+    const suma = function (l) {
+      return l.filter(cuenta).reduce(function (t, c) { return t + c.falta; }, 0);
+    };
+    /* Lo que hay en Parla, en las mismas unidades que el total. */
+    const tiene = D.indicadores.filter(function (i) { return i.enTotal !== false; })
+      .reduce(function (t, i) { return t + i.datos[PARLA].n; }, 0);
+    return {
+      falta: falta, sobra: sobra, empates: empates,
+      TOTAL: suma(falta), SOBRA: -suma(sobra), TIENE: tiene
+    };
+  }
+
+  const CALCULO = { comparar: comparar, faltan: faltan, UMBRAL: UMBRAL, esSuperficie: esSuperficie, umbral: umbral };
   if (typeof module === 'object' && module.exports) module.exports = CALCULO;
   else raiz.CALCULO = CALCULO;
 })(typeof window !== 'undefined' ? window : globalThis);

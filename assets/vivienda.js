@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════════
    UNA CASA EN PARLA · el render de vivienda.html
    Los datos, en datos/vivienda.js (los escribe herramientas/vivienda.py).
-   Aquí solo se divide y se dibuja: Parla en azul, tu ciudad en gris, como
+   Aquí solo se divide y se dibuja: Parla en azul, la ciudad elegida en gris, como
    en el resto de la web. Nada se colorea de bueno o malo: las dos cifras,
    una al lado de la otra.
    ═══════════════════════════════════════════════════════════════════════ */

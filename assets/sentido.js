@@ -9,7 +9,7 @@
    Cómo se usa:
      - en el HTML o al pintar, el título lleva data-sentido="mas" o "menos";
        este script pone la línea justo debajo de las cifras que siguen a ese
-       título (las barras de Parla y tu ciudad, el gráfico, las dos cifras
+       título (las barras de Parla y la ciudad elegida, el gráfico, las dos cifras
        grandes), o debajo del título si no las encuentra. También en lo que
        se pinte más tarde: lo vigila con un MutationObserver;
      - SENTIDO.de(id) da el sentido de un dato del catálogo de «Todos los

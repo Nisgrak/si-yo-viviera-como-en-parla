@@ -196,12 +196,7 @@ a:hover { text-decoration-color: var(--ref); }
   pointer-events: none;
 }
 .contador[data-visible='1'] { transform: translate(-50%, 0); }
-.contador__x {
-  width: 9px; height: 9px; flex: none;
-  background:
-    linear-gradient(to bottom right, transparent 44%, var(--loss) 44%, var(--loss) 56%, transparent 56%),
-    linear-gradient(to bottom left,  transparent 44%, var(--loss) 44%, var(--loss) 56%, transparent 56%);
-}
+.contador__x { width: 10px; height: 10px; flex: none; }
 .contador b { color: var(--loss); font-weight: 800; font-variant-numeric: tabular-nums; }
 
 /* ── La marca: la cola de la ballena y el nombre ─────────────────────────
@@ -243,6 +238,24 @@ a:hover { text-decoration-color: var(--ref); }
   background:
     radial-gradient(120% 70% at 50% 0%, var(--aura-ref), transparent 62%),
     var(--bg);
+}
+
+/* La cola de la ballena, entera y muy clara, saliendo del borde inferior de
+   la portada, que hace de suelo. No compite con el texto. */
+.portada { overflow: hidden; }
+.portada > .env { position: relative; z-index: 1; }
+.portada__ballena {
+  position: absolute; right: 3%; bottom: -1px;
+  width: min(92%, 46rem); height: auto;
+  pointer-events: none;
+  --ballena-sombra: color-mix(in srgb, var(--ink) 8%, var(--bg));
+  --ballena-luz: color-mix(in srgb, var(--ink) 4%, var(--bg));
+}
+@media (prefers-color-scheme: dark) {
+  .portada__ballena {
+    --ballena-sombra: color-mix(in srgb, var(--ink) 5%, var(--bg));
+    --ballena-luz: color-mix(in srgb, var(--ink) 10%, var(--bg));
+  }
 }
 
 /* El selector es una palabra más de la frase: mismo tipo, mismo peso y
@@ -330,7 +343,7 @@ a:hover { text-decoration-color: var(--ref); }
   border-top: 1px solid var(--line);
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-template-areas: 'p p' 'n u' 'r r' 'k k';
+  grid-template-areas: 'p p' 'n u' 'r r' 'l l' 'k k';
   column-gap: clamp(.8rem, 3vw, 1.2rem);
   align-items: center;
 }
@@ -358,7 +371,7 @@ a:hover { text-decoration-color: var(--ref); }
   text-wrap: balance;
 }
 .marcador__u span { display: block; color: var(--ink-3); font-weight: 400; }
-/* Lo que se gana, justo debajo: en verde y más discreto que la cifra. */
+/* Donde Parla tiene más, justo debajo: en verde y más discreto que la cifra. */
 .marcador__gana {
   display: block; margin-top: .35rem;
   color: var(--gain-ink); font-weight: 600;
@@ -366,11 +379,18 @@ a:hover { text-decoration-color: var(--ref); }
 }
 .marcador__gana:empty { display: none; }
 .marcador__gana:hover { text-decoration: underline; }
-.marcador__rejilla {
-  grid-area: r;
-  margin-top: 1rem;
-  display: flex; flex-wrap: wrap; gap: 6px;
+.marcador__rejilla { grid-area: r; margin-top: 1rem; }
+.marcador__rejilla .tira { margin-top: 0; }
+/* La leyenda de la tira: lo que hay y lo que falta. */
+.marcador__ley {
+  grid-area: l;
+  display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .5rem;
+  margin-top: .7rem;
+  font-size: .75rem; color: var(--ink-3);
 }
+.ley { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }
+.ley--hay { background: var(--ink); }
+.ley--hueco { margin-left: .5rem; }
 
 .portada__pie {
   margin-top: 1rem;
@@ -678,12 +698,11 @@ a:hover { text-decoration-color: var(--ref); }
   font-size: 11pt; font-weight: 800; line-height: 1.12;
   text-transform: uppercase; color: #161616;
 }
-.kcaja--tacha {
-  display: inline-flex; align-items: center; gap: 1.7mm;
+/* lo que le falta al hospital: la caja en hueco, con su nombre */
+.kcaja--hueco {
+  border-style: dashed; background: transparent;
   color: #c02719;
 }
-/* la raya va en el nombre, no en el icono que lo acompaña */
-.kcaja--tacha .kcaja__t { text-decoration: line-through; }
 .kcaja__ico { display: inline-flex; flex: none; width: 4mm; height: 4mm; }
 .kcaja__ico svg { display: block; width: 100%; height: 100%; }
 .kcaja b {
@@ -720,18 +739,13 @@ a:hover { text-decoration-color: var(--ref); }
   background: rgba(243, 241, 236, .9);
 }
 
-/* la tira de unidades: un cuadrado tachado por equipamiento */
+/* la tira de unidades: un hueco por equipamiento que falta */
 .krejilla {
   display: flex; flex-wrap: wrap; gap: 1.4mm;
   margin-top: 1.6mm; max-width: 178mm;
 }
 .ku {
   flex: none; display: block; width: var(--ku); height: var(--ku);
-  /* el mismo redondeo que la web y recorte, para que la raya no asome por las
-     esquinas; el fondo va aquí para que las esquinas recortadas salgan crema */
-  border-radius: calc(var(--ku) * .2);
-  overflow: hidden;
-  background: #f3f1ec;
 }
 .ku svg { display: block; width: 100%; height: 100%; }
 
@@ -850,7 +864,7 @@ a:hover { text-decoration-color: var(--ref); }
   color: var(--loss);
   font-variant-numeric: tabular-nums;
 }
-.area--gana .area__n { color: var(--gain); }
+.area--sobra .area__n { color: var(--gain); }
 .area--extra .area__cab { border-bottom-color: var(--line-alta); }
 .area--extra .area__q { color: var(--ink-3); }
 
@@ -885,9 +899,18 @@ a:hover { text-decoration-color: var(--ref); }
 }
 
 .rec--aparte .rec__n { color: var(--ink-3); }
-.rec--gana .rec__n { color: var(--gain); }
-.rec--gana .rec__ico { color: var(--gain); }
-.rec--gana .rec__a:hover .rec__q { color: var(--gain); }
+.rec--sobra .rec__n { color: var(--gain); }
+.rec--sobra .rec__ico { color: var(--gain); }
+.rec--sobra .rec__a:hover .rec__q { color: var(--gain); }
+
+/* La columna del recuento: lo que le falta a Parla. */
+.rec__columnas {
+  display: flex; justify-content: flex-end;
+  margin-bottom: .4rem;
+  font-size: .6875rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--loss);
+}
 
 .recuento__pie {
   margin-top: 1.5rem;
@@ -936,7 +959,7 @@ a:hover { text-decoration-color: var(--ref); }
 }
 .ind__ico { width: 1.25rem; height: 1.25rem; }
 .ind__ico svg { display: block; width: 100%; height: 100%; }
-.ind--gana .ind__grupo { color: var(--gain-ink); }
+.ind--sobra .ind__grupo { color: var(--gain-ink); }
 
 /* El separador de «fuera del recuento»: corta la lista como un título de
    sección, a sangre, para que se vea que lo de debajo es otra cuenta. */
@@ -983,7 +1006,9 @@ a:hover { text-decoration-color: var(--ref); }
   color: var(--loss);
   padding-inline: .04em;
 }
-.ind--gana .ind__titular .cifra { color: var(--gain-ink); }
+.ind--sobra .ind__titular .cifra { color: var(--gain-ink); }
+/* «No tiene ninguna»: la palabra en rojo, sin el cuerpo de una cifra. */
+.ind__titular .cifra--palabra { font-size: 1em; font-stretch: 88%; letter-spacing: -.022em; }
 .ind__titular .resto { color: var(--ink-3); font-weight: 600; }
 
 /* tira de unidades */
@@ -997,26 +1022,38 @@ a:hover { text-decoration-color: var(--ref); }
   background: var(--ink);
   flex: none;
 }
-.u--cae {
-  background: transparent;
-  box-shadow: inset 0 0 0 1.5px var(--loss);
+/* El hueco: lo que debería estar y no está. Un borde discontinuo de CSS
+   reparte los trazos como le parece y corta las esquinas, así que se dibuja
+   con una máscara: la curva de cada esquina entera y un trazo largo centrado
+   en cada lado, igual a cualquier tamaño. El color lo pone el fondo, así que
+   sigue al tema claro y oscuro. */
+:root {
+  --hueco: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15' fill='none' stroke='%23000' stroke-width='1.5'><path d='M.75 4.25V3.75a3 3 0 0 1 3-3H4.25M10.75 .75h0.5a3 3 0 0 1 3 3V4.25M14.25 10.75v0.5a3 3 0 0 1-3 3H10.75M4.25 14.25H3.75a3 3 0 0 1-3-3V10.75M5.5 .75H9.5M14.25 5.5V9.5M9.5 14.25H5.5M.75 9.5V5.5'/></svg>");
 }
-.u--cae::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to bottom right,
-    transparent 41%, var(--loss) 41%, var(--loss) 59%, transparent 59%);
-  transform: scaleX(0); transform-origin: left;
-  transition: transform .34s var(--sal-corta);
+.u--hueco,
+.u--hueco-parte::after,
+.nombre.nombre--hueco .nombre__m,
+.contador__x,
+.ley--hueco {
+  border-radius: 0;
+  background: var(--loss);
+  -webkit-mask: var(--hueco) center / 100% 100% no-repeat;
+  mask: var(--hueco) center / 100% 100% no-repeat;
+}
+.u--hueco {
+  opacity: 0; transform: scale(.55);
+  transition: opacity .3s var(--sal-corta), transform .42s var(--sal);
   transition-delay: var(--retraso, 0ms);
 }
-.ind.visto .u--cae::after,
-.marcador.visto .u--cae::after { transform: scaleX(1); }
-.u--media {
-  background: linear-gradient(to right, var(--ink) 0 var(--parte, 50%), transparent var(--parte, 50%));
-  box-shadow: inset 0 0 0 1.5px var(--loss);
+.ind.visto .u--hueco,
+.marcador.visto .u--hueco { opacity: 1; transform: none; }
+/* La parte de un hueco: el contorno entero en gris y, encima, en rojo solo
+   el trozo que falta. */
+.u--hueco-parte { background: var(--line-alta); }
+.u--hueco-parte::after {
+  content: ''; position: absolute; inset: 0;
+  clip-path: inset(0 calc(100% - var(--parte, 50%)) 0 0);
 }
-.u--gana { background: var(--gain); box-shadow: none; }
-.u--gana::after { display: none; }
 
 .tira--densa { gap: 5px; }
 .tira--densa .u { width: 12px; height: 12px; border-radius: 2px; }
@@ -1086,20 +1123,18 @@ a:hover { text-decoration-color: var(--ref); }
 .nombre__t { color: var(--ink-2); }
 .nombre__p { font-size: .75rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
 
-.nombre--cae .nombre__m { background: var(--loss); }
-.nombre--cae .nombre__t {
-  color: var(--loss);
-  text-decoration: line-through;
-  text-decoration-thickness: 1.5px;
-  text-decoration-color: var(--loss);
-}
-.nombre--media .nombre__m {
-  background: linear-gradient(to right, var(--ink-3) 0 50%, var(--loss) 50%);
-}
-.nombre--media .nombre__t { color: var(--ink); }
-.nombre--media .nombre__p { color: var(--loss); }
-.nombre--gana .nombre__m { background: var(--gain); }
-.nombre--gana .nombre__t { color: var(--ink); }
+.nombres__rot--falta { color: var(--loss); }
+.nombres__rot--sobra { color: var(--gain-ink); }
+.nombres-bloque .nombres__rot:not(:first-child) { margin-top: 1.2rem; }
+.nombre .nombre__m { background: var(--ink); }
+.nombre.nombre--hueco .nombre__m { width: 11px; height: 11px; }
+.nombre--hueco .nombre__t { color: var(--loss); font-weight: 600; }
+.nombre--hueco.nombre--nombrado .nombre__t { color: var(--ink); font-weight: 400; }
+.nombre.nombre--parte .nombre__m { background: var(--line-alta); }
+.nombre--parte .nombre__p { color: var(--loss); }
+.nombre--otra .nombre__m { background: var(--ink-3); }
+.nombre--sobra .nombre__m { background: var(--gain); }
+.nombre--sobra .nombre__t { color: var(--ink); }
 
 details.plegable > summary {
   list-style: none; cursor: pointer;
@@ -1142,9 +1177,9 @@ details.plegable[open] > summary { margin-bottom: .2rem; }
   color: var(--ink-3);
 }
 
-/* ── Ganancias ────────────────────────────────────────────────────────── */
+/* ── Donde Parla tiene más ─────────────────────────────────────────────── */
 
-.bloque--ganancias .ind__titular .resto { color: var(--ink-3); }
+.bloque--sobran .ind__titular .resto { color: var(--ink-3); }
 
 /* ── Método ───────────────────────────────────────────────────────────── */
 
@@ -1273,11 +1308,14 @@ code {
     column-gap: clamp(2.5rem, 6vw, 5rem);
     grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
     grid-template-areas:
+      'marca    marca'
       'titulo   marcador'
       'ayuda    marcador'
       'pie      marcador'
       'bajar    marcador';
   }
+  .portada .marca  { grid-area: marca; justify-self: start; }
+  .portada__ballena { right: 3vw; width: min(52vw, 50rem); }
   .portada__titulo { grid-area: titulo; }
   .portada__golpe  { grid-area: ayuda; }
   .portada__pie    { grid-area: pie; }
@@ -1523,7 +1561,7 @@ html[data-indice='barra'] .pie { padding-bottom: calc(clamp(3.5rem, 11vw, 6rem) 
     transition-duration: .001ms !important;
     transition-delay: 0ms !important;
   }
-  .u--cae::after { transform: scaleX(1); }
+  .u--hueco { opacity: 1; transform: none; }
   .tasa__pista i { transform: scaleX(var(--v, 0)); }
   .contador { transition: none; }
   .indice-hoja[open] { animation: none; }

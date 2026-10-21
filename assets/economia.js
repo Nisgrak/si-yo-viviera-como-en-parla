@@ -3,7 +3,7 @@
    Los datos nuevos, en datos/economia.js (los escribe
    herramientas/economia.py); los de siempre del dinero, en
    DATOS.contexto.dinero, los mismos que resume la portada. Aquí solo se
-   divide y se dibuja: Parla en azul, tu ciudad en gris.
+   divide y se dibuja: Parla en azul, la ciudad elegida en gris.
    ═══════════════════════════════════════════════════════════════════════ */
 
 (function () {
@@ -104,7 +104,7 @@
   /* ── Las piezas ───────────────────────────────────────────────────── */
 
   /* Una ficha: título, pie, a veces una frase, las filas con barra (las
-     medias de referencia, tu ciudad y Parla) y la nota. Es la misma pieza
+     medias de referencia, la ciudad elegida y Parla) y la nota. Es la misma pieza
      que el dinero de la portada. */
   function ficha(cont, f) {
     const art = el('article', 'plata' + (f.saldo ? ' plata--saldo' : ''));

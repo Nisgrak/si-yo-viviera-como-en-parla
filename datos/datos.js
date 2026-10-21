@@ -1482,9 +1482,9 @@ window.DATOS = (function () {
         /* Madrid capital la empuja hacia arriba; se enseñan las dos. */
         mediaSinCapital: 1032,
         /* Se dice también en euros al año: la misma cuenta que el resto de la
-           web, la tasa de Parla aplicada a la población de tu ciudad. */
+           web, la tasa de la otra ciudad aplicada a la población de Parla. */
         alAnio: { con: 'el gasto', verbo: 'gastaría', si: 'gastara' },
-        titulo: 'Lo que gasta tu ayuntamiento',
+        titulo: 'Lo que gasta cada ayuntamiento',
         pie: 'Gasto municipal por habitante, media de 2021 a 2024',
         /* Pozuelo no tiene liquidación publicada de 2022 ni de 2023. */
         pieCiudad: {
@@ -1622,7 +1622,7 @@ window.DATOS = (function () {
       {
         id: 'deuda',
         portada: true,
-        titulo: 'Lo que debe tu ayuntamiento',
+        titulo: 'Lo que debe cada ayuntamiento',
         pie: 'Deuda viva por habitante, 31 de diciembre de 2025',
         /* El XLSX publica miles de euros. Aquí se guardan euros, sin redondear
            a millones. La tasa se calcula abajo con BASES.total: actualizar la
