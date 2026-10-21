@@ -173,6 +173,18 @@
         fuente: ['Catastro, edificios, y horarios del Consorcio Regional de Transportes', T.cobertura.fuente], pagina: 'infraestructura.html#tren-a-mano' });
     });
   }
+  if (T && T.distancia) {
+    const MOV = ['Ministerio de Transportes, Open Data Movilidad, 16-10-2024', T.distancia.fuente];
+    dato({ id: 'trabajo-km', grupo: 'Infraestructuras', titulo: 'Lo lejos que queda el trabajo',
+      unidad: 'km de media de casa al trabajo o a estudiar, todos los medios', dec: 1,
+      v: function (id) { return T.distancia.ciudades[id] ? T.distancia.ciudades[id].km : null; }, fuente: MOV, pagina: 'infraestructura.html#lejos' });
+    dato({ id: 'trabajo-lejos', grupo: 'Infraestructuras', titulo: 'Viajes al trabajo o a estudiar de más de 10 km',
+      unidad: 'de cada 100', sim: '%', dec: 1,
+      v: function (id) { return T.distancia.ciudades[id] ? T.distancia.ciudades[id].lejos : null; }, fuente: MOV, pagina: 'infraestructura.html#lejos' });
+    dato({ id: 'km-vecino', grupo: 'Infraestructuras', titulo: 'Kilómetros al día por vecino',
+      unidad: 'de los viajes que salen de casa o vuelven a ella', dec: 1,
+      v: function (id) { return T.distancia.ciudades[id] ? T.distancia.ciudades[id].kmVecino : null; }, fuente: MOV, pagina: 'infraestructura.html#lejos' });
+  }
   if (T && T.casa) {
     dato({ id: 'casa-atocha', grupo: 'Infraestructuras', titulo: 'Desde la vivienda mediana hasta Atocha, en tren',
       unidad: 'minutos, un martes de 7:30 a 8:30', dec: 0,

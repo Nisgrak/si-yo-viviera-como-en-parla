@@ -429,7 +429,10 @@ python3 herramientas/transporte/tiempos.py --descargar     # GTFS del Consorcio 
 python3 herramientas/transporte/ciudad.py --ciudades parla getafe leganes fuenlabrada mostoles alcorcon alcobendas pinto torrejon pozuelo majadahonda
 python3 herramientas/transporte/comprobar.py               # contrasta con horarios.renfe.com
 python3 herramientas/transporte/vivienda_media.py          # la vivienda mediana; luego indice.py
+python3 herramientas/transporte/distancia.py               # lo lejos que queda el trabajo (~10 min); luego indice.py
 ```
+
+Al principio de la página, antes de «En coche», va **lo lejos que queda el trabajo**: los km de media de los viajes de casa al trabajo o a estudiar, todos los medios, del estudio básico del Ministerio (`distancia.py`, `fuentes/distancia.md`). Parla es la primera de las once en 2024 y en 2023. En la cautela de los tiempos va una frase sobre las incidencias del C-4 (cifras del Consorcio que difunde la Comunidad, citadas por la prensa y discutidas por Renfe); no hay fuente oficial por línea.
 
 Debajo del mapa va **la vivienda mediana**: lo que tarda hasta el destino elegido la vivienda del medio de cada ciudad, contando cada edificio del Catastro en su cuadro de 100 m tantas veces como viviendas tiene (`vivienda_media.py` y `fuentes/vivienda_media.json`, que lee los tiempos ya escritos en `datos/transporte/<id>.js`). Hasta Atocha en tren, Parla es la 5.ª que más tarda de las once (45 min; Getafe, 34); hasta Plaza de Castilla, la que más. La frase de arriba de la página y «Todos los datos» usan Atocha.
 

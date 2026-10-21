@@ -27,7 +27,7 @@
     metro: MAS, cercanias: MAS, farmacias: MAS, bibliotecas: MAS, 'centros-salud': MAS, camas: MAS,
     'escuelas-infantiles': MAS, colegios: MAS, institutos: MAS, universidad: MAS, conservatorio: MAS,
     artes: MAS, fp: MAS, 'plazas-residencia': MAS, hacienda: MAS, 'seguridad-social': MAS, 'zonas-verdes': MAS,
-    'infantil-sin-plaza': MENOS, 'casa-atocha': MENOS, 'casa-atocha-hora': MENOS, 'infantil-matriculados': MAS,
+    'infantil-sin-plaza': MENOS, 'casa-atocha': MENOS, 'casa-atocha-hora': MENOS, 'trabajo-km': MENOS, 'trabajo-lejos': MENOS, 'infantil-matriculados': MAS,
     /* Vecinos y economía */
     'dinero-paro': MENOS, 'dinero-renta': MAS, 'dinero-pobreza': MENOS, 'dinero-pib': MAS,
     puestos: MAS, 'paro-registrado': MENOS, 'paro-mujeres': MENOS, 'paro-jovenes': MENOS, indefinidos: MAS,

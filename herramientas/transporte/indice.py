@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Añade a datos/transporte.js la cobertura (cobertura.py), el abono
-(abono.py) y lo que se tarda desde la vivienda mediana (vivienda_media.py)
-de cada ciudad, sin recalcular los tiempos. Lo llama también
+(abono.py), lo que se tarda desde la vivienda mediana (vivienda_media.py) y
+lo lejos que queda el trabajo (distancia.py) de cada ciudad, sin recalcular los tiempos. Lo llama también
 ciudad.py al terminar.
 
 Uso:
@@ -33,6 +33,14 @@ def main():
         vm = json.loads(vm.read_text())
         d['casa'] = {c: {m: {k: [x['mediana'], x['masHora']] for k, x in v[m].items()} for m in ('tren', 'todo')}
                      for c, v in vm.items() if c != '_meta'}
+    di = F / 'distancia.json'
+    if di.exists():
+        di = json.loads(di.read_text())
+        f0, f1 = di['_meta']['fechas']
+        d['distancia'] = {'fechas': [f0, f1], 'fuente': di['_meta']['fuentes']['ficha'],
+                          'ciudades': {c: {'km': v[f0]['kmTrabajo'], 'lejos': v[f0]['pctLejos'],
+                                           'kmVecino': v[f0]['kmVecino'], 'kmAntes': v[f1]['kmTrabajo']}
+                                       for c, v in di.items() if c != '_meta'}}
     # Las estaciones en obras, en metros desde el centro del mapa de su ciudad.
     import sys
     sys.path.insert(0, str(Path(__file__).resolve().parent))

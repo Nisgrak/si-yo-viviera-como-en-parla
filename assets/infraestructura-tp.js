@@ -494,10 +494,31 @@
         ea + ' más en ' + NOMBRE[I.AQUI] + '.' : '');
   }
 
+  /* Lo lejos que queda el trabajo (distancia.py): de casa al trabajo o a
+     estudiar, en todos los medios. No depende del destino ni de la casilla. */
+  function lejos() {
+    const K = T.distancia && T.distancia.ciudades;
+    if (!K || !K[REF] || !K[I.AQUI]) return;
+    const km = function (v) { return num(v, 1); };
+    pareja('#lejos-cifras', function (id) { return K[id].km; }, km, function (id) {
+      return 'km de media de casa al trabajo o a estudiar; ' + num(K[id].lejos, 1) + ' de cada 100 viajes pasan de 10 km';
+    });
+    const ids = IDS.filter(function (id) { return K[id]; });
+    const N = LETRA[ids.length];
+    const peores = function (k) { return ids.filter(function (id) { return K[id][k] > K[REF][k]; }).length; };
+    const lugar = function (k) { const p = peores(k); return p === 0 ? 'la primera' : 'la ' + (p + 1) + '.ª'; };
+    $('#lejos-nota').textContent = 'De las ' + N + ', Parla es ' + lugar('km') +
+      ' en lo lejos que queda el trabajo y ' + lugar('lejos') + ' en viajes de más de 10 km. ' +
+      'Un año antes, en octubre de 2023, ' + km(K[REF].kmAntes) + ' km en Parla y ' + km(K[I.AQUI].kmAntes) +
+      ' en ' + NOMBRE[I.AQUI] + '. Contando todos los viajes que salen de casa o vuelven a ella, cada vecino hace ' +
+      km(K[REF].kmVecino) + ' km al día en Parla y ' + km(K[I.AQUI].kmVecino) + ' en ' + NOMBRE[I.AQUI] + '.';
+  }
+
   let pidiendo = 0;
   function pintar() {
     const AQUI = I.AQUI, yo = ++pidiendo;
     leyenda();
+    lejos();
     cobertura();
     abono();
     Promise.all([I.cargar(REF), I.cargar(AQUI), cargar(REF), cargar(AQUI)]).then(function (r) {

@@ -1,0 +1,167 @@
+{
+ "_meta": {
+  "fuentes": {
+   "ficha": "https://www.transportes.gob.es/ministerio/proyectos-singulares/estudios-de-movilidad-con-big-data/opendata-movilidad",
+   "20241016": "https://movilidad-opendata.mitma.es/estudios_basicos/por-municipios/viajes/ficheros-diarios/2024-10/20241016_Viajes_municipios.csv.gz",
+   "20231017": "https://movilidad-opendata.mitma.es/estudios_basicos/por-municipios/viajes/ficheros-diarios/2023-10/20231017_Viajes_municipios.csv.gz"
+  },
+  "fechas": [
+   "20241016",
+   "20231017"
+  ]
+ },
+ "pozuelo": {
+  "20241016": {
+   "viajesTrabajo": 24487,
+   "kmTrabajo": 5.52,
+   "pctLejos": 19.0,
+   "kmVecino": 16.5
+  },
+  "20231017": {
+   "viajesTrabajo": 22115,
+   "kmTrabajo": 6.13,
+   "pctLejos": 21.2,
+   "kmVecino": 15.9
+  }
+ },
+ "pinto": {
+  "20241016": {
+   "viajesTrabajo": 15212,
+   "kmTrabajo": 7.87,
+   "pctLejos": 28.7,
+   "kmVecino": 20.8
+  },
+  "20231017": {
+   "viajesTrabajo": 16053,
+   "kmTrabajo": 7.55,
+   "pctLejos": 27.5,
+   "kmVecino": 17.9
+  }
+ },
+ "fuenlabrada": {
+  "20241016": {
+   "viajesTrabajo": 48057,
+   "kmTrabajo": 8.04,
+   "pctLejos": 29.9,
+   "kmVecino": 16.4
+  },
+  "20231017": {
+   "viajesTrabajo": 47488,
+   "kmTrabajo": 8.1,
+   "pctLejos": 29.9,
+   "kmVecino": 16.2
+  }
+ },
+ "leganes": {
+  "20241016": {
+   "viajesTrabajo": 44790,
+   "kmTrabajo": 6.68,
+   "pctLejos": 25.8,
+   "kmVecino": 14.6
+  },
+  "20231017": {
+   "viajesTrabajo": 44051,
+   "kmTrabajo": 6.72,
+   "pctLejos": 25.9,
+   "kmVecino": 13.1
+  }
+ },
+ "getafe": {
+  "20241016": {
+   "viajesTrabajo": 42326,
+   "kmTrabajo": 6.92,
+   "pctLejos": 26.5,
+   "kmVecino": 14.9
+  },
+  "20231017": {
+   "viajesTrabajo": 40995,
+   "kmTrabajo": 7.26,
+   "pctLejos": 28.3,
+   "kmVecino": 14.6
+  }
+ },
+ "alcorcon": {
+  "20241016": {
+   "viajesTrabajo": 39284,
+   "kmTrabajo": 7.46,
+   "pctLejos": 31.8,
+   "kmVecino": 15.4
+  },
+  "20231017": {
+   "viajesTrabajo": 39162,
+   "kmTrabajo": 7.68,
+   "pctLejos": 32.4,
+   "kmVecino": 15.0
+  }
+ },
+ "torrejon": {
+  "20241016": {
+   "viajesTrabajo": 35782,
+   "kmTrabajo": 7.28,
+   "pctLejos": 26.5,
+   "kmVecino": 16.0
+  },
+  "20231017": {
+   "viajesTrabajo": 34716,
+   "kmTrabajo": 7.1,
+   "pctLejos": 25.6,
+   "kmVecino": 15.5
+  }
+ },
+ "mostoles": {
+  "20241016": {
+   "viajesTrabajo": 50996,
+   "kmTrabajo": 7.68,
+   "pctLejos": 29.9,
+   "kmVecino": 15.8
+  },
+  "20231017": {
+   "viajesTrabajo": 49088,
+   "kmTrabajo": 7.69,
+   "pctLejos": 29.7,
+   "kmVecino": 15.1
+  }
+ },
+ "alcobendas": {
+  "20241016": {
+   "viajesTrabajo": 31733,
+   "kmTrabajo": 6.11,
+   "pctLejos": 21.6,
+   "kmVecino": 15.1
+  },
+  "20231017": {
+   "viajesTrabajo": 29745,
+   "kmTrabajo": 6.16,
+   "pctLejos": 23.0,
+   "kmVecino": 14.2
+  }
+ },
+ "majadahonda": {
+  "20241016": {
+   "viajesTrabajo": 19304,
+   "kmTrabajo": 6.2,
+   "pctLejos": 22.8,
+   "kmVecino": 17.5
+  },
+  "20231017": {
+   "viajesTrabajo": 18701,
+   "kmTrabajo": 7.33,
+   "pctLejos": 26.7,
+   "kmVecino": 17.0
+  }
+ },
+ "parla": {
+  "20241016": {
+   "viajesTrabajo": 33269,
+   "kmTrabajo": 9.02,
+   "pctLejos": 33.5,
+   "kmVecino": 18.5
+  },
+  "20231017": {
+   "viajesTrabajo": 33253,
+   "kmTrabajo": 9.37,
+   "pctLejos": 35.3,
+   "kmVecino": 18.5
+  }
+ }
+}
