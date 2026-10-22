@@ -108,13 +108,13 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 ## Estado
 
 v7 (octubre de 2026): Parla en el centro. Lo que le falta para estar dotada como cada una de las
-otras diez —Leganés 55, Fuenlabrada 51, Alcorcón 51, Móstoles 43, Getafe 37, Pozuelo de
-Alarcón 27, Alcobendas 26, Majadahonda 23, Pinto 22, Torrejón de Ardoz 13— con 12 indicadores
-que suman, y aparte, fuera del recuento, las camas, las plazas residenciales públicas, los
-alumnos de enseñanzas artísticas, las zonas verdes y la cartera del hospital. Las cifras no son
-las de antes con el signo cambiado: se ajustan al tamaño de Parla y no al de la otra ciudad (Pinto
-pasa de 9 a 22). Pozuelo, Alcobendas, Majadahonda, Pinto y Torrejón son el contraejemplo que
-sostiene la credibilidad: con ellas Parla tiene más en algo, y la portada lo dice.
+otras diez —Leganés 35, Fuenlabrada 32, Alcorcón 25, Móstoles 24, Getafe 21, Alcobendas 13,
+Pozuelo de Alarcón 9, Pinto 8, Torrejón de Ardoz 8, Majadahonda 4— con 11 indicadores que suman,
+y aparte, fuera del recuento, las farmacias, las camas, las plazas residenciales públicas, los
+alumnos de enseñanzas artísticas y de FP, las zonas verdes y la cartera del hospital. Las
+farmacias salieron del recuento porque son negocios privados con licencia y pesaban demasiado.
+Con Pozuelo y Majadahonda, Parla tiene más de lo que le falta, casi todo en colegios y escuelas
+infantiles, y la portada lo dice: es el contraejemplo que sostiene la credibilidad.
 
 Además del recuento, cinco páginas por ciudad, cada una con su resumen en la portada:
 

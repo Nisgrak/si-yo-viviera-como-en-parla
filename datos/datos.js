@@ -336,6 +336,11 @@ window.DATOS = (function () {
       grupo: 'Sanidad',
       titulo: 'Oficinas de farmacia',
       fuenteId: 'farmacias',
+      /* No suma al recuento: una farmacia es un negocio privado con licencia y
+         no pesa lo que un centro de salud o un colegio. Con ellas dentro, eran
+         casi la mitad de lo que le faltaba a Parla frente a algunas ciudades. */
+      enTotal: false, mide: 'farmacias',
+      porQueFuera: 'Las farmacias se cuentan aparte porque son negocios privados con licencia y no pesan lo que un centro de salud.',
       nota: 'La Comunidad de Madrid planifica la apertura de oficinas de farmacia con módulos de población por zona farmacéutica.',
       datos: {
         getafe: { n: 61, lista: [] },

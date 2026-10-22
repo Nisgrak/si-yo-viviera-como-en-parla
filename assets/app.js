@@ -1075,8 +1075,12 @@
      no hay nada que separar y el corte no se pone. */
   function fichasConSeparador(env, lista, modo, arranque) {
     const fuera = lista.filter(function (c) { return c.ind.enTotal === false; });
+    /* Lo que va aparte por su unidad (camas, alumnos…) y lo que va aparte por
+       otro motivo, que lo dice su propia frase (las farmacias). */
     const unidades = [];
+    const porQue = [];
     fuera.forEach(function (c) {
+      if (c.ind.porQueFuera) { if (porQue.indexOf(c.ind.porQueFuera) < 0) porQue.push(c.ind.porQueFuera); return; }
       if (unidades.indexOf(c.ind.mide) < 0) unidades.push(c.ind.mide);
     });
     const en = unidades.length > 1
@@ -1090,7 +1094,9 @@
         sep.id = 'fuera-' + modo;
         sep.dataset.indiceSub = 'Fuera del recuento';
         sep.appendChild(el('h3', 'separador__h', 'Fuera del recuento'));
-        sep.appendChild(el('p', 'separador__p', arranque + ': se mide en ' + en + '.'));
+        sep.appendChild(el('p', 'separador__p', (unidades.length
+          ? arranque + ': se mide en ' + en + '.' + (porQue.length ? ' ' : '')
+          : arranque + '. ') + porQue.join(' ')));
         env.appendChild(sep);
       }
       const art = bloqueIndicador(c, modo);
@@ -1790,17 +1796,27 @@
     const haySanidad = !!(S && P && S.ciudades[AQUI] && P.ciudades[AQUI]);
     cs.hidden = !haySanidad;
     if (haySanidad) {
-      const area = deArea('Sanidad');
-      $('#servicios-sanidad').textContent = fraseArea(area, 'equipamientos sanitarios') +
+      /* Las camas, por cada 1.000 habitantes, del mismo dato que su ficha. */
+      const ic = D.indicadores.find(function (i) { return i.id === 'camas'; });
+      const camas = {};
+      D.MUNICIPIOS.forEach(function (m) {
+        camas[m.id] = { v: ic.datos[m.id].n / D.BASES.total.valores[m.id] * 1000 };
+      });
+      $('#servicios-sanidad').textContent = 'En los hospitales públicos de Parla hay ' +
+        num(camas[REF].v, 1) + ' camas por cada 1.000 habitantes; en ' + (camas[AQUI].v
+          ? 'los de ' + NOMBRE[AQUI] + ', ' + num(camas[AQUI].v, 1) + '.'
+          : NOMBRE[AQUI] + ', ninguna: no tiene hospital público.') +
         ' Y en los centros de salud hay una plaza de médico de familia por cada ' +
         entero(P.ciudades[REF].familia) + ' tarjetas sanitarias en Parla y por cada ' +
         entero(P.ciudades[AQUI].familia) + ' en ' + NOMBRE[AQUI] + '.';
       const graf = $('#servicios-sanidad-graf');
       vaciar(graf);
-      graf.appendChild(tiraArea('resumen-sanidad', 'Equipamientos sanitarios del recuento', area));
+      graf.appendChild(barrasPar('resumen-camas', 'Camas de hospital público por cada 1.000 habitantes', 'mas',
+        camas, function (c) { return c.v; }, function (v) { return v ? num(v, 1) : 'sin hospital'; }));
       graf.appendChild(barrasPar('resumen-cabecera', 'Tarjetas sanitarias por plaza de médico de familia', 'menos', P.ciudades,
         function (c) { return c.familia; }, entero));
-      fuentesPie($('#servicios-sanidad-pie'), area.fuentes.concat([P.fuentes.plantilla, P.fuentes.tarjetas]));
+      const fc = D.fuentes[ic.fuenteId];
+      fuentesPie($('#servicios-sanidad-pie'), [[fc.t, fc.url], P.fuentes.plantilla, P.fuentes.tarjetas]);
     }
 
     /* Educación: lo que hay del recuento y la FP pública, que no suma a él. */
@@ -1861,7 +1877,7 @@
 
   /* Los nombres cortos de lo que entra en cada área, para el pie de su tira. */
   const CORTO = {
-    farmacias: 'farmacias', 'centros-salud': 'centros de salud',
+    'centros-salud': 'centros de salud',
     'escuelas-infantiles': 'escuelas infantiles', colegios: 'colegios', institutos: 'institutos',
     conservatorio: 'conservatorio', universidad: 'campus universitario'
   };

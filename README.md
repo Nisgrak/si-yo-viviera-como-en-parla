@@ -9,24 +9,29 @@ Parla frente a diez ciudades del área metropolitana de Madrid, hueco a hueco:
 
 | Si Parla estuviera dotada como… | Habitantes | Le faltarían | Tiene de más |
 |---|---:|---:|---:|
-| Leganés | 195.734 | **55** | 0 |
-| Fuenlabrada | 190.076 | **51** | 0 |
-| Alcorcón | 175.719 | **51** | 0 |
-| Móstoles | 214.817 | **43** | 0 |
-| Getafe | 193.238 | **37** | 0 |
-| Pozuelo de Alarcón | 89.770 | **27** | 16 |
-| Alcobendas | 123.342 | **26** | 6 |
-| Majadahonda | 73.625 | **23** | 7 |
-| Pinto | 56.651 | **22** | 7 |
-| Torrejón de Ardoz | 143.526 | **13** | 3 |
+| Leganés | 195.734 | **35** | 0 |
+| Fuenlabrada | 190.076 | **32** | 0 |
+| Alcorcón | 175.719 | **25** | 0 |
+| Móstoles | 214.817 | **24** | 0 |
+| Getafe | 193.238 | **21** | 0 |
+| Alcobendas | 123.342 | **13** | 6 |
+| Pozuelo de Alarcón | 89.770 | **9** | 16 |
+| Pinto | 56.651 | **8** | 7 |
+| Torrejón de Ardoz | 143.526 | **8** | 3 |
+| Majadahonda | 73.625 | **4** | 7 |
 
-Parla tiene 137.471 habitantes y 76 equipamientos de los que suman al recuento.
+Parla tiene 137.471 habitantes y 48 equipamientos de los que suman al recuento. Las farmacias no
+suman: son negocios privados con licencia, no pesan lo que un centro de salud, y con ellas dentro
+eran casi la mitad de lo que faltaba frente a algunas ciudades. Van en «Fuera del recuento».
+
+Con Pozuelo y Majadahonda, Parla tiene más de lo que le falta, sobre todo en colegios y escuelas
+infantiles: los municipios ricos tienen menos centros públicos. La web lo dice igual.
 
 La web empezó como «Si yo viviera como en Parla» y le hablaba a la gente de las otras ciudades:
 cuántos servicios desaparecerían de la suya si estuviera dotada como Parla. En octubre de 2026 se
 le dio la vuelta para hablarle a la gente de Parla. La cuenta es la misma con los papeles
 cambiados, pero las cifras no son las de antes con el signo al revés: ahora se ajustan al tamaño
-de Parla y no al de la otra ciudad. Pinto, mucho más pequeño, pasa de 9 a 22.
+de Parla y no al de la otra ciudad.
 
 **Pozuelo, Alcobendas, Majadahonda, Pinto y Torrejón** son las ciudades con las que Parla tiene
 más en algo, casi siempre en educación: colegios, escuelas infantiles e institutos. Pozuelo,
@@ -36,7 +41,7 @@ sale por encima. La web lo dice en la portada, debajo del total, y en «Donde Pa
 **Móstoles** es el único con dos hospitales públicos (el Universitario de Móstoles y el Rey Juan
 Carlos); se compara la unión de sus dos carteras, 76 unidades frente a las 54 de Parla.
 
-**Torrejón de Ardoz** es con la que menos le falta a Parla. Tampoco tiene Metro, y Parla tiene
+**Torrejón de Ardoz** tampoco tiene Metro, y Parla tiene
 más escuelas infantiles. Su campus público, de la Universidad de Alcalá, abrió en septiembre de
 2025 con Enfermería y Fisioterapia: es pequeño, pero cuenta como los demás.
 
@@ -113,6 +118,10 @@ mezclar peras con manzanas. En la lista de la web van al final de «Lo que le fa
 de «Donde Parla tiene más»), detrás de un separador, «Fuera del recuento», cuyo texto dice en qué se mide lo de
 debajo con las unidades que de verdad aparecen para esa ciudad:
 
+- **Oficinas de farmacia.** Se cuentan, pero no suman: una farmacia es un negocio privado con
+  licencia que planifica la Comunidad por módulos de población, y no pesa lo que un centro de
+  salud o un colegio. Con ellas dentro eran casi la mitad de lo que le faltaba a Parla frente a
+  algunas ciudades. Llevan `porQueFuera` en `datos.js`, que el separador dice tal cual.
 - **Plazas en residencias públicas de mayores.** Se cuentan camas, no centros: es lo que de
   verdad se ocupa. Solo titularidad pública.
 - **Camas de hospital público.** Instaladas, según el Catálogo Nacional de Hospitales.
@@ -128,8 +137,8 @@ debajo con las unidades que de verdad aparecen para esa ciudad:
   se estudia, no donde se vive. Se deja fuera la FP a distancia, que se concentra en pocos
   centros de toda la región (Alcorcón tiene 2.883 alumnos a distancia; Móstoles, 1.133). La base
   es la de 12 a 17 años porque `BASES` no tiene un tramo de 16 a 24. Las unidades escolares
-  (grupos) de FP sí se publican, pero sumarlas al recuento lo desbordaba —Getafe pasaba de 50 a
-  unos 95— y un grupo no pesa lo que un centro de salud; van en un comentario de `datos.js`.
+  (grupos) de FP sí se publican, pero sumarlas al recuento lo desbordaba —en la versión anterior,
+  Getafe pasaba de 50 a unos 95— y un grupo no pesa lo que un centro de salud; van en un comentario de `datos.js`.
 - **Zonas verdes e instalaciones deportivas.** Una superficie, y el único dato que calculamos
   nosotros. Ver «Zonas verdes», más abajo.
 - **Servicios del hospital público.** Un hospital no se reparte por habitante, así que no sale de
@@ -157,10 +166,10 @@ debajo con las unidades que de verdad aparecen para esa ciudad:
 Se marcan con `enTotal: false` en `datos/datos.js`, con un campo `mide` que dice en qué se miden.
 
 **La portada da lo que falta, no el neto.** Si Parla tiene más en algo que sí suma —frente a
-Pinto, colegios e institutos—, la portada lo dice debajo del total («Y tendría 7 menos en
-educación, donde Parla está mejor»), el recuento lo enseña como un área más, «Donde Parla tiene
-más», y su pie da las dos cifras y la resta: «A Parla le faltan 22 equipamientos y tiene 7 de
-más: 15 menos en neto». No se resta del número grande porque lo que falta sigue faltando aunque
+Pinto, colegios e institutos—, la portada lo dice debajo del total («Y tendríamos 7 menos en
+educación, donde estamos mejor»), el recuento lo enseña como un área más, «Donde Parla tiene
+más», y su pie da las dos cifras y la resta: «A Parla le faltan 8 equipamientos y tiene 7 de
+más: 1 menos en neto». No se resta del número grande porque lo que falta sigue faltando aunque
 sobre otra cosa.
 
 ## Estructura
