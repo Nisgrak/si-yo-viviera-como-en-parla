@@ -400,6 +400,8 @@ a:hover { text-decoration-color: var(--ref); }
 .ley { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }
 .ley--hay { background: var(--ink); }
 .ley--hueco { margin-left: .5rem; }
+/* La tira de un área en los resúmenes de la portada. */
+.tira--resumen { margin-top: .6rem; max-width: 34rem; }
 
 .portada__pie {
   margin-top: 1rem;

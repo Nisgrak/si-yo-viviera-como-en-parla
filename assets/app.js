@@ -1790,23 +1790,20 @@
     const haySanidad = !!(S && P && S.ciudades[AQUI] && P.ciudades[AQUI]);
     cs.hidden = !haySanidad;
     if (haySanidad) {
-      $('#servicios-sanidad').textContent = 'Quien espera una operación en el hospital de Parla lleva de media ' +
-        num(S.ciudades[REF].quirurgica.dias, 1) + ' días; en el que le toca a ' + NOMBRE[AQUI] + ', ' +
-        num(S.ciudades[AQUI].quirurgica.dias, 1) + '. En los centros de salud hay una plaza de médico de familia por cada ' +
+      const area = deArea('Sanidad');
+      $('#servicios-sanidad').textContent = fraseArea(area, 'equipamientos sanitarios') +
+        ' Y en los centros de salud hay una plaza de médico de familia por cada ' +
         entero(P.ciudades[REF].familia) + ' tarjetas sanitarias en Parla y por cada ' +
         entero(P.ciudades[AQUI].familia) + ' en ' + NOMBRE[AQUI] + '.';
       const graf = $('#servicios-sanidad-graf');
       vaciar(graf);
-      graf.appendChild(barrasPar('resumen-espera', 'Días de espera media para operarse', 'menos', S.ciudades,
-        function (c) { return c.quirurgica && c.quirurgica.dias; }, function (v) { return num(v, 1); }));
+      graf.appendChild(tiraArea('resumen-sanidad', 'Equipamientos sanitarios del recuento', area));
       graf.appendChild(barrasPar('resumen-cabecera', 'Tarjetas sanitarias por plaza de médico de familia', 'menos', P.ciudades,
         function (c) { return c.familia; }, entero));
-      fuentesPie($('#servicios-sanidad-pie'), [S.fuentes.consulta, P.fuentes.plantilla, P.fuentes.tarjetas]);
+      fuentesPie($('#servicios-sanidad-pie'), area.fuentes.concat([P.fuentes.plantilla, P.fuentes.tarjetas]));
     }
 
-    /* Educación: la escuela infantil pública, de 0 a 2 años, por los niños
-       que van (no por los que se quedan sin plaza, que depende de cuántos la
-       piden), y la FP pública, que no suma al recuento. */
+    /* Educación: lo que hay del recuento y la FP pública, que no suma a él. */
     const fp = D.indicadores.find(function (i) { return i.id === 'fp'; });
     const baseFp = D.BASES[fp.base];
     const fpPor100 = {};
@@ -1814,19 +1811,18 @@
     const hayEducacion = !!(I && I.ciudades[AQUI]);
     ce.hidden = !hayEducacion;
     if (hayEducacion) {
-      $('#servicios-educacion').textContent = 'En Parla van a una escuela infantil pública ' +
-        num(I.ciudades[REF].matriculadosPor100, 1) + ' de cada 100 niños de 0 a 2 años; en ' + NOMBRE[AQUI] + ', ' +
-        num(I.ciudades[AQUI].matriculadosPor100, 1) + '. Y por cada 100 chicos y chicas de 12 a 17 años hay ' +
+      const area = deArea('Educación');
+      $('#servicios-educacion').textContent = fraseArea(area, 'equipamientos educativos públicos') +
+        ' Y por cada 100 chicos y chicas de 12 a 17 años hay ' +
         num(fpPor100[REF].v, 1) + ' alumnos de Formación Profesional pública en Parla y ' +
         num(fpPor100[AQUI].v, 1) + ' en ' + NOMBRE[AQUI] + '.';
       const ge = $('#servicios-educacion-graf');
       vaciar(ge);
-      ge.appendChild(barrasPar('resumen-infantil', 'Niños de 0 a 2 años en la escuela infantil pública, por cada 100', 'mas',
-        I.ciudades, function (c) { return c.matriculadosPor100; }, function (v) { return num(v, 1); }));
+      ge.appendChild(tiraArea('resumen-educacion', 'Equipamientos educativos públicos del recuento', area));
       ge.appendChild(barrasPar('resumen-fp', 'Alumnos de FP pública por cada 100 chicos y chicas de 12 a 17 años', 'mas',
         fpPor100, function (c) { return c.v; }, function (v) { return num(v, 1); }));
       const f = D.fuentes[fp.fuenteId], fb = D.fuentes[baseFp.fuenteId];
-      fuentesPie($('#servicios-educacion-pie'), [I.fuentes.buscador, [f.t, f.url], [fb.t, fb.url]]);
+      fuentesPie($('#servicios-educacion-pie'), area.fuentes.concat([[f.t, f.url], [fb.t, fb.url]]));
     }
 
     const s = RUTAS ? RAIZ_WEB + AQUI + '/sanidad/' : 'sanidad.html#' + AQUI;
@@ -1836,6 +1832,67 @@
     const ps = $('#portada-sanidad'), pe = $('#portada-educacion');
     if (ps) ps.href = s;
     if (pe) pe.href = e;
+  }
+
+  /* El estado de un área entera: los equipamientos del recuento que tiene
+     Parla y los que tendría con la proporción de la otra, sumados. Es la
+     misma cuenta que el recuento, área a área. */
+  function deArea(grupo) {
+    const orden = D.indicadores.map(function (i) { return i.id; });
+    const cosas = faltan.concat(sobran, empates).filter(function (c) {
+      return c.ind.grupo === grupo && c.ind.enTotal !== false && !esCartera(c);
+    }).sort(function (x, y) { return orden.indexOf(x.ind.id) - orden.indexOf(y.ind.id); });
+    const hay = cosas.reduce(function (t, c) { return t + c.parla; }, 0);
+    const tendria = cosas.reduce(function (t, c) { return t + c.tendria; }, 0);
+    const fuentes = [];
+    cosas.forEach(function (c) {
+      const f = D.fuentes[c.ind.fuenteId];
+      if (f && !fuentes.some(function (x) { return x[1] === f.url; })) fuentes.push([f.t, f.url]);
+    });
+    return { hay: hay, tendria: tendria, falta: tendria - hay, cosas: cosas, fuentes: fuentes };
+  }
+
+  function fraseArea(a, que) {
+    const base = 'Parla tiene ' + entero(a.hay) + ' ' + que + '. Con la proporción de ' +
+      NOMBRE[AQUI] + ' tendría ' + num(a.tendria) + ': ';
+    if (Math.abs(a.falta) < 0.5) return base + 'prácticamente los mismos.';
+    return base + (a.falta > 0 ? 'le faltan ' + num(a.falta) + '.' : 'tiene ' + num(-a.falta) + ' de más.');
+  }
+
+  /* Los nombres cortos de lo que entra en cada área, para el pie de su tira. */
+  const CORTO = {
+    farmacias: 'farmacias', 'centros-salud': 'centros de salud',
+    'escuelas-infantiles': 'escuelas infantiles', colegios: 'colegios', institutos: 'institutos',
+    conservatorio: 'conservatorio', universidad: 'campus universitario'
+  };
+
+  /* La tira del área: lo que hay, en negro, y un hueco por cada cosa que
+     falta, como la de la portada. Si Parla tiene más, solo lo que hay. */
+  function tiraArea(id, titulo, a) {
+    const caja = el('div');
+    const h = el('h3', 'espera__h', titulo);
+    h.id = id;   /* el nombre en clave del enlace de la cadena (indice.js) */
+    caja.appendChild(h);
+    const t = tira(a.hay, Math.max(0, a.falta));
+    t.classList.add('tira--resumen');
+    t.querySelectorAll('.u--hueco').forEach(function (u) { u.style.opacity = '1'; u.style.transform = 'none'; });
+    caja.appendChild(t);
+    const ley = el('p', 'marcador__ley');
+    ley.setAttribute('aria-hidden', 'true');
+    ley.innerHTML = '<span class="ley ley--hay"></span>' + entero(a.hay) + ' que hay' +
+      (a.falta > 0.04 ? ' <span class="ley ley--hueco"></span>' + num(a.falta) + ' que faltan' : '');
+    caja.appendChild(ley);
+    const nombres = a.cosas.map(function (c) { return CORTO[c.ind.id] || c.ind.titulo.toLowerCase(); });
+    const cuenta = el('p', 'salir__pie');
+    cuenta.textContent = 'Cuentan ' + (nombres.length > 1
+      ? nombres.slice(0, -1).join(', ') + ' y ' + nombres[nombres.length - 1] : nombres[0]) +
+      (a.cosas.every(function (c) { return (c.ind.base || 'total') === 'total'; })
+        ? ', contra toda la población.'
+        : a.cosas.every(function (c) { return c.ind.base && c.ind.base !== 'total'; })
+          ? ', cada uno contra los vecinos de su edad.'
+          : ', cada uno contra los vecinos de su edad o contra todos, según lo que sea.');
+    caja.appendChild(cuenta);
+    return caja;
   }
 
   /* Un dato en dos barras: Parla y la ciudad elegida, con un título pequeño
