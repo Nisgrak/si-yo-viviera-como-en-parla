@@ -232,12 +232,19 @@ const CIFRAS = {
     pie: 'Comunidad de Madrid, alumnos de régimen general, 2024, y padrón del INE a 1 de enero de 2025.',
     desc: (n, a, b) => `En Parla hay ${a} alumnos de FP pública por cada 100 jóvenes de 12 a 17 años; en ${n}, ${b}. Y Parla no tiene campus universitario público ni conservatorio profesional. Con datos oficiales.`
   },
+  artes: {
+    titulo: 'Alumnos de música, idiomas y artes en centros públicos por cada 1.000 vecinos',
+    seccion: 'Música, idiomas y artes', unidad: '',
+    v: (id) => { const a = D.indicadores.find((i) => i.id === 'artes'); return num(a.datos[id].n / D.BASES.total.valores[id] * 1000, 1); },
+    pie: 'Comunidad de Madrid, alumnos de enseñanzas de régimen especial, y padrón del INE a 1 de enero de 2025.',
+    desc: (n, a, b) => `En Parla estudian música, idiomas o artes en centros públicos ${a} personas por cada 1.000 vecinos; en ${n}, ${b}. Con datos oficiales.`
+  },
   infantil: {
-    titulo: 'De cada 100 solicitudes de plaza en una escuela infantil pública, las que se quedan sin plaza',
+    titulo: 'De cada 100 niños de 0 a 2 años, los que van a una escuela infantil pública',
     seccion: 'La escuela infantil', unidad: '',
-    v: (id) => IN.ciudades[id] ? num(IN.ciudades[id].pctSinPlaza, 1) : null,
-    pie: 'Comunidad de Madrid, proceso de admisión «' + IN.cursoAdmision + '» de las escuelas infantiles públicas.',
-    desc: (n, a, b) => `De cada 100 solicitudes de plaza en una escuela infantil pública, en Parla se quedan sin plaza ${a}; en ${n}, ${b}. Y los colegios, institutos y escuelas que hay, con datos oficiales.`
+    v: (id) => IN.ciudades[id] ? num(IN.ciudades[id].matriculadosPor100, 1) : null,
+    pie: 'Comunidad de Madrid, alumnos de cada escuela infantil pública, curso ' + IN.cursoMatricula + ', y padrón del INE.',
+    desc: (n, a, b) => `De cada 100 niños de 0 a 2 años, en Parla van a una escuela infantil pública ${a}; en ${n}, ${b}. Y los que se quedan sin plaza, con datos oficiales.`
   },
   impuestos: {
     titulo: 'IBI y coche al año con la vivienda media de cada ciudad, ' + IM.anio,
@@ -458,6 +465,8 @@ for (const m of D.MUNICIPIOS) {
     ['espera', `../sanidad/?ir=espera`, 'La espera en el hospital de Parla y en el que le toca a ' + m.nombre],
     ['cabecera', `../sanidad/?ir=cabecera`, 'El médico de cabecera en Parla y en ' + m.nombre],
     ['infantil', `../educacion/?ir=infantil`, 'La escuela infantil en Parla y en ' + m.nombre],
+    ['fp', `../educacion/?ir=fp`, 'La FP pública en Parla y en ' + m.nombre],
+    ['artes', `../educacion/?ir=artes`, 'La música, los idiomas y las artes en Parla y en ' + m.nombre],
     ['impuestos', `../economia/?ir=paga`, 'Lo que paga un vecino de Parla y uno de ' + m.nombre]]) {
     const p = await previa(clave, m);
     if (!p) continue;

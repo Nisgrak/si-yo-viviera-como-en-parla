@@ -630,6 +630,15 @@
         ? 'Con la proporción de ' + NOMBRE[AQUI] + ', tendría ' + entero(Math.round(tendria)) + ' alumnos; tiene ' +
           entero(fp.datos[REF].n) + '.'
         : 'Con la proporción de ' + NOMBRE[AQUI] + ', tendría menos: ' + entero(Math.round(tendria)) + '.');
+    botones('#fp-botones', 'fp', 'La FP pública', function () {
+      return {
+        pre: 'Parla · alumnos de Formación Profesional pública por cada 100 chicos y chicas de 12 a 17 años',
+        cifra: num(v(REF), 1), que: 'alumnos de FP pública por cada 100 jóvenes',
+        cajas: [{ q: NOMBRE[AQUI], v: num(v(AQUI), 1) + ' por cada 100' },
+          { q: 'Parla', v: puestoDe(p, IDS_TODAS().length) + ' de las ' + letra(IDS_TODAS().length), ref: true },
+          { q: 'Y en Parla', v: (uni.datos[REF].n ? 'con' : 'sin') + ' campus universitario público' }]
+      };
+    }, 'La FP pública en Parla y en ' + NOMBRE[AQUI]);
     pieFuentes($('#despues-pie'), 'Campus y conservatorios dentro de cada término; alumnos de FP presencial en centros públicos, ' +
       'donde se estudia, contra los jóvenes de 12 a 17 años del padrón.',
       [[D.fuentes[uni.fuenteId].t, D.fuentes[uni.fuenteId].url], [D.fuentes[con.fuenteId].t, D.fuentes[con.fuenteId].url],
@@ -649,6 +658,14 @@
     $('#artes-txt').textContent = 'Parla es ' + puestoDe(p, IDS_TODAS().length) + ' de las ' + letra(IDS_TODAS().length) + '. ' +
       'Con la proporción de ' + NOMBRE[AQUI] + ', estudiarían música, idiomas o artes en Parla ' +
       entero(Math.round(tendria)) + ' personas; lo hacen ' + entero(ind.datos[REF].n) + '.';
+    botones('#artes-botones', 'artes', 'Música, idiomas y artes', function () {
+      return {
+        pre: 'Parla · alumnos de música, idiomas y artes en centros públicos',
+        cifra: num(v(REF), 1), que: 'alumnos por cada 1.000 vecinos',
+        cajas: [{ q: NOMBRE[AQUI], v: num(v(AQUI), 1) + ' por cada 1.000' },
+          { q: 'Parla', v: puestoDe(p, IDS_TODAS().length) + ' de las ' + letra(IDS_TODAS().length), ref: true }]
+      };
+    }, 'La música, los idiomas y las artes en Parla y en ' + NOMBRE[AQUI]);
     pieFuentes($('#artes-pie'), 'Mide matrícula, no plazas, y suma lo autonómico (escuelas oficiales de idiomas, conservatorios) ' +
       'con lo municipal (escuelas de música y danza).', [[D.fuentes[ind.fuenteId].t, D.fuentes[ind.fuenteId].url]]);
   }
@@ -693,8 +710,8 @@
       return entero(c(id).solicitudes) + ' solicitudes y ' + entero(c(id).admitidos) + ' admitidos; sin plaza, unos ' +
         entero(c(id).sinPlaza) + ', ' + num(c(id).pctSinPlaza, 1) + ' de cada 100';
     };
-    $('#infantil-txt').textContent = 'En el proceso de admisión «' + I.cursoAdmision +
-      '» de las escuelas infantiles públicas, de 0 a 2 años, Parla tuvo ' + frase(REF) + '. En ' + NOMBRE[AQUI] + ', ' + frase(AQUI) + '.';
+    $('#infantil-txt').textContent = 'Cuántos niños de 0 a 2 años van a una escuela infantil pública, y cuántas familias ' +
+      'que la piden se quedan sin plaza.';
     /* En grande, los niños que van; debajo, los que se quedan sin plaza. */
     cifrasPar($('#infantil-cifras'), function (id) { return num(c(id).matriculadosPor100, 1); }, function (id) {
       return 'de cada 100 niños de 0 a 2 años van a una escuela infantil pública · ' + entero(c(id).matriculados) + ' niños';
@@ -714,11 +731,11 @@
       num(c(AQUI).solicitudesPor100, 0) + '.';
     botones('#infantil-botones', 'infantil', 'La escuela infantil', function () {
       return {
-        pre: 'Escuelas infantiles públicas de Parla, admisión «' + I.cursoAdmision + '»: de cada 100 solicitudes',
-        cifra: num(c(REF).pctSinPlaza, 1), que: 'se quedan sin plaza',
-        cajas: [{ q: NOMBRE[AQUI], v: num(c(AQUI).pctSinPlaza, 1) + ' de cada 100 sin plaza' },
-          { q: 'Parla', v: 'unos ' + entero(c(REF).sinPlaza) + ' niños sin plaza', ref: true },
-          { q: NOMBRE[AQUI], v: 'unos ' + entero(c(AQUI).sinPlaza) + ' niños sin plaza' }]
+        pre: 'Parla · escuelas infantiles públicas, curso ' + I.cursoMatricula + ': de cada 100 niños de 0 a 2 años',
+        cifra: num(c(REF).matriculadosPor100, 1), que: 'van a una escuela infantil pública',
+        cajas: [{ q: NOMBRE[AQUI], v: num(c(AQUI).matriculadosPor100, 1) + ' de cada 100' },
+          { q: 'Parla, sin plaza', v: num(c(REF).pctSinPlaza, 1) + ' de cada 100 solicitudes', ref: true },
+          { q: NOMBRE[AQUI] + ', sin plaza', v: num(c(AQUI).pctSinPlaza, 1) + ' de cada 100 solicitudes' }]
       };
     }, 'La escuela infantil en Parla y en ' + NOMBRE[AQUI]);
     pieFuentes($('#infantil-pie'), 'Sin plaza es una estimación: las solicitudes no admitidas menos las que entraron desde la ' +
