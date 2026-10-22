@@ -1796,27 +1796,33 @@
     const haySanidad = !!(S && P && S.ciudades[AQUI] && P.ciudades[AQUI]);
     cs.hidden = !haySanidad;
     if (haySanidad) {
-      /* Las camas, por cada 1.000 habitantes, del mismo dato que su ficha. */
-      const ic = D.indicadores.find(function (i) { return i.id === 'camas'; });
+      /* Las camas del hospital que le toca a cada ciudad, contra toda la gente
+         que tiene asignada: la misma cuenta que sanidad.html (assets/hospitales.js). */
+      const H = window.HOSPITALES;
       const camas = {};
       D.MUNICIPIOS.forEach(function (m) {
-        camas[m.id] = { v: ic.datos[m.id].n / D.BASES.total.valores[m.id] * 1000 };
+        const h = H.de(D, S, m.id);
+        camas[m.id] = { v: h && h.por1000 != null ? h.por1000 : null };
       });
-      $('#servicios-sanidad').textContent = 'En los hospitales públicos de Parla hay ' +
-        num(camas[REF].v, 1) + ' camas por cada 1.000 habitantes; en ' + (camas[AQUI].v
-          ? 'los de ' + NOMBRE[AQUI] + ', ' + num(camas[AQUI].v, 1) + '.'
-          : NOMBRE[AQUI] + ', ninguna: no tiene hospital público.') +
+      const hr = H.de(D, S, REF), ha = H.de(D, S, AQUI);
+      $('#servicios-sanidad').textContent = 'El hospital de Parla tiene ' + num(hr.por1000, 1) +
+        ' camas por cada 1.000 personas que atiende; ' + (ha.por1000 == null
+          ? 'del ' + ha.corto.replace(/^(el|la) /, '') + ', el que le toca a ' + NOMBRE[AQUI] + ', no hay cifra.'
+          : ha === hr ? 'es el mismo que le toca a ' + NOMBRE[AQUI] + '.'
+          : ha.corto + (ha.duena === AQUI ? '' : ', el que le toca a ' + NOMBRE[AQUI]) + ', ' + num(ha.por1000, 1) + '.') +
         ' Y en los centros de salud hay una plaza de médico de familia por cada ' +
         entero(P.ciudades[REF].familia) + ' tarjetas sanitarias en Parla y por cada ' +
         entero(P.ciudades[AQUI].familia) + ' en ' + NOMBRE[AQUI] + '.';
       const graf = $('#servicios-sanidad-graf');
       vaciar(graf);
-      graf.appendChild(barrasPar('resumen-camas', 'Camas de hospital público por cada 1.000 habitantes', 'mas',
-        camas, function (c) { return c.v; }, function (v) { return v ? num(v, 1) : 'sin hospital'; }));
+      graf.appendChild(barrasPar('resumen-camas', 'Camas del hospital por cada 1.000 personas que atiende', 'mas',
+        camas, function (c) { return c.v; }, function (v) { return num(v, 1); }));
       graf.appendChild(barrasPar('resumen-cabecera', 'Tarjetas sanitarias por plaza de médico de familia', 'menos', P.ciudades,
         function (c) { return c.familia; }, entero));
-      const fc = D.fuentes[ic.fuenteId];
-      fuentesPie($('#servicios-sanidad-pie'), [[fc.t, fc.url], P.fuentes.plantilla, P.fuentes.tarjetas]);
+      const fc = D.fuentes.camas;
+      fuentesPie($('#servicios-sanidad-pie'), [[fc.t, fc.url],
+        ['Población asignada a cada hospital: memorias de 2024 del SERMAS', S.memorias[hr.hid]],
+        P.fuentes.plantilla, P.fuentes.tarjetas]);
     }
 
     /* Educación: lo que hay del recuento y la FP pública, que no suma a él. */

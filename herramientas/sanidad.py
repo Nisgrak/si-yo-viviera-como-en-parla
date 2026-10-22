@@ -39,9 +39,14 @@ def lista(c, k):
     x = c.get(k)
     if not x:
         return None
-    a = (c.get(k + 'Anterior') or {}).get(ANTES)
+    ant = c.get(k + 'Anterior') or {}
+    a = ant.get(ANTES)
+    # La demora del mismo mes de cada año, del más antiguo al último, para
+    # dibujar cómo ha cambiado (None donde el hospital no la publica).
+    serie = [round(ant[y]['demoraDias'], 1) if ant.get(y) and ant[y].get('demoraDias') else None
+             for y in sorted(ant)] + [round(x['demoraDias'], 1)]
     return {'dias': round(x['demoraDias'], 1), 'pacientes': x['pacientes'], 'por1000': x['por1000'],
-            'antes': round(a['demoraDias'], 1) if a else None}
+            'antes': round(a['demoraDias'], 1) if a else None, 'serie': serie}
 
 
 ciudades = {}
@@ -63,6 +68,9 @@ f = E['fuentes']
 salida = {
     'mes': E['mes'],
     'antes': 'agosto de ' + ANTES,
+    # Los años de «serie», en el mismo orden.
+    'anios': sorted({y for c in E['ciudades'].values() for k in LISTAS
+                     for y in (c.get(k + 'Anterior') or {})}) + [E['mes'].split()[-1]],
     'ciudades': ciudades,
     'fuentes': {
         'consulta': ['SERMAS · Situación de las listas de espera por hospital, ' + E['mes'],

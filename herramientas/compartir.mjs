@@ -48,6 +48,7 @@ require(join(RAIZ, 'datos/impuestos.js'));
 require(join(RAIZ, 'datos/primaria.js'));
 require(join(RAIZ, 'datos/infantil.js'));
 const CALCULO = require(join(RAIZ, 'assets/calculo.js'));
+const HOSPITALES = require(join(RAIZ, 'assets/hospitales.js'));
 const D = globalThis.DATOS;
 
 /* ── La web ─────────────────────────────────────────────────────────── */
@@ -217,6 +218,13 @@ const CIFRAS = {
     pie: 'Plantilla de Atención Primaria del SERMAS, octubre de 2026, y tarjetas sanitarias de ' + PR.anioTarjetas + '.',
     desc: (n, a, b) => `En los centros de salud de Parla hay una plaza de médico de familia por cada ${a} tarjetas sanitarias; en los de ${n}, una por cada ${b}. Y la espera en el hospital, con datos oficiales.`
   },
+  hospital: {
+    titulo: 'Camas del hospital público por cada 1.000 personas que atiende',
+    seccion: 'El hospital', unidad: '',
+    v: (id) => { const h = HOSPITALES.de(D, SA, id); return h && h.por1000 != null ? num(h.por1000, 1) : null; },
+    pie: 'Camas: Catálogo Nacional de Hospitales 2025. Población asignada: memoria de 2024 de cada hospital del SERMAS.',
+    desc: (n, a, b) => `El hospital de Parla tiene ${a} camas por cada 1.000 personas que atiende; el que le toca a ${n}, ${b}. Lo que le falta al hospital, el médico de cabecera y la espera, con datos oficiales.`
+  },
   infantil: {
     titulo: 'De cada 100 solicitudes de plaza en una escuela infantil pública, las que se quedan sin plaza',
     seccion: 'La escuela infantil', unidad: '',
@@ -355,6 +363,21 @@ const paginaSanidad = (id, nombre, previa) => paginaCiudad(id, 'La sanidad de Pa
 const paginaEducacion = (id, nombre, previa) => paginaCiudad(id, 'La educación de Parla y la educación de ' + nombre,
   edu, 'educacion.html', 'educacion/', undefined, previa);
 
+/* Lo que le falta al hospital: la cifra en rojo y las unidades más graves,
+   cada una con su hueco. */
+function imagenCartera(nombre, k) {
+  const muestra = (k.graves.length ? k.graves : k.faltan).slice(0, 6);
+  const chip = (u) => `<div style="display:flex;align-items:center;gap:12px;padding:10px 18px 10px 14px;border:2px solid #c02719;border-radius:10px;background:#fbeceb;font-size:28px;font-weight:700;color:#c02719"><img src="${HUECO}" style="width:22px;height:22px">${esc(u)}</div>`;
+  return `<div style="${LIENZO}">
+    ${marca()}
+    <div style="display:flex;align-items:center;gap:32px">
+      <span style="font-size:200px;font-weight:800;font-stretch:62%;line-height:.8;color:#c02719">${k.faltan.length}</span>
+      <div style="display:flex;font-size:42px;font-weight:700;line-height:1.12;width:760px">unidades que tiene ${esc(k.hospital.corto)}${k.duena === nombre.id ? '' : ', el que le toca a ' + esc(nombre.nombre) + ','} y el hospital de Parla no</div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;width:1056px">${muestra.map(chip).join('')}</div>
+  </div>`;
+}
+
 /* La imagen y el texto de la vista previa de una página para una ciudad. */
 async function previa(clave, m) {
   const c = CIFRAS[clave];
@@ -418,12 +441,13 @@ for (const m of D.MUNICIPIOS) {
   await mkdir(join(DIST, m.id, 'economia'), { recursive: true });
   await writeFile(join(DIST, m.id, 'economia', 'index.html'), paginaEconomia(m.id, m.nombre, await previa('economia', m)));
   /* La sanidad y la educación, con la vista previa de su sección principal. */
-  for (const [ruta, hacer, clave] of [['sanidad', paginaSanidad, 'espera'], ['educacion', paginaEducacion, 'infantil']]) {
+  for (const [ruta, hacer, clave] of [['sanidad', paginaSanidad, 'hospital'], ['educacion', paginaEducacion, 'infantil']]) {
     await mkdir(join(DIST, m.id, ruta), { recursive: true });
     await writeFile(join(DIST, m.id, ruta, 'index.html'), hacer(m.id, m.nombre, await previa(clave, m)));
   }
   /* Las secciones con enlace propio. */
   for (const [clave, destino, titulo] of [
+    ['hospital', `../sanidad/?ir=hospital`, 'Las camas del hospital de Parla y del que le toca a ' + m.nombre],
     ['espera', `../sanidad/?ir=espera`, 'La espera en el hospital de Parla y en el que le toca a ' + m.nombre],
     ['cabecera', `../sanidad/?ir=cabecera`, 'El médico de cabecera en Parla y en ' + m.nombre],
     ['infantil', `../educacion/?ir=infantil`, 'La escuela infantil en Parla y en ' + m.nombre],
@@ -432,6 +456,18 @@ for (const m of D.MUNICIPIOS) {
     if (!p) continue;
     await mkdir(join(DIST, m.id, clave), { recursive: true });
     await writeFile(join(DIST, m.id, clave, 'index.html'), paginaSeccion(m.id, clave + '/', destino, titulo, p));
+  }
+  /* Lo que le falta al hospital, con su propia imagen. */
+  const k = HOSPITALES.cartera(D, SA, m.id);
+  if (k && k.faltan.length) {
+    const imagen = `${m.id}-cartera.png`;
+    await pintar(imagenCartera(m, k), join(DIST, 'assets/compartir', imagen));
+    const titulo = 'Lo que tiene el hospital que le toca a ' + m.nombre + ' y el de Parla no';
+    const desc = `${k.faltan.length} unidades que tiene ${k.hospital.corto} y el Infanta Cristina no` +
+      (k.graves.length ? `, entre ellas ${k.graves.slice(0, 3).join(', ')}` : '') + '. Con datos oficiales.';
+    await mkdir(join(DIST, m.id, 'cartera'), { recursive: true });
+    await writeFile(join(DIST, m.id, 'cartera', 'index.html'),
+      paginaSeccion(m.id, 'cartera/', '../sanidad/?ir=cartera', titulo, { imagen, desc }));
   }
   console.log(m.id.padEnd(12), total);
 }
