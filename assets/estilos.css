@@ -326,7 +326,12 @@ a:hover { text-decoration-color: var(--ref); }
 /* En línea y no en bloque: si el nombre ocupa dos líneas («Torrejón de
    Ardoz»), la flecha va detrás de la última palabra y no colgando a la
    derecha de la primera. */
-.portada__titulo .t3 .selector { display: inline; padding-right: 0; }
+/* El desplegable invisible cubre toda la línea del nombre, y no solo el texto:
+   un elemento en línea partido en dos renglones no tiene un rectángulo claro,
+   y la flecha, girada, quedaba fuera en algunos navegadores. */
+.portada__titulo .t3 { position: relative; }
+.portada__titulo .t3 .selector { display: inline; padding-right: 0; position: static; }
+.portada__titulo .t3 #sel-municipio { inset: 0; width: 100%; height: 100%; }
 /* El cierre de la pregunta, pegado al nombre y fuera del subrayado. */
 .selector__q { color: var(--ink); }
 .portada__titulo .t3 .selector::after {
@@ -1345,6 +1350,9 @@ code {
   .portada__titulo .t1 { font-size: 3.5rem; }
   .portada__titulo .t2 { font-size: 2.25rem; }
   .portada__titulo .t3 { font-size: 4.75rem; }
+  /* Los nombres largos tampoco caben en escritorio a ese cuerpo: la columna
+     del titular es la mitad de la página. */
+  .portada__titulo .t3[data-largo='1'] { font-size: 3.6rem; }
   .marcador__pre { font-size: 2.25rem; }
   .marcador__n { font-size: 4.5rem; }
 }
