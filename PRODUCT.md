@@ -64,9 +64,13 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 - **El golpe se calcula, no se escribe.** La frase de la portada que resume el agravio sale de
   contar posiciones en los datos. Así no puede quedarse obsoleta ni decir más de lo que hay.
 - **El selector es la frase.** Elegir ciudad no es un control aparte: es la palabra grande del
-  titular. «Vivo en Parla y si viviera como en [Getafe]… tendría 37 más». El desplegable lleva
+  titular, que es una pregunta en primera persona del plural, porque quien la hace es un vecino:
+  «¿Y si en Parla viviéramos como en [Getafe]? Tendríamos 37 más». El desplegable lleva
   el mismo tipo y el mismo peso que el resto del titular, en azul y subrayado para que se vea
   que se toca. En las páginas temáticas, igual: «La sanidad de Parla y la sanidad de [Getafe]».
+- **Dos voces:** la cabecera de la portada habla en plural, como vecinos («tendríamos»,
+  «donde estamos mejor»); el resto de la web, en tercera persona y seca, como un acta («A Parla
+  le faltan…»).
 - **Jerarquía de lectura:** portada → «El recuento» (todo lo que falta, en una pantalla) →
   contexto → el detalle de cada cosa. Quien solo lea una sección tiene que salir sabiendo qué le
   falta a Parla.

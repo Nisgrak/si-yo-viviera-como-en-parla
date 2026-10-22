@@ -327,6 +327,8 @@ a:hover { text-decoration-color: var(--ref); }
    Ardoz»), la flecha va detrás de la última palabra y no colgando a la
    derecha de la primera. */
 .portada__titulo .t3 .selector { display: inline; padding-right: 0; }
+/* El cierre de la pregunta, pegado al nombre y fuera del subrayado. */
+.selector__q { color: var(--ink); }
 .portada__titulo .t3 .selector::after {
   position: static; display: inline-block;
   margin-left: .22em; vertical-align: .32em;

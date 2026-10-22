@@ -140,9 +140,9 @@ function imagenGeneral() {
     <img src="${ballena('#e2e2e2', '#efefef')}" style="position:absolute;right:40px;bottom:0;width:${Math.round(alto * PROPORCION)}px;height:${alto}px">
     ${marca()}
     <div style="display:flex;flex-direction:column;text-transform:uppercase;font-weight:800;font-stretch:62%;line-height:.88">
-      <span style="font-size:96px;color:#161616">Vivo en Parla</span>
-      <span style="font-size:64px;font-weight:600;font-stretch:80%;color:#717171">y si viviera como en</span>
-      <span style="font-size:150px;color:#1a67c2">Getafe, Leganés…</span>
+      <span style="font-size:96px;color:#161616">¿Y si en Parla</span>
+      <span style="font-size:64px;font-weight:600;font-stretch:80%;color:#717171">viviéramos como en</span>
+      <span style="font-size:120px;color:#1a67c2">Getafe, Leganés…<span style="color:#161616">?</span></span>
     </div>
     <div style="font-size:32px;line-height:1.25;color:#525252;width:760px"><span style="color:#161616;font-weight:700">Lo que le falta a Parla</span> para estar dotada como las ciudades de alrededor. Con datos oficiales.</div>
   </div>`;
@@ -154,7 +154,7 @@ function imagenCiudad(nombre, total, tiene) {
   return `<div style="${LIENZO}">
     ${marca()}
     <div style="display:flex;flex-direction:column;gap:10px">
-      <div style="font-size:${nombre.length > 12 ? 38 : 46}px;font-weight:700;font-stretch:75%;line-height:1;color:#525252;text-transform:uppercase">Si Parla estuviera dotada como <span style="color:#1a67c2;font-weight:800">${esc(nombre)}</span></div>
+      <div style="font-size:${nombre.length > 12 ? 38 : 46}px;font-weight:700;font-stretch:75%;line-height:1;color:#525252;text-transform:uppercase">¿Y si en Parla viviéramos como en <span style="color:#1a67c2;font-weight:800">${esc(nombre)}</span>?</div>
       <div style="display:flex;align-items:center;gap:32px">
         <span style="font-size:230px;font-weight:800;font-stretch:62%;line-height:.8;color:#c02719">${total}</span>
         <div style="display:flex;flex-direction:column;font-size:48px;font-weight:700;line-height:1.1">
@@ -252,7 +252,7 @@ async function pintar(html, destino) {
 /* ── Las páginas de cada municipio ──────────────────────────────────── */
 
 function pagina(id, nombre, total) {
-  const titulo = 'Si Parla estuviera dotada como ' + nombre + ': ' + total +
+  const titulo = '¿Y si en Parla viviéramos como en ' + nombre + '? Tendríamos ' + total +
     ' equipamientos públicos más';
   const desc = 'Cuántos equipamientos y servicios públicos le faltan a Parla para estar dotada como ' +
     nombre + '. Hueco a hueco, con sus fuentes oficiales.';

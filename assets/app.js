@@ -611,7 +611,7 @@
     todos.innerHTML = ICONO_PAGINA.tabla + '<span>Todos los datos</span>' + FLECHA;
     hueco.appendChild(todos);
 
-    /* "Y tendría 7 menos en educación, donde Parla está mejor." Las áreas, y
+    /* "Y tendríamos 7 menos en educación, donde estamos mejor." Las áreas, y
        no los servicios uno a uno, porque en la portada no cabe una lista. */
     const gana = $('#gana-portada');
     const sobra = Math.round(SOBRA);
@@ -621,8 +621,8 @@
         const k = c.ind.grupo.toLowerCase();
         if (areas.indexOf(k) < 0) areas.push(k);
       });
-      gana.textContent = 'Y tendría ' + sobra + ' menos en ' + areas.join(' y ') +
-        ', donde Parla está mejor.';
+      gana.textContent = 'Y tendríamos ' + sobra + ' menos en ' + areas.join(' y ') +
+        ', donde estamos mejor.';
     } else {
       gana.textContent = '';
     }
@@ -1364,7 +1364,7 @@
 
     const capa = el('div', 'kcapa');
     capa.appendChild(el('p', 'kpre', pre ||
-      'Si ' + NOMBRE_REF + ' estuviera dotada como ' + NOMBRE[AQUI]));
+      'Si en ' + NOMBRE_REF + ' viviéramos como en ' + NOMBRE[AQUI]));
     raiz.appendChild(capa);
     return capa;
   }
