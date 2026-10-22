@@ -1800,16 +1800,16 @@
     const P = window.PRIMARIA;
     const graf = $('#servicios-sanidad-graf');
     vaciar(graf);
-    graf.appendChild(barrasPar('Días de espera media para operarse', 'menos', S.ciudades,
+    graf.appendChild(barrasPar('resumen-espera', 'Días de espera media para operarse', 'menos', S.ciudades,
       function (c) { return c.quirurgica && c.quirurgica.dias; }, function (v) { return num(v, 1); }));
     if (P) {
-      graf.appendChild(barrasPar('Tarjetas sanitarias por plaza de médico de familia', 'menos', P.ciudades,
+      graf.appendChild(barrasPar('resumen-cabecera', 'Tarjetas sanitarias por plaza de médico de familia', 'menos', P.ciudades,
         function (c) { return c.familia; }, entero));
     }
     fuentesPie($('#servicios-sanidad-pie'), [S.fuentes.consulta].concat(P ? [P.fuentes.plantilla, P.fuentes.tarjetas] : []));
     const ge = $('#servicios-educacion-graf');
     vaciar(ge);
-    ge.appendChild(barrasPar('De cada 100 solicitudes de escuela infantil pública, sin plaza', 'menos', I.ciudades,
+    ge.appendChild(barrasPar('resumen-infantil', 'De cada 100 solicitudes de escuela infantil pública, sin plaza', 'menos', I.ciudades,
       function (c) { return c.pctSinPlaza; }, function (v) { return num(v, 1); }));
     fuentesPie($('#servicios-educacion-pie'), [I.fuentes.buscador]);
 
@@ -1824,9 +1824,11 @@
 
   /* Un dato en dos barras: Parla y la ciudad elegida, con un título pequeño
      y la línea de «cuanto menos, mejor» que pone sentido.js. */
-  function barrasPar(titulo, sentido, ciudades, valor, formato) {
+  function barrasPar(id, titulo, sentido, ciudades, valor, formato) {
     const caja = el('div');
-    caja.appendChild(el('h3', 'espera__h', titulo));
+    const h = el('h3', 'espera__h', titulo);
+    h.id = id;   /* el nombre en clave del enlace de la cadena (indice.js) */
+    caja.appendChild(h);
     const ul = el('ul', 'mun salir__filas espera__filas');
     ul.dataset.sentido = sentido;
     const tope = Object.keys(ciudades).reduce(function (t, id) {
