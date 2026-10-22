@@ -1794,6 +1794,25 @@
     const ir = I.ciudades[REF].pctSinPlaza, ia = I.ciudades[AQUI].pctSinPlaza;
     $('#servicios-educacion').textContent = 'De cada 100 solicitudes de plaza en una escuela infantil pública, en Parla ' +
       'se quedan sin plaza ' + num(ir, 1) + '; en ' + NOMBRE[AQUI] + ', ' + num(ia, 1) + '.';
+    /* Y cada dato en dos barras, Parla y la otra, como en sanidad.html. La
+       escala va de cero a la ciudad más alta de las once, para que una
+       diferencia pequeña no parezca grande. */
+    const P = window.PRIMARIA;
+    const graf = $('#servicios-sanidad-graf');
+    vaciar(graf);
+    graf.appendChild(barrasPar('Días de espera media para operarse', 'menos', S.ciudades,
+      function (c) { return c.quirurgica && c.quirurgica.dias; }, function (v) { return num(v, 1); }));
+    if (P) {
+      graf.appendChild(barrasPar('Tarjetas sanitarias por plaza de médico de familia', 'menos', P.ciudades,
+        function (c) { return c.familia; }, entero));
+    }
+    fuentesPie($('#servicios-sanidad-pie'), [S.fuentes.consulta].concat(P ? [P.fuentes.plantilla, P.fuentes.tarjetas] : []));
+    const ge = $('#servicios-educacion-graf');
+    vaciar(ge);
+    ge.appendChild(barrasPar('De cada 100 solicitudes de escuela infantil pública, sin plaza', 'menos', I.ciudades,
+      function (c) { return c.pctSinPlaza; }, function (v) { return num(v, 1); }));
+    fuentesPie($('#servicios-educacion-pie'), [I.fuentes.buscador]);
+
     const s = RUTAS ? RAIZ_WEB + AQUI + '/sanidad/' : 'sanidad.html#' + AQUI;
     const e = RUTAS ? RAIZ_WEB + AQUI + '/educacion/' : 'educacion.html#' + AQUI;
     $('#sanidad-ir').href = s;
@@ -1801,6 +1820,45 @@
     const ps = $('#portada-sanidad'), pe = $('#portada-educacion');
     if (ps) ps.href = s;
     if (pe) pe.href = e;
+  }
+
+  /* Un dato en dos barras: Parla y la ciudad elegida, con un título pequeño
+     y la línea de «cuanto menos, mejor» que pone sentido.js. */
+  function barrasPar(titulo, sentido, ciudades, valor, formato) {
+    const caja = el('div');
+    caja.appendChild(el('h3', 'espera__h', titulo));
+    const ul = el('ul', 'mun salir__filas espera__filas');
+    ul.dataset.sentido = sentido;
+    const tope = Object.keys(ciudades).reduce(function (t, id) {
+      const v = valor(ciudades[id]); return v > t ? v : t;
+    }, 0) || 1;
+    [[REF, 'referencia'], [AQUI, 'aqui']].forEach(function (g) {
+      const v = valor(ciudades[g[0]] || {});
+      const li = el('li', 'mun__fila');
+      li.setAttribute('data-quien', g[1]);
+      li.appendChild(el('span', 'mun__q', NOMBRE[g[0]]));
+      li.appendChild(el('span', 'mun__v', v == null ? 'sin dato' : formato(v)));
+      const b = el('span', 'mun__barra');
+      const i = el('i');
+      i.style.width = v == null ? '0' : (v / tope * 100).toFixed(1) + '%';
+      b.appendChild(i);
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+    caja.appendChild(ul);
+    return caja;
+  }
+
+  /* El pie de unas barras: sus fuentes, cada una con su enlace. */
+  function fuentesPie(pie, fuentes) {
+    vaciar(pie);
+    fuentes.forEach(function (f, i) {
+      if (i) pie.appendChild(document.createTextNode(' · '));
+      const a = el('a', null, f[0]);
+      a.href = f[1];
+      pie.appendChild(a);
+    });
+    pie.appendChild(document.createTextNode('.'));
   }
 
   /* ── Vivienda: el resumen de vivienda.html ───────────────────────────
