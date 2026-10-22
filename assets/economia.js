@@ -373,9 +373,11 @@
     if (window.CARTEL) {
       const b = cartel('trabajo', 'Dónde se trabaja', function () {
         return {
-          pre: 'Por cada 100 vecinos de Parla que trabajan, hay',
-          cifra: num(ultimo(t(REF).puestos), 1), que: 'puestos de trabajo en Parla',
-          cajas: [{ q: NOMBRE[AQUI], v: num(ultimo(t(AQUI).puestos), 1) + ' por cada 100 vecinos que trabajan' },
+          pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · Dónde se trabaja',
+          antes: 'En Parla hay', cifra: num(ultimo(t(REF).puestos), 0), que: 'empleos',
+          sub: 'por cada 100 vecinos que trabajan: los demás tienen que salir fuera. En ' + NOMBRE[AQUI] + ' hay ' +
+            num(ultimo(t(AQUI).puestos), 0) + '.',
+          cajas: [
             { q: 'Parla', v: entero(t(REF).enCentro) + ' puestos para ' + entero(t(REF).residentes) + ' vecinos afiliados', ref: true }]
         };
       });
@@ -588,9 +590,10 @@
     const deuda = serieDinero('deuda');
     fs[4].cartel = { id: 'deuda', datos: function () {
       return {
-        pre: 'El Ayuntamiento de Parla debe', cifra: entero(deuda.valores[REF]) + ' €', que: 'por cada vecino',
-        cajas: [{ q: NOMBRE[AQUI], v: entero(deuda.valores[AQUI]) + ' € por vecino' },
-          { q: 'Parla', v: enEuros(deuda.saldoEuros[REF], false) + ' en total, a finales de 2025', ref: true }]
+        pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · La deuda del ayuntamiento',
+        antes: 'El Ayuntamiento de Parla debe', cifra: entero(deuda.valores[REF]) + ' €', que: 'por vecino',
+        sub: 'El de ' + NOMBRE[AQUI] + ', ' + entero(deuda.valores[AQUI]) + ' €.',
+        cajas: [{ q: 'Parla', v: enEuros(deuda.saldoEuros[REF], false) + ' en total, a finales de 2025', ref: true }]
       };
     } };
     fichas('#ayto-fichas', fs);
@@ -721,10 +724,10 @@
     if (!window.CARTEL) return;
     bot.appendChild(cartel('impuestos', 'Lo que paga un vecino', function () {
       return {
-        pre: 'Con su casa media y un coche, un vecino de Parla paga al año',
-        cifra: entero(suya(REF)) + ' €', que: 'de IBI e impuesto de vehículos', fin: String(P.anio),
-        cajas: [{ q: NOMBRE[AQUI] + ', con su casa media', v: entero(suya(AQUI)) + ' €' },
-          { q: 'Con la misma casa en las dos', v: 'Parla ' + entero(misma(REF)) + ' €; ' + NOMBRE[AQUI] + ' ' + entero(misma(AQUI)) + ' €' }]
+        pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · Lo que paga un vecino, ' + P.anio,
+        antes: 'Con su casa y su coche, un vecino de Parla paga', cifra: entero(suya(REF)) + ' €', que: 'al año',
+        sub: 'de IBI y de impuesto de vehículos. Uno de ' + NOMBRE[AQUI] + ', con la suya, ' + entero(suya(AQUI)) + ' €.',
+        cajas: [{ q: 'Con la misma casa en las dos', v: 'Parla ' + entero(misma(REF)) + ' €; ' + NOMBRE[AQUI] + ' ' + entero(misma(AQUI)) + ' €' }]
       };
     }));
     bot.appendChild(window.CARTEL.enlace({
@@ -786,8 +789,9 @@
         fuentes: ['pmp'],
         cartel: { id: 'pmp', datos: function () {
           return {
-            pre: 'El Ayuntamiento de Parla tarda de media', cifra: entero(k(REF).pmp) + ' días',
-            que: 'en pagar a sus proveedores',
+            pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · Lo que tarda en pagar',
+            antes: 'El Ayuntamiento de Parla tarda en pagar', cifra: entero(k(REF).pmp), que: 'días',
+            sub: 'de media a sus proveedores. La ley pide 30.',
             cajas: [{ q: 'Máximo legal', v: '30 días' }, { q: NOMBRE[AQUI], v: entero(k(AQUI).pmp) + ' días' }]
           };
         } } },

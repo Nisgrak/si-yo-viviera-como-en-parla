@@ -84,10 +84,13 @@
     const capa = el('div', 'kcapa');
     capa.appendChild(el('p', 'kpre', esc(d.pre)));
     const tit = el('h1', 'ktit');
+    /* Quién («El hospital de Parla tiene»), la cifra y qué; debajo, contra qué. */
+    if (d.antes) tit.appendChild(el('span', 'ktit__a', esc(d.antes)));
     tit.appendChild(el('span', 'ktit__n', esc(d.cifra)));
     tit.appendChild(el('span', 'ktit__q', esc(d.que)));
     if (d.fin) tit.appendChild(el('span', 'ktit__m', esc(d.fin)));
     capa.appendChild(tit);
+    if (d.sub) capa.appendChild(el('p', 'ksub', esc(d.sub)));
     const fila = el('ul', 'kcajas');
     d.cajas.forEach(function (c) {
       fila.appendChild(el('li', 'kcaja' + (c.ref ? ' kcaja--ref' : ''), '<b>' + esc(c.q) + '</b>' + esc(c.v)));
@@ -100,7 +103,11 @@
     const q = qr(ciudad);
     if (q) banda.appendChild(q);
     const txt = el('div', 'kbanda__txt');
-    txt.appendChild(el('p', 'kbanda__h', window.DATOS.NOMBRE_WEB.replace(', ', ',<br>')));
+    const marca = el('div', 'kbanda__marca');
+    const cola = document.querySelector('.marca__ballena');
+    if (cola) marca.appendChild(cola.cloneNode(true));
+    marca.appendChild(el('p', 'kbanda__h', window.DATOS.NOMBRE_WEB.replace(', ', ',<br>')));
+    txt.appendChild(marca);
     txt.appendChild(el('span', 'kbanda__raya'));
     txt.appendChild(el('p', 'kbanda__url', 'siyovivieracomoenparla.netlify.app'));
     banda.appendChild(txt);
@@ -128,7 +135,7 @@
     capa.appendChild(regla);
     const palabras = [];
     tit.querySelectorAll('span').forEach(function (sp) {
-      const e = sp.classList.contains('ktit__n') ? 1.35 : 1;
+      const e = sp.classList.contains('ktit__n') ? 1.35 : sp.classList.contains('ktit__a') ? 0.42 : 1;
       sp.textContent.split(/\s+/).forEach(function (w) { if (w) palabras.push({ t: w, e: e }); });
     });
     let pt = 160;

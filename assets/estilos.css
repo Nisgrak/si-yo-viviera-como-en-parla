@@ -702,6 +702,26 @@ a:hover { text-decoration-color: var(--ref); }
 .ktit__n { font-size: 1.35em; line-height: .78; color: #161616; }
 .ktit__q { color: #c02719; white-space: normal; }
 .ktit__m { color: #161616; }
+/* Quién: «A Parla le faltan», en tinta y a menos de la mitad del cuerpo, para
+   que la cifra siga siendo lo primero que se ve. */
+.ktit__a {
+  font-size: .42em; line-height: 1; letter-spacing: -.015em; white-space: normal;
+  color: #161616; margin-bottom: .1em;
+}
+/* Contra qué: una frase corta, en redonda, bajo el titular. */
+.ksub {
+  margin-top: 5mm; max-width: 175mm;
+  font-size: 16pt; font-weight: 600; line-height: 1.22;
+  color: #161616;
+}
+.cartel[data-fondo='barrio'] .ksub { color: #161616; }
+
+/* La marca en la banda: la cola de la ballena, en dos tonos claros sobre el
+   oscuro, y el nombre al lado. */
+.kbanda__marca { display: flex; align-items: center; gap: 3.5mm; }
+.kbanda__marca .marca__ballena { width: 17mm; height: auto; flex: none; }
+.kbanda__marca .ballena__sombra { fill: #8f8a83; }
+.kbanda__marca .ballena__luz { fill: #ffffff; }
 
 /* fila de cajas con filete rojo */
 .kcajas {

@@ -1373,20 +1373,21 @@
     raiz.appendChild(img);
 
     const capa = el('div', 'kcapa');
-    capa.appendChild(el('p', 'kpre', pre ||
-      'Si en ' + NOMBRE_REF + ' viviéramos como en ' + NOMBRE[AQUI]));
+    capa.appendChild(el('p', 'kpre', pre || NOMBRE_REF + ' frente a ' + NOMBRE[AQUI]));
     raiz.appendChild(capa);
     return capa;
   }
 
-  /* Titular corto y siempre con la misma forma: cifra, servicio, «más».
-     El rojo lo lleva el servicio, como en los carteles de barrio. */
-  function titularCartel(capa, cifra, servicio, sobra) {
+  /* El titular se lee solo, pegado en una farola: quién («A Parla le
+     faltan»), la cifra, qué (en rojo, como los carteles de barrio) y, debajo,
+     una frase corta que dice contra qué se mide. */
+  function titularCartel(capa, antes, cifra, que, sub) {
     const tit = el('h1', 'ktit');
+    tit.appendChild(el('span', 'ktit__a', antes));
     tit.appendChild(el('span', 'ktit__n', cifra));
-    tit.appendChild(el('span', 'ktit__q', servicio));
-    tit.appendChild(el('span', 'ktit__m', sobra ? 'menos' : 'más'));
+    tit.appendChild(el('span', 'ktit__q', que));
     capa.appendChild(tit);
+    if (sub) capa.appendChild(el('p', 'ksub', sub));
     return tit;
   }
 
@@ -1396,7 +1397,11 @@
     const qr = qrSvg();
     if (qr) banda.appendChild(qr);
     const txt = el('div', 'kbanda__txt');
-    txt.appendChild(el('p', 'kbanda__h', D.NOMBRE_WEB.replace(', ', ',<br>')));
+    const marca = el('div', 'kbanda__marca');
+    const cola = document.querySelector('.marca__ballena');
+    if (cola) marca.appendChild(cola.cloneNode(true));
+    marca.appendChild(el('p', 'kbanda__h', D.NOMBRE_WEB.replace(', ', ',<br>')));
+    txt.appendChild(marca);
     txt.appendChild(el('span', 'kbanda__raya'));
     txt.appendChild(el('p', 'kbanda__url', 'siyovivieracomoenparla.netlify.app'));
     banda.appendChild(txt);
@@ -1409,9 +1414,33 @@
     const raiz = $('#cartel');
     const fondo = fondoElegido();
     const capa = montarCartel(raiz, fondo);
-    const tit = titularCartel(capa, esSuperficie(c)
-      ? enSuperficie(cuantos, cifraElegida() === 'redonda')
-      : esCartera(c) ? entero(cuantos) : cifraCartel(cuantos), c.ind.titulo, sobra);
+    const i = c.ind;
+    const cifra = esSuperficie(c) ? enSuperficie(cuantos, cifraElegida() === 'redonda')
+      : esCartera(c) ? entero(cuantos) : cifraCartel(cuantos);
+    /* «1 biblioteca pública», «2,3 bibliotecas públicas». */
+    const que = esSuperficie(c) ? 'de ' + i.titulo.toLowerCase()
+      : cifra === '1' && i.sing ? i.sing : i.titulo;
+    const suyo = function (n) { return n.replace(/^Hospital Universitario /, 'el '); };
+    let tit;
+    if (esCartera(c) && !sobra) {
+      tit = titularCartel(capa, 'Al hospital de ' + NOMBRE_REF + ' le faltan', cifra, 'servicios',
+        'que sí tiene ' + suyo(c.nombre) + '.');
+    } else if (esCartera(c)) {
+      tit = titularCartel(capa, 'El hospital de ' + NOMBRE_REF + ' tiene', cifra, 'servicios más',
+        c.otra ? 'que ' + suyo(c.nombre) + '.' : 'Y ' + NOMBRE[AQUI] + ' no tiene hospital público.');
+    } else if (sobra) {
+      tit = titularCartel(capa, NOMBRE_REF + ' tiene', cifra, que + ' más',
+        'de ' + (i.gen === 'f' ? 'las' : 'los') + ' que le tocarían con la proporción de ' + NOMBRE[AQUI] + '.');
+    } else if (c.parla === 0) {
+      tit = titularCartel(capa, NOMBRE_REF + ' tiene', '0', i.titulo,
+        'Con la proporción de ' + NOMBRE[AQUI] + ' tendría ' + num(c.tendria) + '.');
+    } else {
+      tit = titularCartel(capa, 'A ' + NOMBRE_REF + ' le faltan', cifra, que,
+        'para tener ' + (esSuperficie(c) ? 'la' : i.gen === 'f' ? 'las' : 'los') + ' de ' + NOMBRE[AQUI] +
+        ' por habitante. Tiene ' + (esSuperficie(c) ? enSuperficie(c.parla, true) : entero(c.parla)) + '; le ' +
+        (c.tendria < 1.5 ? 'correspondería' : 'corresponderían') + ' ' +
+        (esSuperficie(c) ? enSuperficie(c.tendria, true) : num(c.tendria)) + '.');
+    }
 
     /* Fila de cajas: del hospital, las unidades que faltan, con su nombre y en
        hueco; de lo demás, las dos tasas, Parla primero. */
@@ -1456,12 +1485,13 @@
     const a = alAnio(s);
     const raiz = $('#cartel');
     const fondo = fondoElegido();
-    const capa = montarCartel(raiz, fondo,
-      'Si ' + NOMBRE_REF + ' ' + s.alAnio.si + ' como ' + NOMBRE[AQUI]);
+    const capa = montarCartel(raiz, fondo, NOMBRE_REF + ' frente a ' + NOMBRE[AQUI] + ' · ' + s.titulo);
     const cifra = cifraElegida() === 'exacta' || a.dif < 1e7
       ? num(Math.abs(a.dif) / 1e6, 1) : entero(Math.round(Math.abs(a.dif) / 1e6));
-    const tit = titularCartel(capa, cifra + ' M€',
-      (s.id === 'inversion' ? 'de inversión' : 'de gasto') + ' al año', a.dif < 0);
+    const tit = titularCartel(capa, a.dif > 0 ? 'A ' + NOMBRE_REF + ' le faltan' : NOMBRE_REF + ' pone', cifra + ' M€',
+      (s.id === 'inversion' ? 'de inversión' : 'de gasto') + (a.dif > 0 ? ' al año' : ' más al año'),
+      a.dif > 0 ? 'para ' + (s.id === 'inversion' ? 'invertir' : 'gastar') + ' por vecino lo que ' + NOMBRE[AQUI] + '.'
+        : 'que si ' + s.alAnio.si + ' como ' + NOMBRE[AQUI] + '.');
     const fila = el('ul', 'kcajas');
     fila.appendChild(el('li', 'kcaja kcaja--ref', '<b>' + NOMBRE_REF + '</b>' +
       entero(s.valores[REF]) + ' € por habitante'));
@@ -1482,8 +1512,8 @@
     const fondo = fondoElegido();
     const capa = montarCartel(raiz, fondo);
     const total = Math.round(TOTAL);
-    const tit = titularCartel(capa, entero(total),
-      'equipamientos y servicios públicos', false);
+    const tit = titularCartel(capa, 'A ' + NOMBRE_REF + ' le faltan', entero(total),
+      'equipamientos y servicios públicos', 'para estar dotada como ' + NOMBRE[AQUI] + '. Cada hueco, uno que no hay:');
 
     const g = porAreas();
     const cuantos = repartoEntero(
@@ -1546,7 +1576,7 @@
 
     const palabras = [];
     tit.querySelectorAll('span').forEach(function (sp) {
-      const escala = sp.classList.contains('ktit__n') ? 1.35 : 1;
+      const escala = sp.classList.contains('ktit__n') ? 1.35 : sp.classList.contains('ktit__a') ? 0.42 : 1;
       sp.textContent.split(/\s+/).forEach(function (w) {
         if (w) palabras.push({ t: w, e: escala });
       });

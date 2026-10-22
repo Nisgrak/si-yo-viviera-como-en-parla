@@ -420,9 +420,10 @@
     });
     cartelEn('#cob-nota', 'tren', 'El tren a mano', function () {
       return {
-        pre: 'De cada 100 viviendas de Parla,', cifra: num(p(REF), 0),
-        que: 'tienen una estación de tren o de metro a 15 minutos andando',
-        cajas: [{ q: NOMBRE[I.AQUI], v: num(p(I.AQUI), 0) + ' de cada 100' },
+        pre: 'Parla frente a ' + NOMBRE[I.AQUI] + ' · El tren a mano',
+        antes: 'Tienen el tren a 15 minutos andando', cifra: num(p(REF), 0) + ' %', que: 'de las casas',
+        sub: 'de Parla. En ' + NOMBRE[I.AQUI] + ', el ' + num(p(I.AQUI), 0) + ' %.',
+        cajas: [
           { q: 'Parla', v: C[REF].cerca['15'].toLocaleString('es-ES') + ' de ' + C[REF].viviendas.toLocaleString('es-ES') + ' viviendas', ref: true }]
       };
     });
@@ -446,8 +447,9 @@
     /* Con el mismo precio no hay cartel: no hay nada que contar. */
     cartelEn('#abono-nota', 'abono', 'Lo que cuesta el abono', Math.abs(dif) < 0.005 ? null : function () {
       return {
-        pre: 'Un vecino de Parla paga al año', cifra: eur(Math.abs(dif) * 12),
-        que: (dif > 0 ? 'más' : 'menos') + ' por su abono que uno de ' + NOMBRE[I.AQUI],
+        pre: 'Parla frente a ' + NOMBRE[I.AQUI] + ' · El abono de transporte',
+        antes: 'Un vecino de Parla paga por el abono', cifra: eur(Math.abs(dif) * 12), que: (dif > 0 ? 'más' : 'menos'),
+        sub: 'al año que uno de ' + NOMBRE[I.AQUI] + '.',
         cajas: [{ q: NOMBRE[I.AQUI], v: eur(A[I.AQUI].precio) + ' al mes, zona ' + A[I.AQUI].zona },
           { q: 'Parla', v: eur(A[REF].precio) + ' al mes, zona ' + A[REF].zona, ref: true }]
       };
