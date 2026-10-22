@@ -242,7 +242,9 @@ a:hover { text-decoration-color: var(--ref); }
 
 /* La cola de la ballena, entera y muy clara, saliendo del borde inferior de
    la portada, que hace de suelo. No compite con el texto. */
-.portada { overflow: hidden; }
+/* Solo en horizontal: la lista de ciudades tiene que poder salir por abajo. */
+.portada { overflow-x: clip; overflow-y: visible; }
+.portada:has(.t3--abierto) { z-index: 20; }
 .portada > .env { position: relative; z-index: 1; }
 .portada__ballena {
   position: absolute; right: 3%; bottom: -1px;
@@ -1637,3 +1639,54 @@ html[data-indice='barra'] .pie { padding-bottom: calc(clamp(3.5rem, 11vw, 6rem) 
 /* Quien llega por el enlace ve el título con aire encima. */
 :is(.bloque__h3, .plata__h, .ind__h, .espera__h, .hecho__h, .plata, .ind, .hecho, .rango)[id] { scroll-margin-top: 1.5rem; }
 @media print { .cadena { display: none; } }
+
+/* ── El selector de ciudad, propio (assets/selector.js) ───────────────────
+   El select del navegador se queda debajo, sin clics, como estado. Encima,
+   un botón transparente que cubre toda la línea del nombre y la flecha, y
+   la lista, en el mismo tipo que el resto de la web. */
+.selector--propio #sel-municipio { pointer-events: none; visibility: hidden; }
+.portada__titulo .t3 { position: relative; }
+.selector__boton {
+  position: absolute; inset: 0; z-index: 2;
+  width: 100%; height: 100%;
+  margin: 0; padding: 0; border: 0;
+  background: transparent; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.selector__boton:focus-visible { outline: 3px solid var(--ref); outline-offset: 4px; border-radius: 4px; }
+.selector__boton:hover ~ .selector .selector__eco,
+.t3:has(.selector__boton:hover) .selector__eco { background: var(--aura-ref); }
+.t3--abierto .selector::after { transform: rotate(225deg) translate(-.12em, -.12em); }
+
+.ciudades {
+  position: absolute; z-index: 30;
+  top: calc(100% + .5rem); left: 0;
+  width: min(24rem, calc(100vw - 2 * var(--gutter)));
+  max-height: min(26rem, 70vh); overflow-y: auto;
+  margin: 0; padding: .35rem;
+  list-style: none;
+  border: 1px solid var(--line-alta); border-radius: 12px;
+  background: var(--bg);
+  box-shadow: 0 2px 4px rgba(22, 22, 22, .06), 0 18px 40px -12px rgba(22, 22, 22, .28);
+  font-size: 1rem; text-transform: none; letter-spacing: 0; line-height: 1.2;
+  color: var(--ink);
+}
+.ciudades:focus { outline: none; }
+.ciudad {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  padding: .7rem .8rem;
+  border-radius: 8px;
+  font-size: 1.0625rem; font-weight: 600; font-stretch: 100%;
+  cursor: pointer;
+}
+.ciudad--activa { background: var(--surface-2); }
+.ciudad[aria-selected='true'] { color: var(--ref); }
+.ciudad[aria-selected='true'] .ciudad__n::after { content: ' ·  ahora'; font-weight: 400; color: var(--ink-3); font-size: .875rem; }
+.ciudad__d {
+  flex: none;
+  font-weight: 800; font-stretch: 80%; font-size: 1.125rem;
+  color: var(--loss); font-variant-numeric: tabular-nums;
+}
+@media (prefers-color-scheme: dark) {
+  .ciudades { box-shadow: 0 18px 40px -12px rgba(0, 0, 0, .7); }
+}

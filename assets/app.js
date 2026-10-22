@@ -1242,6 +1242,13 @@
     history.replaceState(null, '', RUTAS ? RAIZ_WEB + AQUI + '/' : '#' + AQUI);
   }
 
+  /* En la lista del selector (assets/selector.js), al lado de cada ciudad,
+     cuántos equipamientos le faltarían a Parla con ella. */
+  window.SELECTOR_DATO = function (id) {
+    const n = Math.round(window.CALCULO.faltan(D, id).TOTAL);
+    return n > 0 ? '−' + n : '';
+  };
+
   function selector() {
     const sel = $('#sel-municipio');
     vaciar(sel);
