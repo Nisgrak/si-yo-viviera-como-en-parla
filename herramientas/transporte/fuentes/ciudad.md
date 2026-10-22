@@ -7,7 +7,7 @@ ciudades, recalculadas el 20-10-2026 (unos 25 minutos en total).
 ## La pregunta
 
 Eliges a dónde vas (Sol, Atocha, Nuevos Ministerios o Plaza de Castilla) y el mapa enseña el
-término de tu ciudad pintado por lo que se tarda desde cada punto, un martes laborable saliendo
+término de cada ciudad pintado por lo que se tarda desde cada punto, un martes laborable saliendo
 entre las 7:30 y las 8:30. Es lo que pidió el usuario después de ver dos versiones descartadas: una
 rejilla de cuadros que tapaba la ciudad y un mapa de isócronas desde el ayuntamiento hacia fuera
 (`isocronas.py`, que se queda para otra medida, los empleos a los que se llega en 45 minutos).
