@@ -1780,38 +1780,54 @@
   }
 
   /* ── Sanidad y educación: el resumen de sanidad.html y educacion.html ─
-     Una frase de cada página y el enlace. Lo demás, en assets/servicios.js. */
+     Dos datos de cada una, en frase y en barras, y el enlace. Lo demás, en
+     assets/servicios.js. Las barras van de cero a la ciudad más alta de las
+     once, para que una diferencia pequeña no parezca grande. */
   function servicios() {
-    const S = window.SANIDAD, I = window.INFANTIL;
-    const caja = $('#servicios');
-    if (!S || !I || !S.ciudades[AQUI] || !I.ciudades[AQUI]) { if (caja) caja.hidden = true; return; }
-    const r = S.ciudades[REF].quirurgica.dias, a = S.ciudades[AQUI].quirurgica.dias;
-    $('#servicios-sanidad').textContent = 'Quien espera una operación en el hospital de Parla lleva de media ' +
-      num(r, 1) + ' días; en el que le toca a ' + NOMBRE[AQUI] + ', ' + num(a, 1) + '.' + (window.PRIMARIA
-        ? ' En los centros de salud hay una plaza de médico de familia por cada ' +
-          entero(window.PRIMARIA.ciudades[REF].familia) + ' tarjetas sanitarias en Parla y por cada ' +
-          entero(window.PRIMARIA.ciudades[AQUI].familia) + ' en ' + NOMBRE[AQUI] + '.' : '');
-    const ir = I.ciudades[REF].pctSinPlaza, ia = I.ciudades[AQUI].pctSinPlaza;
-    $('#servicios-educacion').textContent = 'De cada 100 solicitudes de plaza en una escuela infantil pública, en Parla ' +
-      'se quedan sin plaza ' + num(ir, 1) + '; en ' + NOMBRE[AQUI] + ', ' + num(ia, 1) + '.';
-    /* Y cada dato en dos barras, Parla y la otra, como en sanidad.html. La
-       escala va de cero a la ciudad más alta de las once, para que una
-       diferencia pequeña no parezca grande. */
-    const P = window.PRIMARIA;
-    const graf = $('#servicios-sanidad-graf');
-    vaciar(graf);
-    graf.appendChild(barrasPar('resumen-espera', 'Días de espera media para operarse', 'menos', S.ciudades,
-      function (c) { return c.quirurgica && c.quirurgica.dias; }, function (v) { return num(v, 1); }));
-    if (P) {
+    const S = window.SANIDAD, P = window.PRIMARIA, I = window.INFANTIL;
+    const cs = $('#sanidad'), ce = $('#educacion');
+
+    const haySanidad = !!(S && P && S.ciudades[AQUI] && P.ciudades[AQUI]);
+    cs.hidden = !haySanidad;
+    if (haySanidad) {
+      $('#servicios-sanidad').textContent = 'Quien espera una operación en el hospital de Parla lleva de media ' +
+        num(S.ciudades[REF].quirurgica.dias, 1) + ' días; en el que le toca a ' + NOMBRE[AQUI] + ', ' +
+        num(S.ciudades[AQUI].quirurgica.dias, 1) + '. En los centros de salud hay una plaza de médico de familia por cada ' +
+        entero(P.ciudades[REF].familia) + ' tarjetas sanitarias en Parla y por cada ' +
+        entero(P.ciudades[AQUI].familia) + ' en ' + NOMBRE[AQUI] + '.';
+      const graf = $('#servicios-sanidad-graf');
+      vaciar(graf);
+      graf.appendChild(barrasPar('resumen-espera', 'Días de espera media para operarse', 'menos', S.ciudades,
+        function (c) { return c.quirurgica && c.quirurgica.dias; }, function (v) { return num(v, 1); }));
       graf.appendChild(barrasPar('resumen-cabecera', 'Tarjetas sanitarias por plaza de médico de familia', 'menos', P.ciudades,
         function (c) { return c.familia; }, entero));
+      fuentesPie($('#servicios-sanidad-pie'), [S.fuentes.consulta, P.fuentes.plantilla, P.fuentes.tarjetas]);
     }
-    fuentesPie($('#servicios-sanidad-pie'), [S.fuentes.consulta].concat(P ? [P.fuentes.plantilla, P.fuentes.tarjetas] : []));
-    const ge = $('#servicios-educacion-graf');
-    vaciar(ge);
-    ge.appendChild(barrasPar('resumen-infantil', 'De cada 100 solicitudes de escuela infantil pública, sin plaza', 'menos', I.ciudades,
-      function (c) { return c.pctSinPlaza; }, function (v) { return num(v, 1); }));
-    fuentesPie($('#servicios-educacion-pie'), [I.fuentes.buscador]);
+
+    /* Educación: la escuela infantil pública, de 0 a 2 años, por los niños
+       que van (no por los que se quedan sin plaza, que depende de cuántos la
+       piden), y la FP pública, que no suma al recuento. */
+    const fp = D.indicadores.find(function (i) { return i.id === 'fp'; });
+    const baseFp = D.BASES[fp.base];
+    const fpPor100 = {};
+    D.MUNICIPIOS.forEach(function (m) { fpPor100[m.id] = { v: fp.datos[m.id].n / baseFp.valores[m.id] * 100 }; });
+    const hayEducacion = !!(I && I.ciudades[AQUI]);
+    ce.hidden = !hayEducacion;
+    if (hayEducacion) {
+      $('#servicios-educacion').textContent = 'En Parla van a una escuela infantil pública ' +
+        num(I.ciudades[REF].matriculadosPor100, 1) + ' de cada 100 niños de 0 a 2 años; en ' + NOMBRE[AQUI] + ', ' +
+        num(I.ciudades[AQUI].matriculadosPor100, 1) + '. Y por cada 100 chicos y chicas de 12 a 17 años hay ' +
+        num(fpPor100[REF].v, 1) + ' alumnos de Formación Profesional pública en Parla y ' +
+        num(fpPor100[AQUI].v, 1) + ' en ' + NOMBRE[AQUI] + '.';
+      const ge = $('#servicios-educacion-graf');
+      vaciar(ge);
+      ge.appendChild(barrasPar('resumen-infantil', 'Niños de 0 a 2 años en la escuela infantil pública, por cada 100', 'mas',
+        I.ciudades, function (c) { return c.matriculadosPor100; }, function (v) { return num(v, 1); }));
+      ge.appendChild(barrasPar('resumen-fp', 'Alumnos de FP pública por cada 100 chicos y chicas de 12 a 17 años', 'mas',
+        fpPor100, function (c) { return c.v; }, function (v) { return num(v, 1); }));
+      const f = D.fuentes[fp.fuenteId], fb = D.fuentes[baseFp.fuenteId];
+      fuentesPie($('#servicios-educacion-pie'), [I.fuentes.buscador, [f.t, f.url], [fb.t, fb.url]]);
+    }
 
     const s = RUTAS ? RAIZ_WEB + AQUI + '/sanidad/' : 'sanidad.html#' + AQUI;
     const e = RUTAS ? RAIZ_WEB + AQUI + '/educacion/' : 'educacion.html#' + AQUI;
