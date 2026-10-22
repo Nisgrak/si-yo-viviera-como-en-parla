@@ -225,6 +225,13 @@ const CIFRAS = {
     pie: 'Camas: Catálogo Nacional de Hospitales 2025. Población asignada: memoria de 2024 de cada hospital del SERMAS.',
     desc: (n, a, b) => `El hospital de Parla tiene ${a} camas por cada 1.000 personas que atiende; el que le toca a ${n}, ${b}. Lo que le falta al hospital, el médico de cabecera y la espera, con datos oficiales.`
   },
+  fp: {
+    titulo: 'Alumnos de FP pública por cada 100 chicos y chicas de 12 a 17 años',
+    seccion: 'Educación', unidad: '',
+    v: (id) => { const f = D.indicadores.find((i) => i.id === 'fp'); return num(f.datos[id].n / D.BASES[f.base].valores[id] * 100, 1); },
+    pie: 'Comunidad de Madrid, alumnos de régimen general, 2024, y padrón del INE a 1 de enero de 2025.',
+    desc: (n, a, b) => `En Parla hay ${a} alumnos de FP pública por cada 100 jóvenes de 12 a 17 años; en ${n}, ${b}. Y Parla no tiene campus universitario público ni conservatorio profesional. Con datos oficiales.`
+  },
   infantil: {
     titulo: 'De cada 100 solicitudes de plaza en una escuela infantil pública, las que se quedan sin plaza',
     seccion: 'La escuela infantil', unidad: '',
@@ -441,7 +448,7 @@ for (const m of D.MUNICIPIOS) {
   await mkdir(join(DIST, m.id, 'economia'), { recursive: true });
   await writeFile(join(DIST, m.id, 'economia', 'index.html'), paginaEconomia(m.id, m.nombre, await previa('economia', m)));
   /* La sanidad y la educación, con la vista previa de su sección principal. */
-  for (const [ruta, hacer, clave] of [['sanidad', paginaSanidad, 'hospital'], ['educacion', paginaEducacion, 'infantil']]) {
+  for (const [ruta, hacer, clave] of [['sanidad', paginaSanidad, 'hospital'], ['educacion', paginaEducacion, 'fp']]) {
     await mkdir(join(DIST, m.id, ruta), { recursive: true });
     await writeFile(join(DIST, m.id, ruta, 'index.html'), hacer(m.id, m.nombre, await previa(clave, m)));
   }

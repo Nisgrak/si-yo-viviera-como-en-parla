@@ -26,7 +26,7 @@ const PAGINAS = {
   'vivienda.html': ['#golpe', '#comprar-cifras', '#alquilar-cifras', '#barrios-rangos', '#desahucios-cifras'],
   'infraestructura.html': ['#golpe', '#golpe-tren', '#cob-cifras', '#abono-cifras', '#tp-frase', '#tp-dato-parla', '#tp-dato-aqui'],
   'sanidad.html': ['#golpe', '#hospital-cifras', '#hospital-filas', '#hay-listas', '#espera-txt', '#espera-cuenta', '#cabecera-txt', '#cabecera-cifras', '#cabecera-cuenta'],
-  'educacion.html': ['#golpe', '#hay-listas', '#infantil-txt', '#infantil-cuenta'],
+  'educacion.html': ['#golpe', '#despues-matriz', '#despues-txt', '#fp-cifras', '#fp-filas', '#artes-cifras', '#artes-filas', '#hay-listas', '#infantil-txt', '#infantil-cifras', '#infantil-cuenta'],
   'consulta.html': ['#cat-lista', '#resultados', '#cat-total']
 };
 /* Y lo que tiene que existir, aunque no lleve texto. */

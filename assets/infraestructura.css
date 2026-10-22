@@ -539,3 +539,36 @@
   .portada__dato-que { margin-top: .6rem; font-size: 1rem; font-weight: 600; line-height: 1.3; color: var(--ink); }
   .portada__dato-otra { margin-top: .5rem; font-size: .875rem; color: var(--ink-3); }
 }
+
+/* ── Educación: quién tiene campus y conservatorio ───────────────────────
+   Una fila por ciudad: el cuadrado lleno si lo tiene, el hueco si no. Parla
+   en azul y la ciudad elegida en tinta; las demás, apagadas. */
+.matriz { max-width: 34rem; margin-top: .8rem; overflow-x: auto; }
+.matriz__t { width: 100%; border-collapse: collapse; font-size: .875rem; }
+.matriz__t thead th {
+  padding: 0 .5rem .5rem; text-align: center; vertical-align: bottom;
+  font-size: .6875rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  line-height: 1.3; color: var(--ink-3);
+}
+.matriz__t thead th:first-child { text-align: left; padding-left: 0; }
+.matriz__t tbody tr { border-top: 1px solid var(--line); }
+.matriz__t tbody tr:last-child { border-bottom: 1px solid var(--line); }
+.matriz__t tbody th { padding: .5rem 0; text-align: left; font-weight: 400; color: var(--ink-3); }
+.matriz__t td { text-align: center; padding: .5rem; }
+.matriz__t tr[data-quien='referencia'] th { color: var(--ref); font-weight: 800; }
+.matriz__t tr[data-quien='aqui'] th { color: var(--ink); font-weight: 700; }
+.matriz__t tr[data-quien='referencia'] { background: var(--aura-ref); }
+.matriz__m {
+  display: inline-block; width: 16px; height: 16px; border-radius: 3px;
+  background: var(--ink-3); vertical-align: middle;
+}
+.matriz__t tr[data-quien='referencia'] .matriz__m { background: var(--ref); }
+.matriz__t tr[data-quien='aqui'] .matriz__m { background: var(--ink); }
+.matriz__m--no,
+.matriz__t tr[data-quien] .matriz__m--no {
+  border-radius: 0; background: var(--loss);
+  -webkit-mask: var(--hueco) center / 100% 100% no-repeat;
+  mask: var(--hueco) center / 100% 100% no-repeat;
+}
+.tp-nota--corta { margin-top: .6rem; font-size: .9375rem; }
+#hay-listas .espera__h:not(:first-child) { margin-top: 2rem; }

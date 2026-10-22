@@ -534,6 +534,153 @@
       'término, que pueden atender también a vecinos de al lado.', [P.fuentes.plantilla, P.fuentes.tarjetas]);
   }
 
+  /* ── Piezas comunes: cifras grandes y clasificación de las once ─────── */
+
+  /* Dos cifras grandes, Parla y la otra, como en infraestructura.html. */
+  function cifrasPar(cont, valor, que) {
+    vaciar(cont);
+    [[REF, 'referencia'], [AQUI, 'aqui']].forEach(function (g) {
+      const d = el('div', 'tp-cifra');
+      d.dataset.quien = g[1];
+      d.appendChild(el('p', 'tp-cifra__quien', NOMBRE[g[0]]));
+      d.appendChild(el('p', 'tp-cifra__v', valor(g[0])));
+      d.appendChild(el('p', 'tp-cifra__que', que(g[0])));
+      cont.appendChild(d);
+    });
+  }
+
+  /* Las once, de más a menos: Parla en azul, la elegida en tinta, las demás
+     apagadas. Devuelve el puesto de Parla. */
+  function clasificacion(ul, valor, fmt) {
+    vaciar(ul);
+    const ids = IDS_TODAS().slice().sort(function (x, y) { return valor(y) - valor(x); });
+    const tope = valor(ids[0]) || 1;
+    ids.forEach(function (id) {
+      const li = el('li', 'mun__fila');
+      li.setAttribute('data-quien', id === REF ? 'referencia' : id === AQUI ? 'aqui' : 'otro');
+      li.appendChild(el('span', 'mun__q', NOMBRE[id]));
+      li.appendChild(el('span', 'mun__v', fmt(valor(id))));
+      const b = el('span', 'mun__barra');
+      const i = el('i');
+      i.style.width = (valor(id) / tope * 100).toFixed(1) + '%';
+      b.appendChild(i);
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+    return ids.indexOf(REF) + 1;
+  }
+  function puestoDe(p, total) {
+    return p === total ? 'la última' : p === total - 1 ? 'la penúltima' : 'la ' + p + '.ª';
+  }
+
+  /* ── Después del instituto ────────────────────────────────────────────
+     Quién tiene campus universitario público y conservatorio profesional
+     (los del recuento), y los alumnos de FP pública por cada 100 jóvenes. */
+  function indDe(id) { return D.indicadores.find(function (i) { return i.id === id; }); }
+  function despues() {
+    const uni = indDe('universidad'), con = indDe('conservatorio'), fp = indDe('fp');
+    const tiene = function (ind, id) { return ind.datos[id].n > 0; };
+    const cuantos = function (id) { return (tiene(uni, id) ? 1 : 0) + (tiene(con, id) ? 1 : 0); };
+    const m = $('#despues-matriz');
+    vaciar(m);
+    const tabla = el('table', 'matriz__t');
+    const cab = el('tr');
+    ['', 'Campus universitario público', 'Conservatorio profesional'].forEach(function (t) { cab.appendChild(el('th', null, t)); });
+    const thead = el('thead'); thead.appendChild(cab); tabla.appendChild(thead);
+    const tb = el('tbody');
+    IDS_TODAS().slice().sort(function (x, y) {
+      return (cuantos(y) - cuantos(x)) || NOMBRE[x].localeCompare(NOMBRE[y], 'es');
+    }).forEach(function (id) {
+      const tr = el('tr');
+      tr.dataset.quien = id === REF ? 'referencia' : id === AQUI ? 'aqui' : 'otro';
+      tr.appendChild(el('th', null, NOMBRE[id]));
+      [uni, con].forEach(function (ind) {
+        const td = el('td');
+        const si = tiene(ind, id);
+        const marca = el('span', 'matriz__m' + (si ? '' : ' matriz__m--no'));
+        marca.setAttribute('aria-label', si ? (ind.datos[id].lista || [])[0] || 'Sí' : 'No');
+        marca.setAttribute('role', 'img');
+        if (si) marca.title = (ind.datos[id].lista || []).join(' · ');
+        td.appendChild(marca);
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    tabla.appendChild(tb);
+    m.appendChild(tabla);
+    const nUni = IDS_TODAS().filter(function (id) { return tiene(uni, id); }).length;
+    const nCon = IDS_TODAS().filter(function (id) { return tiene(con, id); }).length;
+    const suyo = function (ind) {
+      return tiene(ind, AQUI) ? NOMBRE[AQUI] + ' tiene ' + ind.datos[AQUI].lista[0].replace(' · ', ', ') : NOMBRE[AQUI] + ' tampoco';
+    };
+    $('#despues-txt').textContent = 'Parla ' + (tiene(uni, REF) ? 'tiene' : 'no tiene') + ' campus universitario público: ' +
+      (tiene(uni, REF) ? '' : 'lo tienen ' + letra(nUni) + ' de las ' + letra(IDS_TODAS().length) + '. ') + suyo(uni) + '. ' +
+      'Ni conservatorio profesional de música: lo tienen ' + letra(nCon) + '. ' + suyo(con) + '.';
+
+    /* La FP pública, por cada 100 jóvenes de 12 a 17 años. */
+    const base = D.BASES[fp.base];
+    const v = function (id) { return fp.datos[id].n / base.valores[id] * 100; };
+    cifrasPar($('#fp-cifras'), function (id) { return num(v(id), 1); }, function (id) {
+      return 'alumnos de FP pública por cada 100 chicos y chicas de 12 a 17 años · ' + entero(fp.datos[id].n) + ' alumnos';
+    });
+    const p = clasificacion($('#fp-filas'), v, function (x) { return num(x, 1); });
+    const tendria = v(AQUI) / 100 * base.valores[REF];
+    $('#fp-txt').textContent = 'Parla es ' + puestoDe(p, IDS_TODAS().length) + ' de las ' + letra(IDS_TODAS().length) +
+      ' en alumnos de FP pública. ' + (tendria > fp.datos[REF].n
+        ? 'Con la proporción de ' + NOMBRE[AQUI] + ', tendría ' + entero(Math.round(tendria)) + ' alumnos; tiene ' +
+          entero(fp.datos[REF].n) + '.'
+        : 'Con la proporción de ' + NOMBRE[AQUI] + ', tendría menos: ' + entero(Math.round(tendria)) + '.');
+    pieFuentes($('#despues-pie'), 'Campus y conservatorios dentro de cada término; alumnos de FP presencial en centros públicos, ' +
+      'donde se estudia, contra los jóvenes de 12 a 17 años del padrón.',
+      [[D.fuentes[uni.fuenteId].t, D.fuentes[uni.fuenteId].url], [D.fuentes[con.fuenteId].t, D.fuentes[con.fuenteId].url],
+        [D.fuentes[fp.fuenteId].t, D.fuentes[fp.fuenteId].url], [D.fuentes[base.fuenteId].t, D.fuentes[base.fuenteId].url]]);
+  }
+
+  /* ── Música, idiomas y artes ──────────────────────────────────────── */
+  function artes() {
+    const ind = indDe('artes');
+    const pob = D.BASES.total.valores;
+    const v = function (id) { return ind.datos[id].n / pob[id] * 1000; };
+    cifrasPar($('#artes-cifras'), function (id) { return num(v(id), 1); }, function (id) {
+      return 'alumnos por cada 1.000 vecinos · ' + entero(ind.datos[id].n) + ' alumnos';
+    });
+    const p = clasificacion($('#artes-filas'), v, function (x) { return num(x, 1); });
+    const tendria = v(AQUI) / 1000 * pob[REF];
+    $('#artes-txt').textContent = 'Parla es ' + puestoDe(p, IDS_TODAS().length) + ' de las ' + letra(IDS_TODAS().length) + '. ' +
+      'Con la proporción de ' + NOMBRE[AQUI] + ', estudiarían música, idiomas o artes en Parla ' +
+      entero(Math.round(tendria)) + ' personas; lo hacen ' + entero(ind.datos[REF].n) + '.';
+    pieFuentes($('#artes-pie'), 'Mide matrícula, no plazas, y suma lo autonómico (escuelas oficiales de idiomas, conservatorios) ' +
+      'con lo municipal (escuelas de música y danza).', [[D.fuentes[ind.fuenteId].t, D.fuentes[ind.fuenteId].url]]);
+  }
+
+  /* ── Colegios e institutos: lo que hay en Parla y lo que tendría ─────── */
+  function escuelas() {
+    const cont = $('#hay-listas');
+    vaciar(cont);
+    ['escuelas-infantiles', 'colegios', 'institutos'].forEach(function (k) {
+      const ind = indDe(k);
+      const base = D.BASES[ind.base];
+      const hay = ind.datos[REF].n;
+      const tendria = ind.datos[AQUI].n / base.valores[AQUI] * base.valores[REF];
+      const falta = tendria - hay;
+      const h = el('h3', 'espera__h', ind.titulo);
+      h.id = 'hay-' + k;
+      cont.appendChild(h);
+      cont.appendChild(tira(hay, Math.max(0, falta)));
+      const ley = el('p', 'marcador__ley');
+      ley.setAttribute('aria-hidden', 'true');
+      ley.innerHTML = '<span class="ley ley--hay"></span>' + hay + ' en Parla' +
+        (falta > 0.04 ? ' <span class="ley ley--hueco"></span>' + num(falta) + ' que faltan' : '');
+      cont.appendChild(ley);
+      cont.appendChild(el('p', 'tp-nota tp-nota--corta', 'Con la proporción de ' + NOMBRE[AQUI] + ', Parla tendría ' +
+        num(tendria) + ' para sus ' + entero(base.valores[REF]) + ' ' + base.etiqueta + '. Tiene ' + hay +
+        (falta > 0.5 ? ': le faltan ' + num(falta) + '.' : falta < -0.5 ? ': tiene ' + num(-falta) + ' de más.' : ': prácticamente los mismos.')));
+      const ir = el('a', 'hay__ir', 'Ver los nombres en el recuento');
+      ir.href = (RUTAS ? RAIZ_WEB : 'index.html') + '?ir=ind-' + k + '#' + AQUI;
+      cont.appendChild(ir);
+    });
+  }
+
   /* ── La escuela infantil ─────────────────────────────────────────────
      Quién se queda sin plaza en la pública de 0 a 2 años, en el proceso
      de admisión, y cuántos niños van a ella (herramientas/infantil.py). */
@@ -548,11 +695,14 @@
     };
     $('#infantil-txt').textContent = 'En el proceso de admisión «' + I.cursoAdmision +
       '» de las escuelas infantiles públicas, de 0 a 2 años, Parla tuvo ' + frase(REF) + '. En ' + NOMBRE[AQUI] + ', ' + frase(AQUI) + '.';
+    /* En grande, los niños que van; debajo, los que se quedan sin plaza. */
+    cifrasPar($('#infantil-cifras'), function (id) { return num(c(id).matriculadosPor100, 1); }, function (id) {
+      return 'de cada 100 niños de 0 a 2 años van a una escuela infantil pública · ' + entero(c(id).matriculados) + ' niños';
+    });
     const cont = $('#infantil-listas');
     vaciar(cont);
     const todas = IDS_TODAS();
-    [['pctSinPlaza', 'De cada 100 solicitudes, sin plaza', 'menos', 'infantil-sin-plaza'],
-      ['matriculadosPor100', 'Niños de 0 a 2 años en la escuela infantil pública, por cada 100', 'mas', 'infantil-matriculados']].forEach(function (L) {
+    [['pctSinPlaza', 'De cada 100 solicitudes, sin plaza', 'menos', 'infantil-sin-plaza']].forEach(function (L) {
       const k = L[0];
       const tope = Math.max.apply(null, todas.map(function (id) { return c(id)[k]; }));
       filasPar(cont, L[1], [['Parla', c(REF)[k], 'referencia'], [NOMBRE[AQUI], c(AQUI)[k], 'aqui']], tope,
@@ -602,11 +752,20 @@
       n.appendChild(el('b', 'parla', num(r.por1000, 1) + ' camas por cada 1.000 personas'));
       n.appendChild(document.createTextNode(' que atiende' + (a !== r && a.por1000 != null
         ? '; ' + a.corto + ', ' + num(a.por1000, 1) + '.' : '.')));
-    } else if (PAGINA === 'educacion' && window.INFANTIL) {
-      const I = window.INFANTIL.ciudades;
-      n.appendChild(document.createTextNode('De cada 100 solicitudes de plaza en una escuela infantil pública de Parla, '));
-      n.appendChild(el('b', 'parla', num(I[REF].pctSinPlaza, 1) + ' se quedan sin plaza'));
-      n.appendChild(document.createTextNode('. En ' + NOMBRE[AQUI] + ', ' + num(I[AQUI].pctSinPlaza, 1) + '.'));
+    } else if (PAGINA === 'educacion') {
+      const fp = indDe('fp'), base = D.BASES[fp.base];
+      const v = function (id) { return fp.datos[id].n / base.valores[id] * 100; };
+      const uni = indDe('universidad');
+      n.appendChild(document.createTextNode('Parla ' + (uni.datos[REF].n ? 'tiene' : 'no tiene') + ' campus universitario público, y en FP pública tiene '));
+      n.appendChild(el('b', 'parla', num(v(REF), 1) + ' alumnos por cada 100 jóvenes'));
+      n.appendChild(document.createTextNode('. ' + NOMBRE[AQUI] + ', ' + num(v(AQUI), 1) + '.'));
+      const dato = $('#portada-dato');
+      if (dato) {
+        vaciar(dato);
+        dato.appendChild(el('p', 'portada__dato-v', num(v(REF), 1)));
+        dato.appendChild(el('p', 'portada__dato-que', 'alumnos de FP pública por cada 100 jóvenes de 12 a 17 años en Parla'));
+        dato.appendChild(el('p', 'portada__dato-otra', NOMBRE[AQUI] + ': ' + num(v(AQUI), 1)));
+      }
     }
   }
   function comun() {
@@ -621,9 +780,8 @@
   function pintar() {
     comun();
     golpe();
-    hay();
-    if (PAGINA === 'sanidad') { hospital(); cartera(); cabecera(); espera(); }
-    if (PAGINA === 'educacion') infantil();
+    if (PAGINA === 'sanidad') { hay(); hospital(); cartera(); cabecera(); espera(); }
+    if (PAGINA === 'educacion') { despues(); artes(); escuelas(); infantil(); }
     if (window.INDICE) window.INDICE.refrescar({ ciudad: AQUI, nombre: NOMBRE[AQUI] });
   }
 
