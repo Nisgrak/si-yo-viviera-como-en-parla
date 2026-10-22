@@ -254,6 +254,202 @@
     pie.appendChild(document.createTextNode('.'));
   }
 
+  /* ── El hospital ──────────────────────────────────────────────────────
+     El hospital público que le toca a cada ciudad (datos/sanidad.js, el de
+     su memoria de 2024) y sus camas instaladas (el indicador «camas» del
+     recuento), contra toda la población que tiene asignada. Pinto y Pozuelo
+     no tienen hospital y se les cuenta el que les toca; del Infanta Sofía,
+     el de Alcobendas, no hay camas en el catálogo que usa la web. */
+  function hospitales() {
+    const S = window.SANIDAD;
+    const ic = D.indicadores.find(function (i) { return i.id === 'camas'; });
+    const H = {};
+    IDS_TODAS().forEach(function (id) {
+      const s = S.ciudades[id];
+      if (!s) return;
+      const h = H[s.hid] || (H[s.hid] = { hid: s.hid, nombre: s.hospital, corto: s.corto, pob: s.pob,
+        ciudades: [], camas: null, duena: null });
+      h.ciudades.push(id);
+      (ic.datos[id].lista || []).forEach(function (x) {
+        const m = x.match(/^(.*?)\s*·\s*([\d.]+) camas$/);
+        if (m && m[1].trim() === s.hospital) { h.camas = +m[2].replace(/\./g, ''); h.duena = id; }
+      });
+    });
+    Object.keys(H).forEach(function (k) {
+      const h = H[k];
+      h.por1000 = h.camas != null && h.pob ? h.camas / h.pob * 1000 : null;
+    });
+    return H;
+  }
+  function hospitalDe(id) {
+    const H = hospitales();
+    return H[window.SANIDAD.ciudades[id].hid];
+  }
+  /* «el Hospital de Getafe» → «del Hospital de Getafe»; «la Fundación…» → «de la Fundación…». */
+  function del_(t) { return t.replace(/^el /, 'del ').replace(/^la /, 'de la '); }
+  function mayuscula(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
+  function listaY(xs) { return xs.length > 1 ? xs.slice(0, -1).join(', ') + ' y ' + xs[xs.length - 1] : xs[0]; }
+
+  function hospital() {
+    const S = window.SANIDAD;
+    const caja = $('#hospital');
+    if (!S || !S.ciudades[REF] || !S.ciudades[AQUI]) { if (caja) caja.hidden = true; return; }
+    const H = hospitales();
+    const ic = D.indicadores.find(function (i) { return i.id === 'camas'; });
+    const r = H[S.ciudades[REF].hid], a = H[S.ciudades[AQUI].hid];
+    const misma = r === a;
+
+    const cif = $('#hospital-cifras');
+    vaciar(cif);
+    [[REF, r, 'referencia'], [AQUI, a, 'aqui']].forEach(function (g) {
+      const d = el('div', 'tp-cifra');
+      d.dataset.quien = g[2];
+      d.appendChild(el('p', 'tp-cifra__quien', NOMBRE[g[0]]));
+      d.appendChild(el('p', 'tp-cifra__v', g[1].por1000 != null ? num(g[1].por1000, 1) : 'sin dato'));
+      d.appendChild(el('p', 'tp-cifra__que', g[1].por1000 != null
+        ? 'camas por cada 1.000 personas asignadas · ' + mayuscula(g[1].corto) + ': ' + entero(g[1].camas) +
+          ' camas para ' + entero(g[1].pob) + ' personas'
+        : mayuscula(g[1].corto) + ': el catálogo no da sus camas'));
+      cif.appendChild(d);
+    });
+
+    /* Todos los hospitales, de más a menos camas por persona. */
+    const lista = Object.keys(H).map(function (k) { return H[k]; }).filter(function (h) { return h.por1000 != null; })
+      .sort(function (x, y) { return y.por1000 - x.por1000; });
+    const puesto = lista.indexOf(r) + 1;
+    const tope = lista[0].por1000;
+    const ul = $('#hospital-filas');
+    vaciar(ul);
+    lista.forEach(function (h) {
+      const li = el('li', 'mun__fila');
+      li.setAttribute('data-quien', h === r ? 'referencia' : h === a ? 'aqui' : 'otro');
+      li.appendChild(el('span', 'mun__q', mayuscula(h.corto) + ' · ' +
+        listaY(h.ciudades.map(function (id) { return NOMBRE[id]; }))));
+      li.appendChild(el('span', 'mun__v', num(h.por1000, 1)));
+      const b = el('span', 'mun__barra');
+      const i = el('i');
+      i.style.width = (h.por1000 / tope * 100).toFixed(1) + '%';
+      b.appendChild(i);
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+
+    const ultimo = puesto === lista.length;
+    $('#hospital-txt').textContent = (ultimo
+      ? 'De los ' + letra(lista.length) + ' hospitales que les tocan a las once ciudades, el de Parla es el que menos camas tiene por persona. '
+      : 'De los ' + letra(lista.length) + ' hospitales que les tocan a las once ciudades, el de Parla es el ' + puesto + '.º en camas por persona. ') +
+      (misma ? ''
+        : a.por1000 == null ? ''
+        : 'Con las camas por persona ' + del_(a.corto) + ', el Infanta Cristina tendría ' +
+          entero(Math.round(a.por1000 * r.pob / 1000)) + ' camas; tiene ' + entero(r.camas) + '.');
+    pieFuentes($('#hospital-pie'), 'Camas instaladas, y población asignada a 31 de diciembre de 2024, de la memoria de ' +
+      'cada hospital. Las personas asignadas incluyen ' +
+      'a los pueblos de alrededor que les tocan. Del Infanta Sofía, el hospital de Alcobendas, el catálogo no da camas.',
+      [[D.fuentes[ic.fuenteId].t, D.fuentes[ic.fuenteId].url], ['Memorias de 2024 de los hospitales del SERMAS', S.memorias[r.hid]]]);
+
+    const bot = $('#hospital-botones');
+    vaciar(bot);
+    if (window.CARTEL) {
+      bot.appendChild(window.CARTEL.boton({
+        id: 'hospital', ciudad: function () { return AQUI; },
+        titulo: function () { return 'Parla y ' + NOMBRE[AQUI] + ' · El hospital'; },
+        datos: function () {
+          return {
+            pre: 'Parla · ' + r.nombre,
+            cifra: num(r.por1000, 1), que: 'camas por cada 1.000 personas que atiende',
+            cajas: [{ q: NOMBRE[AQUI] + ' · ' + a.corto.replace(/^(el|la) /, ''), v: a.por1000 != null ? num(a.por1000, 1) + ' camas por cada 1.000' : 'sin dato' },
+              { q: 'Parla', v: entero(r.camas) + ' camas para ' + entero(r.pob) + ' personas', ref: true }]
+          };
+        }
+      }));
+    }
+  }
+
+  /* ── Lo que le falta al hospital ─────────────────────────────────────
+     Las unidades asistenciales que declara el hospital de la otra ciudad y
+     el de Parla no (datos/datos.js, «hospitales»), ordenadas de más a menos
+     grave. Si la ciudad no tiene hospital, el que le toca. */
+  function cartera() {
+    const S = window.SANIDAD;
+    const caja = $('#cartera');
+    const h = S && S.ciudades[AQUI] ? hospitalDe(AQUI) : null;
+    const duena = h && h.duena;
+    if (!duena || !D.hospitales[duena] || !D.hospitales[duena].unidades) { if (caja) caja.hidden = true; return; }
+    caja.hidden = false;
+    const fuera = D.hospitales.noComparables;
+    const vale = function (u) { return fuera.indexOf(u) < 0; };
+    const orden = D.hospitales.gravedad || [];
+    const puesto = function (u) { const i = orden.indexOf(u); return i < 0 ? orden.length : i; };
+    const otro = D.hospitales[duena];
+    const faltan = otro.faltanEnReferencia.filter(vale).sort(function (x, y) {
+      return (puesto(x) - puesto(y)) || x.localeCompare(y, 'es');
+    });
+    const solo = otro.faltanAqui.filter(vale);
+    const parla = D.hospitales[REF].unidades;
+    const de = duena === AQUI ? h.corto : h.corto + ', el que le toca a ' + NOMBRE[AQUI];
+
+    $('#cartera-intro').textContent = 'Las especialidades y unidades que declara cada hospital en el registro de la ' +
+      'Comunidad de Madrid. Cada una es algo que se atiende en el hospital de la ciudad o hay que ir a buscar a otro.';
+    const cif = $('#cartera-cifra');
+    vaciar(cif);
+    cif.appendChild(el('p', 'cartera-cifra__v', String(faltan.length)));
+    cif.appendChild(el('p', 'cartera-cifra__que', faltan.length === 1
+      ? 'unidad que tiene ' + de + ' y el Infanta Cristina no'
+      : 'unidades que tiene ' + de + ' y el Infanta Cristina no'));
+
+    const t = $('#cartera-tira');
+    vaciar(t);
+    t.appendChild(tira(parla, faltan.length));
+    const ley = el('p', 'marcador__ley');
+    ley.setAttribute('aria-hidden', 'true');
+    ley.innerHTML = '<span class="ley ley--hay"></span>' + parla + ' unidades en el Infanta Cristina' +
+      (faltan.length ? ' <span class="ley ley--hueco"></span>' + faltan.length + ' que no tiene' : '');
+    t.appendChild(ley);
+
+    const ul = $('#cartera-huecos');
+    vaciar(ul);
+    /* Se destacan las de la cabeza de la lista de gravedad: lo que atiende una
+       urgencia vital o una cirugía compleja (hasta Angiología). */
+    const GRAVES = orden.slice(0, orden.indexOf('Angiología y Cirugía Vascular') + 1);
+    const graves = faltan.filter(function (u) { return GRAVES.indexOf(u) >= 0; });
+    faltan.forEach(function (u) {
+      const li = el('li', 'hueco-nombre' + (GRAVES.indexOf(u) >= 0 ? ' hueco-nombre--grave' : ''));
+      li.appendChild(el('span', 'hueco-nombre__m'));
+      li.appendChild(el('span', null, u));
+      ul.appendChild(li);
+    });
+
+    $('#cartera-txt').textContent = (graves.length
+      ? 'En rojo, ' + (graves.length === 1 ? 'la más grave' : 'las ' + letra(graves.length) + ' más graves') +
+        ': lo que atiende una urgencia vital o una cirugía compleja. '
+      : faltan.length ? ''
+      : 'El Infanta Cristina declara todo lo que declara ' + h.corto + '. ') +
+      (solo.length ? 'Al revés, el Infanta Cristina declara ' + solo.length + ' que ' + h.corto + ' no: ' +
+        listaY(solo.map(function (u) { return u.toLowerCase(); })) + '.' : '') +
+      (duena === 'mostoles' ? ' En Móstoles se suman las carteras de sus dos hospitales.' : '');
+    pieFuentes($('#cartera-pie'), 'Unidades asistenciales que declara cada hospital. No se cuentan «Otras unidades asistenciales», ' +
+      'que no dice qué servicio es, ni el laboratorio clínico y la vacunación, que el Infanta Cristina declara con otros nombres. ' +
+      'El orden de gravedad es nuestro, y está en el repositorio.',
+      [[D.fuentes.sanitarios.t, D.fuentes.sanitarios.url]]);
+  }
+
+  /* La tira de la web: lo que hay en negro y un hueco por lo que falta. */
+  function tira(hay, falta) {
+    const n = hay + Math.ceil(falta);
+    const cont = el('div', 'tira tira--quieta' + (n > 70 ? ' tira--microscopica' : n > 24 ? ' tira--densa' : ''));
+    cont.setAttribute('aria-hidden', 'true');
+    for (let i = 0; i < hay; i++) cont.appendChild(el('span', 'u'));
+    const enteros = Math.floor(falta + 1e-9);
+    for (let j = 0; j < enteros; j++) cont.appendChild(el('span', 'u u--hueco'));
+    const parte = falta - enteros;
+    if (parte > 0.04) {
+      const u = el('span', 'u u--hueco u--hueco-parte');
+      u.style.setProperty('--parte', (parte * 100).toFixed(1) + '%');
+      cont.appendChild(u);
+    }
+    return cont;
+  }
+
   /* ── El médico de cabecera ────────────────────────────────────────────
      Tarjetas sanitarias por cada plaza de médico de familia y de pediatra
      en los centros de salud de cada ciudad (herramientas/primaria.py). Más
@@ -263,13 +459,38 @@
     const caja = $('#cabecera');
     if (!P || !P.ciudades[REF] || !P.ciudades[AQUI]) { if (caja) caja.hidden = true; return; }
     const c = function (id) { return P.ciudades[id]; };
-    $('#cabecera-txt').textContent = 'En los centros de salud de Parla hay una plaza de médico de familia por cada ' +
-      entero(c(REF).familia) + ' tarjetas sanitarias de 14 años o más; en los de ' + NOMBRE[AQUI] + ', una por cada ' +
-      entero(c(AQUI).familia) + '. En pediatría, una plaza por cada ' + entero(c(REF).pediatria) + ' tarjetas de niños en Parla y por cada ' +
-      entero(c(AQUI).pediatria) + ' en ' + NOMBRE[AQUI] + '.';
+    $('#cabecera-txt').textContent = 'La gente que le toca a cada médico de familia en los centros de salud: las tarjetas ' +
+      'sanitarias de 14 años o más por cada plaza. Cuantas más, menos tiempo para cada paciente.';
+    const cif = $('#cabecera-cifras');
+    vaciar(cif);
+    [[REF, 'referencia'], [AQUI, 'aqui']].forEach(function (g) {
+      const d = el('div', 'tp-cifra');
+      d.dataset.quien = g[1];
+      d.appendChild(el('p', 'tp-cifra__quien', NOMBRE[g[0]]));
+      d.appendChild(el('p', 'tp-cifra__v', entero(c(g[0]).familia)));
+      d.appendChild(el('p', 'tp-cifra__que', 'tarjetas sanitarias de 14 años o más por cada médico de familia · ' +
+        entero(c(g[0]).medicos) + ' plazas'));
+      cif.appendChild(d);
+    });
+    /* Con las tarjetas por médico de la otra ciudad, cuántos médicos de
+       familia tendría Parla: la misma cuenta que el recuento. */
+    const tendria = c(REF).tsiAdultos / c(AQUI).familia;
+    const faltan = tendria - c(REF).medicos;
+    const tt = $('#cabecera-tira');
+    vaciar(tt);
+    tt.appendChild(tira(c(REF).medicos, Math.max(0, faltan)));
+    const ley = el('p', 'marcador__ley');
+    ley.setAttribute('aria-hidden', 'true');
+    ley.innerHTML = '<span class="ley ley--hay"></span>' + c(REF).medicos + ' plazas de médico de familia' +
+      (faltan > 0.04 ? ' <span class="ley ley--hueco"></span>' + num(faltan) + ' que faltan' : '');
+    tt.appendChild(ley);
+    $('#cabecera-faltan-txt').textContent = 'Con la gente que tiene cada médico en ' + NOMBRE[AQUI] + ', Parla tendría ' +
+      num(tendria) + ' médicos de familia. Tiene ' + c(REF).medicos + (faltan > 0.5 ? ': le faltan ' + num(faltan) + '.'
+        : faltan < -0.5 ? ': tiene ' + num(-faltan) + ' de más.' : ': prácticamente los mismos.');
+
     const cont = $('#cabecera-listas');
     vaciar(cont);
-    [['familia', 'Tarjetas por plaza de médico de familia'], ['pediatria', 'Tarjetas de 0 a 13 años por plaza de pediatra']].forEach(function (L) {
+    [['pediatria', 'Tarjetas de 0 a 13 años por plaza de pediatra']].forEach(function (L) {
       const k = L[0];
       const tope = Math.max.apply(null, IDS_TODAS().map(function (id) { return c(id)[k]; }));
       filasPar(cont, L[1], [['Parla', c(REF)[k], 'referencia'], [NOMBRE[AQUI], c(AQUI)[k], 'aqui'],
@@ -346,10 +567,11 @@
     if (!n) return;
     vaciar(n);
     if (PAGINA === 'sanidad' && window.SANIDAD) {
-      const r = window.SANIDAD.ciudades[REF], a = window.SANIDAD.ciudades[AQUI];
-      n.appendChild(document.createTextNode('Quien espera una operación en el hospital de Parla lleva de media '));
-      n.appendChild(el('b', 'parla', num(r.quirurgica.dias, 1) + ' días'));
-      n.appendChild(document.createTextNode('. En el que le toca a ' + NOMBRE[AQUI] + ', ' + num(a.quirurgica.dias, 1) + ' días.'));
+      const r = hospitalDe(REF), a = hospitalDe(AQUI);
+      n.appendChild(document.createTextNode('El hospital de Parla tiene '));
+      n.appendChild(el('b', 'parla', num(r.por1000, 1) + ' camas por cada 1.000 personas'));
+      n.appendChild(document.createTextNode(' que atiende' + (a !== r && a.por1000 != null
+        ? '; ' + a.corto + ', ' + num(a.por1000, 1) + '.' : '.')));
     } else if (PAGINA === 'educacion' && window.INFANTIL) {
       const I = window.INFANTIL.ciudades;
       n.appendChild(document.createTextNode('De cada 100 solicitudes de plaza en una escuela infantil pública de Parla, '));
@@ -370,7 +592,7 @@
     comun();
     golpe();
     hay();
-    if (PAGINA === 'sanidad') { espera(); cabecera(); }
+    if (PAGINA === 'sanidad') { hospital(); cartera(); cabecera(); espera(); }
     if (PAGINA === 'educacion') infantil();
     if (window.INDICE) window.INDICE.refrescar({ ciudad: AQUI, nombre: NOMBRE[AQUI] });
   }

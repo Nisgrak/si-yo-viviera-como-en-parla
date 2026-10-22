@@ -66,13 +66,52 @@
 
 <main>
 
-<!-- ── Lo que hay ────────────────────────────────────────────────────────
-     Los indicadores del recuento de esta área (datos/datos.js). -->
-<section class="bloque bloque--salir" id="hay" data-indice="Lo que hay">
+
+
+<!-- ── El hospital ───────────────────────────────────────────────────────
+     Las camas del hospital público que le toca a cada ciudad, contra toda la
+     gente que tiene asignada, y la clasificación de los hospitales. -->
+<section class="bloque bloque--salir" id="hospital" data-indice="El hospital">
   <div class="env">
-    <h2 class="bloque__h">Lo que hay</h2>
-    <p class="bloque__intro">Los equipamientos sanitarios del recuento, con la misma cuenta: cuántos hay por cada 100.000 habitantes. Cada uno lleva a su apartado, con sus nombres y su fuente.</p>
-    <div id="hay-listas"></div>
+    <h2 class="bloque__h">El hospital</h2>
+    <p class="bloque__intro">Las camas del hospital público que le toca a cada ciudad, contra toda la gente que tiene asignada, sea de la ciudad o de los pueblos de alrededor.</p>
+    <div class="tp-cifras" id="hospital-cifras" data-sentido="mas"></div>
+    <p class="tp-nota" id="hospital-txt"></p>
+    <h3 class="espera__h" id="hospital-todos">Camas por cada 1.000 personas asignadas, hospital a hospital</h3>
+    <ul class="mun salir__filas espera__filas hosp-filas" id="hospital-filas"></ul>
+    <p class="salir__pie" id="hospital-pie"></p>
+    <div class="seccion__botones" id="hospital-botones"></div>
+  </div>
+</section>
+
+<!-- ── Lo que le falta al hospital ───────────────────────────────────────
+     Las unidades asistenciales que declara el otro hospital y el de Parla no. -->
+<section class="bloque bloque--salir" id="cartera" data-indice="Lo que le falta al hospital">
+  <div class="env">
+    <h2 class="bloque__h">Lo que le falta al hospital</h2>
+    <p class="bloque__intro" id="cartera-intro"></p>
+    <div class="cartera-cifra" id="cartera-cifra"></div>
+    <div id="cartera-tira"></div>
+    <ul class="huecos" id="cartera-huecos"></ul>
+    <p class="tp-nota" id="cartera-txt"></p>
+    <p class="salir__pie" id="cartera-pie"></p>
+  </div>
+</section>
+
+
+
+<section class="bloque bloque--salir" id="cabecera" data-indice="El médico de cabecera">
+  <div class="env">
+    <h2 class="bloque__h">El médico de cabecera</h2>
+    <p class="bloque__intro" id="cabecera-txt"></p>
+    <div class="tp-cifras" id="cabecera-cifras" data-sentido="menos"></div>
+    <h3 class="espera__h" id="cabecera-faltan">Los médicos de familia de Parla</h3>
+    <div id="cabecera-tira"></div>
+    <p class="tp-nota" id="cabecera-faltan-txt"></p>
+    <div id="cabecera-listas"></div>
+    <p class="bloque__intro salir__tren" id="cabecera-cuenta"></p>
+    <p class="salir__pie" id="cabecera-pie"></p>
+    <div class="seccion__botones" id="cabecera-botones"></div>
   </div>
 </section>
 
@@ -87,14 +126,13 @@
   </div>
 </section>
 
-<section class="bloque bloque--salir" id="cabecera" data-indice="El médico de cabecera">
+<!-- ── Lo que hay ────────────────────────────────────────────────────────
+     Los indicadores del recuento de esta área (datos/datos.js). -->
+<section class="bloque bloque--salir" id="hay" data-indice="Lo que hay">
   <div class="env">
-    <h2 class="bloque__h">El médico de cabecera</h2>
-    <p class="bloque__intro" id="cabecera-txt"></p>
-    <div id="cabecera-listas"></div>
-    <p class="bloque__intro salir__tren" id="cabecera-cuenta"></p>
-    <p class="salir__pie" id="cabecera-pie"></p>
-    <div class="seccion__botones" id="cabecera-botones"></div>
+    <h2 class="bloque__h">Lo que hay</h2>
+    <p class="bloque__intro">Los equipamientos sanitarios del recuento, con la misma cuenta: cuántos hay por cada 100.000 habitantes. Cada uno lleva a su apartado, con sus nombres y su fuente.</p>
+    <div id="hay-listas"></div>
   </div>
 </section>
 
@@ -103,6 +141,26 @@
   <div class="env">
     <h2 class="bloque__h">Cómo está hecho esto</h2>
     <div class="metodo__cuerpo">
+      <h3>El hospital</h3>
+      <p>
+        Se compara el hospital público que le toca a cada ciudad según su memoria de 2024, no el que
+        hay en su término: Pinto no tiene y le toca el de Getafe; Pozuelo y Majadahonda comparten el
+        Puerta de Hierro. Sus camas instaladas se dividen entre toda la población que tiene asignada a
+        31 de diciembre de 2024, que incluye a vecinos de los municipios de alrededor que le tocan,
+        según la memoria de cada hospital. Del Infanta Sofía, el de Alcobendas, el
+        catálogo de camas que usa la web no da cifra, y no entra en la clasificación.
+      </p>
+
+      <h3>Lo que le falta al hospital</h3>
+      <p>
+        Son las unidades asistenciales que cada hospital declara en el registro de la Comunidad de
+        Madrid: las que tiene el hospital de la otra ciudad y el Infanta Cristina no. Algunas
+        diferencias pueden deberse a cómo declara cada centro su cartera. En rojo van las de la
+        cabeza de nuestro orden de gravedad, de Hemodinámica a Angiología: lo que atiende una urgencia
+        vital o una cirugía compleja. El orden no sale de ninguna fuente; es nuestro y está en el
+        repositorio.
+      </p>
+
       <h3>La espera</h3>
       <p>
         Las listas de espera son las que publica cada mes el Servicio Madrileño de Salud por

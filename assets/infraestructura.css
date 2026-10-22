@@ -424,3 +424,56 @@
 .tp-cifra[data-quien='referencia'] .tp-cifra__v { color: var(--ref); }
 .tp-cifra__que { margin-top: .4rem; font-size: .875rem; line-height: 1.4; color: var(--ink-3); }
 .tp-nota { max-width: 36rem; margin-top: 1.25rem; font-size: 1rem; line-height: 1.5; color: var(--ink-2); }
+
+/* ── Sanidad: el hospital y lo que le falta ──────────────────────────────
+   La clasificación de los hospitales: Parla en azul, el de la ciudad elegida
+   en tinta y los demás apagados, para que se vea en qué puesto queda. */
+.hosp-filas .mun__fila[data-quien='otro'] .mun__q,
+.hosp-filas .mun__fila[data-quien='otro'] .mun__v { color: var(--ink-3); font-weight: 400; }
+.hosp-filas .mun__fila[data-quien='otro'] .mun__barra i { background: var(--line-alta); }
+.hosp-filas .mun__fila[data-quien='referencia'] .mun__q,
+.hosp-filas .mun__fila[data-quien='aqui'] .mun__q { font-weight: 700; }
+
+/* La cifra de lo que falta: grande y en rojo, como la de la portada. */
+.cartera-cifra {
+  display: flex; align-items: center; gap: clamp(.8rem, 3vw, 1.2rem);
+  margin-top: clamp(1.25rem, 4vw, 1.75rem);
+}
+.cartera-cifra__v {
+  font-weight: 800; font-stretch: 76%;
+  font-size: clamp(3.2rem, 16vw, 5rem); line-height: .8; letter-spacing: -.045em;
+  color: var(--loss);
+}
+.cartera-cifra__que {
+  max-width: 20rem;
+  font-size: clamp(1rem, 3.8vw, 1.125rem); font-weight: 600; line-height: 1.25;
+  color: var(--ink);
+}
+
+/* Las tiras de esta página no esperan a verse: están quietas desde el principio. */
+.tira--quieta { margin-top: 1rem; max-width: 34rem; }
+.tira--quieta .u--hueco { opacity: 1; transform: none; }
+#cartera-tira .marcador__ley, #cabecera-tira .marcador__ley { margin-top: .55rem; }
+
+/* Cada unidad que falta, con su hueco. Las más graves, en rojo y más gruesas. */
+.huecos {
+  list-style: none; margin: 1.4rem 0 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: .45rem .5rem;
+  max-width: 44rem;
+}
+.hueco-nombre {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .38rem .7rem .38rem .55rem;
+  border: 1px solid var(--line-alta); border-radius: 6px;
+  font-size: .875rem; line-height: 1.2; color: var(--ink-2);
+}
+.hueco-nombre__m {
+  flex: none; width: 11px; height: 11px;
+  background: var(--loss);
+  -webkit-mask: var(--hueco) center / 100% 100% no-repeat;
+  mask: var(--hueco) center / 100% 100% no-repeat;
+}
+.hueco-nombre--grave {
+  border-color: var(--loss); background: var(--loss-veil);
+  font-weight: 700; color: var(--loss);
+}
