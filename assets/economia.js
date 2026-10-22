@@ -370,13 +370,18 @@
       });
     const viejo = $('#trabajo-cartel');
     if (viejo) viejo.remove();
+    /* «1 de cada 3»: los puestos por cada 100 vecinos que trabajan, dichos
+       como se dicen. */
+    function deCada(v) { return v >= 100 ? 'todos' : '1 de cada ' + Math.round(100 / v); }
+    function paraQuien(v) {
+      return v >= 100 ? 'para todos y sobra' : v >= 90 ? 'para casi todos' : 'para ' + deCada(v);
+    }
     if (window.CARTEL) {
       const b = cartel('trabajo', 'Dónde se trabaja', function () {
         return {
           pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · Dónde se trabaja',
-          antes: 'En Parla hay', cifra: num(ultimo(t(REF).puestos), 0), que: 'empleos',
-          sub: 'por cada 100 vecinos que trabajan: los demás tienen que salir fuera. En ' + NOMBRE[AQUI] + ' hay ' +
-            num(ultimo(t(AQUI).puestos), 0) + '.',
+          antes: 'Parla tiene trabajo para', cifra: deCada(ultimo(t(REF).puestos)), que: 'vecinos',
+          sub: 'que trabajan. ' + NOMBRE[AQUI] + ', ' + paraQuien(ultimo(t(AQUI).puestos)) + '.',
           cajas: [
             { q: 'Parla', v: entero(t(REF).enCentro) + ' puestos para ' + entero(t(REF).residentes) + ' vecinos afiliados', ref: true }]
         };
@@ -725,8 +730,8 @@
     bot.appendChild(cartel('impuestos', 'Lo que paga un vecino', function () {
       return {
         pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · Lo que paga un vecino, ' + P.anio,
-        antes: 'Con su casa y su coche, un vecino de Parla paga', cifra: entero(suya(REF)) + ' €', que: 'al año',
-        sub: 'de IBI y de impuesto de vehículos. Uno de ' + NOMBRE[AQUI] + ', con la suya, ' + entero(suya(AQUI)) + ' €.',
+        antes: 'Un vecino de Parla paga', cifra: entero(suya(REF)) + ' €', que: 'al año',
+        sub: 'de IBI y coche. Uno de ' + NOMBRE[AQUI] + ', ' + entero(suya(AQUI)) + ' €.',
         cajas: [{ q: 'Con la misma casa en las dos', v: 'Parla ' + entero(misma(REF)) + ' €; ' + NOMBRE[AQUI] + ' ' + entero(misma(AQUI)) + ' €' }]
       };
     }));

@@ -701,7 +701,7 @@ a:hover { text-decoration-color: var(--ref); }
   white-space: nowrap;
 }
 .ktit span { display: block; }
-.ktit__n { font-size: 1.35em; line-height: .78; color: #161616; }
+.ktit__n { font-size: 1.35em; line-height: .86; color: #161616; white-space: normal; }
 .ktit__q { color: #c02719; white-space: normal; }
 .ktit__m { color: #161616; }
 /* Quién: «A Parla le faltan», en tinta y a menos de la mitad del cuerpo, para

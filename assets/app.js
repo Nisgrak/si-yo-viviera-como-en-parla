@@ -1390,7 +1390,7 @@
      una frase corta que dice contra qué se mide. */
   function titularCartel(capa, antes, cifra, que, sub) {
     const tit = el('h1', 'ktit');
-    tit.appendChild(el('span', 'ktit__a', antes));
+    if (antes) tit.appendChild(el('span', 'ktit__a', antes));
     tit.appendChild(el('span', 'ktit__n', cifra));
     tit.appendChild(el('span', 'ktit__q', que));
     capa.appendChild(tit);
@@ -1422,31 +1422,30 @@
     const fondo = fondoElegido();
     const capa = montarCartel(raiz, fondo);
     const i = c.ind;
-    const cifra = esSuperficie(c) ? enSuperficie(cuantos, cifraElegida() === 'redonda')
-      : esCartera(c) ? entero(cuantos) : cifraCartel(cuantos);
-    /* «1 biblioteca pública», «2,3 bibliotecas públicas». */
-    const que = esSuperficie(c) ? 'de ' + i.titulo.toLowerCase()
-      : cifra === '1' && i.sing ? i.sing : i.titulo;
-    const suyo = function (n) { return n.replace(/^Hospital Universitario /, 'el '); };
+    const suyo = function (n) { return n.replace(/^Hospital Universitario /, 'el hospital '); };
+    /* «137.471 vecinos», «14.212 niños y niñas de 3 a 11 años». */
+    const gente = function (id) {
+      const b = c.base;
+      return entero(b.valores[id]) + ' ' + (b === D.BASES.total ? 'vecinos' : b.etiqueta);
+    };
     let tit;
-    if (esCartera(c) && !sobra) {
-      tit = titularCartel(capa, 'Al hospital de ' + NOMBRE_REF + ' le faltan', cifra, 'servicios',
-        'que sí tiene ' + suyo(c.nombre) + '.');
-    } else if (esCartera(c)) {
-      tit = titularCartel(capa, 'El hospital de ' + NOMBRE_REF + ' tiene', cifra, 'servicios más',
-        c.otra ? 'que ' + suyo(c.nombre) + '.' : 'Y ' + NOMBRE[AQUI] + ' no tiene hospital público.');
-    } else if (sobra) {
-      tit = titularCartel(capa, NOMBRE_REF + ' tiene', cifra, que + ' más',
-        'de ' + (i.gen === 'f' ? 'las' : 'los') + ' que le tocarían con la proporción de ' + NOMBRE[AQUI] + '.');
-    } else if (c.parla === 0) {
-      tit = titularCartel(capa, NOMBRE_REF + ' tiene', '0', i.titulo,
-        'Con la proporción de ' + NOMBRE[AQUI] + ' tendría ' + num(c.tendria) + '.');
+    if (esCartera(c)) {
+      tit = sobra
+        ? titularCartel(capa, '', entero(cuantos), 'servicios',
+          c.otra ? 'que tiene el hospital de ' + NOMBRE_REF + ' y ' + suyo(c.nombre) + ' no.'
+            : 'tiene el hospital de ' + NOMBRE_REF + '. ' + NOMBRE[AQUI] + ' no tiene hospital público.')
+        : titularCartel(capa, '', entero(cuantos), 'servicios',
+          'que tiene ' + suyo(c.nombre) + ' y el de ' + NOMBRE_REF + ' no.');
+    } else if (esSuperficie(c)) {
+      tit = titularCartel(capa, NOMBRE_REF + ' tiene', num(c.tasaParla, 1) + ' m²', 'de verde por vecino',
+        NOMBRE[AQUI] + ' tiene ' + num(c.tasaOtra, 1) + ' m².');
     } else {
-      tit = titularCartel(capa, 'A ' + NOMBRE_REF + ' le faltan', cifra, que,
-        'para tener ' + (esSuperficie(c) ? 'la' : i.gen === 'f' ? 'las' : 'los') + ' de ' + NOMBRE[AQUI] +
-        ' por habitante. Tiene ' + (esSuperficie(c) ? enSuperficie(c.parla, true) : entero(c.parla)) + '; le ' +
-        (c.tendria < 1.5 ? 'correspondería' : 'corresponderían') + ' ' +
-        (esSuperficie(c) ? enSuperficie(c.tendria, true) : num(c.tendria)) + '.');
+      /* Lo que hay en cada ciudad, en bruto, con su población al lado: sin
+         proporciones, y justo aunque una ciudad sea mucho más grande. */
+      tit = titularCartel(capa, NOMBRE_REF + ' tiene', entero(c.parla),
+        c.parla === 1 && i.sing ? i.sing : i.titulo,
+        'para ' + gente(REF) + '. ' + NOMBRE[AQUI] + ' tiene ' + entero(c.otra) + ' para ' +
+        entero(c.base.valores[AQUI]) + '.');
     }
 
     /* Fila de cajas: del hospital, las unidades que faltan, con su nombre y en
@@ -1495,16 +1494,18 @@
     const capa = montarCartel(raiz, fondo, NOMBRE_REF + ' frente a ' + NOMBRE[AQUI] + ' · ' + s.titulo);
     const cifra = cifraElegida() === 'exacta' || a.dif < 1e7
       ? num(Math.abs(a.dif) / 1e6, 1) : entero(Math.round(Math.abs(a.dif) / 1e6));
-    const tit = titularCartel(capa, a.dif > 0 ? 'A ' + NOMBRE_REF + ' le faltan' : NOMBRE_REF + ' pone', cifra + ' M€',
-      (s.id === 'inversion' ? 'de inversión' : 'de gasto') + (a.dif > 0 ? ' al año' : ' más al año'),
-      a.dif > 0 ? 'para ' + (s.id === 'inversion' ? 'invertir' : 'gastar') + ' por vecino lo que ' + NOMBRE[AQUI] + '.'
-        : 'que si ' + s.alAnio.si + ' como ' + NOMBRE[AQUI] + '.');
+    const verbo = s.id === 'inversion' ? 'invierte' : 'gasta';
+    const tit = titularCartel(capa, 'El Ayuntamiento de ' + NOMBRE_REF + ' ' + verbo, entero(s.valores[REF]) + ' €',
+      'por vecino al año', 'El de ' + NOMBRE[AQUI] + ', ' + entero(s.valores[AQUI]) + ' €. ' + (a.dif > 0
+        ? 'Al mismo ritmo, Parla tendría ' + cifra + ' millones más cada año.'
+        : 'Parla pone ' + cifra + ' millones más cada año.'));
+    /* Debajo, la media de la Comunidad, si la hay: la referencia que no
+       depende de la ciudad elegida. */
     const fila = el('ul', 'kcajas');
-    fila.appendChild(el('li', 'kcaja kcaja--ref', '<b>' + NOMBRE_REF + '</b>' +
-      entero(s.valores[REF]) + ' € por habitante'));
-    fila.appendChild(el('li', 'kcaja', '<b>' + NOMBRE[AQUI] + '</b>' +
-      entero(s.valores[AQUI]) + ' € por habitante'));
-    fila.dataset.n = '2';
+    if (s.mediaRegional != null) {
+      fila.appendChild(el('li', 'kcaja', '<b>' + s.refNombre + '</b>' + entero(s.mediaRegional) + ' € por vecino'));
+    }
+    fila.dataset.n = String(fila.children.length);
     capa.appendChild(fila);
     bandaCartel(raiz);
     ajustarTitular(raiz, tit, fondo);
@@ -1519,8 +1520,8 @@
     const fondo = fondoElegido();
     const capa = montarCartel(raiz, fondo);
     const total = Math.round(TOTAL);
-    const tit = titularCartel(capa, 'A ' + NOMBRE_REF + ' le faltan', entero(total),
-      'equipamientos y servicios públicos', 'para estar dotada como ' + NOMBRE[AQUI] + '. Cada hueco, uno que no hay:');
+    const tit = titularCartel(capa, 'Si ' + NOMBRE_REF + ' estuviera como ' + NOMBRE[AQUI] + ', tendríamos', entero(total),
+      'equipamientos públicos más', '');
 
     const g = porAreas();
     const cuantos = repartoEntero(
