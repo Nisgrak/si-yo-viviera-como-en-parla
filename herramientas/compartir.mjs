@@ -364,7 +364,9 @@ function paginaCiudad(id, titulo, fuente, archivo, ruta, base = '../../', previa
   /* La vista previa con la cifra de la ciudad, si la hay. */
   if (previa) {
     h = h.replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${esc(previa.desc)}">`)
-      .replace(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${BASE}assets/compartir/${previa.imagen}">`);
+      .replace(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${BASE}assets/compartir/${previa.imagen}">`)
+      .replace(/<meta property="og:image:alt" content="[^"]*">\n?/, '')
+      .replace(/(<meta property="og:image" content="[^"]*">)/, `$1\n<meta property="og:image:alt" content="${esc(titulo)}">`);
     if (!h.includes(previa.imagen)) throw new Error(archivo + ': no se pudo poner la imagen de ' + id);
   }
   for (const a of ['data-ciudad', '<base', url]) {

@@ -120,8 +120,8 @@
       art.appendChild(t);
     }
     const filas = (f.medias || []).map(function (m) { return { q: m[0], v: m[1], quien: 'otro' }; });
-    filas.push({ q: NOMBRE[AQUI], v: f.v(AQUI), quien: 'aqui' });
     filas.push({ q: NOMBRE[REF], v: f.v(REF), quien: 'referencia' });
+    filas.push({ q: NOMBRE[AQUI], v: f.v(AQUI), quien: 'aqui' });
     const tope = filas.reduce(function (t, x) { return Math.max(t, x.v); }, 0);
     const ul = el('ul', 'mun');
     filas.forEach(function (x) {
@@ -182,12 +182,14 @@
     if (s.mediaSinCapital != null) medias.push(['Sin la capital', s.mediaSinCapital]);
     let titular = null;
     if (s.alAnio) {
-      const pob = D.BASES.total.valores[AQUI];
+      /* Lo de la otra ciudad por habitante, por los vecinos de Parla: lo que
+         Parla tendría al año a ese ritmo. La misma cuenta que la portada. */
+      const pob = D.BASES.total.valores[REF];
       const dif = (s.valores[AQUI] - s.valores[REF]) * pob;
-      titular = Math.abs(dif) < s.valores[AQUI] * pob * 0.01
-        ? 'Con ' + s.alAnio.con + ' de Parla, ' + NOMBRE[AQUI] + ' se quedaría prácticamente igual.'
-        : 'Con ' + s.alAnio.con + ' de Parla, ' + NOMBRE[AQUI] + ' ' + s.alAnio.verbo +
-          ' <span class="cifra">' + enEuros(Math.abs(dif)) + '</span> ' + (dif > 0 ? 'menos' : 'más') + ' al año.';
+      titular = Math.abs(dif) < s.valores[REF] * pob * 0.01
+        ? 'Con ' + s.alAnio.con + ' de ' + NOMBRE[AQUI] + ', Parla se quedaría prácticamente igual.'
+        : 'Con ' + s.alAnio.con + ' de ' + NOMBRE[AQUI] + ', Parla ' + s.alAnio.verbo +
+          ' <span class="cifra">' + enEuros(Math.abs(dif)) + '</span> ' + (dif > 0 ? 'más' : 'menos') + ' al año.';
     } else if (s.saldoEuros) {
       titular = 'Parla debe <span class="cifra">' + enEuros(s.saldoEuros[REF], false) + '</span>. ' +
         NOMBRE[AQUI] + ' debe ' + enEuros(s.saldoEuros[AQUI], false) + '.';

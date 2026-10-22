@@ -142,8 +142,8 @@
     art.appendChild(t);
     if (h.pie) art.appendChild(el('p', 'hecho__pie', h.pie));
     const filas = [
-      { q: NOMBRE[AQUI], v: h.v(AQUI), quien: 'aqui' },
-      { q: NOMBRE[REF], v: h.v(REF), quien: 'referencia' }
+      { q: NOMBRE[REF], v: h.v(REF), quien: 'referencia' },
+      { q: NOMBRE[AQUI], v: h.v(AQUI), quien: 'aqui' }
     ];
     if (h.extra) filas.unshift(h.extra);
     const tope = filas.reduce(function (t, f) { return Math.max(t, Math.abs(f.v)); }, 0);
