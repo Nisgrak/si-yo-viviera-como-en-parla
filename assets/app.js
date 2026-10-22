@@ -360,7 +360,9 @@
 
   /* «La 3.ª biblioteca pública»: la que vendría detrás de las que hay. */
   function ordinal(k, g) {
-    return g === 'f' ? 'La ' + k + '.ª' : 'El ' + k + (k === 1 || k === 3 ? '.er' : '.º');
+    /* Primero, tercero (y vigésimo primero…) se abrevian «.er»; el resto, «.º». */
+    const er = (k % 10 === 1 || k % 10 === 3) && k % 100 !== 11 && k % 100 !== 13;
+    return g === 'f' ? 'La ' + k + '.ª' : 'El ' + k + (er ? '.er' : '.º');
   }
 
   /* Lo que falta, siempre a la vista; lo que hay en Parla, debajo; lo que hay
@@ -379,14 +381,16 @@
       ul.appendChild(filaNombre(ordinal(c.parla + k, g) + ' ' + i.sing, 'nombre--hueco', 'no existe'));
     }
     if (enteros > sueltos) {
-      ul.appendChild(filaNombre('Y ' + (enteros - sueltos) + ' más, hasta ' +
-        (g === 'f' ? 'la ' : 'el ') + (c.parla + enteros) + (g === 'f' ? '.ª' : '.º'),
+      const h = ordinal(c.parla + enteros, g);
+      ul.appendChild(filaNombre('Y ' + (enteros - sueltos) + ' más, hasta ' + h.charAt(0).toLowerCase() + h.slice(1),
         'nombre--hueco', 'no existen'));
     }
     const parte = c.falta - enteros;
     if (parte > 0.04) {
-      ul.appendChild(filaNombre('Y ' + (g === 'f' ? 'la ' : 'el ') + (c.parla + enteros + 1) +
-        (g === 'f' ? '.ª' : '.º') + ', a medias', 'nombre--hueco nombre--parte',
+      /* «Y» solo si va detrás de otros huecos: si es el único, empieza la lista. */
+      const o = ordinal(c.parla + enteros + 1, g);     /* «La 3.ª», «El 1.er» */
+      ul.appendChild(filaNombre((enteros ? 'Y ' + o.charAt(0).toLowerCase() + o.slice(1) : o + ' ' + i.sing) +
+        ', a medias', 'nombre--hueco nombre--parte',
         'falta el ' + num(parte * 100, 0) + ' %'));
     }
     cont.appendChild(ul);
@@ -1821,8 +1825,9 @@
         function (c) { return c.familia; }, entero));
       const fc = D.fuentes.camas;
       fuentesPie($('#servicios-sanidad-pie'), [[fc.t, fc.url],
-        ['Población asignada a cada hospital: memorias de 2024 del SERMAS', S.memorias[hr.hid]],
-        P.fuentes.plantilla, P.fuentes.tarjetas]);
+        ['Población asignada: memoria de 2024 ' + hr.corto.replace(/^el /, 'del '), S.memorias[hr.hid]]].concat(ha === hr ? []
+        : [['memoria de 2024 ' + ha.corto.replace(/^el /, 'del ').replace(/^la /, 'de la '), S.memorias[ha.hid]]]).concat([
+        P.fuentes.plantilla, P.fuentes.tarjetas]));
     }
 
     /* Educación: lo que hay del recuento y la FP pública, que no suma a él. */
@@ -2039,7 +2044,7 @@
     listas();
     metodo();
     movimiento();
-    document.title = D.NOMBRE_WEB + ' · Parla y ' + NOMBRE[AQUI];
+    document.title = '¿Y si en Parla viviéramos como en ' + NOMBRE[AQUI] + '? · ' + D.NOMBRE_WEB;
     indice();
   }
 

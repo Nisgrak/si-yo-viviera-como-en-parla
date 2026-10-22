@@ -22,7 +22,7 @@
   'use strict';
 
   const PAGINAS = [
-    { id: 'recuento', titulo: function (n) { return 'El recuento de ' + n; }, ruta: '', archivo: 'index.html' },
+    { id: 'recuento', titulo: function (n) { return 'Lo que le falta a Parla frente a ' + n; }, ruta: '', archivo: 'index.html' },
     { id: 'infraestructura', titulo: function () { return 'Infraestructuras'; },
       ruta: 'infraestructura/', archivo: 'infraestructura.html' },
     { id: 'vivienda', titulo: function () { return 'Vivienda'; },

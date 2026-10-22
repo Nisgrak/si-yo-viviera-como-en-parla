@@ -368,7 +368,9 @@
     pieFuentes($('#hospital-pie'), 'Camas instaladas, del Catálogo Nacional de Hospitales; población asignada a 31 de ' +
       'diciembre de 2024, de la memoria de cada hospital. Las personas asignadas incluyen ' +
       'a los pueblos de alrededor que les tocan. Del Infanta Sofía, el hospital de Alcobendas, el catálogo no da camas.',
-      [[D.fuentes[ic.fuenteId].t, D.fuentes[ic.fuenteId].url], ['Población asignada: memorias de 2024 del SERMAS', S.memorias[r.hid]]]);
+      [[D.fuentes[ic.fuenteId].t, D.fuentes[ic.fuenteId].url],
+        ['Población asignada: memoria de 2024 ' + del_(r.corto), S.memorias[r.hid]]].concat(misma ? []
+        : [['memoria de 2024 ' + del_(a.corto), S.memorias[a.hid]]]));
 
     botones('#hospital-botones', 'hospital', 'El hospital', function () {
       return {
@@ -767,8 +769,11 @@
       }
       n.appendChild(document.createTextNode('El hospital de Parla tiene '));
       n.appendChild(el('b', 'parla', num(r.por1000, 1) + ' camas por cada 1.000 personas'));
+      /* «el Severo Ochoa» no dice de dónde es: se añade la ciudad. */
+      const deQuien = a.corto.indexOf(NOMBRE[AQUI].split(' ')[0]) >= 0 ? ''
+        : a.duena === AQUI ? ', el de ' + NOMBRE[AQUI] : ', el que le toca a ' + NOMBRE[AQUI];
       n.appendChild(document.createTextNode(' que atiende' + (a !== r && a.por1000 != null
-        ? '; ' + a.corto + ', ' + num(a.por1000, 1) + '.' : '.')));
+        ? '; ' + a.corto + deQuien + ', ' + num(a.por1000, 1) + '.' : '.')));
     } else if (PAGINA === 'educacion') {
       const fp = indDe('fp'), base = D.BASES[fp.base];
       const v = function (id) { return fp.datos[id].n / base.valores[id] * 100; };

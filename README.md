@@ -177,7 +177,9 @@ sobre otra cosa.
 ```
 index.html            estructura y textos fijos
 assets/estilos.css    todo el diseño
-assets/calculo.js     la cuenta: qué se pierde, qué se gana y cuánto suma la portada
+assets/calculo.js     la cuenta: lo que le falta a Parla (faltan), lo que tiene de más y cuánto suma la portada
+assets/hospitales.js  las camas y la cartera del hospital que le toca a cada ciudad (portada, sanidad.html y build)
+assets/ballena.svg    la cola de la ballena, la marca de la web; assets/icono.svg es su icono
 assets/app.js         el render
 assets/cartel.js      el cartel A4 de economía e infraestructuras (la portada tiene el suyo en app.js)
 consulta.html         todos los datos de las once ciudades a la vez (assets/consulta.css/.js)
@@ -197,8 +199,8 @@ assets/vivienda.css/.js   su diseño y su render: casas por cada 100 vecinos, l�
 datos/vivienda.js     sus cifras; las escribe herramientas/vivienda.py
 herramientas/vivienda/fuentes/   lo extraído de cada fuente (.json) con sus URL y cautelas (.md)
 economia.html         la página de la economía (/<ciudad>/economia/)
-sanidad.html          la sanidad: lo que hay, la espera y el médico de cabecera (/<ciudad>/sanidad/)
-educacion.html        la educación: lo que hay y la escuela infantil (/<ciudad>/educacion/);
+sanidad.html          la sanidad: el hospital, lo que le falta, el médico de cabecera, la espera y lo que hay (/<ciudad>/sanidad/)
+educacion.html        la educación: después del instituto, las artes, escuelas, colegios e institutos y la escuela infantil (/<ciudad>/educacion/);
                       las dos con assets/servicios.js
 assets/economia.css/.js   su diseño y su render: fichas del dinero, líneas y el «de cada 100»
 assets/linea.js       el gráfico de líneas, compartido por vivienda.html y economia.html
@@ -481,9 +483,10 @@ máquina de 2 GB. Para otra ciudad, su ayuntamiento en `ORIGENES` de `isocronas.
 estación de referencia) y añadirla a `--ciudades`. Mientras no esté calculada, su mapa lo dice. `isocronas.py` hace el mapa al revés (hasta dónde se llega desde el
 ayuntamiento), que se descartó para la web y queda para medir los empleos a los que se llega.
 
-### Compartir una sección: «La espera» y «Lo que paga un vecino»
+### Compartir una sección
 
-Las dos secciones nuevas llevan al final su cartel A4 (`CARTEL.boton`, de `assets/cartel.js`,
+Las secciones con dato propio («El hospital», «Lo que le falta al hospital», «La espera», «El
+médico de cabecera», la FP, las artes, «La escuela infantil» y «Lo que paga un vecino») llevan al final su cartel A4 (`CARTEL.boton`, de `assets/cartel.js`,
 que ahora carga también el recuento; su diálogo es `#elige-fondo-dato` para no chocar con el
 de `app.js`) y un botón «Compartir esta sección» (`CARTEL.enlace`): en el móvil abre el menú
 de compartir; si no, copia el enlace. El enlace es `/<ciudad>/espera/` o
@@ -837,12 +840,23 @@ sanitarias a 31-12-2024; Torrejón, a 31-12-2023).
 `assets/servicios.js`).
 
 **Las dos páginas** salieron del recuento cuando este se hizo largo. Las dos las pinta
-`assets/servicios.js`, que mira `<body data-pagina>`. Arriba, «Lo que hay»: los indicadores del
-recuento de su grupo (`grupo: 'Sanidad'` o `'Educación'` en `datos/datos.js`), con la misma base
-y un enlace a su apartado (`index.html?ir=ind-farmacias#getafe`). Cada sección lleva su cartel y
-«Compartir esta sección» (`/<ciudad>/espera/`, `/cabecera/`, `/infantil/`, con su vista
-previa). En el recuento queda un resumen, «Sanidad y educación», con una frase de cada página, y
-la portada tiene un botón para cada una.
+`assets/servicios.js`, que mira `<body data-pagina>`, y abren con lo que más pesa:
+
+- **Sanidad**: «El hospital», las camas del hospital que le toca a cada ciudad contra toda la
+  gente que tiene asignada, con la clasificación de los ocho hospitales; «Lo que le falta al
+  hospital», las unidades que tiene el otro y el Infanta Cristina no, con las más graves en rojo
+  (las dos con `assets/hospitales.js`); el médico de cabecera, con la tira de los médicos de
+  familia que le faltan y la media de la Comunidad; la espera, con su evolución cada agosto; y
+  al final «Lo que hay», sin las camas, que ya van arriba.
+- **Educación**: «Después del instituto», la tabla de quién tiene campus y conservatorio y la FP
+  pública con su clasificación; la música, los idiomas y las artes; las escuelas, colegios e
+  institutos en la tira de lo que hay y lo que falta; y la escuela infantil, con los niños que
+  van en grande.
+
+Cada sección lleva su cartel y «Compartir esta sección» (`/<ciudad>/hospital/`, `/cartera/`,
+`/cabecera/`, `/espera/`, `/fp/`, `/artes/`, `/infantil/`, con su vista previa). En la portada
+quedan dos resúmenes, «Sanidad» y «Educación», con dos datos cada uno, y un botón para cada
+página.
 
 - **`datos/primaria.js`** lo escribe `herramientas/primaria.py` desde
   `herramientas/primaria/primaria.json` (`primaria/descarga.py` y `primaria/primaria.py`, con
@@ -1022,11 +1036,11 @@ Es una web pública, así que la copia sigue tres reglas:
 3. **Nada de jerga de desarrollo en la cara pública.** Para avisar de un error se enlaza el
    repositorio, no un nombre de archivo.
 4. **Las frases con fuerza también salen de los datos.** El golpe de la portada («Parla es la
-   última en renta por habitante y en 7 de los 12 equipamientos») no está escrito a mano:
+   última en renta por habitante y en 6 de los 11 equipamientos») no está escrito a mano:
    `golpe()` recorre en cada carga los indicadores que suman al recuento y cuenta en cuántos la
    tasa de Parla es la mínima. Los dos números de la frase salen de ahí, así que si cambian los
    datos la frase cambia sola. Un empate a la cola cuenta como última, porque ninguna tiene
-   menos: de esos ocho, en cinco (Metro, universidad, conservatorio, Hacienda y Seguridad Social)
+   menos: de esos seis, en cinco (Metro, universidad, conservatorio, Hacienda y Seguridad Social)
    Parla tiene cero y alguna otra también.
 5. **Hacia dónde es mejor, solo donde está claro.** Justo debajo de las cifras de cada dato (las
    barras de Parla y la ciudad elegida, el gráfico, las dos cifras grandes) va «cuanto más, mejor» o
@@ -1051,8 +1065,14 @@ pero a 68.000 personas menos. La lista de espera quirúrgica de la Comunidad de 
 confirma: en 2025, 88 días de demora media en Getafe frente a 64 en Parla. Esa lista sí entró
 después, en su propia sección («La espera», más arriba), y ahí se dice cuando Parla espera
 menos. La población que tiene asignada cada hospital sale de su memoria de 2024, que también
-la publican Fuenlabrada y el Severo Ochoa; se usa solo para dar los pacientes por cada 1.000,
-en el pie.
+la publican Fuenlabrada y el Severo Ochoa.
+
+Con el rediseño de sanidad.html esa población volvió, pero como divisor y no como indicador:
+**las camas de cada hospital entre toda la gente que tiene asignada** («El hospital»,
+`assets/hospitales.js`). Es la comparación más justa, porque cuenta que el Infanta Cristina
+atiende también a los municipios de alrededor, y aun así el de Parla es el que menos camas tiene
+por persona de los ocho: 1,0 por cada 1.000, frente a 2,2 en el de Getafe. La espera, en cambio,
+sigue saliendo mejor en Parla que en Getafe, y la página lo dice.
 
 ## Desplegar
 

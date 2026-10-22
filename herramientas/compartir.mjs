@@ -230,7 +230,13 @@ const CIFRAS = {
     seccion: 'Educación', unidad: '',
     v: (id) => { const f = D.indicadores.find((i) => i.id === 'fp'); return num(f.datos[id].n / D.BASES[f.base].valores[id] * 100, 1); },
     pie: 'Comunidad de Madrid, alumnos de régimen general, 2024, y padrón del INE a 1 de enero de 2025.',
-    desc: (n, a, b) => `En Parla hay ${a} alumnos de FP pública por cada 100 jóvenes de 12 a 17 años; en ${n}, ${b}. Y Parla no tiene campus universitario público ni conservatorio profesional. Con datos oficiales.`
+    desc: (n, a, b) => {
+      /* Lo del campus y el conservatorio, de los datos: solo si de verdad no los tiene. */
+      const no = ['universidad', 'conservatorio'].filter((k) => D.indicadores.find((i) => i.id === k).datos[D.REFERENCIA].n === 0);
+      const falta = no.length === 2 ? ' Y Parla no tiene campus universitario público ni conservatorio profesional.'
+        : no.length ? ' Y Parla no tiene ' + (no[0] === 'universidad' ? 'campus universitario público.' : 'conservatorio profesional.') : '';
+      return `En Parla hay ${a} alumnos de FP pública por cada 100 jóvenes de 12 a 17 años; en ${n}, ${b}.${falta} Con datos oficiales.`;
+    }
   },
   artes: {
     titulo: 'Alumnos de música, idiomas y artes en centros públicos por cada 1.000 vecinos',
@@ -320,7 +326,7 @@ function paginaSeccion(id, ruta, destino, titulo, previa) {
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>${esc(titulo)}</title>
+<title>${esc(titulo)} · ${esc(D.NOMBRE_WEB)}</title>
 <meta name="description" content="${esc(previa.desc)}">
 <link rel="canonical" href="${url}">
 <meta property="og:type" content="website">

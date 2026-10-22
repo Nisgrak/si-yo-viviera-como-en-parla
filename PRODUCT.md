@@ -125,12 +125,14 @@ Además del recuento, cinco páginas por ciudad, cada una con su resumen en la p
 - **Infraestructuras**: en coche (por dónde sale la gente) y en transporte público (el tren a
   mano, cuánto se tarda hasta el centro y lo que cuesta el abono).
 
-- **Sanidad**: lo que hay del recuento, la espera en el hospital que le toca a cada ciudad y las
-  tarjetas sanitarias por plaza de médico de familia y de pediatra.
-- **Educación**: lo que hay del recuento y quién se queda sin plaza en la escuela infantil
-  pública de 0 a 2 años.
+- **Sanidad**: las camas del hospital que le toca a cada ciudad, lo que tiene el otro hospital y
+  el de Parla no, el médico de cabecera, la espera y lo que hay del recuento.
+- **Educación**: el campus, el conservatorio y la FP pública, la música y los idiomas, las
+  escuelas, colegios e institutos y la escuela infantil.
 
-En la espera y en la escuela infantil Parla sale mejor que varias, y se dice. En economía, «Lo que paga un vecino»: el IBI y el coche
+Cada página abre con lo que más pesa, con las piezas de infraestructura.html: cifras grandes
+enfrentadas, la clasificación de las once con Parla marcada y la tira de lo que hay y lo que
+falta. En la espera y en la escuela infantil Parla sale mejor que varias, y se dice. En economía, «Lo que paga un vecino»: el IBI y el coche
 con la misma casa y con la de cada ciudad. Y aparte, «Todos los datos», la consulta de las once
 ciudades a la vez.
 
