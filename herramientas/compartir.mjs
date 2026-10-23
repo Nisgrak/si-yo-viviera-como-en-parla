@@ -134,11 +134,18 @@ function marca() {
   </div>`;
 }
 
+/* La cola de la ballena, grande y muy clara, saliendo del borde de abajo a la
+   derecha, como en la portada de la web. Va en todas las vistas previas, que
+   lo que más se comparte es la página de una ciudad. */
+function fondoBallena(alto = 400, derecha = 40) {
+  return `<img src="${ballena('#e6e6e6', '#f1f1f1')}" style="position:absolute;right:${derecha}px;bottom:0;width:${Math.round(alto * PROPORCION)}px;height:${alto}px">`;
+}
+
 /* La general: el titular y la ballena grande, de fondo, saliendo del borde. */
 function imagenGeneral() {
   const alto = 400;
   return `<div style="${LIENZO}">
-    <img src="${ballena('#e2e2e2', '#efefef')}" style="position:absolute;right:40px;bottom:0;width:${Math.round(alto * PROPORCION)}px;height:${alto}px">
+    ${fondoBallena(alto)}
     ${marca()}
     <div style="display:flex;flex-direction:column;text-transform:uppercase;font-weight:800;font-stretch:62%;line-height:.88">
       <span style="font-size:96px;color:#161616">¿Y si en Parla</span>
@@ -153,6 +160,7 @@ function imagenGeneral() {
    que falta. */
 function imagenCiudad(nombre, total, tiene) {
   return `<div style="${LIENZO}">
+    ${fondoBallena(430, 20)}
     ${marca()}
     <div style="display:flex;flex-direction:column;gap:10px">
       <div style="font-size:${nombre.length > 12 ? 38 : 46}px;font-weight:700;font-stretch:75%;line-height:1;color:#525252;text-transform:uppercase">¿Y si en Parla viviéramos como en <span style="color:#1a67c2;font-weight:800">${esc(nombre)}</span>?</div>
@@ -176,8 +184,13 @@ function imagenPareja(seccion, titulo, nombre, vRef, vAqui, unidad, pie) {
       <span style="font-size:190px;font-weight:800;font-stretch:62%;line-height:.85;color:${color}">${esc(v)}<span style="font-size:96px">${esc(unidad)}</span></span>
     </div>`;
   return `<div style="${LIENZO}">
-    <div style="display:flex;flex-direction:column;gap:14px">
-      <span style="font-size:28px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#525252">${esc(seccion)} · ${esc(D.NOMBRE_WEB)}</span>
+    ${fondoBallena(400, 30)}
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;align-items:center;gap:18px">
+        <img src="${ballena('#161616', '#8c8c8c')}" style="width:${Math.round(40 * PROPORCION)}px;height:40px">
+        <span style="font-size:28px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#161616">${esc(D.NOMBRE_WEB)}</span>
+        <span style="font-size:28px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#717171">· ${esc(seccion)}</span>
+      </div>
       <span style="font-size:50px;font-weight:700;font-stretch:80%;line-height:1.08;color:#161616">${esc(titulo)}</span>
     </div>
     <div style="display:flex;gap:110px">${cifra('Parla', vRef, '#1a67c2')}${cifra(nombre, vAqui, '#161616')}</div>
@@ -391,6 +404,7 @@ function imagenCartera(nombre, k) {
   const muestra = (k.graves.length ? k.graves : k.faltan).slice(0, 6);
   const chip = (u) => `<div style="display:flex;align-items:center;gap:12px;padding:10px 18px 10px 14px;border:2px solid #c02719;border-radius:10px;background:#fbeceb;font-size:28px;font-weight:700;color:#c02719"><img src="${HUECO}" style="width:22px;height:22px">${esc(u)}</div>`;
   return `<div style="${LIENZO}">
+    ${fondoBallena(400, 20)}
     ${marca()}
     <div style="display:flex;align-items:center;gap:32px">
       <span style="font-size:200px;font-weight:800;font-stretch:62%;line-height:.8;color:#c02719">${k.faltan.length}</span>
@@ -433,7 +447,10 @@ function imagenConsulta() {
         <span style="font-size:48px;font-weight:700;color:#525252;margin-top:10px">de las once ciudades</span>
       </div>
       <div style="font-size:26px;line-height:1.3;color:#525252">Equipamientos, renta, trabajo, vivienda y transporte, con sus fuentes oficiales.</div>
-      <span style="font-size:22px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#161616">${esc(D.NOMBRE_WEB)}</span>
+      <div style="display:flex;align-items:center;gap:16px">
+        <img src="${ballena('#161616', '#8c8c8c')}" style="width:${Math.round(34 * PROPORCION)}px;height:34px">
+        <span style="font-size:24px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#161616">${esc(D.NOMBRE_WEB)}</span>
+      </div>
     </div>
     <div style="display:flex;flex-direction:column;justify-content:center;gap:11px;flex:1;border-left:2px solid #161616;padding-left:40px">
       <span style="font-size:20px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#717171">Renta neta por persona, 2024</span>
