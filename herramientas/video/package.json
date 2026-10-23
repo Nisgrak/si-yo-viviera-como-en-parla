@@ -3,10 +3,10 @@
   "private": true,
   "description": "El vídeo vertical de Parla, a la cola. Aparte del build de la web para que Netlify no instale Playwright.",
   "scripts": {
-    "audio": "python3 audio.py",
-    "video": "python3 audio.py && node render.cjs",
-    "voz": "python3 voz.py && python3 audio.py voz",
-    "video:voz": "python3 voz.py && python3 audio.py voz && node render.cjs"
+    "video": "python3 voz.py && python3 audio.py && node render.cjs",
+    "voz": "python3 voz.py && python3 audio.py",
+    "render": "node render.cjs",
+    "fotogramas": "node fotogramas.cjs"
   },
   "devDependencies": {
     "playwright": "1.63.0"
