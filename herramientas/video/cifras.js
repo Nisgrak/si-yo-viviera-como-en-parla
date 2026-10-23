@@ -64,7 +64,7 @@
   }
 
   /* Segundos entre hueco y hueco en el recuento final: la voz los espera. */
-  const PASO = 0.16;
+  const PASO = 0.07;
   /* Lo que dura el cierre detrás de la última frase. */
   const COLA = 2.5;
 
@@ -125,13 +125,13 @@
 
       ['cuentas', 'dinero', 1.4, 'Luego miré las cuentas del ayuntamiento.'],
       ['invierte', 'dinero', 0.6, 'El nuestro invierte ' + entero(F.inversion.parla, 'm') + ' euros por vecino al año.'],
-      ['invierte-otra', 'dinero', 0.9, 'El de ' + O + ', ' + entero(F.inversion.otra, 'm') + '.'],
+      ['invierte-otra', 'dinero', 0.9, 'El de ' + O + ', ' + entero(F.inversion.otra, 'm') + ' euros.'],
 
       ['todo', 'total', 1.4, 'Al final lo conté todo: colegios, centros de salud, bibliotecas, estaciones…'],
       ['ajustado', 'total', 0.5, 'Cada cosa, a la medida de los que somos.'],
       ['si', 'total', 0.8, 'Si Parla estuviera como ' + O + ', tendríamos…'],
       /* la pausa larga es la de los huecos, que aparecen uno a uno */
-      ['veintiuno', 'total', 0.6 + F.total * PASO + 0.6, entero(F.total, 'm') + ' equipamientos y servicios públicos más.'],
+      ['veintiuno', 'total', 0.5 + F.total * PASO + 0.4, entero(F.total, 'm') + ' equipamientos y servicios públicos más.'],
 
       ['cola', 'cierre', 1.6, F.web + '.'],
       ['haz', 'cierre', 0.5, 'Haz la cuenta con tu ciudad.']

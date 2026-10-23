@@ -54,15 +54,15 @@ body { font-family: 'Archivo', sans-serif; color: var(--ink); -webkit-font-smoot
 #barra { position: absolute; left: 0; top: 0; width: 1080px; height: 10px; background: var(--loss); z-index: 6; transform-origin: left; }
 
 /* portada: completa desde el primer fotograma, que es la miniatura */
-#portada .bloque { position: absolute; left: 80px; top: 420px; width: 940px; }
-#portada .l1 { font-size: 170px; }
-#portada .l2 { font-size: 100px; font-weight: 600; font-stretch: 78%; color: var(--ink-2); margin-top: 22px; }
-#portada .l3 { font-size: 250px; color: var(--ref); margin-top: 16px; white-space: nowrap; }
+#portada .bloque { position: absolute; left: 80px; top: 420px; width: 1000px; white-space: nowrap; }
+#portada .l1 { font-size: 180px; }
+#portada .l2 { font-size: 106px; font-weight: 600; font-stretch: 78%; color: var(--ink-2); margin-top: 22px; }
+#portada .l3 { font-size: 290px; color: var(--ref); margin-top: 16px; white-space: nowrap; }
 #portada .sel { position: relative; display: inline-block; }
 #portada .sel::after { content: ''; position: absolute; left: 0; right: 0; bottom: 4px; height: 14px; background: var(--ref); }
-#portada .marca { position: absolute; left: 80px; top: 230px; display: flex; align-items: center; gap: 18px; }
-#portada .marca .ballena { width: 90px; }
-#portada .marca span { font-weight: 800; font-stretch: 85%; font-size: 38px; letter-spacing: .14em; text-transform: uppercase; }
+#portada .sub { position: absolute; left: 80px; top: 1060px; width: 860px; font-size: 50px; font-weight: 600; font-stretch: 90%; line-height: 1.22; color: var(--ink-2); }
+#portada .sub b { color: var(--ink); font-weight: 800; }
+#portada .fondo-ballena { width: 1080px; right: -60px; --b-sombra: #e6e6e6; --b-luz: #f1f1f1; }
 
 /* los mapas */
 .mapa { position: absolute; left: 80px; width: 920px; }
@@ -185,12 +185,12 @@ const html = [
   /* ═══ PORTADA: la pregunta, completa en el primer fotograma ═══ */
   escena('portada', `
     ${ballena('fondo-ballena')}
-    <div class="marca">${ballena()}<span>${F.web}</span></div>
     <div class="bloque">
       <span class="cond l1" style="display:block">¿Y si en Parla</span>
       <span class="cond l2" style="display:block">viviéramos como en</span>
       <span class="cond l3" style="display:block"><span class="sel">${O}</span><span style="color:var(--ink)">?</span></span>
-    </div>`),
+    </div>
+    <div class="sub">Lo que le falta a Parla, <b>contado por una vecina</b>. Con datos oficiales.</div>`),
 
   /* ═══ POR LA MAÑANA, EN COCHE: los dos mapas ═══ */
   escena('coche', `
@@ -413,7 +413,7 @@ function render(t) {
   /* la cuenta: las cosas se van, entra lo que hay, y luego los huecos uno a uno */
   $('#total .cosas').style.opacity = 1 - prog(t, en('ajustado', -.3), .35);
   $('#total .si').style.opacity = t >= en('si', -.2) ? 1 : 0;
-  const T0 = fin('si', .6);
+  const T0 = fin('si', .5);
   let hechos = 0;
   $$('#rej > *').forEach((u, i) => {
     if (i < F.tiene) { aparece(u, t, en('ajustado', .2) + i * 0.03, 0.25); return; }
@@ -426,7 +426,7 @@ function render(t) {
   $('#total .n').style.transform = g > 0 && g < 1 ? `scale(${1 + 0.06 * Math.sin(g * Math.PI)})` : '';
 
   /* marca y barra de avance */
-  $('#bug').style.opacity = t >= S.coche && t < S.cierre ? 1 : 0;
+  $('#bug').style.opacity = t < S.cierre ? 1 : 0;
   $('#barra').style.transform = `scaleX(${t / DUR})`;
   $('#barra').style.opacity = t >= S.coche ? 1 : 0;
 }

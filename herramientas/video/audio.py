@@ -89,7 +89,7 @@ def air(dur=0.6):
 
 sfx.add(bell(69), 0.05, 0.03)
 # el 70 % de la A-42, el cero del Metro, el 21 y el cierre
-T0 = E['si'] + 0.6
+T0 = E['si'] + 0.5
 for tt, m, g in [(E['a42'] - 1.2, 76, 1.0), (F['metro'] + 0.9, 72, 0.8), (T0 + TOTAL * PASO, 81, 1.2), (S['cierre'] + 0.4, 81, 0.8)]:
     sfx.add(thump(), tt, 0.2 * g); sfx.add(bell(m), tt, 0.045 * g)
 for i in range(TOTAL): sfx.add(tock(PENTA[i % 10] + (12 if i >= 10 else 0), 0.04), T0 + i * PASO + 0.03, 0.035, pan=(i % 13 - 6) / 8)
