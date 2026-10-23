@@ -4,7 +4,7 @@ require('fs').mkdirSync('salida', { recursive: true });
 const { chromium } = require('playwright');
 (async () => {
   const b = await chromium.launch();
-  const p = await b.newPage({ viewport: { width: 1920, height: 1080 } });
+  const p = await b.newPage({ viewport: { width: 1080, height: 1920 } });
   await p.goto('file://' + __dirname + '/video.html');
   await p.waitForFunction(() => window.listo);
   const ts = process.argv.slice(2).map(Number);

@@ -1,14 +1,16 @@
 # El audio del vídeo: colchón de acordes, bajo, punteo y los sonidos de cada
-# tachado, sintetizados con numpy. Los tiempos de S tienen que ser los mismos
-# data-from de video.html. Con `python3 audio.py voz` no hay música: los
+# hueco, sintetizados con numpy. Los tiempos salen de cifras.js, como los de
+# video.html. Con `python3 audio.py voz` no hay música: los
 # tachados van debajo de la locución de salida/voz.wav (la hace voz.py).
 import os, sys; os.chdir(os.path.dirname(os.path.abspath(__file__))); os.makedirs('salida', exist_ok=True)
 VOZ = 'voz' in sys.argv[1:]
+import json, subprocess
 import numpy as np, wave
-SR=48000; D=84.5; N=int(SR*D)
+# los tiempos de cada escena, los mismos de video.html (salen de cifras.js)
+G=json.loads(subprocess.run(['node','guion.cjs'],capture_output=True,text=True,check=True).stdout)
+S=G['S']; F=G['F']
+SR=48000; D=G['DUR']; N=int(SR*D)
 L=np.zeros(N); R=np.zeros(N); rng=np.random.default_rng(3)
-# inicio de cada escena, igual que en video.html
-S=dict(sq=4,sa=9.5,s2=15.5,s3=21,s4=28.5,s5=34,s6=40.5,c1=47.5,c2=52,m0=56.5,m1=60,m2=67.5,s8=75,s9=79.5)
 def mtof(m): return 440*2**((m-69)/12)
 def add(sig,t,g=1.0,pan=0.0):
     i=int(t*SR)
@@ -32,29 +34,29 @@ def pad(notes,dur):
     e=np.minimum(1,t/1.2)*np.clip((dur+1.5-t)/1.5,0,1)
     return s*e*(1+0.15*np.sin(2*np.pi*0.2*t))
 t=0.0
-while t<S['s9'] and not VOZ:
-    c=chord_at(t); g=0.010 if t<S['s2'] else 0.013
+while t<S['cierre'] and not VOZ:
+    c=chord_at(t); g=0.010 if t<S['cuenta'] else 0.013
     add(pad(CH[c],2*BAR),t,g,pan=-0.2); add(pad(CH[c],2*BAR),t+0.01,g,pan=0.2); t+=2*BAR
-if not VOZ: add(pad([57,60,64,69],3.2),S['s9'],0.016)
+if not VOZ: add(pad([57,60,64,69],3.2),S['cierre'],0.016)
 
 def bass(m,dur):
     n=int(SR*dur); t=np.arange(n)/SR; f=mtof(m)
     return (np.sin(2*np.pi*f*t)+0.3*np.sin(2*np.pi*2*f*t))*np.minimum(1,t/0.02)*np.exp(-t/0.9)
 t=4.0-4.0%BAR
-while t<S['s9']-0.2 and not VOZ:
+while t<S['cierre']-0.2 and not VOZ:
     add(bass(ROOT[chord_at(t)],BAR),t,0.10); t+=BAR
-if not VOZ: add(bass(45,3.5),S['s9'],0.12)
+if not VOZ: add(bass(45,3.5),S['cierre'],0.12)
 
 def pluck(m,g=1.0):
     n=int(SR*0.6); t=np.arange(n)/SR; f=mtof(m)
     s=np.sin(2*np.pi*f*t)+0.35*np.sin(2*np.pi*2*f*t)*np.exp(-t/0.08)
     return s*np.minimum(1,t/0.004)*np.exp(-t/0.22)*g
 PAT=[0,2,1,2,0,2,1,3]
-t=S['s2']-S['s2']%(B/2); k=0
-while t<S['s8']-0.2 and not VOZ:
+t=S['cuenta']-S['cuenta']%(B/2); k=0
+while t<S['golpe']-0.2 and not VOZ:
     c=chord_at(t); notes=CH[c]+[CH[c][0]+12]
     vel=0.9 if k%2==0 else 0.6
-    if t>=S['m0'] and k%2==1: vel=0          # en el dinero, más quieto
+    if t>=S['renta'] and k%2==1: vel=0          # en el dinero, más quieto
     if vel: add(pluck(notes[PAT[k%8]]+12,vel),t,0.028,pan=0.3*np.sin(k*0.7))
     t+=B/2; k+=1
 
@@ -77,17 +79,20 @@ def sweep(dur=0.9):
     return (a*(1-x)+b*x)*np.sin(np.pi*x)**1.5*5
 
 add(bell(69),0.05,0.035)
-for tt,m in [(S['s3']+4.2,76),(S['s4']+1.0+50*0.042,81),(S['c1']+0.6,72),(S['c2']+0.5,74),
-             (S['m1']+3.35,76),(S['m2']+3.25,76),(S['s8']+0.7,69),(S['s9']+0.05,81)]:
+# los golpes: el «le faltan», el total, las unidades, los millones, el golpe y el cierre
+T0=S['total']+1.0; PASO=0.11
+for tt,m in [(S['cuenta']+7.9,76),(T0+F['total']*PASO,81),(S['unidades']+0.3,74),
+             (S['inversion']+4.7,76),(S['golpe']+0.55,69),(S['cierre']+0.05,81)]:
     add(thump(),tt,0.22); add(bell(m),tt,0.05)
-for i in range(3): add(tock(PENTA[3-i]+12),S['s3']+3.0+i*0.3,0.07)
-add(tock(PENTA[0]+12),S['s3']+3.9,0.07)
-for i in range(50): add(tock(PENTA[i%10]+(12 if i>=30 else 0),0.035),S['s4']+1.0+i*0.042+0.06,0.028,pan=(i%13-6)/8)
-for i,d in enumerate([1.05,1.85,2.65,3.45,4.25]): add(tock(PENTA[i+2],0.09),S['s5']+d,0.07)
-for i in range(5): add(tock(PENTA[i],0.08),S['s6']+0.6+i*0.4,0.05)
-for i in range(17): add(tock(PENTA[i%10]+12,0.03),S['c2']+1.2+i*0.1,0.022)
-for tt in [3.65,S['s4']-0.45,S['c1']-0.45,S['m0']-0.45,S['s8']-0.45]: add(sweep(0.9),tt,0.05)
-for k in ['sa','s2','s3','s5','s6','c2','m1','m2']: add(air(0.55),S[k]-0.45,0.025)
+# los huecos de las bibliotecas, al ritmo de la tira de video.html
+for k,i in enumerate(range(F['bib']['parla'],int(F['bib']['tendria'])+1)): add(tock(PENTA[k]+12),S['cuenta']+5.2+i*0.35,0.07)
+for i in range(F['total']): add(tock(PENTA[i%10]+(12 if i>=10 else 0),0.035),T0+i*PASO+0.03,0.03,pan=(i%13-6)/8)
+for i in range(len(F['cero'])): add(tock(PENTA[i+2],0.09),S['cero']+0.6+i*0.9,0.07)
+for i in range(len(F['unidades'])): add(tock(PENTA[i%10]+12,0.03),S['unidades']+1.0+i*0.16,0.022)
+for i in range(10): add(tock(PENTA[i],0.06),S['diez']+0.6+i*0.18,0.04)
+wipes=[3.55]+[S[k]-0.45 for k in ('camas','estacion','renta','diez','golpe')]
+for tt in wipes: add(sweep(0.9),tt,0.05)
+for k in ['total','cero','unidades','medico','espera','atocha','inversion']: add(air(0.55),S[k]-0.45,0.025)
 
 tt=np.arange(N)/SR
 fade=np.clip(tt/0.4,0,1)*np.clip((D-tt)/2.0,0,1)

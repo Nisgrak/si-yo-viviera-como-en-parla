@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>Parla vs Getafe · 84,5 s</title>
+<title>Parla, a la cola · el vídeo</title>
 <style>
 @font-face { font-family: 'Archivo'; font-weight: 400 900; font-stretch: 62% 125%;
   src: url('../../assets/fuentes/archivo-latin.woff2') format('woff2'); }
@@ -11,360 +11,201 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+1E00-1E9F, U+20A0-20AB, U+20AD-20C0; }
 
 :root {
-  --bg: #ffffff; --surface: #f7f7f7; --line: #dfdfdf; --gris-barra: #bebebe;
+  --bg: #ffffff; --line: #dfdfdf; --pista: #f0f0f0; --gris-barra: #bebebe;
   --ink: #161616; --ink-2: #525252; --ink-3: #717171;
-  --loss: #c02719; --ref: #1a67c2;
+  --loss: #c02719; --ref: #1a67c2; --gain: #1d7635;
+  --hueco: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15' fill='none' stroke='%23000' stroke-width='1.5'><path d='M.75 4.25V3.75a3 3 0 0 1 3-3H4.25M10.75 .75h0.5a3 3 0 0 1 3 3V4.25M14.25 10.75v0.5a3 3 0 0 1-3 3H10.75M4.25 14.25H3.75a3 3 0 0 1-3-3V10.75M5.5 .75H9.5M14.25 5.5V9.5M9.5 14.25H5.5M.75 9.5V5.5'/></svg>");
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+/* En vertical, para el móvil. Lo importante queda entre 330 y 1500 px de
+   alto: arriba y abajo, Reels y TikTok ponen sus botones encima. */
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
 body { font-family: 'Archivo', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
 
 #stage { position: absolute; inset: 0; overflow: hidden; background: var(--bg); }
-.scene { position: absolute; inset: 0; display: none; will-change: transform, opacity; }
-.card { position: absolute; inset: 0; display: none; }
+.scene { position: absolute; inset: 0; display: none; will-change: transform; }
 
 .cond { font-weight: 800; font-stretch: 62%; text-transform: uppercase; line-height: .86; letter-spacing: -.01em; }
-.cond78 { font-weight: 800; font-stretch: 78%; text-transform: uppercase; line-height: .92; letter-spacing: -.02em; }
-.eti { font-weight: 700; font-size: 26px; letter-spacing: .16em; text-transform: uppercase; }
+.cond78 { font-weight: 800; font-stretch: 78%; text-transform: uppercase; line-height: .94; letter-spacing: -.02em; }
+.eti { font-weight: 700; font-size: 30px; letter-spacing: .14em; text-transform: uppercase; }
 .m { display: block; overflow: hidden; padding: .22em 0 .04em; margin-top: -.22em; }
-/* el padding de arriba deja sitio a las tildes de las mayúsculas (Á, Í) con un interlineado tan cerrado */
+/* el padding de arriba deja sitio a las tildes de las mayúsculas con un interlineado tan cerrado */
 .m > * { display: block; }
-.rojo { color: var(--loss); } .azul { color: var(--ref); } .gris { color: var(--ink-2); }
-.tit { position: absolute; left: 160px; top: 170px; font-size: 104px; }
-.sub { position: absolute; left: 160px; font-size: 36px; font-weight: 500; font-stretch: 92%; color: var(--ink-3); line-height: 1.35; }
+.rojo { color: var(--loss); } .azul { color: var(--ref); } .verde { color: var(--gain); } .gris { color: var(--ink-2); }
+.caja { position: absolute; left: 80px; width: 920px; }
+.tit { font-size: 92px; }
+.lead { font-size: 40px; font-weight: 500; font-stretch: 92%; line-height: 1.3; color: var(--ink-2); }
+.lead b { color: var(--ink); font-weight: 800; }
+.fuente { position: absolute; left: 80px; width: 920px; top: 1530px; font-size: 26px; font-weight: 500; color: var(--ink-3); line-height: 1.35; }
 
-/* unidad: la de la web */
-.u { position: relative; flex: none; border-radius: 12%; background: var(--ink); }
-.u.cae { background: transparent; box-shadow: inset 0 0 0 var(--bw, 6px) var(--loss); overflow: hidden; }
-.u.cae > i { position: absolute; inset: 0;
-  background: linear-gradient(to bottom right, transparent 41%, var(--loss) 41%, var(--loss) 59%, transparent 59%);
-  transform-origin: left; transform: scaleX(0); }
-.u.media { background: linear-gradient(to right, var(--ink) 0 var(--parte), transparent var(--parte));
-  box-shadow: inset 0 0 0 var(--bw, 6px) var(--loss); }
-.u.media > i { display: none; }
+/* la ballena: la de la web, en dos tonos */
+.ballena { display: block; height: auto; aspect-ratio: 384 / 256; overflow: visible; }
+.ballena .sombra { fill: var(--b-sombra, #161616); }
+.ballena .luz { fill: var(--b-luz, #8c8c8c); }
+.fondo-ballena { position: absolute; right: -40px; bottom: 0; width: 1000px; --b-sombra: #ececec; --b-luz: #f5f5f5; }
 
-#bug { position: absolute; left: 96px; top: 72px; display: flex; align-items: center; gap: 18px; z-index: 5; }
-#bug .u { width: 34px; height: 34px; --bw: 3.5px; }
-#bug .u > i { transform: scaleX(1); }
-#bug span { font-weight: 800; font-stretch: 80%; font-size: 26px; letter-spacing: .06em; text-transform: uppercase; }
-#cap { position: absolute; left: 96px; bottom: 64px; z-index: 5; color: var(--ink-3); display: flex; gap: 20px; align-items: baseline; }
+/* lo que hay y lo que falta, como en la web */
+.u { position: relative; flex: none; border-radius: 20%; background: var(--ink); }
+.h { position: relative; flex: none; background: var(--loss);
+  -webkit-mask: var(--hueco) center / 100% 100% no-repeat; mask: var(--hueco) center / 100% 100% no-repeat; }
+.tira { display: flex; flex-wrap: wrap; }
+
+/* la marca, el capítulo y la barra */
+#bug { position: absolute; left: 80px; top: 140px; display: flex; align-items: center; gap: 18px; z-index: 5; }
+#bug .ballena { width: 72px; }
+#bug span { font-weight: 800; font-stretch: 85%; font-size: 32px; letter-spacing: .14em; text-transform: uppercase; }
+#cap { position: absolute; left: 80px; top: 222px; z-index: 5; color: var(--ink-3); display: flex; gap: 18px; align-items: baseline; }
 #cap b { color: var(--loss); font-weight: 800; }
-#barra { position: absolute; left: 0; bottom: 0; width: 1920px; height: 8px; background: var(--loss); z-index: 6; transform-origin: left; }
+#barra { position: absolute; left: 0; top: 0; width: 1080px; height: 10px; background: var(--loss); z-index: 6; transform-origin: left; }
 #wipe { position: absolute; inset: 0; background: var(--loss); z-index: 20; display: none; }
-#wipe .u { position: absolute; left: 50%; top: 50%; width: 180px; height: 180px; margin: -90px 0 0 -90px; box-shadow: inset 0 0 0 18px #fff; }
-#wipe .u > i { background: linear-gradient(to bottom right, transparent 41%, #fff 41%, #fff 59%, transparent 59%); }
-#wipe .rot { position: absolute; left: 0; right: 0; top: 50%; margin-top: 130px; text-align: center; color: #fff;
-  font-weight: 800; font-stretch: 80%; font-size: 44px; letter-spacing: .16em; text-transform: uppercase; }
+#wipe .ballena { position: absolute; left: 50%; top: 50%; width: 420px; margin: -200px 0 0 -210px; --b-sombra: #ffffff; --b-luz: #f3c9c4; }
+#wipe .rot { position: absolute; left: 0; right: 0; top: 50%; margin-top: 120px; text-align: center; color: #fff;
+  font-weight: 800; font-stretch: 80%; font-size: 58px; letter-spacing: .14em; text-transform: uppercase; }
 
 /* portada: completa desde el primer fotograma, que es la miniatura */
-#s1 .bloque { position: absolute; left: 150px; top: 110px; }
-#s1 .l1 { font-size: 230px; font-stretch: 72%; }
-#s1 .l2 { font-size: 150px; font-weight: 600; font-stretch: 78%; color: var(--ink-2); margin-top: 10px; }
-#s1 .l3 { font-size: 520px; color: var(--loss); margin-top: 6px; }
-#s1 .sel { position: relative; color: var(--ref); display: inline-block; }
-#s1 .sel::after { content: ''; position: absolute; left: 0; right: 0; bottom: 6px; height: 12px; background: var(--ref); }
-#s1 .flecha { display: inline-block; width: 70px; height: 70px; margin-left: 20px; vertical-align: 30px; }
-#s1 .marca { position: absolute; right: 150px; bottom: 150px; width: 170px; height: 170px; --bw: 17px; }
-#s1 .marca > i { transform: scaleX(1); }
+#portada .bloque { position: absolute; left: 80px; top: 330px; width: 940px; }
+#portada .l1 { font-size: 150px; }
+#portada .l2 { font-size: 92px; font-weight: 600; font-stretch: 78%; color: var(--ink-2); margin-top: 18px; }
+#portada .l3 { font-size: 230px; color: var(--ref); margin-top: 14px; white-space: nowrap; }
+#portada .sel { position: relative; display: inline-block; }
+#portada .sel::after { content: ''; position: absolute; left: 0; right: 0; bottom: 4px; height: 14px; background: var(--ref); }
+#portada .flecha { display: inline-block; width: 80px; height: 80px; margin-left: 8px; vertical-align: 40px; }
+#portada .ten { margin-top: 10px; display: flex; align-items: center; gap: 36px; }
+#portada .ten .n { font-size: 470px; color: var(--loss); line-height: .8; }
+#portada .ten .t { font-size: 66px; font-weight: 800; font-stretch: 84%; line-height: 1.06; letter-spacing: -.01em; }
+#portada .ten .t span { color: var(--loss); }
 
-/* pregunta */
-#sq .eti { position: absolute; left: 160px; top: 200px; color: var(--loss); }
-#sq .q { position: absolute; left: 160px; top: 260px; font-size: 128px; }
-#sq .pie { position: absolute; left: 160px; top: 860px; font-size: 46px; font-weight: 600; font-stretch: 90%; color: var(--ink-2); }
+/* la cuenta */
+#cuenta .fila { position: absolute; left: 80px; width: 920px; }
+#cuenta .nom { font-size: 40px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+#cuenta .dato { font-size: 44px; font-weight: 500; font-stretch: 92%; color: var(--ink-2); line-height: 1.25; margin-top: 8px; }
+#cuenta .dato b { color: var(--ink); font-weight: 800; }
+#cuenta .tira { gap: 22px; margin-top: 26px; }
+#cuenta .tira > * { width: 124px; height: 124px; }
+#cuenta .dif { position: absolute; left: 80px; top: 1250px; font-size: 230px; color: var(--loss); transform-origin: left center; }
+#cuenta .dif small { display: block; font-size: 46px; font-weight: 700; font-stretch: 88%; letter-spacing: 0; text-transform: none; line-height: 1.15; color: var(--ink); margin-top: 18px; }
 
-/* agenda */
-#sa .lista { position: absolute; left: 160px; top: 340px; width: 1600px; }
-#sa .it { display: grid; grid-template-columns: 170px 1fr; align-items: baseline; padding: 22px 0 24px; border-top: 3px solid var(--ink); }
-#sa .it:not(:first-child) { border-top: 2px solid var(--line); }
-#sa .it .n { font-size: 96px; color: var(--loss); }
-#sa .it .t { font-size: 66px; font-weight: 800; font-stretch: 82%; letter-spacing: -.015em; line-height: 1; }
-#sa .it .d { font-size: 34px; font-weight: 500; color: var(--ink-3); margin-top: 10px; }
+/* el total */
+#total .n { position: absolute; left: 66px; top: 540px; font-size: 400px; color: var(--loss); font-variant-numeric: tabular-nums; transform-origin: left center; }
+#total .rej { position: absolute; left: 80px; top: 930px; width: 920px; gap: 14px; }
+#total .rej > * { width: 76px; height: 76px; }
+#total .pie { position: absolute; left: 470px; top: 630px; width: 540px; font-size: 54px; font-weight: 800; font-stretch: 84%; line-height: 1.06; letter-spacing: -.01em; }
+#total .pie span { display: block; font-size: 34px; font-weight: 500; font-stretch: 92%; color: var(--ink-3); margin-top: 16px; letter-spacing: 0; }
 
-/* población */
-#s2 .fila { position: absolute; left: 160px; width: 1600px; }
-#s2 .fila .nom { font-size: 40px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-#s2 .fila .cifra { font-size: 150px; font-weight: 800; font-stretch: 70%; line-height: 1; letter-spacing: -.02em; }
-#s2 .fila .cifra small { font-size: 44px; font-weight: 600; font-stretch: 92%; color: var(--ink-3); letter-spacing: 0; margin-left: 18px; }
-#s2 .fila .bar { height: 30px; margin-top: 14px; transform-origin: left; }
-#s2 .pie { position: absolute; left: 160px; top: 890px; font-size: 64px; font-weight: 700; font-stretch: 85%; letter-spacing: -.01em; }
+/* lo que no hay */
+#cero .lista { position: absolute; left: 80px; top: 560px; width: 920px; }
+#cero .cab { display: flex; justify-content: flex-end; gap: 0; color: var(--ink-3); font-size: 26px; padding-bottom: 12px; }
+#cero .it { display: grid; grid-template-columns: 64px 1fr 190px; align-items: center; column-gap: 26px; border-top: 3px solid var(--ink); padding: 26px 0; }
+#cero .it:not(:nth-child(2)) { border-top: 2px solid var(--line); }
+#cero .it .h { width: 64px; height: 64px; }
+#cero .it .t { font-size: 54px; font-weight: 800; font-stretch: 80%; letter-spacing: -.015em; line-height: 1.02; }
+#cero .it .v { text-align: right; font-size: 84px; font-weight: 800; font-stretch: 66%; color: var(--loss); font-variant-numeric: tabular-nums; }
 
-/* bibliotecas */
-#s3 .col { position: absolute; top: 360px; }
-#s3 .col .nom { font-size: 38px; font-weight: 800; letter-spacing: .12em; }
-#s3 .col .big { font-size: 260px; line-height: .9; }
-#s3 .col .txt { font-size: 44px; font-weight: 500; font-stretch: 92%; line-height: 1.22; color: var(--ink-2); }
-#s3 .col .txt b { color: var(--ink); font-weight: 800; }
-#s3 .tira { display: flex; gap: 22px; margin-top: 28px; }
-#s3 .tira .u { width: 124px; height: 124px; --bw: 11px; }
-#s3 .dif { position: absolute; right: 150px; top: 540px; font-size: 380px; color: var(--loss); transform-origin: right center; text-align: right; }
-#s3 .dif small { display: block; margin-top: 24px; font-size: 52px; font-weight: 700; font-stretch: 88%; letter-spacing: 0; text-transform: none; line-height: 1.1; color: var(--ink); }
+/* dos cifras enfrentadas, como en las páginas de cada área */
+.pareja { position: absolute; left: 80px; width: 920px; }
+.pareja .p { padding: 26px 0 30px; border-top: 3px solid var(--ink); }
+.pareja .p + .p { border-top: 2px solid var(--line); }
+.pareja .q { font-size: 38px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.pareja .v { font-size: 250px; line-height: .9; margin-top: 10px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pareja .v small { font-size: 100px; margin-left: 10px; }
+.pareja .bar { height: 26px; margin-top: 20px; transform-origin: left; border-radius: 13px; }
+.pareja .p.parla .q, .pareja .p.parla .v { color: var(--ref); }
+.pareja .p.parla .bar { background: var(--ref); }
+.pareja .p.otra .bar { background: var(--ink); }
+.pareja .nota { font-size: 34px; font-weight: 500; color: var(--ink-3); margin-top: 14px; line-height: 1.3; }
+.eti-area { position: absolute; left: 80px; top: 330px; color: var(--ink-3); }
+.pregunta { position: absolute; left: 80px; top: 385px; width: 920px; font-size: 54px; font-weight: 800; font-stretch: 82%; line-height: 1.08; letter-spacing: -.01em; }
 
-/* total */
-#s4 .pre { position: absolute; left: 150px; top: 170px; font-size: 120px; font-weight: 700; font-stretch: 78%; color: var(--ink-2); }
-#s4 .n { position: absolute; left: 130px; top: 300px; font-size: 640px; color: var(--loss); font-variant-numeric: tabular-nums; transform-origin: left center; }
-#s4 .rej { position: absolute; left: 760px; top: 340px; width: 1040px; display: flex; flex-wrap: wrap; gap: 14px; }
-#s4 .rej .u { width: 66px; height: 66px; --bw: 6px; }
-#s4 .pie { position: absolute; left: 760px; top: 740px; font-size: 64px; font-weight: 800; font-stretch: 84%; letter-spacing: -.01em; line-height: 1.05; }
-#s4 .pie span { display: block; font-size: 40px; font-weight: 500; font-stretch: 92%; color: var(--ink-3); margin-top: 16px; }
+/* las unidades del hospital */
+#unidades .n { position: absolute; left: 70px; top: 360px; font-size: 330px; color: var(--loss); }
+#unidades .txt { position: absolute; left: 400px; top: 420px; width: 600px; font-size: 50px; font-weight: 800; font-stretch: 84%; line-height: 1.08; }
+#unidades .chips { position: absolute; left: 80px; top: 740px; width: 920px; display: flex; flex-wrap: wrap; gap: 16px; }
+#unidades .chip { display: flex; align-items: center; gap: 14px; padding: 14px 22px 14px 16px; border: 3px solid var(--loss); border-radius: 12px;
+  background: #fbeceb; color: var(--loss); font-size: 36px; font-weight: 700; font-stretch: 88%; white-space: nowrap; }
+#unidades .chip .h { width: 28px; height: 28px; }
 
-/* cero */
-#s5 .lista { position: absolute; left: 160px; top: 330px; width: 1600px; }
-#s5 .it { display: flex; align-items: baseline; justify-content: space-between; border-top: 3px solid var(--ink); padding: 16px 0 14px; }
-#s5 .it .t { position: relative; font-size: 70px; font-weight: 800; font-stretch: 82%; letter-spacing: -.015em; line-height: 1; }
-#s5 .it .t i { position: absolute; left: -6px; right: -6px; top: 52%; height: 9px; background: var(--loss); transform-origin: left; transform: scaleX(0); }
-#s5 .it .v { font-size: 70px; font-weight: 800; font-stretch: 78%; color: var(--loss); }
-#s5 .it .v s { color: var(--ink-3); text-decoration: none; margin-right: 18px; }
-#s5 .cinta { position: absolute; left: 0; top: 905px; white-space: nowrap; font-size: 30px; font-weight: 600; color: var(--ink-3); letter-spacing: .02em; }
-#s5 .cinta span { margin-right: 46px; text-decoration: line-through; text-decoration-color: var(--loss); text-decoration-thickness: 3px; }
+/* donde Parla está mejor */
+#espera .eti-area { color: var(--gain); }
+#espera .pareja .p.parla .q, #espera .pareja .p.parla .v { color: var(--gain); }
+#espera .pareja .p.parla .bar { background: var(--gain); }
 
-/* áreas */
-#s6 .areas { position: absolute; left: 160px; top: 330px; width: 1600px; }
-#s6 .a { display: grid; grid-template-columns: 560px 1fr 240px; align-items: center; column-gap: 36px; padding: 10px 0; border-top: 2px solid var(--line); }
-#s6 .a:first-child { border-top: 3px solid var(--ink); }
-#s6 .a .nom { font-size: 36px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-#s6 .a .det { white-space: nowrap; font-size: 26px; font-weight: 500; color: var(--ink-3); margin-top: 6px; }
-#s6 .a .bar { height: 54px; background: var(--loss); transform-origin: left; }
-#s6 .a .v { text-align: right; font-size: 80px; font-weight: 800; font-stretch: 72%; color: var(--loss); line-height: 1; font-variant-numeric: tabular-nums; }
-#s6 .tot { position: absolute; right: 160px; top: 176px; text-align: right; font-size: 44px; font-weight: 700; font-stretch: 88%; }
-#s6 .tot b { color: var(--loss); font-size: 130px; font-weight: 800; font-stretch: 62%; vertical-align: -18px; margin-left: 14px; }
-#s6 .gana { position: absolute; left: 160px; top: 880px; font-size: 40px; font-weight: 700; font-stretch: 90%; }
-#s6 .gana span { color: var(--ink-3); font-weight: 500; }
+/* cien casas */
+.cien { display: grid; grid-template-columns: repeat(10, 1fr); gap: 9px; width: 420px; }
+.cien i { display: block; aspect-ratio: 1; border-radius: 50%; background: var(--pista); }
+#estacion .col { position: absolute; top: 560px; width: 440px; }
+#estacion .col .q { font-size: 38px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+#estacion .col .v { font-size: 220px; line-height: .9; margin: 10px 0 30px; }
+#estacion .col.parla .q, #estacion .col.parla .v { color: var(--ref); }
 
-/* fuera del recuento */
-#s7 .eti2 { position: absolute; left: 160px; top: 180px; color: var(--ink-3); }
-#s7 .h { position: absolute; left: 160px; top: 250px; font-size: 64px; font-weight: 800; font-stretch: 82%; letter-spacing: -.01em; }
-#s7 .big { position: absolute; left: 150px; top: 350px; font-size: 400px; color: var(--loss); }
-#s7 .big small { font-size: 100px; font-stretch: 70%; margin-left: 20px; letter-spacing: 0; }
-#s7 .txt { position: absolute; left: 160px; top: 760px; font-size: 44px; font-weight: 500; font-stretch: 92%; color: var(--ink-2); line-height: 1.3; }
-#s7 .txt b { color: var(--ink); font-weight: 800; }
-#s7 .txt b.azul { color: var(--ref); }
-#s7 .camas { position: absolute; left: 160px; top: 880px; width: 1600px; height: 56px; background: var(--ink); }
-#s7 .camas .q { position: absolute; top: 0; bottom: 0; right: 0; background: var(--bg); box-shadow: inset 0 0 0 5px var(--loss);
-  background-image: repeating-linear-gradient(135deg, transparent 0 18px, var(--loss) 18px 26px); transform-origin: right; }
-#s7 .camas .mk { position: absolute; top: -26px; bottom: -26px; width: 6px; background: var(--ref); }
-#s7 .servs { position: absolute; left: 900px; top: 370px; width: 960px; columns: 2; column-gap: 40px; }
-#s7 .servs div { position: relative; display: block; width: fit-content; white-space: nowrap; font-size: 32px; font-weight: 700; font-stretch: 86%; margin-bottom: 18px; break-inside: avoid; }
-#s7 .servs div i { position: absolute; left: -4px; right: -4px; top: 54%; height: 5px; background: var(--loss); transform-origin: left; transform: scaleX(0); }
+/* el abono */
+#atocha .abono { position: absolute; left: 80px; top: 1330px; width: 920px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; border-top: 2px solid var(--line); padding-top: 26px; }
+#atocha .abono .eti { grid-column: 1 / -1; color: var(--ink-3); margin-bottom: 14px; }
+#atocha .abono .q { font-size: 32px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+#atocha .abono .v { font-size: 110px; line-height: 1; font-variant-numeric: tabular-nums; }
+#atocha .abono .z { font-size: 28px; font-weight: 500; color: var(--ink-3); }
+#atocha .abono .parla .q, #atocha .abono .parla .v { color: var(--ref); }
 
-/* dinero: portada del capítulo */
-#m0 .t { position: absolute; left: 160px; top: 240px; font-size: 250px; }
-#m0 .d { position: absolute; left: 160px; top: 740px; font-size: 50px; font-weight: 600; font-stretch: 90%; color: var(--ink-2); line-height: 1.25; max-width: 1500px; }
-
-/* dinero: series con barras, como en la web */
-.serie { position: absolute; left: 160px; top: 380px; width: 1600px; }
-.serie .f { display: grid; grid-template-columns: 420px 220px 1fr; align-items: center; column-gap: 36px; padding: 8px 0; border-top: 2px solid var(--line); }
+/* series del dinero, como en la web */
+.serie { position: absolute; left: 80px; top: 560px; width: 920px; }
+.serie .f { padding: 14px 0 16px; border-top: 2px solid var(--line); }
 .serie .f:last-child { border-bottom: 2px solid var(--line); }
-.serie .f .nom { font-size: 36px; font-weight: 500; color: var(--ink-3); }
-.serie .f .val { text-align: right; font-size: 64px; font-weight: 800; font-stretch: 72%; font-variant-numeric: tabular-nums; }
-.serie .f .pista { height: 30px; border-radius: 15px; background: #f0f0f0; overflow: hidden; }
-.serie .f .pista i { display: block; height: 100%; border-radius: 15px; background: var(--gris-barra); transform-origin: left; }
+.serie .f .cab { display: flex; justify-content: space-between; align-items: baseline; }
+.serie .f .nom { font-size: 38px; font-weight: 500; color: var(--ink-3); }
+.serie .f .val { font-size: 84px; font-weight: 800; font-stretch: 70%; font-variant-numeric: tabular-nums; line-height: 1; }
+.serie .f .pista { height: 28px; border-radius: 14px; background: var(--pista); overflow: hidden; margin-top: 10px; }
+.serie .f .pista i { display: block; height: 100%; border-radius: 14px; background: var(--gris-barra); transform-origin: left; }
 .serie .f.aqui .nom { color: var(--ink); font-weight: 800; }
 .serie .f.aqui .pista i { background: #555; }
 .serie .f.ref .nom, .serie .f.ref .val { color: var(--ref); font-weight: 800; }
 .serie .f.ref .pista i { background: var(--ref); }
-.golpe-e { position: absolute; left: 160px; top: 755px; width: 1600px; font-size: 56px; font-weight: 800; font-stretch: 84%; letter-spacing: -.01em; line-height: 1.1; }
-.golpe-e .cifra { color: var(--loss); font-size: 128px; font-stretch: 62%; text-transform: uppercase; vertical-align: -14px; letter-spacing: -.01em; }
+.golpe-e { position: absolute; left: 80px; top: 1290px; width: 920px; font-size: 54px; font-weight: 800; font-stretch: 84%; letter-spacing: -.01em; line-height: 1.1; }
+.golpe-e .cifra { color: var(--loss); font-size: 104px; font-stretch: 62%; text-transform: uppercase; letter-spacing: -.01em; line-height: .95; display: block; margin: 6px 0; }
+
+/* las diez */
+#diez .lista { position: absolute; left: 80px; top: 470px; width: 920px; }
+#diez .f { display: grid; grid-template-columns: 300px 1fr 96px; align-items: center; column-gap: 20px; padding: 10px 0; border-top: 2px solid var(--line); }
+#diez .f .nom { font-size: 36px; font-weight: 700; font-stretch: 86%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#diez .f .bar { height: 40px; background: var(--loss); transform-origin: left; }
+#diez .f .v { text-align: right; font-size: 66px; font-weight: 800; font-stretch: 66%; color: var(--loss); line-height: 1; font-variant-numeric: tabular-nums; }
+#diez .f.esta .nom { color: var(--ref); font-weight: 800; }
+#diez .f .mas { display: block; height: 10px; background: var(--gain); margin-top: 6px; transform-origin: left; }
+#diez .pie { position: absolute; left: 80px; top: 1440px; width: 920px; font-size: 36px; font-weight: 500; line-height: 1.3; color: var(--ink-2); }
+#diez .pie b { color: var(--gain); }
 
 /* golpe y cierre */
-#s8 .g { position: absolute; left: 160px; top: 230px; width: 1600px; }
-#s8 .g .a { font-size: 64px; font-weight: 600; font-stretch: 88%; color: var(--ink-2); }
-#s8 .g .b { font-size: 300px; color: var(--loss); margin: 10px 0 14px; }
-#s8 .g .c { font-size: 64px; font-weight: 800; font-stretch: 84%; letter-spacing: -.01em; line-height: 1.1; }
-#s8 .g .c b { color: var(--loss); }
-#s9 .logo { position: absolute; left: 160px; top: 250px; width: 200px; height: 200px; --bw: 20px; }
-#s9 .t { position: absolute; left: 410px; top: 236px; }
-#s9 .t .x1 { font-size: 118px; font-weight: 700; font-stretch: 72%; color: var(--ink-2); }
-#s9 .t .x2 { font-size: 250px; color: var(--loss); }
-#s9 .url { position: absolute; left: 160px; top: 720px; font-size: 66px; font-weight: 800; font-stretch: 84%; letter-spacing: -.01em; }
-#s9 .url span { color: var(--ref); }
-#s9 .fu { position: absolute; left: 160px; top: 830px; font-size: 34px; font-weight: 500; color: var(--ink-3); }
+#golpe .g { position: absolute; left: 80px; top: 520px; width: 920px; }
+#golpe .a { font-size: 60px; font-weight: 600; font-stretch: 88%; color: var(--ink-2); }
+#golpe .b { font-size: 250px; color: var(--loss); margin: 20px 0 30px; }
+#golpe .c { font-size: 64px; font-weight: 800; font-stretch: 84%; letter-spacing: -.01em; line-height: 1.1; }
+#golpe .c b { color: var(--loss); }
+#cierre .marca { position: absolute; left: 80px; top: 400px; width: 420px; }
+#cierre .t { position: absolute; left: 80px; top: 820px; }
+#cierre .t .x1 { font-size: 240px; }
+#cierre .t .x2 { font-size: 240px; color: var(--loss); }
+#cierre .url { position: absolute; left: 80px; top: 1280px; font-size: 50px; font-weight: 800; font-stretch: 80%; letter-spacing: -.01em; }
+#cierre .elige { position: absolute; left: 80px; top: 1360px; font-size: 44px; font-weight: 600; font-stretch: 90%; color: var(--ref); }
 </style>
 </head>
 <body>
 <div id="stage">
-
-  <div id="bug"><div class="u cae"><i></i></div><span>Si yo viviera como en <b class="rojo">Parla</b></span></div>
+  <div id="bug"><span></span></div>
   <div id="cap" class="eti"><b id="cap-n">01</b><span id="cap-t"></span></div>
   <div id="barra"></div>
-
-  <!-- ═══ INTRO ═══ -->
-  <section class="scene" id="s1" data-from="0" data-to="4">
-    <div class="bloque">
-      <span class="cond l1" style="display:block">Vivo en <span class="sel">Getafe</span><svg class="flecha" viewBox="0 0 24 24" fill="none"><path d="M5 9l7 7 7-7" stroke="#1a67c2" stroke-width="3.2"/></svg></span>
-      <span class="l2 cond" style="display:block">y si viviera como en</span>
-      <span class="l3 cond" style="display:block">Parla</span>
-    </div>
-    <div class="u cae marca"><i></i></div>
-  </section>
-
-  <section class="scene" id="sq" data-from="4" data-to="9.5" data-exit="left">
-    <div class="eti" data-fx="fade" data-a="0.35" data-d=".4">La pregunta</div>
-    <div class="q cond78">
-      <span class="m"><span data-fx="up" data-a="0.45" data-d=".5">¿Cuántos servicios públicos</span></span>
-      <span class="m"><span data-fx="up" data-a="0.65" data-d=".5">desaparecerían de Getafe</span></span>
-      <span class="m"><span data-fx="up" data-a="0.85" data-d=".5">si estuviera dotada</span></span>
-      <span class="m"><span data-fx="up" data-a="1.05" data-d=".5">igual que <span class="azul">Parla</span>?</span></span>
-    </div>
-    <div class="pie" data-fx="fade" data-a="2.2" data-d=".5">Con datos oficiales, y con nombre y apellidos.</div>
-  </section>
-
-  <section class="scene" id="sa" data-from="9.5" data-to="15.5" data-enter="push" data-exit="left">
-    <div class="tit cond78"><span class="m"><span data-fx="up" data-a="0.1" data-d=".45">Lo que vas a ver</span></span></div>
-    <div class="lista">
-      <div class="it" data-fx="left" data-a="0.5" data-d=".45"><span class="n cond">01</span><div><div class="t">La cuenta</div><div class="d">Cómo se compara una ciudad con otra, con números reales</div></div></div>
-      <div class="it" data-fx="left" data-a="1.0" data-d=".45"><span class="n cond">02</span><div><div class="t">Lo que perdería Getafe</div><div class="d">Equipamiento a equipamiento, con su nombre</div></div></div>
-      <div class="it" data-fx="left" data-a="1.5" data-d=".45"><span class="n cond">03</span><div><div class="t">Fuera del recuento</div><div class="d">Las camas y los servicios del hospital</div></div></div>
-      <div class="it" data-fx="left" data-a="2.0" data-d=".45"><span class="n cond">04</span><div><div class="t">El dinero</div><div class="d">Lo que cada ayuntamiento invierte y gasta</div></div></div>
-    </div>
-  </section>
-
-  <!-- ═══ 01 · LA CUENTA ═══ -->
-  <section class="scene" id="s2" data-from="15.5" data-to="21" data-enter="push" data-exit="left">
-    <div class="tit cond78"><span class="m"><span data-fx="up" data-a="0.2" data-d=".45">Dos tamaños distintos</span></span></div>
-    <div class="fila" style="top:380px">
-      <div class="nom" data-fx="left" data-a="0.45" data-d=".4">Getafe</div>
-      <div class="cifra" data-fx="left" data-a="0.5" data-d=".4"><span data-count="193238" data-a="0.5" data-d="1.4">0</span><small>habitantes</small></div>
-      <div class="bar" style="width:1600px;background:var(--ink)" data-fx="grow" data-a="0.55" data-d="1.4"></div>
-    </div>
-    <div class="fila" style="top:640px">
-      <div class="nom azul" data-fx="left" data-a="0.8" data-d=".4">Parla</div>
-      <div class="cifra azul" data-fx="left" data-a="0.85" data-d=".4"><span data-count="137471" data-a="0.85" data-d="1.4">0</span><small>habitantes</small></div>
-      <div class="bar" style="width:1138px;background:var(--ref)" data-fx="grow" data-a="0.9" data-d="1.4"></div>
-    </div>
-    <div class="pie"><span class="m"><span data-fx="up" data-a="2.3" data-d=".5">Por eso todo se cuenta <span class="rojo">por habitante.</span></span></span></div>
-  </section>
-
-  <section class="scene" id="s3" data-from="21" data-to="28.5" data-enter="push">
-    <div class="tit cond78"><span class="m"><span data-fx="up" data-a="0.2" data-d=".45">Un ejemplo: bibliotecas públicas</span></span></div>
-    <div class="col" style="left:160px">
-      <div class="nom azul" data-fx="left" data-a="0.5" data-d=".35">PARLA TIENE 2</div>
-      <div class="big cond azul" data-fx="pop" data-a="0.55" data-d=".45">2</div>
-      <div class="txt" data-fx="fade" data-a="0.9" data-d=".4">una por cada<br><b>68.736 habitantes</b></div>
-    </div>
-    <div class="col" style="left:620px">
-      <div class="nom" data-fx="left" data-a="1.5" data-d=".35">GETAFE TIENE 6</div>
-      <div class="tira" id="tira3"></div>
-      <div class="txt" style="margin-top:34px;max-width:560px" data-fx="fade" data-a="2.4" data-d=".4">al ritmo de Parla le corresponderían <b>2,8</b></div>
-    </div>
-    <div class="dif cond" data-fx="slam" data-a="4.2" data-d=".45">−3,2<small>bibliotecas.<br><span class="gris" style="font-weight:500">Así sale cada línea del recuento.</span></small></div>
-  </section>
-
-  <!-- ═══ 02 · LO QUE PERDERÍA ═══ -->
-  <section class="scene" id="s4" data-from="28.5" data-to="34" data-exit="left">
-    <div class="pre cond78"><span class="m"><span data-fx="up" data-a="0.45" data-d=".45">Me faltarían</span></span></div>
-    <div class="n cond" data-fx="pop" data-a="0.6" data-d=".4"><span id="n50">0</span></div>
-    <div class="rej" id="rej"></div>
-    <div class="pie" data-fx="left" data-a="3.2" data-d=".5">equipamientos y servicios públicos.<span>Uno a uno, con su nombre.</span></div>
-  </section>
-
-  <section class="scene" id="s5" data-from="34" data-to="40.5" data-enter="push" data-exit="left">
-    <div class="tit cond78"><span class="m"><span data-fx="up" data-a="0.2" data-d=".45">En Parla hay <span class="rojo">cero</span></span></span></div>
-    <div class="lista">
-      <div class="it" data-fx="left" data-a="0.55" data-d=".4"><span class="t">Estaciones de Metro<i data-fx="grow" data-a="1.05" data-d=".4"></i></span><span class="v"><s>8</s>−8</span></div>
-      <div class="it" data-fx="left" data-a="1.35" data-d=".4"><span class="t">Universidad Carlos III · Campus de Getafe<i data-fx="grow" data-a="1.85" data-d=".4"></i></span><span class="v"><s>1</s>−1</span></div>
-      <div class="it" data-fx="left" data-a="2.15" data-d=".4"><span class="t">Conservatorio Profesional de Música<i data-fx="grow" data-a="2.65" data-d=".4"></i></span><span class="v"><s>1</s>−1</span></div>
-      <div class="it" data-fx="left" data-a="2.95" data-d=".4"><span class="t">Oficinas de la Seguridad Social<i data-fx="grow" data-a="3.45" data-d=".4"></i></span><span class="v"><s>2</s>−2</span></div>
-      <div class="it" data-fx="left" data-a="3.75" data-d=".4"><span class="t">Oficina de la Agencia Tributaria<i data-fx="grow" data-a="4.25" data-d=".4"></i></span><span class="v"><s>1</s>−1</span></div>
-    </div>
-    <div class="cinta" id="cinta" data-fx="fade" data-a="1.0" data-d=".5"><span>El Bercial</span><span>Los Espartales</span><span>El Casar</span><span>Juan de la Cierva</span><span>Getafe Central</span><span>Alonso de Mendoza</span><span>Conservatorio</span><span>Arroyo Culebro</span><span>El Bercial</span><span>Los Espartales</span><span>El Casar</span><span>Juan de la Cierva</span><span>Getafe Central</span><span>Alonso de Mendoza</span><span>Conservatorio</span><span>Arroyo Culebro</span></div>
-  </section>
-
-  <section class="scene" id="s6" data-from="40.5" data-to="47.5" data-enter="push">
-    <div class="tit cond78"><span class="m"><span data-fx="up" data-a="0.2" data-d=".45">Recuento</span></span></div>
-    <div class="tot" data-fx="fade" data-a="3.0" data-d=".4">en total<b>−50</b></div>
-    <div class="areas">
-      <div class="a" data-fx="left" data-a="0.5" data-d=".4"><div><div class="nom">Sanidad</div><div class="det">21,6 farmacias · 2 centros de salud</div></div><div class="bar" style="width:100%" data-fx="grow" data-a="0.6" data-d=".9"></div><div class="v" data-count="-23.6" data-dec="1" data-a="0.6" data-d=".9">0</div></div>
-      <div class="a" data-fx="left" data-a="0.9" data-d=".4"><div><div class="nom">Transporte</div><div class="det">8 de Metro · 3,6 de Cercanías</div></div><div class="bar" style="width:49.2%" data-fx="grow" data-a="1.0" data-d=".8"></div><div class="v" data-count="-11.6" data-dec="1" data-a="1.0" data-d=".8">0</div></div>
-      <div class="a" data-fx="left" data-a="1.3" data-d=".4"><div><div class="nom">Educación</div><div class="det">campus, conservatorio, 3,4 institutos…</div></div><div class="bar" style="width:37.3%" data-fx="grow" data-a="1.4" data-d=".7"></div><div class="v" data-count="-8.8" data-dec="1" data-a="1.4" data-d=".7">0</div></div>
-      <div class="a" data-fx="left" data-a="1.7" data-d=".4"><div><div class="nom">Cultura</div><div class="det">3,2 bibliotecas</div></div><div class="bar" style="width:13.5%" data-fx="grow" data-a="1.8" data-d=".6"></div><div class="v" data-count="-3.2" data-dec="1" data-a="1.8" data-d=".6">0</div></div>
-      <div class="a" data-fx="left" data-a="2.1" data-d=".4"><div><div class="nom">Administración</div><div class="det">Seguridad Social · Agencia Tributaria</div></div><div class="bar" style="width:12.7%" data-fx="grow" data-a="2.2" data-d=".6"></div><div class="v" data-count="-3" data-dec="0" data-a="2.2" data-d=".6">0</div></div>
-    </div>
-    <div class="gana" data-fx="fade" data-a="3.8" data-d=".5">Lo que ganaría: ninguno. <span>No hay un solo servicio medido en el que Parla esté por encima.</span></div>
-  </section>
-
-  <!-- ═══ 03 · FUERA DEL RECUENTO ═══ -->
-  <section class="scene" id="s7" data-from="47.5" data-to="56.5">
-    <div class="eti eti2" data-fx="fade" data-a="0.2" data-d=".4">Aparte, porque no se miden en equipamientos</div>
-
-    <div class="card" id="c1" data-from="47.5" data-to="52" data-exit="left">
-      <div class="h" data-fx="left" data-a="0.3" data-d=".4">Camas de hospital público</div>
-      <div class="big cond"><span data-count="-278.7" data-dec="1" data-a="0.5" data-d="1.0">0</span><small>camas</small></div>
-      <div class="txt" data-fx="fade" data-a="0.9" data-d=".4">Getafe tiene <b>543</b>. Al ritmo de Parla, <b class="azul">264,3</b>.</div>
-      <div class="camas"><div class="q" style="width:51.33%" data-fx="grow-r" data-a="1.2" data-d=".7"></div><div class="mk" style="left:48.67%" data-fx="fade" data-a="1.5" data-d=".3"></div></div>
-    </div>
-
-    <div class="card" id="c2" data-from="52" data-to="56.5" data-enter="push">
-      <div class="h" data-fx="left" data-a="0.3" data-d=".4">Servicios del hospital público</div>
-      <div class="big cond"><span data-count="-17" data-dec="0" data-a="0.4" data-d=".8">0</span></div>
-      <div class="txt" data-fx="fade" data-a="0.7" data-d=".4">unidades que tiene el hospital<br>de Getafe y no el de Parla</div>
-      <div class="servs" id="servs"></div>
-    </div>
-  </section>
-
-  <!-- ═══ 04 · EL DINERO ═══ -->
-  <section class="scene" id="m0" data-from="56.5" data-to="60" data-exit="left">
-    <div class="t cond">
-      <span class="m"><span data-fx="up" data-a="0.45" data-d=".55">Detrás de todo,</span></span>
-      <span class="m"><span class="rojo" data-fx="up" data-a="0.65" data-d=".55">el dinero</span></span>
-    </div>
-    <div class="d" data-fx="fade" data-a="1.3" data-d=".5">Hasta aquí se han contado cosas. Ahora, lo que cada ayuntamiento invierte y gasta por vecino.</div>
-  </section>
-
-  <section class="scene" id="m1" data-from="60" data-to="67.5" data-enter="push" data-exit="left">
-    <div class="tit cond78"><span class="m"><span data-fx="up" data-a="0.2" data-d=".45">Lo que construye</span></span></div>
-    <div class="sub" style="top:290px" data-fx="fade" data-a="0.45" data-d=".4">Inversión real por habitante, media de 2021 a 2024: obra nueva, reformas de colegios y calles, equipamiento.</div>
-    <div class="serie">
-      <div class="f" data-fx="left" data-a="0.8" data-d=".4"><span class="nom">Media de la Comunidad</span><span class="val"><span data-count="139" data-a="0.9" data-d=".9">0</span> €</span><div class="pista"><i style="width:86.9%" data-fx="grow" data-a="0.9" data-d=".9"></i></div></div>
-      <div class="f" data-fx="left" data-a="1.0" data-d=".4"><span class="nom">Sin la capital</span><span class="val"><span data-count="112" data-a="1.1" data-d=".9">0</span> €</span><div class="pista"><i style="width:70%" data-fx="grow" data-a="1.1" data-d=".9"></i></div></div>
-      <div class="f aqui" data-fx="left" data-a="1.3" data-d=".4"><span class="nom">Getafe</span><span class="val"><span data-count="156" data-a="1.4" data-d=".9">0</span> €</span><div class="pista"><i style="width:97.5%" data-fx="grow" data-a="1.4" data-d=".9"></i></div></div>
-      <div class="f ref" data-fx="left" data-a="1.7" data-d=".4"><span class="nom">Parla</span><span class="val"><span data-count="23" data-a="1.8" data-d=".9">0</span> €</span><div class="pista"><i style="width:14.4%" data-fx="grow" data-a="1.8" data-d=".9"></i></div></div>
-    </div>
-    <div class="golpe-e">
-      <span class="m"><span data-fx="up" data-a="3.0" data-d=".5">Con la inversión de Parla, Getafe invertiría</span></span>
-      <span class="m"><span data-fx="up" data-a="3.3" data-d=".5"><span class="cifra"><span data-count="25.7" data-dec="1" data-a="3.3" data-d="1.0">0</span> millones de euros</span> menos al año.</span></span>
-    </div>
-  </section>
-
-  <section class="scene" id="m2" data-from="67.5" data-to="75" data-enter="push">
-    <div class="tit cond78"><span class="m"><span data-fx="up" data-a="0.2" data-d=".45">Lo que gasta el ayuntamiento</span></span></div>
-    <div class="sub" style="top:290px" data-fx="fade" data-a="0.45" data-d=".4">Gasto municipal por habitante, media de 2021 a 2024: los nueve capítulos del presupuesto.</div>
-    <div class="serie">
-      <div class="f" data-fx="left" data-a="0.8" data-d=".4"><span class="nom">Media de la Comunidad</span><span class="val"><span data-count="1345" data-a="0.9" data-d=".9">0</span> €</span><div class="pista"><i style="width:96.1%" data-fx="grow" data-a="0.9" data-d=".9"></i></div></div>
-      <div class="f" data-fx="left" data-a="1.0" data-d=".4"><span class="nom">Sin la capital</span><span class="val"><span data-count="1032" data-a="1.1" data-d=".9">0</span> €</span><div class="pista"><i style="width:73.7%" data-fx="grow" data-a="1.1" data-d=".9"></i></div></div>
-      <div class="f aqui" data-fx="left" data-a="1.3" data-d=".4"><span class="nom">Getafe</span><span class="val"><span data-count="978" data-a="1.4" data-d=".9">0</span> €</span><div class="pista"><i style="width:69.9%" data-fx="grow" data-a="1.4" data-d=".9"></i></div></div>
-      <div class="f ref" data-fx="left" data-a="1.7" data-d=".4"><span class="nom">Parla</span><span class="val"><span data-count="780" data-a="1.8" data-d=".9">0</span> €</span><div class="pista"><i style="width:55.7%" data-fx="grow" data-a="1.8" data-d=".9"></i></div></div>
-    </div>
-    <div class="golpe-e">
-      <span class="m"><span data-fx="up" data-a="2.9" data-d=".5">Con el gasto de Parla, Getafe gastaría</span></span>
-      <span class="m"><span data-fx="up" data-a="3.2" data-d=".5"><span class="cifra"><span data-count="38.3" data-dec="1" data-a="3.2" data-d="1.0">0</span> millones de euros</span> menos al año.</span></span>
-    </div>
-  </section>
-
-  <!-- ═══ CIERRE ═══ -->
-  <section class="scene" id="s8" data-from="75" data-to="79.5">
-    <div class="g">
-      <span class="m"><span class="a" data-fx="up" data-a="0.45" data-d=".45">Da igual la ciudad que elijas:</span></span>
-      <span class="m"><span class="b cond" data-fx="up" data-a="0.7" data-d=".5">Parla es la última</span></span>
-      <span class="m"><span class="c" data-fx="up" data-a="1.1" data-d=".45">en renta por habitante y en <b>8 de los 12</b> equipamientos.</span></span>
-    </div>
-  </section>
-
-  <section class="scene" id="s9" data-from="79.5" data-to="84.6">
-    <div class="u cae logo" data-fx="pop" data-a="0.05" data-d=".4"><i data-fx="grow" data-a="0.3" data-d=".35"></i></div>
-    <div class="t">
-      <span class="m"><span class="x1 cond" data-fx="up" data-a="0.15" data-d=".4">Si yo viviera como en</span></span>
-      <span class="m"><span class="x2 cond" data-fx="up" data-a="0.3" data-d=".45">Parla</span></span>
-    </div>
-    <div class="url" data-fx="left" data-a="0.6" data-d=".4">siyovivieracomoenparla.netlify.app<span>/getafe</span></div>
-    <div class="fu" data-fx="fade" data-a="0.85" data-d=".4">Datos oficiales del INE, la Comunidad de Madrid y los ministerios de Hacienda y Sanidad.</div>
-  </section>
-
-  <div id="wipe"><div class="u cae"><i></i></div><div class="rot" id="wipe-rot"></div></div>
+  <div id="wipe"><div class="rot" id="wipe-rot"></div></div>
 </div>
 
+<!-- los datos de la web, los mismos que pinta la portada -->
+<script src="../../datos/datos.js"></script>
+<script src="../../datos/sanidad.js"></script>
+<script src="../../datos/primaria.js"></script>
+<script src="../../datos/transporte.js"></script>
+<script src="../../assets/calculo.js"></script>
+<script src="../../assets/hospitales.js"></script>
+<script src="cifras.js"></script>
 <script>
 'use strict';
-const DUR = 84.5;
+const { S, DUR, CAPITULOS, num } = CIFRAS;
+const F = CIFRAS.calcular(window);
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 const cl = (x) => Math.max(0, Math.min(1, x));
@@ -376,41 +217,180 @@ const E = {
   back: (t) => { const c1 = 1.7, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); }
 };
 const prog = (t, a, d, e = E.out) => e(cl((t - a) / d));
-const fmt = (v, dec) => {
-  const s = Math.abs(v).toLocaleString('es-ES', { useGrouping: true, minimumFractionDigits: dec, maximumFractionDigits: dec });
-  return (v < 0 ? '−' : '') + s;
+const fmt = (v, dec) => (v < 0 ? '−' : '') + num(Math.abs(v), dec);
+const O = F.otra;
+const BALLENA = ['M32.5 309.6C33.2 307.1 39.5 293.5 42.3 288.2C58.5 258.6 69.9 242 94.6 212.1C108.9 194.8 114.5 188.7 125.9 178.4C127.1 177.3 128.9 175.6 129.9 174.7C130.8 173.8 133.1 171.8 134.9 170.2C136.6 168.7 138.6 166.9 139.1 166.4C143.6 161.9 162.4 146.9 173 139.2C185.6 130.1 203.4 118.9 217.4 111.2C224.4 107.4 239.7 99.9 245.9 97.3C246.7 97 248.6 96.1 250.1 95.5C267.4 87.6 292.8 78.9 314.2 73.5C320.3 72 321.5 71.5 324.8 69.5C327.9 67.6 329.4 66.9 332.7 66C334.2 65.6 337.4 64.5 339.9 63.7C354.7 58.4 358 57.5 365 57.2C368 57.1 371.6 56.8 373 56.6C380 55.7 381.6 55.8 385.9 57.8C389.3 59.4 392.5 60.1 399.4 60.6C410.4 61.5 414.8 63.2 414.4 66.5C414.2 68.6 412.7 69.7 408.4 70.9C407 71.2 404.1 72 402 72.6C390.4 75.9 390.5 75.9 383.6 75.9C377.4 75.9 377.4 75.9 370.6 73.8C361.3 70.9 351.7 68.5 348.9 68.3C344.8 68 343.9 68.8 338.1 77.1C336.8 79 336.8 79.4 338.2 81.6C338.8 82.6 338.9 82.8 338.9 86.1C338.9 90.7 339.5 91.8 343.5 94.1C346.6 95.8 347.5 97.2 348 100.8C348.5 104.7 350.3 107.3 354.3 109.6C364.1 115.4 366.3 119.2 362 123.3C359.9 125.4 357.8 126.2 347.2 129C333.5 132.7 330.8 131.4 319.6 115.5C317.3 112.2 315.1 107.9 313.6 103.9C311.9 99.3 311.7 98.1 311.6 92.9C311.4 87.6 311.4 87.6 310.1 87.9C307.9 88.3 288.3 102.6 278.2 111.1C269.1 118.9 255.8 131.7 249.2 139C226.1 164.8 211 186.4 196.2 215C187 232.5 178.2 256 174.9 271.3C172.4 283 171.5 290.2 171.3 301.8L171.2 310.5L101.7 310.5C32.3 310.5 32.3 310.5 32.5 309.6Z',
+  'M32.5 309.6C33.2 307.1 39.5 293.5 42.3 288.2C58.5 258.6 69.9 241.9 94.6 212.1C108.9 194.8 114.5 188.7 125.9 178.4C127.1 177.3 128.9 175.6 129.9 174.7C130.8 173.8 133.1 171.8 134.9 170.2C136.6 168.7 138.6 166.9 139.1 166.4C143.6 161.9 162.4 146.9 173 139.2C185.6 130.1 203.4 118.9 217.4 111.2C224.4 107.4 239.7 99.9 245.9 97.3C246.7 97 248.6 96.1 250.1 95.5C267.8 87.4 292 79.1 315.6 73.1C322 71.5 322.8 71.4 322.8 72.3C322.8 73.4 318.4 75.6 302.6 82.5C289.9 88 287.4 89.2 274.8 96.2C258.8 105 239.9 117.5 227 127.7C220.9 132.5 208.4 143.1 207 144.7C206.7 145.1 204.8 146.8 202.9 148.5C198.3 152.6 184.5 166.4 180.3 171.1C178.4 173.2 176.5 175.3 175.9 175.9C171.6 180.2 156.9 198.7 148.8 209.9C140.6 221.4 125 245.2 114.4 262.5C106.4 275.5 101.8 282.8 98.2 288.3C96.5 291 94.3 294.4 93.5 295.9C91.8 299.1 90.9 300.5 88.5 303.9C87.3 305.7 86.6 307 86.2 308.4C85.5 310.4 85.5 310.4 58.9 310.4C32.3 310.5 32.3 310.5 32.5 309.6ZM377.6 75.8C377 75.6 373.7 74.7 370.3 73.7C362.8 71.4 353.3 68.9 349.3 68.2C347.7 67.9 345.5 67.5 344.5 67.3C343.5 67 341.9 66.7 341.1 66.6C338 66.3 337.3 65.9 337.8 65C338.1 64.3 339.4 63.7 343.5 62.4C345.5 61.7 348.8 60.7 350.8 60C357 57.9 358.9 57.5 365 57.2C368 57.1 371.6 56.8 373 56.6C380 55.7 381.6 55.8 385.9 57.8C389.3 59.4 392.5 60.1 399.4 60.6C410.4 61.5 414.8 63.2 414.4 66.5C414.2 68.6 412.7 69.7 408.4 70.9C407 71.2 404.1 72 402 72.6C390.7 75.8 390.7 75.8 384.4 75.9C381.2 75.9 378.2 75.9 377.6 75.8Z'];
+const ballena = (cls = '') => `<svg class="ballena ${cls}" viewBox="31 55 384 256"><path class="sombra" d="${BALLENA[0]}"/><path class="luz" d="${BALLENA[1]}"/></svg>`;
+const hueco = '<div class="h"></div>';
+const mayus = (s) => s[0].toUpperCase() + s.slice(1);
+/* un número que cuenta desde cero al entrar */
+const cuenta = (v, dec, a, d = 1.0) => `<span data-count="${v}" data-dec="${dec || 0}" data-a="${a}" data-d="${d}">0</span>`;
+const sube = (html, a, d = .5, cls = '') => `<span class="m"><span class="${cls}" data-fx="up" data-a="${a}" data-d="${d}">${html}</span></span>`;
+const escena = (id, html, extra = '') => {
+  const ids = Object.keys(S), i = ids.indexOf(id);
+  const hasta = i < ids.length - 1 ? S[ids[i + 1]] : DUR + 0.1;
+  return `<section class="scene" id="${id}" data-from="${S[id]}" data-to="${hasta}" ${extra}>${html}</section>`;
 };
+/* Parla y la otra, las dos cifras grandes con su barra */
+const pareja = (top, pv, ov, dec, unidad, max, nota = ['', ''], a0 = 0.6) => `
+  <div class="pareja" style="top:${top}px">
+    <div class="p parla" data-fx="left" data-a="${a0}" data-d=".4"><div class="q">Parla</div>
+      <div class="v cond">${cuenta(pv, dec, a0 + .1)}<small>${unidad}</small></div>
+      <div class="bar" style="width:${pv / max * 100}%" data-fx="grow" data-a="${a0 + .1}" data-d="1"></div>
+      ${nota[0] ? `<div class="nota">${nota[0]}</div>` : ''}</div>
+    <div class="p otra" data-fx="left" data-a="${a0 + 1.6}" data-d=".4"><div class="q">${O}</div>
+      <div class="v cond">${cuenta(ov, dec, a0 + 1.7)}<small>${unidad}</small></div>
+      <div class="bar" style="width:${ov / max * 100}%" data-fx="grow" data-a="${a0 + 1.7}" data-d="1"></div>
+      ${nota[1] ? `<div class="nota">${nota[1]}</div>` : ''}</div>
+  </div>`;
+const area = (eti, pregunta) => `<div class="eti eti-area" data-fx="fade" data-a="0.1" data-d=".4">${eti}</div>
+  <div class="pregunta"><span class="m"><span data-fx="up" data-a="0.2" data-d=".5">${pregunta}</span></span></div>`;
+
+$('#bug').insertAdjacentHTML('afterbegin', ballena());
+$('#wipe').insertAdjacentHTML('afterbegin', ballena());
+$('#bug span').textContent = F.web;
+const B = F.bib, maxCasas = Math.max(F.estacion.parla, F.estacion.otra);
+const enteroMas = Math.floor(B.tendria), parte = B.tendria - enteroMas;
+const html = [
+  /* ═══ PORTADA ═══ */
+  escena('portada', `
+    ${ballena('fondo-ballena')}
+    <div class="bloque">
+      <span class="cond l1" style="display:block">¿Y si en Parla</span>
+      <span class="cond l2" style="display:block">viviéramos como en</span>
+      <span class="cond l3" style="display:block"><span class="sel">${O}</span><svg class="flecha" viewBox="0 0 24 24" fill="none"><path d="M5 9l7 7 7-7" stroke="#1a67c2" stroke-width="3.2"/></svg><span style="color:var(--ink)">?</span></span>
+      <span class="cond l2" style="display:block;margin-top:70px">Tendríamos</span>
+      <div class="ten"><span class="n cond">${F.total}</span><div class="t">equipamientos<br>y servicios<br>públicos <span>más</span></div></div>
+    </div>`),
+
+  /* ═══ 01 · LA CUENTA ═══ */
+  escena('cuenta', `
+    <div class="caja" style="top:330px"><div class="tit cond78">${sube('Un ejemplo:', .2, .45)}${sube('las bibliotecas', .35, .45)}</div></div>
+    <div class="fila" style="top:620px">
+      <div class="nom" data-fx="left" data-a="0.5" data-d=".4">${O} tiene ${B.otra}</div>
+      <div class="dato" data-fx="fade" data-a="0.8" data-d=".4">una por cada <b>${num(B.cada)} habitantes</b></div>
+      <div class="tira" id="tira-otra">${'<div class="u"></div>'.repeat(B.otra)}</div>
+    </div>
+    <div class="fila" style="top:930px">
+      <div class="nom azul" data-fx="left" data-a="4.5" data-d=".4">Parla tiene ${B.parla}</div>
+      <div class="dato" data-fx="fade" data-a="4.7" data-d=".4">con sus <b>${num(F.pobParla)} habitantes</b>, le tocarían <b>${num(B.tendria, 1)}</b></div>
+      <div class="tira" id="tira-parla">${'<div class="u"></div>'.repeat(B.parla)}${hueco.repeat(enteroMas - B.parla)}${parte >= .05 ? '<div class="h parte" style="clip-path:inset(0 ' + (100 - parte * 100) + '% 0 0)"></div>' : ''}</div>
+    </div>
+    <div class="dif cond" data-fx="slam" data-a="7.9" data-d=".45">Le faltan ${num(B.falta, 1)}<small>Así sale cada línea del recuento.</small></div>`, 'data-exit="left"'),
+
+  escena('total', `
+    <div class="caja" style="top:330px"><div class="tit cond78">${sube('Con todo,', .1, .45)}${sube('<span class="rojo">a Parla le faltan</span>', .3, .45)}</div></div>
+    <div class="n cond" data-fx="pop" data-a="0.6" data-d=".4"><span id="n-total">0</span></div>
+    <div class="pie" data-fx="left" data-a="3.6" data-d=".5">equipamientos y servicios públicos<span>En negro, los ${F.tiene} que tiene. En rojo, lo que le falta.</span></div>
+    <div class="rej tira" id="rej">${'<div class="u"></div>'.repeat(F.tiene)}${hueco.repeat(F.total)}</div>`, 'data-enter="push" data-exit="left"'),
+
+  escena('cero', `
+    <div class="caja" style="top:330px"><div class="tit cond78">${sube('En Parla', .2, .45)}${sube('hay <span class="rojo">cero</span>', .35, .45)}</div></div>
+    <div class="lista">
+      <div class="cab eti" data-fx="fade" data-a="0.5" data-d=".4">Le tocarían</div>
+      ${F.cero.map((c, i) => `<div class="it" data-fx="left" data-a="${0.6 + i * 0.9}" data-d=".4">${hueco}<span class="t">${c.titulo}</span><span class="v">${num(c.tendria, 1)}</span></div>`).join('')}
+    </div>`, 'data-enter="push"'),
+
+  /* ═══ 02 · SANIDAD ═══ */
+  escena('camas', `
+    ${area('El hospital', 'Camas por cada 1.000 personas que atiende')}
+    ${pareja(600, F.camas.parla, F.camas.otra, 1, '', Math.max(F.camas.parla, F.camas.otra),
+      [mayus(F.camas.hParla) + ', ' + num(F.camas.nParla) + ' camas', mayus(F.camas.hospital) + ', ' + num(F.camas.nOtra) + ' camas'])}`,
+    'data-exit="left"'),
+
+  escena('unidades', `
+    <div class="n cond" data-fx="pop" data-a="0.3" data-d=".4">${cuenta(F.unidades.length, 0, 0.3, 0.8)}</div>
+    <div class="txt" data-fx="fade" data-a="0.6" data-d=".4">unidades que tiene el hospital de ${O} y el de Parla no</div>
+    <div class="chips">${F.unidades.map((u, i) => `<div class="chip" data-fx="pop" data-a="${1.0 + i * 0.16}" data-d=".3">${hueco}${u}</div>`).join('')}</div>`,
+    'data-enter="push" data-exit="left"'),
+
+  escena('medico', `
+    ${area('El centro de salud', 'Tarjetas sanitarias por cada plaza de médico de familia')}
+    ${pareja(600, F.medico.parla, F.medico.otra, 0, '', Math.max(F.medico.parla, F.medico.otra))}
+    <div class="fuente" data-fx="fade" data-a="2.6" data-d=".4">Tarjetas de 14 años o más, ${PRIMARIA.anioTarjetas}. Plantilla de Atención Primaria del SERMAS, octubre de 2026.</div>`,
+    'data-enter="push" data-exit="left"'),
+
+  escena('espera', `
+    ${area('Donde Parla está mejor', 'Días que llevan de media en lista los que esperan una operación')}
+    ${pareja(600, F.espera.parla, F.espera.otra, 1, ' días', Math.max(F.espera.parla, F.espera.otra))}
+    <div class="fuente" data-fx="fade" data-a="2.6" data-d=".4">En el hospital que le toca a cada ciudad. Servicio Madrileño de Salud, ${F.espera.mes}.</div>`,
+    'data-enter="push"'),
+
+  /* ═══ 03 · EL TREN ═══ */
+  escena('estacion', `
+    ${area('La estación', 'De cada 100 casas, las que tienen una estación a 15 minutos andando')}
+    ${[['parla', 'Parla', F.estacion.parla, 80, 0.6], ['otra', O, F.estacion.otra, 560, 2.2]].map(([k, n, v, x, a]) => `
+      <div class="col ${k}" style="left:${x}px" data-fx="left" data-a="${a}" data-d=".4">
+        <div class="q">${n}</div><div class="v cond">${cuenta(Math.round(v), 0, a + .1)}</div>
+        <div class="cien" data-casas="${Math.round(v)}" data-a="${a + .1}" data-color="${k === 'parla' ? 'var(--ref)' : 'var(--ink)'}">${'<i></i>'.repeat(100)}</div>
+      </div>`).join('')}
+    <div class="fuente" data-fx="fade" data-a="3.4" data-d=".4">Cercanías, Metro o Metro Ligero. Edificios del Catastro y horarios del Consorcio Regional de Transportes, 2026.</div>`,
+    'data-exit="left"'),
+
+  escena('atocha', `
+    ${area('Hasta el centro', 'Minutos hasta Atocha en tren, desde la casa del medio')}
+    ${pareja(560, F.atocha.parla, F.atocha.otra, 0, ' min', Math.max(F.atocha.parla, F.atocha.otra))}
+    <div class="abono" data-fx="fade" data-a="3.6" data-d=".5"><div class="eti">El abono de un mes</div>
+      <div class="parla"><div class="q">Parla</div><div class="v cond">${num(F.abono.parla, 2)} €</div></div>
+      <div><div class="q">${O}</div><div class="v cond">${num(F.abono.otra, 2)} €</div></div>
+    </div>`, 'data-enter="push"'),
+
+  /* ═══ 04 · EL DINERO ═══ */
+  escena('renta', `
+    ${area('Lo que entra en casa', 'Renta bruta media por persona, 2024')}
+    ${pareja(560, F.renta.parla, F.renta.otra, 0, ' €', Math.max(F.renta.parla, F.renta.otra))}`,
+    'data-exit="left"'),
+
+  escena('inversion', (() => {
+    const s = DATOS.contexto.dinero.find((x) => x.id === 'inversion');
+    const filas = [['Media de la Comunidad', s.mediaRegional, ''], ['Sin la capital', s.mediaSinCapital, ''],
+      [O, F.inversion.otra, 'aqui'], ['Parla', F.inversion.parla, 'ref']];
+    const max = Math.max(...filas.map((f) => f[1])) * 1.03;
+    return `${area('Lo que construye el ayuntamiento', 'Inversión por vecino y año, media de 2021 a 2024')}
+    <div class="serie">${filas.map(([n, v, c], i) => `<div class="f ${c}" data-fx="left" data-a="${0.7 + i * 0.25}" data-d=".4">
+      <div class="cab"><span class="nom">${n}</span><span class="val">${cuenta(v, 0, 0.8 + i * 0.25, .9)} €</span></div>
+      <div class="pista"><i style="width:${v / max * 100}%" data-fx="grow" data-a="${0.8 + i * 0.25}" data-d=".9"></i></div></div>`).join('')}</div>
+    <div class="golpe-e">${sube('Con la inversión de ' + O + ', Parla invertiría', 4.4)}${sube('<span class="cifra">' + cuenta(F.inversion.alAnio / 1e6, 1, 4.7) + ' millones de euros</span>', 4.7)}${sube('más al año.', 5.0)}</div>`;
+  })(), 'data-enter="push"'),
+
+  /* ═══ 05 · LAS DIEZ ═══ */
+  escena('diez', (() => {
+    const max = F.diez[0].falta;
+    return `<div class="caja" style="top:330px"><div class="tit cond78" style="font-size:80px">${sube('Lo que le falta a Parla', .2, .45)}${sube('<span class="rojo">con cada ciudad</span>', .35, .45)}</div></div>
+    <div class="lista">${F.diez.map((d, i) => `<div class="f ${d.id === F.OTRA ? 'esta' : ''}" data-fx="left" data-a="${0.6 + i * 0.18}" data-d=".35">
+      <span class="nom">${d.nombre}</span>
+      <div><div class="bar" style="width:${d.falta / max * 100}%" data-fx="grow" data-a="${0.7 + i * 0.18}" data-d=".7"></div>${d.sobra ? `<i class="mas" style="width:${d.sobra / max * 100}%" data-fx="grow" data-a="${3.4}" data-d=".7"></i>` : ''}</div>
+      <span class="v">${d.falta}</span></div>`).join('')}</div>
+    <div class="pie" data-fx="fade" data-a="3.4" data-d=".5">En verde, <b>lo que Parla tiene de más</b>. Con ${F.masDeLoQueFalta.map((d) => d.nombre).join(' y ')}, tiene más de lo que le falta: sobre todo colegios y escuelas infantiles.</div>`;
+  })()),
+
+  /* ═══ CIERRE ═══ */
+  escena('golpe', `
+    <div class="g">
+      ${sube('Da igual la ciudad que elijas:', .3, .45, 'a')}
+      ${sube('Parla es la última', .55, .5, 'b cond')}
+      ${sube((F.masPobre ? 'en renta por habitante' : '') + (F.masPobre && F.ultimos ? ' y ' : '') +
+        (F.ultimos ? 'en <b>' + F.ultimos + ' de los ' + F.cuentan + '</b> equipamientos.' : '.'), 1.0, .45, 'c')}
+    </div>`),
+
+  escena('cierre', `
+    <div class="marca" data-fx="pop" data-a="0.05" data-d=".5">${ballena()}</div>
+    <div class="t">${sube('Parla,', .2, .45, 'x1 cond')}${sube('a la cola', .35, .45, 'x2 cond')}</div>
+    <div class="url" data-fx="left" data-a="0.7" data-d=".4">siyovivieracomoenparla.netlify.app</div>
+    <div class="elige" data-fx="left" data-a="0.9" data-d=".4">Elige tu ciudad y mira lo que nos falta.</div>
+    <div class="fuente" data-fx="fade" data-a="1.2" data-d=".4">Datos oficiales del INE, la Comunidad de Madrid, el Consorcio de Transportes y los ministerios de Hacienda y Sanidad.</div>`)
+].join('');
+$('#wipe').insertAdjacentHTML('beforebegin', html);
+
 const base = (el) => +el.closest('[data-from]').dataset.from;
-const desde = (id) => +$('#' + id).dataset.from;
-
-/* ── piezas generadas ── */
-const tira3 = $('#tira3');
-for (let i = 0; i < 6; i++) { const u = document.createElement('div'); u.className = 'u'; u.dataset.i = i; u.innerHTML = '<i></i>'; tira3.appendChild(u); }
-const rej = $('#rej');
-for (let i = 0; i < 50; i++) { const u = document.createElement('div'); u.className = 'u cae'; u.innerHTML = '<i></i>'; rej.appendChild(u); }
-const SERVS = ['Hemodinámica', 'Cuidados intensivos neonatales', 'Neurocirugía', 'Quemados', 'Cirugía torácica',
-  'Angiología y Cirugía Vascular', 'Medicina nuclear', 'Neurofisiología', 'Cirugía plástica y reparadora', 'Genética',
-  'Banco de tejidos', 'Logopedia', 'Foniatría', 'Odontología/Estomatología', 'Planificación familiar', 'Inseminación artificial',
-  'Laboratorio de semen'];
-const servs = $('#servs');
-SERVS.forEach((s, i) => {
-  const d = document.createElement('div');
-  const a = 0.9 + i * 0.1;
-  d.innerHTML = s + '<i></i>';
-  d.dataset.fx = 'fade'; d.dataset.a = a; d.dataset.d = .3;
-  const x = d.querySelector('i'); x.dataset.fx = 'grow'; x.dataset.a = a + .3; x.dataset.d = .3;
-  servs.appendChild(d);
-});
-
 const FX = $$('[data-fx]').map((el) => ({ el, b: base(el) }));
 const COUNTS = $$('[data-count]').map((el) => ({ el, b: base(el) }));
-const SCENES = $$('[data-from]');
-const CAPS = [[desde('s2'), '01', 'La cuenta'], [desde('s4'), '02', 'Lo que perdería Getafe'], [desde('s7'), '03', 'Fuera del recuento'],
-  [desde('m0'), '04', 'El dinero'], [desde('s8'), '', '']];
-/* cortinillas rojas: centradas en el cambio de escena, con el capítulo que empieza */
+const SCENES = $$('.scene');
+const CAPS = CAPITULOS.map(([id, n, t]) => [S[id], n, t]);
+/* cortinillas rojas: centradas en el cambio de capítulo, con el capítulo que empieza */
 const W = (t, rot) => [t - 0.45, t + 0.45, rot];
-const WIPES = [[3.65, 4.35, ''], W(desde('s4'), '02 · Lo que perdería Getafe'), W(desde('s7'), '03 · Fuera del recuento'),
-  W(desde('m0'), '04 · El dinero'), W(desde('s8'), '')];
+const WIPES = [[3.55, 4.45, '01 · La cuenta'], ...CAPITULOS.slice(1).map(([id, n, t]) => W(S[id], n ? n + ' · ' + t : ''))];
 const PUSH = 0.45;
 
 function aplicar(el, t) {
@@ -421,26 +401,32 @@ function aplicar(el, t) {
     case 'fade': p = prog(t, a, d); el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * 18}px)`; break;
     case 'left': p = prog(t, a, d, E.expo); el.style.opacity = cl(p * 1.6); el.style.transform = `translateX(${(1 - p) * -90}px)`; break;
     case 'grow': p = prog(t, a, d, E.expo); el.style.transform = `scaleX(${p})`; break;
-    case 'grow-r': p = prog(t, a, d, E.expo); el.style.transformOrigin = 'right'; el.style.transform = `scaleX(${p})`; break;
     case 'pop': p = cl((t - a) / d); el.style.opacity = cl(p * 3); el.style.transform = `scale(${0.6 + 0.4 * E.back(p)})`; el.style.transformOrigin = 'left center'; break;
     case 'slam': p = cl((t - a) / d); el.style.opacity = cl(p * 4); el.style.transform = `scale(${1 + 0.5 * (1 - E.out(p))})`; break;
   }
 }
 
-function escena(el, t) {
+function mostrar(el, t) {
   const a = +el.dataset.from, b = +el.dataset.to;
   const ent = el.dataset.enter === 'push' ? PUSH : 0;
   const on = t >= a - ent && t < b;
   el.style.display = on ? 'block' : 'none';
   if (!on) return;
   let x = 0;
-  if (ent && t < a) x = (1 - E.inOut(cl((t - (a - ent)) / ent))) * 1920;
-  if (el.dataset.exit === 'left' && t > b - PUSH) x = -E.inOut(cl((t - (b - PUSH)) / PUSH)) * 1920;
+  if (ent && t < a) x = (1 - E.inOut(cl((t - (a - ent)) / ent))) * 1080;
+  if (el.dataset.exit === 'left' && t > b - PUSH) x = -E.inOut(cl((t - (b - PUSH)) / PUSH)) * 1080;
   el.style.transform = x ? `translateX(${x}px)` : '';
 }
 
+/* una unidad que aparece */
+function aparece(u, t, a, dur = 0.3) {
+  const p = cl((t - a) / dur);
+  u.style.opacity = cl(p * 3);
+  u.style.transform = `scale(${Math.max(0, 0.4 + 0.6 * E.back(p))})`;
+}
+
 function render(t) {
-  SCENES.forEach((s) => escena(s, t));
+  SCENES.forEach((s) => mostrar(s, t));
   FX.forEach(({ el, b }) => aplicar(el, t - b));
   COUNTS.forEach(({ el, b }) => {
     const v = +el.dataset.count, dec = +(el.dataset.dec || 0);
@@ -449,38 +435,34 @@ function render(t) {
     el.textContent = fmt(x, dec);
   });
 
-  /* portada: quieta (es la miniatura) y, al final, un empujón hacia Parla */
-  const z = prog(t, 3.0, 0.8, E.in);
-  const b1 = $('#s1 .bloque'); b1.style.transformOrigin = '400px 700px'; b1.style.transform = z ? `scale(${1 + z * 0.2})` : '';
+  /* portada: quieta (es la miniatura) y, al final, un empujón hacia el número */
+  const z = prog(t, 2.6, 1.0, E.in);
+  const b1 = $('#portada .bloque'); b1.style.transformOrigin = '200px 1250px'; b1.style.transform = z ? `scale(${1 + z * 0.25})` : '';
 
-  /* bibliotecas: 6; quedan 2,81 y caen 3,19 */
-  const T3 = desde('s3');
-  $$('#tira3 .u').forEach((u) => {
-    const i = +u.dataset.i, a = T3 + 1.6 + i * 0.09;
-    u.style.opacity = cl((t - a) / 0.1);
-    u.style.transform = `scale(${Math.max(0, prog(t, a, 0.35, E.back))})`;
-    const tc = T3 + 3.0 + (5 - i) * 0.3;
-    const cae = i >= 3 && t >= tc, parte = i === 2 && t >= T3 + 3.9;
-    u.className = 'u' + (cae ? ' cae' : '') + (parte ? ' media' : '');
-    if (parte) u.style.setProperty('--parte', (100 - 19 * prog(t, T3 + 3.9, 0.35)) + '%');
-    u.firstElementChild.style.transform = `scaleX(${cae ? prog(t, tc, 0.3, E.expo) : 0})`;
-  });
+  /* bibliotecas: las de la otra y, cuando la voz llega a Parla, las suyas y sus huecos */
+  const TC = S.cuenta;
+  $$('#tira-otra > *').forEach((u, i) => aparece(u, t, TC + 1.2 + i * 0.12));
+  $$('#tira-parla > *').forEach((u, i) => aparece(u, t, TC + 5.2 + i * (i < B.parla ? 0.12 : 0.35)));
 
-  /* los 50, con el contador al paso */
-  const T0 = desde('s4') + 1.0, PASO = 0.042;
+  /* el total: lo que hay de golpe y los huecos uno a uno, con el contador al paso */
+  const T0 = S.total + 1.0, PASO = 0.11;
   let hechos = 0;
-  $$('#rej .u').forEach((u, i) => {
-    const a = T0 + i * PASO, p = cl((t - a) / 0.16);
-    if (t >= a) hechos = i + 1;
-    u.style.opacity = cl(p * 3);
-    u.style.transform = `scale(${0.4 + 0.6 * E.back(p)})`;
-    u.firstElementChild.style.transform = `scaleX(${prog(t, a + 0.06, 0.2, E.expo)})`;
+  $$('#rej > *').forEach((u, i) => {
+    if (i < F.tiene) { aparece(u, t, S.total + 0.3 + i * 0.008, 0.25); return; }
+    const k = i - F.tiene, a = T0 + k * PASO;
+    if (t >= a) hechos = k + 1;
+    aparece(u, t, a, 0.2);
   });
-  $('#n50').textContent = hechos;
-  const g = cl((t - (T0 + 50 * PASO)) / 0.4);
-  $('#s4 .n').style.transform = g > 0 && g < 1 ? `scale(${1 + 0.06 * Math.sin(g * Math.PI)})` : '';
+  $('#n-total').textContent = hechos;
+  const g = cl((t - (T0 + F.total * PASO)) / 0.4);
+  $('#total .n').style.transform = g > 0 && g < 1 ? `scale(${1 + 0.06 * Math.sin(g * Math.PI)})` : '';
 
-  $('#cinta').style.left = (160 - (t - desde('s5')) * 150) + 'px';
+  /* cien casas: se llenan las que tienen estación */
+  $$('.cien').forEach((c) => {
+    const n = +c.dataset.casas, a = S.estacion + +c.dataset.a;
+    const llenas = Math.round(n * prog(t, a, 1.0, E.out));
+    Array.from(c.children).forEach((p, i) => { p.style.background = i < llenas ? c.dataset.color : ''; });
+  });
 
   /* cortinillas */
   const wipe = $('#wipe');
@@ -489,13 +471,12 @@ function render(t) {
     const [a, b, rot] = w, m = (a + b) / 2;
     wipe.style.display = 'block';
     wipe.style.clipPath = t < m ? `inset(${(1 - E.inOut(cl((t - a) / (m - a)))) * 100}% 0 0 0)` : `inset(0 0 ${E.inOut(cl((t - m) / (b - m))) * 100}% 0)`;
-    wipe.querySelector('i').style.transform = `scaleX(${prog(t, a + .12, .3, E.expo)})`;
-    wipe.firstElementChild.style.transform = `scale(${0.6 + 0.4 * E.back(cl((t - a - .05) / .35))})`;
+    wipe.firstElementChild.style.transform = `translateY(${(1 - prog(t, a + .05, .4, E.expo)) * 60}px)`;
     const r = $('#wipe-rot'); r.textContent = rot; r.style.opacity = prog(t, a + .2, .2);
   } else wipe.style.display = 'none';
 
   /* marca, capítulo y barra de avance */
-  const conMarca = t >= desde('sq') && t < desde('s9');
+  const conMarca = t >= S.cuenta && t < S.cierre;
   $('#bug').style.opacity = conMarca ? 1 : 0;
   const cap = CAPS.filter((c) => t >= c[0]).pop(), capEl = $('#cap');
   if (cap && cap[1]) {
@@ -504,10 +485,11 @@ function render(t) {
     capEl.style.opacity = p; capEl.style.transform = `translateY(${(1 - p) * 30}px)`;
   } else capEl.style.opacity = 0;
   $('#barra').style.transform = `scaleX(${t / DUR})`;
-  $('#barra').style.opacity = t >= desde('sq') ? 1 : 0;
+  $('#barra').style.opacity = t >= S.cuenta ? 1 : 0;
 }
 
 window.render = render; window.DUR = DUR;
+document.title = 'Parla y ' + O + ' · ' + num(DUR, 1) + ' s';
 document.fonts.ready.then(() => { window.listo = true; render(+location.hash.slice(1) || 0); });
 </script>
 </body>

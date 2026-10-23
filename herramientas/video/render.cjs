@@ -1,21 +1,23 @@
-/* El vídeo de 84,5 segundos, Getafe frente a Parla. Pinta video.html fotograma a
-   fotograma con Chromium, le pone el audio de audio.py y la portada como carátula.
-       npm install && npm run video
-   Sale en salida/parla-vs-getafe.mp4. Las cifras de video.html están escritas a
-   mano y salen de datos/datos.js y assets/calculo.js: si cambian los datos, hay
-   que tocarlas allí. */
+/* El vídeo, en vertical para el móvil: Parla frente a la ciudad de cifras.js.
+   Pinta video.html fotograma a fotograma con Chromium, le pone el audio de
+   audio.py y la portada como carátula.
+       npm install && npm run video:voz
+   Sale en salida/parla-vs-<ciudad>.mp4. Las cifras no se escriben a mano: video.html
+   carga los datos de la web y la misma cuenta (assets/calculo.js), así que si
+   cambian los datos basta con volver a renderizarlo. */
 const { chromium } = require('playwright');
 const { spawn } = require('child_process');
 process.chdir(__dirname);
 require('fs').mkdirSync('salida', { recursive: true });
 (async () => {
-  const FPS = 30, DUR = 84.5, N = FPS * DUR;
+  const { DUR, OTRA } = require('./cifras.js');
+  const FPS = 30, N = Math.round(FPS * DUR), SALIDA = `salida/parla-vs-${OTRA}.mp4`;
   const ff = spawn('ffmpeg', ['-loglevel', 'error', '-y', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'png', '-i', '-',
     '-i', 'salida/audio.wav', '-c:v', 'libx264', '-preset', 'slow', '-crf', '16', '-pix_fmt', 'yuv420p',
     '-af', 'loudnorm=I=-15:TP=-1.5:LRA=11', '-ar', '48000', '-c:a', 'aac', '-b:a', '192k', '-shortest', 'salida/cuerpo.mp4'],
     { stdio: ['pipe', 'inherit', 'inherit'] });
   const b = await chromium.launch();
-  const p = await b.newPage({ viewport: { width: 1920, height: 1080 } });
+  const p = await b.newPage({ viewport: { width: 1080, height: 1920 } });
   await p.goto('file://' + __dirname + '/video.html');
   await p.waitForFunction(() => window.listo);
   for (let f = 0; f < N; f++) {
@@ -30,7 +32,7 @@ require('fs').mkdirSync('salida', { recursive: true });
   /* la portada, también como carátula del MP4: la usan Finder y algunos reproductores */
   const cab = spawn('ffmpeg', ['-loglevel', 'error', '-y', '-i', 'salida/cuerpo.mp4', '-i', 'salida/portada.png',
     '-map', '0', '-map', '1', '-c', 'copy', '-c:v:1', 'png', '-disposition:v:1', 'attached_pic',
-    '-movflags', '+faststart', 'salida/parla-vs-getafe.mp4'], { stdio: 'inherit' });
+    '-movflags', '+faststart', SALIDA], { stdio: 'inherit' });
   await new Promise((r) => cab.on('close', r));
-  console.log('hecho: salida/parla-vs-getafe.mp4');
+  console.log('hecho: ' + SALIDA);
 })();

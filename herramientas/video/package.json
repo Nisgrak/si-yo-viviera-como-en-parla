@@ -1,7 +1,7 @@
 {
-  "name": "video-parla-getafe",
+  "name": "video-parla-a-la-cola",
   "private": true,
-  "description": "El vídeo de 84,5 segundos. Aparte del build de la web para que Netlify no instale Playwright.",
+  "description": "El vídeo vertical de Parla, a la cola. Aparte del build de la web para que Netlify no instale Playwright.",
   "scripts": {
     "audio": "python3 audio.py",
     "video": "python3 audio.py && node render.cjs",
