@@ -60,7 +60,6 @@ body { font-family: 'Archivo', sans-serif; color: var(--ink); -webkit-font-smoot
 #portada .l3 { font-size: 250px; color: var(--ref); margin-top: 16px; white-space: nowrap; }
 #portada .sel { position: relative; display: inline-block; }
 #portada .sel::after { content: ''; position: absolute; left: 0; right: 0; bottom: 4px; height: 14px; background: var(--ref); }
-#portada .flecha { display: inline-block; width: 84px; height: 84px; margin-left: 8px; vertical-align: 46px; }
 #portada .marca { position: absolute; left: 80px; top: 230px; display: flex; align-items: center; gap: 18px; }
 #portada .marca .ballena { width: 90px; }
 #portada .marca span { font-weight: 800; font-stretch: 85%; font-size: 38px; letter-spacing: .14em; text-transform: uppercase; }
@@ -190,7 +189,7 @@ const html = [
     <div class="bloque">
       <span class="cond l1" style="display:block">¿Y si en Parla</span>
       <span class="cond l2" style="display:block">viviéramos como en</span>
-      <span class="cond l3" style="display:block"><span class="sel">${O}</span><svg class="flecha" viewBox="0 0 24 24" fill="none"><path d="M5 9l7 7 7-7" stroke="#1a67c2" stroke-width="3.2"/></svg><span style="color:var(--ink)">?</span></span>
+      <span class="cond l3" style="display:block"><span class="sel">${O}</span><span style="color:var(--ink)">?</span></span>
     </div>`),
 
   /* ═══ POR LA MAÑANA, EN COCHE: los dos mapas ═══ */
@@ -342,7 +341,9 @@ const MAPAS = (() => {
         const grande = ref && i === 0, fs = grande ? 64 : 28;
         ctx.font = `800 ${fs}px Archivo`;
         const q = px([g.x, g.y]), txt = num(g.pct, 0) + ' %', w = ctx.measureText(txt).width + fs * 0.7, hh = fs * 1.35;
-        const x = Math.min(ANCHO - w - 4, Math.max(4, q[0] + 10)), y = Math.min(ALTO - hh / 2 - 4, Math.max(hh / 2 + 4, q[1] - hh / 2));
+        /* la grande, a la izquierda y algo más abajo, para que no tape la carretera */
+        const dx = grande ? -w - 50 : 10, dy = grande ? 60 : -hh / 2;
+        const x = Math.min(ANCHO - w - 4, Math.max(4, q[0] + dx)), y = Math.min(ALTO - hh / 2 - 4, Math.max(hh / 2 + 4, q[1] + dy));
         ctx.save(); ctx.globalAlpha = cl(p * 2);
         ctx.translate(x, y); const s = 0.6 + 0.4 * E.back(p); ctx.scale(s, s);
         ctx.fillStyle = grande ? col.marca : '#fff'; ctx.fillRect(0, -hh / 2, w, hh);
