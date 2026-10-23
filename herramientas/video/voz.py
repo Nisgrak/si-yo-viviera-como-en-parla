@@ -53,8 +53,12 @@ def sintetiza(texto, vel=1.0):
 
 # cada frase detrás de la anterior, con su pausa
 frases, t = [], 0.0
-for fid, esc, pausa, texto in GUION:
-  x = sintetiza(texto); t += pausa
+M = {}
+for fid, esc, pausa, texto, *op in GUION:
+  op = op[0] if op else {}
+  x = sintetiza(texto, op.get('vel', 1.0)); t += pausa
+  # cuándo dice la palabra marcada: a ojo, por la parte del texto que va delante
+  if op.get('marca'): M[fid] = round(t + len(x) / SR * texto.index(op['marca']) / len(texto), 3)
   frases.append((fid, esc, t, x, texto)); t += len(x) / SR
 D = round(t + COLA, 1)
 
@@ -70,7 +74,7 @@ for fid, esc, t0, x, texto in frases:
 with wave.open('salida/voz.wav', 'wb') as w:
   w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR)
   w.writeframes((np.clip(pista, -1, 1) * 32767).astype(np.int16).tobytes())
-T = dict(DUR=D, S=S, F=F, E=E, voz=VOZ)
+T = dict(DUR=D, S=S, F=F, E=E, M=M, voz=VOZ)
 json.dump(T, open('salida/tiempos.json', 'w'), indent=1)
 open('salida/tiempos.js', 'w').write('/* GENERADO por voz.py: cuándo empieza cada escena y cada frase. */\nwindow.TIEMPOS = ' + json.dumps(T) + ';\n')
 print(f'ok · {D} s · salida/voz.wav y salida/tiempos.js ·', VOZ)

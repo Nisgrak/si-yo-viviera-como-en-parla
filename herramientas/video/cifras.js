@@ -55,6 +55,13 @@
   /* 0,698 → «siete de cada diez» */
   function deCadaDiez(p) { return entero(Math.round(p * 10), 'f') + ' de cada diez'; }
   function mayus(s) { return s[0].toUpperCase() + s.slice(1); }
+  /* 6,78 → «casi siete veces más»; 2,2 → «más del doble» */
+  function vecesMas(r) {
+    if (r < 2) return letra(r, 1, 'f') + ' veces más';
+    if (r < 3) return 'más del doble';
+    const n = Math.round(r);
+    return (r < n ? 'casi ' : 'más de ') + entero(n, 'f') + ' veces más';
+  }
   /* «A-42» → «A cuarenta y dos», que si no la voz lee el guion */
   function carretera(v) { return v.replace(/([AMR])-(\d+)/g, function (_, l, n) { return l + ' ' + entero(+n, 'f'); }); }
 
@@ -114,8 +121,9 @@
         carretera(F.sale.parla.via) + '.'],
       ['repartida', 'coche', 1.2, 'En ' + O + ', la gente sale repartida por muchas carreteras.'],
 
-      ['tren', 'tren', 1.4, 'Y en tren, se tarda.'],
-      ['atocha', 'tren', 0.6, 'Desde la mitad de las casas, más de ' + entero(F.atocha.parla, 'm') + ' minutos hasta Atocha.'],
+      /* el quinto campo marca la palabra en la que tiene que salir algo en pantalla */
+      ['atocha', 'tren', 1.4, 'En tren, desde la mitad de las casas, se tarda más de ' + entero(F.atocha.parla, 'm') +
+        ' minutos hasta Atocha.', { marca: entero(F.atocha.parla, 'm') }],
       ['atocha-otra', 'tren', 0.9, 'Desde ' + O + ', ' + entero(F.atocha.otra, 'm') + '.'],
       ['metro', 'tren', 1.0, F.metro.parla === 0 ? 'De Metro, ni una estación.' : ''],
 
@@ -123,18 +131,20 @@
       ['cama', 'hospital', 0.6, 'Tiene ' + cuantas(F.camas.parla, 1, 'cama', 'camas', 'f') + ' por cada mil personas que atiende.'],
       ['cama-otra', 'hospital', 0.9, 'El de ' + O + ', ' + (veces >= 2 ? 'más del doble' : letra(F.camas.otra, 1, 'f')) + '.'],
 
-      ['cuentas', 'dinero', 1.4, 'Luego miré las cuentas del ayuntamiento.'],
-      ['invierte', 'dinero', 0.6, 'El nuestro invierte ' + entero(F.inversion.parla, 'm') + ' euros por vecino al año.'],
-      ['invierte-otra', 'dinero', 0.9, 'El de ' + O + ', ' + entero(F.inversion.otra, 'm') + ' euros.'],
+      ['invierte', 'dinero', 1.4, 'Luego miré las cuentas: nuestro ayuntamiento invierte ' + entero(F.inversion.parla, 'm') +
+        ' euros por vecino al año.', { marca: entero(F.inversion.parla, 'm') }],
+      /* «ciento» no lo dice bien la voz: la otra cifra va como cuántas veces más */
+      ['invierte-otra', 'dinero', 0.9, 'El de ' + O + ', ' + vecesMas(F.inversion.otra / F.inversion.parla) + '.'],
 
       ['todo', 'total', 1.4, 'Al final lo conté todo: colegios, centros de salud, bibliotecas, estaciones…'],
       ['ajustado', 'total', 0.5, 'Cada cosa, a la medida de los que somos.'],
-      ['si', 'total', 0.8, 'Si Parla estuviera como ' + O + ', tendríamos…'],
-      /* la pausa larga es la de los huecos, que aparecen uno a uno */
-      ['veintiuno', 'total', 0.5 + F.total * PASO + 0.4, entero(F.total, 'm') + ' equipamientos y servicios públicos más.'],
+      /* de un tirón: los huecos van saliendo detrás y el último cae en la cifra */
+      ['si', 'total', 0.8, 'Si Parla estuviera como ' + O + ', tendríamos ' + entero(F.total, 'm') +
+        ' equipamientos y servicios públicos más.', { marca: entero(F.total, 'm') }],
 
-      ['cola', 'cierre', 1.6, F.web + '.'],
-      ['haz', 'cierre', 0.5, 'Haz la cuenta con tu ciudad.']
+      ['haz', 'cierre', 1.6, 'En la web puedes hacer la cuenta con tu ciudad.'],
+      /* el final, más despacio y para abajo: lo que hay, no una orden */
+      ['cola', 'cierre', 1.0, 'Y Parla sigue a la cola.', { vel: 0.88 }]
     ].filter(function (f) { return f[3]; });
   }
 

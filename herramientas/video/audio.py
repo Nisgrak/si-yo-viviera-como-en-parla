@@ -10,7 +10,7 @@ import numpy as np, wave
 
 T = json.load(open('salida/tiempos.json'))
 G = json.loads(subprocess.run(['node', 'guion.cjs'], capture_output=True, text=True, check=True).stdout)
-S, F, E, D = T['S'], T['F'], T['E'], T['DUR']
+S, F, E, M, D = T['S'], T['F'], T['E'], T['M'], T['DUR']
 TOTAL, PASO = G['F']['total'], G['PASO']
 SR = 48000; N = int(SR * D)
 rng = np.random.default_rng(3)
@@ -66,7 +66,7 @@ mus.add(bajo(45, D - FIN), FIN, 0.11)
 PAT = [0, 2, 1, 2, 0, 2, 1, 3]
 t = S['coche'] - S['coche'] % B; k = 0
 while t < FIN - 0.2:
-    if not (F['si'] - 0.5 < t < E['veintiuno']):
+    if not (M['si'] - TOTAL * PASO - 0.5 < t < M['si'] + 0.8):
         c = acorde(t); notas = CH[c] + [CH[c][0] + 12]
         mus.add(pluck(notas[PAT[k % 8]] + 12, 0.9 if k % 2 == 0 else 0.55), t, 0.022, pan=0.3 * np.sin(k * 0.7))
     t += B / 2; k += 1
@@ -89,7 +89,7 @@ def air(dur=0.6):
 
 sfx.add(bell(69), 0.05, 0.03)
 # el 70 % de la A-42, el cero del Metro, el 21 y el cierre
-T0 = E['si'] + 0.5
+T0 = M['si'] - TOTAL * PASO
 for tt, m, g in [(E['a42'] - 1.2, 76, 1.0), (F['metro'] + 0.9, 72, 0.8), (T0 + TOTAL * PASO, 81, 1.2), (S['cierre'] + 0.4, 81, 0.8)]:
     sfx.add(thump(), tt, 0.2 * g); sfx.add(bell(m), tt, 0.045 * g)
 for i in range(TOTAL): sfx.add(tock(PENTA[i % 10] + (12 if i >= 10 else 0), 0.04), T0 + i * PASO + 0.03, 0.035, pan=(i % 13 - 6) / 8)
