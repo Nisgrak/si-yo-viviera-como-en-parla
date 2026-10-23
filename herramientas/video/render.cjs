@@ -10,7 +10,8 @@ const { spawn } = require('child_process');
 process.chdir(__dirname);
 require('fs').mkdirSync('salida', { recursive: true });
 (async () => {
-  const { DUR, OTRA } = require('./cifras.js');
+  /* la duración la marca la voz: python3 voz.py antes */
+  const { OTRA } = require('./cifras.js'), { DUR } = require('./salida/tiempos.json');
   const FPS = 30, N = Math.round(FPS * DUR), SALIDA = `salida/parla-vs-${OTRA}.mp4`;
   const ff = spawn('ffmpeg', ['-loglevel', 'error', '-y', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'png', '-i', '-',
     '-i', 'salida/audio.wav', '-c:v', 'libx264', '-preset', 'slow', '-crf', '16', '-pix_fmt', 'yuv420p',

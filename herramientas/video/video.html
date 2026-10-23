@@ -11,32 +11,29 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+1E00-1E9F, U+20A0-20AB, U+20AD-20C0; }
 
 :root {
-  --bg: #ffffff; --line: #dfdfdf; --pista: #f0f0f0; --gris-barra: #bebebe;
+  --bg: #ffffff; --surface: #f7f7f7; --line: #dfdfdf; --line-alta: #bebebe; --pista: #f0f0f0;
   --ink: #161616; --ink-2: #525252; --ink-3: #717171;
-  --loss: #c02719; --ref: #1a67c2; --gain: #1d7635;
+  --loss: #c02719; --ref: #1a67c2; --aura-ref: rgba(26, 103, 194, .07);
   --hueco: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15' fill='none' stroke='%23000' stroke-width='1.5'><path d='M.75 4.25V3.75a3 3 0 0 1 3-3H4.25M10.75 .75h0.5a3 3 0 0 1 3 3V4.25M14.25 10.75v0.5a3 3 0 0 1-3 3H10.75M4.25 14.25H3.75a3 3 0 0 1-3-3V10.75M5.5 .75H9.5M14.25 5.5V9.5M9.5 14.25H5.5M.75 9.5V5.5'/></svg>");
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-/* En vertical, para el móvil. Lo importante queda entre 330 y 1500 px de
+/* En vertical, para el móvil. Lo importante queda entre 300 y 1540 px de
    alto: arriba y abajo, Reels y TikTok ponen sus botones encima. */
 html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
 body { font-family: 'Archivo', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
 
 #stage { position: absolute; inset: 0; overflow: hidden; background: var(--bg); }
-.scene { position: absolute; inset: 0; display: none; will-change: transform; }
+.scene { position: absolute; inset: 0; display: none; }
 
 .cond { font-weight: 800; font-stretch: 62%; text-transform: uppercase; line-height: .86; letter-spacing: -.01em; }
 .cond78 { font-weight: 800; font-stretch: 78%; text-transform: uppercase; line-height: .94; letter-spacing: -.02em; }
-.eti { font-weight: 700; font-size: 30px; letter-spacing: .14em; text-transform: uppercase; }
+.eti { font-weight: 700; font-size: 30px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
 .m { display: block; overflow: hidden; padding: .22em 0 .04em; margin-top: -.22em; }
 /* el padding de arriba deja sitio a las tildes de las mayúsculas con un interlineado tan cerrado */
 .m > * { display: block; }
-.rojo { color: var(--loss); } .azul { color: var(--ref); } .verde { color: var(--gain); } .gris { color: var(--ink-2); }
-.caja { position: absolute; left: 80px; width: 920px; }
-.tit { font-size: 92px; }
-.lead { font-size: 40px; font-weight: 500; font-stretch: 92%; line-height: 1.3; color: var(--ink-2); }
-.lead b { color: var(--ink); font-weight: 800; }
-.fuente { position: absolute; left: 80px; width: 920px; top: 1530px; font-size: 26px; font-weight: 500; color: var(--ink-3); line-height: 1.35; }
+.rojo { color: var(--loss); } .azul { color: var(--ref); }
+.abs { position: absolute; left: 80px; width: 920px; }
+.fuente { position: absolute; left: 80px; width: 920px; top: 1540px; font-size: 26px; font-weight: 500; color: var(--ink-3); line-height: 1.35; }
 
 /* la ballena: la de la web, en dos tonos */
 .ballena { display: block; height: auto; aspect-ratio: 384 / 256; overflow: visible; }
@@ -50,162 +47,98 @@ body { font-family: 'Archivo', sans-serif; color: var(--ink); -webkit-font-smoot
   -webkit-mask: var(--hueco) center / 100% 100% no-repeat; mask: var(--hueco) center / 100% 100% no-repeat; }
 .tira { display: flex; flex-wrap: wrap; }
 
-/* la marca, el capítulo y la barra */
-#bug { position: absolute; left: 80px; top: 140px; display: flex; align-items: center; gap: 18px; z-index: 5; }
+/* la marca y la barra */
+#bug { position: absolute; left: 80px; top: 150px; display: flex; align-items: center; gap: 18px; z-index: 5; }
 #bug .ballena { width: 72px; }
 #bug span { font-weight: 800; font-stretch: 85%; font-size: 32px; letter-spacing: .14em; text-transform: uppercase; }
-#cap { position: absolute; left: 80px; top: 222px; z-index: 5; color: var(--ink-3); display: flex; gap: 18px; align-items: baseline; }
-#cap b { color: var(--loss); font-weight: 800; }
 #barra { position: absolute; left: 0; top: 0; width: 1080px; height: 10px; background: var(--loss); z-index: 6; transform-origin: left; }
-#wipe { position: absolute; inset: 0; background: var(--loss); z-index: 20; display: none; }
-#wipe .ballena { position: absolute; left: 50%; top: 50%; width: 420px; margin: -200px 0 0 -210px; --b-sombra: #ffffff; --b-luz: #f3c9c4; }
-#wipe .rot { position: absolute; left: 0; right: 0; top: 50%; margin-top: 120px; text-align: center; color: #fff;
-  font-weight: 800; font-stretch: 80%; font-size: 58px; letter-spacing: .14em; text-transform: uppercase; }
 
 /* portada: completa desde el primer fotograma, que es la miniatura */
-#portada .bloque { position: absolute; left: 80px; top: 330px; width: 940px; }
-#portada .l1 { font-size: 150px; }
-#portada .l2 { font-size: 92px; font-weight: 600; font-stretch: 78%; color: var(--ink-2); margin-top: 18px; }
-#portada .l3 { font-size: 230px; color: var(--ref); margin-top: 14px; white-space: nowrap; }
+#portada .bloque { position: absolute; left: 80px; top: 420px; width: 940px; }
+#portada .l1 { font-size: 170px; }
+#portada .l2 { font-size: 100px; font-weight: 600; font-stretch: 78%; color: var(--ink-2); margin-top: 22px; }
+#portada .l3 { font-size: 250px; color: var(--ref); margin-top: 16px; white-space: nowrap; }
 #portada .sel { position: relative; display: inline-block; }
 #portada .sel::after { content: ''; position: absolute; left: 0; right: 0; bottom: 4px; height: 14px; background: var(--ref); }
-#portada .flecha { display: inline-block; width: 80px; height: 80px; margin-left: 8px; vertical-align: 40px; }
-#portada .ten { margin-top: 10px; display: flex; align-items: center; gap: 36px; }
-#portada .ten .n { font-size: 470px; color: var(--loss); line-height: .8; }
-#portada .ten .t { font-size: 66px; font-weight: 800; font-stretch: 84%; line-height: 1.06; letter-spacing: -.01em; }
-#portada .ten .t span { color: var(--loss); }
+#portada .flecha { display: inline-block; width: 84px; height: 84px; margin-left: 8px; vertical-align: 46px; }
+#portada .marca { position: absolute; left: 80px; top: 230px; display: flex; align-items: center; gap: 18px; }
+#portada .marca .ballena { width: 90px; }
+#portada .marca span { font-weight: 800; font-stretch: 85%; font-size: 38px; letter-spacing: .14em; text-transform: uppercase; }
 
-/* la cuenta */
-#cuenta .fila { position: absolute; left: 80px; width: 920px; }
-#cuenta .nom { font-size: 40px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-#cuenta .dato { font-size: 44px; font-weight: 500; font-stretch: 92%; color: var(--ink-2); line-height: 1.25; margin-top: 8px; }
-#cuenta .dato b { color: var(--ink); font-weight: 800; }
-#cuenta .tira { gap: 22px; margin-top: 26px; }
-#cuenta .tira > * { width: 124px; height: 124px; }
-#cuenta .dif { position: absolute; left: 80px; top: 1250px; font-size: 230px; color: var(--loss); transform-origin: left center; }
-#cuenta .dif small { display: block; font-size: 46px; font-weight: 700; font-stretch: 88%; letter-spacing: 0; text-transform: none; line-height: 1.15; color: var(--ink); margin-top: 18px; }
+/* los mapas */
+.mapa { position: absolute; left: 80px; width: 920px; }
+.mapa .pie { display: flex; align-items: baseline; gap: 18px; margin-bottom: 12px; }
+.mapa .nom { font-size: 64px; }
+.mapa .dato { font-size: 30px; font-weight: 500; color: var(--ink-3); }
+.mapa canvas { display: block; width: 920px; height: 540px; background: var(--bg); }
+.mapa.parla .nom { color: var(--ref); }
 
-/* el total */
-#total .n { position: absolute; left: 66px; top: 540px; font-size: 400px; color: var(--loss); font-variant-numeric: tabular-nums; transform-origin: left center; }
-#total .rej { position: absolute; left: 80px; top: 930px; width: 920px; gap: 14px; }
-#total .rej > * { width: 76px; height: 76px; }
-#total .pie { position: absolute; left: 470px; top: 630px; width: 540px; font-size: 54px; font-weight: 800; font-stretch: 84%; line-height: 1.06; letter-spacing: -.01em; }
-#total .pie span { display: block; font-size: 34px; font-weight: 500; font-stretch: 92%; color: var(--ink-3); margin-top: 16px; letter-spacing: 0; }
-
-/* lo que no hay */
-#cero .lista { position: absolute; left: 80px; top: 560px; width: 920px; }
-#cero .cab { display: flex; justify-content: flex-end; gap: 0; color: var(--ink-3); font-size: 26px; padding-bottom: 12px; }
-#cero .it { display: grid; grid-template-columns: 64px 1fr 190px; align-items: center; column-gap: 26px; border-top: 3px solid var(--ink); padding: 26px 0; }
-#cero .it:not(:nth-child(2)) { border-top: 2px solid var(--line); }
-#cero .it .h { width: 64px; height: 64px; }
-#cero .it .t { font-size: 54px; font-weight: 800; font-stretch: 80%; letter-spacing: -.015em; line-height: 1.02; }
-#cero .it .v { text-align: right; font-size: 84px; font-weight: 800; font-stretch: 66%; color: var(--loss); font-variant-numeric: tabular-nums; }
-
-/* dos cifras enfrentadas, como en las páginas de cada área */
+/* dos cifras, una tras otra, cuando la voz las dice */
 .pareja { position: absolute; left: 80px; width: 920px; }
-.pareja .p { padding: 26px 0 30px; border-top: 3px solid var(--ink); }
+.pareja .p { padding: 22px 0 30px; border-top: 3px solid var(--ink); }
 .pareja .p + .p { border-top: 2px solid var(--line); }
-.pareja .q { font-size: 38px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-.pareja .v { font-size: 250px; line-height: .9; margin-top: 10px; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.pareja .v small { font-size: 100px; margin-left: 10px; }
-.pareja .bar { height: 26px; margin-top: 20px; transform-origin: left; border-radius: 13px; }
+.pareja .q { font-size: 40px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.pareja .v { font-size: 200px; line-height: .9; margin-top: 10px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pareja .v small { font-size: 110px; margin-left: 12px; }
+.pareja .bar { height: 30px; margin-top: 22px; transform-origin: left; border-radius: 15px; }
 .pareja .p.parla .q, .pareja .p.parla .v { color: var(--ref); }
 .pareja .p.parla .bar { background: var(--ref); }
 .pareja .p.otra .bar { background: var(--ink); }
-.pareja .nota { font-size: 34px; font-weight: 500; color: var(--ink-3); margin-top: 14px; line-height: 1.3; }
-.eti-area { position: absolute; left: 80px; top: 330px; color: var(--ink-3); }
-.pregunta { position: absolute; left: 80px; top: 385px; width: 920px; font-size: 54px; font-weight: 800; font-stretch: 82%; line-height: 1.08; letter-spacing: -.01em; }
+.cabeza { position: absolute; left: 80px; top: 300px; width: 920px; }
+.cabeza .t { font-size: 96px; }
+.cabeza .d { font-size: 40px; font-weight: 500; font-stretch: 92%; color: var(--ink-2); line-height: 1.25; margin-top: 18px; }
 
-/* las unidades del hospital */
-#unidades .n { position: absolute; left: 70px; top: 360px; font-size: 330px; color: var(--loss); }
-#unidades .txt { position: absolute; left: 400px; top: 420px; width: 600px; font-size: 50px; font-weight: 800; font-stretch: 84%; line-height: 1.08; }
-#unidades .chips { position: absolute; left: 80px; top: 740px; width: 920px; display: flex; flex-wrap: wrap; gap: 16px; }
-#unidades .chip { display: flex; align-items: center; gap: 14px; padding: 14px 22px 14px 16px; border: 3px solid var(--loss); border-radius: 12px;
-  background: #fbeceb; color: var(--loss); font-size: 36px; font-weight: 700; font-stretch: 88%; white-space: nowrap; }
-#unidades .chip .h { width: 28px; height: 28px; }
+/* el metro */
+#tren .metro { position: absolute; left: 80px; top: 1350px; width: 920px; border-top: 2px solid var(--line); padding-top: 28px; }
+#tren .metro .eti { margin-bottom: 18px; }
+#tren .metro .f { display: grid; grid-template-columns: 220px 1fr; align-items: center; column-gap: 20px; margin-bottom: 16px; }
+#tren .metro .q { font-size: 34px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+#tren .metro .tira { gap: 12px; }
+#tren .metro .tira > * { width: 62px; height: 62px; }
+#tren .metro .cero { font-size: 96px; color: var(--loss); line-height: .8; transform-origin: left center; }
 
-/* donde Parla está mejor */
-#espera .eti-area { color: var(--gain); }
-#espera .pareja .p.parla .q, #espera .pareja .p.parla .v { color: var(--gain); }
-#espera .pareja .p.parla .bar { background: var(--gain); }
+/* la cuenta */
+#total .cosas { position: absolute; left: 80px; top: 360px; width: 920px; }
+#total .cosas div { font-size: 110px; line-height: 1.02; }
+#total .si { position: absolute; left: 80px; top: 330px; width: 920px; font-size: 84px; }
+#total .rej { position: absolute; left: 80px; top: 600px; width: 920px; gap: 14px; }
+#total .rej > * { width: 76px; height: 76px; }
+#total .n { position: absolute; left: 66px; top: 1250px; font-size: 300px; color: var(--loss); font-variant-numeric: tabular-nums; transform-origin: left center; }
+#total .pie { position: absolute; left: 400px; top: 1300px; width: 580px; font-size: 58px; font-weight: 800; font-stretch: 84%; line-height: 1.06; letter-spacing: -.01em; }
 
-/* cien casas */
-.cien { display: grid; grid-template-columns: repeat(10, 1fr); gap: 9px; width: 420px; }
-.cien i { display: block; aspect-ratio: 1; border-radius: 50%; background: var(--pista); }
-#estacion .col { position: absolute; top: 560px; width: 440px; }
-#estacion .col .q { font-size: 38px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-#estacion .col .v { font-size: 220px; line-height: .9; margin: 10px 0 30px; }
-#estacion .col.parla .q, #estacion .col.parla .v { color: var(--ref); }
-
-/* el abono */
-#atocha .abono { position: absolute; left: 80px; top: 1330px; width: 920px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; border-top: 2px solid var(--line); padding-top: 26px; }
-#atocha .abono .eti { grid-column: 1 / -1; color: var(--ink-3); margin-bottom: 14px; }
-#atocha .abono .q { font-size: 32px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-#atocha .abono .v { font-size: 110px; line-height: 1; font-variant-numeric: tabular-nums; }
-#atocha .abono .z { font-size: 28px; font-weight: 500; color: var(--ink-3); }
-#atocha .abono .parla .q, #atocha .abono .parla .v { color: var(--ref); }
-
-/* series del dinero, como en la web */
-.serie { position: absolute; left: 80px; top: 560px; width: 920px; }
-.serie .f { padding: 14px 0 16px; border-top: 2px solid var(--line); }
-.serie .f:last-child { border-bottom: 2px solid var(--line); }
-.serie .f .cab { display: flex; justify-content: space-between; align-items: baseline; }
-.serie .f .nom { font-size: 38px; font-weight: 500; color: var(--ink-3); }
-.serie .f .val { font-size: 84px; font-weight: 800; font-stretch: 70%; font-variant-numeric: tabular-nums; line-height: 1; }
-.serie .f .pista { height: 28px; border-radius: 14px; background: var(--pista); overflow: hidden; margin-top: 10px; }
-.serie .f .pista i { display: block; height: 100%; border-radius: 14px; background: var(--gris-barra); transform-origin: left; }
-.serie .f.aqui .nom { color: var(--ink); font-weight: 800; }
-.serie .f.aqui .pista i { background: #555; }
-.serie .f.ref .nom, .serie .f.ref .val { color: var(--ref); font-weight: 800; }
-.serie .f.ref .pista i { background: var(--ref); }
-.golpe-e { position: absolute; left: 80px; top: 1290px; width: 920px; font-size: 54px; font-weight: 800; font-stretch: 84%; letter-spacing: -.01em; line-height: 1.1; }
-.golpe-e .cifra { color: var(--loss); font-size: 104px; font-stretch: 62%; text-transform: uppercase; letter-spacing: -.01em; line-height: .95; display: block; margin: 6px 0; }
-
-/* las diez */
-#diez .lista { position: absolute; left: 80px; top: 470px; width: 920px; }
-#diez .f { display: grid; grid-template-columns: 300px 1fr 96px; align-items: center; column-gap: 20px; padding: 10px 0; border-top: 2px solid var(--line); }
-#diez .f .nom { font-size: 36px; font-weight: 700; font-stretch: 86%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-#diez .f .bar { height: 40px; background: var(--loss); transform-origin: left; }
-#diez .f .v { text-align: right; font-size: 66px; font-weight: 800; font-stretch: 66%; color: var(--loss); line-height: 1; font-variant-numeric: tabular-nums; }
-#diez .f.esta .nom { color: var(--ref); font-weight: 800; }
-#diez .f .mas { display: block; height: 10px; background: var(--gain); margin-top: 6px; transform-origin: left; }
-#diez .pie { position: absolute; left: 80px; top: 1440px; width: 920px; font-size: 36px; font-weight: 500; line-height: 1.3; color: var(--ink-2); }
-#diez .pie b { color: var(--gain); }
-
-/* golpe y cierre */
-#golpe .g { position: absolute; left: 80px; top: 520px; width: 920px; }
-#golpe .a { font-size: 60px; font-weight: 600; font-stretch: 88%; color: var(--ink-2); }
-#golpe .b { font-size: 250px; color: var(--loss); margin: 20px 0 30px; }
-#golpe .c { font-size: 64px; font-weight: 800; font-stretch: 84%; letter-spacing: -.01em; line-height: 1.1; }
-#golpe .c b { color: var(--loss); }
-#cierre .marca { position: absolute; left: 80px; top: 400px; width: 420px; }
+/* cierre */
+#cierre .marca { position: absolute; left: 80px; top: 420px; width: 420px; }
 #cierre .t { position: absolute; left: 80px; top: 820px; }
-#cierre .t .x1 { font-size: 240px; }
-#cierre .t .x2 { font-size: 240px; color: var(--loss); }
+#cierre .t .x1, #cierre .t .x2 { font-size: 240px; }
+#cierre .t .x2 { color: var(--loss); }
 #cierre .url { position: absolute; left: 80px; top: 1280px; font-size: 50px; font-weight: 800; font-stretch: 80%; letter-spacing: -.01em; }
-#cierre .elige { position: absolute; left: 80px; top: 1360px; font-size: 44px; font-weight: 600; font-stretch: 90%; color: var(--ref); }
+#cierre .elige { position: absolute; left: 80px; top: 1360px; font-size: 48px; font-weight: 700; font-stretch: 88%; color: var(--ref); }
 </style>
 </head>
 <body>
 <div id="stage">
   <div id="bug"><span></span></div>
-  <div id="cap" class="eti"><b id="cap-n">01</b><span id="cap-t"></span></div>
   <div id="barra"></div>
-  <div id="wipe"><div class="rot" id="wipe-rot"></div></div>
 </div>
 
 <!-- los datos de la web, los mismos que pinta la portada -->
 <script src="../../datos/datos.js"></script>
 <script src="../../datos/sanidad.js"></script>
-<script src="../../datos/primaria.js"></script>
 <script src="../../datos/transporte.js"></script>
+<script src="../../datos/infraestructura.js"></script>
 <script src="../../assets/calculo.js"></script>
 <script src="../../assets/hospitales.js"></script>
 <script src="cifras.js"></script>
+<!-- los mapas de carreteras de Parla y de la otra -->
+<script>['parla', CIFRAS.OTRA].forEach((id) => document.write('<script src="../../datos/mapa/' + id + '.js"><\/script>'));</script>
+<!-- cuándo dice la voz cada cosa: lo escribe voz.py -->
+<script src="salida/tiempos.js"></script>
 <script>
 'use strict';
-const { S, DUR, CAPITULOS, num } = CIFRAS;
+const { num, PASO } = CIFRAS;
 const F = CIFRAS.calcular(window);
+const { S, DUR } = TIEMPOS;
+const O = F.otra;
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 const cl = (x) => Math.max(0, Math.min(1, x));
@@ -213,212 +146,243 @@ const E = {
   out: (t) => 1 - Math.pow(1 - t, 4),
   expo: (t) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t)),
   inOut: (t) => (t < .5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2),
-  in: (t) => t * t * t,
   back: (t) => { const c1 = 1.7, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); }
 };
 const prog = (t, a, d, e = E.out) => e(cl((t - a) / d));
 const fmt = (v, dec) => (v < 0 ? '−' : '') + num(Math.abs(v), dec);
-const O = F.otra;
+const mayus = (s) => s[0].toUpperCase() + s.slice(1);
+
+/* Cuándo dice la voz una frase: su inicio, o su final con fin(), más un poco. */
+const en = (id, mas = 0) => TIEMPOS.F[id] + mas;
+const fin = (id, mas = 0) => TIEMPOS.E[id] + mas;
+
 const BALLENA = ['M32.5 309.6C33.2 307.1 39.5 293.5 42.3 288.2C58.5 258.6 69.9 242 94.6 212.1C108.9 194.8 114.5 188.7 125.9 178.4C127.1 177.3 128.9 175.6 129.9 174.7C130.8 173.8 133.1 171.8 134.9 170.2C136.6 168.7 138.6 166.9 139.1 166.4C143.6 161.9 162.4 146.9 173 139.2C185.6 130.1 203.4 118.9 217.4 111.2C224.4 107.4 239.7 99.9 245.9 97.3C246.7 97 248.6 96.1 250.1 95.5C267.4 87.6 292.8 78.9 314.2 73.5C320.3 72 321.5 71.5 324.8 69.5C327.9 67.6 329.4 66.9 332.7 66C334.2 65.6 337.4 64.5 339.9 63.7C354.7 58.4 358 57.5 365 57.2C368 57.1 371.6 56.8 373 56.6C380 55.7 381.6 55.8 385.9 57.8C389.3 59.4 392.5 60.1 399.4 60.6C410.4 61.5 414.8 63.2 414.4 66.5C414.2 68.6 412.7 69.7 408.4 70.9C407 71.2 404.1 72 402 72.6C390.4 75.9 390.5 75.9 383.6 75.9C377.4 75.9 377.4 75.9 370.6 73.8C361.3 70.9 351.7 68.5 348.9 68.3C344.8 68 343.9 68.8 338.1 77.1C336.8 79 336.8 79.4 338.2 81.6C338.8 82.6 338.9 82.8 338.9 86.1C338.9 90.7 339.5 91.8 343.5 94.1C346.6 95.8 347.5 97.2 348 100.8C348.5 104.7 350.3 107.3 354.3 109.6C364.1 115.4 366.3 119.2 362 123.3C359.9 125.4 357.8 126.2 347.2 129C333.5 132.7 330.8 131.4 319.6 115.5C317.3 112.2 315.1 107.9 313.6 103.9C311.9 99.3 311.7 98.1 311.6 92.9C311.4 87.6 311.4 87.6 310.1 87.9C307.9 88.3 288.3 102.6 278.2 111.1C269.1 118.9 255.8 131.7 249.2 139C226.1 164.8 211 186.4 196.2 215C187 232.5 178.2 256 174.9 271.3C172.4 283 171.5 290.2 171.3 301.8L171.2 310.5L101.7 310.5C32.3 310.5 32.3 310.5 32.5 309.6Z',
   'M32.5 309.6C33.2 307.1 39.5 293.5 42.3 288.2C58.5 258.6 69.9 241.9 94.6 212.1C108.9 194.8 114.5 188.7 125.9 178.4C127.1 177.3 128.9 175.6 129.9 174.7C130.8 173.8 133.1 171.8 134.9 170.2C136.6 168.7 138.6 166.9 139.1 166.4C143.6 161.9 162.4 146.9 173 139.2C185.6 130.1 203.4 118.9 217.4 111.2C224.4 107.4 239.7 99.9 245.9 97.3C246.7 97 248.6 96.1 250.1 95.5C267.8 87.4 292 79.1 315.6 73.1C322 71.5 322.8 71.4 322.8 72.3C322.8 73.4 318.4 75.6 302.6 82.5C289.9 88 287.4 89.2 274.8 96.2C258.8 105 239.9 117.5 227 127.7C220.9 132.5 208.4 143.1 207 144.7C206.7 145.1 204.8 146.8 202.9 148.5C198.3 152.6 184.5 166.4 180.3 171.1C178.4 173.2 176.5 175.3 175.9 175.9C171.6 180.2 156.9 198.7 148.8 209.9C140.6 221.4 125 245.2 114.4 262.5C106.4 275.5 101.8 282.8 98.2 288.3C96.5 291 94.3 294.4 93.5 295.9C91.8 299.1 90.9 300.5 88.5 303.9C87.3 305.7 86.6 307 86.2 308.4C85.5 310.4 85.5 310.4 58.9 310.4C32.3 310.5 32.3 310.5 32.5 309.6ZM377.6 75.8C377 75.6 373.7 74.7 370.3 73.7C362.8 71.4 353.3 68.9 349.3 68.2C347.7 67.9 345.5 67.5 344.5 67.3C343.5 67 341.9 66.7 341.1 66.6C338 66.3 337.3 65.9 337.8 65C338.1 64.3 339.4 63.7 343.5 62.4C345.5 61.7 348.8 60.7 350.8 60C357 57.9 358.9 57.5 365 57.2C368 57.1 371.6 56.8 373 56.6C380 55.7 381.6 55.8 385.9 57.8C389.3 59.4 392.5 60.1 399.4 60.6C410.4 61.5 414.8 63.2 414.4 66.5C414.2 68.6 412.7 69.7 408.4 70.9C407 71.2 404.1 72 402 72.6C390.7 75.8 390.7 75.8 384.4 75.9C381.2 75.9 378.2 75.9 377.6 75.8Z'];
 const ballena = (cls = '') => `<svg class="ballena ${cls}" viewBox="31 55 384 256"><path class="sombra" d="${BALLENA[0]}"/><path class="luz" d="${BALLENA[1]}"/></svg>`;
 const hueco = '<div class="h"></div>';
-const mayus = (s) => s[0].toUpperCase() + s.slice(1);
-/* un número que cuenta desde cero al entrar */
+/* Cada efecto lleva el segundo del vídeo en que empieza. */
+const fx = (tipo, a, d = .5) => `data-fx="${tipo}" data-a="${a}" data-d="${d}"`;
 const cuenta = (v, dec, a, d = 1.0) => `<span data-count="${v}" data-dec="${dec || 0}" data-a="${a}" data-d="${d}">0</span>`;
-const sube = (html, a, d = .5, cls = '') => `<span class="m"><span class="${cls}" data-fx="up" data-a="${a}" data-d="${d}">${html}</span></span>`;
-const escena = (id, html, extra = '') => {
-  const ids = Object.keys(S), i = ids.indexOf(id);
-  const hasta = i < ids.length - 1 ? S[ids[i + 1]] : DUR + 0.1;
-  return `<section class="scene" id="${id}" data-from="${S[id]}" data-to="${hasta}" ${extra}>${html}</section>`;
+const sube = (html, a, d = .55, cls = '') => `<span class="m"><span class="${cls}" ${fx('up', a, d)}>${html}</span></span>`;
+const ids = Object.keys(S);
+const escena = (id, html) => {
+  const i = ids.indexOf(id);
+  return `<section class="scene" id="${id}" data-from="${S[id]}" data-to="${i < ids.length - 1 ? S[ids[i + 1]] : DUR + 1}">${html}</section>`;
 };
-/* Parla y la otra, las dos cifras grandes con su barra */
-const pareja = (top, pv, ov, dec, unidad, max, nota = ['', ''], a0 = 0.6) => `
-  <div class="pareja" style="top:${top}px">
-    <div class="p parla" data-fx="left" data-a="${a0}" data-d=".4"><div class="q">Parla</div>
-      <div class="v cond">${cuenta(pv, dec, a0 + .1)}<small>${unidad}</small></div>
-      <div class="bar" style="width:${pv / max * 100}%" data-fx="grow" data-a="${a0 + .1}" data-d="1"></div>
-      ${nota[0] ? `<div class="nota">${nota[0]}</div>` : ''}</div>
-    <div class="p otra" data-fx="left" data-a="${a0 + 1.6}" data-d=".4"><div class="q">${O}</div>
-      <div class="v cond">${cuenta(ov, dec, a0 + 1.7)}<small>${unidad}</small></div>
-      <div class="bar" style="width:${ov / max * 100}%" data-fx="grow" data-a="${a0 + 1.7}" data-d="1"></div>
-      ${nota[1] ? `<div class="nota">${nota[1]}</div>` : ''}</div>
-  </div>`;
-const area = (eti, pregunta) => `<div class="eti eti-area" data-fx="fade" data-a="0.1" data-d=".4">${eti}</div>
-  <div class="pregunta"><span class="m"><span data-fx="up" data-a="0.2" data-d=".5">${pregunta}</span></span></div>`;
+/* Parla y la otra, cada una cuando la voz la nombra */
+const pareja = (top, pv, ov, dec, unidad, aP, aO) => {
+  const max = Math.max(pv, ov);
+  const p = (k, n, v, a) => `<div class="p ${k}" ${fx('left', a, .45)}><div class="q">${n}</div>
+      <div class="v cond">${cuenta(v, dec, a + .1)}<small>${unidad}</small></div>
+      <div class="bar" style="width:${v / max * 100}%" ${fx('grow', a + .1, 1.1)}></div></div>`;
+  return `<div class="pareja" style="top:${top}px">${p('parla', 'Parla', pv, aP)}${p('otra', O, ov, aO)}</div>`;
+};
 
 $('#bug').insertAdjacentHTML('afterbegin', ballena());
-$('#wipe').insertAdjacentHTML('afterbegin', ballena());
 $('#bug span').textContent = F.web;
-const B = F.bib, maxCasas = Math.max(F.estacion.parla, F.estacion.otra);
-const enteroMas = Math.floor(B.tendria), parte = B.tendria - enteroMas;
+const sp = F.sale.parla, so = F.sale.otra;
+const hParla = mayus(F.camas.hParla), hOtra = mayus(F.camas.hospital);
 const html = [
-  /* ═══ PORTADA ═══ */
+  /* ═══ PORTADA: la pregunta, completa en el primer fotograma ═══ */
   escena('portada', `
     ${ballena('fondo-ballena')}
+    <div class="marca">${ballena()}<span>${F.web}</span></div>
     <div class="bloque">
       <span class="cond l1" style="display:block">¿Y si en Parla</span>
       <span class="cond l2" style="display:block">viviéramos como en</span>
       <span class="cond l3" style="display:block"><span class="sel">${O}</span><svg class="flecha" viewBox="0 0 24 24" fill="none"><path d="M5 9l7 7 7-7" stroke="#1a67c2" stroke-width="3.2"/></svg><span style="color:var(--ink)">?</span></span>
-      <span class="cond l2" style="display:block;margin-top:70px">Tendríamos</span>
-      <div class="ten"><span class="n cond">${F.total}</span><div class="t">equipamientos<br>y servicios<br>públicos <span>más</span></div></div>
     </div>`),
 
-  /* ═══ 01 · LA CUENTA ═══ */
-  escena('cuenta', `
-    <div class="caja" style="top:330px"><div class="tit cond78">${sube('Un ejemplo:', .2, .45)}${sube('las bibliotecas', .35, .45)}</div></div>
-    <div class="fila" style="top:620px">
-      <div class="nom" data-fx="left" data-a="0.5" data-d=".4">${O} tiene ${B.otra}</div>
-      <div class="dato" data-fx="fade" data-a="0.8" data-d=".4">una por cada <b>${num(B.cada)} habitantes</b></div>
-      <div class="tira" id="tira-otra">${'<div class="u"></div>'.repeat(B.otra)}</div>
-    </div>
-    <div class="fila" style="top:930px">
-      <div class="nom azul" data-fx="left" data-a="4.5" data-d=".4">Parla tiene ${B.parla}</div>
-      <div class="dato" data-fx="fade" data-a="4.7" data-d=".4">con sus <b>${num(F.pobParla)} habitantes</b>, le tocarían <b>${num(B.tendria, 1)}</b></div>
-      <div class="tira" id="tira-parla">${'<div class="u"></div>'.repeat(B.parla)}${hueco.repeat(enteroMas - B.parla)}${parte >= .05 ? '<div class="h parte" style="clip-path:inset(0 ' + (100 - parte * 100) + '% 0 0)"></div>' : ''}</div>
-    </div>
-    <div class="dif cond" data-fx="slam" data-a="7.9" data-d=".45">Le faltan ${num(B.falta, 1)}<small>Así sale cada línea del recuento.</small></div>`, 'data-exit="left"'),
+  /* ═══ POR LA MAÑANA, EN COCHE: los dos mapas ═══ */
+  escena('coche', `
+    <div class="eti abs" style="top:290px" ${fx('fade', en('manana'), .5)}>Por dónde salen por carretera, de 6 a 10</div>
+    <div class="mapa parla" style="top:350px" ${fx('fade', en('manana', .2), .7)}>
+      <div class="pie"><span class="nom cond">Parla</span><span class="dato">${num(Math.round(sp.personas))} personas</span></div>
+      <canvas id="mapa-parla" width="1840" height="1080"></canvas></div>
+    <div class="mapa otra" style="top:990px" ${fx('fade', en('repartida', -.3), .7)}>
+      <div class="pie"><span class="nom cond">${O}</span><span class="dato">${num(Math.round(so.personas))} personas</span></div>
+      <canvas id="mapa-otra" width="1840" height="1080"></canvas></div>`),
 
+  /* ═══ EN TREN ═══ */
+  escena('tren', `
+    <div class="cabeza"><div class="t cond78">${sube('Hasta Atocha', en('tren', -.3))}${sube('en tren', en('tren', -.15))}</div>
+      <div class="d" ${fx('fade', en('atocha'), .5)}>Minutos desde la casa del medio: la mitad de las casas tarda más</div></div>
+    ${pareja(660, F.atocha.parla, F.atocha.otra, 0, ' min', en('atocha', 1.6), en('atocha-otra', .5))}
+    <div class="metro" ${fx('fade', en('metro', -.1), .5)}><div class="eti">Estaciones de Metro</div>
+      <div class="f"><span class="q azul">Parla</span><span class="cero cond" ${fx('slam', en('metro', .9), .45)}>0</span></div>
+      <div class="f"><span class="q">${O}</span><div class="tira" id="metro-otra">${'<div class="u"></div>'.repeat(F.metro.otra)}</div></div>
+    </div>`),
+
+  /* ═══ EL HOSPITAL ═══ */
+  escena('hospital', `
+    <div class="cabeza"><div class="t cond78">${sube(hParla, en('malo', 1.0))}</div>
+      <div class="d" ${fx('fade', en('cama'), .5)}>Camas por cada 1.000 personas que atiende el hospital público</div></div>
+    ${pareja(560, F.camas.parla, F.camas.otra, 1, '', en('cama', 1.0), en('cama-otra', .3))}
+    <div class="fuente" ${fx('fade', en('cama-otra', .8), .5)}>${hParla}, ${num(F.camas.nParla)} camas. ${hOtra}, ${num(F.camas.nOtra)}. Catálogo Nacional de Hospitales y memorias del SERMAS.</div>`),
+
+  /* ═══ EL DINERO ═══ */
+  escena('dinero', `
+    <div class="cabeza"><div class="t cond78">${sube('Lo que invierte', en('cuentas', .3))}${sube('el ayuntamiento', en('cuentas', .45))}</div>
+      <div class="d" ${fx('fade', en('invierte'), .5)}>Euros por vecino y año en obra nueva, reformas y equipamiento. Media de 2021 a 2024</div></div>
+    ${pareja(640, F.inversion.parla, F.inversion.otra, 0, ' €', en('invierte', 1.3), en('invierte-otra', .5))}`),
+
+  /* ═══ LA CUENTA: el 21, al final ═══ */
   escena('total', `
-    <div class="caja" style="top:330px"><div class="tit cond78">${sube('Con todo,', .1, .45)}${sube('<span class="rojo">a Parla le faltan</span>', .3, .45)}</div></div>
-    <div class="n cond" data-fx="pop" data-a="0.6" data-d=".4"><span id="n-total">0</span></div>
-    <div class="pie" data-fx="left" data-a="3.6" data-d=".5">equipamientos y servicios públicos<span>En negro, los ${F.tiene} que tiene. En rojo, lo que le falta.</span></div>
-    <div class="rej tira" id="rej">${'<div class="u"></div>'.repeat(F.tiene)}${hueco.repeat(F.total)}</div>`, 'data-enter="push" data-exit="left"'),
-
-  escena('cero', `
-    <div class="caja" style="top:330px"><div class="tit cond78">${sube('En Parla', .2, .45)}${sube('hay <span class="rojo">cero</span>', .35, .45)}</div></div>
-    <div class="lista">
-      <div class="cab eti" data-fx="fade" data-a="0.5" data-d=".4">Le tocarían</div>
-      ${F.cero.map((c, i) => `<div class="it" data-fx="left" data-a="${0.6 + i * 0.9}" data-d=".4">${hueco}<span class="t">${c.titulo}</span><span class="v">${num(c.tendria, 1)}</span></div>`).join('')}
-    </div>`, 'data-enter="push"'),
-
-  /* ═══ 02 · SANIDAD ═══ */
-  escena('camas', `
-    ${area('El hospital', 'Camas por cada 1.000 personas que atiende')}
-    ${pareja(600, F.camas.parla, F.camas.otra, 1, '', Math.max(F.camas.parla, F.camas.otra),
-      [mayus(F.camas.hParla) + ', ' + num(F.camas.nParla) + ' camas', mayus(F.camas.hospital) + ', ' + num(F.camas.nOtra) + ' camas'])}`,
-    'data-exit="left"'),
-
-  escena('unidades', `
-    <div class="n cond" data-fx="pop" data-a="0.3" data-d=".4">${cuenta(F.unidades.length, 0, 0.3, 0.8)}</div>
-    <div class="txt" data-fx="fade" data-a="0.6" data-d=".4">unidades que tiene el hospital de ${O} y el de Parla no</div>
-    <div class="chips">${F.unidades.map((u, i) => `<div class="chip" data-fx="pop" data-a="${1.0 + i * 0.16}" data-d=".3">${hueco}${u}</div>`).join('')}</div>`,
-    'data-enter="push" data-exit="left"'),
-
-  escena('medico', `
-    ${area('El centro de salud', 'Tarjetas sanitarias por cada plaza de médico de familia')}
-    ${pareja(600, F.medico.parla, F.medico.otra, 0, '', Math.max(F.medico.parla, F.medico.otra))}
-    <div class="fuente" data-fx="fade" data-a="2.6" data-d=".4">Tarjetas de 14 años o más, ${PRIMARIA.anioTarjetas}. Plantilla de Atención Primaria del SERMAS, octubre de 2026.</div>`,
-    'data-enter="push" data-exit="left"'),
-
-  escena('espera', `
-    ${area('Donde Parla está mejor', 'Días que llevan de media en lista los que esperan una operación')}
-    ${pareja(600, F.espera.parla, F.espera.otra, 1, ' días', Math.max(F.espera.parla, F.espera.otra))}
-    <div class="fuente" data-fx="fade" data-a="2.6" data-d=".4">En el hospital que le toca a cada ciudad. Servicio Madrileño de Salud, ${F.espera.mes}.</div>`,
-    'data-enter="push"'),
-
-  /* ═══ 03 · EL TREN ═══ */
-  escena('estacion', `
-    ${area('La estación', 'De cada 100 casas, las que tienen una estación a 15 minutos andando')}
-    ${[['parla', 'Parla', F.estacion.parla, 80, 0.6], ['otra', O, F.estacion.otra, 560, 2.2]].map(([k, n, v, x, a]) => `
-      <div class="col ${k}" style="left:${x}px" data-fx="left" data-a="${a}" data-d=".4">
-        <div class="q">${n}</div><div class="v cond">${cuenta(Math.round(v), 0, a + .1)}</div>
-        <div class="cien" data-casas="${Math.round(v)}" data-a="${a + .1}" data-color="${k === 'parla' ? 'var(--ref)' : 'var(--ink)'}">${'<i></i>'.repeat(100)}</div>
-      </div>`).join('')}
-    <div class="fuente" data-fx="fade" data-a="3.4" data-d=".4">Cercanías, Metro o Metro Ligero. Edificios del Catastro y horarios del Consorcio Regional de Transportes, 2026.</div>`,
-    'data-exit="left"'),
-
-  escena('atocha', `
-    ${area('Hasta el centro', 'Minutos hasta Atocha en tren, desde la casa del medio')}
-    ${pareja(560, F.atocha.parla, F.atocha.otra, 0, ' min', Math.max(F.atocha.parla, F.atocha.otra))}
-    <div class="abono" data-fx="fade" data-a="3.6" data-d=".5"><div class="eti">El abono de un mes</div>
-      <div class="parla"><div class="q">Parla</div><div class="v cond">${num(F.abono.parla, 2)} €</div></div>
-      <div><div class="q">${O}</div><div class="v cond">${num(F.abono.otra, 2)} €</div></div>
-    </div>`, 'data-enter="push"'),
-
-  /* ═══ 04 · EL DINERO ═══ */
-  escena('renta', `
-    ${area('Lo que entra en casa', 'Renta bruta media por persona, 2024')}
-    ${pareja(560, F.renta.parla, F.renta.otra, 0, ' €', Math.max(F.renta.parla, F.renta.otra))}`,
-    'data-exit="left"'),
-
-  escena('inversion', (() => {
-    const s = DATOS.contexto.dinero.find((x) => x.id === 'inversion');
-    const filas = [['Media de la Comunidad', s.mediaRegional, ''], ['Sin la capital', s.mediaSinCapital, ''],
-      [O, F.inversion.otra, 'aqui'], ['Parla', F.inversion.parla, 'ref']];
-    const max = Math.max(...filas.map((f) => f[1])) * 1.03;
-    return `${area('Lo que construye el ayuntamiento', 'Inversión por vecino y año, media de 2021 a 2024')}
-    <div class="serie">${filas.map(([n, v, c], i) => `<div class="f ${c}" data-fx="left" data-a="${0.7 + i * 0.25}" data-d=".4">
-      <div class="cab"><span class="nom">${n}</span><span class="val">${cuenta(v, 0, 0.8 + i * 0.25, .9)} €</span></div>
-      <div class="pista"><i style="width:${v / max * 100}%" data-fx="grow" data-a="${0.8 + i * 0.25}" data-d=".9"></i></div></div>`).join('')}</div>
-    <div class="golpe-e">${sube('Con la inversión de ' + O + ', Parla invertiría', 4.4)}${sube('<span class="cifra">' + cuenta(F.inversion.alAnio / 1e6, 1, 4.7) + ' millones de euros</span>', 4.7)}${sube('más al año.', 5.0)}</div>`;
-  })(), 'data-enter="push"'),
-
-  /* ═══ 05 · LAS DIEZ ═══ */
-  escena('diez', (() => {
-    const max = F.diez[0].falta;
-    return `<div class="caja" style="top:330px"><div class="tit cond78" style="font-size:80px">${sube('Lo que le falta a Parla', .2, .45)}${sube('<span class="rojo">con cada ciudad</span>', .35, .45)}</div></div>
-    <div class="lista">${F.diez.map((d, i) => `<div class="f ${d.id === F.OTRA ? 'esta' : ''}" data-fx="left" data-a="${0.6 + i * 0.18}" data-d=".35">
-      <span class="nom">${d.nombre}</span>
-      <div><div class="bar" style="width:${d.falta / max * 100}%" data-fx="grow" data-a="${0.7 + i * 0.18}" data-d=".7"></div>${d.sobra ? `<i class="mas" style="width:${d.sobra / max * 100}%" data-fx="grow" data-a="${3.4}" data-d=".7"></i>` : ''}</div>
-      <span class="v">${d.falta}</span></div>`).join('')}</div>
-    <div class="pie" data-fx="fade" data-a="3.4" data-d=".5">En verde, <b>lo que Parla tiene de más</b>. Con ${F.masDeLoQueFalta.map((d) => d.nombre).join(' y ')}, tiene más de lo que le falta: sobre todo colegios y escuelas infantiles.</div>`;
-  })()),
+    <div class="cosas">${['Colegios', 'Centros de salud', 'Bibliotecas', 'Estaciones…'].map((c, i, a) => {
+      const d = fin('todo') - en('todo');
+      return `<div class="cond78" ${fx('left', en('todo', d * (0.32 + 0.6 * i / a.length)), .4)}>${c}</div>`;
+    }).join('')}</div>
+    <div class="si cond78">${sube('Si Parla estuviera', en('si', -.1))}${sube('como <span class="azul">' + O + '</span>,', en('si', .2))}${sube('tendríamos…', en('si', .9))}</div>
+    <div class="rej tira" id="rej">${'<div class="u"></div>'.repeat(F.tiene)}${hueco.repeat(F.total)}</div>
+    <div class="n cond" ${fx('pop', fin('si', .4), .4)}><span id="n-total">0</span></div>
+    <div class="pie" ${fx('left', en('veintiuno', .5), .5)}>equipamientos y servicios públicos <span class="rojo">más</span></div>`),
 
   /* ═══ CIERRE ═══ */
-  escena('golpe', `
-    <div class="g">
-      ${sube('Da igual la ciudad que elijas:', .3, .45, 'a')}
-      ${sube('Parla es la última', .55, .5, 'b cond')}
-      ${sube((F.masPobre ? 'en renta por habitante' : '') + (F.masPobre && F.ultimos ? ' y ' : '') +
-        (F.ultimos ? 'en <b>' + F.ultimos + ' de los ' + F.cuentan + '</b> equipamientos.' : '.'), 1.0, .45, 'c')}
-    </div>`),
-
   escena('cierre', `
-    <div class="marca" data-fx="pop" data-a="0.05" data-d=".5">${ballena()}</div>
-    <div class="t">${sube('Parla,', .2, .45, 'x1 cond')}${sube('a la cola', .35, .45, 'x2 cond')}</div>
-    <div class="url" data-fx="left" data-a="0.7" data-d=".4">siyovivieracomoenparla.netlify.app</div>
-    <div class="elige" data-fx="left" data-a="0.9" data-d=".4">Elige tu ciudad y mira lo que nos falta.</div>
-    <div class="fuente" data-fx="fade" data-a="1.2" data-d=".4">Datos oficiales del INE, la Comunidad de Madrid, el Consorcio de Transportes y los ministerios de Hacienda y Sanidad.</div>`)
+    <div class="marca" ${fx('pop', S.cierre + .4, .5)}>${ballena()}</div>
+    <div class="t">${sube('Parla,', en('cola', -.1), .5, 'x1 cond')}${sube('a la cola', en('cola', .2), .5, 'x2 cond')}</div>
+    <div class="url" ${fx('left', en('haz', -.2), .45)}>siyovivieracomoenparla.netlify.app</div>
+    <div class="elige" ${fx('left', en('haz', .1), .45)}>Haz la cuenta con tu ciudad.</div>`)
 ].join('');
-$('#wipe').insertAdjacentHTML('beforebegin', html);
+$('#barra').insertAdjacentHTML('beforebegin', html);
 
-const base = (el) => +el.closest('[data-from]').dataset.from;
-const FX = $$('[data-fx]').map((el) => ({ el, b: base(el) }));
-const COUNTS = $$('[data-count]').map((el) => ({ el, b: base(el) }));
+/* ── Los mapas de carreteras, como en infraestructura.html
+   (assets/infraestructura-mapa.js): el ancho de cada carretera es la gente
+   que sale por ella, con la misma regla en los dos, y cada mapa con su
+   escala para que su término llene el marco. Los puntos avanzan con el
+   tiempo del vídeo, así que cada fotograma sale igual cada vez. ── */
+const MAPAS = (() => {
+  const MARGEN = 3200, VELOCIDAD = 700, ANCHO_MAX = 34, ANCHO_MIN = 2, AIRE = 22;
+  const ANCHO = 920, ALTO = 540, R = 2;
+  function caja(m) {
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    m.limite.forEach((an) => an.forEach((p) => { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }));
+    return { x0, y0, x1, y1 };
+  }
+  function preparar(m) {
+    m.vias.forEach((v) => {
+      const c = v.c, acc = [0];
+      for (let i = 1; i < c.length; i++) acc.push(acc[i - 1] + Math.hypot(c[i][0] - c[i - 1][0], c[i][1] - c[i - 1][1]));
+      const nt = [];
+      for (let i = 1; i < c.length; i++) { const l = acc[i] - acc[i - 1] || 1; nt.push([-(c[i][1] - c[i - 1][1]) / l, (c[i][0] - c[i - 1][0]) / l]); }
+      v._c = c; v._acc = acc; v._len = acc[acc.length - 1];
+      v._n = c.map((_, i) => {
+        const a = nt[Math.max(0, i - 1)], b = nt[Math.min(nt.length - 1, i)], x = a[0] + b[0], y = a[1] + b[1], l = Math.hypot(x, y) || 1;
+        return [x / l, y / l];
+      });
+    });
+    return m;
+  }
+  /* mulberry32: un azar pequeño y repetible a partir de una semilla */
+  function aleatorio(s) {
+    let a = s >>> 0;
+    return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  }
+  function enPunto(v, d) {
+    const acc = v._acc, c = v._c, n = v._n;
+    let i = 1;
+    while (i < acc.length - 1 && acc[i] < d) i++;
+    const t = cl((d - acc[i - 1]) / (acc[i] - acc[i - 1] || 1));
+    const nx = n[i - 1][0] + (n[i][0] - n[i - 1][0]) * t, ny = n[i - 1][1] + (n[i][1] - n[i - 1][1]) * t, l = Math.hypot(nx, ny) || 1;
+    return [c[i - 1][0] + (c[i][0] - c[i - 1][0]) * t, c[i - 1][1] + (c[i][1] - c[i - 1][1]) * t, nx / l, ny / l];
+  }
+  const mm = [window.MAPA[DATOS.REFERENCIA], window.MAPA[F.OTRA]].map(preparar);
+  /* el ancho por persona, el mismo en los dos: la carretera más cargada, a ANCHO_MAX */
+  let tope = 0; mm.forEach((m) => m.vias.forEach((v) => { tope = Math.max(tope, v.s || 0); }));
+  const ppp = ANCHO_MAX / tope;
+  return mm.map((m, k) => {
+    const ref = k === 0;
+    const bx = caja(m), w = bx.x1 - bx.x0 + 2 * MARGEN, h = bx.y1 - bx.y0 + 2 * MARGEN;
+    const mpp = Math.max(w / ANCHO, h / ALTO), cx = (bx.x0 + bx.x1) / 2, cy = (bx.y0 + bx.y1) / 2;
+    const px = (p) => [ANCHO / 2 + (p[0] - cx) / mpp, ALTO / 2 - (p[1] - cy) / mpp];
+    const col = { gente: ref ? '#1a67c2' : '#717171', suelo: ref ? 'rgba(26,103,194,.07)' : '#f7f7f7', marca: ref ? '#1a67c2' : '#161616' };
+    const azar = aleatorio(m.id.length * 7919 + 17), puntos = [];
+    m.vias.forEach((v) => {
+      if (!v.s || !v._len) return;
+      v._w = Math.max(ANCHO_MIN, v.s * ppp);
+      const n = Math.round(v.s * ppp * (v._len / mpp) / AIRE);
+      for (let i = 0; i < n; i++) puntos.push({ v, d: (i + azar()) * v._len / n, u: azar() - 0.5, vel: 0.75 + azar() * 0.5 });
+    });
+    /* las bandas, opacas en una capa aparte para que los solapes no manchen */
+    const capa = document.createElement('canvas'); capa.width = ANCHO * R; capa.height = ALTO * R;
+    const b = capa.getContext('2d'); b.setTransform(R, 0, 0, R, 0, 0);
+    b.strokeStyle = col.gente; b.lineCap = 'round'; b.lineJoin = 'round';
+    m.vias.forEach((v) => {
+      if (!v._w) return;
+      b.lineWidth = v._w; b.beginPath();
+      v._c.forEach((p, i) => { const q = px(p); i ? b.lineTo(q[0], q[1]) : b.moveTo(q[0], q[1]); });
+      b.stroke();
+    });
+    const lienzo = $(ref ? '#mapa-parla' : '#mapa-otra');
+    const traza = (ctx, l) => l.forEach((p, i) => { const q = px(p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); });
+    /* etiqueta(i) dice cuánto se ve la parte de cada salida, de 0 a 1 */
+    return function dibujar(t, etiqueta) {
+      const ctx = lienzo.getContext('2d');
+      ctx.setTransform(R, 0, 0, R, 0, 0);
+      ctx.clearRect(0, 0, ANCHO, ALTO);
+      ctx.beginPath(); m.limite.forEach((an) => { traza(ctx, an); ctx.closePath(); });
+      ctx.fillStyle = col.suelo; ctx.fill('evenodd'); ctx.lineWidth = 2.5; ctx.strokeStyle = '#161616'; ctx.stroke();
+      ctx.lineWidth = 1.2; ctx.strokeStyle = '#dfdfdf';
+      (m.fondo || []).forEach((l) => { ctx.beginPath(); traza(ctx, l.c); ctx.stroke(); });
+      ctx.globalAlpha = ref ? 0.26 : 0.22; ctx.drawImage(capa, 0, 0, ANCHO, ALTO); ctx.globalAlpha = 1;
+      ctx.fillStyle = col.gente;
+      puntos.forEach((p) => {
+        const e = enPunto(p.v, (p.d + VELOCIDAD * p.vel * t) % p.v._len), q = px(e), a = p.u * (p.v._w - 2);
+        ctx.beginPath(); ctx.arc(q[0] + e[2] * a, q[1] - e[3] * a, 2, 0, Math.PI * 2); ctx.fill();
+      });
+      /* un kilómetro, abajo a la izquierda */
+      const km = 1000 / mpp;
+      ctx.fillStyle = '#161616'; ctx.fillRect(14, ALTO - 16, km, 3);
+      ctx.font = '600 18px Archivo'; ctx.textBaseline = 'alphabetic'; ctx.fillText('1 km', 14, ALTO - 26);
+      /* las salidas con al menos el 5 %, con su parte; la más grande de Parla, enorme */
+      ctx.textBaseline = 'middle';
+      (m.puertas || []).forEach((g, i) => {
+        const p = etiqueta(i);
+        if (!(g.pct >= 5) || p <= 0) return;
+        const grande = ref && i === 0, fs = grande ? 64 : 28;
+        ctx.font = `800 ${fs}px Archivo`;
+        const q = px([g.x, g.y]), txt = num(g.pct, 0) + ' %', w = ctx.measureText(txt).width + fs * 0.7, hh = fs * 1.35;
+        const x = Math.min(ANCHO - w - 4, Math.max(4, q[0] + 10)), y = Math.min(ALTO - hh / 2 - 4, Math.max(hh / 2 + 4, q[1] - hh / 2));
+        ctx.save(); ctx.globalAlpha = cl(p * 2);
+        ctx.translate(x, y); const s = 0.6 + 0.4 * E.back(p); ctx.scale(s, s);
+        ctx.fillStyle = grande ? col.marca : '#fff'; ctx.fillRect(0, -hh / 2, w, hh);
+        ctx.strokeStyle = col.marca; ctx.lineWidth = 3; ctx.strokeRect(0, -hh / 2, w, hh);
+        ctx.fillStyle = grande ? '#fff' : col.marca; ctx.fillText(txt, fs * 0.35, 2);
+        ctx.restore();
+      });
+    };
+  });
+})();
+
+const FX = $$('[data-fx]');
+const COUNTS = $$('[data-count]');
 const SCENES = $$('.scene');
-const CAPS = CAPITULOS.map(([id, n, t]) => [S[id], n, t]);
-/* cortinillas rojas: centradas en el cambio de capítulo, con el capítulo que empieza */
-const W = (t, rot) => [t - 0.45, t + 0.45, rot];
-const WIPES = [[3.55, 4.45, '01 · La cuenta'], ...CAPITULOS.slice(1).map(([id, n, t]) => W(S[id], n ? n + ' · ' + t : ''))];
-const PUSH = 0.45;
 
 function aplicar(el, t) {
-  const a = +el.dataset.a, d = +el.dataset.d, fx = el.dataset.fx;
+  const a = +el.dataset.a, d = +el.dataset.d, f = el.dataset.fx;
   let p;
-  switch (fx) {
+  switch (f) {
     case 'up': p = prog(t, a, d, E.expo); el.style.transform = `translateY(${(1 - p) * 135}%)`; break;
-    case 'fade': p = prog(t, a, d); el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * 18}px)`; break;
+    case 'fade': p = prog(t, a, d); el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * 24}px)`; break;
     case 'left': p = prog(t, a, d, E.expo); el.style.opacity = cl(p * 1.6); el.style.transform = `translateX(${(1 - p) * -90}px)`; break;
     case 'grow': p = prog(t, a, d, E.expo); el.style.transform = `scaleX(${p})`; break;
     case 'pop': p = cl((t - a) / d); el.style.opacity = cl(p * 3); el.style.transform = `scale(${0.6 + 0.4 * E.back(p)})`; el.style.transformOrigin = 'left center'; break;
-    case 'slam': p = cl((t - a) / d); el.style.opacity = cl(p * 4); el.style.transform = `scale(${1 + 0.5 * (1 - E.out(p))})`; break;
+    case 'slam': p = cl((t - a) / d); el.style.opacity = cl(p * 4); el.style.transform = `scale(${1 + 0.4 * (1 - E.out(p))})`; break;
   }
 }
 
+/* Entre escenas, un fundido corto: la que sale se apaga y la que entra sube. */
+const FUNDE = 0.45;
 function mostrar(el, t) {
   const a = +el.dataset.from, b = +el.dataset.to;
-  const ent = el.dataset.enter === 'push' ? PUSH : 0;
-  const on = t >= a - ent && t < b;
+  const on = t >= a && t < b + FUNDE;
   el.style.display = on ? 'block' : 'none';
   if (!on) return;
-  let x = 0;
-  if (ent && t < a) x = (1 - E.inOut(cl((t - (a - ent)) / ent))) * 1080;
-  if (el.dataset.exit === 'left' && t > b - PUSH) x = -E.inOut(cl((t - (b - PUSH)) / PUSH)) * 1080;
-  el.style.transform = x ? `translateX(${x}px)` : '';
+  const entra = a === 0 ? 1 : prog(t, a, FUNDE, E.inOut), sale = 1 - prog(t, b, FUNDE, E.inOut);
+  el.style.opacity = Math.min(entra, sale);
+  el.style.transform = entra < 1 ? `translateY(${(1 - entra) * 40}px)` : '';
 }
 
-/* una unidad que aparece */
 function aparece(u, t, a, dur = 0.3) {
   const p = cl((t - a) / dur);
   u.style.opacity = cl(p * 3);
@@ -427,65 +391,43 @@ function aparece(u, t, a, dur = 0.3) {
 
 function render(t) {
   SCENES.forEach((s) => mostrar(s, t));
-  FX.forEach(({ el, b }) => aplicar(el, t - b));
-  COUNTS.forEach(({ el, b }) => {
+  FX.forEach((el) => aplicar(el, t));
+  COUNTS.forEach((el) => {
     const v = +el.dataset.count, dec = +(el.dataset.dec || 0);
-    let x = v * prog(t - b, +el.dataset.a, +el.dataset.d, E.out);
+    let x = v * prog(t, +el.dataset.a, +el.dataset.d, E.out);
     if (dec === 0) x = Math.round(x);
     el.textContent = fmt(x, dec);
   });
 
-  /* portada: quieta (es la miniatura) y, al final, un empujón hacia el número */
-  const z = prog(t, 2.6, 1.0, E.in);
-  const b1 = $('#portada .bloque'); b1.style.transformOrigin = '200px 1250px'; b1.style.transform = z ? `scale(${1 + z * 0.25})` : '';
+  /* los mapas: la gente fluye todo el rato; la parte de cada salida, cuando la voz llega */
+  if (t >= S.coche && t < S.tren + FUNDE) {
+    const a42 = fin('a42', -1.2);
+    MAPAS[0](t, (i) => prog(t, i === 0 ? a42 : en('repartida', 2.6), .5));
+    MAPAS[1](t, (i) => prog(t, en('repartida', .5 + i * 0.3), .5));
+  }
 
-  /* bibliotecas: las de la otra y, cuando la voz llega a Parla, las suyas y sus huecos */
-  const TC = S.cuenta;
-  $$('#tira-otra > *').forEach((u, i) => aparece(u, t, TC + 1.2 + i * 0.12));
-  $$('#tira-parla > *').forEach((u, i) => aparece(u, t, TC + 5.2 + i * (i < B.parla ? 0.12 : 0.35)));
+  /* el metro de la otra: estación a estación */
+  $$('#metro-otra > *').forEach((u, i) => aparece(u, t, en('metro', .2 + i * 0.07)));
 
-  /* el total: lo que hay de golpe y los huecos uno a uno, con el contador al paso */
-  const T0 = S.total + 1.0, PASO = 0.11;
+  /* la cuenta: las cosas se van, entra lo que hay, y luego los huecos uno a uno */
+  $('#total .cosas').style.opacity = 1 - prog(t, en('ajustado', -.3), .35);
+  $('#total .si').style.opacity = t >= en('si', -.2) ? 1 : 0;
+  const T0 = fin('si', .6);
   let hechos = 0;
   $$('#rej > *').forEach((u, i) => {
-    if (i < F.tiene) { aparece(u, t, S.total + 0.3 + i * 0.008, 0.25); return; }
+    if (i < F.tiene) { aparece(u, t, en('ajustado', .2) + i * 0.03, 0.25); return; }
     const k = i - F.tiene, a = T0 + k * PASO;
     if (t >= a) hechos = k + 1;
-    aparece(u, t, a, 0.2);
+    aparece(u, t, a, 0.22);
   });
   $('#n-total').textContent = hechos;
   const g = cl((t - (T0 + F.total * PASO)) / 0.4);
   $('#total .n').style.transform = g > 0 && g < 1 ? `scale(${1 + 0.06 * Math.sin(g * Math.PI)})` : '';
 
-  /* cien casas: se llenan las que tienen estación */
-  $$('.cien').forEach((c) => {
-    const n = +c.dataset.casas, a = S.estacion + +c.dataset.a;
-    const llenas = Math.round(n * prog(t, a, 1.0, E.out));
-    Array.from(c.children).forEach((p, i) => { p.style.background = i < llenas ? c.dataset.color : ''; });
-  });
-
-  /* cortinillas */
-  const wipe = $('#wipe');
-  const w = WIPES.find(([a, b]) => t >= a && t < b);
-  if (w) {
-    const [a, b, rot] = w, m = (a + b) / 2;
-    wipe.style.display = 'block';
-    wipe.style.clipPath = t < m ? `inset(${(1 - E.inOut(cl((t - a) / (m - a)))) * 100}% 0 0 0)` : `inset(0 0 ${E.inOut(cl((t - m) / (b - m))) * 100}% 0)`;
-    wipe.firstElementChild.style.transform = `translateY(${(1 - prog(t, a + .05, .4, E.expo)) * 60}px)`;
-    const r = $('#wipe-rot'); r.textContent = rot; r.style.opacity = prog(t, a + .2, .2);
-  } else wipe.style.display = 'none';
-
-  /* marca, capítulo y barra de avance */
-  const conMarca = t >= S.cuenta && t < S.cierre;
-  $('#bug').style.opacity = conMarca ? 1 : 0;
-  const cap = CAPS.filter((c) => t >= c[0]).pop(), capEl = $('#cap');
-  if (cap && cap[1]) {
-    $('#cap-n').textContent = cap[1]; $('#cap-t').textContent = cap[2];
-    const p = prog(t, cap[0] + 0.3, 0.4, E.expo);
-    capEl.style.opacity = p; capEl.style.transform = `translateY(${(1 - p) * 30}px)`;
-  } else capEl.style.opacity = 0;
+  /* marca y barra de avance */
+  $('#bug').style.opacity = t >= S.coche && t < S.cierre ? 1 : 0;
   $('#barra').style.transform = `scaleX(${t / DUR})`;
-  $('#barra').style.opacity = t >= S.cuenta ? 1 : 0;
+  $('#barra').style.opacity = t >= S.coche ? 1 : 0;
 }
 
 window.render = render; window.DUR = DUR;
