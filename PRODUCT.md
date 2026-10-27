@@ -129,9 +129,13 @@ Además del recuento, seis páginas por ciudad, cada una con su resumen en la po
   el de Parla no, el médico de cabecera, la espera, la salud mental (donde Parla es la primera
   de las once, y se dice) y lo que hay del recuento.
 - **Educación**: el campus, el conservatorio y la FP pública, la música y los idiomas, las
-  escuelas, colegios e institutos, la educación especial y la escuela infantil.
+  escuelas, colegios e institutos, la educación especial, las aulas TEA, la FP de modalidad
+  especial, volver a estudiar y la orientación (UFIL, CEPA y equipos de orientación) y la
+  escuela infantil. La educación especial, las aulas TEA y la FP de modalidad especial salen
+  también en Inclusión: una sección puede ir en dos páginas cuando trata de las dos.
 - **Inclusión**, de las personas con discapacidad («La inclusión en Parla y en [Getafe]»): dónde vivir (residencias y viviendas con apoyo), el centro de día y el
-  centro ocupacional para la discapacidad intelectual, la atención temprana y, al final, cuánta
+  centro ocupacional para la discapacidad intelectual, la atención temprana, la educación
+  especial, las aulas TEA y la FP de modalidad especial (las mismas que en Educación) y, al final, cuánta
   gente tiene una discapacidad reconocida. Todo en plazas y fuera del recuento. Parla es la única
   de las once sin ninguna plaza residencial; en atención temprana queda hacia la mitad. La salud
   mental va en Sanidad y los colegios de educación especial en Educación.

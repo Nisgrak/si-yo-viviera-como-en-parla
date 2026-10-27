@@ -787,12 +787,41 @@
     mental: { k: 'mental', titulo: 'La salud mental', base: adultos, por: 10000, baseTxt: 'vecinos de 18 a 64 años',
       enlace: 'La red de salud mental en Parla y en ',
       intro: 'La red de atención social a personas con enfermedad mental grave: residencias y pisos supervisados, centros de día y centros de rehabilitación psicosocial y laboral.' },
-    especial: { k: 'especial', titulo: 'La educación especial', unidad: 'colegios',
-      base: function (id) { return D.BASES.primaria.valores[id] + D.BASES.secundaria.valores[id]; }, por: 10000,
-      baseTxt: 'niños y jóvenes de 3 a 17 años',
-      enlace: 'Los colegios de educación especial en Parla y en ',
-      intro: 'Los colegios de educación especial escolarizan a alumnos con discapacidad que necesitan más apoyo del que da un colegio ordinario.' }
+    especial: { k: 'especial', titulo: 'La educación especial', unidad: 'alumnos', m: true,
+      base: escolares, por: 1000, baseTxt: 'niños y jóvenes de 3 a 17 años', lista: 'Los colegios de educación especial de ',
+      enlace: 'La educación especial en Parla y en ',
+      intro: 'Los alumnos que estudian en educación especial, en un colegio específico o en un aula de educación especial ' +
+        'dentro de un colegio ordinario, porque necesitan más apoyo del que da una clase ordinaria. Debajo, los colegios específicos.',
+      pie: function (X) {
+        return ['Alumnos de educación especial en centros públicos y concertados, donde estudian, en el curso ' + X.cursoEspecial +
+          '. Los colegios, públicos y concertados, dados de alta. Escolarizan también a alumnos de otras ciudades, y llegan ' +
+          'hasta los 21 años. Niños y jóvenes de 3 a 17 años a 1 de enero de 2025.',
+          [X.fuentes.alumnos, X.fuentes.colegios, [D.fuentes.edades.t, D.fuentes.edades.url]]];
+      } },
+    tea: { k: 'tea', titulo: 'Las aulas TEA', unidad: 'aulas', pocos: true,
+      base: escolares, por: 10000, baseTxt: 'niños y jóvenes de 3 a 17 años',
+      enlace: 'Las aulas TEA en Parla y en ',
+      intro: 'Las aulas de apoyo para alumnos con trastorno del espectro autista dentro de colegios e institutos ordinarios: ' +
+        'pasan parte del día en ellas y el resto en su clase.',
+      pie: function (X) {
+        return ['Aulas de apoyo de los centros de atención preferente para alumnado con TEA, públicos y concertados, en el ' +
+          'término de cada ciudad, según la lista de la Comunidad de Madrid. Niños y jóvenes de 3 a 17 años a 1 de enero de 2025.',
+          [X.fuentes.tea, [D.fuentes.edades.t, D.fuentes.edades.url]]];
+      } },
+    ppme: { k: 'ppme', titulo: 'La FP de modalidad especial', unidad: 'programas', m: true, pocos: true,
+      base: function (id) { return D.BASES.secundaria.valores[id]; }, por: 10000, baseTxt: 'chicos y chicas de 12 a 17 años',
+      enlace: 'La FP de modalidad especial en Parla y en ',
+      intro: 'Los programas profesionales de modalidad especial: dos cursos de formación para un oficio, para alumnos con ' +
+        'discapacidad que no pueden seguir la FP Básica y no tienen el título de la ESO, desde los 16 años y hasta los 21. ' +
+        'Cada programa es un grupo pequeño, de hasta 15 alumnos.',
+      pie: function (X) {
+        return ['Programas de la oferta del curso ' + X.cursoPpme + ', la última que ha publicado la Comunidad de Madrid, en el ' +
+          'término de cada ciudad; cada perfil cuenta como un programa. Se cuentan contra los chicos y chicas de 12 a 17 años, ' +
+          'que son quienes llegarán a ellos.', [X.fuentes.ppme, [D.fuentes.edades.t, D.fuentes.edades.url]]];
+      } }
   };
+  /* Los niños y jóvenes de 3 a 17 años. */
+  function escolares(id) { return D.BASES.primaria.valores[id] + D.BASES.secundaria.valores[id]; }
   /* Los vecinos de 18 a 64 años: todos menos los tramos de edad que ya se usan. */
   function adultos(id) {
     const E = D.contexto.edades;
@@ -800,17 +829,17 @@
   }
   function seccionDis(clave) {
     const X = window.DISCAPACIDAD, cfg = DIS[clave];
-    const colegios = cfg.unidad === 'colegios';
-    const unidad = colegios ? 'colegios' : 'plazas';
-    const de = function (k) { return entero(k) + ' ' + (k === 1 ? unidad.replace(/s$/, '') : unidad); };
+    const unidad = cfg.unidad || 'plazas';
+    const sing = unidad.replace(/s$/, '');
+    const de = function (k) { return entero(k) + ' ' + (k === 1 ? sing : unidad); };
     const c = function (id) { return X.ciudades[id]; };
     const cuantos = function (id) { return c(id)[cfg.k][unidad]; };
     const base = cfg.base, por = cfg.por;
     const v = function (id) { return cuantos(id) / base(id) * por; };
     const dec = function (x) { return num(x, x === 0 ? 0 : 1); };
-    /* Los colegios son pocos: «tendría 2,6» dice más que redondear. */
-    const n = function (x) { return colegios ? num(x) : entero(Math.round(x)); };
-    const ninguno = colegios ? 'ninguno' : 'ninguna';
+    /* Cuando son pocos, «tendría 2,6» dice más que redondear. */
+    const n = function (x) { return cfg.pocos ? num(x) : entero(Math.round(x)); };
+    const ninguno = cfg.m ? 'ninguno' : 'ninguna';
 
     $('#' + clave + '-txt').textContent = cfg.intro;
     cifrasPar($('#' + clave + '-cifras'), function (id) { return dec(v(id)); }, function (id) {
@@ -818,11 +847,14 @@
         entero(base(id));
     });
     const tendria = v(AQUI) / por * base(REF);
+    const igual = cuantos(REF) > 0 && Math.abs(tendria - cuantos(REF)) < 0.5;
     $('#' + clave + '-nota').textContent = (cuantos(REF) === 0 ? 'Parla no tiene ' + ninguno + '. ' : '') +
       (cuantos(AQUI) === 0 ? NOMBRE[AQUI] + (cuantos(REF) === 0 ? ' tampoco.' : ' no tiene ' + ninguno + '.')
-        : 'Con la proporción de ' + NOMBRE[AQUI] + ', Parla tendría ' + n(tendria) + ' ' + unidad +
-          (cuantos(REF) === 0 ? '.' : tendria < cuantos(REF) ? ', menos de ' + (colegios ? 'los ' : 'las ') + entero(cuantos(REF)) + ' que tiene.'
-            : '; tiene ' + entero(cuantos(REF)) + '.'));
+        : 'Con la proporción de ' + NOMBRE[AQUI] + ', Parla tendría ' + (igual
+          ? 'prácticamente ' + (cfg.m ? 'los mismos' : 'las mismas') + ': ' + n(tendria) + '; tiene ' + entero(cuantos(REF)) + '.'
+          : n(tendria) + ' ' + unidad + (cuantos(REF) === 0 ? '.'
+            : tendria < cuantos(REF) ? ', menos de ' + (cfg.m ? 'los ' : 'las ') + entero(cuantos(REF)) + ' que tiene.'
+            : '; tiene ' + entero(cuantos(REF)) + '.')));
 
     const p = clasificacion($('#' + clave + '-filas'), v, dec);
     const todas = IDS_TODAS();
@@ -838,37 +870,45 @@
     /* Lo que hay en Parla, a la vista; lo de la otra ciudad, plegado. */
     const cont = $('#' + clave + '-centros');
     vaciar(cont);
+    const lista = function (id) { return c(id)[cfg.k].centros; };
     const nombres = function (id) {
       const ul = el('ul', 'nombres');
-      c(id)[cfg.k].centros.forEach(function (x) {
+      lista(id).forEach(function (x) {
         const li = el('li', 'nombre');
         li.appendChild(el('span', 'nombre__m'));
         li.appendChild(el('span', 'nombre__t', x[0]));
-        li.appendChild(el('span', 'nombre__p', (x[1] == null ? '' : entero(x[1]) + ' plazas · ') + x[2]));
+        li.appendChild(el('span', 'nombre__p', (x[1] == null ? '' : de(x[1]) + ' · ') + x[2]));
         ul.appendChild(li);
       });
       return ul;
     };
-    if (cuantos(REF)) cont.appendChild(nombres(REF));
-    if (cuantos(AQUI)) {
+    /* Con más de seis, también plegado: si no, la lista tapa la sección. */
+    if (lista(REF).length > 6) {
+      const detP = el('details', 'plegable');
+      detP.appendChild(el('summary', null, (cfg.lista || 'Los centros de ') + 'Parla'));
+      detP.appendChild(nombres(REF));
+      cont.appendChild(detP);
+    } else if (lista(REF).length) cont.appendChild(nombres(REF));
+    if (lista(AQUI).length) {
       const det = el('details', 'plegable');
-      det.appendChild(el('summary', null, (colegios ? 'Los colegios de ' : 'Los centros de ') + NOMBRE[AQUI]));
+      det.appendChild(el('summary', null, (cfg.lista || 'Los centros de ') + NOMBRE[AQUI]));
       det.appendChild(nombres(AQUI));
       cont.appendChild(det);
     }
 
     const pies = {
       mental: ['Vecinos de 18 a 64 años a 1 de enero de 2025.', [[D.fuentes.edades.t, D.fuentes.edades.url]]],
-      temprana: ['Niños de 0 a 5 años a 1 de enero de ' + X.anioPadron + '.', [X.fuentes.ninos]],
-      especial: ['Niños y jóvenes de 3 a 17 años a 1 de enero de 2025; estos colegios llegan hasta los 21.',
-        [[D.fuentes.edades.t, D.fuentes.edades.url]]]
+      temprana: ['Niños de 0 a 5 años a 1 de enero de ' + X.anioPadron + '.', [X.fuentes.ninos]]
     };
-    const pie = pies[clave] || [PIE_INTEL, [X.fuentes.reconocidas]];
-    pieFuentes($('#' + clave + '-pie'), (colegios
-      ? 'Colegios públicos y concertados de educación especial dados de alta, en el término de cada ciudad. Escolarizan también a alumnos de otras ciudades. '
-      : 'Plazas autorizadas en centros públicos o con plazas concertadas, en el término de cada ciudad. Las adjudica la ' +
-        'Comunidad de Madrid y atienden también a gente de otras ciudades. ') + pie[0],
-      [colegios ? X.fuentes.colegios : X.fuentes.registro].concat(pie[1]));
+    if (cfg.pie) {
+      const pp = cfg.pie(X);
+      pieFuentes($('#' + clave + '-pie'), pp[0], pp[1]);
+    } else {
+      const pie = pies[clave] || [PIE_INTEL, [X.fuentes.reconocidas]];
+      pieFuentes($('#' + clave + '-pie'), 'Plazas autorizadas en centros públicos o con plazas concertadas, en el término de cada ' +
+        'ciudad. Las adjudica la Comunidad de Madrid y atienden también a gente de otras ciudades. ' + pie[0],
+        [X.fuentes.registro].concat(pie[1]));
+    }
 
     botones('#' + clave + '-botones', clave, cfg.titulo, function () {
       return {
@@ -902,7 +942,8 @@
       [['Parla · ' + entero(c(REF).intelectual) + ' personas', vi(REF), 'referencia'],
         [NOMBRE[AQUI] + ' · ' + entero(c(AQUI).intelectual) + ' personas', vi(AQUI), 'aqui']], topeI,
       function (x) { return num(x, 1); }, null, 'personas-intelectual');
-    $('#personas-cuenta').textContent = 'En Parla, ' + num(jov(REF), 0) + ' de cada 100 tienen menos de 65 años; en ' +
+    $('#personas-cuenta').textContent = 'De las personas con discapacidad reconocida, en Parla ' + num(jov(REF), 0) +
+      ' de cada 100 tienen menos de 65 años; en ' +
       NOMBRE[AQUI] + ', ' + num(jov(AQUI), 0) + '. Ordenadas de más a menos personas con discapacidad intelectual ' +
       'reconocida por vecino, Parla es ' + puestoDe(deMenos(function (id) { return -vi(id); }), IDS_TODAS().length) +
       ' de las ' + letra(IDS_TODAS().length) + '.';
@@ -911,9 +952,61 @@
       [X.fuentes.reconocidasEdad, X.fuentes.reconocidas, [D.fuentes[D.BASES.total.fuenteId].t, D.fuentes[D.BASES.total.fuenteId].url]]);
   }
 
+  /* ── Volver a estudiar y la orientación ─────────────────────────────
+     Quién tiene en su término una UFIL, un CEPA y los equipos de orientación
+     de la Comunidad (del directorio de centros educativos). Son uno o dos
+     por ciudad y atienden a una zona, así que se dice si los hay, sin
+     cocientes, como el campus y el conservatorio. */
+  const ORIENTA = [['ufil', 'UFIL'], ['cepa', 'CEPA'], ['eoep', 'Orientación'],
+    ['eoepTemprana', 'Atención temprana']];
+  function orientacion() {
+    const X = window.DISCAPACIDAD, o = function (id) { return X.ciudades[id].orientacion; };
+    const cuantos = function (id) { return ORIENTA.filter(function (k) { return o(id)[k[0]].length; }).length; };
+    const m = $('#orientacion-matriz');
+    vaciar(m);
+    const tabla = el('table', 'matriz__t');
+    const cab = el('tr');
+    [''].concat(ORIENTA.map(function (k) { return k[1]; })).forEach(function (t) { cab.appendChild(el('th', null, t)); });
+    const thead = el('thead'); thead.appendChild(cab); tabla.appendChild(thead);
+    const tb = el('tbody');
+    IDS_TODAS().slice().sort(function (x, y) {
+      return (cuantos(y) - cuantos(x)) || NOMBRE[x].localeCompare(NOMBRE[y], 'es');
+    }).forEach(function (id) {
+      const tr = el('tr');
+      tr.dataset.quien = id === REF ? 'referencia' : id === AQUI ? 'aqui' : 'otro';
+      tr.appendChild(el('th', null, NOMBRE[id]));
+      ORIENTA.forEach(function (k) {
+        const td = el('td');
+        const lista = o(id)[k[0]];
+        const marca = el('span', 'matriz__m' + (lista.length ? '' : ' matriz__m--no'));
+        marca.setAttribute('role', 'img');
+        marca.setAttribute('aria-label', lista.length ? lista.join(', ') : 'No');
+        if (lista.length) marca.title = lista.join(' · ');
+        td.appendChild(marca);
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    tabla.appendChild(tb);
+    m.appendChild(tabla);
+    const con = function (k) { return IDS_TODAS().filter(function (id) { return o(id)[k].length; }); };
+    const ufil = con('ufil'), cepa = con('cepa');
+    const tiene = function (id, k) { return o(id)[k].length > 0; };
+    $('#orientacion-txt').textContent = (tiene(REF, 'ufil')
+      ? 'Parla tiene una UFIL, ' + o(REF).ufil[0] + ': solo la tienen ' + letra(ufil.length) + ' de las ' + letra(IDS_TODAS().length) +
+        (tiene(AQUI, 'ufil') ? ', ' + NOMBRE[AQUI] + ' también. ' : ', y ' + NOMBRE[AQUI] + ' no. ')
+      : 'Parla no tiene UFIL. ') +
+      (tiene(REF, 'cepa') ? 'Tiene CEPA, como ' + letra(cepa.length - 1) + ' más' : 'No tiene CEPA') +
+      (tiene(REF, 'eoep') ? ', y en Parla tiene su sede un equipo de orientación general' +
+        (tiene(REF, 'eoepTemprana') ? ' y uno de atención temprana.' : '.') : '.');
+    pieFuentes($('#orientacion-pie'), 'Centros dados de alta en el directorio de la Comunidad de Madrid, en el término de cada ' +
+      'ciudad. Las UFIL y los CEPA reciben también a gente de otras ciudades, y cada equipo de orientación atiende a los ' +
+      'colegios de una zona que puede abarcar varias.', [window.DISCAPACIDAD.fuentes.colegios]);
+  }
+
   function discapacidad() {
     if (!window.DISCAPACIDAD) return;
-    ['residencia', 'dia', 'ocupacional', 'temprana'].forEach(seccionDis);
+    ['residencia', 'dia', 'ocupacional', 'temprana', 'especial', 'tea', 'ppme'].forEach(seccionDis);
     personas();
   }
 
@@ -989,7 +1082,7 @@
     comun();
     golpe();
     if (PAGINA === 'sanidad') { hay(); hospital(); cartera(); cabecera(); espera(); if (window.DISCAPACIDAD) seccionDis('mental'); }
-    if (PAGINA === 'educacion') { despues(); artes(); escuelas(); infantil(); if (window.DISCAPACIDAD) seccionDis('especial'); }
+    if (PAGINA === 'educacion') { despues(); artes(); escuelas(); infantil(); if (window.DISCAPACIDAD) { ['especial', 'tea', 'ppme'].forEach(seccionDis); orientacion(); } }
     if (PAGINA === 'inclusion') discapacidad();
     if (window.INDICE) window.INDICE.refrescar({ ciudad: AQUI, nombre: NOMBRE[AQUI] });
   }

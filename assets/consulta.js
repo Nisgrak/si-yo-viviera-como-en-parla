@@ -294,10 +294,19 @@
       unidad: 'por cada 1.000 niños de 0 a 5 años', dec: 1,
       v: function (id) { return c(id).temprana.plazas / c(id).ninos0a5 * 1000; },
       fuente: fR, pagina: 'inclusion.html#temprana' });
-    dato({ id: 'educacion-especial', grupo: 'Inclusión', titulo: 'Colegios de educación especial',
-      unidad: 'públicos y concertados, por cada 10.000 niños y jóvenes de 3 a 17 años', dec: 2,
-      v: function (id) { return c(id).especial.colegios / (D.BASES.primaria.valores[id] + D.BASES.secundaria.valores[id]) * 10000; },
-      fuente: DI.fuentes.colegios, pagina: 'educacion.html#especial' });
+    const escolares = function (id) { return D.BASES.primaria.valores[id] + D.BASES.secundaria.valores[id]; };
+    dato({ id: 'educacion-especial', grupo: 'Inclusión', titulo: 'Alumnos de educación especial',
+      unidad: 'en centros públicos y concertados, por cada 1.000 niños y jóvenes de 3 a 17 años, curso ' + DI.cursoEspecial, dec: 1,
+      v: function (id) { return c(id).especial.alumnos / escolares(id) * 1000; },
+      fuente: DI.fuentes.alumnos, pagina: 'educacion.html#especial' });
+    dato({ id: 'aulas-tea', grupo: 'Inclusión', titulo: 'Aulas TEA',
+      unidad: 'en colegios e institutos públicos y concertados, por cada 10.000 niños y jóvenes de 3 a 17 años', dec: 1,
+      v: function (id) { return c(id).tea.aulas / escolares(id) * 10000; },
+      fuente: DI.fuentes.tea, pagina: 'educacion.html#tea' });
+    dato({ id: 'ppme', grupo: 'Inclusión', titulo: 'Programas de FP de modalidad especial',
+      unidad: 'por cada 10.000 chicos y chicas de 12 a 17 años, oferta ' + DI.cursoPpme, dec: 1,
+      v: function (id) { return c(id).ppme.programas / D.BASES.secundaria.valores[id] * 10000; },
+      fuente: DI.fuentes.ppme, pagina: 'educacion.html#ppme' });
     dato({ id: 'salud-mental', grupo: 'Sanidad', titulo: 'Plazas de la red de salud mental',
       unidad: 'de atención social a la enfermedad mental grave, por cada 10.000 vecinos de 18 a 64 años', dec: 1,
       v: function (id) { return c(id).mental.plazas / adultos(id) * 10000; },

@@ -110,21 +110,66 @@
   </div>
 </section>
 
-<!-- ── La educación especial ────────────────────────────────────────────
-     Los colegios de educación especial, públicos y concertados
-     (datos/discapacidad.js). -->
+<!-- ── La educación especial ─────────────────────────────────────────────
+     Los alumnos de educación especial y los colegios específicos (datos/discapacidad.js). Va también en la otra página. -->
 <section class="bloque bloque--salir" id="especial" data-indice="La educación especial">
   <div class="env">
     <h2 class="bloque__h">La educación especial</h2>
     <p class="bloque__intro" id="especial-txt"></p>
-    <div class="tp-cifras" id="especial-cifras" data-sentido="mas"></div>
+    <div class="tp-cifras" id="especial-cifras"></div>
     <p class="tp-nota" id="especial-nota"></p>
-    <h3 class="espera__h" id="especial-todas" data-sentido="mas">Colegios por cada 10.000 niños y jóvenes de 3 a 17 años, ciudad a ciudad</h3>
+    <h3 class="espera__h" id="especial-todas">Alumnos por cada 1.000 niños y jóvenes de 3 a 17 años, ciudad a ciudad</h3>
     <ul class="mun salir__filas espera__filas" id="especial-filas"></ul>
     <p class="bloque__intro salir__tren" id="especial-cuenta"></p>
     <div id="especial-centros"></div>
     <p class="salir__pie" id="especial-pie"></p>
     <div class="seccion__botones" id="especial-botones"></div>
+  </div>
+</section>
+
+<!-- ── Las aulas TEA ─────────────────────────────────────────────────────
+     Las aulas de apoyo para alumnos con TEA (datos/discapacidad.js). Va también en la otra página. -->
+<section class="bloque bloque--salir" id="tea" data-indice="Las aulas TEA">
+  <div class="env">
+    <h2 class="bloque__h">Las aulas TEA</h2>
+    <p class="bloque__intro" id="tea-txt"></p>
+    <div class="tp-cifras" id="tea-cifras" data-sentido="mas"></div>
+    <p class="tp-nota" id="tea-nota"></p>
+    <h3 class="espera__h" id="tea-todas" data-sentido="mas">Aulas por cada 10.000 niños y jóvenes de 3 a 17 años, ciudad a ciudad</h3>
+    <ul class="mun salir__filas espera__filas" id="tea-filas"></ul>
+    <p class="bloque__intro salir__tren" id="tea-cuenta"></p>
+    <div id="tea-centros"></div>
+    <p class="salir__pie" id="tea-pie"></p>
+    <div class="seccion__botones" id="tea-botones"></div>
+  </div>
+</section>
+
+<!-- ── La FP de modalidad especial ───────────────────────────────────────
+     Los programas profesionales de modalidad especial (datos/discapacidad.js). Va también en la otra página. -->
+<section class="bloque bloque--salir" id="ppme" data-indice="La FP de modalidad especial">
+  <div class="env">
+    <h2 class="bloque__h">La FP de modalidad especial</h2>
+    <p class="bloque__intro" id="ppme-txt"></p>
+    <div class="tp-cifras" id="ppme-cifras" data-sentido="mas"></div>
+    <p class="tp-nota" id="ppme-nota"></p>
+    <h3 class="espera__h" id="ppme-todas" data-sentido="mas">Programas por cada 10.000 chicos y chicas de 12 a 17 años, ciudad a ciudad</h3>
+    <ul class="mun salir__filas espera__filas" id="ppme-filas"></ul>
+    <p class="bloque__intro salir__tren" id="ppme-cuenta"></p>
+    <div id="ppme-centros"></div>
+    <p class="salir__pie" id="ppme-pie"></p>
+    <div class="seccion__botones" id="ppme-botones"></div>
+  </div>
+</section>
+
+<!-- ── Volver a estudiar y orientación ──────────────────────────────────
+     Quién tiene UFIL, CEPA y equipos de orientación (datos/discapacidad.js). -->
+<section class="bloque bloque--salir" id="orientacion" data-indice="Volver a estudiar y orientación">
+  <div class="env">
+    <h2 class="bloque__h">Volver a estudiar y orientación</h2>
+    <p class="bloque__intro">Las UFIL forman en un oficio a jóvenes de 16 a 19 años que han dejado los estudios sin el título de la ESO. Los CEPA son los centros públicos de educación de personas adultas. Los equipos de orientación de la Comunidad valoran y orientan a los alumnos de los colegios, y los de atención temprana a los niños de las escuelas infantiles.</p>
+    <div class="matriz" id="orientacion-matriz"></div>
+    <p class="tp-nota" id="orientacion-txt"></p>
+    <p class="salir__pie" id="orientacion-pie"></p>
   </div>
 </section>
 
@@ -169,19 +214,30 @@
         proporción de la otra ciudad por sus propios niños de esa edad.
       </p>
 
-      <h3>La educación especial</h3>
+      <h3>La educación especial, las aulas TEA y la FP de modalidad especial</h3>
       <p>
-        Son los colegios públicos y concertados de educación especial dados de alta en el directorio
-        de centros educativos de la Comunidad de Madrid, en el término de cada ciudad, contra los niños
-        y jóvenes de 3 a 17 años. Se cuentan colegios, porque la Comunidad no publica sus plazas ni sus
-        alumnos por municipio. Escolarizan también a alumnos de otras ciudades, y llegan hasta los 21
-        años. No suma al recuento.
+        Las tres van también en la página de la inclusión. Los alumnos de educación especial son los de
+        la estadística de alumnos de la Comunidad de Madrid, en centros públicos y concertados, donde
+        estudian: los de los colegios de educación especial y los de las aulas de educación especial
+        de los colegios ordinarios. Las aulas TEA, las de la lista oficial de centros de atención
+        preferente. Los programas profesionales de modalidad especial, los de la última oferta
+        publicada, cada perfil como un programa. Todo contra los niños y jóvenes del padrón, y nada
+        suma al recuento. Estos centros reciben también a alumnos de otras ciudades.
+      </p>
+
+      <h3>Volver a estudiar y orientación</h3>
+      <p>
+        Las UFIL, los CEPA y los equipos de orientación educativa y psicopedagógica (el general y el
+        de atención temprana) dados de alta en el directorio de centros educativos, en el término de
+        cada ciudad. Se dice si los hay y no cuántos por vecino: son uno o dos, y cada equipo atiende a
+        los colegios de una zona que puede abarcar varias ciudades. Los equipos específicos, que son
+        regionales, no se cuentan.
       </p>
 
       <h3>Cuanto más, mejor</h3>
       <p>
         Bajo cada dato, «cuanto más, mejor» o «cuanto menos, mejor» dice hacia dónde le conviene a
-        un vecino. Es una lectura, no un dato, y solo va donde está clara.
+        un vecino. Es una lectura nuestra, y solo va donde está clara.
       </p>
 
       <p class="cautela">

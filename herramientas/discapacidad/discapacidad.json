@@ -103,7 +103,1489 @@
     "tipo": "CP EE",
     "titularidad": "PÚBLICO"
    }
+  ],
+  "otros": [
+   {
+    "municipio": "Getafe",
+    "nombre": "CASA DE LA CULTURA",
+    "tipo": "cepa"
+   },
+   {
+    "municipio": "Móstoles",
+    "nombre": "AGUSTINA DE ARAGON",
+    "tipo": "cepa"
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "nombre": "PAULO FREIRE",
+    "tipo": "cepa"
+   },
+   {
+    "municipio": "Pinto",
+    "nombre": "MARIANO JOSE DE LARRA",
+    "tipo": "cepa"
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "nombre": "EL BUEN GOBERNADOR",
+    "tipo": "cepa"
+   },
+   {
+    "municipio": "Alcorcón",
+    "nombre": "ALFAR",
+    "tipo": "cepa"
+   },
+   {
+    "municipio": "Leganés",
+    "nombre": "ROSALIA DE CASTRO",
+    "tipo": "cepa"
+   },
+   {
+    "municipio": "Parla",
+    "nombre": "RAMON Y CAJAL",
+    "tipo": "cepa"
+   },
+   {
+    "municipio": "Leganés",
+    "nombre": "PRIMERO DE MAYO",
+    "tipo": "ufil"
+   },
+   {
+    "municipio": "Móstoles",
+    "nombre": "PABLO NERUDA",
+    "tipo": "ufil"
+   },
+   {
+    "municipio": "Parla",
+    "nombre": "SAN RAMÓN",
+    "tipo": "ufil"
+   },
+   {
+    "municipio": "Majadahonda",
+    "nombre": "MARIO VARGAS LLOSA",
+    "tipo": "cepa"
+   },
+   {
+    "municipio": "Pozuelo de Alarcón",
+    "nombre": "POZUELO DE ALARCON",
+    "tipo": "cepa"
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "nombre": "MARGARITA SALAS",
+    "tipo": "ufil"
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "nombre": "EQUIPO GENERAL TORREJON DE ARDOZ",
+    "tipo": "eoep"
+   },
+   {
+    "municipio": "Alcorcón",
+    "nombre": "EQUIPO GENERAL ALCORCON",
+    "tipo": "eoep"
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "nombre": "EQUIPO GENERAL FUENLABRADA",
+    "tipo": "eoep"
+   },
+   {
+    "municipio": "Getafe",
+    "nombre": "EQUIPO GENERAL GETAFE",
+    "tipo": "eoep"
+   },
+   {
+    "municipio": "Leganés",
+    "nombre": "EQUIPO GENERAL LEGANES",
+    "tipo": "eoep"
+   },
+   {
+    "municipio": "Móstoles",
+    "nombre": "EQUIPO GENERAL MOSTOLES",
+    "tipo": "eoep"
+   },
+   {
+    "municipio": "Parla",
+    "nombre": "EQUIPO GENERAL PARLA",
+    "tipo": "eoep"
+   },
+   {
+    "municipio": "Pozuelo de Alarcón",
+    "nombre": "EQUIPO GENERAL POZUELO DE ALARCON",
+    "tipo": "eoep"
+   },
+   {
+    "municipio": "Alcobendas",
+    "nombre": "EQUIPO GENERAL ALCOBENDAS",
+    "tipo": "eoep"
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "nombre": "EQUIPO ATENCION TEMPRANA FUENLABRADA",
+    "tipo": "eoepTemprana"
+   },
+   {
+    "municipio": "Getafe",
+    "nombre": "EQUIPO ATENCION TEMPRANA GETAFE",
+    "tipo": "eoepTemprana"
+   },
+   {
+    "municipio": "Leganés",
+    "nombre": "EQUIPO ATENCION TEMPRANA LEGANES",
+    "tipo": "eoepTemprana"
+   },
+   {
+    "municipio": "Móstoles",
+    "nombre": "EQUIPO ATENCION TEMPRANA MOSTOLES",
+    "tipo": "eoepTemprana"
+   },
+   {
+    "municipio": "Parla",
+    "nombre": "EQUIPO ATENCION TEMPRANA PARLA",
+    "tipo": "eoepTemprana"
+   },
+   {
+    "municipio": "Alcorcón",
+    "nombre": "EQUIPO ATENCION TEMPRANA ALCORCON",
+    "tipo": "eoepTemprana"
+   },
+   {
+    "municipio": "Pozuelo de Alarcón",
+    "nombre": "EQUIPO ATENCION TEMPRANA POZUELO DE ALARCON",
+    "tipo": "eoepTemprana"
+   },
+   {
+    "municipio": "Pinto",
+    "nombre": "EQUIPO GENERAL PINTO",
+    "tipo": "eoep"
+   }
   ]
+ },
+ "tea": {
+  "url": "https://www.comunidad.madrid/educacion/atencion-preferente-necesidades-educativas-especiales",
+  "centros": [
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28037752",
+    "nombre": "CP INF-PRI Andrés Segovia",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28031531",
+    "nombre": "CP INF-PRI Antonio Machado",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28070721",
+    "nombre": "CP INF-PRI Beethoven",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28024861",
+    "nombre": "CP INF-PRI El Buen Gobernador",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28035895",
+    "nombre": "CP INF-PRI Giner de los Ríos",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28036191",
+    "nombre": "CP INF-PRI Jaime Vera",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28040891",
+    "nombre": "CP INF-PRI Joaquín Blume",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28028945",
+    "nombre": "CP INF-PRI Juan Ramón Jiménez",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28024976",
+    "nombre": "CP INF-PRI La Gaviota",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28050392",
+    "nombre": "CP INF-PRI La Zarzuela",
+    "aulas": 2
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28024964",
+    "nombre": "CP INF-PRI Miguel de Cervantes",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28034076",
+    "nombre": "CP INF-PRI Pinocho",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28037764",
+    "nombre": "CP INF-PRI Seis de Diciembre",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28041809",
+    "nombre": "CP INF-PRI Uno de Mayo",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28026602",
+    "nombre": "CP INF-PRI Vicente Aleixandre",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28024873",
+    "nombre": "CP INF-PRI-SEC Gabriel y Galán",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28025014",
+    "nombre": "IES Isaac Peral",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28030228",
+    "nombre": "IES León Felipe",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28079400",
+    "nombre": "IES Juan Bautista Monegro",
+    "aulas": 1
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "codigo": "28042681",
+    "nombre": "IES Valle Inclán",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28000601",
+    "nombre": "CP INF-PRI Antonio Machado",
+    "aulas": 2
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28033655",
+    "nombre": "CP INF-PRI Castilla",
+    "aulas": 2
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28000765",
+    "nombre": "CP INF-PRI Daoiz y Velarde",
+    "aulas": 2
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28028775",
+    "nombre": "CP INF-PRI Emilio Casado",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28000595",
+    "nombre": "CP INF-PRI Federico García Lorca",
+    "aulas": 2
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28026638",
+    "nombre": "CP INF-PRI Gabriel y Galán",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28035366",
+    "nombre": "CP INF-PRI Miraflores",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28039013",
+    "nombre": "CP INF-PRI Parque de Cataluña",
+    "aulas": 3
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28038069",
+    "nombre": "CP INF-PRI Profesor Tierno Galván",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28033643",
+    "nombre": "CP INF-PRI Seis de Diciembre",
+    "aulas": 2
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28060233",
+    "nombre": "CP INF-PRI-SEC Bachiller Alonso López",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28037508",
+    "nombre": "CP INF-PRI-SEC Luis Buñuel",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28032353",
+    "nombre": "CP INF-PRI-SEC Miguel Hernández",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28030824",
+    "nombre": "CP INF-PRI-SEC Valdepalitos",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28060105",
+    "nombre": "CPR INF-PRI-SEC María Teresa",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28041354",
+    "nombre": "IES Ágora",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28040660",
+    "nombre": "IES Aldebarán",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcobendas",
+    "codigo": "28078043",
+    "nombre": "IES Gloria Fuertes",
+    "aulas": 1
+   },
+   {
+    "municipio": "Majadahonda",
+    "codigo": "28031506",
+    "nombre": "CP INF-PRI Antonio Machado",
+    "aulas": 1
+   },
+   {
+    "municipio": "Majadahonda",
+    "codigo": "28038380",
+    "nombre": "CP INF-PRI El Tejar",
+    "aulas": 1
+   },
+   {
+    "municipio": "Majadahonda",
+    "codigo": "28035551",
+    "nombre": "CP INF-PRI Federico García Lorca",
+    "aulas": 1
+   },
+   {
+    "municipio": "Majadahonda",
+    "codigo": "28022839",
+    "nombre": "CPR INF-PRI-SEC María Auxiliadora",
+    "aulas": 3
+   },
+   {
+    "municipio": "Majadahonda",
+    "codigo": "28029573",
+    "nombre": "CPR INF-PRI-SEC Sagrado Corazón Reparadoras",
+    "aulas": 4
+   },
+   {
+    "municipio": "Majadahonda",
+    "codigo": "28042073",
+    "nombre": "IES Margarita Salas",
+    "aulas": 1
+   },
+   {
+    "municipio": "Pozuelo de Alarcón",
+    "codigo": "28023807",
+    "nombre": "CP INF-PRI Asunción de Nuestra Señora",
+    "aulas": 1
+   },
+   {
+    "municipio": "Pozuelo de Alarcón",
+    "codigo": "28039347",
+    "nombre": "CP INF-PRI Infanta Elena",
+    "aulas": 1
+   },
+   {
+    "municipio": "Pozuelo de Alarcón",
+    "codigo": "28031142",
+    "nombre": "CP INF-PRI Pinar Prados de Torrejón",
+    "aulas": 1
+   },
+   {
+    "municipio": "Pozuelo de Alarcón",
+    "codigo": "28064160",
+    "nombre": "CP INF-PRI-SEC Príncipes de Asturias",
+    "aulas": 2
+   },
+   {
+    "municipio": "Pozuelo de Alarcón",
+    "codigo": "28023947",
+    "nombre": "CPR INF-PRI-SEC Escuelas Pías San Fernando",
+    "aulas": 1
+   },
+   {
+    "municipio": "Pozuelo de Alarcón",
+    "codigo": "28023935",
+    "nombre": "CPR INF-PRI-SEC Instituto Veritas",
+    "aulas": 3
+   },
+   {
+    "municipio": "Pozuelo de Alarcón",
+    "codigo": "28023832",
+    "nombre": "CPR INF-PRI-SEC San José de Cluny",
+    "aulas": 3
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28037533",
+    "nombre": "CP INF-PRI Blas de Otero",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28000856",
+    "nombre": "CP INF-PRI Carmen Conde",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28067549",
+    "nombre": "CP INF-PRI Clara Campoamor",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28035378",
+    "nombre": "CP INF-PRI Claudio Sánchez Albornoz",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28030836",
+    "nombre": "CP INF-PRI Federico García Lorca",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28037521",
+    "nombre": "CP INF-PRI Fernando de los Ríos",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28063854",
+    "nombre": "CP INF-PRI Fuente del Palomar",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28079448",
+    "nombre": "CP INF-PRI Isabel La Católica",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28025944",
+    "nombre": "CP INF-PRI Los Castillos",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28001149",
+    "nombre": "CP INF-PRI Párroco Don Victoriano",
+    "aulas": 2
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28028799",
+    "nombre": "CP INF-PRI Santiago Ramón y Cajal",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28028805",
+    "nombre": "CP INF-PRI Vicente Aleixandre",
+    "aulas": 3
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28070706",
+    "nombre": "CP INF-PRI-SEC Chaves Nogales",
+    "aulas": 2
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28028131",
+    "nombre": "CP INF-PRI-SEC Jesús Varela",
+    "aulas": 2
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28038082",
+    "nombre": "CP INF-PRI-SEC Joaquín Costa",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28038562",
+    "nombre": "CPR INF-PRI-SEC Alkor",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28001022",
+    "nombre": "CPR INF-PRI-SEC La Inmaculada",
+    "aulas": 2
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28000901",
+    "nombre": "CPR INF-PRI-SEC Colegio SEI Rihondo",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28001046",
+    "nombre": "CPR INF-PRI-SEC Villa de Alcorcón",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28074037",
+    "nombre": "IES Jorge Guillén",
+    "aulas": 1
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28039700",
+    "nombre": "IES Josefina Aldecoa",
+    "aulas": 2
+   },
+   {
+    "municipio": "Alcorcón",
+    "codigo": "28026092",
+    "nombre": "IES Los Castillos",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28049390",
+    "nombre": "CP INF- PRI Antonio Machado",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28031233",
+    "nombre": "CP INF- PRI Aula 3",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28039074",
+    "nombre": "CP INF- PRI Benito Pérez Galdós",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28065528",
+    "nombre": "CP INF-PRI Carlos Cano",
+    "aulas": 2
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28062102",
+    "nombre": "CP INF-PRI Dulce Chacón",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28073902",
+    "nombre": "CP INF PRI El Trigal",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28070731",
+    "nombre": "CP INF-PRI Francisco de Goya",
+    "aulas": 2
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28033761",
+    "nombre": "CP INF-PRI Fregacedos",
+    "aulas": 2
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28049407",
+    "nombre": "CP INF-PRI Giner de los Ríos",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28040830",
+    "nombre": "CP INF-PRI Greenpeace",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28032420",
+    "nombre": "CP INF-PRI John Lennon",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28069753",
+    "nombre": "CP INF-PRI Juan de la Cierva",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28037545",
+    "nombre": "CP INF-PRI Lope de Vega",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28040842",
+    "nombre": "CP INF-PRI Loranca",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28049389",
+    "nombre": "CP INF-PRI Maestra Trinidad García",
+    "aulas": 2
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28069182",
+    "nombre": "CP INF-PRI Manuel de Falla",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28067771",
+    "nombre": "CP INF PRI Manuela Malasaña",
+    "aulas": 2
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28029615",
+    "nombre": "CP INF-PRI Miguel Hernández",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28039785",
+    "nombre": "CP INF PRI Pablo Neruda",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28035433",
+    "nombre": "CP INF-PRI Poetisa Celia Viñas",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28002804",
+    "nombre": "CP INF-PRI San Esteban",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28037569",
+    "nombre": "CP INF PRI Santiago Ramón y Cajal",
+    "aulas": 2
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28069728",
+    "nombre": "CP INF-PRI Víctor Jara",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28078602",
+    "nombre": "CP INF- PRI Yvonne Blake",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28028362",
+    "nombre": "CP INF-PRI-SEC Andrés Manjón",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28039761",
+    "nombre": "CP INF- PRI-SEC Enrique Tierno Galván",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28060270",
+    "nombre": "CP INF-PRI-SEC Salvador Dalí",
+    "aulas": 2
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28038598",
+    "nombre": "CPR INF-PRI-SEC Altamira",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28040623",
+    "nombre": "CPR INF-PRI-SEC Centro Educativo La Amistad",
+    "aulas": 3
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28037961",
+    "nombre": "CPR-INF-PRI-SEC Fuenlabrada",
+    "aulas": 2
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28041275",
+    "nombre": "CPR INF-PRI-SEC Los Naranjos",
+    "aulas": 2
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28077907",
+    "nombre": "IES África",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28042048",
+    "nombre": "IES Joaquín Araujo",
+    "aulas": 2
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28039797",
+    "nombre": "IES Julio Caro Baroja",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28038860",
+    "nombre": "IES La Serna",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28039803",
+    "nombre": "IES Salvador Allende",
+    "aulas": 1
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "codigo": "28042991",
+    "nombre": "IES Victoria Kent",
+    "aulas": 2
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28063866",
+    "nombre": "CP INF-PRI Ana María Matute",
+    "aulas": 1
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28025841",
+    "nombre": "CP INF-PRI Ciudad de Getafe",
+    "aulas": 1
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28003328",
+    "nombre": "CP INF PRI Ciudad de Madrid",
+    "aulas": 2
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28028386",
+    "nombre": "CP INF-PRI Doctor Severo Ochoa",
+    "aulas": 1
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28077211",
+    "nombre": "CP INF-PRI El Bercial",
+    "aulas": 2
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28039815",
+    "nombre": "CP INF-PRI Enrique Tierno Galván",
+    "aulas": 1
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28058561",
+    "nombre": "CP INF-PRI Francisco de Quevedo",
+    "aulas": 2
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28035470",
+    "nombre": "CP INF-PRI Gabriel García Márquez",
+    "aulas": 1
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28057039",
+    "nombre": "CP INF-PRI Gloria Fuertes",
+    "aulas": 1
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28002944",
+    "nombre": "CP INF-PRI La Alhóndiga",
+    "aulas": 1
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28038203",
+    "nombre": "CP INF-PRI Manuel Núñez de Arenas",
+    "aulas": 1
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28078572",
+    "nombre": "CP INF-PRI María Blanchard",
+    "aulas": 2
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28033771",
+    "nombre": "CP INF-PRI Mariana Pineda",
+    "aulas": 1
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28032468",
+    "nombre": "CP INF-PRI Miguel Hernández",
+    "aulas": 2
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28002956",
+    "nombre": "CP INF-PRI Ortiz Echagüe",
+    "aulas": 2
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28038197",
+    "nombre": "CP INF-PRI Rosalía de Castro",
+    "aulas": 1
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28003286",
+    "nombre": "CP INF-PRI Seseña y Benavente",
+    "aulas": 1
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28002981",
+    "nombre": "CP INF-PRI-SEC Sagrado Corazón",
+    "aulas": 1
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28003110",
+    "nombre": "CPR INF-PRI-SEC Jesús Nazareno",
+    "aulas": 2
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28026420",
+    "nombre": "CPR INF-PRI-SEC Los Ángeles",
+    "aulas": 1
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28003134",
+    "nombre": "CPR INF-PRI-SEC San José",
+    "aulas": 2
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28041411",
+    "nombre": "IES Altair",
+    "aulas": 1
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28040696",
+    "nombre": "IES José Hierro",
+    "aulas": 1
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28072107",
+    "nombre": "IES La Senda",
+    "aulas": 2
+   },
+   {
+    "municipio": "Getafe",
+    "codigo": "28074669",
+    "nombre": "IES Menéndez Pelayo",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28038276",
+    "nombre": "CP INF-PRI Andrés Segovia",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28033825",
+    "nombre": "CP INF-PRI Concepción Arenal",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28030393",
+    "nombre": "CP INF-PRI Federico García Lorca",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28003778",
+    "nombre": "CP INF-PRI Gonzalo de Berceo",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28031464",
+    "nombre": "CP INF-PRI José María de Pereda",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28003523",
+    "nombre": "CP INF-PRI Lepanto",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28028842",
+    "nombre": "CP INF-PRI Lope de Vega",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28031038",
+    "nombre": "CP INF-PRI Luis de Góngora",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28003833",
+    "nombre": "CP INF-PRI Miguel de Cervantes",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28033813",
+    "nombre": "CP INF-PRI Miguel Hernández",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28003845",
+    "nombre": "CP INF-PRI Ortega y Gasset",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28033801",
+    "nombre": "CP INF-PRI Trabenco",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28028830",
+    "nombre": "CP INF-PRI-SEC Francisco de Quevedo",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28028222",
+    "nombre": "CP INF-PRI-SEC Pío Baroja",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28003791",
+    "nombre": "CP INF-PRI-SEC Víctor Pradera",
+    "aulas": 2
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28003742",
+    "nombre": "CPR INF-PRI-SEC El Salvador",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28042036",
+    "nombre": "IES Gabriel García Márquez",
+    "aulas": 2
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28003882",
+    "nombre": "IES José de Churriguera",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28003900",
+    "nombre": "IES María Zambrano",
+    "aulas": 1
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28038291",
+    "nombre": "IES Salvador Dalí",
+    "aulas": 2
+   },
+   {
+    "municipio": "Leganés",
+    "codigo": "28040738",
+    "nombre": "IES San Nicasio",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28035615",
+    "nombre": "CP INF-PRI Alfonso Rodríguez Castelao",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28049444",
+    "nombre": "CP INF-PRI Alonso Cano",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28039967",
+    "nombre": "CP INF-PRI Andrés Segovia",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28023017",
+    "nombre": "CP INF-PRI Andrés Torrejón",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28023108",
+    "nombre": "CP INF-PRI Antonio Hernández",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28023145",
+    "nombre": "CP INF-PRI Antusana",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28039131",
+    "nombre": "CP INF-PRI Ciudad de Roma",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28023157",
+    "nombre": "CP INF-PRI Federico García Lorca",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28049468",
+    "nombre": "CP INF-PRI Joan Miró",
+    "aulas": 2
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28037788",
+    "nombre": "CP INF-PRI Jorge Guillén",
+    "aulas": 2
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28035603",
+    "nombre": "CP INF-PRI Juan Ocaña",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28060257",
+    "nombre": "CP INF-PRI Leonardo da Vinci",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28037661",
+    "nombre": "CP INF-PRI Margarita Xirgu",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28049420",
+    "nombre": "CP INF-PRI Miguel Delibes",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28037673",
+    "nombre": "CP INF-PRI Pablo Sarasate",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28049432",
+    "nombre": "CP INF-PRI Pablo Sorozábal",
+    "aulas": 2
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28039980",
+    "nombre": "CP INF-PRI Príncipe de Asturias",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28033990",
+    "nombre": "CP INF-PRI Rafael Alberti",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28028532",
+    "nombre": "CP INF-PRI Rosalía de Castro",
+    "aulas": 2
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28029512",
+    "nombre": "CP INF-PRI Salzillo-Valle Inclán",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28049456",
+    "nombre": "CP INF-PRI Severo Ochoa",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28035585",
+    "nombre": "CP INF-PRI Vicente Aleixandre",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28023066",
+    "nombre": "CPR INF-PRI-SEC Villa de Móstoles",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28042085",
+    "nombre": "IES Antonio Gala",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28038884",
+    "nombre": "IES Clara Campoamor",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28042668",
+    "nombre": "IES Europa",
+    "aulas": 1
+   },
+   {
+    "municipio": "Móstoles",
+    "codigo": "28042097",
+    "nombre": "IES Miguel Hernández",
+    "aulas": 2
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28034027",
+    "nombre": "CP INF-PRI Antonio Machado",
+    "aulas": 2
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28076320",
+    "nombre": "CP INF-PRI Blas de Lezo",
+    "aulas": 3
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28023480",
+    "nombre": "CP INF-PRI Ciudad de Mérida",
+    "aulas": 1
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28028519",
+    "nombre": "CP INF-PRI Ciudad de Parla",
+    "aulas": 1
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28048403",
+    "nombre": "CP INF-PRI Clara Campoamor",
+    "aulas": 2
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28032535",
+    "nombre": "CP INF-PRI Gerardo Diego",
+    "aulas": 2
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28037685",
+    "nombre": "CP INF-PRI Julián Besteiro",
+    "aulas": 2
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28063881",
+    "nombre": "CP INF-PRI Los Lagos",
+    "aulas": 1
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28035640",
+    "nombre": "CP INF-PRI Luis Vives",
+    "aulas": 2
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28070986",
+    "nombre": "CP INF-PRI Madre Teresa de Calcuta",
+    "aulas": 2
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28040878",
+    "nombre": "CP INF-PRI Miguel Delibes",
+    "aulas": 1
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28044458",
+    "nombre": "CP INF-PRI Miguel Hernández",
+    "aulas": 2
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28032547",
+    "nombre": "CP INF-PRI Pablo Picasso",
+    "aulas": 2
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28037715",
+    "nombre": "CP INF-PRI Rosa de Luxemburgo",
+    "aulas": 2
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28067586",
+    "nombre": "CP INF-PRI Rosa Montero",
+    "aulas": 2
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28044321",
+    "nombre": "CP INF-PRI Séneca",
+    "aulas": 1
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28023546",
+    "nombre": "CP INF-PRI Virgen del Carmen",
+    "aulas": 2
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28045301",
+    "nombre": "CP INF-PRI-SEC La Paloma",
+    "aulas": 2
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28072168",
+    "nombre": "CPR INF-PRI-SEC Aquila",
+    "aulas": 3
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28075637",
+    "nombre": "CPR INF-PRI-SEC Colegio Juan Pablo II",
+    "aulas": 1
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28044720",
+    "nombre": "IES El Olivo",
+    "aulas": 2
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28030216",
+    "nombre": "IES Humanejos",
+    "aulas": 1
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28041482",
+    "nombre": "IES La Laguna",
+    "aulas": 1
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28038446",
+    "nombre": "IES Narcís Monturiol",
+    "aulas": 1
+   },
+   {
+    "municipio": "Parla",
+    "codigo": "28070974",
+    "nombre": "IES Nicolás Copérnico",
+    "aulas": 1
+   },
+   {
+    "municipio": "Pinto",
+    "codigo": "28029937",
+    "nombre": "CP INF-PRI Buenos Aires",
+    "aulas": 2
+   },
+   {
+    "municipio": "Pinto",
+    "codigo": "28069170",
+    "nombre": "CP INF-PRI Dos de Mayo",
+    "aulas": 1
+   },
+   {
+    "municipio": "Pinto",
+    "codigo": "28023674",
+    "nombre": "CP INF-PRI El Prado",
+    "aulas": 2
+   },
+   {
+    "municipio": "Pinto",
+    "codigo": "28050422",
+    "nombre": "CP INF-PRI Europa",
+    "aulas": 2
+   },
+   {
+    "municipio": "Pinto",
+    "codigo": "28023662",
+    "nombre": "CP INF-PRI Isabel La Católica",
+    "aulas": 2
+   },
+   {
+    "municipio": "Pinto",
+    "codigo": "28063891",
+    "nombre": "CP INF-PRI Las Artes",
+    "aulas": 1
+   },
+   {
+    "municipio": "Pinto",
+    "codigo": "28023716",
+    "nombre": "CPR INF-PRI-SEC Santo Domingo de Silos",
+    "aulas": 2
+   },
+   {
+    "municipio": "Pinto",
+    "codigo": "28067628",
+    "nombre": "IES Calderón de la Barca",
+    "aulas": 1
+   },
+   {
+    "municipio": "Pinto",
+    "codigo": "28043016",
+    "nombre": "IES Pablo Picasso",
+    "aulas": 1
+   }
+  ]
+ },
+ "especial": {
+  "curso": "2024-2025",
+  "actualizado": "2026-07-22",
+  "url": "https://datos.comunidad.madrid/catalogo/dataset/spacm_estadisticas_alumnos",
+  "alumnos": {
+   "getafe": 262,
+   "parla": 159,
+   "pinto": 0,
+   "fuenlabrada": 293,
+   "leganes": 129,
+   "alcorcon": 137,
+   "alcobendas": 26,
+   "mostoles": 201,
+   "torrejon": 166,
+   "pozuelo": 131,
+   "majadahonda": 286
+  }
  },
  "padron": {
   "anio": "2025",

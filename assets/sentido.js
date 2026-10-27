@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════════
    HACIA DÓNDE ES MEJOR · lo usan todas las páginas
    Debajo del título de cada dato, una línea pequeña: «Cuanto más, mejor» o
-   «Cuanto menos, mejor». Es una lectura, no un dato, así que solo va donde
+   «Cuanto menos, mejor». Es una lectura nuestra, así que solo va donde
    está claro para un vecino: más equipamientos, más renta; menos paro,
    menos espera, menos deuda. Donde depende de quién mire (lo que vale una
    casa, la gente de 65 años o más, el peso de la industria) no hay línea.
@@ -49,7 +49,10 @@
     'tarjetas-medico': MENOS, 'tarjetas-pediatra': MENOS, 'salud-mental': MAS,
     /* Discapacidad: las plazas y los colegios, más. Cuánta gente tiene una
        discapacidad reconocida, sin línea: no es mejor ni peor. */
-    'dis-residencia': MAS, 'dis-dia': MAS, 'dis-ocupacional': MAS, 'dis-temprana': MAS, 'educacion-especial': MAS
+    'dis-residencia': MAS, 'dis-dia': MAS, 'dis-ocupacional': MAS, 'dis-temprana': MAS,
+    'aulas-tea': MAS, ppme: MAS
+    /* Los alumnos de educación especial, sin línea: más puede querer decir
+       menos alumnos con apoyo en las clases ordinarias. */
   };
   const TEXTO = { mas: 'Cuanto más, mejor', menos: 'Cuanto menos, mejor' };
   const FLECHA = { mas: '↑', menos: '↓' };

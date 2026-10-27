@@ -912,6 +912,16 @@ y el script se siguen llamando `discapacidad`, que es de lo que tratan.
   «CPR EE» en alta, públicos y concertados) y los niños de 0 a 5 años del padrón (INE, tabla
   68543, edad año a año). La atención temprana son los centros de rehabilitación del registro
   cuyo nombre dice «atención temprana».
+- **Lo educativo**, que va en `educacion.html` y en `inclusion.html` con los mismos ids: los
+  alumnos de educación especial por municipio (estadística de alumnos de la Comunidad, centros
+  públicos y concertados, donde estudian), las aulas TEA de la lista oficial de centros de
+  atención preferente (se lee la página) y los programas profesionales de modalidad especial de
+  la última oferta publicada (2024-25, anexo IX de sus instrucciones): esa lista va a mano en
+  `PPME` y el script comprueba con `pdftotext` que coincide con el PDF. En Educación, además,
+  «Volver a estudiar y orientación» (`orientacion()`), una tabla de sí o no con las UFIL, los
+  CEPA y los equipos de orientación de cada término: son uno o dos y atienden a una zona, así
+  que no se dividen entre vecinos. Las listas de espera de valoración (CRECOVI, Centros Base) y
+  de atención temprana no se publican por municipio: habría que pedirlas por transparencia.
 - **Las bases.** Las plazas de discapacidad intelectual, contra las personas con discapacidad
   «intelectual o trastorno del desarrollo» reconocida en cada municipio a 31 de diciembre (otro
   conjunto de datos abiertos de la Comunidad, de los Centros Base). Incluye a niños: la fuente no

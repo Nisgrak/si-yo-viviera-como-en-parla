@@ -4,17 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>La inclusión en Parla · Parla, a la cola</title>
-<meta name="description" content="Las plazas de residencia, de centro de día y de centro ocupacional para personas con discapacidad intelectual, la atención temprana y cuánta gente tiene una discapacidad reconocida, en Parla y en las ciudades de alrededor. Con datos oficiales.">
+<meta name="description" content="Las plazas de residencia, de centro de día y de centro ocupacional para personas con discapacidad intelectual, la atención temprana, la educación especial, las aulas TEA, la FP de modalidad especial y cuánta gente tiene una discapacidad reconocida, en Parla y en las ciudades de alrededor. Con datos oficiales.">
 <meta name="theme-color" content="#ffffff">
 <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="La inclusión en Parla">
-<meta property="og:description" content="Parla es la única de las once ciudades sin ninguna plaza de residencia para personas con discapacidad intelectual. Las residencias, los centros de día, los ocupacionales y la atención temprana, con datos oficiales.">
+<meta property="og:description" content="Parla es la única de las once ciudades sin ninguna plaza de residencia para personas con discapacidad intelectual. Las residencias, los centros de día, los ocupacionales, la atención temprana y la educación especial, con datos oficiales.">
 <meta property="og:locale" content="es_ES">
 <meta property="og:url" content="https://siyovivieracomoenparla.netlify.app/inclusion.html">
 <meta property="og:image" content="https://siyovivieracomoenparla.netlify.app/assets/compartir/general.png">
-<meta property="og:image:alt" content="La inclusión en Parla: residencias, centros de día, centros ocupacionales y atención temprana">
+<meta property="og:image:alt" content="La inclusión en Parla: residencias, centros de día, centros ocupacionales, atención temprana y educación especial">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -136,6 +136,57 @@
   </div>
 </section>
 
+<!-- ── La educación especial ─────────────────────────────────────────────
+     Los alumnos de educación especial y los colegios específicos (datos/discapacidad.js). Va también en la otra página. -->
+<section class="bloque bloque--salir" id="especial" data-indice="La educación especial">
+  <div class="env">
+    <h2 class="bloque__h">La educación especial</h2>
+    <p class="bloque__intro" id="especial-txt"></p>
+    <div class="tp-cifras" id="especial-cifras"></div>
+    <p class="tp-nota" id="especial-nota"></p>
+    <h3 class="espera__h" id="especial-todas">Alumnos por cada 1.000 niños y jóvenes de 3 a 17 años, ciudad a ciudad</h3>
+    <ul class="mun salir__filas espera__filas" id="especial-filas"></ul>
+    <p class="bloque__intro salir__tren" id="especial-cuenta"></p>
+    <div id="especial-centros"></div>
+    <p class="salir__pie" id="especial-pie"></p>
+    <div class="seccion__botones" id="especial-botones"></div>
+  </div>
+</section>
+
+<!-- ── Las aulas TEA ─────────────────────────────────────────────────────
+     Las aulas de apoyo para alumnos con TEA (datos/discapacidad.js). Va también en la otra página. -->
+<section class="bloque bloque--salir" id="tea" data-indice="Las aulas TEA">
+  <div class="env">
+    <h2 class="bloque__h">Las aulas TEA</h2>
+    <p class="bloque__intro" id="tea-txt"></p>
+    <div class="tp-cifras" id="tea-cifras" data-sentido="mas"></div>
+    <p class="tp-nota" id="tea-nota"></p>
+    <h3 class="espera__h" id="tea-todas" data-sentido="mas">Aulas por cada 10.000 niños y jóvenes de 3 a 17 años, ciudad a ciudad</h3>
+    <ul class="mun salir__filas espera__filas" id="tea-filas"></ul>
+    <p class="bloque__intro salir__tren" id="tea-cuenta"></p>
+    <div id="tea-centros"></div>
+    <p class="salir__pie" id="tea-pie"></p>
+    <div class="seccion__botones" id="tea-botones"></div>
+  </div>
+</section>
+
+<!-- ── La FP de modalidad especial ───────────────────────────────────────
+     Los programas profesionales de modalidad especial (datos/discapacidad.js). Va también en la otra página. -->
+<section class="bloque bloque--salir" id="ppme" data-indice="La FP de modalidad especial">
+  <div class="env">
+    <h2 class="bloque__h">La FP de modalidad especial</h2>
+    <p class="bloque__intro" id="ppme-txt"></p>
+    <div class="tp-cifras" id="ppme-cifras" data-sentido="mas"></div>
+    <p class="tp-nota" id="ppme-nota"></p>
+    <h3 class="espera__h" id="ppme-todas" data-sentido="mas">Programas por cada 10.000 chicos y chicas de 12 a 17 años, ciudad a ciudad</h3>
+    <ul class="mun salir__filas espera__filas" id="ppme-filas"></ul>
+    <p class="bloque__intro salir__tren" id="ppme-cuenta"></p>
+    <div id="ppme-centros"></div>
+    <p class="salir__pie" id="ppme-pie"></p>
+    <div class="seccion__botones" id="ppme-botones"></div>
+  </div>
+</section>
+
 <!-- ── Cuánta gente ─────────────────────────────────────────────────────
      Las personas con discapacidad reconocida por cada 1.000 vecinos: el
      punto de partida, sin «más» ni «menos» mejor. -->
@@ -174,7 +225,7 @@
         a 31 de diciembre. Esa cifra incluye a niños, porque la fuente no la da por edad.
       </p>
 
-      <h3>Una plaza no es de quien vive al lado</h3>
+      <h3>A quién atienden las plazas</h3>
       <p>
         Estas plazas las adjudica la Comunidad de Madrid, y un centro atiende a gente de otras
         ciudades. Por eso hay ciudades pequeñas con muchas plazas: Pozuelo tiene más plazas de
@@ -187,6 +238,13 @@
         Son los centros del mismo registro cuyo nombre dice que son de atención temprana, públicos o
         con plazas concertadas, contra los niños de 0 a 5 años del padrón. Fuera quedan los solo
         privados: en Parla, uno de 42 plazas.
+      </p>
+
+      <h3>La educación especial, las aulas TEA y la FP de modalidad especial</h3>
+      <p>
+        Son las mismas secciones que en la página de la educación, con las mismas cuentas, porque
+        tratan de las dos cosas. Se explican en
+        <a href="educacion.html?ir=metodo">cómo está hecha la de la educación</a>.
       </p>
 
       <h3>Cuánta gente</h3>
@@ -205,8 +263,9 @@
 
       <h3>Cuanto más, mejor</h3>
       <p>
-        Bajo cada dato, «cuanto más, mejor» dice hacia dónde le conviene a un vecino. Es una lectura,
-        no un dato.
+        Bajo cada dato, «cuanto más, mejor» dice hacia dónde le conviene a un vecino. Es una lectura
+        nuestra, y solo va donde está clara: no la llevan cuánta gente tiene una discapacidad
+        reconocida ni los alumnos de educación especial.
       </p>
 
       <p class="cautela">

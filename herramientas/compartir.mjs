@@ -299,11 +299,25 @@ const CIFRAS = {
     desc: (n, a, b) => `En Parla hay ${a} plazas de la red de atención social a la enfermedad mental grave por cada 10.000 adultos; en ${n}, ${b}. Con datos oficiales.`
   },
   especial: {
-    titulo: 'Colegios de educación especial por cada 10.000 niños y jóvenes de 3 a 17 años',
+    titulo: 'Alumnos de educación especial por cada 1.000 niños y jóvenes de 3 a 17 años',
     seccion: 'Educación', unidad: '',
-    pie: 'Centros educativos de la Comunidad de Madrid: colegios públicos y concertados de educación especial.',
-    v: tasaDis('especial', (id) => D.BASES.primaria.valores[id] + D.BASES.secundaria.valores[id], 10000, 'colegios'),
-    desc: (n, a, b) => `En Parla hay ${a} colegios de educación especial por cada 10.000 niños y jóvenes de 3 a 17 años; en ${n}, ${b}. Con datos oficiales.`
+    pie: 'Estadística de alumnos de la Comunidad de Madrid: centros públicos y concertados, curso ' + DI.cursoEspecial + '.',
+    v: tasaDis('especial', (id) => D.BASES.primaria.valores[id] + D.BASES.secundaria.valores[id], 1000, 'alumnos'),
+    desc: (n, a, b) => `En Parla estudian en educación especial ${a} alumnos por cada 1.000 niños y jóvenes de 3 a 17 años; en ${n}, ${b}. Las aulas TEA y la FP de modalidad especial, con datos oficiales.`
+  },
+  tea: {
+    titulo: 'Aulas TEA por cada 10.000 niños y jóvenes de 3 a 17 años',
+    seccion: 'Educación', unidad: '',
+    pie: 'Centros de atención preferente para alumnado con TEA de la Comunidad de Madrid: públicos y concertados.',
+    v: tasaDis('tea', (id) => D.BASES.primaria.valores[id] + D.BASES.secundaria.valores[id], 10000, 'aulas'),
+    desc: (n, a, b) => `En Parla hay ${a} aulas TEA por cada 10.000 niños y jóvenes de 3 a 17 años; en ${n}, ${b}. Con datos oficiales.`
+  },
+  ppme: {
+    titulo: 'Programas de FP de modalidad especial por cada 10.000 chicos y chicas de 12 a 17 años',
+    seccion: 'Educación', unidad: '',
+    pie: 'Oferta de programas profesionales de modalidad especial de la Comunidad de Madrid, curso ' + DI.cursoPpme + '.',
+    v: tasaDis('ppme', (id) => D.BASES.secundaria.valores[id], 10000, 'programas'),
+    desc: (n, a, b) => `En Parla hay ${a} programas de FP de modalidad especial por cada 10.000 chicos y chicas de 12 a 17 años; en ${n}, ${b}. Con datos oficiales.`
   },
   artes: {
     titulo: 'Alumnos de música, idiomas y artes en centros públicos por cada 1.000 vecinos',
@@ -554,7 +568,9 @@ for (const m of D.MUNICIPIOS) {
     ['ocupacional', `../inclusion/?ir=ocupacional`, 'Los centros ocupacionales en Parla y en ' + m.nombre],
     ['temprana', `../inclusion/?ir=temprana`, 'La atención temprana en Parla y en ' + m.nombre],
     ['mental', `../sanidad/?ir=mental`, 'La red de salud mental en Parla y en ' + m.nombre],
-    ['especial', `../educacion/?ir=especial`, 'Los colegios de educación especial en Parla y en ' + m.nombre],
+    ['especial', `../educacion/?ir=especial`, 'La educación especial en Parla y en ' + m.nombre],
+    ['tea', `../educacion/?ir=tea`, 'Las aulas TEA en Parla y en ' + m.nombre],
+    ['ppme', `../educacion/?ir=ppme`, 'La FP de modalidad especial en Parla y en ' + m.nombre],
     ['impuestos', `../economia/?ir=paga`, 'Lo que paga un vecino de Parla y uno de ' + m.nombre]]) {
     const p = await previa(clave, m);
     if (!p) continue;
