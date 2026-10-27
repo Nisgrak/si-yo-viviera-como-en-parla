@@ -116,7 +116,7 @@ farmacias salieron del recuento porque son negocios privados con licencia y pesa
 Con Pozuelo y Majadahonda, Parla tiene más de lo que le falta, casi todo en colegios y escuelas
 infantiles, y la portada lo dice: es el contraejemplo que sostiene la credibilidad.
 
-Además del recuento, cinco páginas por ciudad, cada una con su resumen en la portada:
+Además del recuento, seis páginas por ciudad, cada una con su resumen en la portada:
 
 - **Vivienda**: comprar, alquilar, de quién son las casas, barrios, vivienda pública,
   desahucios y cómo son las casas.
@@ -126,15 +126,25 @@ Además del recuento, cinco páginas por ciudad, cada una con su resumen en la p
   mano, cuánto se tarda hasta el centro y lo que cuesta el abono).
 
 - **Sanidad**: las camas del hospital que le toca a cada ciudad, lo que tiene el otro hospital y
-  el de Parla no, el médico de cabecera, la espera y lo que hay del recuento.
+  el de Parla no, el médico de cabecera, la espera, la salud mental (donde Parla es la primera
+  de las once, y se dice) y lo que hay del recuento.
 - **Educación**: el campus, el conservatorio y la FP pública, la música y los idiomas, las
-  escuelas, colegios e institutos y la escuela infantil.
+  escuelas, colegios e institutos, la educación especial y la escuela infantil.
+- **Inclusión**, de las personas con discapacidad («La inclusión en Parla y en [Getafe]»): dónde vivir (residencias y viviendas con apoyo), el centro de día y el
+  centro ocupacional para la discapacidad intelectual, la atención temprana y, al final, cuánta
+  gente tiene una discapacidad reconocida. Todo en plazas y fuera del recuento. Parla es la única
+  de las once sin ninguna plaza residencial; en atención temprana queda hacia la mitad. La salud
+  mental va en Sanidad y los colegios de educación especial en Educación.
 
 Cada página abre con lo que más pesa, con las piezas de infraestructura.html: cifras grandes
 enfrentadas, la clasificación de las once con Parla marcada y la tira de lo que hay y lo que
 falta. En la espera y en la escuela infantil Parla sale mejor que varias, y se dice. En economía, «Lo que paga un vecino»: el IBI y el coche
 con la misma casa y con la de cada ciudad. Y aparte, «Todos los datos», la consulta de las once
 ciudades a la vez.
+
+Siguiente en discapacidad: las paradas y estaciones accesibles (en Infraestructuras), el
+Centro Base que le toca a cada ciudad y lo que tiene el ayuntamiento (consejo, plan de
+accesibilidad, plazas reservadas en su oferta de empleo).
 
 Siguiente: los empleos a los que se llega en 45 minutos y los distritos de Madrid; después,
 deporte y teatros cuando haya una fuente comparable entre municipios.

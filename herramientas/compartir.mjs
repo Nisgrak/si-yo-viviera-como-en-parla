@@ -8,8 +8,10 @@
      dist/<id>/economia/             la página de la economía, igual
      dist/<id>/sanidad/              la página de la sanidad, igual
      dist/<id>/educacion/            la de la educación, igual
+     dist/<id>/inclusion/            la de la inclusión, igual
      dist/<id>/espera/, cabecera/    una página mínima con la vista previa de
-       infantil/                     cada sección, que manda a su página
+       infantil/, residencia/…       cada sección con «Compartir esta
+                                     sección», que manda a su página
      dist/<id>/impuestos/            y la de «Lo que paga un vecino», que
                                      manda a la economía
      dist/assets/compartir/*.png     la imagen de vista previa general y la de
@@ -47,6 +49,7 @@ require(join(RAIZ, 'datos/sanidad.js'));
 require(join(RAIZ, 'datos/impuestos.js'));
 require(join(RAIZ, 'datos/primaria.js'));
 require(join(RAIZ, 'datos/infantil.js'));
+require(join(RAIZ, 'datos/discapacidad.js'));
 const CALCULO = require(join(RAIZ, 'assets/calculo.js'));
 const HOSPITALES = require(join(RAIZ, 'assets/hospitales.js'));
 const D = globalThis.DATOS;
@@ -56,7 +59,7 @@ const D = globalThis.DATOS;
 await rm(DIST, { recursive: true, force: true });
 await mkdir(DIST);
 for (const x of ['index.html', 'infraestructura.html', 'vivienda.html', 'economia.html', 'sanidad.html', 'educacion.html',
-  'consulta.html', 'assets', 'datos']) {
+  'inclusion.html', 'consulta.html', 'assets', 'datos']) {
   await cp(join(RAIZ, x), join(DIST, x), { recursive: true });
 }
 /* La marca que le dice a app.js que aquí sí existen /getafe/ y compañía, así
@@ -79,7 +82,8 @@ await writeFile(join(DIST, 'economia.html'),
   eco.replace('<html lang="es">', '<html lang="es" data-rutas>'));
 const san = await readFile(join(RAIZ, 'sanidad.html'), 'utf8');
 const edu = await readFile(join(RAIZ, 'educacion.html'), 'utf8');
-for (const [f, h] of [['sanidad.html', san], ['educacion.html', edu]]) {
+const inc = await readFile(join(RAIZ, 'inclusion.html'), 'utf8');
+for (const [f, h] of [['sanidad.html', san], ['educacion.html', edu], ['inclusion.html', inc]]) {
   if (!h.includes('<html lang="es">')) throw new Error(f + ': no encuentro <html lang="es">');
   await writeFile(join(DIST, f), h.replace('<html lang="es">', '<html lang="es" data-rutas>'));
 }
@@ -200,6 +204,14 @@ function imagenPareja(seccion, titulo, nombre, vRef, vAqui, unidad, pie) {
 
 const E = globalThis.ECONOMIA, V = globalThis.VIVIENDA, TP = globalThis.TRANSPORTE;
 const SA = globalThis.SANIDAD, IM = globalThis.IMPUESTOS, PR = globalThis.PRIMARIA, IN = globalThis.INFANTIL;
+const DI = globalThis.DISCAPACIDAD;
+/* Lo de discapacidad.js como lo cuenta assets/servicios.js: cada cosa contra su base. */
+const adultos = (id) => D.contexto.edades.tramos.reduce((t, x) => t - x.valores[id], D.contexto.edades.total[id]);
+const tasaDis = (k, base, por, campo = 'plazas') => (id) => {
+  const v = DI.ciudades[id][k][campo] / base(id) * por;
+  return num(v, v === 0 ? 0 : 1);
+};
+const PIE_DIS = 'Registro de centros de atención social de la Comunidad de Madrid: centros públicos y concertados.';
 const ultimo = (xs) => xs[xs.length - 1];
 /* El dato de cada página, como lo calcula la propia página. */
 const CIFRAS = {
@@ -250,6 +262,48 @@ const CIFRAS = {
         : no.length ? ' Y Parla no tiene ' + (no[0] === 'universidad' ? 'campus universitario público.' : 'conservatorio profesional.') : '';
       return `En Parla hay ${a} alumnos de FP pública por cada 100 jóvenes de 12 a 17 años; en ${n}, ${b}.${falta} Con datos oficiales.`;
     }
+  },
+  residencia: {
+    titulo: 'Plazas en residencias y viviendas con apoyo para personas con discapacidad intelectual',
+    seccion: 'Inclusión', unidad: '',
+    v: (id) => DI.ciudades[id].residencial.plazas.toLocaleString('es-ES', { useGrouping: true }),
+    pie: 'Registro de centros de atención social de la Comunidad de Madrid: centros públicos y concertados.',
+    desc: (n, a, b) => {
+      const sin = D.MUNICIPIOS.filter((m) => DI.ciudades[m.id].residencial.plazas === 0);
+      const unica = sin.length === 1 && sin[0].id === D.REFERENCIA ? ' Es la única de las once sin ninguna.' : '';
+      return `Parla ${a === '0' ? 'no tiene ninguna plaza' : 'tiene ' + a + ' plazas'} de residencia para personas con discapacidad intelectual; ${n}, ${b}.${unica} Los centros de día, los ocupacionales y la atención temprana, con datos oficiales.`;
+    }
+  },
+  dia: {
+    titulo: 'Plazas en centros de día por cada 100 personas con discapacidad intelectual reconocida',
+    seccion: 'Inclusión', unidad: '', pie: PIE_DIS,
+    v: tasaDis('dia', (id) => DI.ciudades[id].intelectual, 100),
+    desc: (n, a, b) => `En Parla hay ${a} plazas de centro de día por cada 100 personas con discapacidad intelectual reconocida; en ${n}, ${b}. Con datos oficiales.`
+  },
+  ocupacional: {
+    titulo: 'Plazas en centros ocupacionales por cada 100 personas con discapacidad intelectual reconocida',
+    seccion: 'Inclusión', unidad: '', pie: PIE_DIS,
+    v: tasaDis('ocupacional', (id) => DI.ciudades[id].intelectual, 100),
+    desc: (n, a, b) => `En Parla hay ${a} plazas de centro ocupacional por cada 100 personas con discapacidad intelectual reconocida; en ${n}, ${b}. Con datos oficiales.`
+  },
+  temprana: {
+    titulo: 'Plazas de atención temprana por cada 1.000 niños de 0 a 5 años',
+    seccion: 'Inclusión', unidad: '', pie: PIE_DIS,
+    v: tasaDis('temprana', (id) => DI.ciudades[id].ninos0a5, 1000),
+    desc: (n, a, b) => `En Parla hay ${a} plazas de atención temprana por cada 1.000 niños de 0 a 5 años; en ${n}, ${b}. Con datos oficiales.`
+  },
+  mental: {
+    titulo: 'Plazas de la red de salud mental por cada 10.000 vecinos de 18 a 64 años',
+    seccion: 'Sanidad', unidad: '', pie: PIE_DIS,
+    v: tasaDis('mental', adultos, 10000),
+    desc: (n, a, b) => `En Parla hay ${a} plazas de la red de atención social a la enfermedad mental grave por cada 10.000 adultos; en ${n}, ${b}. Con datos oficiales.`
+  },
+  especial: {
+    titulo: 'Colegios de educación especial por cada 10.000 niños y jóvenes de 3 a 17 años',
+    seccion: 'Educación', unidad: '',
+    pie: 'Centros educativos de la Comunidad de Madrid: colegios públicos y concertados de educación especial.',
+    v: tasaDis('especial', (id) => D.BASES.primaria.valores[id] + D.BASES.secundaria.valores[id], 10000, 'colegios'),
+    desc: (n, a, b) => `En Parla hay ${a} colegios de educación especial por cada 10.000 niños y jóvenes de 3 a 17 años; en ${n}, ${b}. Con datos oficiales.`
   },
   artes: {
     titulo: 'Alumnos de música, idiomas y artes en centros públicos por cada 1.000 vecinos',
@@ -395,6 +449,8 @@ const paginaEconomia = (id, nombre, previa) => paginaCiudad(id, 'El dinero de Pa
   eco, 'economia.html', 'economia/', undefined, previa);
 const paginaSanidad = (id, nombre, previa) => paginaCiudad(id, 'La sanidad de Parla y la sanidad de ' + nombre,
   san, 'sanidad.html', 'sanidad/', undefined, previa);
+const paginaInclusion = (id, nombre, previa) => paginaCiudad(id, 'La inclusión en Parla y en ' + nombre,
+  inc, 'inclusion.html', 'inclusion/', undefined, previa);
 const paginaEducacion = (id, nombre, previa) => paginaCiudad(id, 'La educación de Parla y la educación de ' + nombre,
   edu, 'educacion.html', 'educacion/', undefined, previa);
 
@@ -479,8 +535,9 @@ for (const m of D.MUNICIPIOS) {
   await writeFile(join(DIST, m.id, 'vivienda', 'index.html'), paginaVivienda(m.id, m.nombre, await previa('vivienda', m)));
   await mkdir(join(DIST, m.id, 'economia'), { recursive: true });
   await writeFile(join(DIST, m.id, 'economia', 'index.html'), paginaEconomia(m.id, m.nombre, await previa('economia', m)));
-  /* La sanidad y la educación, con la vista previa de su sección principal. */
-  for (const [ruta, hacer, clave] of [['sanidad', paginaSanidad, 'hospital'], ['educacion', paginaEducacion, 'fp']]) {
+  /* La sanidad, la educación y la inclusión, con la vista previa de su sección principal. */
+  for (const [ruta, hacer, clave] of [['sanidad', paginaSanidad, 'hospital'], ['educacion', paginaEducacion, 'fp'],
+    ['inclusion', paginaInclusion, 'residencia']]) {
     await mkdir(join(DIST, m.id, ruta), { recursive: true });
     await writeFile(join(DIST, m.id, ruta, 'index.html'), hacer(m.id, m.nombre, await previa(clave, m)));
   }
@@ -492,6 +549,12 @@ for (const m of D.MUNICIPIOS) {
     ['infantil', `../educacion/?ir=infantil`, 'La escuela infantil en Parla y en ' + m.nombre],
     ['fp', `../educacion/?ir=fp`, 'La FP pública en Parla y en ' + m.nombre],
     ['artes', `../educacion/?ir=artes`, 'La música, los idiomas y las artes en Parla y en ' + m.nombre],
+    ['residencia', `../inclusion/?ir=residencia`, 'Dónde vivir con discapacidad intelectual en Parla y en ' + m.nombre],
+    ['dia', `../inclusion/?ir=dia`, 'Los centros de día para la discapacidad intelectual en Parla y en ' + m.nombre],
+    ['ocupacional', `../inclusion/?ir=ocupacional`, 'Los centros ocupacionales en Parla y en ' + m.nombre],
+    ['temprana', `../inclusion/?ir=temprana`, 'La atención temprana en Parla y en ' + m.nombre],
+    ['mental', `../sanidad/?ir=mental`, 'La red de salud mental en Parla y en ' + m.nombre],
+    ['especial', `../educacion/?ir=especial`, 'Los colegios de educación especial en Parla y en ' + m.nombre],
     ['impuestos', `../economia/?ir=paga`, 'Lo que paga un vecino de Parla y uno de ' + m.nombre]]) {
     const p = await previa(clave, m);
     if (!p) continue;

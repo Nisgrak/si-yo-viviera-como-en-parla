@@ -46,7 +46,10 @@
     cobertura: MAS, 'cobertura-10': MAS, 'cobertura-5': MAS, abono: MENOS,
     /* Sanidad */
     'espera-operarse': MENOS, 'espera-consulta': MENOS, 'espera-prueba': MENOS, 'lista-operarse': MENOS,
-    'tarjetas-medico': MENOS, 'tarjetas-pediatra': MENOS
+    'tarjetas-medico': MENOS, 'tarjetas-pediatra': MENOS, 'salud-mental': MAS,
+    /* Discapacidad: las plazas y los colegios, más. Cuánta gente tiene una
+       discapacidad reconocida, sin línea: no es mejor ni peor. */
+    'dis-residencia': MAS, 'dis-dia': MAS, 'dis-ocupacional': MAS, 'dis-temprana': MAS, 'educacion-especial': MAS
   };
   const TEXTO = { mas: 'Cuanto más, mejor', menos: 'Cuanto menos, mejor' };
   const FLECHA = { mas: '↑', menos: '↓' };

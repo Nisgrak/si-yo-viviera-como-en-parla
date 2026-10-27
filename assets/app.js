@@ -561,7 +561,12 @@
       '<path d="M12 6.5v13"/></svg>',
     euro: '<svg class="compartir__icono" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
       'stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M17.5 6.5A7 7 0 1 0 17.5 17.5"/>' +
-      '<path d="M4 10.5h9M4 13.5h9"/></svg>'
+      '<path d="M4 10.5h9M4 13.5h9"/></svg>',
+    /* Inclusión: tres personas juntas sobre una línea. */
+    grupo: '<svg class="compartir__icono" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6" r="2.2"/>' +
+      '<path d="M7.8 14a4.2 4.2 0 0 1 8.4 0"/><circle cx="5" cy="9.5" r="1.7"/><path d="M2 17a3 3 0 0 1 5-2.2"/>' +
+      '<circle cx="19" cy="9.5" r="1.7"/><path d="M22 17a3 3 0 0 0-5-2.2"/><path d="M6 19h12"/></svg>'
   };
   const FLECHA = '<svg class="compartir__flecha" width="16" height="12" viewBox="0 0 16 12" ' +
         'fill="none" aria-hidden="true"><path d="M1 6h13M9.5 1l5 5-5 5" stroke="currentColor" stroke-width="1.8"/></svg>';
@@ -608,6 +613,13 @@
       e.href = RUTAS ? RAIZ_WEB + AQUI + '/educacion/' : 'educacion.html#' + AQUI;
       e.innerHTML = ICONO_PAGINA.libro + '<span>Educación</span>' + FLECHA;
       hueco.appendChild(e);
+    }
+    if (window.DISCAPACIDAD) {
+      const d = el('a', 'compartir compartir--salir');
+      d.id = 'portada-inclusion';
+      d.href = RUTAS ? RAIZ_WEB + AQUI + '/inclusion/' : 'inclusion.html#' + AQUI;
+      d.innerHTML = ICONO_PAGINA.grupo + '<span>Inclusión</span>' + FLECHA;
+      hueco.appendChild(d);
     }
     /* Y la consulta de todos los datos, que es de las once a la vez. */
     const todos = el('a', 'compartir compartir--salir');
@@ -1890,8 +1902,34 @@
       fuentesPie($('#servicios-educacion-pie'), area.fuentes.concat([[f.t, f.url], [fb.t, fb.url]]));
     }
 
+    /* Discapacidad: las plazas de residencia y de centro de día para la
+       discapacidad intelectual, contra quien la tiene reconocida. */
+    const X = window.DISCAPACIDAD, cd = $('#inclusion');
+    cd.hidden = !X;
+    if (X) {
+      const r = X.ciudades[REF], a = X.ciudades[AQUI];
+      $('#servicios-inclusion').textContent = 'En Parla hay ' + entero(r.intelectual) +
+        ' personas con discapacidad intelectual reconocida, y ' + (r.residencial.plazas + r.dia.plazas === 0
+          ? 'ninguna plaza para ellas en una residencia ni en un centro de día.'
+          : entero(r.residencial.plazas) + ' plazas en residencias y ' + entero(r.dia.plazas) + ' en centros de día.') +
+        ' ' + NOMBRE[AQUI] + ', con ' + entero(a.intelectual) + ', tiene ' + entero(a.residencial.plazas) +
+        ' plazas en residencias y ' + entero(a.dia.plazas) + ' en centros de día.';
+      const gd = $('#servicios-inclusion-graf');
+      vaciar(gd);
+      [['resumen-residencia', 'Plazas en residencias por cada 100 personas con discapacidad intelectual reconocida', 'residencial'],
+        ['resumen-dia', 'Plazas en centros de día por cada 100 personas con discapacidad intelectual reconocida', 'dia']].forEach(function (g) {
+        gd.appendChild(barrasPar(g[0], g[1], 'mas', X.ciudades, function (c) { return c[g[2]].plazas / c.intelectual * 100; },
+          function (v) { return num(v, v === 0 ? 0 : 1); }));
+      });
+      fuentesPie($('#servicios-inclusion-pie'), [X.fuentes.registro, X.fuentes.reconocidas]);
+    }
+
     const s = RUTAS ? RAIZ_WEB + AQUI + '/sanidad/' : 'sanidad.html#' + AQUI;
     const e = RUTAS ? RAIZ_WEB + AQUI + '/educacion/' : 'educacion.html#' + AQUI;
+    const dis = RUTAS ? RAIZ_WEB + AQUI + '/inclusion/' : 'inclusion.html#' + AQUI;
+    $('#inclusion-ir').href = dis;
+    const pd = $('#portada-inclusion');
+    if (pd) pd.href = dis;
     $('#sanidad-ir').href = s;
     $('#educacion-ir').href = e;
     const ps = $('#portada-sanidad'), pe = $('#portada-educacion');

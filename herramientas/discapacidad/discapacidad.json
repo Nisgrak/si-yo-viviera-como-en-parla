@@ -1,0 +1,2184 @@
+{
+ "registro": {
+  "actualizado": "2026-10-15",
+  "url": "https://datos.comunidad.madrid/catalogo/dataset/atencion_social_registro_centros"
+ },
+ "reconocidas": {
+  "actualizado": "2026-10-06",
+  "anio": 2025,
+  "url": "https://datos.comunidad.madrid/catalogo/dataset/personas_discapacidad_por_tipo_y_sexo",
+  "urlEdad": "https://datos.comunidad.madrid/catalogo/dataset/personas_discapacidad_por_edad_y_sexo"
+ },
+ "colegios": {
+  "actualizado": "2026-05-05",
+  "url": "https://datos.comunidad.madrid/catalogo/dataset/centros_educativos",
+  "centros": [
+   {
+    "municipio": "Majadahonda",
+    "nombre": "VIRGEN DE LOURDES",
+    "tipo": "CPR EE",
+    "titularidad": "PRIVADO CONCERTADO"
+   },
+   {
+    "municipio": "Pozuelo de Alarcón",
+    "nombre": "GIL GAYARRE",
+    "tipo": "CPR EE",
+    "titularidad": "PRIVADO CONCERTADO"
+   },
+   {
+    "municipio": "Getafe",
+    "nombre": "NUESTRA SEÑORA DE LA ESPERANZA",
+    "tipo": "CPR EE",
+    "titularidad": "PRIVADO CONCERTADO"
+   },
+   {
+    "municipio": "Parla",
+    "nombre": "MARIA MONTESSORI",
+    "tipo": "CP EE",
+    "titularidad": "PÚBLICO"
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "nombre": "VIRGEN DE LORETO ASTOR",
+    "tipo": "CPR EE",
+    "titularidad": "PRIVADO CONCERTADO"
+   },
+   {
+    "municipio": "Alcorcón",
+    "nombre": "SEVERO OCHOA",
+    "tipo": "CP EE",
+    "titularidad": "PÚBLICO"
+   },
+   {
+    "municipio": "Móstoles",
+    "nombre": "MIGUEL DE UNAMUNO",
+    "tipo": "CP EE",
+    "titularidad": "PÚBLICO"
+   },
+   {
+    "municipio": "Leganés",
+    "nombre": "ALFONSO X EL SABIO",
+    "tipo": "CP EE",
+    "titularidad": "PÚBLICO"
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "nombre": "JUAN XXIII",
+    "tipo": "CP EE",
+    "titularidad": "PÚBLICO"
+   },
+   {
+    "municipio": "Majadahonda",
+    "nombre": "CEPRI",
+    "tipo": "CPR EE",
+    "titularidad": "PRIVADO CONCERTADO"
+   },
+   {
+    "municipio": "Alcobendas",
+    "nombre": "VIRGEN DE NURIA",
+    "tipo": "CPR EE",
+    "titularidad": "PRIVADO CONCERTADO"
+   },
+   {
+    "municipio": "Fuenlabrada",
+    "nombre": "SOR JUANA INES DE LA CRUZ",
+    "tipo": "CP EE",
+    "titularidad": "PÚBLICO"
+   },
+   {
+    "municipio": "Getafe",
+    "nombre": "SANTIAGO RAMON Y CAJAL",
+    "tipo": "CP EE",
+    "titularidad": "PÚBLICO"
+   },
+   {
+    "municipio": "Getafe",
+    "nombre": "AUCAVI SUR",
+    "tipo": "CPR EE",
+    "titularidad": "PRIVADO CONCERTADO"
+   },
+   {
+    "municipio": "Torrejón de Ardoz",
+    "nombre": "IKER CASILLAS",
+    "tipo": "CP EE",
+    "titularidad": "PÚBLICO"
+   }
+  ]
+ },
+ "padron": {
+  "anio": "2025",
+  "url": "https://www.ine.es/jaxiT3/Tabla.htm?t=68543",
+  "ninos0a5": {
+   "getafe": 9652,
+   "parla": 7072,
+   "pinto": 2703,
+   "fuenlabrada": 7689,
+   "leganes": 7543,
+   "alcorcon": 6845,
+   "alcobendas": 5524,
+   "mostoles": 9162,
+   "torrejon": 6947,
+   "pozuelo": 4177,
+   "majadahonda": 3412
+  }
+ },
+ "centros": [
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "LAS JARAS, RESIDENCIA DE MINUSVALIDOS",
+   "plazas_autorizadas_numero": "48",
+   "municipio_nombre": "Majadahonda",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "LAS JARAS, CENTRO OCUPACIONAL",
+   "plazas_autorizadas_numero": "63",
+   "municipio_nombre": "Majadahonda",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "RESIDENCIA LOS FRESNOS",
+   "plazas_autorizadas_numero": "45",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "HOGAR DON ORIONE",
+   "plazas_autorizadas_numero": "124",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "CASA CHALET II APANID",
+   "plazas_autorizadas_numero": "10",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "CASA CHALET I",
+   "plazas_autorizadas_numero": "8",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Infancia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "APANID CENTRO DE ATENCION TEMPRANA",
+   "plazas_autorizadas_numero": "20",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "AFANIAS, CENTRO EXPERIMENTAL POZUELO",
+   "plazas_autorizadas_numero": "139",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "SAN LUIS GONZAGA, CENTRO RESIDENCIAL",
+   "plazas_autorizadas_numero": "47",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "SAN LUIS GONZAGA, CENTRO OCUPACIONAL",
+   "plazas_autorizadas_numero": "225",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "VIVIENDA COMUNITARIA 1 AFANIAS",
+   "plazas_autorizadas_numero": "6",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "VIVIENDA COMUNITARIA 3",
+   "plazas_autorizadas_numero": "8",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "APAMA , CENTRO OCUPACIONAL",
+   "plazas_autorizadas_numero": "60",
+   "municipio_nombre": "Alcobendas",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "RAFAEL, TALLER OCUPACIONAL",
+   "plazas_autorizadas_numero": "40",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Infancia y Adolescencia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "APAMA, CENTRO DE ATENCION TEMPRANA Y TRATAMIENTOS ESPECIALIZADOS",
+   "plazas_autorizadas_numero": "35",
+   "municipio_nombre": "Alcobendas",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "ASTOR, CENTRO OCUPACIONAL",
+   "plazas_autorizadas_numero": "160",
+   "municipio_nombre": "Torrejón de Ardoz",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "SILICIO, PISO TUTELADO",
+   "plazas_autorizadas_numero": "6",
+   "municipio_nombre": "Torrejón de Ardoz",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "HOGAR RESIDENCIA II APANID",
+   "plazas_autorizadas_numero": "40",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "HOGAR RESIDENCIA I",
+   "plazas_autorizadas_numero": "30",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "LOS CASTILLOS PISO APANSA",
+   "plazas_autorizadas_numero": "6",
+   "municipio_nombre": "Alcorcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "APANID.CENTRO DE DIA DE NTRA. SRA. DE LOS ANGELES",
+   "plazas_autorizadas_numero": "50",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Infancia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "CENTRO DE ATENCIÓN TEMPRANA \"AMP PINTO\"",
+   "plazas_autorizadas_numero": "20",
+   "municipio_nombre": "Pinto",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "LOS PINOS, CENTRO OCUPACIONAL",
+   "plazas_autorizadas_numero": "215",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS + PEVS"
+  },
+  {
+   "sector": "Infancia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "AMAS FINLANDIA, CENTRO DE ATENCION TEMPRANA",
+   "plazas_autorizadas_numero": "30",
+   "municipio_nombre": "Fuenlabrada",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "GETAFE, RESIDENCIA PARA PERSONAS CON DISCAPACIDAD INTELECTUAL GRAVEMENTE AFECTADAS",
+   "plazas_autorizadas_numero": "120",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN DIRECTA"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO TUTELADO RAFAEL",
+   "plazas_autorizadas_numero": "11",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "NUEVO VERSALLES, CENTRO RESIDENCIAL",
+   "plazas_autorizadas_numero": "125",
+   "municipio_nombre": "Fuenlabrada",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN INDIRECTA"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "CENTRO DE DIA  NUEVO VERSALLES",
+   "plazas_autorizadas_numero": "165",
+   "municipio_nombre": "Fuenlabrada",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN INDIRECTA"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "CENTRO OCUPACIONAL MUNICIPAL DE LEGANES",
+   "plazas_autorizadas_numero": "60",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "REGORDOÑO, CENTRO OCUPACIONAL",
+   "plazas_autorizadas_numero": "75",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "TALLERES",
+   "denominacion": "VILLA DE PARLA, CENTRO OCUPACIONAL",
+   "plazas_autorizadas_numero": "100",
+   "municipio_nombre": "Parla",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "LOS PINOS, OTRAS RESiDENCIAS",
+   "plazas_autorizadas_numero": "49",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "CENTRO OCUPACIONAL DE DISMINUIDOS PSÍQUICOS CARLOS CASTILLA DEL PINO",
+   "plazas_autorizadas_numero": "103",
+   "municipio_nombre": "Alcorcón",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE REHABILITACIÓN: OTROS",
+   "denominacion": "CENTRO DE REHABILITACION PSICOSOCIAL GETAFE",
+   "plazas_autorizadas_numero": "90",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN INDIRECTA"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO TUTELADOS MAJADAHONDA",
+   "plazas_autorizadas_numero": "6",
+   "municipio_nombre": "Majadahonda",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "GETAFE NORTE APANID, PISOS TUTELADOS",
+   "plazas_autorizadas_numero": "8",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO TUTELADO FUNDACION ASPAFES",
+   "plazas_autorizadas_numero": "8",
+   "municipio_nombre": "Majadahonda",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "PARQUE COIMBRA II, CENTRO OCUPACIONAL",
+   "plazas_autorizadas_numero": "90",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "CENTRO DE DIA LOS FRESNOS",
+   "plazas_autorizadas_numero": "46",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO TUTELADO ASTOR AVENIDA DE MADRID",
+   "plazas_autorizadas_numero": "5",
+   "municipio_nombre": "Torrejón de Ardoz",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "ASTOR VIVIENDA COMUNITARIA EL MADROÑAL",
+   "plazas_autorizadas_numero": "14",
+   "municipio_nombre": "Torrejón de Ardoz",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "CENTRO DE DIA EL MADROÑAL",
+   "plazas_autorizadas_numero": "100",
+   "municipio_nombre": "Torrejón de Ardoz",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "CENTRO DE DIA ROQUE GARRIDO APANID",
+   "plazas_autorizadas_numero": "75",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "VALDEPELAYOS, PISO TUTELADO",
+   "plazas_autorizadas_numero": "10",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "VIVIENDAS EL PINAR DE ACEDINOS APANID I",
+   "plazas_autorizadas_numero": "6",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "VIVIENDA EL PINAR DE ACEDINOS APANID II",
+   "plazas_autorizadas_numero": "6",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "VIVIENDA EL PINAR DE ACEDINOS APANID III",
+   "plazas_autorizadas_numero": "6",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "VIVIENDA EL PINAR DE ACEDINOS APANID IV",
+   "plazas_autorizadas_numero": "6",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "TALLER OCUPACIONAL DE JARDINERIA Y MEDIO AMBIENTE  APANID",
+   "plazas_autorizadas_numero": "30",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "VIVIENDA COMUNITARIA ESFERA",
+   "plazas_autorizadas_numero": "35",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE REHABILITACIÓN: OTROS",
+   "denominacion": "CENTRO DE REHABILITACION PSICOSOCIAL (CRPS) \"ALCOBENDAS\"",
+   "plazas_autorizadas_numero": "80",
+   "municipio_nombre": "Alcobendas",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN INDIRECTA"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE REHABILITACIÓN: OTROS",
+   "denominacion": "CENTRO DE REHABILITACION LABORAL GETAFE",
+   "plazas_autorizadas_numero": "50",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN INDIRECTA"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "RESIDENCIA ALCOBENDAS",
+   "plazas_autorizadas_numero": "26",
+   "municipio_nombre": "Alcobendas",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN INDIRECTA"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "RESIDENCIA GETAFE \"SANDRA PALO\"",
+   "plazas_autorizadas_numero": "26",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN INDIRECTA"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "LOS PINOS HOGARES, OTRAS RESIDENCIAS",
+   "plazas_autorizadas_numero": "40",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "LOS PINOS, CENTRO DE ATENCION DIURNA",
+   "plazas_autorizadas_numero": "50",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "APANSA II, PISO TUTELADO",
+   "plazas_autorizadas_numero": "6",
+   "municipio_nombre": "Alcorcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "APANSA III, PISO TUTELADO",
+   "plazas_autorizadas_numero": "6",
+   "municipio_nombre": "Alcorcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO TUTELADO PECHUAN DE LA ASOCIACION RUDOLF STEINER (CASA SOL)",
+   "plazas_autorizadas_numero": "9",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "FUENLABRADA, CENTRO OCUPACIONAL",
+   "plazas_autorizadas_numero": "105",
+   "municipio_nombre": "Fuenlabrada",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN INDIRECTA"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "RESIDENCIA ASTOR EL MADROÑAL PARA GRAVEMENTE AFECTADOS",
+   "plazas_autorizadas_numero": "22",
+   "municipio_nombre": "Torrejón de Ardoz",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE REHABILITACIÓN: OTROS",
+   "denominacion": "CENTRO DE REHABILITACIÓN PSICOSOCIAL \"TORREJÓN DE ARDOZ\"",
+   "plazas_autorizadas_numero": "60",
+   "municipio_nombre": "Torrejón de Ardoz",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN INDIRECTA"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE REHABILITACIÓN: OTROS",
+   "denominacion": "CENTRO DE REHABILITACION LABORAL \"TORREJON DE ARDOZ\"",
+   "plazas_autorizadas_numero": "50",
+   "municipio_nombre": "Torrejón de Ardoz",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN INDIRECTA"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "CENTRO DE DÍA \"TORREJÓN DE ARDOZ\"",
+   "plazas_autorizadas_numero": "30",
+   "municipio_nombre": "Torrejón de Ardoz",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN INDIRECTA"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "CENTRO OCUPACIONAL PARQUE COIMBRA I",
+   "plazas_autorizadas_numero": "80",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO TUTELADO I DE LA RESIDENCIA DE GETAFE",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Parla",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "AFANIAS, VIVIENDA COMUNITARIA 2",
+   "plazas_autorizadas_numero": "7",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "CAMP GETAFE, CENTRO DE DIA",
+   "plazas_autorizadas_numero": "20",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN DIRECTA"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "AFANIAS LA ENCINA, CENTRO OCUPACIONAL",
+   "plazas_autorizadas_numero": "100",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "CENTRO OCUPACIONAL ESFERA",
+   "plazas_autorizadas_numero": "90",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS + PEVS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE REHABILITACIÓN: OTROS",
+   "denominacion": "ALCORCON, CENTRO DE REHABILITACION PSICOSOCIAL",
+   "plazas_autorizadas_numero": "60",
+   "municipio_nombre": "Alcorcón",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN INDIRECTA"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE REHABILITACIÓN: OTROS",
+   "denominacion": "ALCORCON, CENTRO DE REHABILITACION LABORAL",
+   "plazas_autorizadas_numero": "40",
+   "municipio_nombre": "Alcorcón",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN INDIRECTA"
+  },
+  {
+   "sector": "Infancia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "ASTOR LOS JUNCALES, CENTRO DE ATENCION TEMPRANA",
+   "plazas_autorizadas_numero": "49",
+   "municipio_nombre": "Torrejón de Ardoz",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "RESIDENCIA PARLA",
+   "plazas_autorizadas_numero": "32",
+   "municipio_nombre": "Parla",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Infancia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "APANSA, CENTRO DE ATENCIÓN TEMPRANA Y TRATAMIENTOS",
+   "plazas_autorizadas_numero": "90",
+   "municipio_nombre": "Alcorcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE REHABILITACIÓN: OTROS",
+   "denominacion": "CENTRO DE ATENCION A ENFERMOS MENTALES GRUPO DE EXPERTOS",
+   "plazas_autorizadas_numero": "87",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Infancia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "CENTRO DE ATENCION TEMPRANA ESFERA",
+   "plazas_autorizadas_numero": "20",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "MAJADAHONDA, RESIDENCIA PESONAS CON DISCAPACIDAD INTELECTUAL",
+   "plazas_autorizadas_numero": "28",
+   "municipio_nombre": "Majadahonda",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN INDIRECTA"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "MAJADAHONDA, CENTRO DE DIA PERSONAS CON DISCAPACIDAD INTELECTUAL",
+   "plazas_autorizadas_numero": "40",
+   "municipio_nombre": "Majadahonda",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN INDIRECTA"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "MAJADAHONDA, CENTRO OCUPACIONAL PERSONAS CON DISCAPACIDAD INTELECTUAL",
+   "plazas_autorizadas_numero": "60",
+   "municipio_nombre": "Majadahonda",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN INDIRECTA"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "RESIDENCIA HOGAR \"EL ARROYO\"",
+   "plazas_autorizadas_numero": "36",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO SUPERVISADO III INTRESS C/ PINTOR ZURBARAN",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Infancia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "ADEMPA CENTRO DE ATENCION TEMPRANA  Y TRATAMIENTO",
+   "plazas_autorizadas_numero": "55",
+   "municipio_nombre": "Parla",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO SUPERVISADO GRUPO 5 ACCION Y GESTIÓN SOCIAL, S.L.",
+   "plazas_autorizadas_numero": "5",
+   "municipio_nombre": "Alcobendas",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO SUPERVISADO FUENLABRADA 2 FUNDACION MANANTIAL",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Fuenlabrada",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO SUPERVISADO PARLA II, FUNDACION MANANTIAL",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Parla",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO TUTELADO OLIVA",
+   "plazas_autorizadas_numero": "5",
+   "municipio_nombre": "Pinto",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO TUTELADO OLIVA II",
+   "plazas_autorizadas_numero": "6",
+   "municipio_nombre": "Pinto",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "APSURIA VIRGEN DE NURIA,CENTRO DE DIA",
+   "plazas_autorizadas_numero": "75",
+   "municipio_nombre": "Alcobendas",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "APSURIA VIRGEN DE NURIA, RESIDENCIA PARA PERSONAS CON DISCAPACIDAD",
+   "plazas_autorizadas_numero": "70",
+   "municipio_nombre": "Alcobendas",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "CENTRO DE DIA PARQUE POLVORANCA",
+   "plazas_autorizadas_numero": "120",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "PARQUE POLVORANCA, OTRAS RESIDENCIAS",
+   "plazas_autorizadas_numero": "75",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO TUTELADO LEONOR III CAL PAU",
+   "plazas_autorizadas_numero": "8",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO SUPERVISADO III PARLA, FUNDACION MANANTIAL",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Parla",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO SUPERVISADO II (B) RESIDENCIA GETAFE",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Pinto",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Infancia y Adolescencia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "AMAS PARIS CENTRO DE  ATENCION TEMPRANA Y TRATAMIENTOS",
+   "plazas_autorizadas_numero": "102",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "PARQUE COIMBRA, CENTRO DE DIA",
+   "plazas_autorizadas_numero": "183",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "PARQUE COIMBRA, OTRAS RESIDENCIAS",
+   "plazas_autorizadas_numero": "28",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "PARQUE COIMBRA HOGARES, OTRAS RESIDENCIAS",
+   "plazas_autorizadas_numero": "40",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO TUTELADO ASTOR - Pº DE LA ESTACIÓN.",
+   "plazas_autorizadas_numero": "3",
+   "municipio_nombre": "Torrejón de Ardoz",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "RESIDENCIA EL QUIJOBAR APANID",
+   "plazas_autorizadas_numero": "90",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "CENTRO DE DIA EL QUIJOBAR",
+   "plazas_autorizadas_numero": "15",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "CENTRO ESPECIAL DEL ISFAS",
+   "plazas_autorizadas_numero": "100",
+   "municipio_nombre": "Alcorcón",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "EL CABEZO, CENTRO RESIDENCIAL",
+   "plazas_autorizadas_numero": "28",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "EL CABEZO, CENTRO DE DIA",
+   "plazas_autorizadas_numero": "40",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "APANID, VIVIENDA TUTELADA",
+   "plazas_autorizadas_numero": "10",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO SUPERVISADO IV AVANTE 3",
+   "plazas_autorizadas_numero": "2",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO SUPERVISADO III AVANTE 3",
+   "plazas_autorizadas_numero": "2",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "LEGANES-CARMEN GARCIA GÚDAL- CENTRO DE DIA DE SOPORTE SOCIAL",
+   "plazas_autorizadas_numero": "30",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "RESIDENCIA LEGANES-CARMEN GARCIA GÚDAL",
+   "plazas_autorizadas_numero": "30",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "COMEDOR PARQUE COIMBRA, CENTRO DE DIA",
+   "plazas_autorizadas_numero": "210",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "INTRESS GETAFE, CENTRO DE DIA",
+   "plazas_autorizadas_numero": "30",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "JUAN RAMON JIMENEZ, CENTRO OCUPACIONAL",
+   "plazas_autorizadas_numero": "125",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN DIRECTA"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "JUAN RAMON JIMENEZ, CENTRO DE DIA",
+   "plazas_autorizadas_numero": "33",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PÚBLICA",
+   "tipo_gestion": "PROPIA DE GESTIÓN DIRECTA"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "APANID, RESIDENCIA  EL PRADO",
+   "plazas_autorizadas_numero": "15",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "APANID, CENTRO DE DIA  EL PRADO",
+   "plazas_autorizadas_numero": "30",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "ALEPH-TEA, PISO TUTELADO PARQUE BUJARUELO",
+   "plazas_autorizadas_numero": "5",
+   "municipio_nombre": "Alcorcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE REHABILITACIÓN: OTROS",
+   "denominacion": "LEGANES CARMEN GARCIA DE GUDAL, CENTRO DE REHABILITACION LABORAL",
+   "plazas_autorizadas_numero": "50",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE REHABILITACIÓN: OTROS",
+   "denominacion": "CENTRO DE REHABILITACIÓN LABORAL ALCOBENDAS",
+   "plazas_autorizadas_numero": "50",
+   "municipio_nombre": "Alcobendas",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "FUNDACION  CAL PAU JUAN PABLO II, CENTRO DE DIA",
+   "plazas_autorizadas_numero": "30",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "CENTRO DE DIA ESFERA",
+   "plazas_autorizadas_numero": "75",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "RESIDENCIA ESFERA",
+   "plazas_autorizadas_numero": "48",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "AFANIAS POZUELO,  CENTRO  RESIDENCIAL",
+   "plazas_autorizadas_numero": "57",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "APAMA CALDERON DE LA BARCA, PISO TUTELADO",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Alcobendas",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "COMEDOR PADRE ZURITA, CENTRO DE DIA",
+   "plazas_autorizadas_numero": "300",
+   "municipio_nombre": "Alcorcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "PADRE ZURITA, OTRAS RESIDENCIAS",
+   "plazas_autorizadas_numero": "99",
+   "municipio_nombre": "Alcorcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "PADRE ZURITA, CENTRO DE DIA",
+   "plazas_autorizadas_numero": "95",
+   "municipio_nombre": "Alcorcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "PADRE ZURITA, CENTRO OCUPACIONAL",
+   "plazas_autorizadas_numero": "120",
+   "municipio_nombre": "Alcorcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "FRANCISCO RABAL I, PISO TUTELADO",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "FRANCISCO RABAL II, PISO TUTELADO",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "CUARENTAINUEVE PINTO, CENTRO OCUPACIONAL",
+   "plazas_autorizadas_numero": "45",
+   "municipio_nombre": "Pinto",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS + PEVS"
+  },
+  {
+   "sector": "Infancia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "ATENCION TEMPRANA APANID II, CENTRO DE REHABILITACION",
+   "plazas_autorizadas_numero": "40",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "ACEDINOS, OTRAS RESIDENCIAS",
+   "plazas_autorizadas_numero": "8",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "GRUPO 5, CALLE JAEN PISO TUTELADO",
+   "plazas_autorizadas_numero": "5",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "GETAFE NORTE II APANID, PISO TUTELADO",
+   "plazas_autorizadas_numero": "8",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "GRUPO 5 PORTO CRISTO, PISO TUTELADO",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Alcorcón",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "ASTOR TRAVESIA DE LA CAÑADA, PISO TUTELADO",
+   "plazas_autorizadas_numero": "2",
+   "municipio_nombre": "Torrejón de Ardoz",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "SAN CARLOS II, CENTRO DE DIA",
+   "plazas_autorizadas_numero": "16",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "SAN CARLOS APNIC, OTRAS RESIDENCIAS",
+   "plazas_autorizadas_numero": "14",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "RESIDENCIA INTRESS  MÓSTOLES",
+   "plazas_autorizadas_numero": "40",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "CENTRO DE DÍA INTRESS  MÓSTOLES",
+   "plazas_autorizadas_numero": "60",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "RESIDENCIA FUENLABRADA",
+   "plazas_autorizadas_numero": "38",
+   "municipio_nombre": "Fuenlabrada",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "CENTRO DE DÍA DE SOPORTE SOCIAL FUENLABRADA",
+   "plazas_autorizadas_numero": "39",
+   "municipio_nombre": "Fuenlabrada",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE REHABILITACIÓN: OTROS",
+   "denominacion": "CENTRO DE REHABILITACIÓN PSICOSOCIAL FUENLABRADA",
+   "plazas_autorizadas_numero": "95",
+   "municipio_nombre": "Fuenlabrada",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE REHABILITACIÓN: OTROS",
+   "denominacion": "CENTRO DE REHABILITACIÓN LABORAL DE FUENLABRADA",
+   "plazas_autorizadas_numero": "102",
+   "municipio_nombre": "Fuenlabrada",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO   SUPERVISADOCOLISEE NORTE  III",
+   "plazas_autorizadas_numero": "5",
+   "municipio_nombre": "Alcobendas",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO SUPERVISADO II LEGANES",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "CENTRO DE DÍA MAJADAHONDA",
+   "plazas_autorizadas_numero": "27",
+   "municipio_nombre": "Majadahonda",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE REHABILITACIÓN: OTROS",
+   "denominacion": "CENTRO DE REHABILITACION PSICOSOCIAL DE PARLA",
+   "plazas_autorizadas_numero": "70",
+   "municipio_nombre": "Parla",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE REHABILITACIÓN: OTROS",
+   "denominacion": "CENTRO DE REHABILITACION LABORAL DE PARLA",
+   "plazas_autorizadas_numero": "90",
+   "municipio_nombre": "Parla",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "CENTRO DE DIA SOPORTE SOCIAL DE PARLA",
+   "plazas_autorizadas_numero": "50",
+   "municipio_nombre": "Parla",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO SUPERVISADO FUENLABRADA II",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Fuenlabrada",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "RESIDENCIA TORREJON",
+   "plazas_autorizadas_numero": "40",
+   "municipio_nombre": "Torrejón de Ardoz",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "CENTRO OCUPACIONAL YUNA",
+   "plazas_autorizadas_numero": "35",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS + PEVS"
+  },
+  {
+   "sector": "Infancia y Adolescencia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "CENTRO DE ATENCION TEMPRANA Y TRATAMIENTOS EDUKATEK",
+   "plazas_autorizadas_numero": "14",
+   "municipio_nombre": "Parla",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "AVANTE 3 PISO TUTELADO VI",
+   "plazas_autorizadas_numero": "2",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "AVANTE 3 PISO TUTELADO V",
+   "plazas_autorizadas_numero": "2",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "VIVIENDA COMUNITARIA SIMON HERNANDEZ II",
+   "plazas_autorizadas_numero": "5",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "AMAS SOCIAL VIVIENDA COMUNITARIA SIMON HERNANDEZ III",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "AMAS SOCIAL VIVIENDA COMUNITARIA SIMON HERNANDEZ I",
+   "plazas_autorizadas_numero": "5",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO TUTELADO ENVERA PABLO IGLESIAS",
+   "plazas_autorizadas_numero": "5",
+   "municipio_nombre": "Alcobendas",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "FUNDACION EL ARCA MADRID HOGAR ATECA",
+   "plazas_autorizadas_numero": "8",
+   "municipio_nombre": "Alcobendas",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "VIVIENDA COMUNITARIA AMÁS SOCIAL ALCALDE SATURNINO II",
+   "plazas_autorizadas_numero": "5",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "VIVIENDA COMUNITARIA AMÁS SOCIAL FRANCISCO RABAL III",
+   "plazas_autorizadas_numero": "3",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "VIVIENDA COMUNITARIA AMAS SOCIAL ALCALDE SATURNINO DEL YERRO ALONSO III",
+   "plazas_autorizadas_numero": "5",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "VIVIENDA PARA LA AUTONOMÍA PERSONAL ESFERA3",
+   "plazas_autorizadas_numero": "3",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "VIVIENDA COMUNITARIA AMÁS SOCIAL FRANCISCO RABAL IV",
+   "plazas_autorizadas_numero": "6",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE REHABILITACIÓN: OTROS",
+   "denominacion": "CENTRO DE REHABILITACIÓN PSICOSOCIAL MAJADAHONDA",
+   "plazas_autorizadas_numero": "30",
+   "municipio_nombre": "Majadahonda",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "CENTRO OCUPACIONAL D. JUAN AGUDO VALTIERRA",
+   "plazas_autorizadas_numero": "330",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "RESIDENCIA D. JUAN AGUDO VALTIERRA",
+   "plazas_autorizadas_numero": "54",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "VIVIENDA PARA LA AUTONOMÍA PERSONAL ESFERA 1",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "VIVIENDA PARA LA AUTONOMÍA PERSONAL ESFERA 2",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Infancia y Adolescencia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "CENTRO DE ATENCION TEMPRANA Y TRATAMIENTOS INTEGRAL CRECIENDO",
+   "plazas_autorizadas_numero": "20",
+   "municipio_nombre": "Pinto",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS OCUPACIONALES",
+   "subtipo": "CENTROS OCUPACIONALES GENÉRICOS",
+   "denominacion": "GRUPO AMAS COFOIL MARCELINO CAMACHO",
+   "plazas_autorizadas_numero": "90",
+   "municipio_nombre": "Fuenlabrada",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "INTRESS PISO TUTELADO SALVADOR DALI",
+   "plazas_autorizadas_numero": "5",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO TUTELADO FUNDACION GÖTZE CALLE FRANCIA",
+   "plazas_autorizadas_numero": "8",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "OTRAS RESIDENCIAS",
+   "denominacion": "RESIDENCIA MIL DIFERENCIAS",
+   "plazas_autorizadas_numero": "10",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Infancia y Adolescencia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "PASO A PASO CENTRO DE ATENCION TEMPRANA Y TRATAMIENTOS ESPECIALIZADOS",
+   "plazas_autorizadas_numero": "12",
+   "municipio_nombre": "Torrejón de Ardoz",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA + PEVS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "FUNDACION ESFERA, PISO TUTELADO ESFERA4",
+   "plazas_autorizadas_numero": "3",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "FUNDACION CAL PAU VIVIENDA ANTONIO DIAZ",
+   "plazas_autorizadas_numero": "6",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "VIVIENDA COMUNITARIA FUNDACIÓN CALPAU RUPERTO CHÁVARRI",
+   "plazas_autorizadas_numero": "5",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "VIVIENDA COMUNITARIA FUNDACIÓN CALPAU RUPERTO CHÁVARRI II",
+   "plazas_autorizadas_numero": "7",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Infancia y Adolescencia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "CENTRO DE ATENCION TEMPRANA Y TRATAMIENTOS GAIA",
+   "plazas_autorizadas_numero": "15",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO TUTELADO AVANTE 3 CARMEN MARTIN GAITE",
+   "plazas_autorizadas_numero": "5",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO TUTELADO DE ENTRENAMIENTOS",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Leganés",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "VIVIENDA COMUNITARIA MADRES CAPACES PARDO-VALCARCE",
+   "plazas_autorizadas_numero": "12",
+   "municipio_nombre": "Alcobendas",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "VIVIENDA COMUNITARIA ACVADI II",
+   "plazas_autorizadas_numero": "9",
+   "municipio_nombre": "Majadahonda",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "VIVIENDAS COMUNITARIAS",
+   "denominacion": "VIVIENDA COMUNITARIA LORANCA FUNDACION AMAS",
+   "plazas_autorizadas_numero": "5",
+   "municipio_nombre": "Fuenlabrada",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Infancia y Adolescencia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "CENTRO DE ATENCION TEMPRANA Y TRATAMIENTOS ADA",
+   "plazas_autorizadas_numero": "20",
+   "municipio_nombre": "Pinto",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA CON PLAZAS CONCERTADAS"
+  },
+  {
+   "sector": "Infancia y Adolescencia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "CENTRO DE ATENCION TEMPRANA Y TRATAMIENTOS ESPECIALIZADOS ANDA CONMIGO ALCORCON PARQUE LISBOA",
+   "plazas_autorizadas_numero": "12",
+   "municipio_nombre": "Alcorcón",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con discapacidad intelectual",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "CENTRO DE DIA FUNDACION CANA",
+   "plazas_autorizadas_numero": "32",
+   "municipio_nombre": "Pozuelo de Alarcón",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Infancia y Adolescencia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "TERAPYTEC CENTRO DE ATENCION TEMPRANA Y TRATAMIENTOS",
+   "plazas_autorizadas_numero": "21",
+   "municipio_nombre": "Parla",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS DE DÍA",
+   "subtipo": "CENTROS DE DÍA: OTROS",
+   "denominacion": "CENTRO DE DIA GRUPO 5 ALCOBENDAS",
+   "plazas_autorizadas_numero": "34",
+   "municipio_nombre": "Alcobendas",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Infancia y Adolescencia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "CENTRO DE ATENCIÓN TEMPRANA Y TRATAMIENTOS ALDE",
+   "plazas_autorizadas_numero": "6",
+   "municipio_nombre": "Alcobendas",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Infancia y Adolescencia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "CENTRO DE ATENCION TEMPRANA Y TRATAMIENTOS ANDA CONMIGO GETAFE",
+   "plazas_autorizadas_numero": "20",
+   "municipio_nombre": "Getafe",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Infancia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "CENTRO DE ATENCION TEMPRANA PARLA GRUPO 5",
+   "plazas_autorizadas_numero": "42",
+   "municipio_nombre": "Parla",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Infancia y Adolescencia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "CENTRO DE ATENCION TEMPRANA Y TRATAMIENTOS ANDA CONMIGO ALCORCON SANTO DOMINGO",
+   "plazas_autorizadas_numero": "11",
+   "municipio_nombre": "Alcorcón",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Personas con enfermedad mental crónica",
+   "tipo": "CENTROS RESIDENCIALES",
+   "subtipo": "PISOS TUTELADOS",
+   "denominacion": "PISO TUTELADO BECQUER PARA PERSONAS CON ENFERMADAD MENTAL GRAVE Y DURADERA",
+   "plazas_autorizadas_numero": "4",
+   "municipio_nombre": "Móstoles",
+   "entidad_naturaleza": "PRIVADA SIN ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Infancia y Adolescencia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "CENTRO DE ATENCION TEMPRANA Y TRATAMIENTOS TERAPITA",
+   "plazas_autorizadas_numero": "8",
+   "municipio_nombre": "Majadahonda",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  },
+  {
+   "sector": "Infancia y Adolescencia",
+   "tipo": "CENTROS DE REHABILITACIÓN",
+   "subtipo": "CENTROS DE ATENCIÓN",
+   "denominacion": "CENTRO DE ATENCION TEMPRANA Y TRATAMIENTOS ANDA CONMIGO PINTO",
+   "plazas_autorizadas_numero": "11",
+   "municipio_nombre": "Pinto",
+   "entidad_naturaleza": "PRIVADA CON ÁNIMO DE LUCRO",
+   "tipo_gestion": "PRIVADA TOTAL"
+  }
+ ],
+ "personas": {
+  "getafe": {
+   "intelectual": 1144,
+   "menos65": 6691,
+   "total": 11436
+  },
+  "parla": {
+   "intelectual": 1306,
+   "menos65": 5868,
+   "total": 8644
+  },
+  "pinto": {
+   "intelectual": 447,
+   "menos65": 1965,
+   "total": 2983
+  },
+  "fuenlabrada": {
+   "intelectual": 1435,
+   "menos65": 8464,
+   "total": 14069
+  },
+  "leganes": {
+   "intelectual": 1205,
+   "menos65": 7144,
+   "total": 13281
+  },
+  "alcorcon": {
+   "intelectual": 1003,
+   "menos65": 5921,
+   "total": 10678
+  },
+  "alcobendas": {
+   "intelectual": 641,
+   "menos65": 3922,
+   "total": 6695
+  },
+  "mostoles": {
+   "intelectual": 1185,
+   "menos65": 8297,
+   "total": 14890
+  },
+  "torrejon": {
+   "intelectual": 692,
+   "menos65": 5005,
+   "total": 8102
+  },
+  "pozuelo": {
+   "intelectual": 296,
+   "menos65": 1864,
+   "total": 3677
+  },
+  "majadahonda": {
+   "intelectual": 252,
+   "menos65": 1571,
+   "total": 2954
+  }
+ }
+}

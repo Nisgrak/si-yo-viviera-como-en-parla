@@ -878,6 +878,53 @@ página.
   coinciden una a una con las del indicador de escuelas infantiles del recuento. En esto Parla
   sale mejor que la mayoría, y la sección lo dice.
 
+### La inclusión
+
+`inclusion.html` (la inclusión de las personas con discapacidad), también con `assets/servicios.js` (`seccionDis()`, con la configuración
+de cada cosa en `DIS`). Cuatro secciones con las mismas piezas: las dos cifras, la
+clasificación de las once, la frase de cuántas tendría Parla con la proporción de la otra, los
+centros de Parla a la vista y los de la otra plegados: «Dónde vivir» (residencias y viviendas
+con apoyo), «El centro de día» y «El centro ocupacional», para la discapacidad intelectual, y
+«La atención temprana», contra los niños de 0 a 5 años. Cierra «Cuánta gente» (`personas()`):
+las personas con discapacidad reconocida por cada 1.000 vecinos, sin «cuanto más, mejor».
+
+La misma función pinta dos secciones en otras páginas, porque es donde se buscan: «La salud
+mental» en `sanidad.html`, antes de «Lo que hay», aunque esa red dependa de los servicios
+sociales y no del SERMAS; y «La educación especial» en `educacion.html`, antes de la escuela
+infantil, que cuenta colegios y no plazas. Cada sección tiene su cartel y su enlace con vista
+previa (`/<ciudad>/residencia/`, `/dia/`, `/ocupacional/`, `/temprana/`, `/mental/`,
+`/especial/`). En la portada, el resumen «Inclusión» y su botón, con el icono de las tres personas juntas
+(`ICONO_PAGINA.grupo`; la silla de ruedas se descartó). Los datos
+y el script se siguen llamando `discapacidad`, que es de lo que tratan.
+
+- **`datos/discapacidad.js`** lo escribe `herramientas/discapacidad.py` (`python3 -I`;
+  `--sin-red` lo rehace con lo guardado en `herramientas/discapacidad/discapacidad.json`). Del
+  Registro de centros de atención social de la Comunidad de Madrid, los centros de los sectores
+  «Personas con discapacidad intelectual» y «Personas con enfermedad mental crónica» de las once
+  ciudades. Entran los públicos y los privados con plazas concertadas; el registro no dice
+  cuántas plazas de un centro concertado lo están, así que cuentan todas las autorizadas. Fuera
+  quedan los solo privados y los que solo tienen «PEVS», plazas que se pagan con una ayuda a la
+  familia. Los nombres del registro van en mayúsculas y sin tildes: el script los pasa a nombre
+  propio, y el JSON guarda los originales.
+- **Más fuentes del mismo script.** Las personas con discapacidad reconocida por edad (el total
+  y las de menos de 65; la tabla por tipo oculta las cifras pequeñas por secreto estadístico y
+  no se puede sumar), el directorio de centros educativos de la Comunidad (colegios «CP EE» y
+  «CPR EE» en alta, públicos y concertados) y los niños de 0 a 5 años del padrón (INE, tabla
+  68543, edad año a año). La atención temprana son los centros de rehabilitación del registro
+  cuyo nombre dice «atención temprana».
+- **Las bases.** Las plazas de discapacidad intelectual, contra las personas con discapacidad
+  «intelectual o trastorno del desarrollo» reconocida en cada municipio a 31 de diciembre (otro
+  conjunto de datos abiertos de la Comunidad, de los Centros Base). Incluye a niños: la fuente no
+  cruza el tipo con la edad. Las de salud mental, que son para adultos, contra los vecinos de 18
+  a 64 años, que salen de `contexto.edades` (el total menos los tramos que ya hay).
+- **Una plaza no es de los vecinos de al lado.** Las adjudica la Comunidad, y Pozuelo tiene más
+  plazas de residencia que personas con discapacidad intelectual reconocida. La página lo dice
+  en el pie de cada sección y en «Cómo está hecho esto».
+- **Mirado y aplazado**: la lista de espera de la dependencia (no hay dato por municipio), los
+  parques infantiles inclusivos y las plazas de aparcamiento reservadas (sin fuente comparable),
+  la discapacidad física, que tiene pocos centros y ninguna base que case con ellos, y los
+  alumnos de educación especial, que la Comunidad solo publica para toda la región.
+
 ### Plantilla médica de los hospitales: mirado y descartado
 
 Sí se publica, y con mucho detalle. Dos fuentes:

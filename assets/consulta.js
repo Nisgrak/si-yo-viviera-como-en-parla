@@ -263,6 +263,47 @@
       etiqueta: nombreH, fuente: fuenteSA, pagina: 'sanidad.html#espera' });
   }
 
+  /* La discapacidad: plazas de la red pública (públicas y concertadas), cada
+     una contra quien la usa, como en inclusion.html; la salud mental y la
+     educación especial, como en sanidad.html y educacion.html. */
+  const DI = window.DISCAPACIDAD;
+  if (DI) {
+    const c = function (id) { return DI.ciudades[id]; };
+    const fR = DI.fuentes.registro;
+    const adultos = function (id) {
+      const Ed = D.contexto.edades;
+      return Ed.tramos.reduce(function (t, x) { return t - x.valores[id]; }, Ed.total[id]);
+    };
+    dato({ id: 'dis-personas', grupo: 'Inclusión', titulo: 'Personas con discapacidad reconocida',
+      unidad: 'por cada 1.000 habitantes, a 31 de diciembre de ' + DI.anio, dec: 1,
+      v: function (id) { return c(id).total / D.BASES.total.valores[id] * 1000; },
+      fuente: DI.fuentes.reconocidasEdad, pagina: 'inclusion.html#personas' });
+    dato({ id: 'dis-intelectual', grupo: 'Inclusión', titulo: 'Personas con discapacidad intelectual reconocida',
+      unidad: 'por cada 1.000 habitantes, a 31 de diciembre de ' + DI.anio, dec: 1,
+      v: function (id) { return c(id).intelectual / D.BASES.total.valores[id] * 1000; },
+      fuente: DI.fuentes.reconocidas, pagina: 'inclusion.html#personas' });
+    [['dis-residencia', 'residencial', 'Plazas en residencias y viviendas con apoyo', 'residencia'],
+      ['dis-dia', 'dia', 'Plazas en centros de día', 'dia'],
+      ['dis-ocupacional', 'ocupacional', 'Plazas en centros ocupacionales', 'ocupacional']].forEach(function (x) {
+      dato({ id: x[0], grupo: 'Inclusión', titulo: x[2] + ' para la discapacidad intelectual',
+        unidad: 'por cada 100 personas con discapacidad intelectual reconocida', dec: 1,
+        v: function (id) { return c(id)[x[1]].plazas / c(id).intelectual * 100; },
+        fuente: fR, pagina: 'inclusion.html#' + x[3] });
+    });
+    dato({ id: 'dis-temprana', grupo: 'Inclusión', titulo: 'Plazas de atención temprana',
+      unidad: 'por cada 1.000 niños de 0 a 5 años', dec: 1,
+      v: function (id) { return c(id).temprana.plazas / c(id).ninos0a5 * 1000; },
+      fuente: fR, pagina: 'inclusion.html#temprana' });
+    dato({ id: 'educacion-especial', grupo: 'Inclusión', titulo: 'Colegios de educación especial',
+      unidad: 'públicos y concertados, por cada 10.000 niños y jóvenes de 3 a 17 años', dec: 2,
+      v: function (id) { return c(id).especial.colegios / (D.BASES.primaria.valores[id] + D.BASES.secundaria.valores[id]) * 10000; },
+      fuente: DI.fuentes.colegios, pagina: 'educacion.html#especial' });
+    dato({ id: 'salud-mental', grupo: 'Sanidad', titulo: 'Plazas de la red de salud mental',
+      unidad: 'de atención social a la enfermedad mental grave, por cada 10.000 vecinos de 18 a 64 años', dec: 1,
+      v: function (id) { return c(id).mental.plazas / adultos(id) * 10000; },
+      fuente: fR, pagina: 'sanidad.html#mental' });
+  }
+
   const POR_ID = {};
   CAT.forEach(function (d) { POR_ID[d.id] = d; });
   const GRUPOS = [];
@@ -1129,6 +1170,9 @@
     ['Plazas de médico de familia y pediatra (plantilla del SERMAS)', '15 de octubre de 2026', 'Cuando cambia la plantilla'],
     ['Tarjetas sanitarias por centro de salud (Observatorio del SERMAS)', '2024', 'Cada año'],
     ['Admisión y alumnos de las escuelas infantiles públicas (Comunidad de Madrid)', 'Admisión ' + ((window.INFANTIL || {}).cursoAdmision || '—') + '; alumnos ' + ((window.INFANTIL || {}).cursoMatricula || '—'), 'Cada curso'],
+    ['Centros para la discapacidad y la salud mental (Registro de centros de atención social)', ((window.DISCAPACIDAD || {}).fuentes || { registro: ['—'] }).registro[0].replace(/^.*, a /, ''), 'Cada mes'],
+    ['Personas con discapacidad reconocida (Comunidad de Madrid)', '31 de diciembre de ' + ((window.DISCAPACIDAD || {}).anio || '—'), 'Cada año'],
+    ['Colegios de educación especial (directorio de centros educativos)', ((window.DISCAPACIDAD || {}).fuentes || { colegios: ['—'] }).colegios[0].replace(/^.*, a /, ''), 'Cada año'],
     ['Zonas verdes (Copernicus, Urban Atlas)', '2018', 'Cada seis años'],
     ['Paro registrado (SEPE)', 'Media de 2025', 'Cada mes'],
     ['Contratos (SEPE)', '2025', 'Cada mes'],

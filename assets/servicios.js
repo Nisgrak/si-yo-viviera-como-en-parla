@@ -1,12 +1,16 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   SANIDAD · sanidad.html  y  EDUCACIÓN · educacion.html
-   Un solo script para las dos páginas: cada una pinta las secciones que
+   SANIDAD · sanidad.html,  EDUCACIÓN · educacion.html  y
+   INCLUSIÓN · inclusion.html
+   Un solo script para las tres páginas: cada una pinta las secciones que
    tiene (<body data-pagina>). Arriba, lo que hay de su área en el recuento
    (los mismos indicadores de datos/datos.js, con la misma base); después,
    lo que no cuenta el recuento:
-     sanidad    la espera en el hospital (datos/sanidad.js) y el médico de
-                cabecera (datos/primaria.js)
+     sanidad    la espera en el hospital (datos/sanidad.js), el médico de
+                cabecera (datos/primaria.js) y la salud mental
+                (datos/discapacidad.js)
      educación  la escuela infantil de 0 a 2 años (datos/infantil.js)
+     inclusión  todo es de fuera del recuento: las plazas para la
+                discapacidad intelectual (datos/discapacidad.js)
    Cada sección lleva su cartel y su enlace con vista previa.
    ═══════════════════════════════════════════════════════════════════════ */
 
@@ -574,7 +578,7 @@
     return ids.indexOf(REF) + 1;
   }
   function puestoDe(p, total) {
-    return p === total ? 'la última' : p === total - 1 ? 'la penúltima' : 'la ' + p + '.ª';
+    return p === 1 ? 'la primera' : p === total ? 'la última' : p === total - 1 ? 'la penúltima' : 'la ' + p + '.ª';
   }
 
   /* ── Después del instituto ────────────────────────────────────────────
@@ -753,9 +757,169 @@
   }
 
 
+  /* ── La discapacidad ──────────────────────────────────────────────────
+     Plazas de la red pública (centros públicos y concertados) en cada
+     ciudad, del registro de centros de la Comunidad, y colegios de
+     educación especial (herramientas/discapacidad.py). Cada cosa, contra
+     quien la usa: la discapacidad intelectual, contra quien la tiene
+     reconocida; la atención temprana, contra los niños de 0 a 5 años; la
+     salud mental (en sanidad.html), contra los vecinos de 18 a 64; los
+     colegios (en educacion.html), contra los de 3 a 17. Nada suma al
+     recuento. */
+  const X_ = function () { return window.DISCAPACIDAD.ciudades; };
+  const INTEL = { base: function (id) { return X_()[id].intelectual; }, por: 100,
+    baseTxt: 'personas con discapacidad intelectual reconocida' };
+  const PIE_INTEL = 'Personas con discapacidad intelectual o trastorno del desarrollo reconocida, de todas las edades.';
+  const DIS = {
+    residencia: Object.assign({ k: 'residencial', titulo: 'Dónde vivir',
+      enlace: 'Dónde vivir con discapacidad intelectual en Parla y en ',
+      intro: 'Las residencias y las viviendas con apoyo para personas con discapacidad intelectual que no viven con su familia.' }, INTEL),
+    dia: Object.assign({ k: 'dia', titulo: 'El centro de día',
+      enlace: 'Los centros de día para la discapacidad intelectual en Parla y en ',
+      intro: 'Los centros de día atienden durante el día a personas con discapacidad intelectual que necesitan apoyo continuo, y que vuelven a dormir a casa.' }, INTEL),
+    ocupacional: Object.assign({ k: 'ocupacional', titulo: 'El centro ocupacional',
+      enlace: 'Los centros ocupacionales en Parla y en ',
+      intro: 'Los centros ocupacionales dan talleres y formación a adultos con discapacidad intelectual que no tienen un empleo.' }, INTEL),
+    temprana: { k: 'temprana', titulo: 'La atención temprana',
+      base: function (id) { return X_()[id].ninos0a5; }, por: 1000, baseTxt: 'niños de 0 a 5 años',
+      enlace: 'La atención temprana en Parla y en ',
+      intro: 'Los centros de atención temprana tratan a niños de 0 a 5 años con un trastorno del desarrollo o con riesgo de tenerlo: estimulación, fisioterapia, logopedia.' },
+    mental: { k: 'mental', titulo: 'La salud mental', base: adultos, por: 10000, baseTxt: 'vecinos de 18 a 64 años',
+      enlace: 'La red de salud mental en Parla y en ',
+      intro: 'La red de atención social a personas con enfermedad mental grave: residencias y pisos supervisados, centros de día y centros de rehabilitación psicosocial y laboral.' },
+    especial: { k: 'especial', titulo: 'La educación especial', unidad: 'colegios',
+      base: function (id) { return D.BASES.primaria.valores[id] + D.BASES.secundaria.valores[id]; }, por: 10000,
+      baseTxt: 'niños y jóvenes de 3 a 17 años',
+      enlace: 'Los colegios de educación especial en Parla y en ',
+      intro: 'Los colegios de educación especial escolarizan a alumnos con discapacidad que necesitan más apoyo del que da un colegio ordinario.' }
+  };
+  /* Los vecinos de 18 a 64 años: todos menos los tramos de edad que ya se usan. */
+  function adultos(id) {
+    const E = D.contexto.edades;
+    return E.tramos.reduce(function (t, x) { return t - x.valores[id]; }, E.total[id]);
+  }
+  function seccionDis(clave) {
+    const X = window.DISCAPACIDAD, cfg = DIS[clave];
+    const colegios = cfg.unidad === 'colegios';
+    const unidad = colegios ? 'colegios' : 'plazas';
+    const de = function (k) { return entero(k) + ' ' + (k === 1 ? unidad.replace(/s$/, '') : unidad); };
+    const c = function (id) { return X.ciudades[id]; };
+    const cuantos = function (id) { return c(id)[cfg.k][unidad]; };
+    const base = cfg.base, por = cfg.por;
+    const v = function (id) { return cuantos(id) / base(id) * por; };
+    const dec = function (x) { return num(x, x === 0 ? 0 : 1); };
+    /* Los colegios son pocos: «tendría 2,6» dice más que redondear. */
+    const n = function (x) { return colegios ? num(x) : entero(Math.round(x)); };
+    const ninguno = colegios ? 'ninguno' : 'ninguna';
+
+    $('#' + clave + '-txt').textContent = cfg.intro;
+    cifrasPar($('#' + clave + '-cifras'), function (id) { return dec(v(id)); }, function (id) {
+      return unidad + ' por cada ' + entero(por) + ' ' + cfg.baseTxt + ' · ' + de(cuantos(id)) + ' para ' +
+        entero(base(id));
+    });
+    const tendria = v(AQUI) / por * base(REF);
+    $('#' + clave + '-nota').textContent = (cuantos(REF) === 0 ? 'Parla no tiene ' + ninguno + '. ' : '') +
+      (cuantos(AQUI) === 0 ? NOMBRE[AQUI] + (cuantos(REF) === 0 ? ' tampoco.' : ' no tiene ' + ninguno + '.')
+        : 'Con la proporción de ' + NOMBRE[AQUI] + ', Parla tendría ' + n(tendria) + ' ' + unidad +
+          (cuantos(REF) === 0 ? '.' : tendria < cuantos(REF) ? ', menos de ' + (colegios ? 'los ' : 'las ') + entero(cuantos(REF)) + ' que tiene.'
+            : '; tiene ' + entero(cuantos(REF)) + '.'));
+
+    const p = clasificacion($('#' + clave + '-filas'), v, dec);
+    const todas = IDS_TODAS();
+    const ceros = todas.filter(function (id) { return cuantos(id) === 0; });
+    $('#' + clave + '-cuenta').textContent = cuantos(REF) === 0
+      ? (ceros.length === 1 ? 'Parla es la única de las ' + letra(todas.length) + ' sin ' + ninguno + '.'
+        : 'Parla es una de las ' + letra(ceros.length) + ' sin ' + ninguno + ', con ' +
+          listaY(ceros.filter(function (id) { return id !== REF; }).map(function (id) { return NOMBRE[id]; })) + '.')
+      : 'Parla es ' + puestoDe(p, todas.length) + ' de las ' + letra(todas.length) + '.' +
+        (ceros.length ? ' ' + listaY(ceros.map(function (id) { return NOMBRE[id]; })) +
+          (ceros.length === 1 ? ' no tiene ' : ' no tienen ') + ninguno + '.' : '');
+
+    /* Lo que hay en Parla, a la vista; lo de la otra ciudad, plegado. */
+    const cont = $('#' + clave + '-centros');
+    vaciar(cont);
+    const nombres = function (id) {
+      const ul = el('ul', 'nombres');
+      c(id)[cfg.k].centros.forEach(function (x) {
+        const li = el('li', 'nombre');
+        li.appendChild(el('span', 'nombre__m'));
+        li.appendChild(el('span', 'nombre__t', x[0]));
+        li.appendChild(el('span', 'nombre__p', (x[1] == null ? '' : entero(x[1]) + ' plazas · ') + x[2]));
+        ul.appendChild(li);
+      });
+      return ul;
+    };
+    if (cuantos(REF)) cont.appendChild(nombres(REF));
+    if (cuantos(AQUI)) {
+      const det = el('details', 'plegable');
+      det.appendChild(el('summary', null, (colegios ? 'Los colegios de ' : 'Los centros de ') + NOMBRE[AQUI]));
+      det.appendChild(nombres(AQUI));
+      cont.appendChild(det);
+    }
+
+    const pies = {
+      mental: ['Vecinos de 18 a 64 años a 1 de enero de 2025.', [[D.fuentes.edades.t, D.fuentes.edades.url]]],
+      temprana: ['Niños de 0 a 5 años a 1 de enero de ' + X.anioPadron + '.', [X.fuentes.ninos]],
+      especial: ['Niños y jóvenes de 3 a 17 años a 1 de enero de 2025; estos colegios llegan hasta los 21.',
+        [[D.fuentes.edades.t, D.fuentes.edades.url]]]
+    };
+    const pie = pies[clave] || [PIE_INTEL, [X.fuentes.reconocidas]];
+    pieFuentes($('#' + clave + '-pie'), (colegios
+      ? 'Colegios públicos y concertados de educación especial dados de alta, en el término de cada ciudad. Escolarizan también a alumnos de otras ciudades. '
+      : 'Plazas autorizadas en centros públicos o con plazas concertadas, en el término de cada ciudad. Las adjudica la ' +
+        'Comunidad de Madrid y atienden también a gente de otras ciudades. ') + pie[0],
+      [colegios ? X.fuentes.colegios : X.fuentes.registro].concat(pie[1]));
+
+    botones('#' + clave + '-botones', clave, cfg.titulo, function () {
+      return {
+        pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · ' + cfg.titulo,
+        antes: 'Parla tiene', cifra: dec(v(REF)), que: unidad,
+        sub: 'por cada ' + entero(por) + ' ' + cfg.baseTxt + '. ' + NOMBRE[AQUI] + ' tiene ' + dec(v(AQUI)) + '.',
+        cajas: [{ q: 'Parla', v: cuantos(REF) === 0 && ceros.length === 1 ? 'la única de las ' + letra(todas.length) + ' sin ' + ninguno
+          : puestoDe(p, todas.length) + ' de las ' + letra(todas.length), ref: true }]
+      };
+    }, cfg.enlace + NOMBRE[AQUI]);
+  }
+
+  /* Cuánta gente tiene reconocida una discapacidad en cada ciudad, por cada
+     1.000 vecinos: el punto de partida, sin «más» ni «menos» mejor. */
+  function personas() {
+    const X = window.DISCAPACIDAD, c = function (id) { return X.ciudades[id]; };
+    const pob = D.BASES.total.valores;
+    const v = function (id) { return c(id).total / pob[id] * 1000; };
+    const vi = function (id) { return c(id).intelectual / pob[id] * 1000; };
+    const jov = function (id) { return c(id).menos65 / c(id).total * 100; };
+    $('#personas-txt').textContent = 'Las personas a las que la Comunidad de Madrid ha reconocido una discapacidad, ' +
+      'de cualquier tipo y edad, por cada 1.000 vecinos.';
+    cifrasPar($('#personas-cifras'), function (id) { return num(v(id), 1); }, function (id) {
+      return 'personas con discapacidad reconocida por cada 1.000 vecinos · ' + entero(c(id).total) + ' personas';
+    });
+    clasificacion($('#personas-filas'), v, function (x) { return num(x, 1); });
+    const cont = $('#personas-listas');
+    vaciar(cont);
+    const topeI = Math.max.apply(null, IDS_TODAS().map(vi));
+    filasPar(cont, 'Con discapacidad intelectual o trastorno del desarrollo, por cada 1.000 vecinos',
+      [['Parla · ' + entero(c(REF).intelectual) + ' personas', vi(REF), 'referencia'],
+        [NOMBRE[AQUI] + ' · ' + entero(c(AQUI).intelectual) + ' personas', vi(AQUI), 'aqui']], topeI,
+      function (x) { return num(x, 1); }, null, 'personas-intelectual');
+    $('#personas-cuenta').textContent = 'En Parla, ' + num(jov(REF), 0) + ' de cada 100 tienen menos de 65 años; en ' +
+      NOMBRE[AQUI] + ', ' + num(jov(AQUI), 0) + '. Ordenadas de más a menos personas con discapacidad intelectual ' +
+      'reconocida por vecino, Parla es ' + puestoDe(deMenos(function (id) { return -vi(id); }), IDS_TODAS().length) +
+      ' de las ' + letra(IDS_TODAS().length) + '.';
+    pieFuentes($('#personas-pie'), 'Personas valoradas por los Centros Base de la Comunidad de Madrid, a 31 de diciembre de ' +
+      X.anio + ', contra los vecinos del padrón.',
+      [X.fuentes.reconocidasEdad, X.fuentes.reconocidas, [D.fuentes[D.BASES.total.fuenteId].t, D.fuentes[D.BASES.total.fuenteId].url]]);
+  }
+
+  function discapacidad() {
+    if (!window.DISCAPACIDAD) return;
+    ['residencia', 'dia', 'ocupacional', 'temprana'].forEach(seccionDis);
+    personas();
+  }
+
   /* ── Pintar ───────────────────────────────────────────────────────── */
 
-  const TITULO = { sanidad: 'La sanidad de', educacion: 'La educación de' }[PAGINA];
+  const TITULO = { sanidad: 'La sanidad de', educacion: 'La educación de', inclusion: 'La inclusión en' }[PAGINA];
   function golpe() {
     const n = $('#golpe');
     if (!n) return;
@@ -793,6 +957,22 @@
         dato.appendChild(el('p', 'portada__dato-que', 'alumnos de FP pública por cada 100 jóvenes de 12 a 17 años en Parla'));
         dato.appendChild(el('p', 'portada__dato-otra', NOMBRE[AQUI] + ': ' + num(v(AQUI), 1)));
       }
+    } else if (PAGINA === 'inclusion' && window.DISCAPACIDAD) {
+      const X = window.DISCAPACIDAD.ciudades, r = X[REF], a = X[AQUI];
+      const enDos = function (x) {
+        return entero(x.residencial.plazas) + ' plazas en residencias y ' + entero(x.dia.plazas) + ' en centros de día';
+      };
+      n.appendChild(document.createTextNode('En Parla hay ' + entero(r.intelectual) + ' personas con discapacidad intelectual reconocida, y '));
+      n.appendChild(el('b', 'parla', r.residencial.plazas === 0 && r.dia.plazas === 0
+        ? 'ninguna plaza para ellas en una residencia ni en un centro de día' : enDos(r)));
+      n.appendChild(document.createTextNode('. ' + NOMBRE[AQUI] + ', con ' + entero(a.intelectual) + ', tiene ' + enDos(a) + '.'));
+      const dato = $('#portada-dato');
+      if (dato) {
+        vaciar(dato);
+        dato.appendChild(el('p', 'portada__dato-v', entero(r.residencial.plazas)));
+        dato.appendChild(el('p', 'portada__dato-que', 'plazas en residencias para personas con discapacidad intelectual en Parla'));
+        dato.appendChild(el('p', 'portada__dato-otra', NOMBRE[AQUI] + ': ' + entero(a.residencial.plazas)));
+      }
     }
   }
   function comun() {
@@ -802,13 +982,15 @@
     document.querySelectorAll('[data-aqui]').forEach(function (n) { n.textContent = NOMBRE[AQUI]; });
     const vuelta = RUTAS ? RAIZ_WEB + AQUI + '/' : 'index.html#' + AQUI;
     document.querySelectorAll('.js-volver').forEach(function (a) { a.href = vuelta; });
-    document.title = TITULO + ' Parla y ' + TITULO.replace(/ de$/, '').toLowerCase() + ' de ' + NOMBRE[AQUI] + ' · ' + D.NOMBRE_WEB;
+    document.title = (PAGINA === 'inclusion' ? TITULO + ' Parla y en '
+      : TITULO + ' Parla y ' + TITULO.replace(/ de$/, '').toLowerCase() + ' de ') + NOMBRE[AQUI] + ' · ' + D.NOMBRE_WEB;
   }
   function pintar() {
     comun();
     golpe();
-    if (PAGINA === 'sanidad') { hay(); hospital(); cartera(); cabecera(); espera(); }
-    if (PAGINA === 'educacion') { despues(); artes(); escuelas(); infantil(); }
+    if (PAGINA === 'sanidad') { hay(); hospital(); cartera(); cabecera(); espera(); if (window.DISCAPACIDAD) seccionDis('mental'); }
+    if (PAGINA === 'educacion') { despues(); artes(); escuelas(); infantil(); if (window.DISCAPACIDAD) seccionDis('especial'); }
+    if (PAGINA === 'inclusion') discapacidad();
     if (window.INDICE) window.INDICE.refrescar({ ciudad: AQUI, nombre: NOMBRE[AQUI] });
   }
 

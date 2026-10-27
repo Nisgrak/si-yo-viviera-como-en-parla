@@ -12,3 +12,6 @@ herramientas/video/salida/
 
 # claves (la de NaN, para la voz del vídeo)
 .env
+
+# lo que deja Python al importar los scripts de herramientas/
+__pycache__/

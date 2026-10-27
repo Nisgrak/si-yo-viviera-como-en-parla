@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>La sanidad de Parla · Parla, a la cola</title>
-<meta name="description" content="Las camas del hospital de Parla, lo que tiene el de otras ciudades y el de Parla no, el médico de cabecera y la espera, en Parla y en las ciudades de alrededor. Con datos oficiales.">
+<meta name="description" content="Las camas del hospital de Parla, lo que tiene el de otras ciudades y el de Parla no, el médico de cabecera, la espera y la salud mental, en Parla y en las ciudades de alrededor. Con datos oficiales.">
 <meta name="theme-color" content="#ffffff">
 <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)">
 
@@ -133,6 +133,23 @@
   </div>
 </section>
 
+<!-- ── La salud mental ───────────────────────────────────────────────────
+     La red de atención social a personas con enfermedad mental grave (datos/discapacidad.js). -->
+<section class="bloque bloque--salir" id="mental" data-indice="La salud mental">
+  <div class="env">
+    <h2 class="bloque__h">La salud mental</h2>
+    <p class="bloque__intro" id="mental-txt"></p>
+    <div class="tp-cifras" id="mental-cifras" data-sentido="mas"></div>
+    <p class="tp-nota" id="mental-nota"></p>
+    <h3 class="espera__h" id="mental-todas" data-sentido="mas">Plazas por cada 10.000 vecinos de 18 a 64 años, ciudad a ciudad</h3>
+    <ul class="mun salir__filas espera__filas" id="mental-filas"></ul>
+    <p class="bloque__intro salir__tren" id="mental-cuenta"></p>
+    <div id="mental-centros"></div>
+    <p class="salir__pie" id="mental-pie"></p>
+    <div class="seccion__botones" id="mental-botones"></div>
+  </div>
+</section>
+
 <!-- ── Lo que hay ────────────────────────────────────────────────────────
      Los indicadores del recuento de esta área (datos/datos.js). -->
 <section class="bloque bloque--salir" id="hay" data-indice="Lo que hay">
@@ -177,6 +194,18 @@
         Móstoles tiene dos, y se usa el de Móstoles, que atiende a dos de cada tres vecinos. La
         lista para operarse es la completa, no solo la «estructural» que la Comunidad da como
         titular. La espera no suma al recuento, que cuenta los servicios que hay en cada ciudad.
+      </p>
+
+      <h3>La salud mental</h3>
+      <p>
+        Son las plazas de la red de atención social a personas con enfermedad mental grave:
+        residencias y pisos supervisados, centros de día y centros de rehabilitación psicosocial y
+        laboral. Dependen de los servicios sociales de la Comunidad de Madrid, no del Servicio
+        Madrileño de Salud, y vienen del Registro de centros de atención social de la Comunidad de Madrid. Entran
+        los centros públicos y los privados con plazas concertadas, con todas sus plazas autorizadas,
+        porque el registro no dice cuántas son concertadas. Son para adultos y se cuentan contra los
+        vecinos de 18 a 64 años. Las adjudica la Comunidad, y un centro atiende también a gente de
+        otras ciudades. No suma al recuento.
       </p>
 
       <h3>Lo que hay</h3>
@@ -229,6 +258,7 @@
 <script src="assets/sentido.js"></script>
 <script src="datos/sanidad.js"></script>
 <script src="datos/primaria.js"></script>
+<script src="datos/discapacidad.js"></script>
 <script src="assets/qr.js"></script>
 <script src="assets/cartel.js"></script>
 <script src="assets/indice.js"></script>

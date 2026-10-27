@@ -21,21 +21,24 @@ const D = globalThis.DATOS;
 
 /* Lo que tiene que salir con texto en cada página. */
 const PAGINAS = {
-  'index.html': ['#golpe', '#resumen-total', '#dinero-cuerpo', '#salir-txt', '#salir-tren', '#servicios-sanidad', '#servicios-educacion', '#vivienda-txt'],
+  'index.html': ['#golpe', '#resumen-total', '#dinero-cuerpo', '#salir-txt', '#salir-tren', '#servicios-sanidad', '#servicios-educacion', '#servicios-inclusion', '#vivienda-txt'],
   'economia.html': ['#golpe', '#trabajo-cifras', '#paro-fichas', '#renta-fichas', '#produce-fichas', '#ayto-fichas', '#ayto-mas', '#paga-fichas', '#paga-cierre', '#paga-basuras-pie'],
   'vivienda.html': ['#golpe', '#comprar-cifras', '#alquilar-cifras', '#barrios-rangos', '#desahucios-cifras'],
   'infraestructura.html': ['#golpe', '#golpe-tren', '#cob-cifras', '#abono-cifras', '#tp-frase', '#tp-dato-parla', '#tp-dato-aqui'],
-  'sanidad.html': ['#golpe', '#hospital-cifras', '#hospital-filas', '#hay-listas', '#espera-txt', '#espera-cuenta', '#cabecera-txt', '#cabecera-cifras', '#cabecera-cuenta'],
-  'educacion.html': ['#golpe', '#despues-matriz', '#despues-txt', '#fp-cifras', '#fp-filas', '#artes-cifras', '#artes-filas', '#hay-listas', '#infantil-txt', '#infantil-cifras', '#infantil-cuenta'],
+  'sanidad.html': ['#golpe', '#hospital-cifras', '#hospital-filas', '#hay-listas', '#espera-txt', '#espera-cuenta', '#cabecera-txt', '#cabecera-cifras', '#cabecera-cuenta', '#mental-cifras', '#mental-cuenta'],
+  'educacion.html': ['#golpe', '#despues-matriz', '#despues-txt', '#fp-cifras', '#fp-filas', '#artes-cifras', '#artes-filas', '#hay-listas', '#infantil-txt', '#infantil-cifras', '#infantil-cuenta', '#especial-cifras', '#especial-cuenta'],
+  'inclusion.html': ['#golpe', '#residencia-cifras', '#residencia-nota', '#residencia-cuenta', '#dia-cifras', '#dia-cuenta',
+    '#ocupacional-cifras', '#ocupacional-cuenta', '#temprana-cifras', '#temprana-cuenta', '#personas-cifras', '#personas-cuenta'],
   'consulta.html': ['#cat-lista', '#resultados', '#cat-total']
 };
 /* Y lo que tiene que existir, aunque no lleve texto. */
 const PIEZAS = {
-  'index.html': ['.sentido'],
+  'index.html': ['.sentido', '#portada-inclusion'],
   'vivienda.html': ['.sentido'],
   'infraestructura.html': ['.sentido', '#tp-parla svg .tp__zona', '#tp-aqui svg .tp__zona', '#tp-ley li'],
-  'sanidad.html': ['.sentido', '#espera-botones .compartir', '#cabecera-botones .compartir'],
-  'educacion.html': ['.sentido', '#infantil-botones .compartir'],
+  'sanidad.html': ['.sentido', '#espera-botones .compartir', '#cabecera-botones .compartir', '#mental-botones .compartir'],
+  'educacion.html': ['.sentido', '#infantil-botones .compartir', '#especial-botones .compartir'],
+  'inclusion.html': ['.sentido', '#residencia-filas li', '#residencia-botones .compartir', '#temprana-botones .compartir', '#personas-filas li'],
   'economia.html': ['.sentido', '#trabajo-graf svg', '#renta-reparto .reparto__barra', '#paga-botones .compartir'],
   'consulta.html': ['.sentido', '#resultados .res__fila', '.cat__item input']
 };

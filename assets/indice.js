@@ -33,6 +33,8 @@
       ruta: 'sanidad/', archivo: 'sanidad.html' },
     { id: 'educacion', titulo: function () { return 'Educación'; },
       ruta: 'educacion/', archivo: 'educacion.html' },
+    { id: 'inclusion', titulo: function () { return 'Inclusión'; },
+      ruta: 'inclusion/', archivo: 'inclusion.html' },
     /* Sin ciudad: las once a la vez. */
     { id: 'consulta', titulo: function () { return 'Todos los datos'; },
       archivo: 'consulta.html', sinCiudad: true }
