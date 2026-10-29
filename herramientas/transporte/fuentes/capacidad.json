@@ -1,0 +1,228 @@
+{
+ "_meta": {
+  "fecha": "2026-10-27",
+  "ventana": [
+   "07:00",
+   "09:00"
+  ],
+  "plazas": {
+   "cercanias": {
+    "plazas": 997,
+    "que": "Renfe, Civia de cinco coches (serie 465): 277 sentadas y 720 de pie",
+    "fuente": "https://www.renfe.com/es/es/cercanias/cercanias-madrid/rodajes/unidad-465"
+   },
+   "metro10a": {
+    "plazas": 1260,
+    "que": "Metro de Madrid, serie 7000 de seis coches (línea 10, tramo A)",
+    "fuente": "https://en.wikipedia.org/wiki/Line_10_(Madrid_Metro)"
+   },
+   "metro10b": {
+    "plazas": 630,
+    "que": "serie 9000 de tres coches (línea 10, tramo B): la mitad que la de seis",
+    "fuente": "https://en.wikipedia.org/wiki/Line_10_(Madrid_Metro)"
+   },
+   "metro11": {
+    "plazas": 840,
+    "que": "serie 8000 de cuatro coches (línea 11), a 210 plazas por coche como la serie 7000",
+    "fuente": "https://en.wikipedia.org/wiki/Line_11_(Madrid_Metro)"
+   },
+   "ligero": {
+    "plazas": 200,
+    "que": "Metro Ligero, tranvía de unos 30 m",
+    "fuente": null
+   },
+   "bus": {
+    "plazas": 80,
+    "que": "autobús interurbano de 12 m",
+    "fuente": null
+   }
+  },
+  "demanda": {
+   "fecha": "20241016",
+   "fuente": "https://movilidad-opendata.mitma.es/estudios_basicos/por-municipios/viajes/ficheros-diarios/2024-10/20241016_Viajes_municipios.csv.gz"
+  }
+ },
+ "parla": {
+  "lineas": {
+   "C-4": {
+    "vehiculos": 10.0,
+    "plazas": 9970
+   },
+   "autobús": {
+    "vehiculos": 14.0,
+    "plazas": 1120
+   }
+  },
+  "vanMadrid": 4533
+ },
+ "getafe": {
+  "lineas": {
+   "C-4": {
+    "vehiculos": 10.5,
+    "plazas": 10468
+   },
+   "C-3": {
+    "vehiculos": 5.5,
+    "plazas": 5484
+   },
+   "autobús": {
+    "vehiculos": 55.0,
+    "plazas": 4400
+   }
+  },
+  "vanMadrid": 10911
+ },
+ "leganes": {
+  "lineas": {
+   "C-5": {
+    "vehiculos": 12.5,
+    "plazas": 12462
+   },
+   "autobús": {
+    "vehiculos": 114.0,
+    "plazas": 9120
+   },
+   "Metro 11": {
+    "vehiculos": 10.0,
+    "plazas": 8400
+   }
+  },
+  "vanMadrid": 11098
+ },
+ "fuenlabrada": {
+  "lineas": {
+   "C-5": {
+    "vehiculos": 12.0,
+    "plazas": 11964
+   },
+   "autobús": {
+    "vehiculos": 42.5,
+    "plazas": 3400
+   }
+  },
+  "vanMadrid": 5884
+ },
+ "mostoles": {
+  "lineas": {
+   "C-5": {
+    "vehiculos": 12.0,
+    "plazas": 11964
+   },
+   "autobús": {
+    "vehiculos": 102.5,
+    "plazas": 8200
+   }
+  },
+  "vanMadrid": 6294
+ },
+ "alcorcon": {
+  "lineas": {
+   "Metro 10": {
+    "vehiculos": 17.0,
+    "plazas": 21420
+   },
+   "C-5": {
+    "vehiculos": 12.5,
+    "plazas": 12462
+   },
+   "autobús": {
+    "vehiculos": 106.5,
+    "plazas": 8520
+   },
+   "Metro Ligero 3": {
+    "vehiculos": 7.5,
+    "plazas": 1500
+   }
+  },
+  "vanMadrid": 9231
+ },
+ "alcobendas": {
+  "lineas": {
+   "Metro 10": {
+    "vehiculos": 15.0,
+    "plazas": 9450
+   },
+   "autobús": {
+    "vehiculos": 111.5,
+    "plazas": 8920
+   },
+   "C-4": {
+    "vehiculos": 5.0,
+    "plazas": 4985
+   }
+  },
+  "vanMadrid": 9042
+ },
+ "pinto": {
+  "lineas": {
+   "C-3": {
+    "vehiculos": 5.5,
+    "plazas": 5484
+   },
+   "autobús": {
+    "vehiculos": 32.5,
+    "plazas": 2600
+   }
+  },
+  "vanMadrid": 2269
+ },
+ "torrejon": {
+  "lineas": {
+   "C-2": {
+    "vehiculos": 6.0,
+    "plazas": 5982
+   },
+   "autobús": {
+    "vehiculos": 71.0,
+    "plazas": 5680
+   },
+   "C-7": {
+    "vehiculos": 2.5,
+    "plazas": 2492
+   }
+  },
+  "vanMadrid": 5576
+ },
+ "pozuelo": {
+  "lineas": {
+   "C-10": {
+    "vehiculos": 9.0,
+    "plazas": 8973
+   },
+   "autobús": {
+    "vehiculos": 108.5,
+    "plazas": 8680
+   },
+   "C-7": {
+    "vehiculos": 4.0,
+    "plazas": 3988
+   },
+   "Metro Ligero 2": {
+    "vehiculos": 16.0,
+    "plazas": 3200
+   },
+   "Metro Ligero 3": {
+    "vehiculos": 8.0,
+    "plazas": 1600
+   }
+  },
+  "vanMadrid": 8008
+ },
+ "majadahonda": {
+  "lineas": {
+   "autobús": {
+    "vehiculos": 65.5,
+    "plazas": 5240
+   },
+   "C-10": {
+    "vehiculos": 4.0,
+    "plazas": 3988
+   },
+   "C-7": {
+    "vehiculos": 4.0,
+    "plazas": 3988
+   }
+  },
+  "vanMadrid": 3901
+ }
+}

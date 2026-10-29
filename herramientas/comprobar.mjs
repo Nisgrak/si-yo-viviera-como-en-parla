@@ -24,7 +24,7 @@ const PAGINAS = {
   'index.html': ['#golpe', '#resumen-total', '#dinero-cuerpo', '#salir-txt', '#salir-tren', '#servicios-sanidad', '#servicios-educacion', '#servicios-inclusion', '#vivienda-txt'],
   'economia.html': ['#golpe', '#trabajo-cifras', '#paro-fichas', '#renta-fichas', '#produce-fichas', '#ayto-fichas', '#ayto-mas', '#paga-fichas', '#paga-cierre', '#paga-basuras-pie'],
   'vivienda.html': ['#golpe', '#comprar-cifras', '#alquilar-cifras', '#barrios-rangos', '#desahucios-cifras'],
-  'infraestructura.html': ['#golpe', '#golpe-tren', '#cob-cifras', '#abono-cifras', '#tp-frase', '#tp-dato-parla', '#tp-dato-aqui'],
+  'infraestructura.html': ['#golpe', '#golpe-tren', '#cob-cifras .tp-cifra', '#casa-cifras .tp-cifra', '#plazas-cifras .tp-cifra', '#falla-tabla table', '#falla-filas li', '#tp-frase', '#tj-dato-parla-todo', '#tj-dato-aqui-sin'],
   'sanidad.html': ['#golpe', '#hospital-cifras', '#hospital-filas', '#hay-listas', '#espera-txt', '#espera-cuenta', '#cabecera-txt', '#cabecera-cifras', '#cabecera-cuenta', '#mental-cifras', '#mental-cuenta'],
   'educacion.html': ['#golpe', '#despues-matriz', '#despues-txt', '#fp-cifras', '#fp-filas', '#artes-cifras', '#artes-filas', '#hay-listas', '#infantil-txt', '#infantil-cifras', '#infantil-cuenta', '#especial-cifras', '#especial-cuenta',
     '#tea-cifras', '#tea-cuenta', '#ppme-cifras', '#ppme-cuenta', '#orientacion-txt'],
@@ -37,7 +37,7 @@ const PAGINAS = {
 const PIEZAS = {
   'index.html': ['.sentido', '#portada-inclusion'],
   'vivienda.html': ['.sentido'],
-  'infraestructura.html': ['.sentido', '#tp-parla svg .tp__zona', '#tp-aqui svg .tp__zona', '#tp-ley li'],
+  'infraestructura.html': ['.sentido', '#tj-parla-todo svg .tp__zona', '#tj-aqui-todo svg .tp__zona', '#tp-ley li'],
   'sanidad.html': ['.sentido', '#espera-botones .compartir', '#cabecera-botones .compartir', '#mental-botones .compartir'],
   'educacion.html': ['.sentido', '#infantil-botones .compartir', '#especial-botones .compartir', '#tea-botones .compartir',
     '#ppme-botones .compartir', '#orientacion-matriz td'],

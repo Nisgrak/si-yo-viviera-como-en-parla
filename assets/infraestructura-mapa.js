@@ -221,13 +221,28 @@
     /* las puertas con al menos el 5 %, con su parte */
     ctx.font = '800 13px Archivo, sans-serif';
     ctx.textBaseline = 'middle';
-    (m.puertas || []).forEach(function (g) {
+    /* Si una chapa pisa a otra (en el móvil, con salidas juntas, pasa), se
+       prueba a la izquierda, debajo y encima de su puerta; las de más gente
+       eligen sitio primero. */
+    const puestas = [];
+    const choca = function (x, y, w) {
+      return puestas.some(function (b) { return x < b[0] + b[2] + 2 && x + w + 2 > b[0] && Math.abs(y - b[1]) < 20; });
+    };
+    (m.puertas || []).slice().sort(function (a, b) {
+      return (b.pct !== undefined ? b.pct : b.p) - (a.pct !== undefined ? a.pct : a.p);
+    }).forEach(function (g) {
       const parte = (g.pct !== undefined ? g.pct : g.p) / 100;
       if (!(parte >= 0.05)) return;
       const q = map.px([g.x, g.y]);
       const t = num(parte * 100, 0) + ' %';
       const w = ctx.measureText(t).width + 10;
-      const x = Math.min(map.ancho - w - 2, Math.max(2, q[0] + 6)), y = Math.min(map.alto - 12, Math.max(12, q[1] - 12));
+      const sitio = function (dx, dy) {
+        return [Math.min(map.ancho - w - 2, Math.max(2, q[0] + dx)), Math.min(map.alto - 12, Math.max(12, q[1] + dy))];
+      };
+      const prueba = [sitio(6, -12), sitio(-6 - w, -12), sitio(6, 12), sitio(-6 - w, 12), sitio(-w / 2, -30), sitio(-w / 2, 30)];
+      const xy = prueba.filter(function (c) { return !choca(c[0], c[1], w); })[0] || prueba[0];
+      const x = xy[0], y = xy[1];
+      puestas.push([x, y, w]);
       ctx.fillStyle = col.papel; ctx.fillRect(x, y - 9, w, 18);
       ctx.strokeStyle = map.quien === 'referencia' ? col.gente : col.texto; ctx.lineWidth = 1.5;
       ctx.strokeRect(x, y - 9, w, 18);

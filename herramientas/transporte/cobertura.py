@@ -76,9 +76,10 @@ def edificios(ine):
 LIGERO_SI = {'ML1', 'ML2', 'ML3'}
 
 
-def estaciones():
+def estaciones(quitar=None):
     """Paradas de Cercanías, de Metro y del Metro Ligero que sale de su
-    municipio, en cubos de 250 m."""
+    municipio, en cubos de 250 m. Con quitar=(feed, paradas), sin esas
+    paradas: lo que queda si falla una línea (principal.py)."""
     d = T.GTFS_DIR / 'ligero'
     rutas = {r['route_id']: r['route_short_name'] for r in T.leer_csv(d / 'routes.txt')}
     viaje = {r['trip_id']: rutas[r['route_id']] for r in T.leer_csv(d / 'trips.txt')}
@@ -89,6 +90,8 @@ def estaciones():
             if (r.get('location_type') or '0') not in ('', '0'):
                 continue
             if feed == 'ligero' and r['stop_id'] not in ligero:
+                continue
+            if quitar and feed == quitar[0] and r['stop_id'] in quitar[1]:
                 continue
             x, y = T.utm30(float(r['stop_lat']), float(r['stop_lon']))
             cubos.setdefault((int(x // CUBO), int(y // CUBO)), []).append((x, y))
@@ -125,19 +128,30 @@ def main():
                   'Consorcio, de cualquier municipio. Sin el tranvía de Parla (ML4), que no sale de la ciudad.',
                   'Andando: línea recta × 1,3 a 4,5 km/h; 10 minutos = 750 m andando = 577 m en línea recta.']}
     cubos = estaciones()
+    # Lo mismo sin la línea principal de cada ciudad, para «Si falla la C-4».
+    import principal
+    lineas = principal.principales()
+    sin_de = {l: estaciones(principal.paradas_solo_de(l)) for l in {lineas[c] for c in a.ciudades}}
     for c in a.ciudades:
+        sin = sin_de[lineas[c]]
         ine = T.leer_mapa(c)['codigo']
         ed = edificios(ine)
         total = sum(n for _, _, n in ed)
         cerca = {m: 0 for m in MINUTOS}
+        cerca_sin = {m: 0 for m in MINUTOS}
         for x, y, n in ed:
             t = minutos_a_estacion(x, y, cubos, MINUTOS[-1])
+            ts = minutos_a_estacion(x, y, sin, MINUTOS[-1])
             for m in MINUTOS:
                 if t is not None and t <= m:
                     cerca[m] += n
+                if ts is not None and ts <= m:
+                    cerca_sin[m] += n
         out[c] = {'viviendas': total, 'edificios': len(ed),
                   'cerca': {str(m): cerca[m] for m in MINUTOS},
-                  'pct': {str(m): round(cerca[m] / total * 100, 1) for m in MINUTOS}}
+                  'pct': {str(m): round(cerca[m] / total * 100, 1) for m in MINUTOS},
+                  'sinLinea': lineas[c],
+                  'pctSinLinea': {str(m): round(cerca_sin[m] / total * 100, 1) for m in MINUTOS}}
         print(c, total, out[c]['pct'], file=sys.stderr)
         f.write_text(json.dumps(out, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
 

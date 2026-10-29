@@ -177,29 +177,29 @@
     const MOV = ['Ministerio de Transportes, Open Data Movilidad, 16-10-2024', T.distancia.fuente];
     dato({ id: 'trabajo-km', grupo: 'Infraestructuras', titulo: 'Lo lejos que queda el trabajo',
       unidad: 'km de media de casa al trabajo o a estudiar, todos los medios', dec: 1,
-      v: function (id) { return T.distancia.ciudades[id] ? T.distancia.ciudades[id].km : null; }, fuente: MOV, pagina: 'infraestructura.html#lejos' });
+      v: function (id) { return T.distancia.ciudades[id] ? T.distancia.ciudades[id].km : null; }, fuente: MOV, pagina: 'infraestructura.html' });
     dato({ id: 'trabajo-lejos', grupo: 'Infraestructuras', titulo: 'Viajes al trabajo o a estudiar de más de 10 km',
       unidad: 'de cada 100', sim: '%', dec: 1,
-      v: function (id) { return T.distancia.ciudades[id] ? T.distancia.ciudades[id].lejos : null; }, fuente: MOV, pagina: 'infraestructura.html#lejos' });
+      v: function (id) { return T.distancia.ciudades[id] ? T.distancia.ciudades[id].lejos : null; }, fuente: MOV, pagina: 'infraestructura.html' });
     dato({ id: 'km-vecino', grupo: 'Infraestructuras', titulo: 'Kilómetros al día por vecino',
       unidad: 'de los viajes que salen de casa o vuelven a ella', dec: 1,
-      v: function (id) { return T.distancia.ciudades[id] ? T.distancia.ciudades[id].kmVecino : null; }, fuente: MOV, pagina: 'infraestructura.html#lejos' });
+      v: function (id) { return T.distancia.ciudades[id] ? T.distancia.ciudades[id].kmVecino : null; }, fuente: MOV, pagina: 'infraestructura.html' });
   }
   if (T && T.casa) {
-    dato({ id: 'casa-atocha', grupo: 'Infraestructuras', titulo: 'Desde la vivienda mediana hasta Atocha, en tren',
+    dato({ id: 'casa-atocha', grupo: 'Infraestructuras', titulo: 'Desde la vivienda mediana hasta Atocha, en tren, Metro o autobús',
       unidad: 'minutos, un martes de 7:30 a 8:30', dec: 0,
-      v: function (id) { return T.casa[id] ? T.casa[id].tren.atocha[0] : null; },
-      fuente: ['Catastro, edificios, y horarios del Consorcio Regional de Transportes', T.cobertura ? T.cobertura.fuente : 'https://datos.crtm.es/'], pagina: 'infraestructura.html#tiempos' });
-    dato({ id: 'casa-atocha-hora', grupo: 'Infraestructuras', titulo: 'Viviendas a más de una hora de Atocha en tren',
+      v: function (id) { return T.casa[id] ? T.casa[id].todo.atocha[0] : null; },
+      fuente: ['Catastro, edificios, y horarios del Consorcio Regional de Transportes', T.cobertura ? T.cobertura.fuente : 'https://datos.crtm.es/'], pagina: 'infraestructura.html#casa' });
+    dato({ id: 'casa-atocha-hora', grupo: 'Infraestructuras', titulo: 'Viviendas a más de una hora de Atocha en tren, Metro o autobús',
       unidad: 'de cada 100, un martes de 7:30 a 8:30', sim: '%', dec: 1,
-      v: function (id) { return T.casa[id] ? T.casa[id].tren.atocha[1] : null; },
-      fuente: ['Catastro, edificios, y horarios del Consorcio Regional de Transportes', T.cobertura ? T.cobertura.fuente : 'https://datos.crtm.es/'], pagina: 'infraestructura.html#tiempos' });
+      v: function (id) { return T.casa[id] ? T.casa[id].todo.atocha[1] : null; },
+      fuente: ['Catastro, edificios, y horarios del Consorcio Regional de Transportes', T.cobertura ? T.cobertura.fuente : 'https://datos.crtm.es/'], pagina: 'infraestructura.html#casa' });
   }
   if (T && T.abono) {
     dato({ id: 'abono', grupo: 'Infraestructuras', titulo: 'Abono de transporte de 30 días', unidad: 'ordinario, 2026, según la zona tarifaria',
       sim: '€', dec: 2, v: function (id) { return T.abono.ciudades[id] ? T.abono.ciudades[id].precio : null; },
       etiqueta: function (id) { return 'zona ' + T.abono.ciudades[id].zona; },
-      fuente: ['BOCM del 31-12-2025, precios del transporte público para 2026', T.abono.fuente], pagina: 'infraestructura.html#abono' });
+      fuente: ['BOCM del 31-12-2025, precios del transporte público para 2026', T.abono.fuente], pagina: 'infraestructura.html' });
   }
 
   /* Lo que paga un vecino: el IBI y el coche, con los tipos de 2026. */

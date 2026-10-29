@@ -227,7 +227,7 @@ const CIFRAS = {
     seccion: 'Infraestructuras', unidad: '',
     v: (id) => num(TP.cobertura.ciudades[id].pct['15'], 0),
     pie: 'Edificios del Catastro y horarios del Consorcio Regional de Transportes de Madrid, 2026.',
-    desc: (n, a, b) => `De cada 100 viviendas de Parla, ${a} tienen una estación a 15 minutos andando; en ${n}, ${b}. Por dónde sale la gente en coche, cuánto se tarda en tren hasta el centro y lo que cuesta el abono.`
+    desc: (n, a, b) => `De cada 100 viviendas de Parla, ${a} tienen una estación a 15 minutos andando; en ${n}, ${b}. Por dónde sale la gente en coche, lo llena que va la A-42 y qué pasa si falla el tren.`
   },
   espera: {
     titulo: 'Días que llevan de media en lista los que esperan una operación, en el hospital que le toca a cada ciudad',

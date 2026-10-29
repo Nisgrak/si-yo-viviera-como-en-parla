@@ -572,3 +572,71 @@
 }
 .tp-nota--corta { margin-top: .6rem; font-size: .9375rem; }
 #hay-listas .espera__h:not(:first-child) { margin-top: 2rem; }
+
+/* ── Lo llena que va la A-42 ─────────────────────────────────────────────
+   Un mapa: la autovía con tantos carriles como tiene cada tramo, en los
+   colores de los mapas de tráfico según lo llena que va (verde, amarillo,
+   naranja, rojo). Las retenciones del Ministerio, en una sombra detrás. */
+.a42-mapa, .a42__ley {
+  --a42-0: #c02719;  /* más de lo que cabe: el --loss de la web */
+  --a42-1: #e8710a;
+  --a42-2: #e9b200;
+  --a42-3: #3c9a4e;
+  --a42-reten: rgba(22, 22, 22, .34);  /* la sombra de las retenciones */
+}
+@media (prefers-color-scheme: dark) {
+  .a42-mapa, .a42__ley { --a42-0: #ff5a4a; --a42-1: #ff9a3c; --a42-2: #f2c94c; --a42-3: #5cc36e; --a42-reten: rgba(255, 255, 255, .34); }
+}
+.a42__ley { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; margin: 1.1rem 0 0; padding: 0; font-size: .8125rem; color: var(--ink-3); }
+.a42__ley-i { display: inline-flex; align-items: center; gap: .4rem; }
+.a42__ley-i i { width: 1.1rem; height: .6rem; border-radius: 2px; }
+.a42__ley [data-k='reten'] i { width: 1.4rem; height: .75rem; border-radius: 999px; background: var(--a42-reten); }
+.a42-mapa { max-width: 40rem; margin-top: 1rem; }
+.a42-mapa__svg { display: block; width: 100%; height: auto; }
+.a42-mapa__terminos path { fill: var(--surface); stroke: var(--line-alta); stroke-width: .75; }
+.a42-mapa__terminos path[data-quien='referencia'] { fill: var(--aura-ref); stroke: var(--ref); stroke-width: 1.25; }
+.a42-mapa__terminos path[data-quien='aqui'] { stroke: var(--ink-3); stroke-width: 1.25; }
+.a42-mapa__vias path { fill: none; stroke: var(--line-alta); stroke-width: 1; stroke-linecap: round; }
+.a42-mapa__nombres text { font-size: 11px; fill: var(--ink-3); text-anchor: middle; paint-order: stroke; stroke: var(--bg); stroke-width: 3px; }
+.a42-mapa__nombres text[data-quien='referencia'] { fill: var(--ref); font-weight: 800; font-size: 13px; letter-spacing: .03em; text-transform: uppercase; }
+.a42-mapa__nombres text[data-quien='aqui'] { fill: var(--ink); font-weight: 700; font-size: 12px; }
+.a42-mapa__borde { fill: var(--ink); stroke: none; }
+.a42-mapa__tramo { stroke: none; }
+.a42-mapa__raya { fill: none; stroke: var(--bg); stroke-width: 1.25; }
+.a42-mapa__reten path { fill: none; stroke: var(--a42-reten); stroke-linecap: round; stroke-linejoin: round; }
+.a42-mapa__salidas path { stroke: var(--ink-3); stroke-width: .75; fill: none; }
+.a42-mapa__salidas text { font-size: 11px; fill: var(--ink-2); paint-order: stroke; stroke: var(--bg); stroke-width: 3px; }
+.a42-mapa__pct { font-size: 15px; font-weight: 800; text-anchor: end; fill: var(--ink); font-variant-numeric: tabular-nums; paint-order: stroke; stroke: var(--bg); stroke-width: 3px; }
+.a42-mapa__carr { font-size: 10.5px; text-anchor: end; fill: var(--ink-3); paint-order: stroke; stroke: var(--bg); stroke-width: 3px; }
+.a42-mapa__tramo[data-e='0'], .a42__ley [data-e='0'] i { fill: var(--a42-0); background: var(--a42-0); }
+.a42-mapa__tramo[data-e='1'], .a42__ley [data-e='1'] i { fill: var(--a42-1); background: var(--a42-1); }
+.a42-mapa__tramo[data-e='2'], .a42__ley [data-e='2'] i { fill: var(--a42-2); background: var(--a42-2); }
+.a42-mapa__tramo[data-e='3'], .a42__ley [data-e='3'] i { fill: var(--a42-3); background: var(--a42-3); }
+
+/* ── Si falla la C-4 ─────────────────────────────────────────────────────
+   La tabla con y sin Cercanías y los cuatro mapas: Parla y la ciudad
+   elegida, con y sin Cercanías. */
+.falla-t { width: 100%; max-width: 46rem; margin-top: 1.5rem; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.falla-t th, .falla-t td { padding: .55rem .35rem; text-align: right; vertical-align: baseline; }
+.falla-t thead th { font-size: .875rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--ink); text-align: center; }
+.falla-t thead th[data-quien='referencia'] { color: var(--ref); }
+.falla-t .falla-t__sub th { font-size: .75rem; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--ink-3); text-align: right; padding-top: 0; }
+.falla-t tbody .falla-t__fq { border-top: 1px solid var(--line); }
+.falla-t tbody tr:last-child { border-bottom: 1px solid var(--line); }
+.falla-t__q { text-align: left !important; font-weight: 700; font-size: .875rem; color: var(--ink-2); padding-bottom: 0 !important; }
+.falla-t__con { font-size: 1rem; color: var(--ink-3); }
+.falla-t__sin { font-size: 1.25rem; font-weight: 800; color: var(--ink); }
+.falla-t__sin[data-quien='referencia'] { color: var(--ref); }
+.falla-t__dif { display: block; margin-top: .1rem; font-size: .75rem; font-weight: 700; color: var(--ink-3); }
+.falla-t__sin[data-quien='referencia'] .falla-t__dif { color: var(--ref); }
+.falla-t__flecha { color: var(--line-alta); text-align: center !important; padding-inline: .1rem !important; }
+@media (max-width: 34rem) {
+  .falla-t__sin { font-size: 1.05rem; }
+  .falla-t__con { font-size: .875rem; }
+}
+
+.falla-juntos { margin-top: 1rem; }
+.falla-juntos__rejilla { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.25rem; }
+@media (max-width: 34rem) { .falla-juntos__rejilla { gap: .75rem .5rem; } }
+.falla-juntos .mapa__nombre { font-size: clamp(1rem, 3.2vw, 1.5rem); }
+.falla-juntos .mapa__dato { font-size: .75rem; line-height: 1.35; }

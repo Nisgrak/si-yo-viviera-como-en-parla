@@ -14,7 +14,7 @@
 <meta property="og:locale" content="es_ES">
 <meta property="og:url" content="https://siyovivieracomoenparla.netlify.app/infraestructura.html">
 <meta property="og:image" content="https://siyovivieracomoenparla.netlify.app/assets/compartir/general.png">
-<meta property="og:image:alt" content="Salir de Parla: carreteras, tren y abono de transporte">
+<meta property="og:image:alt" content="Salir de Parla: carreteras y tren">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -66,33 +66,6 @@
 </header>
 
 <main>
-
-<!-- ── Lo lejos que queda el trabajo ──────────────────────────────────
-     Todos los medios de transporte: herramientas/transporte/distancia.py. -->
-<section class="bloque" id="lejos" data-indice="Lo lejos que queda el trabajo">
-  <div class="env">
-    <h2 class="bloque__h" data-sentido="menos">Lo lejos que queda el trabajo</h2>
-    <p class="bloque__intro">
-      Los kilómetros que hay de media de casa al trabajo o al centro de estudios, en coche, en tren,
-      en autobús o andando. Con los estudios de movilidad del Ministerio de Transportes, que salen de
-      los teléfonos móviles.
-    </p>
-    <div class="tp-cifras" id="lejos-cifras"></div>
-    <p class="tp-nota" id="lejos-nota"></p>
-    <p class="colas__pie">
-      Fuente: <a href="https://www.transportes.gob.es/ministerio/proyectos-singulares/estudios-de-movilidad-con-big-data/opendata-movilidad">Ministerio de Transportes, Open Data Movilidad, estudio básico por municipios</a>,
-      miércoles 16 de octubre de 2024 y, de control, martes 17 de octubre de 2023.
-    </p>
-    <p class="cautela">
-      Son los viajes que salen de casa, en la ciudad, hacia el sitio donde cada uno trabaja o estudia,
-      vaya adonde vaya; el Ministerio los reconoce por dónde pasa el teléfono las noches y las horas
-      de trabajo. Cuenta todos los medios y solo los viajes de más de 500 metros. Ir al colegio también
-      es estudiar, y eso baja la media de las ciudades con más niños, como Parla. Son kilómetros, no
-      minutos: el estudio no dice cuánto se tarda. Los kilómetros por vecino suman los viajes que
-      salen de casa o vuelven a ella, y los dividen entre los habitantes del padrón.
-    </p>
-  </div>
-</section>
 
 <!-- ══ En coche ═══════════════════════════════════════════════════════
      Las carreteras por las que sale la gente: el mapa, las colas y los
@@ -160,6 +133,49 @@
   </div>
 </section>
 
+<!-- ── La A-42, de Toledo a Madrid ────────────────────────────────────
+     Los cortes y el reparto: herramientas/accesos/a42.py. -->
+<section class="bloque" id="a42" data-indice-sub="La A-42 hacia Madrid">
+  <div class="env">
+    <h3 class="bloque__h" data-sentido="menos">Lo llena que va la A-42</h3>
+    <p class="bloque__intro">
+      La autovía de Toledo hacia Madrid entre las 7 y las 8 de la mañana, de salida en salida: los
+      carriles que tiene cada tramo y, en color, lo llena que va, contando la gente que pasa sobre lo
+      que cabe.
+    </p>
+    <ul class="a42__ley" id="a42-ley"></ul>
+    <div class="a42-mapa" id="a42-mapa" data-indice-ancho></div>
+    <p class="tp-nota" id="a42-nota"></p>
+    <p class="colas__pie">
+      Fuentes:
+      <a href="https://movilidad-opendata.mitma.es/">Ministerio de Transportes, Open Data Movilidad</a>,
+      rutas por carretera y estudio básico, 16-10-2024; retenciones:
+      <a href="https://www.boe.es/boe/dias/2023/01/27/pdfs/BOE-A-2023-2208.pdf">Resolución del Ministerio de Transportes de 22 de diciembre de 2022 (BOE del 27 de enero de 2023)</a>;
+      aforo: <a href="https://www.comunidad.madrid/transparencia/sites/default/files/regulation/documents/ergona42_memoria_anexo_3_estudio_trafico.pdf">estudio de tráfico del parque logístico Ergón A-42 (2023), estación M-133-0 del Mapa de Tráfico</a>;
+      carriles: <a href="https://www.openstreetmap.org/">OpenStreetMap</a>.
+    </p>
+    <p class="cautela">
+      Lo que cabe es una cuenta nuestra: 2.350 vehículos por carril y hora, la capacidad del manual
+      de capacidad de carreteras (HCM) que usa para este tramo el estudio de tráfico de la Comunidad,
+      y 1,65 personas por vehículo, lo que sale de comparar en el kilómetro 23,9, al sur de Parla, el
+      aforo del Ministerio (unos 36.200 vehículos al día hacia Madrid en 2023) con las personas de
+      este estudio en el mismo punto (unas 60.000), contando las que van en autobús. Es la media de
+      la hora: dentro de ella hay momentos más llenos. Las personas de 7 a 8 son una estimación: el
+      estudio de rutas no tiene horas, y a cada viaje se le aplica la parte que sale de 7 a 8 entre
+      su origen y su destino en el estudio básico. El rojo empieza en el 85 % de lo que cabe, algo
+      antes de donde ese manual pasa al nivel de servicio E, que el estudio de tráfico de la Comunidad
+      ya cuenta como congestión. Cada tramo va de una salida a la siguiente: la gente
+      se mide cada 500 metros y se toma la mediana del tramo, y los carriles son los de la calzada
+      hacia Madrid según OpenStreetMap, sin contar los de incorporación o salida. En el enlace de
+      Parla Norte, donde entra la gente de Parla y la autovía aún no ha ganado el tercer carril, el
+      punto más cargado pasa de lo que cabe. Los tramos con retenciones van de un punto
+      kilométrico a otro según el BOE; su sitio en el mapa es aproximado: los kilómetros se
+      cuentan por la autovía y se cuadran con los enlaces de la M-45 (kilómetro 10) y la M-506
+      (kilómetro 17) que da el propio BOE, como Parla Norte (19) y Parla Sur (23).
+    </p>
+  </div>
+</section>
+
 <!-- ── Salen y entran ────────────────────────────────────────────────── -->
 <section class="bloque" id="sentidos" data-indice-sub="Salen y entran por carretera">
   <div class="env">
@@ -182,9 +198,10 @@
   <div class="env">
     <h2 class="grupo__h">En transporte público</h2>
     <p class="grupo__intro">
-      Cuántas casas tienen una estación cerca, cuánto se tarda desde cada barrio hasta el centro de
-      Madrid y lo que cuesta el abono. Con los horarios del Consorcio de Transportes, los edificios
-      del Catastro y los precios del Boletín Oficial de la Comunidad.
+      Cuántas casas tienen una estación cerca, cuánto se tarda hasta el centro de Madrid y cuántas
+      plazas salen hacia Madrid por la mañana, un día normal. Y qué pasa si falla la C-4, la única
+      línea de tren de Parla. Con los horarios del Consorcio de Transportes y los edificios del
+      Catastro.
     </p>
   </div>
 </header>
@@ -204,102 +221,125 @@
       Fuentes: <a href="https://www.catastro.hacienda.gob.es/webinspire/index.html">Dirección General del Catastro, edificios (INSPIRE)</a>,
       con el número de viviendas de cada uno; estaciones: <a href="https://datos.crtm.es/">Consorcio Regional de Transportes de Madrid, GTFS de Cercanías, Metro y Metro Ligero</a>.
     </p>
-    <p class="cautela">
-      Cada edificio cuenta en el centro de su planta, y se anda como en el mapa de abajo: en línea
-      recta, un 30 % más largo para contar las calles, a 4,5 km/h. Cuenta cualquier estación,
-      aunque esté en el municipio de al lado. Del Metro Ligero cuentan las líneas que salen de su
-      municipio y enlazan con el Metro (Pozuelo, Boadilla, Sanchinarro); el tranvía de Parla no,
-      porque da la vuelta a la ciudad y no sale de ella. La estación de Parla Norte, en obras, no
-      cuenta hasta que tenga servicio.
-    </p>
   </div>
 </section>
 
-<!-- ── En transporte público ───────────────────────────────────────────
-     Los tiempos los calcula herramientas/transporte/ciudad.py. -->
-<section class="bloque" id="tiempos" data-indice-sub="Cuánto se tarda hasta el centro">
+<!-- ── Desde la vivienda mediana ──────────────────────────────────────
+     herramientas/transporte/vivienda_media.py. -->
+<section class="bloque" id="casa" data-indice-sub="Hasta el centro">
   <div class="env">
     <h3 class="bloque__h" data-sentido="menos">Cuánto se tarda hasta el centro</h3>
     <p class="bloque__intro">
-      Desde cada punto de la ciudad, un martes por la mañana, andando hasta la parada y con los
-      transbordos que hagan falta. Elige a dónde vas.
-    </p>
-    <div class="tp__mandos">
-      <div class="tp__destinos" id="tp-destinos" role="group" aria-label="A dónde vas"></div>
-      <label class="tp__bus"><input type="checkbox" id="tp-bus"> Contar también los autobuses</label>
-    </div>
-    <p class="tp__frase" id="tp-frase"></p>
-
-    <div class="mapas" data-indice-ancho>
-      <figure class="mapa tp" data-quien="referencia">
-        <figcaption class="mapa__pie"><span class="mapa__nombre">Parla</span> <span class="mapa__dato" id="tp-dato-parla"></span></figcaption>
-        <div class="tp__marco" id="tp-parla"></div>
-      </figure>
-      <figure class="mapa tp" data-quien="aqui">
-        <figcaption class="mapa__pie"><span class="mapa__nombre" data-aqui>Getafe</span> <span class="mapa__dato" id="tp-dato-aqui"></span></figcaption>
-        <div class="tp__marco" id="tp-aqui"></div>
-      </figure>
-    </div>
-    <ul class="tp__ley" id="tp-ley"></ul>
-
-    <h3 class="bloque__h3" id="casa" data-sentido="menos">Desde la vivienda mediana</h3>
-    <p class="bloque__intro">
-      La estación es el mejor punto de cada ciudad. Contando desde cada casa, lo que tarda la
-      vivienda del medio: la mitad de las viviendas tarda menos y la otra mitad, más.
+      Contando desde cada casa, un martes por la mañana, andando hasta la parada y en tren, Metro o
+      autobús: lo que tarda la vivienda del medio hasta Atocha. La mitad de las viviendas tarda
+      menos y la otra mitad, más.
     </p>
     <div class="tp-cifras" id="casa-cifras"></div>
     <p class="tp-nota" id="casa-nota"></p>
+  </div>
+</section>
+
+<!-- ── Las plazas hacia Madrid ────────────────────────────────────────
+     herramientas/transporte/capacidad.py. -->
+<section class="bloque" id="plazas" data-indice-sub="Las plazas hacia Madrid">
+  <div class="env">
+    <h3 class="bloque__h" data-sentido="mas">Las plazas hacia Madrid</h3>
+    <p class="bloque__intro">
+      Las plazas de tren, Metro y autobús que salen cada hora hacia Madrid de 7 a 9 de la mañana,
+      por cada 1.000 vecinos.
+    </p>
+    <div class="tp-cifras" id="plazas-cifras"></div>
+    <p class="tp-nota" id="plazas-nota"></p>
+  </div>
+</section>
+
+<!-- ── Si falla el tren ────────────────────────────────────────────────
+     Lo mismo sin la línea principal de cada ciudad (principal.py):
+     cobertura.py, sin_cercanias.py --mapa y capacidad.py. -->
+<section class="bloque" id="falla" data-indice-sub="Si falla el tren">
+  <div class="env">
+    <h3 class="bloque__h" data-sentido="mas">Si falla el tren</h3>
+    <p class="bloque__intro" id="falla-intro">
+      Lo de arriba, un día en que falla la línea principal de cada ciudad, con todo lo demás
+      funcionando: las otras líneas de Cercanías, el Metro, el Metro Ligero y los autobuses.
+    </p>
+    <p class="bloque__intro">
+      De las plazas de tren, Metro y autobús que salen cada hora hacia Madrid de 7 a 9, las que
+      quedan.
+    </p>
+    <div class="tp-cifras" id="falla-cifras"></div>
+    <ol class="mun falla" id="falla-filas" aria-label="Lo que queda de las plazas hacia Madrid, ciudad por ciudad"></ol>
+    <p class="tp-nota" id="falla-nota"></p>
+
+    <h3 class="bloque__h3" id="linea-principal">Lo demás, sin la línea principal</h3>
+    <div class="falla-tabla" id="falla-tabla"></div>
+
+    <h3 class="bloque__h3" id="tiempos">El mapa, con y sin la línea principal</h3>
+    <p class="bloque__intro">
+      Lo que se tarda desde cada punto de la ciudad. Elige a dónde vas.
+    </p>
+    <div class="tp__mandos">
+      <div class="tp__destinos" id="tp-destinos" role="group" aria-label="A dónde vas"></div>
+    </div>
+    <p class="tp__frase" id="tp-frase"></p>
+
+    <div class="falla-juntos" id="falla-juntos">
+      <div class="falla-juntos__rejilla" data-indice-ancho>
+        <figure class="mapa tp" data-quien="referencia">
+          <figcaption class="mapa__pie"><span class="mapa__nombre">Parla, un día normal</span> <span class="mapa__dato" id="tj-dato-parla-todo"></span></figcaption>
+          <div class="tp__marco" id="tj-parla-todo"></div>
+        </figure>
+        <figure class="mapa tp" data-quien="referencia">
+          <figcaption class="mapa__pie"><span class="mapa__nombre">Parla, sin <span data-linea="parla">la C-4</span></span> <span class="mapa__dato" id="tj-dato-parla-sin"></span></figcaption>
+          <div class="tp__marco" id="tj-parla-sin"></div>
+        </figure>
+        <figure class="mapa tp" data-quien="aqui">
+          <figcaption class="mapa__pie"><span class="mapa__nombre"><span data-aqui>Getafe</span>, un día normal</span> <span class="mapa__dato" id="tj-dato-aqui-todo"></span></figcaption>
+          <div class="tp__marco" id="tj-aqui-todo"></div>
+        </figure>
+        <figure class="mapa tp" data-quien="aqui">
+          <figcaption class="mapa__pie"><span class="mapa__nombre"><span data-aqui>Getafe</span>, sin <span data-linea="aqui">la C-4</span></span> <span class="mapa__dato" id="tj-dato-aqui-sin"></span></figcaption>
+          <div class="tp__marco" id="tj-aqui-sin"></div>
+        </figure>
+      </div>
+      <ul class="tp__ley" id="tp-ley"></ul>
+    </div>
 
     <p class="colas__pie" id="tp-fuentes"></p>
     <p class="cautela">
       Los tiempos son una cuenta nuestra sobre los horarios oficiales: para cada punto, el tiempo
       mediano de salir a cada minuto entre las 7:30 y las 8:30, para que no dependa de llegar
       justo al tren. Se anda en línea recta, un 30 % más largo para contar las calles, a
-      4,5 km/h, hasta 1.200 metros. No cuenta retrasos ni esperas por trenes llenos, ni las averías:
-      según los datos del Consorcio Regional de Transportes que difunde la Comunidad de Madrid, el C-4,
-      la única línea de Cercanías de Parla, fue la que más incidencias tuvo de toda la red en 2024
+      4,5 km/h, hasta 1.200 metros. Cuentan el tren, el Metro, el Metro Ligero y los autobuses; sin la
+      línea principal se quitan solo sus trenes, y lo demás sigue igual. El horario de los
+      autobuses no tiene en cuenta el tráfico de la hora punta, y un día sin esa línea, con su gente
+      en el autobús, se tardaría más. No cuenta retrasos ni
+      esperas por trenes llenos, ni las averías: según los datos del Consorcio Regional de
+      Transportes que difunde la Comunidad de Madrid, la C-4 fue la línea con más incidencias de
+      toda la red en 2024
       (<a href="https://www.telemadrid.es/programas/telenoticias-fin-de-semana/Los-trenes-de-cercanias-de-Madrid-han-sufrido-mas-de-1000-incidencias-en-2024-2-2740245951--20250104024230.html">225 de 1.014</a>)
       y en 2025 (<a href="https://www.elespanol.com/madrid/comunidad/20260127/peor-ano-historia-cercanias-madrid-incidencias-va-media-dia/1003744104053_0.html">323 de 1.521</a>).
       Renfe dice que esas cifras son falsas y que en 2025 las incidencias bajaron
       (<a href="https://www.vozpopuli.com/economia/transporte/transparencia-ordena-a-renfe-revelar-el-alcance-real-del-caos-de-cercanias-en-madrid.html">Vozpópuli</a>),
-      y una línea larga y con muchos trenes acumula más que una corta. El horario
-      de los autobuses no tiene en cuenta el tráfico de la hora punta; por eso, de entrada, el mapa
-      cuenta solo el tren. Se pinta todo punto a menos de 1.200 metros de una parada, también
-      campos y polígonos donde no vive nadie: las manzanas grises son la ciudad. Cada mapa encuadra
-      la zona del término donde hay viviendas, según los edificios del Catastro. En amarillo, la
-      estación de Parla Norte, en la C-4: el Ministerio de Transportes dio por terminados el
-      edificio y los andenes el 8 de julio de 2026, pero aún faltan las instalaciones, la
-      señalización y la autorización para abrir, y no tiene fecha
+      y una línea larga y con muchos trenes acumula más que una corta. Las estaciones a mano son las
+      de Cercanías, Metro y Metro Ligero a 15 minutos andando del centro de cada edificio del
+      Catastro, contando sus viviendas; del Metro Ligero, las líneas que salen de su municipio y
+      enlazan con el Metro, y no el tranvía de Parla, que da la vuelta a la ciudad y no sale de
+      ella. Sin la línea principal dejan de contar las estaciones en las que solo para ella. Metrosur
+      cuenta como estación, aunque para ir a Madrid hay que cambiar de línea en Alcorcón o
+      Leganés. Se pinta todo punto a menos de 1.200 metros de una parada, también campos
+      y polígonos donde no vive nadie: las manzanas grises son la ciudad. En amarillo, la estación
+      de Parla Norte, en la C-4: el Ministerio de Transportes dio por terminados el edificio y los
+      andenes el 8 de julio de 2026, pero aún faltan las instalaciones, la señalización y la
+      autorización para abrir, y no tiene fecha
       (<a href="https://www.transportes.gob.es/ministerio/comunicacion/sala-prensa/mie-08072026-1307">nota del Ministerio</a>;
-      posición, de <a href="https://www.openstreetmap.org/node/14063949035">OpenStreetMap</a>). Sin
-      horario, no cuenta en los tiempos. En la vivienda mediana, cada edificio del Catastro toma el
-      tiempo de su cuadro de 100 metros y cuenta tantas veces como viviendas tiene; las que no
-      tienen parada a 1.200 metros cuentan como las que más tardan. El horario de Metro
-      que publica el Consorcio caducó en mayo de 2026, y se usa el de un martes de ese horario.
+      posición, de <a href="https://www.openstreetmap.org/node/14063949035">OpenStreetMap</a>); sin
+      horario, no cuenta. En la vivienda mediana, cada edificio del Catastro toma el tiempo de su
+      cuadro de 100 metros y cuenta tantas veces como viviendas tiene. El horario de Metro que
+      publica el Consorcio caducó en mayo de 2026, y se usa el de un martes de ese horario.
     </p>
-  </div>
-</section>
-
-<!-- ── Lo que cuesta el abono ─────────────────────────────────────────
-     Zonas y precios, en herramientas/transporte/abono.py. -->
-<section class="bloque" id="abono" data-indice-sub="Lo que cuesta el abono">
-  <div class="env">
-    <h3 class="bloque__h" data-sentido="menos">Lo que cuesta el abono</h3>
-    <p class="bloque__intro">
-      El abono de 30 días para moverse entre cada ciudad y Madrid. Su precio depende de la zona
-      tarifaria en la que está cada ciudad.
-    </p>
-    <div class="tp-cifras" id="abono-cifras"></div>
-    <p class="tp-nota" id="abono-nota"></p>
-    <p class="colas__pie">
-      Fuentes: <a href="https://www.crtm.es/media/s1qi0nmo/bocm-20251231-precios_transporte.pdf">BOCM del 31 de diciembre de 2025, precios del transporte público para 2026</a>,
-      con los descuentos vigentes; zona de cada ciudad: <a href="https://datos.crtm.es/">Consorcio Regional de Transportes de Madrid</a>,
-      la de las paradas de su término.
-    </p>
-    <p class="cautela">
-      Es el abono ordinario, sin descuentos de familia numerosa ni de discapacidad. Las zonas se
-      trazan por distancia a Madrid, y Parla está más lejos que Getafe, Leganés o Alcorcón.
-    </p>
+    <p class="colas__pie" id="falla-fuentes"></p>
+    <p class="cautela" id="falla-cautela"></p>
   </div>
 </section>
 
@@ -343,7 +383,7 @@
       <h3>En transporte público</h3>
       <p>
         Los tiempos se calculan sobre los horarios oficiales que publica el Consorcio Regional de
-        Transportes de Madrid: Cercanías, Metro, Metro Ligero y, si se marcan, los autobuses
+        Transportes de Madrid: Cercanías, Metro, Metro Ligero y los autobuses
         urbanos e interurbanos. Para el centro de cada cuadro de 100 metros del término se busca,
         para cada minuto de salida entre las 7:30 y las 8:30, la combinación que llega antes al
         destino, andando hasta una parada a menos de 1.200 metros; se enseña la mediana de esos 61
@@ -353,8 +393,23 @@
       <p>
         Las viviendas con una estación cerca salen de los edificios del Catastro, que dicen cuántas
         viviendas tiene cada uno, y de las paradas de Cercanías, Metro y Metro Ligero de esos mismos
-        horarios. La zona tarifaria de cada ciudad es la de las paradas de su término, y el precio
-        del abono, el del Boletín Oficial de la Comunidad de Madrid para 2026.
+        horarios.
+      </p>
+      <p>
+        Las plazas hacia Madrid cuentan los trenes, metros y autobuses de esos horarios que salen de
+        cada ciudad entre las 7 y las 9 y llegan a Madrid capital, por las plazas de cada vehículo. La
+        línea principal de cada ciudad es la de tren, Metro o Metro Ligero que más plazas lleva. Si
+        falla el tren, todo se vuelve a contar sin ella: sin sus trenes y sin las estaciones en las
+        que solo para ella, con todo lo demás igual.
+      </p>
+
+      <h3>Lo llena que va la A-42</h3>
+      <p>
+        Las personas que cruzan la autovía hacia Madrid cada 500 metros salen del mismo estudio de
+        rutas por carretera, contando todos los viajes que la pisan, vengan de donde vengan, con la
+        franja de 7 a 8 estimada como la de 6 a 10. Lo que cabe sale de los carriles de cada tramo, de
+        la capacidad por carril que usa el estudio de tráfico de la Comunidad y de las personas por
+        vehículo que dan el aforo del Ministerio y este estudio en el mismo punto.
       </p>
 
       <h3>Fuentes, una por una</h3>
@@ -365,7 +420,11 @@
         <li><a href="https://www.ine.es/jaxiT3/Tabla.htm?t=2881">INE, cifras oficiales de población a 1 de enero de 2025</a>.</li>
         <li><a href="https://datos.crtm.es/">Consorcio Regional de Transportes de Madrid, datos abiertos</a>: horarios (GTFS) de Cercanías, Metro, Metro Ligero y autobuses urbanos e interurbanos, octubre de 2026 (el de Metro, de mayo de 2025).</li>
         <li><a href="https://horarios.renfe.com/cer/">Renfe Cercanías, consulta de horarios</a>: comprobación de los tiempos.</li>
-        <li><a href="https://www.catastro.hacienda.gob.es/webinspire/index.html">Dirección General del Catastro, cartografía INSPIRE</a>: manzanas.</li>
+        <li><a href="https://www.catastro.hacienda.gob.es/webinspire/index.html">Dirección General del Catastro, cartografía INSPIRE</a>: manzanas y edificios con su número de viviendas.</li>
+        <li><a href="https://www.renfe.com/es/es/cercanias/cercanias-madrid/rodajes/unidad-465">Renfe, tren Civia de la serie 465</a>: plazas por tren de Cercanías.</li>
+        <li><a href="https://www.boe.es/boe/dias/2023/01/27/pdfs/BOE-A-2023-2208.pdf">Resolución del Ministerio de Transportes de 22 de diciembre de 2022 (BOE del 27 de enero de 2023)</a>: retenciones de la A-42.</li>
+        <li><a href="https://www.comunidad.madrid/transparencia/sites/default/files/regulation/documents/ergona42_memoria_anexo_3_estudio_trafico.pdf">Estudio de tráfico del parque logístico Ergón A-42 (Comunidad de Madrid, 2023)</a>: aforo de la estación M-133-0 y capacidad por carril.</li>
+        <li><a href="https://www.openstreetmap.org/">OpenStreetMap</a>: carriles de la A-42.</li>
       </ul>
       <p class="cautela">
         El cálculo, con sus scripts, está en
@@ -398,9 +457,12 @@
 <script src="assets/infraestructura-comun.js"></script>
 <script src="assets/infraestructura-mapa.js"></script>
 <script src="assets/infraestructura.js"></script>
+<script src="datos/a42.js"></script>
+<script src="assets/infraestructura-a42.js"></script>
 <script src="datos/transporte.js"></script>
 <script src="assets/qr.js"></script>
 <script src="assets/cartel.js"></script>
 <script src="assets/infraestructura-tp.js"></script>
+<script src="assets/plegar.js"></script>
 </body>
 </html>

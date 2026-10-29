@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Añade a datos/transporte.js la cobertura (cobertura.py), el abono
 (abono.py), lo que se tarda desde la vivienda mediana (vivienda_media.py) y
-lo lejos que queda el trabajo (distancia.py) de cada ciudad, sin recalcular los tiempos. Lo llama también
+lo lejos que queda el trabajo (distancia.py) y lo que queda si falla la línea
+principal (capacidad.py y sin_cercanias.py) de cada ciudad, sin recalcular los tiempos. Lo llama también
 ciudad.py al terminar.
 
 Uso:
@@ -26,12 +27,13 @@ def main():
                   'ciudades': {c: {'zona': v['zona'], 'precio': v['abono30']}
                                for c, v in ab.items() if c != '_meta'}}
     d['cobertura'] = {'fuente': co['_meta']['fuentes']['catastro'],
-                      'ciudades': {c: {'viviendas': v['viviendas'], 'cerca': v['cerca'], 'pct': v['pct']}
+                      'ciudades': {c: {'viviendas': v['viviendas'], 'cerca': v['cerca'], 'pct': v['pct'],
+                                       'pctSin': v.get('pctSinLinea'), 'linea': v.get('sinLinea')}
                                    for c, v in co.items() if c != '_meta'}}
     vm = F / 'vivienda_media.json'
     if vm.exists():
         vm = json.loads(vm.read_text())
-        d['casa'] = {c: {m: {k: [x['mediana'], x['masHora']] for k, x in v[m].items()} for m in ('tren', 'todo')}
+        d['casa'] = {c: {m: {k: [x['mediana'], x['masHora']] for k, x in v[m].items()} for m in ('tren', 'todo', 'sin') if m in v}
                      for c, v in vm.items() if c != '_meta'}
     di = F / 'distancia.json'
     if di.exists():
@@ -41,6 +43,15 @@ def main():
                           'ciudades': {c: {'km': v[f0]['kmTrabajo'], 'lejos': v[f0]['pctLejos'],
                                            'kmVecino': v[f0]['kmVecino'], 'kmAntes': v[f1]['kmTrabajo']}
                                        for c, v in di.items() if c != '_meta'}}
+    # Las plazas por línea, para «Si falla la C-4» (capacidad.py)
+    ca = F / 'capacidad.json'
+    if ca.exists():
+        ca = json.loads(ca.read_text())
+        d['redundancia'] = {
+            'ventana': ca['_meta']['ventana'], 'plazas': ca['_meta']['plazas'], 'demanda': ca['_meta']['demanda'],
+            'ciudades': {c: {'lineas': [[k, v['vehiculos'], v['plazas']] for k, v in x['lineas'].items()],
+                             'vanMadrid': x['vanMadrid']}
+                         for c, x in ca.items() if c != '_meta'}}
     # Las estaciones en obras, en metros desde el centro del mapa de su ciudad.
     import sys
     sys.path.insert(0, str(Path(__file__).resolve().parent))

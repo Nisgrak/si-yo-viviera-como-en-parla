@@ -392,12 +392,21 @@ incorporarlos:
 en la web principal: el bloque «Salir de la ciudad» antes del método y un botón azul en la portada
 («Infraestructuras»). La página se titula «Salir de [ciudad] y salir de Parla» y tiene dos partes, cada
 una con su cabecera (`.grupo`) y sus apartados dentro, que el índice enseña en dos niveles: «En
-coche» (mapa, colas y los dos sentidos, de 6 a 10) y «En transporte público» (ver la sección
-siguiente).
+coche» (mapa, colas, lo llena que va la A-42 y los dos sentidos) y «En transporte público» (ver
+la sección siguiente).
 Cuenta por qué acceso cruzan el límite del municipio las personas que salen por carretera entre
 las 6 y las 10 de la mañana, de dos maneras:
 - **El mapa.** Las carreteras reales con la gente fluyendo. Los dos mapas tienen el mismo tamaño y cada uno su escala, para que cada término llene su marco; la barra de 1 km lo indica. El ancho de cada carretera es proporcional a la gente que sale por ella, con la misma regla en los dos mapas, y los puntos van igual de juntos dentro de cada banda. En escritorio los mapas se salen del ancho del texto.
 - **Las colas.** Un punto por cada 100 personas: la cifra absoluta.
+- **Lo llena que va la A-42.** Un mapa con la autovía hacia Madrid, de salida en salida, dibujada
+  con tantos carriles como tiene cada tramo y coloreada por lo llena que va de 7 a 8: la gente que
+  la cruza (todos los viajes de España que la pisan, del estudio de rutas, cada 500 m) sobre lo que
+  cabe (2.350 vehículos por carril y hora, la capacidad que usa el estudio de tráfico de la
+  Comunidad para este tramo, y 1,65 personas por vehículo, de comparar el aforo M-133-0 del
+  Ministerio con el estudio en el mismo punto). Verde, amarillo, naranja y rojo (85 % o más); al
+  lado, en negro discontinuo, las retenciones de 7 a 9 que da el BOE-A-2023-2208, situadas por
+  punto kilométrico. Carriles de OpenStreetMap. `herramientas/accesos/a42.py` (lee 1,5 GB de
+  rutas la primera vez; `--web` rehace `datos/a42.js` de la caché).
 
 **De dónde sale.** De los estudios de movilidad con telefonía móvil del Ministerio de
 Transportes (Open Data Movilidad):
@@ -440,48 +449,82 @@ python3 herramientas/infraestructura.py                   # escribe datos/infrae
 - **La R-4.** Es de peaje (0,55 € de Pinto-Parla a la M-50 en 2026) y apenas se usa: el 3 % de los viajes que salen de Parla pasa por ella. Su IMD creció un 37 % entre 2019 y 2025, frente al 3,6 % de la A-42.
 - **Concentración comparada.** Alcobendas concentra casi igual que Parla: el 62,6 % de sus salidas de la mañana va por la A-1 y la M-40. La página no dice que Parla sea la única.
 
-### En transporte público: cuánto se tarda hasta el centro
+### En transporte público (y si falla el tren)
 
-En `infraestructura.html`, sección «En transporte público», para las once ciudades. Se elige
-a dónde se va (Atocha, que es el destino de entrada, Sol, Nuevos Ministerios o Plaza de Castilla) y cada mapa enseña su término
-municipal pintado por zonas de 10 minutos: capas semitransparentes que se cargan de color donde se
-tarda menos, sobre las manzanas del Catastro y las líneas de tren. Parla en azul y la otra ciudad
-en tinta; al pasar el ratón, los minutos de ese punto. De entrada cuenta solo el tren (Cercanías,
-Metro y Metro Ligero); una casilla añade los autobuses, que en hora punta no siempre cumplen su
-horario. Tiempo mediano de salir a cada minuto entre las 7:30 y las 8:30 de un martes.
+En `infraestructura.html`, sección «En transporte público», para las once ciudades. Desde el
+29-10-2026 tiene dos partes. Primero, **un día normal**, con un bloque por dato y Parla frente a
+la ciudad elegida:
+- **El tren a mano**: de cada 100 viviendas del Catastro, las que tienen una estación de
+  Cercanías, Metro o Metro Ligero que sale de su municipio a 15 minutos andando, con 5 y 10 en la
+  nota (`cobertura.py`, `fuentes/cobertura.md`).
+- **Cuánto se tarda hasta el centro**: desde la vivienda mediana hasta Atocha, en tren, Metro o
+  autobús (`vivienda_media.py`, que lee los tiempos ya escritos en `datos/transporte/<id>.js`,
+  contando cada edificio del Catastro en su cuadro de 100 m tantas veces como viviendas tiene).
+- **Las plazas hacia Madrid**: las de tren, Metro y autobús que salen cada hora de 7 a 9 y llegan
+  a Madrid capital, por cada 1.000 vecinos (`capacidad.py`, `fuentes/capacidad.json`). Plazas por
+  vehículo, con fuente en el script: 997 por tren de Cercanías (Civia de cinco coches, contado
+  simple), 1.260 / 630 / 840 en las líneas 10A, 10B y 11 de Metro, 200 por Metro Ligero y 80 por
+  autobús; las de Metro y autobús, aproximadas. La gente que va a Madrid a esa hora sale del
+  estudio básico de movilidad.
+
+Después, **«Si falla el tren»**: lo mismo sin la **línea principal** de cada ciudad, la de tren,
+Metro o Metro Ligero con más plazas hacia Madrid (`principal.py`; en Parla y Getafe, la C-4; en
+Alcorcón y Alcobendas, el Metro 10), con todo lo demás funcionando. Arriba, las plazas que quedan
+(Parla conserva el 10 %, la última de las once) con la lista de las once; luego una tabla con el
+tren a mano y la vivienda mediana, un día normal frente a sin la línea, con la diferencia en %; y
+los cuatro mapas (Parla y la ciudad elegida, un día normal y sin su línea). Los mapas pintan el
+término por zonas de 10 minutos hasta el destino elegido (Atocha, Sol, Nuevos Ministerios o
+Plaza de Castilla), sobre las manzanas del Catastro; al tocar un punto, sus minutos (un segundo
+toque lo quita). Se descartaron un mapa que cambiaba al hacer scroll y la versión «sin ninguna
+línea de Cercanías», que a Getafe le quitaba también la C-3.
 
 Es, como las zonas verdes, una cuenta nuestra sobre los GTFS oficiales del Consorcio; de estación
 a estación da los mismos minutos que la consulta oficial de horarios de Renfe. Método, fuentes,
-resultados y cautelas en `herramientas/transporte/fuentes/ciudad.md`.
+resultados y cautelas de los tiempos en `herramientas/transporte/fuentes/ciudad.md`.
 
 ```
 python3 herramientas/transporte/tiempos.py --descargar     # GTFS del Consorcio a /var/tmp/transporte
 python3 herramientas/transporte/ciudad.py --ciudades parla getafe leganes fuenlabrada mostoles alcorcon alcobendas pinto torrejon pozuelo majadahonda
 python3 herramientas/transporte/comprobar.py               # contrasta con horarios.renfe.com
-python3 herramientas/transporte/vivienda_media.py          # la vivienda mediana; luego indice.py
-python3 herramientas/transporte/distancia.py               # lo lejos que queda el trabajo (~10 min); luego indice.py
+python3 herramientas/transporte/capacidad.py               # plazas por línea y gente que va a Madrid (la línea principal sale de aquí)
+python3 herramientas/transporte/sin_cercanias.py --mapa    # tiempos sin la línea principal, como el modo «sin» de cada ciudad (~5 min)
+python3 herramientas/transporte/cobertura.py               # el tren a mano, con y sin la línea principal
+python3 herramientas/transporte/vivienda_media.py          # la vivienda mediana, en todos los modos
+python3 herramientas/transporte/indice.py                  # lo junta en datos/transporte.js
 ```
 
-Al principio de la página, antes de «En coche», va **lo lejos que queda el trabajo**: los km de media de los viajes de casa al trabajo o a estudiar, todos los medios, del estudio básico del Ministerio (`distancia.py`, `fuentes/distancia.md`). Parla es la primera de las once en 2024 y en 2023. En la cautela de los tiempos va una frase sobre las incidencias del C-4 (cifras del Consorcio que difunde la Comunidad, citadas por la prensa y discutidas por Renfe); no hay fuente oficial por línea.
+`ciudad.py` escribe los modos «tren» y «todo»; `sin_cercanias.py --mapa` añade «sin» a cada
+`datos/transporte/<id>.js` sin tocar los demás, así que tiene que ir después. `indice.py` junta en
+`datos/transporte.js` la cobertura, la vivienda mediana, las plazas por línea, el abono y las
+estaciones en obras de `fuentes/obras.json` (hoy, Parla Norte, en amarillo en el mapa de Parla: sin
+horario, no cuenta en ningún cálculo), sin recalcular los tiempos; la portada saca de ahí la línea
+del tren de «Salir de la ciudad». `aligerar.py` deja cada `datos/transporte/<id>.js` en la mitad
+sin cambiar lo que se ve: quita las celdas de campo sin tiempo, recorta las manzanas al encuadre y
+guarda los tiempos como texto en base 36 (dos caracteres por celda); `ciudad.py` lo aplica al
+escribir.
 
-Debajo del mapa va **la vivienda mediana**: lo que tarda hasta el destino elegido la vivienda del medio de cada ciudad, contando cada edificio del Catastro en su cuadro de 100 m tantas veces como viviendas tiene (`vivienda_media.py` y `fuentes/vivienda_media.json`, que lee los tiempos ya escritos en `datos/transporte/<id>.js`). Hasta Atocha en tren, Parla es la 5.ª que más tarda de las once (45 min; Getafe, 34); hasta Plaza de Castilla, la que más. La frase de arriba de la página y «Todos los datos» usan Atocha.
+En la cautela de los tiempos va una frase sobre las incidencias de la C-4 (cifras del Consorcio
+que difunde la Comunidad, citadas por la prensa y discutidas por Renfe); no hay fuente oficial por
+línea. **Lo lejos que queda el trabajo** (`distancia.py`, `fuentes/distancia.md`) y **lo que cuesta
+el abono** (`abono.py`, `fuentes/abono.md`) ya no están en la página desde el 28 y el 29-10-2026:
+la distancia no la decide nadie, y el abono se quitó para aligerar. Sus datos siguen en
+`datos/transporte.js` y en «Todos los datos» (`consulta.html`).
 
-Antes del mapa va **el tren a mano** (de cada 100 viviendas del Catastro, las que tienen una
-estación de Cercanías, Metro o Metro Ligero que sale de su municipio a 15 minutos andando, con 5 y
-10 en la nota; `cobertura.py` y `fuentes/cobertura.md`), y después **lo que cuesta el
-abono** (zona tarifaria de cada ciudad y precio del de 30 días en 2026 según el BOCM; `abono.py` y
-`fuentes/abono.md`). `indice.py` los junta en `datos/transporte.js` sin recalcular los tiempos, junto con las estaciones
-en obras de `fuentes/obras.json` (hoy, Parla Norte, en amarillo en el mapa de Parla: sin horario,
-no cuenta en ningún cálculo), y la
-portada saca de ahí la línea del tren de «Salir de la ciudad». `aligerar.py` deja cada
-`datos/transporte/<id>.js` en la mitad sin cambiar lo que se ve: quita las celdas de campo sin
-tiempo, recorta las manzanas al encuadre y guarda los tiempos como texto en base 36 (dos
-caracteres por celda); `ciudad.py` lo aplica al escribir.
+Necesita numpy y shapely, como `accesos.py`. Las once tardan unos 25 minutos en `ciudad.py` y caben
+en una máquina de 2 GB. Para otra ciudad, su ayuntamiento en `ORIGENES` de `isocronas.py` (para la
+estación de referencia) y añadirla a `--ciudades`. Mientras no esté calculada, su mapa lo dice.
+`isocronas.py` hace el mapa al revés (hasta dónde se llega desde el ayuntamiento), que se descartó
+para la web y queda para medir los empleos a los que se llega. `carriles.py` fue una exploración
+de los carriles de todas las salidas por carretera (OpenStreetMap); no se usa en la web.
 
-Necesita numpy y shapely, como `accesos.py`. Las once tardan unos 25 minutos y caben en una
-máquina de 2 GB. Para otra ciudad, su ayuntamiento en `ORIGENES` de `isocronas.py` (para la
-estación de referencia) y añadirla a `--ciudades`. Mientras no esté calculada, su mapa lo dice. `isocronas.py` hace el mapa al revés (hasta dónde se llega desde el
-ayuntamiento), que se descartó para la web y queda para medir los empleos a los que se llega.
+### Ver más
+
+Las cautelas, fuentes y notas de letra pequeña que pasan de 360 letras se pliegan a tres líneas
+con un botón «Ver más» (`assets/plegar.js`, en todas las páginas menos «Todos los datos»). Busca
+por clase (`cautela`, `*__pie`, `*__nota`, `*-pie`, `*-nota`, `*fuente*`), solo pliega lo que se
+ve en letra pequeña (menos de 15 px) y vuelve a mirar cada vez que cambia la página, porque muchas
+se pintan con JavaScript al elegir ciudad. Para que un párrafo no se pliegue nunca:
+`data-plegable="no"`.
 
 ### Compartir una sección
 
