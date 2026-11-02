@@ -37,6 +37,14 @@ Solo usa la biblioteca estándar.
 import json
 from pathlib import Path
 
+# El INE sacó la superficie útil del Censo 2021 de la construida del Catastro con
+# un mismo factor para todas las viviendas: útil = 0,83 × construida (Metodología
+# de los Censos 2021, pp. 84-85, figura 37; el INE no escribe el número y se ha
+# leído del gráfico). Dividir entre él deshace la cuenta: da la construida media,
+# con la parte de los elementos comunes, que es la de los precios por metro
+# cuadrado del Ministerio y la de las ordenanzas de basuras.
+UTIL_CONSTRUIDA = 0.83
+
 RAIZ = Path(__file__).resolve().parent.parent
 F = RAIZ / 'herramientas/vivienda/fuentes'
 
@@ -125,6 +133,8 @@ def main():
             'hog5en60': cz['hogares_5omas_en_60m2_o_menos'],
             'pctHog5en60': cz['pct_hogares_5omas_en_60m2_o_menos'],
             'superficie': q['superficie_media_viviendas_familiares_m2_censo2021'],
+            # La construida, que es la de los precios por metro cuadrado y la de las ordenanzas.
+            'superficieConstruida': round(q['superficie_media_viviendas_familiares_m2_censo2021'] / UTIL_CONSTRUIDA, 1),
         }
         renta = {'anio': q['adrh']['anyo'], 'hogar': q['adrh']['renta_neta_media_por_hogar'],
                  'persona': q['adrh']['renta_neta_media_por_persona'],

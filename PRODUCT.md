@@ -65,7 +65,7 @@ La credibilidad es el producto; sin ella esto es un cartel más.
   contar posiciones en los datos. Así no puede quedarse obsoleta ni decir más de lo que hay.
 - **El selector es la frase.** Elegir ciudad no es un control aparte: es la palabra grande del
   titular, que es una pregunta en primera persona del plural, porque quien la hace es un vecino:
-  «¿Y si en Parla viviéramos como en [Getafe]? Tendríamos 37 más». El desplegable lleva
+  «¿Y si en Parla viviéramos como en [Getafe]? Tendríamos 21 más». El desplegable lleva
   el mismo tipo y el mismo peso que el resto del titular, en azul y subrayado para que se vea
   que se toca. En las páginas temáticas, igual: «La sanidad de Parla y la sanidad de [Getafe]».
 - **Dos voces:** la cabecera de la portada habla en plural, como vecinos («tendríamos»,
@@ -108,7 +108,7 @@ La credibilidad es el producto; sin ella esto es un cartel más.
 ## Estado
 
 v7 (octubre de 2026): Parla en el centro. Lo que le falta para estar dotada como cada una de las
-otras diez —Leganés 35, Fuenlabrada 32, Alcorcón 25, Móstoles 24, Getafe 21, Alcobendas 13,
+otras diez —Leganés 35, Fuenlabrada 32, Alcorcón 24, Móstoles 24, Getafe 21, Alcobendas 12,
 Pozuelo de Alarcón 9, Pinto 8, Torrejón de Ardoz 8, Majadahonda 4— con 11 indicadores que suman,
 y aparte, fuera del recuento, las farmacias, las camas, las plazas residenciales públicas, los
 alumnos de enseñanzas artísticas y de FP, las zonas verdes y la cartera del hospital. Las
@@ -137,7 +137,7 @@ Además del recuento, seis páginas por ciudad, cada una con su resumen en la po
   centro ocupacional para la discapacidad intelectual, la atención temprana, la educación
   especial, las aulas TEA y la FP de modalidad especial (las mismas que en Educación) y, al final, cuánta
   gente tiene una discapacidad reconocida. Todo en plazas y fuera del recuento. Parla es la única
-  de las once sin ninguna plaza residencial; en atención temprana queda hacia la mitad. La salud
+  de las once sin ninguna plaza residencial; en atención temprana es la cuarta. La salud
   mental va en Sanidad y los colegios de educación especial en Educación.
 
 Cada página abre con lo que más pesa, con las piezas de infraestructura.html: cifras grandes

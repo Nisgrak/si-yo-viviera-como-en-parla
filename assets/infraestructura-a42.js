@@ -105,6 +105,7 @@
     A.vias.forEach(function (v) { if (v.n !== 'A-42') gv.appendChild(svg('path', { d: trazo(enPx(v.c)) })); });
     fondo.appendChild(gv);
     const gt = svg('g', { class: 'a42-mapa__nombres' });
+    const nombres = [];
     A.municipios.forEach(function (m) {
       if (!m.nombre) return;
       /* En pantallas estrechas, solo Parla, la ciudad elegida y Madrid: los demás chocan con las cifras. */
@@ -118,6 +119,7 @@
       const t = svg('text', { x: tx.toFixed(1), y: ty.toFixed(1) }, m.nombre);
       t.dataset.quien = quien(m.id);
       gt.appendChild(t);
+      nombres.push({ t: t, x: tx - m.nombre.length * 3.6, y: ty, w: m.nombre.length * 7.2 }); /* va centrado */
     });
     fondo.appendChild(gt);
     d.appendChild(fondo);
@@ -216,6 +218,7 @@
     /* Salidas, al este, con su nombre. */
     const ge = svg('g', { class: 'a42-mapa__salidas' });
     let ultima = Infinity;      /* de sur a norte: cada rótulo, por encima del anterior */
+    const rotulos = [];
     A.enlaces.slice().sort(function (a, b) { return b.pk - a.pk; }).forEach(function (e) {
       if (e.pk <= TR[0].de || e.pk >= TR[TR.length - 1].a) return;
       const i = enPk(e.pk), o = maxW / 2 + 12;
@@ -227,10 +230,22 @@
       /* En pantallas estrechas, solo la carretera («M-406», no «M-406, Getafe y Leganés»). */
       const lineas = e.n.split(' · ').map(function (x) { return estrecho ? x.split(',')[0] : x; });
       lineas.forEach(function (p, k) {
-        ge.appendChild(svg('text', { x: (bx + 3).toFixed(1), y: (ty - (lineas.length - 1 - k) * 12).toFixed(1) }, p));
+        const y = ty - (lineas.length - 1 - k) * 12;
+        ge.appendChild(svg('text', { x: (bx + 3).toFixed(1), y: y.toFixed(1) }, p));
+        rotulos.push({ x: bx + 3, y: y, w: p.length * 6.5 });
       });
     });
     d.appendChild(ge);
+    /* Un nombre de ciudad que pise el rótulo de una salida («M-40Madrid»)
+       se baja una línea, o se sube si así tampoco cabe. */
+    const pisa = function (n, y) {
+      return rotulos.some(function (r) { return n.x < r.x + r.w && r.x < n.x + n.w && Math.abs(r.y - y) < 13; });
+    };
+    nombres.forEach(function (n) {
+      if (!pisa(n, n.y)) return;
+      const y = [n.y + 16, n.y - 16, n.y + 30, n.y - 30].filter(function (v) { return !pisa(n, v); })[0];
+      if (y != null) n.t.setAttribute('y', y.toFixed(1));
+    });
 
     /* Lo lleno que va y los carriles, al oeste, a media altura de cada tramo. */
     const gp = svg('g', { class: 'a42-mapa__pcts' });

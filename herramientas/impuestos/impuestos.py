@@ -261,11 +261,11 @@ FUENTES = {
 }
 
 NOTAS = [
-    'Vecino tipo de cada ciudad = su vivienda residencial media (valor catastral residencial 2026 / inmuebles residenciales, Catastro), con la superficie media de las viviendas familiares del Censo 2021 y 3 empadronados (tamaño medio del hogar ADRH 2024 redondeado: 2,6-3,1 en las once), más un turismo de 12 a 15,99 CV.',
+    'Vecino tipo de cada ciudad = su vivienda residencial media (valor catastral residencial 2026 / inmuebles residenciales, Catastro), con la superficie construida media de las viviendas familiares (la útil del Censo 2021 entre 0,83, el factor con que el INE la sacó de la del Catastro) y 3 empadronados (tamaño medio del hogar ADRH 2024 redondeado: 2,6-3,1 en las once), más un turismo de 12 a 15,99 CV.',
     'Caso común = misma vivienda para las once: valor catastral igual a la mediana de las once medias, 80 m² construidos y 3 empadronados; solo cambian las ordenanzas.',
     'Recibo IBI = valor catastral × tipo general 2026 (Hacienda). Cuota íntegra, sin bonificaciones, sin garaje ni trastero. En Pinto la base liquidable es el 97,1 % del VC y en Parla el 99,77 %: su recibo real es algo menor.',
     'IVTM: cuota de Hacienda 2026 para turismos de 12 a 15,99 CV (la mínima legal es 71,94 €; 68,16 € no es la de ese tramo, sino 2 × 34,08 del tramo 8-11,99). Coincide con la ordenanza en todas las ciudades contrastadas salvo Pinto: Hacienda da la mínima (71,94; coef. 1) y la ordenanza de 2014 encontrada aplica coef. 1,37 (98,56 €); no se ha encontrado el texto vigente, se usa Hacienda. IVTM de Parla, Leganés y Alcobendas solo de Hacienda (ordenanza no localizada).',
-    'Basuras: tarifas de la ordenanza, sin reducciones ni bonificaciones. La superficie de las ordenanzas es construida; la del Censo es útil (algo menor): en tramos cerca del límite (Parla 72 m² frente a 75; Torrejón 73 m² frente a 75) el resultado puede cambiar de tramo.',
+    'Basuras: tarifas de la ordenanza, sin reducciones ni bonificaciones. La superficie de las ordenanzas es construida, y se usa la construida media (la útil del Censo entre 0,83). Con la útil, Parla (72 m²) y Torrejón (73 m²) quedarían por debajo del límite de 75 m² de sus tramos.',
     'Parla: la tasa está aprobada y en vigor para 2026, pero según la prensa el alcalde anunció que no se cobrará; no hay acto oficial. Se dan los totales con y sin ella.',
     'Alcorcón: el cobro de 2026 se ha aplazado (periodo que acaba el 31-07-2027) y podría suspenderse. Pinto: cobra en 2026 pero su cuota (K × VC) no es calculable con fuentes públicas: su total va sin basuras. Pozuelo: cuota estimada (media o punto medio oficial del tramo de superficie).',
     'Plusvalía e ICIO no entran en el total anual (no son pagos recurrentes). La tabla de Hacienda deja a cero las columnas del IIVTNU (sistema anterior al RDL 26/2021): los tipos salen de las ordenanzas.',
@@ -289,7 +289,7 @@ def main():
     for c in INE:
         hc = h[c]
         assert abs(hc['ibi'] - ibi[c]['tipo_2026_pct']) < 1e-9, (c, hc['ibi'], ibi[c]['tipo_2026_pct'])
-        vc, m2 = vcs[c], viv[c]['censo']['superficie']
+        vc, m2 = vcs[c], viv[c]['censo']['superficieConstruida']
         personas = round(viv[c]['renta']['tamano'])
         recibo = vc * hc['ibi'] / 100
         b, calc = BASURAS[c](vc, m2, personas)

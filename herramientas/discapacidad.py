@@ -259,7 +259,8 @@ TILDES = {'rehabilitacion': 'rehabilitación', 'dia': 'día', 'atencion': 'atenc
           'jimenez': 'jiménez', 'garcia': 'garcía', 'diaz': 'díaz', 'dali': 'dalí', 'zurbaran': 'zurbarán',
           'jaen': 'jaén', 'accion': 'acción', 'asociacion': 'asociación', 'gestion': 'gestión',
           'psiquicos': 'psíquicos', 'gudal': 'gúdal', 'pesonas': 'personas', 'maria': 'maría',
-          'ines': 'inés', 'educacion': 'educación'}
+          'ines': 'inés', 'educacion': 'educación', 'jose': 'josé', 'rosalia': 'rosalía', 'aragon': 'aragón',
+          'alarcon': 'alarcón'}
 
 
 def palabra(p, anterior):
@@ -277,6 +278,8 @@ def palabra(p, anterior):
 
 
 def nombre_propio(t):
+    # «PARQUE POLVORANCA, OTRAS RESIDENCIAS»: el subtipo del registro no es parte del nombre.
+    t = re.sub(r',\s*OTRAS RESIDENCIAS\s*$', '', t, flags=re.I)
     t = re.sub(r'\.(?=\w)', '. ', t)
     t = re.sub(r'\bNTRA\. ', 'Nuestra ', re.sub(r'\bSRA\. ', 'Señora ', re.sub(r'\bD\. ', 'Don ', t)))
     t = re.sub(r'\s*-\s*', ' - ', t)
@@ -287,7 +290,8 @@ def nombre_propio(t):
         salida.append(p if p == '-' else palabra(p, anterior))
         anterior = p.lower().strip(',"()')
     t = ' '.join(salida).replace(' - ', ', ').replace(',,', ',')
-    return re.sub(r'^([A-Z]+)\. ', r'\1, ', t if t.endswith('S.L.') else t.rstrip('.'))
+    t = re.sub(r'^([A-Z]+)\. ', r'\1, ', t if t.endswith('S.L.') else t.rstrip('.'))
+    return re.sub(r'"([^"]*)"', r'«\1»', t)
 
 
 MESES = 'enero febrero marzo abril mayo junio julio agosto septiembre octubre noviembre diciembre'.split()
@@ -338,7 +342,8 @@ def escribir(g):
     for c in g['tea']['centros']:
         x = ciudades[CIUDADES[c['municipio']]]['tea']
         x['aulas'] += c['aulas']
-        x['centros'].append([c['nombre'], c['aulas'], 'concertado' if c['nombre'].startswith('CPR') else 'público'])
+        nombre = re.sub(r'\bIsabel La\b', 'Isabel la', c['nombre'])
+        x['centros'].append([nombre, c['aulas'], 'concertado' if c['nombre'].startswith('CPR') else 'público'])
     # Los programas profesionales de modalidad especial: uno por perfil.
     for cid in CIUDADES.values():
         ciudades[cid]['ppme'] = {'programas': 0, 'centros': []}
@@ -370,7 +375,8 @@ def escribir(g):
                                 str(g['reconocidas']['anio']), g['reconocidas']['urlEdad']],
             'colegios': ['Comunidad de Madrid · Centros educativos, a ' + fecha(g['colegios']['actualizado']),
                          g['colegios']['url']],
-            'ninos': ['INE · Población por edad año a año, 1 de enero de ' + g['padron']['anio'], g['padron']['url']],
+            'ninos': ['INE · Población por sexo, edad año a año y nacionalidad, 1 de enero de ' + g['padron']['anio'],
+                      g['padron']['url']],
             'tea': ['Comunidad de Madrid · Centros de atención preferente para alumnado con TEA', g['tea']['url']],
             'alumnos': ['Comunidad de Madrid · Estadística de alumnos, curso ' + g['especial']['curso'], g['especial']['url']],
             'ppme': ['Comunidad de Madrid · Programas profesionales de modalidad especial, oferta ' + PPME_CURSO +

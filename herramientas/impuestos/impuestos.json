@@ -24,13 +24,13 @@
    },
    "basuras": {
     "cobra": true,
-    "importe": 107.4,
-    "calculo": "84 (fija) + 9 (tramo de superficie) + 14.4 (empadronados)",
+    "importe": 113.4,
+    "calculo": "84 (fija) + 15 (tramo de superficie) + 14.4 (empadronados)",
     "formula": "CF 84 € + CVS por tramo de m² construidos (0-50: 6; 51-75: 9; 76-125: 15; 126-200: 28; >200: 84) + CVE por empadronados (≤2: 7,80; 3-4: 14,40; 5-6: 22,50; >6: 60)",
     "nota": "Ordenanza en vigor desde 27-12-2025 (primer año 2026). Según la prensa, el alcalde anunció el 25-06-2026 que no se cobrará a los vecinos; no hay acto oficial publicado que lo confirme ni padrón 2026 de la tasa en el BOCM. Periodo voluntario previsto 1-sep a 20-nov.",
     "vivienda": {
      "valorCatastral": 75815.89,
-     "m2": 72.09,
+     "m2": 86.9,
      "personas": 3
     }
    },
@@ -45,7 +45,7 @@
     "coefSituacionMax": 2.74,
     "coefSituacionMin": 1.39
    },
-   "total": 565.17,
+   "total": 571.17,
    "totalSinBasuras": 457.77,
    "totalCompleto": true
   },
@@ -74,7 +74,7 @@
     "nota": "Ordenanza 3.11 de 2024, sin cambios para 2026. Bonificaciones por reciclaje con tarjeta, familia numerosa (-20/-40 % de la variable) y exclusión social.",
     "vivienda": {
      "valorCatastral": 101007.4,
-     "m2": 73.32,
+     "m2": 88.3,
      "personas": 3
     }
    },
@@ -115,7 +115,7 @@
     "nota": "No hay tasa de residuos para viviendas: el calendario fiscal 2026 solo recoge la de establecimientos industriales y comerciales.",
     "vivienda": {
      "valorCatastral": 69692.91,
-     "m2": 67.64,
+     "m2": 81.5,
      "personas": 3
     }
    },
@@ -159,7 +159,7 @@
     "nota": "Ordenanza 16, modificada para 2026. -30 % por recogida separada, -10 % compostaje, -70 % IMV/RMI.",
     "vivienda": {
      "valorCatastral": 79901.01,
-     "m2": 68.1,
+     "m2": 82.0,
      "personas": 3
     }
    },
@@ -203,7 +203,7 @@
     "nota": "En vigor desde 2025, modificada para 2026. -15 % familia numerosa, -50 % Móstoles Composta, -90 % IMV/RMI.",
     "vivienda": {
      "valorCatastral": 83646.88,
-     "m2": 72.79,
+     "m2": 87.7,
      "personas": 3
     }
    },
@@ -247,7 +247,7 @@
     "nota": "Ordenanza 17 en vigor; el cobro de 2026 se ha aplazado a un periodo que acaba el 31-07-2027 (BOCM 25-05-2026) y el Ayuntamiento estudia suspenderlo. No consta qué tramo de reducción de la variable se aplica en 2026: se usa el 100 %. Se supone vivienda colectiva.",
     "vivienda": {
      "valorCatastral": 113105.57,
-     "m2": 68.98,
+     "m2": 83.1,
      "personas": 3
     }
    },
@@ -282,13 +282,13 @@
    },
    "basuras": {
     "cobra": true,
-    "importe": 47.46,
-    "calculo": "21,58 + 80.33 m² × 0,90177 (distrito Centro) × 0,35725",
+    "importe": 52.76,
+    "calculo": "21,58 + 96.80 m² × 0,90177 (distrito Centro) × 0,35725",
     "formula": "21,58 € + m² construidos × coef. de distrito (Centro 0,9018; Norte 0,6461; Urbanizaciones 1,9450) × 0,357249840998",
     "nota": "Se usa el distrito Centro. Familia numerosa propietaria: -40 a -85 % según VC. Padrón 2026 publicado (BOCM 27-07-2026).",
     "vivienda": {
      "valorCatastral": 145120.78,
-     "m2": 80.33,
+     "m2": 96.8,
      "personas": 3
     }
    },
@@ -303,7 +303,7 @@
     "coefSituacionMax": 2.9,
     "coefSituacionMin": 1.56
    },
-   "total": 721.69,
+   "total": 727.0,
    "totalSinBasuras": 674.23,
    "totalCompleto": true
   },
@@ -332,7 +332,7 @@
     "nota": "Se cobra en 2026 (calendario fiscal: 21-sep a 23-nov). Importe de una vivienda tipo no disponible en fuente oficial.",
     "vivienda": {
      "valorCatastral": 67282.23,
-     "m2": 74.63,
+     "m2": 89.9,
      "personas": 3
     }
    },
@@ -370,13 +370,13 @@
    },
    "basuras": {
     "cobra": true,
-    "importe": 117.0,
-    "calculo": "< 75 m² construidos: 117",
+    "importe": 180.0,
+    "calculo": "≥ 75 m² y VC ≤ 120.000 €: 180",
     "formula": "< 75 m² construidos: 117 €; ≥ 75 m² y VC ≤ 120.000: 180 €; VC > 120.000: 250 €",
     "nota": "Sin cambios en 2026. Reducción por calidad de la separación (0-10 %, en 2026 el 10 %) y 5 % por domiciliar: el Ayuntamiento anuncia «-15 %» (180 → 153). Se usa la tarifa sin reducciones.",
     "vivienda": {
      "valorCatastral": 65314.84,
-     "m2": 72.91,
+     "m2": 87.8,
      "personas": 3
     }
    },
@@ -391,7 +391,7 @@
     "coefSituacionMax": 3.8,
     "coefSituacionMin": 2.06
    },
-   "total": 603.78,
+   "total": 666.78,
    "totalSinBasuras": 486.78,
    "totalCompleto": true
   },
@@ -414,13 +414,13 @@
    },
    "basuras": {
     "cobra": true,
-    "importe": 125.0,
-    "calculo": "punto medio del rango oficial 115.01–135 € del tramo ≤120 m² (estimación: depende de ruta y empadronados del portal)",
+    "importe": 147.5,
+    "calculo": "punto medio del rango oficial 135.01–160 € del tramo ≤150 m² (estimación: depende de ruta y empadronados del portal)",
     "formula": "Coste por habitante de la ruta × empadronados del portal, repartido entre viviendas por m² construidos, × coef. de generación y de calidad; con mínimos y máximos por tramo de superficie (p. ej. 76-100 m²: 85,01-115 €; 101-120 m²: 115,01-135 €)",
     "nota": "No calculable con exactitud para una vivienda tipo. Se usa la cuota media oficial del tramo cuando el estudio la da (≤75 m²: 77,67; 76-100 m²: 110,79) y, si no, el punto medio del rango.",
     "vivienda": {
      "valorCatastral": 162661.9,
-     "m2": 116.65,
+     "m2": 140.5,
      "personas": 3
     }
    },
@@ -435,7 +435,7 @@
     "coefSituacionMax": 3.72,
     "coefSituacionMin": 1.85
    },
-   "total": 935.32,
+   "total": 957.82,
    "totalSinBasuras": 810.31,
    "totalCompleto": true
   },
@@ -458,13 +458,13 @@
    },
    "basuras": {
     "cobra": true,
-    "importe": 123.89,
-    "calculo": "55 (fija por tramo de VC) + 0.7 × 98.42 m²",
+    "importe": 138.02,
+    "calculo": "55 (fija por tramo de VC) + 0.7 × 118.60 m²",
     "formula": "Cuota fija por tramo de VC (20-100 €) + coef. por tramo de VC (0,34-0,90 €/m²) × m² construidos",
     "nota": "Tabla de vivienda sin cambios en 2026. Bonificaciones acumulables hasta el 70 % (IMV, pensionistas, familia numerosa, vive solo, punto limpio).",
     "vivienda": {
      "valorCatastral": 180569.89,
-     "m2": 98.42,
+     "m2": 118.6,
      "personas": 3
     }
    },
@@ -479,7 +479,7 @@
     "coefSituacionMax": 2.0,
     "coefSituacionMin": 1.5
    },
-   "total": 918.11,
+   "total": 932.24,
    "totalSinBasuras": 794.22,
    "totalCompleto": true
   }
@@ -728,11 +728,11 @@
   }
  },
  "notas": [
-  "Vecino tipo de cada ciudad = su vivienda residencial media (valor catastral residencial 2026 / inmuebles residenciales, Catastro), con la superficie media de las viviendas familiares del Censo 2021 y 3 empadronados (tamaño medio del hogar ADRH 2024 redondeado: 2,6-3,1 en las once), más un turismo de 12 a 15,99 CV.",
+  "Vecino tipo de cada ciudad = su vivienda residencial media (valor catastral residencial 2026 / inmuebles residenciales, Catastro), con la superficie construida media de las viviendas familiares (la útil del Censo 2021 entre 0,83, el factor con que el INE la sacó de la del Catastro) y 3 empadronados (tamaño medio del hogar ADRH 2024 redondeado: 2,6-3,1 en las once), más un turismo de 12 a 15,99 CV.",
   "Caso común = misma vivienda para las once: valor catastral igual a la mediana de las once medias, 80 m² construidos y 3 empadronados; solo cambian las ordenanzas.",
   "Recibo IBI = valor catastral × tipo general 2026 (Hacienda). Cuota íntegra, sin bonificaciones, sin garaje ni trastero. En Pinto la base liquidable es el 97,1 % del VC y en Parla el 99,77 %: su recibo real es algo menor.",
   "IVTM: cuota de Hacienda 2026 para turismos de 12 a 15,99 CV (la mínima legal es 71,94 €; 68,16 € no es la de ese tramo, sino 2 × 34,08 del tramo 8-11,99). Coincide con la ordenanza en todas las ciudades contrastadas salvo Pinto: Hacienda da la mínima (71,94; coef. 1) y la ordenanza de 2014 encontrada aplica coef. 1,37 (98,56 €); no se ha encontrado el texto vigente, se usa Hacienda. IVTM de Parla, Leganés y Alcobendas solo de Hacienda (ordenanza no localizada).",
-  "Basuras: tarifas de la ordenanza, sin reducciones ni bonificaciones. La superficie de las ordenanzas es construida; la del Censo es útil (algo menor): en tramos cerca del límite (Parla 72 m² frente a 75; Torrejón 73 m² frente a 75) el resultado puede cambiar de tramo.",
+  "Basuras: tarifas de la ordenanza, sin reducciones ni bonificaciones. La superficie de las ordenanzas es construida, y se usa la construida media (la útil del Censo entre 0,83). Con la útil, Parla (72 m²) y Torrejón (73 m²) quedarían por debajo del límite de 75 m² de sus tramos.",
   "Parla: la tasa está aprobada y en vigor para 2026, pero según la prensa el alcalde anunció que no se cobrará; no hay acto oficial. Se dan los totales con y sin ella.",
   "Alcorcón: el cobro de 2026 se ha aplazado (periodo que acaba el 31-07-2027) y podría suspenderse. Pinto: cobra en 2026 pero su cuota (K × VC) no es calculable con fuentes públicas: su total va sin basuras. Pozuelo: cuota estimada (media o punto medio oficial del tramo de superficie).",
   "Plusvalía e ICIO no entran en el total anual (no son pagos recurrentes). La tabla de Hacienda deja a cero las columnas del IIVTNU (sistema anterior al RDL 26/2021): los tipos salen de las ordenanzas.",

@@ -86,8 +86,8 @@
       tamaño medio del hogar: <a href="https://www.ine.es/jaxiT3/Tabla.htm?t=31105">INE, Atlas de Distribución de Renta de los Hogares</a>, 2024.
     </p>
     <p class="cautela">
-      Las del Catastro son altas menos bajas de viviendas registradas, no viviendas terminadas: no
-      hay una estadística oficial reciente de viviendas terminadas por municipio. Una vivienda
+      Las del Catastro son altas menos bajas de viviendas registradas. Se usan porque no hay una
+      estadística oficial reciente de viviendas terminadas por municipio. Una vivienda
       registrada puede estar vacía, y un vecino nuevo puede vivir en una casa que ya existía.
     </p>
   </div>
@@ -111,17 +111,20 @@
       (<a href="https://apps.fomento.gob.es/BoletinOnline2/sedal/35103500.XLS">tabla 4, municipios de más de 25.000 habitantes</a>), hasta el segundo trimestre de 2026.
       Compraventas: <a href="https://www.mivau.gob.es/el-ministerio/observatorios-y-estadisticas/estadisticas/transacciones-inmobiliarias-compraventa">Ministerio de Vivienda, transacciones inmobiliarias</a>, con datos de los notarios.
       Renta: <a href="https://www.ine.es/jaxiT3/Tabla.htm?t=31097">INE, Atlas de Distribución de Renta de los Hogares</a>, 2024.
-      Superficie media: <a href="https://gestiona.comunidad.madrid/desvan/almudena/AccionDatosTemaMunicipal.icm?codTema=1929207">Instituto de Estadística de la Comunidad de Madrid</a>, Censo 2021.
+      Superficie media: <a href="https://gestiona.comunidad.madrid/desvan/almudena/AccionDatosTemaMunicipal.icm?codTema=1929207">Instituto de Estadística de la Comunidad de Madrid</a>, Censo 2021,
+      pasada a construida con el factor del INE (<a href="https://ine.es/censos2021/censos2021_meto.pdf">Metodología de los Censos 2021</a>, figura 37).
       IBI: <a href="https://serviciostelematicosext.hacienda.gob.es/SGFAL/ConsultaTipos/aspx/listado_municipiosm.aspx">Ministerio de Hacienda, tipos de gravamen de 2026</a>;
       <a href="https://www.catastro.hacienda.gob.es/jaxi/tabla.do?path=/est2026/catastro/urbano/&amp;file=URBO4228.px&amp;type=pcaxis&amp;L=0">Catastro, valor catastral</a> e
       <a href="https://www.catastro.hacienda.gob.es/jaxi/tabla.do?path=/est2026/catastro/urbano/&amp;file=URAO4228.px&amp;type=pcaxis&amp;L=0">inmuebles de uso residencial</a>, 2026.
     </p>
     <p class="cautela">
-      La tasación es lo que valora una sociedad de tasación antes de una hipoteca, no el precio de
-      venta. Solo cuenta las viviendas que se tasan, y en una ciudad pequeña un trimestre suelto se
+      La tasación es lo que valora una sociedad de tasación antes de una hipoteca; el precio de
+      venta puede ser otro. Solo cuenta las viviendas que se tasan, y en una ciudad pequeña un trimestre suelto se
       mueve por la mezcla de pisos que tocan. El recibo del IBI es una estimación: el valor
       catastral medio de las viviendas por el tipo del ayuntamiento, antes de bonificaciones y sin
-      garaje ni trastero. Ningún organismo publica el recibo de la vivienda media.
+      garaje ni trastero. Ningún organismo publica el recibo de la vivienda media. La superficie
+      construida media es una cuenta nuestra: la útil del Censo entre 0,83, el factor que usó el INE
+      para pasar de una a otra. Se explica abajo, en «Contra qué se mide cada cosa».
     </p>
   </div>
 </section>
@@ -292,7 +295,7 @@
       <a href="https://www.ine.es/jaxiT3/Tabla.htm?t=2881">INE, padrón de cada año</a>.
     </p>
     <p class="cautela">
-      Un desahucio no es lo mismo que un impago, y no todos los impagos acaban en el juzgado. Las
+      No todos los impagos acaban en el juzgado, ni todas las demandas en un desahucio. Las
       demandas de alquiler incluyen también las que piden el piso porque se acaba el contrato. Con
       20 o 40 desahucios al año, unos pocos casos mueven mucho la tasa.
     </p>
@@ -335,16 +338,29 @@
       <p>
         Los hogares que forman 100 vecinos nuevos dividen 100 entre el tamaño medio del hogar de
         cada ciudad que da el INE en el Atlas de renta de 2024, con un decimal.
-        Los precios van por metro cuadrado, para que no cuente el tamaño de los pisos; la vivienda
-        media multiplica el valor tasado por la superficie media de las viviendas de cada ciudad. El esfuerzo
-        divide el alquiler mediano de un año entre la renta neta media de todos los hogares, no
-        solo de los que alquilan. Los años de renta multiplican el valor tasado por la superficie
-        media de las viviendas de cada ciudad y lo dividen entre la renta neta media por hogar.
+        Los precios van por metro cuadrado construido, como los da el Ministerio, para que no cuente
+        el tamaño de los pisos. La vivienda media multiplica el valor tasado por la superficie
+        construida media de cada ciudad, y esa superficie es una cuenta nuestra. El Censo de 2021 da
+        la superficie útil, pero no la mide: el Catastro solo tiene la construida, y como Eurostat
+        pide la útil, el INE la sacó de la construida multiplicándola por un mismo número para todas
+        las viviendas. Ese número lo calculó con una muestra de anuncios de portales inmobiliarios
+        que dan las dos superficies (<a href="https://ine.es/censos2021/censos2021_meto.pdf">Metodología de los Censos 2021</a>,
+        páginas 84 y 85, figura 37). El INE no lo escribe; en su gráfico la recta pasa por 600 m²
+        construidos y 500 útiles, es decir, 0,83. Aquí se usa ese 0,83 para deshacer la cuenta: la
+        superficie útil de cada ciudad entre 0,83. Lo comprobamos por otro lado: en una muestra de
+        1.076 viviendas de la ciudad de Madrid sacadas de la Sede Electrónica del Catastro, el 82 % de
+        la superficie construida es la propia vivienda y el resto, portal, escaleras, garaje y
+        trastero; con la superficie útil del Censo sale un factor de entre 0,80 y 0,83. Canarias fija
+        por ley el 85 % a falta de otro dato (<a href="https://www.boe.es/boe/dias/2021/03/22/pdfs/BOE-A-2021-4399.pdf">Decreto-ley
+        24/2020, artículo 3.3</a>). De los valores posibles, 0,83 es el que menos sube las cifras. El esfuerzo
+        divide el alquiler mediano de un año entre la renta neta media de todos los hogares,
+        sean propietarios o inquilinos. Los años de renta dividen el valor de la vivienda media entre la renta
+        neta media por hogar.
         Los desahucios y las demandas, por cada 100.000 habitantes del partido judicial con la
         población de cada año.
       </p>
 
-      <h3>Los juzgados no son las ciudades</h3>
+      <h3>El partido judicial</h3>
       <p id="metodo-partido"></p>
 
       <h3>Lo que se buscó y no está</h3>
@@ -370,6 +386,7 @@
         <li><a href="https://www.ine.es/jaxiT3/Tabla.htm?t=31097">INE, Atlas de Distribución de Renta de los Hogares</a> (renta y <a href="https://www.ine.es/jaxiT3/Tabla.htm?t=31105">tamaño del hogar</a>): 2024.</li>
         <li><a href="https://gestiona.comunidad.madrid/desvan/almudena/AccionDatosTemaMunicipal.icm?codTema=1002048">Instituto de Estadística de la Comunidad de Madrid, banco de datos municipal</a>: unidades residenciales del Catastro y superficie media.</li>
         <li><a href="https://www.ine.es/jaxiT3/Tabla.htm?t=2881">INE, cifras oficiales de población</a>: padrón de cada año.</li>
+        <li><a href="https://ine.es/censos2021/censos2021_meto.pdf">INE, Metodología de los Censos 2021</a>, páginas 84 y 85: cómo se sacó la superficie útil de la construida del Catastro.</li>
       </ul>
       <p class="cautela">
         Los datos extraídos, con sus enlaces y sus cautelas, y el script que escribe los de esta

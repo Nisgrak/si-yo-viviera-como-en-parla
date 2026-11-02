@@ -56,14 +56,20 @@ INE = {'28106': 'parla', '28065': 'getafe', '28074': 'leganes', '28058': 'fuenla
 PLAZAS = {
     'cercanias': (997, 'Renfe, Civia de cinco coches (serie 465): 277 sentadas y 720 de pie',
                   'https://www.renfe.com/es/es/cercanias/cercanias-madrid/rodajes/unidad-465'),
-    'metro10a': (1260, 'Metro de Madrid, serie 7000 de seis coches (línea 10, tramo A)',
-                 'https://en.wikipedia.org/wiki/Line_10_(Madrid_Metro)'),
-    'metro10b': (630, 'serie 9000 de tres coches (línea 10, tramo B): la mitad que la de seis',
-                 'https://en.wikipedia.org/wiki/Line_10_(Madrid_Metro)'),
-    'metro11': (840, 'serie 8000 de cuatro coches (línea 11), a 210 plazas por coche como la serie 7000',
-                'https://en.wikipedia.org/wiki/Line_11_(Madrid_Metro)'),
-    'ligero': (200, 'Metro Ligero, tranvía de unos 30 m', None),
-    'bus': (80, 'autobús interurbano de 12 m', None),
+    'metro10a': (1260, 'Metro de Madrid, serie 7000 de seis coches (línea 10, tramo A), según su fabricante',
+                 'https://web.archive.org/web/20070308012348/http://www.ansaldobreda.it/files/prodotti/Madridserie7000.pdf'),
+    # MetroNorte (10 B) lleva desde 2021 la serie 8000 de tres coches: 72 sentadas, 2 sillas de ruedas y 535 de pie.
+    'metro10b': (609, 'serie 8000 de tres coches (línea 10, tramo B): 72 sentadas, 2 sillas de ruedas y 535 de pie',
+                 'https://vialibre-ffe.com/pdf/5536_27a31.pdf'),
+    # La línea 11 lleva desde enero de 2025 la serie 9000 de tres coches. Vía Libre da 1.274 plazas para la de
+    # seis (178 sentadas, 1.094 de pie y 2 sillas); la de tres, la mitad. Su cifra para la de tres (838) no
+    # cuadra con la de seis y parece una errata.
+    'metro11': (637, 'serie 9000 de tres coches (línea 11): la mitad de las 1.274 de la de seis',
+                'https://vialibre-ffe.com/noticias.asp?not=512'),
+    'ligero': (204, 'Metro Ligero, Citadis 302 de 32 m: 54 sentadas, a 4 de pie por metro cuadrado',
+               'https://www.metroligero-oeste.es/uploads/files/358.folleto-tecnico-espanol-v2.pdf'),
+    'bus': (79, 'autobús interurbano, los últimos que ha incorporado el Consorcio (13 m)',
+            'https://crtm.es/comunicacion/sala-de-prensa/noticias/noticias/11062024-la-comunidad-de-madrid-incorpora-73-autobuses-interurbanos-hibridos-a-su-flota/'),
 }
 
 

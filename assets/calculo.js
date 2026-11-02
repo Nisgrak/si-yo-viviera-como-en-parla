@@ -161,12 +161,15 @@
       return (puesto(x) - puesto(y)) || x.localeCompare(y, 'es');
     });
     const soloParla = h.faltanAqui.filter(vale);
+    /* Como en cartera(): del total de cada uno se quita lo que no se compara. */
+    const otra = h.unidades ? h.unidades - (h.faltanEnReferencia.length - leFaltan.length) : 0;
+    const parla = D.hospitales[PARLA].unidades - (h.faltanAqui.length - soloParla.length);
     const hospital = {
-      ind: CARTERA, nombre: h.nombre,
-      parla: D.hospitales[PARLA].unidades, otra: h.unidades,
+      ind: CARTERA, nombre: h.nombre, frase: h.frase, plural: !!h.plural,
+      parla: parla, otra: otra,
       lista: leFaltan, soloParla: soloParla,
       falta: leFaltan.length ? leFaltan.length : -soloParla.length,
-      pct: h.unidades ? leFaltan.length / h.unidades : 0
+      pct: otra ? leFaltan.length / otra : 0
     };
     if (hospital.falta > 0) falta.push(hospital);
     else if (hospital.falta < 0) sobra.push(hospital);

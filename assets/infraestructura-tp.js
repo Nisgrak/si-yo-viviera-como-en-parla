@@ -130,12 +130,16 @@
     });
     const mas = el('li', 'tp__l');
     mas.appendChild(el('i', 'tp__c tp__c--nada'));
-    mas.appendChild(el('span', null, 'Más de ' + u[u.length - 1] + ' o sin parada cerca'));
+    mas.appendChild(el('span', null, 'Más de ' + u[u.length - 1] + ' min o sin parada cerca'));
     ley.appendChild(mas);
     const tren = el('li', 'tp__l');
     tren.appendChild(el('i', 'tp__c tp__c--linea'));
     tren.appendChild(el('span', null, 'Cercanías'));
     ley.appendChild(tren);
+    const metro = el('li', 'tp__l');
+    metro.appendChild(el('i', 'tp__c tp__c--metro'));
+    metro.appendChild(el('span', null, 'Metro, Metro Ligero y tranvía'));
+    ley.appendChild(metro);
     if ((T.obras || []).some(function (o) { return o.ciudad === REF || o.ciudad === I.AQUI; })) {
       const obra = el('li', 'tp__l');
       obra.appendChild(el('i', 'tp__c tp__c--obra'));
@@ -152,8 +156,7 @@
     mo = mo || modo;
     vaciar(cont);
     if (!c) {
-      cont.appendChild(el('p', 'tp__falta', 'Todavía no está calculado para ' + NOMBRE[id] +
-        '. De momento solo están Parla y Getafe.'));
+      cont.appendChild(el('p', 'tp__falta', 'Todavía no está calculado para ' + NOMBRE[id] + '.'));
       return null;
     }
     /* El encuadre: donde hay viviendas (lo calcula ciudad.py con los
@@ -199,7 +202,7 @@
     d.appendChild(capas);
 
     /* Las líneas de tren, cortadas por el término. */
-    const recorte = 'tp-recorte-' + id;
+    const recorte = 'tp-recorte-' + id + '-' + mo;
     const cp = svg('clipPath', { id: recorte });
     cp.appendChild(svg('path', { d: trazo(m.limite) }));
     d.appendChild(cp);
@@ -310,7 +313,7 @@
         ? 'Sin parada a menos de 1,2 km andando'
         : tk + ' min'));
       if (tk != null && mg[0] != null && mg[1] != null && mg[0] + mg[1] > 0) {
-        t.appendChild(el('p', 'tp__tip-m', 'Entre ' + (tk - mg[0]) + ' y ' + (tk + mg[1]) + ' según la hora de salida'));
+        t.appendChild(el('p', 'tp__tip-m', 'Entre ' + (tk - mg[0]) + ' y ' + (tk + mg[1]) + ' min según la hora de salida'));
       }
       t.hidden = false;
       const rc = cont.getBoundingClientRect();
@@ -329,8 +332,22 @@
       mostrar(e);
     });
     t.addEventListener('pointerdown', function () { t.hidden = true; });
-    document.addEventListener('pointerdown', function (e) { if (!cont.contains(e.target)) t.hidden = true; });
-    window.addEventListener('scroll', function () { t.hidden = true; }, { passive: true });
+    tipsFuera();
+  }
+  /* Un toque fuera del mapa o mover la página quita el cuadro. Una sola
+     escucha para todos: los mapas se rehacen al cambiar de ciudad o de
+     destino, y una por mapa se iba acumulando. */
+  let tipsListos = false;
+  function tipsFuera() {
+    if (tipsListos) return;
+    tipsListos = true;
+    const ocultar = function (e) {
+      document.querySelectorAll('.tp__tip').forEach(function (t) {
+        if (!e || e.type === 'scroll' || !t.parentNode.contains(e.target)) t.hidden = true;
+      });
+    };
+    document.addEventListener('pointerdown', ocultar);
+    window.addEventListener('scroll', ocultar, { passive: true });
   }
 
   /* ── Pintar ───────────────────────────────────────────────────────── */
@@ -338,7 +355,7 @@
   function dato(sel, r) {
     const n = $(sel);
     n.textContent = !r ? '' : (r.est && r.est.t != null ? r.est.t + ' min desde la estación de ' + r.est.nombre + ' · ' : '') +
-      'de ' + r.mn + ' a ' + r.mx + ' según el punto';
+      'de ' + r.mn + ' a ' + r.mx + ' min según el punto';
   }
   /* Desde la estación de Cercanías de cada ciudad: un día normal y sin la
      línea principal. */
@@ -381,7 +398,7 @@
     s.appendChild(document.createTextNode(a ? '; de la de ' + a.nombre + ', ' + a.t + '.' : '.'));
   }
 
-  /* ── El tren a mano y el abono: las once ciudades, sin mapas ──────── */
+  /* ── El tren a mano: las once ciudades, sin mapas ─────────────────── */
 
   const IDS = Object.keys(NOMBRE);
   const LETRA = ['cero', 'una', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez', 'once', 'doce'];
@@ -433,8 +450,8 @@
     if (!C || !C[REF] || !C[I.AQUI]) return;
     const p = function (id) { return C[id] ? C[id].pct['15'] : null; };
     pareja('#cob-cifras', p, function (v) { return num(v, 1) + ' %'; }, function (id) {
-      return 'de las viviendas, a 15 minutos andando de una estación: ' + C[id].cerca['15'].toLocaleString('es-ES') +
-        ' de ' + C[id].viviendas.toLocaleString('es-ES');
+      return 'de las viviendas, a 15 minutos andando de una estación: ' + I.entero(C[id].cerca['15']) +
+        ' de ' + I.entero(C[id].viviendas);
     });
     const ids = IDS.filter(function (id) { return C[id]; });
     $('#cob-nota').textContent = 'Parla es ' + deLas(ids, p, true) + ': la mitad de sus casas queda a más de un ' +
@@ -462,13 +479,22 @@
     };
     const ep = est(REF), ea = est(I.AQUI);
     $('#casa-nota').textContent = 'Parla es ' + deLas(ids, v, false) + '. ' +
-      (ep && ea ? 'Desde la estación se tarda ' + ep.t + ' minutos en Parla y ' + ea.t + ' en ' + NOMBRE[I.AQUI] +
-        ': llegar hasta ella desde casa suma ' + (v(REF) - ep.t) + ' minutos en Parla y ' + (v(I.AQUI) - ea.t) +
-        ' en ' + NOMBRE[I.AQUI] + '. ' : '') +
+      (ep && ea ? 'Desde la estación se tardan ' + ep.t + ' minutos en Parla y ' + ea.t + ' en ' + NOMBRE[I.AQUI] +
+        '; desde la vivienda mediana, ' + (v(REF) - ep.t) + ' minutos más en Parla y ' + (v(I.AQUI) - ea.t) +
+        ' más en ' + NOMBRE[I.AQUI] + '. ' : '') +
       (Math.round(K[REF].todo[ATOCHA][1]) === 0 && Math.round(K[I.AQUI].todo[ATOCHA][1]) === 0
         ? 'Casi ninguna vivienda de Parla ni de ' + NOMBRE[I.AQUI] + ' queda a más de una hora de Atocha.'
-        : 'A más de una hora de Atocha están ' + num(K[REF].todo[ATOCHA][1], 0) + ' de cada 100 viviendas de Parla y ' +
-          num(K[I.AQUI].todo[ATOCHA][1], 0) + ' de ' + NOMBRE[I.AQUI] + '.');
+        : lejos(K[REF].todo[ATOCHA][1], K[I.AQUI].todo[ATOCHA][1]));
+    /* «0 de cada 100» se dice «ninguna». */
+    function lejos(a, b) {
+      const ra = Math.round(a), rb = Math.round(b);
+      if (ra === 0) return 'Casi ninguna vivienda de Parla queda a más de una hora de Atocha; de ' + NOMBRE[I.AQUI] + ', ' +
+        num(b, 0) + ' de cada 100.';
+      if (rb === 0) return 'A más de una hora de Atocha están ' + num(a, 0) + ' de cada 100 viviendas de Parla, y casi ninguna de ' +
+        NOMBRE[I.AQUI] + '.';
+      return 'A más de una hora de Atocha están ' + num(a, 0) + ' de cada 100 viviendas de Parla y ' + num(b, 0) + ' de ' +
+        NOMBRE[I.AQUI] + '.';
+    }
   }
 
   function plazasCifras() {
@@ -484,7 +510,7 @@
     const deC4 = LETRA[Math.round(10 * (1 - plazas(REF)[1] / plazas(REF)[0]))];
     const unas = function (x) { return I.entero(Math.round(x / 50) * 50); };
     $('#plazas-nota').textContent = 'Parla es ' + deLas(ids, v, true) + '. De cada diez de sus plazas, ' + deC4 +
-      ' son de la C-4. Van a Madrid a esa hora unas ' + unas(R[REF].vanMadrid) + ' personas de Parla y ' + unas(R[I.AQUI].vanMadrid) +
+      (deC4 === 'una' ? ' es de ' : ' son de ') + laLinea(REF) + '. Cada hora, de 7 a 9, van a Madrid unas ' + unas(R[REF].vanMadrid) + ' personas de Parla y ' + unas(R[I.AQUI].vanMadrid) +
       ' de ' + NOMBRE[I.AQUI] + ', en cualquier medio: ' + pp(REF) + ' plazas por persona en Parla y ' + pp(I.AQUI) +
       ' en ' + NOMBRE[I.AQUI] + '.';
   }
@@ -610,10 +636,18 @@
     const a1 = el('a', null, 'Consorcio Regional de Transportes de Madrid (GTFS)');
     a1.href = 'https://datos.crtm.es/';
     pie.appendChild(a1);
-    pie.appendChild(document.createTextNode(', martes 27 de octubre de 2026; plazas por tren, de '));
-    const a2 = el('a', null, 'Renfe');
-    a2.href = T.redundancia.plazas.cercanias.fuente;
-    pie.appendChild(a2);
+    pie.appendChild(document.createTextNode(', martes 27 de octubre de 2026; plazas por vehículo, de '));
+    /* Una fuente por vehículo, cada una con su enlace. */
+    const PL = T.redundancia.plazas;
+    [['Renfe', PL.cercanias], ['AnsaldoBreda (serie 7000)', PL.metro10a], ['Vía Libre (series 8000', PL.metro10b],
+      ['y 9000)', PL.metro11], ['Metro Ligero Oeste', PL.ligero], ['Consorcio (autobús)', PL.bus]]
+      .forEach(function (x, k, xs) {
+        if (!x[1] || !x[1].fuente) return;
+        const a = el('a', null, x[0]);
+        a.href = x[1].fuente;
+        pie.appendChild(a);
+        if (k < xs.length - 1) pie.appendChild(document.createTextNode(k === 2 ? ' ' : k === xs.length - 2 ? ' y ' : ', '));
+      });
     pie.appendChild(document.createTextNode('; gente que va a Madrid, '));
     const a3 = el('a', null, 'Ministerio de Transportes, estudio básico de movilidad');
     a3.href = T.redundancia.demanda.fuente;
@@ -627,7 +661,9 @@
       'vehículo, sentadas y de pie: ' + ent(P.cercanias.plazas) + ' por tren de Cercanías (un Civia de cinco coches; ' +
       'el horario no dice si un tren va doble, y se cuenta simple), ' + ent(P.metro10a.plazas) + ' por tren de la línea 10 entre Alcorcón y Madrid, ' +
       ent(P.metro10b.plazas) + ' en la de Alcobendas, ' + ent(P.metro11.plazas) + ' en la 11, ' + ent(P.ligero.plazas) +
-      ' por Metro Ligero y ' + ent(P.bus.plazas) + ' por autobús; las de Metro y autobús son aproximadas. La gente que ' +
+      ' por Metro Ligero y ' + ent(P.bus.plazas) + ' por autobús. Son las de cada fabricante u operador, que cuentan ' +
+      'de cuatro a seis personas de pie por metro cuadrado; la de la línea 11 es la mitad de la de un tren de seis coches, ' +
+      'y la del autobús, la de los últimos que ha incorporado el Consorcio. La gente que ' +
       'va a Madrid es la que sale de 7 a 9 en cualquier medio, también en coche, y viene de los teléfonos móviles. ' +
       'Los minutos sin la línea principal salen del mismo cálculo que el mapa de arriba, con los horarios de los ' +
       'autobuses, que no cuentan el tráfico: un día sin esa línea, con su gente en el autobús, se tardaría más.';

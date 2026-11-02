@@ -25,7 +25,12 @@
   function num(n, dec) {
     return n.toLocaleString('es-ES', { useGrouping: true, minimumFractionDigits: dec, maximumFractionDigits: dec })
       .replace('-', '−');
-  }
+  }  /* Euros por habitante: de 10 € para arriba, sin céntimos, que sobre 780 €
+     son ruido; por debajo, con ellos, para que 0,02 € no se lea 0. Los
+     recibos (lo que paga un vecino) van siempre con céntimos. En la tabla
+     que se descarga, todos con sus decimales. */
+  function eurHab(v) { return num(v, Math.abs(v) >= 10 || v === 0 ? 0 : 2); }
+
   function el(tag, cls, txt) {
     const e = document.createElement(tag);
     if (cls) e.className = cls;
@@ -75,7 +80,7 @@
     const vecinos = ['paro', 'renta', 'pobreza', 'pib'].indexOf(s.id) >= 0;
     dato({ id: 'dinero-' + s.id, grupo: vecinos ? 'Vecinos y economía' : 'Cuentas del ayuntamiento',
       titulo: s.titulo, unidad: s.pie, sim: s.unidad === '%' ? '%' : '€',
-      dec: s.decimales != null ? s.decimales : (s.unidad === '%' ? 2 : 0),
+      dec: s.decimales != null ? s.decimales : 2, porHab: s.unidad !== '%',
       v: function (id) { return s.valores[id]; }, fuente: F(s.fuenteId), pagina: 'economia.html#dinero-' + s.id });
   });
 
@@ -117,6 +122,7 @@
       ['remanente', C, 'Lo que le queda en caja', 'remanente de tesorería ajustado por habitante, 31-12-2024', '€', 2, function (id) { return k(id).remanenteAjustado; }, null, 'economia.html#ayuntamiento']
     ].forEach(function (x) {
       dato({ id: x[0], grupo: x[1], titulo: x[2], unidad: x[3], sim: x[4], dec: x[5], v: x[6],
+        porHab: x[4] === '€' && /por habitante/.test(x[3]),
         fuente: x[7] ? FE(x[7]) : F('conprel'), pagina: x[8] });
     });
   }
@@ -132,7 +138,7 @@
     const G = 'Vivienda';
     [
       ['tasado', 'Valor tasado de la vivienda', 'euros por metro cuadrado, último trimestre', '€', 0, function (id) { return c(id).tasado.ult.v; }, MIVAU, 'vivienda.html#comprar'],
-      ['anios-renta', 'Años de renta para comprar la vivienda media', 'con la renta neta media de un hogar, 2024', 'años', 1, function (id) { return c(id).tasado.ult.v * c(id).censo.superficie / c(id).renta.hogar; }, MIVAU, 'vivienda.html#comprar'],
+      ['anios-renta', 'Años de renta para comprar la vivienda media', 'con la renta neta media de un hogar, 2024', 'años', 1, function (id) { return c(id).tasado.ult.v * c(id).censo.superficieConstruida / c(id).renta.hogar; }, MIVAU, 'vivienda.html#comprar'],
       ['alquiler-m2', 'Alquiler', 'euros por metro cuadrado al mes, mediana de 2024', '€', 2, function (id) { return ultimo(c(id).alquiler.m2); }, SERPAVI, 'vivienda.html#alquilar'],
       ['alquiler-mes', 'Alquiler', 'euros al mes, mediana de 2024', '€', 0, function (id) { return ultimo(c(id).alquiler.mes); }, SERPAVI, 'vivienda.html#alquilar'],
       ['esfuerzo', 'Lo que se lleva el alquiler', 'de cada 100 € que entran en un hogar medio, 2024', '%', 1, function (id) { return c(id).alquiler.esfuerzo.pct; }, SERPAVI, 'vivienda.html#alquilar'],
@@ -177,13 +183,13 @@
     const MOV = ['Ministerio de Transportes, Open Data Movilidad, 16-10-2024', T.distancia.fuente];
     dato({ id: 'trabajo-km', grupo: 'Infraestructuras', titulo: 'Lo lejos que queda el trabajo',
       unidad: 'km de media de casa al trabajo o a estudiar, todos los medios', dec: 1,
-      v: function (id) { return T.distancia.ciudades[id] ? T.distancia.ciudades[id].km : null; }, fuente: MOV, pagina: 'infraestructura.html' });
+      v: function (id) { return T.distancia.ciudades[id] ? T.distancia.ciudades[id].km : null; }, fuente: MOV, pagina: null });
     dato({ id: 'trabajo-lejos', grupo: 'Infraestructuras', titulo: 'Viajes al trabajo o a estudiar de más de 10 km',
       unidad: 'de cada 100', sim: '%', dec: 1,
-      v: function (id) { return T.distancia.ciudades[id] ? T.distancia.ciudades[id].lejos : null; }, fuente: MOV, pagina: 'infraestructura.html' });
+      v: function (id) { return T.distancia.ciudades[id] ? T.distancia.ciudades[id].lejos : null; }, fuente: MOV, pagina: null });
     dato({ id: 'km-vecino', grupo: 'Infraestructuras', titulo: 'Kilómetros al día por vecino',
       unidad: 'de los viajes que salen de casa o vuelven a ella', dec: 1,
-      v: function (id) { return T.distancia.ciudades[id] ? T.distancia.ciudades[id].kmVecino : null; }, fuente: MOV, pagina: 'infraestructura.html' });
+      v: function (id) { return T.distancia.ciudades[id] ? T.distancia.ciudades[id].kmVecino : null; }, fuente: MOV, pagina: null });
   }
   if (T && T.casa) {
     dato({ id: 'casa-atocha', grupo: 'Infraestructuras', titulo: 'Desde la vivienda mediana hasta Atocha, en tren, Metro o autobús',
@@ -199,7 +205,7 @@
     dato({ id: 'abono', grupo: 'Infraestructuras', titulo: 'Abono de transporte de 30 días', unidad: 'ordinario, 2026, según la zona tarifaria',
       sim: '€', dec: 2, v: function (id) { return T.abono.ciudades[id] ? T.abono.ciudades[id].precio : null; },
       etiqueta: function (id) { return 'zona ' + T.abono.ciudades[id].zona; },
-      fuente: ['BOCM del 31-12-2025, precios del transporte público para 2026', T.abono.fuente], pagina: 'infraestructura.html' });
+      fuente: ['BOCM del 31-12-2025, precios del transporte público para 2026', T.abono.fuente], pagina: null });
   }
 
   /* Lo que paga un vecino: el IBI y el coche, con los tipos de 2026. */
@@ -370,7 +376,7 @@
 
   function cifra(d, v) {
     if (v == null) return 'sin dato';
-    const n = num(v, d.dec);
+    const n = d.porHab ? eurHab(v) : num(v, d.dec);
     return d.sim === '€' || d.sim === '%' ? n + ' ' + d.sim : d.sim ? n + ' ' + d.sim : n;
   }
 
@@ -431,7 +437,7 @@
 
   function filas(d) {
     return IDS.map(function (id) { return { id: id, v: d.v(id) }; }).sort(function (a, b) {
-      if (a.v == null) return 1;
+      if (a.v == null) return b.v == null ? 0 : 1;
       if (b.v == null) return -1;
       return b.v - a.v;
     });
@@ -458,7 +464,9 @@
         li.style.setProperty('--i', n);
         if (x.id === REF) li.dataset.quien = 'referencia';
         /* Los empates comparten puesto. */
-        const pos = x.v == null ? '' : 1 + fs.filter(function (y) { return y.v != null && y.v > x.v; }).length;
+        const pos = x.v == null ? '' : 1 + fs.filter(function (y) {
+          return y.v != null && y.v > x.v && cifra(d, y.v) !== cifra(d, x.v);
+        }).length;
         li.appendChild(el('span', 'res__n', pos ? pos + '.' : ''));
         li.appendChild(el('span', 'res__q', NOMBRE[x.id] + (d.etiqueta && x.v != null ? ' · ' + d.etiqueta(x.id) : '')));
         li.appendChild(el('span', 'res__v', cifra(d, x.v)));
@@ -478,9 +486,11 @@
         pie.appendChild(a);
         pie.appendChild(document.createTextNode('. '));
       }
-      const ir = el('a', 'res__ir', 'Ver en su página');
-      ir.href = d.pagina;
-      pie.appendChild(ir);
+      if (d.pagina) {
+        const ir = el('a', 'res__ir', 'Ver en su página');
+        ir.href = d.pagina;
+        pie.appendChild(ir);
+      }
       art.appendChild(pie);
       const quitar = el('button', 'res__x', 'Quitar');
       quitar.type = 'button';
@@ -501,7 +511,11 @@
     const caja = el('div', 'tabla-caja');
     const t = el('table', 'tabla');
     const cab = el('tr');
-    cab.appendChild(el('th', 'tabla__ciudad', 'Ciudad'));
+    const leyenda = el('caption', 'oculto', 'Los datos elegidos, ciudad a ciudad. Los botones de cada columna ordenan la tabla.');
+    t.appendChild(leyenda);
+    const thc = el('th', 'tabla__ciudad', 'Ciudad');
+    thc.setAttribute('scope', 'col');
+    cab.appendChild(thc);
     elegidos.forEach(function (key) {
       const d = POR_ID[key];
       const th = el('th', 'tabla__dato');
@@ -529,7 +543,7 @@
       const d = POR_ID[orden.id];
       ids.sort(function (a, b) {
         const va = d.v(a), vb = d.v(b);
-        if (va == null) return 1;
+        if (va == null) return vb == null ? 0 : 1;
         if (vb == null) return -1;
         return orden.desc ? vb - va : va - vb;
       });
@@ -596,15 +610,25 @@
   }
 
   /* Juntos: los datos que se miden igual comparten gráfica, una línea de
-     cada color por dato. Se juntan por el símbolo (%, €, días,
-     años, m²) o, si no lo tienen, por el «por cada N» de la unidad. */
+     cada color por dato. Se juntan por el símbolo (%, días, años, m²); los
+     euros, por lo que dividen (por habitante, por persona, por hogar, por
+     declaración); y los demás, por la cifra y la población de su «por cada»:
+     10.000 niños de 3 a 11 años no son 10.000 personas de 65 o más, y en la
+     misma escala no se comparan. */
   const MAX_SERIES = 6;
   function familia(d) {
-    if (['%', '€', 'días', 'años', 'm²'].indexOf(d.sim) >= 0) return d.sim;
-    const m = /^por cada [\d.]+/.exec(d.unidad);
-    return m ? m[0] : 'solo:' + d.id;
+    if (d.familia) return d.familia;
+    if (d.sim === '€') {
+      const e = /por (habitante|persona|hogar|declaración)\b/.exec(d.titulo + ' ' + d.unidad);
+      return e ? '€ ' + e[0] : 'solo:' + d.id;
+    }
+    if (['%', 'días', 'años', 'm²'].indexOf(d.sim) >= 0) return d.sim;
+    const m = /por cada [\d.]+ [^,(]+/.exec(d.unidad);
+    return m ? m[0].trim() : 'solo:' + d.id;
   }
-  const NOMBRE_FAMILIA = { '%': 'De cada 100', '€': 'En euros', 'días': 'En días', 'años': 'En años', 'm²': 'En metros cuadrados' };
+  const NOMBRE_FAMILIA = { '%': 'De cada 100', 'días': 'En días', 'años': 'En años', 'm²': 'En metros cuadrados',
+    '€ por habitante': 'En euros por habitante', '€ por persona': 'En euros por persona', '€ por hogar': 'En euros por hogar',
+    '€ por declaración': 'En euros por declaración' };
   const ordenJuntos = {};
 
   /* La gráfica de siempre: las ciudades en el eje horizontal, ordenadas
@@ -799,7 +823,7 @@
       const dp = POR_ID[por];
       const ids = IDS.slice().sort(function (a, b) {
         const va = dp.v(a), vb = dp.v(b);
-        if (va == null) return 1;
+        if (va == null) return vb == null ? 0 : 1;
         if (vb == null) return -1;
         return vb - va;
       });
@@ -815,9 +839,11 @@
           li.appendChild(a);
           li.appendChild(document.createTextNode('. '));
         }
-        const ir = el('a', 'res__ir', 'Ver en su página');
-        ir.href = d.pagina;
-        li.appendChild(ir);
+        if (d.pagina) {
+          const ir = el('a', 'res__ir', 'Ver en su página');
+          ir.href = d.pagina;
+          li.appendChild(ir);
+        }
         fu.appendChild(li);
       });
       art.appendChild(fu);
@@ -1023,9 +1049,11 @@
         li.appendChild(a);
         li.appendChild(document.createTextNode('. '));
       }
-      const ir = el('a', 'res__ir', 'Ver en su página');
-      ir.href = d.pagina;
-      li.appendChild(ir);
+      if (d.pagina) {
+        const ir = el('a', 'res__ir', 'Ver en su página');
+        ir.href = d.pagina;
+        li.appendChild(ir);
+      }
       fu.appendChild(li);
     });
     cont.appendChild(fu);

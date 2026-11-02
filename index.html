@@ -71,7 +71,7 @@
 
     <p class="portada__pie">
       Parla tiene <b id="pob-a">—</b> habitantes; <span data-aqui>Getafe</span>,
-      <b id="pob-b">—</b>. Por eso todo se cuenta por habitante.
+      <b id="pob-b">—</b>. Por eso se cuenta por habitante, o por vecinos de la edad que corresponde.
     </p>
 
     <a class="bajar" href="#resumen">
@@ -98,7 +98,7 @@
 
     <div class="recuento" id="recuento"></div>
     <p class="recuento__pie">
-      <span id="resumen-total"></span> Lo que aparece bajo «fuera del
+      <span id="resumen-total"></span> Lo que aparece bajo «Fuera del
       recuento» no suma a esa cifra: se mide en camas, en plazas, en alumnos, en superficie, en
       servicios de un hospital o en euros.
     </p>
@@ -111,7 +111,7 @@
     <h2 class="bloque__h">Punto de partida</h2>
     <p class="bloque__intro">
       Dos municipios del área metropolitana de Madrid con tamaños distintos. Por eso los
-      equipamientos se cuentan por habitante y no en bruto. Y tampoco tienen la misma edad: los
+      equipamientos se cuentan por habitante. Y tampoco tienen la misma edad: los
       colegios se miden contra los niños que están en edad de ir, y ahí los perfiles se separan.
     </p>
     <div class="edades" id="edades"></div>
@@ -125,7 +125,7 @@
     <h2 class="bloque__h">Lo que le falta a Parla</h2>
     <p class="bloque__intro">
       Cada apartado aplica a Parla la proporción de <span data-aqui>Getafe</span>: por habitante
-      casi siempre, y por tramo de edad en educación y residencias. En negro, lo que hay. En
+      casi siempre, y por tramo de edad en educación y residencias. Lleno, lo que hay. En
       hueco, lo que falta.
     </p>
   </div>
@@ -280,8 +280,9 @@
         <span>su base</span> × <span>base de Parla</span>
       </p>
       <p>
-        Las cifras llevan un decimal y no se redondean a enteros. Ese decimal mide la distancia
-        entre una ciudad y otra en ese servicio, y quitarlo la escondería.
+        Las cifras de cada servicio llevan un decimal y no se redondean a enteros. Ese decimal
+        mide la distancia entre una ciudad y otra en ese servicio, y quitarlo la escondería. Solo
+        el total de la portada se redondea al entero.
       </p>
 
       <h3>Contra qué población se mide cada cosa</h3>
@@ -317,9 +318,14 @@
 
       <h3>Lo que calculamos nosotros</h3>
       <p>
-        Todas las cifras salen de fuentes oficiales menos una: las zonas verdes e instalaciones
-        deportivas. Ninguna estadística las publica por municipio, así que se miden sobre el
-        Urban Atlas de Copernicus, dentro de los términos municipales del IGN. El cálculo está en
+        Todas las cifras parten de fuentes oficiales. Algunas son una cuenta nuestra sobre ellas,
+        porque ninguna estadística las da hechas por municipio: las zonas verdes, sobre el mapa de
+        usos del suelo de Copernicus; el tren a mano, los minutos hasta el centro, las plazas hacia
+        Madrid y lo que queda si falla el tren, sobre los horarios del Consorcio y el Catastro; por
+        dónde se sale en coche y lo llena que va la A-42, sobre los estudios de movilidad del
+        Ministerio de Transportes; las viviendas nuevas por cada 100 vecinos nuevos; las camas por
+        cada 1.000 personas asignadas a cada hospital; y lo que paga un vecino, con los tipos de
+        cada ayuntamiento. Cada cálculo está en
         <a href="https://github.com/Nisgrak/si-yo-viviera-como-en-parla">el repositorio</a>.
       </p>
 
@@ -350,7 +356,7 @@
       <h3>Fuentes, una por una</h3>
       <ul class="fuentes" id="fuentes"></ul>
       <p class="cautela">
-        Datos consultados en <span id="actualizado">—</span>. Todas las cifras de esta página,
+        Datos revisados en <span id="actualizado">—</span>. Todas las cifras de esta página,
         con sus fuentes, son públicas y se pueden revisar y corregir en
         <a href="https://github.com/Nisgrak/si-yo-viviera-como-en-parla">el repositorio del
         proyecto</a>.
@@ -394,6 +400,7 @@
 <script src="assets/calculo.js"></script>
 <script src="assets/hospitales.js"></script>
 <script src="assets/qr.js"></script>
+<script src="assets/cartel.js"></script>
 <script src="assets/indice.js"></script>
 <script src="assets/app.js"></script>
 <script src="assets/plegar.js"></script>

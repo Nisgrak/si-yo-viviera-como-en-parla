@@ -360,6 +360,7 @@
 }
 .tp__c--nada { background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-alta); }
 .tp__c--linea { height: 2px; background: var(--ink); }
+.tp__c--metro { height: 0; border-top: 1.2px dashed var(--ink-3); background: none; }
 .tp__c--obra { border-radius: 50%; background: var(--obra); box-shadow: inset 0 0 0 2px var(--ink); }
 
 /* El recuadro, como el de los gráficos de líneas de vivienda.css. */

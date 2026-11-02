@@ -1,18 +1,24 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   EL CARTEL DE LAS OTRAS PÁGINAS · economía e infraestructuras
-   El mismo A4 que el de la portada (estilos .cartel y .k* de estilos.css,
-   los dos fondos de assets/cartel/ y el QR de assets/qr.js), pero con el
-   dato que le pase cada página: una frase de entrada, la cifra grande, lo
-   que mide en rojo y dos o tres cajas con las cifras que la explican.
-   La portada sigue con el suyo, en app.js, que sabe del recuento.
+   EL CARTEL A4 · el de todas las páginas
+   Un cartel con formato de anuncio: una frase de entrada, la cifra grande,
+   lo que mide en rojo, una frase debajo y unas cajas con las cifras que la
+   explican, sobre uno de los dos fondos de assets/cartel/ y con el QR de
+   assets/qr.js en la banda del pie. El PDF lo hace el propio navegador
+   desde el diálogo de impresión, así que no hace falta ninguna librería.
+   Estilos: .cartel y .k* de estilos.css.
 
-   Uso:
+   Uso desde una página:
      CARTEL.boton({ titulo, id, ciudad, datos: function () {
-       return { pre, cifra, que, fin, cajas: [{ q, v, ref }] };
+       return { pre, antes, cifra, que, fin, sub, cajas: [{ q, v, ref }] };
      } })
    devuelve el botón «Cartel para compartir»; el dato se calcula al pulsar,
    con la ciudad elegida en ese momento. Y CARTEL.enlace({ url, titulo }),
    el de «Compartir esta sección».
+
+   La portada monta sus carteles con las piezas (CARTEL.piezas: base,
+   titular, banda, ajustar, tira) y los abre con CARTEL.abrir({ titulo, id,
+   montar(fondo), cifra: true }), que además deja elegir entre la cifra
+   redondeada y con decimales (CARTEL.cifra()).
    ═══════════════════════════════════════════════════════════════════════ */
 
 (function () {
@@ -26,10 +32,11 @@
   }
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return '&#' + c.charCodeAt(0) + ';'; }); }
 
-  /* Los fondos se piden al ir a por un cartel (pasar por el botón, llegar con
-     el teclado) y se espera a que estén antes de imprimir: a medio cargar
-     saldrían en blanco. La ruta se resuelve al cargar, antes de que la barra
-     pase a /getafe/…/. */
+  /* Los fondos (medio mega) se piden al ir a por un cartel: al pasar por el
+     botón o llegar a él con el teclado. Antes de imprimir se espera a que
+     estén, que a medio cargar saldrían en blanco. La ruta se resuelve al
+     cargar: luego la barra pasa a /getafe/ y una ruta relativa se iría a
+     buscar a /getafe/assets/. */
   const FONDOS = ['papel', 'barrio'];
   const ROTULO_FONDO = { papel: 'Papel', barrio: 'El barrio' };
   const RUTA = new URL('assets/cartel/', document.baseURI).href;
@@ -41,13 +48,24 @@
   }
   ['pointerover', 'focusin', 'touchstart'].forEach(function (t) { document.addEventListener(t, precargar, { passive: true }); });
 
-  function fondoElegido() {
+  function guardado(clave, valores) {
     try {
-      const g = localStorage.getItem('fondo');
-      if (FONDOS.indexOf(g) >= 0) return g;
+      const g = localStorage.getItem(clave);
+      if (valores.indexOf(g) >= 0) return g;
     } catch (e) { /* sin almacenamiento: el de siempre */ }
-    return FONDOS[0];
+    return valores[0];
   }
+  function guardar(clave, v) {
+    try { localStorage.setItem(clave, v); } catch (e) { /* da igual */ }
+  }
+  function fondoElegido() { return guardado('fondo', FONDOS); }
+
+  /* El cartel es un anuncio, no una tabla: «21,6 oficinas de farmacia»
+     chirría dicha en la calle. En la portada la cifra va redondeada por
+     defecto y el decimal se queda en la web, que sí puede explicarlo; quien
+     quiera el número exacto lo elige en el diálogo. */
+  const CIFRAS = ['redonda', 'exacta'];
+  function cifraElegida() { return guardado('cifra', CIFRAS); }
 
   function hoja() {
     let r = document.getElementById('cartel');
@@ -60,19 +78,11 @@
     return r;
   }
 
-  function qr(ciudad) {
-    const q = (window.QR || {})[ciudad] || (window.QR || {})._;
-    if (!q) return null;
-    const caja = el('div', 'kqr');
-    const lado = q.n + 8;
-    caja.innerHTML = '<svg viewBox="-4 -4 ' + lado + ' ' + lado + '" role="img" aria-label="Código QR a ' +
-      esc(q.url) + '"><rect x="-4" y="-4" width="' + lado + '" height="' + lado + '" fill="#fff"/>' +
-      '<path d="' + q.d + '" fill="#161616"/></svg>';
-    return caja;
-  }
+  /* ── Las piezas ─────────────────────────────────────────────────────── */
 
-  function montar(d, ciudad, fondo) {
-    const raiz = hoja();
+  /* El fondo y la capa con la frase de entrada. Devuelve la capa, donde se
+     monta lo demás. */
+  function base(raiz, fondo, pre) {
     while (raiz.firstChild) raiz.removeChild(raiz.firstChild);
     raiz.className = 'cartel cartel--afiche';
     raiz.setAttribute('data-fondo', fondo);
@@ -80,28 +90,61 @@
     img.src = RUTA + fondo + '.jpg';
     img.alt = '';
     raiz.appendChild(img);
-
     const capa = el('div', 'kcapa');
-    capa.appendChild(el('p', 'kpre', esc(d.pre)));
+    capa.appendChild(el('p', 'kpre', esc(pre)));
+    raiz.appendChild(capa);
+    return capa;
+  }
+
+  /* El titular se lee solo, pegado en una farola: quién («A Parla le
+     faltan»), la cifra, qué (en rojo, como los carteles de barrio) y, debajo,
+     una frase corta que dice contra qué se mide. */
+  function titular(capa, d) {
     const tit = el('h1', 'ktit');
-    /* Quién («El hospital de Parla tiene»), la cifra y qué; debajo, contra qué. */
     if (d.antes) tit.appendChild(el('span', 'ktit__a', esc(d.antes)));
     tit.appendChild(el('span', 'ktit__n', esc(d.cifra)));
     tit.appendChild(el('span', 'ktit__q', esc(d.que)));
     if (d.fin) tit.appendChild(el('span', 'ktit__m', esc(d.fin)));
     capa.appendChild(tit);
     if (d.sub) capa.appendChild(el('p', 'ksub', esc(d.sub)));
-    const fila = el('ul', 'kcajas');
-    d.cajas.forEach(function (c) {
-      fila.appendChild(el('li', 'kcaja' + (c.ref ? ' kcaja--ref' : ''), '<b>' + esc(c.q) + '</b>' + esc(c.v)));
-    });
-    fila.dataset.n = String(d.cajas.length);
-    capa.appendChild(fila);
-    raiz.appendChild(capa);
+    return tit;
+  }
 
-    const banda = el('div', 'kbanda');
+  /* Las cajas de debajo: { q, v, ref } con el rótulo en negrita, o
+     { hueco: texto } para una unidad que falta, con su nombre y en hueco. */
+  function cajas(capa, lista) {
+    const fila = el('ul', 'kcajas');
+    lista.forEach(function (c) {
+      if (c.hueco != null) {
+        const li = el('li', 'kcaja kcaja--hueco');
+        li.appendChild(el('span', 'kcaja__t', esc(c.hueco)));
+        fila.appendChild(li);
+      } else {
+        fila.appendChild(el('li', 'kcaja' + (c.ref ? ' kcaja--ref' : ''),
+          (c.q ? '<b>' + esc(c.q) + '</b>' : '') + esc(c.v)));
+      }
+    });
+    fila.dataset.n = String(lista.length);
+    capa.appendChild(fila);
+    return fila;
+  }
+
+  function qr(ciudad) {
+    const q = (window.QR || {})[ciudad] || (window.QR || {})._;
+    if (!q) return null;
+    const caja = el('div', 'kqr');
+    const lado = q.n + 8;                       /* zona de silencio: 4 módulos */
+    caja.innerHTML = '<svg viewBox="-4 -4 ' + lado + ' ' + lado + '" role="img" aria-label="Código QR a ' +
+      esc(q.url) + '"><rect x="-4" y="-4" width="' + lado + '" height="' + lado + '" fill="#fff"/>' +
+      '<path d="' + q.d + '" fill="#161616"/></svg>';
+    return caja;
+  }
+
+  /* La banda del pie: el QR a la ciudad elegida, la marca y la dirección. */
+  function banda(raiz, ciudad) {
+    const b = el('div', 'kbanda');
     const q = qr(ciudad);
-    if (q) banda.appendChild(q);
+    if (q) b.appendChild(q);
     const txt = el('div', 'kbanda__txt');
     const marca = el('div', 'kbanda__marca');
     const cola = document.querySelector('.marca__ballena');
@@ -110,23 +153,44 @@
     txt.appendChild(marca);
     txt.appendChild(el('span', 'kbanda__raya'));
     txt.appendChild(el('p', 'kbanda__url', 'siyovivieracomoenparla.netlify.app'));
-    banda.appendChild(txt);
-    raiz.appendChild(banda);
-    ajustar(raiz, tit, fondo);
+    b.appendChild(txt);
+    raiz.appendChild(b);
   }
 
-  /* El mayor cuerpo de titular que cabe: ninguna palabra más ancha que la
-     hoja, y el bloque por encima del suelo de cada fondo (en «papel», la
-     banda del pie; en «barrio», el tejado de la foto). Como en app.js. */
+  /* El hueco, el mismo de la web: esquina corta y un trazo largo centrado en
+     cada lado, en rojo. Va en SVG para que imprima igual que se ve. */
+  const HUECO =
+    '<svg viewBox="0 0 15 15" fill="none" stroke="#c02719" stroke-width="1.5" aria-hidden="true" focusable="false">' +
+    '<path d="M.75 4.25V3.75a3 3 0 0 1 3-3H4.25M10.75 .75h0.5a3 3 0 0 1 3 3V4.25M14.25 10.75v0.5a3 3 0 0 1-3 3H10.75' +
+    'M4.25 14.25H3.75a3 3 0 0 1-3-3V10.75M5.5 .75H9.5M14.25 5.5V9.5M9.5 14.25H5.5M.75 9.5V5.5"/></svg>';
+  /* Una tira de huecos, uno por equipamiento que falta. El lado lo fija quien
+     la monta, en --ku. */
+  function tira(cuantos) {
+    const r = el('div', 'krejilla');
+    for (let i = 0; i < cuantos; i++) r.appendChild(el('span', 'ku', HUECO));
+    return r;
+  }
+
+  /* El titular tiene que llenar el ancho sin desbordar ni pisar lo que hay
+     debajo. Lo que manda es la palabra más larga, no el número de caracteres,
+     y una palabra que envuelve no ensancha su bloque: hay que medirla suelta.
+     Se pinta fuera de pantalla, se busca el mayor cuerpo que cabe, y se apaga.
+
+     El suelo se mide desde el borde superior del A4 y cambia con el fondo. En
+     «papel» manda la banda oscura del pie: el bloque entero —titular y lo de
+     debajo— tiene que quedar por encima. En «barrio» manda el tejado de la
+     foto: el titular no puede pisarlo, pero las cajas sí, que llevan su
+     propio fondo claro y sobre la foto se leen igual. */
   const SUELO = { papel: 231, barrio: 130 };
-  function ajustar(raiz, tit, fondo) {
+  function ajustar(raiz, tit, fondo, ultimo) {
     raiz.classList.add('midiendo');
     const capa = raiz.querySelector('.kcapa');
-    const cajas = raiz.querySelector('.kcajas');
     const marco = raiz.getBoundingClientRect();
     const mm = marco.height / 297;
+    /* El ancho que de verdad tiene el titular, no el de la capa: el de la
+       capa incluye el margen de los lados y una palabra larga se saldría. */
     const ancho = tit.clientWidth;
-    const manda = fondo === 'barrio' ? tit : (cajas || tit);
+    const manda = fondo === 'barrio' ? tit : (ultimo || raiz.querySelector('.kcajas') || tit);
     const tope = marco.top + (SUELO[fondo] || SUELO.papel) * mm;
     const regla = el('span');
     regla.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;' +
@@ -155,12 +219,24 @@
     raiz.classList.remove('midiendo');
   }
 
+  /* El cartel de un dato, el de las páginas: todas las piezas en orden. */
+  function montarDatos(d, ciudad, fondo) {
+    const raiz = hoja();
+    const capa = base(raiz, fondo, d.pre);
+    const tit = titular(capa, d);
+    cajas(capa, d.cajas || []);
+    banda(raiz, ciudad);
+    ajustar(raiz, tit, fondo);
+  }
+
+  /* ── Imprimir ───────────────────────────────────────────────────────── */
+
+  /* op: { titulo(), id(), montar(fondo) }. */
   function imprimir(op) {
-    const d = op.datos();
-    montar(d, op.ciudad(), fondoElegido());
+    op.montar(fondoElegido());
     const antes = document.title;
     document.title = op.titulo();      /* el nombre que el navegador propone para el PDF */
-    document.documentElement.setAttribute('data-cartel', op.id);
+    document.documentElement.setAttribute('data-cartel', op.id());
     let limpio = false;
     function limpiar() {
       if (limpio) return;
@@ -178,15 +254,42 @@
     });
   }
 
+  /* ── El diálogo: la cifra (solo en la portada) y el fondo ───────────── */
+
   let pendiente = null;
+  function marcar(d) {
+    const c = cifraElegida(), f = fondoElegido();
+    d.querySelectorAll('.cifra__op').forEach(function (b) {
+      const activa = b.dataset.cifra === c;
+      b.dataset.activo = activa ? '1' : '0';
+      b.setAttribute('aria-pressed', activa ? 'true' : 'false');
+    });
+    d.querySelectorAll('.fondo').forEach(function (x) { x.dataset.activo = x.dataset.fondo === f ? '1' : '0'; });
+  }
   function dialogo() {
-    let d = document.getElementById('elige-fondo-dato');
+    let d = document.getElementById('elige-fondo');
     if (d) return d;
     d = el('dialog', 'fondos');
-    d.id = 'elige-fondo-dato';   /* el de app.js es «elige-fondo»: conviven en el recuento */
+    d.id = 'elige-fondo';
     d.appendChild(el('h2', 'fondos__h', 'Elige el cartel'));
     d.appendChild(el('p', 'fondos__p', 'Se abrirá el diálogo de impresión: elige ' +
       '«Guardar como PDF» para quedártelo, o imprime directamente en A4.'));
+
+    /* Cómo sale la cifra del titular. Va antes de los fondos porque el fondo
+       es el botón que genera: se elige primero el número y luego el papel. */
+    const cif = el('div', 'cifra');
+    cif.appendChild(el('span', 'cifra__rot', 'La cifra'));
+    const seg = el('div', 'cifra__seg');
+    [{ v: 'redonda', t: 'Redondeada' }, { v: 'exacta', t: 'Con decimales' }].forEach(function (o) {
+      const b = el('button', 'cifra__op', o.t);
+      b.type = 'button';
+      b.dataset.cifra = o.v;
+      b.addEventListener('click', function () { guardar('cifra', o.v); marcar(d); });
+      seg.appendChild(b);
+    });
+    cif.appendChild(seg);
+    d.appendChild(cif);
+
     const fila = el('div', 'fondos__fila');
     FONDOS.forEach(function (f) {
       const b = el('button', 'fondo');
@@ -196,9 +299,9 @@
       im.src = RUTA + f + '.jpg';
       im.alt = '';
       b.appendChild(im);
-      b.appendChild(el('span', 'fondo__n', ROTULO_FONDO[f]));
+      b.appendChild(el('span', 'fondo__n', ROTULO_FONDO[f] || f));
       b.addEventListener('click', function () {
-        try { localStorage.setItem('fondo', f); } catch (e) { /* da igual */ }
+        guardar('fondo', f);
         d.close();
         if (pendiente) imprimir(pendiente);
       });
@@ -213,7 +316,17 @@
     return d;
   }
 
-  /* El mismo icono que el botón de la portada (TRAZOS.descarga, en app.js). */
+  /* op: { titulo(), id(), montar(fondo), cifra }: con `cifra`, el diálogo
+     deja elegir entre la cifra redondeada y con decimales. */
+  function abrir(op) {
+    pendiente = op;
+    const d = dialogo();
+    d.querySelector('.cifra').hidden = !op.cifra;
+    marcar(d);
+    if (d.showModal) d.showModal(); else imprimir(op);
+  }
+
+  /* El mismo icono que los demás botones de la web (TRAZOS.descarga, en app.js). */
   const DESCARGA = '<span class="compartir__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
     'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
     '<path d="M12 3.4v11.2"/><path d="M7.6 10.4 12 14.8l4.4-4.4"/>' +
@@ -224,11 +337,10 @@
     b.type = 'button';
     b.title = 'Genera un cartel A4 con este dato, listo para imprimir o guardar en PDF';
     b.addEventListener('click', function () {
-      pendiente = op;
-      const d = dialogo();
-      const elegido = fondoElegido();
-      d.querySelectorAll('.fondo').forEach(function (x) { x.dataset.activo = x.dataset.fondo === elegido ? '1' : '0'; });
-      if (d.showModal) d.showModal(); else imprimir(op);
+      abrir({
+        titulo: op.titulo, id: function () { return op.id; },
+        montar: function (fondo) { montarDatos(op.datos(), op.ciudad(), fondo); }
+      });
     });
     return b;
   }
@@ -263,5 +375,8 @@
     return b;
   }
 
-  window.CARTEL = { boton: boton, enlace: enlace };
+  window.CARTEL = {
+    boton: boton, enlace: enlace, abrir: abrir, cifra: cifraElegida,
+    piezas: { hoja: hoja, base: base, titular: titular, cajas: cajas, banda: banda, tira: tira, ajustar: ajustar }
+  };
 })();

@@ -7,14 +7,14 @@ Web reivindicativa que responde a una pregunta muy concreta:
 
 Parla frente a diez ciudades del área metropolitana de Madrid, hueco a hueco:
 
-| Si Parla estuviera dotada como… | Habitantes | Le faltarían | Tiene de más |
+| Si Parla estuviera dotada como… | Habitantes | Le faltarían | Tendría de más |
 |---|---:|---:|---:|
 | Leganés | 195.734 | **35** | 0 |
 | Fuenlabrada | 190.076 | **32** | 0 |
-| Alcorcón | 175.719 | **25** | 0 |
+| Alcorcón | 175.719 | **24** | 0 |
 | Móstoles | 214.817 | **24** | 0 |
 | Getafe | 193.238 | **21** | 0 |
-| Alcobendas | 123.342 | **13** | 6 |
+| Alcobendas | 123.342 | **12** | 6 |
 | Pozuelo de Alarcón | 89.770 | **9** | 16 |
 | Pinto | 56.651 | **8** | 7 |
 | Torrejón de Ardoz | 143.526 | **8** | 3 |
@@ -34,14 +34,14 @@ cambiados, pero las cifras no son las de antes con el signo al revés: ahora se 
 de Parla y no al de la otra ciudad.
 
 **Pozuelo, Alcobendas, Majadahonda, Pinto y Torrejón** son las ciudades con las que Parla tiene
-más en algo, casi siempre en educación: colegios, escuelas infantiles e institutos. Pozuelo,
+más en algo que suma al recuento, casi siempre en educación: colegios, escuelas infantiles e institutos. Pozuelo,
 Alcobendas y Pinto no tienen hospital público propio, así que en la cartera del hospital Parla
 sale por encima. La web lo dice en la portada, debajo del total, y en «Donde Parla tiene más».
 
 **Móstoles** es el único con dos hospitales públicos (el Universitario de Móstoles y el Rey Juan
 Carlos); se compara la unión de sus dos carteras, 76 unidades frente a las 54 de Parla.
 
-**Torrejón de Ardoz** tampoco tiene Metro, y Parla tiene
+**Torrejón de Ardoz** no tiene Metro, como Parla, y Parla tiene
 más escuelas infantiles. Su campus público, de la Universidad de Alcalá, abrió en septiembre de
 2025 con Enfermería y Fisioterapia: es pequeño, pero cuenta como los demás.
 
@@ -139,8 +139,8 @@ debajo con las unidades que de verdad aparecen para esa ciudad:
   es la de 12 a 17 años porque `BASES` no tiene un tramo de 16 a 24. Las unidades escolares
   (grupos) de FP sí se publican, pero sumarlas al recuento lo desbordaba —en la versión anterior,
   Getafe pasaba de 50 a unos 95— y un grupo no pesa lo que un centro de salud; van en un comentario de `datos.js`.
-- **Zonas verdes e instalaciones deportivas.** Una superficie, y el único dato que calculamos
-  nosotros. Ver «Zonas verdes», más abajo.
+- **Zonas verdes e instalaciones deportivas.** Una superficie, calculada por nosotros sobre el
+  Urban Atlas. Ver «Zonas verdes», más abajo.
 - **Servicios del hospital público.** Un hospital no se reparte por habitante, así que no sale de
   la tasa: se compara su cartera, las unidades asistenciales que declara uno y no el otro, en los
   dos sentidos. Es una ficha más de Sanidad, montada en `calculo.js` (`faltan()`) a partir de
@@ -463,8 +463,11 @@ la ciudad elegida:
 - **Las plazas hacia Madrid**: las de tren, Metro y autobús que salen cada hora de 7 a 9 y llegan
   a Madrid capital, por cada 1.000 vecinos (`capacidad.py`, `fuentes/capacidad.json`). Plazas por
   vehículo, con fuente en el script: 997 por tren de Cercanías (Civia de cinco coches, contado
-  simple), 1.260 / 630 / 840 en las líneas 10A, 10B y 11 de Metro, 200 por Metro Ligero y 80 por
-  autobús; las de Metro y autobús, aproximadas. La gente que va a Madrid a esa hora sale del
+  simple), 1.260 / 609 / 637 en las líneas 10A (serie 7000 de seis coches, ficha de AnsaldoBreda),
+  10B (serie 8000 de tres coches, Vía Libre) y 11 (serie 9000 de tres coches: la mitad de las 1.274
+  de la de seis, Vía Libre), 204 por Metro Ligero (Citadis 302, Metro Ligero Oeste) y 79 por autobús
+  (los interurbanos de 13 m que incorporó el Consorcio en 2024). Antes se citaba la Wikipedia en
+  inglés, que no da ninguna capacidad. La gente que va a Madrid a esa hora sale del
   estudio básico de movilidad.
 
 Después, **«Si falla el tren»**: lo mismo sin la **línea principal** de cada ciudad, la de tren,
@@ -574,11 +577,11 @@ después una sección por tema:
 | Sección | Qué enseña | Fuente |
 |---|---|---|
 | Vecinos y viviendas | Viviendas nuevas por cada 100 vecinos nuevos 2015-2025, frente a los hogares que forman 100 personas al tamaño medio de hogar; vecinos y viviendas sumados año a año | Catastro (unidades residenciales) vía Almudena; INE padrón; INE ADRH 2024 |
-| Comprar | Valor de la vivienda media (tasado × superficie media); años de renta de un hogar; valor tasado €/m² trimestral 2005-2026; subida en 10 años; frente al máximo de 2007-08; recibo del IBI estimado de la vivienda media; compraventas por 1.000 hab. | MIVAU (valor tasado, transacciones); INE ADRH 2024; Censo 2021 vía Almudena; Hacienda (tipos IBI 2026) y Catastro (valor catastral residencial 2026) |
+| Comprar | Valor de la vivienda media (tasado × superficie construida media: la útil del Censo entre 0,83, el factor con que el INE la sacó de la del Catastro, Metodología de los Censos 2021, figura 37); años de renta de un hogar; valor tasado €/m² trimestral 2005-2026; subida en 10 años; frente al máximo de 2007-08; recibo del IBI estimado de la vivienda media; compraventas por 1.000 hab. | MIVAU (valor tasado, transacciones); INE ADRH 2024; Censo 2021 vía Almudena; Hacienda (tipos IBI 2026) y Catastro (valor catastral residencial 2026) |
 | Alquilar | Alquiler mediano €/mes; de cada 100 € de renta del hogar, los del alquiler; €/m² 2015-2024; contratos nuevos 2024; % de hogares de alquiler | MIVAU SERPAVI (IRPF); AEAT viviendas declaradas en el IRPF; INE Censo 2021 |
 | De quién son | De cada 100 viviendas: personas, sociedades (y las de más de 100 en la ciudad), administraciones; vecinos que cobran un alquiler; vivienda pública de la AVS; la venta del IVIMA | Catastro (padrón del IBI 2026); AEAT IRPF por municipios 2024; AVS; Cámara de Cuentas y BOCM |
 | De un barrio a otro | Sección censal más barata y más cara en alquiler €/m² (≥ 30 alquileres) y más pobre y más rica en renta por hogar | SERPAVI por sección 2024; INE ADRH 2024 por sección |
-| Vivienda pública y ayudas | Viviendas de la AVS por 1.000 hab.; adjudicaciones a nuevos inquilinos 2023-2025; si la ciudad tiene viviendas del Plan Vive; ayudas al alquiler 2023 y Bono Alquiler Joven 2022 concedidos por 1.000 hogares de alquiler | AVS (patrimonio e informes de gestión); nota de prensa de la Comunidad (19-08-2026); datos abiertos de la Comunidad de Madrid |
+| Vivienda pública y ayudas | Viviendas de la AVS por 1.000 hab.; adjudicaciones a nuevos inquilinos 2023-2025 por 10.000 hogares; si la ciudad tiene viviendas del Plan Vive; ayudas al alquiler 2023 y Bono Alquiler Joven 2022 concedidos por 1.000 hogares de alquiler | AVS (patrimonio e informes de gestión); nota de prensa de la Comunidad (19-08-2026); datos abiertos de la Comunidad de Madrid |
 | Cuando no se puede pagar | Demandas por alquiler y desahucios por 100.000 hab., 2013-2025, en dos gráficos | CGPJ, por partido judicial |
 | Cómo son las casas | Vacías; antigüedad; hogares de 5 en 60 m²; jóvenes de 25-34 con sus padres; viviendas en edificios de 4+ plantas sin ascensor (2011); superficie media | INE Censo 2021 y Censo 2011 (tablas a medida) |
 
@@ -937,10 +940,10 @@ las personas con discapacidad reconocida por cada 1.000 vecinos, sin «cuanto m�
 
 La misma función pinta dos secciones en otras páginas, porque es donde se buscan: «La salud
 mental» en `sanidad.html`, antes de «Lo que hay», aunque esa red dependa de los servicios
-sociales y no del SERMAS; y «La educación especial» en `educacion.html`, antes de la escuela
-infantil, que cuenta colegios y no plazas. Cada sección tiene su cartel y su enlace con vista
-previa (`/<ciudad>/residencia/`, `/dia/`, `/ocupacional/`, `/temprana/`, `/mental/`,
-`/especial/`). En la portada, el resumen «Inclusión» y su botón, con el icono de las tres personas juntas
+sociales y no del SERMAS; y «La educación especial», «Las aulas TEA» y «La FP de modalidad
+especial» en `educacion.html` y en `inclusion.html`, que cuentan alumnos, aulas y programas, no
+plazas. Cada sección tiene su cartel y su enlace con vista previa (`/<ciudad>/residencia/`, `/dia/`,
+`/ocupacional/`, `/temprana/`, `/mental/`, `/especial/`, `/tea/`, `/ppme/`). En la portada, el resumen «Inclusión» y su botón, con el icono de las tres personas juntas
 (`ICONO_PAGINA.grupo`; la silla de ruedas se descartó). Los datos
 y el script se siguen llamando `discapacidad`, que es de lo que tratan.
 
@@ -978,9 +981,8 @@ y el script se siguen llamando `discapacidad`, que es de lo que tratan.
   plazas de residencia que personas con discapacidad intelectual reconocida. La página lo dice
   en el pie de cada sección y en «Cómo está hecho esto».
 - **Mirado y aplazado**: la lista de espera de la dependencia (no hay dato por municipio), los
-  parques infantiles inclusivos y las plazas de aparcamiento reservadas (sin fuente comparable),
-  la discapacidad física, que tiene pocos centros y ninguna base que case con ellos, y los
-  alumnos de educación especial, que la Comunidad solo publica para toda la región.
+  parques infantiles inclusivos, las plazas de aparcamiento reservadas (sin fuente comparable)
+  y la discapacidad física, que tiene pocos centros y ninguna base que case con ellos.
 
 ### Plantilla médica de los hospitales: mirado y descartado
 
@@ -1079,7 +1081,7 @@ Quedaría ir teatro por teatro a la web de cada ayuntamiento: una veintena de es
 declarando su aforo a su manera —con palcos o sin ellos, ampliable o no— y cada ayuntamiento
 decidiendo qué sala merece llamarse teatro. Sería una recopilación nuestra, como las zonas verdes.
 
-### Zonas verdes: el único dato que calculamos nosotros
+### Zonas verdes: un dato que calculamos nosotros
 
 No existe estadística oficial de metros cuadrados de zona verde por municipio en Madrid: el portal
 de datos abiertos de la Comunidad devuelve un único resultado buscando «zonas verdes» —una tabla
@@ -1126,7 +1128,7 @@ frente a los 6.509 de Getafe.
 
 ## Cómo está escrita
 
-Es una web pública, así que la copia sigue tres reglas:
+Es una web pública, así que la copia sigue estas reglas:
 
 1. **Ninguna afirmación sin respaldo.** Los superlativos van acotados a los municipios
    comparados, no a «la comarca» ni «el sur metropolitano», que no se han medido enteros. La

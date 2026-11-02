@@ -24,7 +24,11 @@
   function num(n, dec) {
     return n.toLocaleString('es-ES',
       { useGrouping: true, minimumFractionDigits: dec, maximumFractionDigits: dec }).replace('-', '−');
-  }
+  }  /* Euros por habitante: de 10 € para arriba, sin céntimos, que sobre 780 €
+     son ruido; por debajo, con ellos, para que 0,02 € no se lea 0. Los
+     recibos (lo que paga un vecino) van siempre con céntimos. */
+  function eurHab(v) { return num(v, Math.abs(v) >= 10 || v === 0 ? 0 : 2); }
+
   function entero(n) { return num(Math.round(n), 0); }
   function euros(n) { return entero(n) + ' €'; }
   function pct(n, dec) { return num(n, dec == null ? 1 : dec) + ' %'; }
@@ -170,7 +174,7 @@
   function desdeDinero(id) {
     const s = serieDinero(id);
     const cifra = function (v) {
-      return s.decimales != null ? num(v, s.decimales) : s.saldoEuros ? num(v, 2) : entero(v);
+      return s.unidad === '%' ? num(v, s.decimales != null ? s.decimales : 2) : eurHab(v);
     };
     const huecos = {};
     Object.keys(s.extra || {}).forEach(function (k) {
@@ -341,8 +345,13 @@
   function marcas(paso) {
     return function (n, e) {
       const o = [];
-      for (let i = 0; i < n; i += e ? paso * 2 : paso) o.push(i);
-      if (o[o.length - 1] !== n - 1) o.push(n - 1);
+      const p = e ? paso * 2 : paso;
+      for (let i = 0; i < n; i += p) o.push(i);
+      /* El último año siempre, pero sin pisar al anterior: «20232024». */
+      if (o[o.length - 1] !== n - 1) {
+        if (n - 1 - o[o.length - 1] < p) o.pop();
+        o.push(n - 1);
+      }
       return o;
     };
   }
@@ -372,11 +381,11 @@
       });
     const viejo = $('#trabajo-cartel');
     if (viejo) viejo.remove();
-    /* «1 de cada 3»: los puestos por cada 100 vecinos que trabajan, dichos
-       como se dicen. */
-    function deCada(v) { return v >= 100 ? 'todos' : '1 de cada ' + Math.round(100 / v); }
+    /* «3 de cada 10»: los puestos por cada 100 vecinos que trabajan, dichos
+       como se dicen. Con «1 de cada N», de 67 a 89 salía «1 de cada 1». */
+    function deCada(v) { return v >= 100 ? 'todos' : Math.round(v / 10) + ' de cada 10'; }
     function paraQuien(v) {
-      return v >= 100 ? 'para todos y sobra' : v >= 90 ? 'para casi todos' : 'para ' + deCada(v);
+      return v >= 100 ? 'para todos y sobra' : v >= 95 ? 'para casi todos' : 'para ' + deCada(v);
     }
     if (window.CARTEL) {
       const b = cartel('trabajo', 'Dónde se trabaja', function () {
@@ -532,7 +541,8 @@
       descripcion: 'Renta neta media por persona de 2015 a 2024. Parla: de ' + euros(pp[0]) + ' a ' +
         euros(ultimo(pp)) + '. ' + NOMBRE[AQUI] + ': de ' + euros(pa[0]) + ' a ' + euros(ultimo(pa)) + '.',
       leyenda: 'Euros al año por persona, después de impuestos y cotizaciones. En 2015 la de Parla era el ' +
-        num(pp[0] / pa[0] * 100, 0) + ' % de la de ' + NOMBRE[AQUI] + '; en 2024, el ' +
+        num(pp[0] / pa[0] * 100, 0) + ' % de la de ' + NOMBRE[AQUI] + '; en 2024, ' +
+        (num(pp[0] / pa[0] * 100, 0) === num(ultimo(pp) / ultimo(pa) * 100, 0) ? 'también el ' : 'el ') +
         num(ultimo(pp) / ultimo(pa) * 100, 0) + ' %.'
     });
     fichas('#renta-fichas', [
@@ -556,9 +566,9 @@
         v: function (id) { return r(id).gini; }, fmt: function (v) { return num(v, 1); },
         nota: 'De 0, si todos los vecinos ingresaran lo mismo, a 100, si uno se lo llevara todo: cuanto más bajo, ' +
           'más parecidos son los ingresos dentro de la ciudad, sean altos o bajos. ' +
-          puesto(function (id) { return r(id).gini; }) + ' El 20 % que más ingresa tiene ' +
-          num(r(REF).p80p20, 1) + ' veces lo del 20 % que menos en Parla y ' + num(r(AQUI).p80p20, 1) +
-          ' en ' + NOMBRE[AQUI] + '.',
+          puesto(function (id) { return r(id).gini; }) + ' Ordenados los vecinos por ingresos, quien está en el puesto 80 ' +
+          'de cada 100 ingresa ' + num(r(REF).p80p20, 1) + ' veces lo que quien está en el puesto 20 en Parla, y ' +
+          num(r(AQUI).p80p20, 1) + ' veces en ' + NOMBRE[AQUI] + '.',
         fuentes: ['adrhGini'] }
     ]);
     reparto('#renta-reparto', ['Salario', 'Pensiones', 'Prestaciones por desempleo', 'Otras prestaciones', 'Otros ingresos'],
@@ -580,10 +590,11 @@
       { id: 'pib-construccion', titulo: 'El peso de la construcción',
         pie: 'De cada 100 euros del PIB municipal, los de la construcción, 2023',
         v: function (id) { return e(id).pibRamas[1]; }, fmt: function (v) { return pct(v, 1); },
-        nota: 'Y de cada 100 puestos de trabajo de la ciudad, ' + num(e(REF).afilConstruccion, 1) +
+        nota: puesto(function (id) { return e(id).pibRamas[1]; }) + ' Y de cada 100 puestos de trabajo de la ciudad, ' +
+          num(e(REF).afilConstruccion, 1) +
           ' son de la construcción en Parla y ' + num(e(AQUI).afilConstruccion, 1) + ' en ' + NOMBRE[AQUI] +
           '. La industria pone ' + num(e(REF).pibRamas[0], 1) + ' de cada 100 euros en Parla y ' +
-          num(e(AQUI).pibRamas[0], 1) + ' en ' + NOMBRE[AQUI] + '. ' + puesto(function (id) { return e(id).pibRamas[1]; }),
+          num(e(AQUI).pibRamas[0], 1) + ' en ' + NOMBRE[AQUI] + '.',
         fuentes: ['pibRamas', 'afilRama'] }
     ]);
     reparto('#produce-reparto', ['Industria', 'Construcción', 'Comercio, transporte y hostelería', 'Resto de servicios'],
@@ -754,7 +765,7 @@
     const medias = function (c) {
       return [['Media de la Comunidad', E.media.con_capital[c]], ['Sin la capital', E.media.sin_capital[c]]];
     };
-    const eur = function (v) { return num(v, 2) + ' €'; };
+    const eur = function (v) { return eurHab(v) + '\u00a0€'; };
     const pie = function (t) {
       return AQUI === 'pozuelo' ? t + ' (Pozuelo de Alarcón, media de 2021 y 2024)' : t;
     };
@@ -764,9 +775,9 @@
         pie: pie('Intereses y devolución de préstamos por habitante, media de 2021 a 2024'),
         medias: medias('deuda_3_mas_9'),
         v: function (id) { return k(id).deuda; }, fmt: eur,
-        nota: 'Los capítulos 3 y 9 del gasto: ' + num(k(REF).pctDeuda, 1) + ' de cada 100 euros que gasta Parla y ' +
-          num(k(AQUI).pctDeuda, 1) + ' en ' + NOMBRE[AQUI] + '. ' + puesto(function (id) { return k(id).deuda; }) +
-          ' En intereses, ' + eur(k(REF).intereses) + ' en Parla y ' + eur(k(AQUI).intereses) + ' en ' + NOMBRE[AQUI] + '; ' +
+        nota: puesto(function (id) { return k(id).deuda; }) + ' Son los capítulos 3 y 9 del gasto: ' +
+          num(k(REF).pctDeuda, 1) + ' de cada 100 euros que gasta Parla y ' +
+          num(k(AQUI).pctDeuda, 1) + ' en ' + NOMBRE[AQUI] + '. En intereses, ' + eur(k(REF).intereses) + ' en Parla y ' + eur(k(AQUI).intereses) + ' en ' + NOMBRE[AQUI] + '; ' +
           (IDS.every(function (id) { return k(id).intereses <= k(REF).intereses; }) ? 'Parla paga más que ninguna de las ' + N + ', y de ellos ' : 'de los de Parla, ') +
           eur(k(REF).demora) + ' son intereses de demora, los que se pagan por pagar tarde. En devolución de préstamos, Parla pone ' +
           eur(k(REF).amortizacion) + ' al año; en 2022 y 2023 recibió ' + num(k(REF).prestamos2223 / 1e6, 0) + ' millones de euros en préstamos nuevos.',
@@ -775,8 +786,8 @@
         pie: pie('Impuestos, tasas y otros ingresos propios por habitante, media de 2021 a 2024'),
         medias: medias('i123_propios'),
         v: function (id) { return k(id).propios; }, fmt: eur,
-        nota: 'Los capítulos 1, 2 y 3 de ingresos. En tasas y precios públicos, ' + eur(k(REF).tasas) + ' por habitante en Parla y ' +
-          eur(k(AQUI).tasas) + ' en ' + NOMBRE[AQUI] + '. ' + puesto(function (id) { return k(id).propios; }),
+        nota: puesto(function (id) { return k(id).propios; }) + ' Son los capítulos 1, 2 y 3 de ingresos. En tasas y precios públicos, ' +
+          eur(k(REF).tasas) + ' por habitante en Parla y ' + eur(k(AQUI).tasas) + ' en ' + NOMBRE[AQUI] + '.',
         fuentes: ['conprel'] },
       { id: 'estado', titulo: 'Lo que llega del Estado',
         pie: pie('Transferencias corrientes del Estado por habitante, media de 2021 a 2024'),
@@ -784,7 +795,8 @@
         v: function (id) { return k(id).estado; }, fmt: eur,
         nota: 'El artículo 42 de ingresos, sobre todo la participación en los tributos del Estado. Las ciudades de ' +
           'más de 75.000 habitantes la reciben con un sistema distinto del de las pequeñas, y la media de la Comunidad ' +
-          'mezcla los dos. ' + puesto(function (id) { return k(id).estado; }),
+          'mezcla los dos' + (D.BASES.total.valores[AQUI] < 75000 ? '; ' + NOMBRE[AQUI] + ', con menos de 75.000, está en el otro sistema' : '') +
+          '. ' + puesto(function (id) { return k(id).estado; }),
         fuentes: ['conprel'] },
       { id: 'pmp', titulo: 'Lo que tarda en pagar', sentido: 'menos',
         pie: 'Periodo medio de pago a proveedores en días, media de agosto de 2025 a julio de 2026',

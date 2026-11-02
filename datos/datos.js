@@ -134,11 +134,11 @@ window.DATOS = (function () {
 
   const F = {
     ine: {
-      t: 'INE · Cifras oficiales de población de los municipios españoles, 1 enero 2025',
+      t: 'INE · Cifras oficiales de población de los municipios españoles, 1 de enero de 2025',
       url: 'https://www.ine.es/jaxiT3/Tabla.htm?t=2881'
     },
     edades: {
-      t: 'INE · Población por sexo, edad año a año y nacionalidad, 1 enero 2025',
+      t: 'INE · Población por sexo, edad año a año y nacionalidad, 1 de enero de 2025',
       url: 'https://www.ine.es/jaxiT3/Tabla.htm?t=68543'
     },
     superficie: {
@@ -158,7 +158,7 @@ window.DATOS = (function () {
       url: 'https://www.ign.es/wfs-inspire/unidades-administrativas'
     },
     metro: {
-      t: 'Metro de Madrid · Estaciones por línea (líneas 10 y 12)',
+      t: 'Metro de Madrid · Estaciones por línea (líneas 10, 11 y 12)',
       url: 'https://www.metromadrid.es/es/viaja-en-metro/lineas-y-horarios'
     },
     cercanias: {
@@ -252,7 +252,7 @@ window.DATOS = (function () {
       grupo: 'Transporte',
       titulo: 'Estaciones de Metro',
       fuenteId: 'metro',
-      nota: 'MetroSur (línea 12) rodea Alcorcón, Móstoles, Fuenlabrada, Leganés y Getafe desde 2003, y Parla se quedó fuera. Tiene el tranvía ML-4: 15 paradas en un anillo de 8,3 km que no sale del municipio. Por eso no se cuenta junto al Metro: desde él solo se llega a otras paradas de Parla.',
+      nota: 'MetroSur (línea 12) rodea Alcorcón, Móstoles, Fuenlabrada, Leganés y Getafe desde 2003, y Parla se quedó fuera. Tiene el tranvía ML-4: 15 paradas en un anillo de 8,3\u00a0km que no sale del municipio. Por eso no se cuenta junto al Metro: desde él solo se llega a otras paradas de Parla.',
       datos: {
         getafe: {
           n: 8,
@@ -271,16 +271,16 @@ window.DATOS = (function () {
           ]
         },
         leganes: {
-          n: 6,
+          n: 7,
           lista: [
             'El Carrascal', 'Julián Besteiro', 'Casa del Reloj', 'Hospital Severo Ochoa',
-            'Leganés Central', 'San Nicasio'
+            'Leganés Central', 'San Nicasio', 'La Fortuna'
           ]
         },
-        alcorcon: { n: 4, lista: ['Puerta del Sur', 'Parque Lisboa', 'Alcorcón Central', 'Parque Oeste'] },
+        alcorcon: { n: 5, lista: ['Puerta del Sur', 'Joaquín Vilumbrales', 'Parque Lisboa', 'Alcorcón Central', 'Parque Oeste'] },
         alcobendas: {
-          n: 5,
-          lista: ['La Granja', 'La Moraleja', 'Marqués de la Valdavia', 'Manuel de Falla', 'Baunatal']
+          n: 4,
+          lista: ['La Granja', 'La Moraleja', 'Marqués de la Valdavia', 'Manuel de Falla']
         },
         mostoles: {
           n: 5,
@@ -365,6 +365,12 @@ window.DATOS = (function () {
       grupo: 'Cultura',
       titulo: 'Bibliotecas públicas',
       fuenteId: 'bibliotecas',
+      /* La estadística de la Comunidad cuenta 4 en Pozuelo desde 2014, el año
+         después de que abriera la de ESIC: es de la red municipal, pero la
+         construye, la paga y la gestiona la universidad (su normativa, 2022). */
+      notaCiudad: {
+        pozuelo: 'Una de las cuatro de Pozuelo de Alarcón es la Biblioteca Municipal Universitaria ESIC: es de la red municipal, pero la gestiona la universidad y solo pueden usarla quienes estudian segundo de bachillerato, FP de grado superior o en la universidad.'
+      },
       datos: {
         getafe: {
           n: 6,
@@ -528,7 +534,7 @@ window.DATOS = (function () {
       grupo: 'Educación',
       titulo: 'Escuelas infantiles públicas y casas de niños',
       fuenteId: 'educacion',
-      nota: 'Centros públicos de 0 a 3 años. Se comparan contra los niños de 0 a 2 años de cada ciudad, no contra la población total.',
+      nota: 'Centros públicos de 0 a 3 años. Se comparan contra los niños de 0 a 2 años de cada ciudad.',
       datos: {
         getafe: {
           n: 14,
@@ -583,7 +589,7 @@ window.DATOS = (function () {
           n: 12,
           lista: [
             'Antusana', 'Caleidoscopio', 'Colores', 'El Columpio', 'El Juglar',
-            'El Pequeño Sauce', 'El Soto', 'Fabulas y Leyendas', 'Joan Miró', 'Osa Mayor',
+            'El Pequeño Sauce', 'El Soto', 'Fábulas y Leyendas', 'Joan Miró', 'Osa Mayor',
             'Parque Coimbra', 'Villaamil'
           ]
         },
@@ -607,11 +613,11 @@ window.DATOS = (function () {
       grupo: 'Educación',
       titulo: 'Colegios públicos de infantil y primaria',
       fuenteId: 'educacion',
-      nota: 'Se comparan contra los niños y niñas de 3 a 11 años de cada ciudad, no contra la población total, porque Parla es el municipio más joven de los {N}.',
+      nota: 'Se comparan contra los niños y niñas de 3 a 11 años de cada ciudad, que son los que van al colegio. Parla es el municipio más joven de los {N}.',
       /* Solo donde el divisor le da la vuelta al resultado: con la población
          total Parla no saldría por debajo, y con los niños en edad escolar sí.
          Lo decide app.js ciudad a ciudad; en el resto va `nota`. */
-      notaGiro: 'Con la población total como divisor, Parla saldría bien parada frente a {aqui}. Al dividir entre los niños en edad escolar deja de estarlo, porque es el municipio más joven de los {N}.',
+      notaGiro: 'Se comparan contra los niños y niñas de 3 a 11 años de cada ciudad. Contra la población total, Parla saldría bien parada frente a {aqui}, porque es el municipio más joven de los {N}.',
       datos: {
         getafe: {
           n: 29,
@@ -680,7 +686,7 @@ window.DATOS = (function () {
             'Federico García Lorca', 'Fernando de los Ríos', 'Fuente del Palomar',
             'Isabel la Católica', 'Jesús Varela', 'Joaquín Costa', 'Los Castillos',
             'Miguel Hernández', 'Miguel de Cervantes', 'Parque de Lisboa',
-            'Párroco D. Víctoriano', 'San José de Valderas', 'Santiago Ramón y Cajal',
+            'Párroco D. Victoriano', 'San José de Valderas', 'Santiago Ramón y Cajal',
             'Santo Domingo', 'Vicente Aleixandre'
           ]
         },
@@ -688,7 +694,7 @@ window.DATOS = (function () {
           n: 14,
           lista: [
             'Antonio Machado', 'Bachiller Alonso López', 'Castilla', 'Daoiz y Velarde',
-            'Emilio Casado', 'Federico García Lorca', 'Gabriel y Galan', 'Luis Buñuel',
+            'Emilio Casado', 'Federico García Lorca', 'Gabriel y Galán', 'Luis Buñuel',
             'Miguel Hernández', 'Miraflores', 'Parque de Cataluña', 'Profesor Tierno Galván',
             'Seis de Diciembre', 'Valdepalitos'
           ]
@@ -696,15 +702,15 @@ window.DATOS = (function () {
         mostoles: {
           n: 36,
           lista: [
-            'Alfonso R. Castelao', 'Alonso Cano', 'Andrés Segovia', 'Andrés Torrejon',
+            'Alfonso R. Castelao', 'Alonso Cano', 'Andrés Segovia', 'Andrés Torrejón',
             'Antonio Hernández', 'Antusana', 'Beato Simón de Rojas', 'Benito Pérez Galdós',
             'Blas de Otero', 'Celso Emilio Ferreiro', 'Ciudad de Roma', 'Federico García Lorca',
             'Gabriel Celaya', 'Joan Miró', 'Jorge Guillén', 'Juan Ocaña',
-            'Juan Pérez Villaamil', 'Julián Besteiro', 'Las Cumbres', 'Leonardo Da Vinci',
+            'Juan Pérez Villaamil', 'Julián Besteiro', 'Las Cumbres', 'Leonardo da Vinci',
             'León Felipe', 'Luis Álvarez Lencero', 'Margarita Xirgu', 'Maruja Mallo',
-            'María Montessori', 'Miguel Delibes', 'Pablo Sarasate', 'Pablo Sorozabal',
-            'Principe de Asturias', 'Pío Baroja', 'Rafael Alberti', 'Rio Bidasoa',
-            'Rosalía de Castro', 'Salzillo-valle Inclán', 'Severo Ochoa', 'Vicente Aleixandre'
+            'María Montessori', 'Miguel Delibes', 'Pablo Sarasate', 'Pablo Sorozábal',
+            'Príncipe de Asturias', 'Pío Baroja', 'Rafael Alberti', 'Río Bidasoa',
+            'Rosalía de Castro', 'Salzillo-Valle Inclán', 'Severo Ochoa', 'Vicente Aleixandre'
           ]
         },
         torrejon: {
@@ -742,7 +748,7 @@ window.DATOS = (function () {
       grupo: 'Educación',
       titulo: 'Institutos públicos de secundaria',
       fuenteId: 'educacion',
-      nota: 'Institutos públicos de ESO y bachillerato. Se comparan contra los chicos y chicas de 12 a 17 años de cada ciudad, no contra la población total.',
+      nota: 'Institutos públicos de educación secundaria (IES), también los que solo dan Formación Profesional, salvo los de enseñanza a distancia; sus alumnos se cuentan aparte, en «Alumnos de Formación Profesional pública». Se comparan contra los chicos y chicas de 12 a 17 años de cada ciudad.',
       datos: {
         getafe: {
           n: 13,
@@ -779,10 +785,11 @@ window.DATOS = (function () {
             'Salvador Dalí', 'San Nicasio', 'Siglo XXI'
           ]
         },
+        /* Sin el CIFP a distancia Ignacio Ellacuría, que el registro da como
+           IES pero solo enseña FP a distancia: no tiene alumnos que vayan a clase. */
         alcorcon: {
-          n: 11,
+          n: 10,
           lista: [
-            'Centro Integral de Formación Profesional a Distancia Ignacio Ellacuría',
             'El Pinar', 'Galileo Galilei', 'Jorge Guillén', 'Josefina Aldecoa', 'La Arboleda',
             'Los Castillos', 'Luis Buñuel', 'Parque de Lisboa', 'Prado de Santo Domingo',
             'Ítaca'
@@ -791,14 +798,14 @@ window.DATOS = (function () {
         alcobendas: {
           n: 6,
           lista: [
-            'Agora', 'Aldebaran', 'Francisco Giner de los Ríos', 'Gloria Fuertes',
+            'Ágora', 'Aldebarán', 'Francisco Giner de los Ríos', 'Gloria Fuertes',
             'Severo Ochoa', 'Virgen de la Paz'
           ]
         },
         mostoles: {
           n: 17,
           lista: [
-            'Antonio Gala', 'Antonio de Nebrija', 'Benjamin Rua', 'Clara Campoamor',
+            'Antonio Gala', 'Antonio de Nebrija', 'Benjamín Rúa', 'Clara Campoamor',
             'El Cañaveral', 'Europa', 'Felipe Trigo', 'Gabriel Cisneros', 'Juan Gris',
             'Los Rosales', 'Luis Buñuel', 'Manuel de Falla', 'Manuela Malasaña',
             'Miguel Hernández', 'Miguel de Cervantes', 'Rayuela', 'Velázquez'
@@ -880,7 +887,7 @@ window.DATOS = (function () {
       grupo: 'Educación',
       titulo: 'Alumnos en música, idiomas y artes',
       fuenteId: 'alumnado',
-      nota: 'Enseñanzas de régimen especial en centros públicos: música, danza, idiomas y artes plásticas. Cuenta alumnos matriculados, no plazas ofertadas, y suma la enseñanza autonómica (escuelas oficiales de idiomas, conservatorios) con la municipal (escuelas de música y danza).',
+      nota: 'Enseñanzas de régimen especial en centros públicos: música, danza, idiomas y artes plásticas. Cuenta alumnos matriculados y suma la enseñanza autonómica (escuelas oficiales de idiomas, conservatorios) con la municipal (escuelas de música y danza).',
       datos: {
         getafe: { n: 2198, lista: [] },
         parla: { n: 1169, lista: [] },
@@ -919,7 +926,7 @@ window.DATOS = (function () {
          528/1.797/2.145, Leganés 254/1.382/1.928, Alcorcón 278/1.119/1.446,
          Alcobendas 316/719/1.391, Móstoles 649/1.919/2.634, Torrejón
          414/523/435, Pozuelo 49/381/546, Majadahonda 75/282/731. */
-      nota: 'FP Básica, Grado Medio y Grado Superior presenciales en centros públicos. Cuenta alumnos matriculados, no plazas ofertadas, que no se publican por municipio, y los cuenta donde estudian, no donde viven.',
+      nota: 'FP Básica, Grado Medio y Grado Superior presenciales en centros públicos. Cuenta alumnos matriculados, porque las plazas ofertadas no se publican por municipio, y cuenta a cada uno en la ciudad donde estudia.',
       datos: {
         getafe: { n: 2721, lista: [] },
         parla: { n: 1445, lista: [] },
@@ -945,7 +952,7 @@ window.DATOS = (function () {
       titulo: 'Plazas en residencias públicas de mayores',
       enTotal: false,
       fuenteId: 'atencionSocial',
-      nota: 'Se cuentan plazas y no centros, que es la unidad que se ocupa. Solo residencias de titularidad pública.',
+      nota: 'Se cuentan plazas, que es la unidad que se ocupa. Solo residencias de titularidad pública.',
       datos: {
         getafe: {
           n: 134,
@@ -1148,6 +1155,9 @@ window.DATOS = (function () {
     },
     mostoles: {
       nombre: 'Hospital Universitario de Móstoles y Hospital Universitario Rey Juan Carlos',
+      /* Son dos: en las frases van juntos y con el verbo en plural. */
+      frase: 'los hospitales de Móstoles y Rey Juan Carlos',
+      plural: true,
       unidades: 79,
       faltanEnReferencia: [
         'Angiología y Cirugía Vascular', 'Banco de embriones', 'Banco de oocitos',
@@ -1296,7 +1306,7 @@ window.DATOS = (function () {
           }
         }
       ],
-      nota: 'Parla es el municipio más joven de los {N} comparados. De ahí que los colegios, los institutos y las escuelas infantiles se midan contra los niños de esa edad y no contra el total de vecinos.'
+      nota: 'Parla es el municipio más joven de los {N} comparados. De ahí que los colegios, los institutos y las escuelas infantiles se midan contra los niños de esa edad.'
     },
     /* Cuánto suelo hay que repartir. Va con las edades, en el punto de partida. */
     superficie: {
@@ -1362,7 +1372,7 @@ window.DATOS = (function () {
           majadahonda: 5.64
         },
         fuenteId: 'paro',
-        nota: 'Mide a quien quiere trabajar y no encuentra sobre la población activa, así que no es lo mismo que el paro registrado, que cuenta solo a quien se apunta al servicio de empleo. Parla es la última de los {N} comparados.'
+        nota: 'Mide a quien quiere trabajar y no encuentra sobre la población activa. El paro registrado es otra cifra: cuenta solo a quien se apunta al servicio de empleo. Parla es la última de los {N} comparados.'
       },
       {
         id: 'renta',
@@ -1385,14 +1395,14 @@ window.DATOS = (function () {
         },
         fuenteId: 'rentaAdrh',
         masFuentes: [['renta', 'Media de la Comunidad, 2023: ']],
-        nota: 'Parla tiene la renta más baja de los {N} municipios comparados. En 2023, el último año con media de la Comunidad de Madrid, vivía con el 58,4 % de esa media.'
+        nota: 'Parla tiene la renta más baja de los {N} municipios comparados. En 2023, el último año con media de la Comunidad de Madrid, vivía con el 58,4\u00a0% de esa media.'
       },
       {
         id: 'pobreza',
         /* Sin media regional: el atlas da municipios, distritos y secciones, no
            la Comunidad. El umbral es el mismo para todos: la mediana de España. */
         titulo: 'Quien vive en riesgo de pobreza',
-        pie: 'Población con ingresos bajo el 60 % de la mediana de España, 2024',
+        pie: 'Población con ingresos bajo el 60\u00a0% de la mediana de España, 2024',
         unidad: '%',
         decimales: 1,
         valores: {
@@ -1440,7 +1450,7 @@ window.DATOS = (function () {
         },
         fuenteId: 'pobreza',
         masFuentes: [['pobrezaEdad', 'Menores: ']],
-        nota: 'Cuenta a quien vive en un hogar cuyos ingresos, ajustados por el número de miembros, no llegan al 60 % de la mediana de España. Bajo el 40 %, lo que se suele llamar pobreza severa, están el {severaRef} % de {ref} y el {severaAqui} % de {aqui}. Entre los menores de 18 años, bajo el 60 %, el {menoresRef} % en {ref} y el {menoresAqui} % en {aqui}.'
+        nota: 'Cuenta a quien vive en un hogar cuyos ingresos, ajustados por el número de miembros, no llegan al 60\u00a0% de la mediana de España. Bajo el 40\u00a0%, lo que se suele llamar pobreza severa, están el {severaRef}\u00a0% de {ref} y el {severaAqui}\u00a0% de {aqui}. Entre los menores de 18 años, bajo el 60\u00a0%, el {menoresRef}\u00a0% en {ref} y el {menoresAqui}\u00a0% en {aqui}.'
       },
       {
         id: 'pib',
@@ -1476,7 +1486,7 @@ window.DATOS = (function () {
           majadahonda: 977
         } },
         fuenteId: 'pib',
-        nota: 'Mide el valor de lo que se genera dentro del municipio, que no es lo mismo que lo que ganan sus vecinos. Parla se queda en el 32 % de la media regional y es la última de los 24 municipios de la Comunidad de Madrid que pasan de 50.000 habitantes. En la rama industrial, {industriaRef} € por habitante en {ref} y {industriaAqui} € en {aqui}. La cifra de 2023 es provisional; la de 2022, ya definitiva, deja a Parla en el mismo 32 %.'
+        nota: 'Mide el valor de lo que se genera dentro del municipio. Lo que ganan sus vecinos es la renta, que va aparte. Parla se queda en el 32\u00a0% de la media regional y es la última de los 24 municipios de la Comunidad de Madrid que pasan de 50.000 habitantes. En la rama industrial, {industriaRef}\u00a0€ por habitante en {ref} y {industriaAqui}\u00a0€ en {aqui}. La cifra de 2023 es provisional; la de 2022, ya definitiva, deja a Parla en el mismo 32\u00a0%.'
       },
       {
         id: 'gasto',
@@ -1551,7 +1561,6 @@ window.DATOS = (function () {
         mediaRegional: 105.83,
         /* Madrid capital la dobla; se enseñan las dos. */
         mediaSinCapital: 54.44,
-        decimales: 2,
         titulo: 'Lo que gasta en servicios sociales',
         pie: 'Gasto municipal en servicios sociales por habitante, media de 2021 a 2024',
         pieCiudad: {
@@ -1573,7 +1582,7 @@ window.DATOS = (function () {
           majadahonda: 48.72
         },
         fuenteId: 'conprel',
-        nota: 'La política de gasto 23, servicios sociales y promoción social, consolidando el ayuntamiento con sus organismos autónomos. Cada ayuntamiento decide qué apunta aquí y qué en otras partidas, como empleo o escuelas infantiles. Mide lo que se gasta, no lo que hace falta.'
+        nota: 'La política de gasto 23, servicios sociales y promoción social, consolidando el ayuntamiento con sus organismos autónomos. Cada ayuntamiento decide qué apunta aquí y qué en otras partidas, como empleo o escuelas infantiles. Mide lo que se gasta. Cuánto haría falta no lo dice.'
       },
       {
         id: 'comunidad',
@@ -1582,7 +1591,6 @@ window.DATOS = (function () {
         mediaRegional: 13.26,
         /* Aquí Madrid capital tira hacia abajo; se enseñan las dos igual. */
         mediaSinCapital: 19.43,
-        decimales: 2,
         titulo: 'Lo que pone la Comunidad para invertir',
         pie: 'Transferencias de capital de la Comunidad de Madrid por habitante, media de 2021 a 2024',
         pieCiudad: {
@@ -1622,7 +1630,7 @@ window.DATOS = (function () {
           }
         },
         fuenteId: 'conprel',
-        nota: 'Lo que la Comunidad de Madrid transfiere al ayuntamiento para obras y equipamientos. No recoge las obras que la Comunidad contrata y paga por su cuenta, porque no pasan por el presupuesto municipal, y un solo convenio puede mover la media de todo el periodo. Contando también los fondos del Estado y de la Unión Europea, {ref} recibe {capitalRef} € por habitante y {aqui}, {capitalAqui} €.'
+        nota: 'Lo que la Comunidad de Madrid transfiere al ayuntamiento para obras y equipamientos. No recoge las obras que la Comunidad contrata y paga por su cuenta, porque no pasan por el presupuesto municipal, y un solo convenio puede mover la media de todo el periodo. Contando también los fondos del Estado y de la Unión Europea, {ref} recibe {capitalRef}\u00a0€ por habitante y {aqui}, {capitalAqui}\u00a0€.'
       },
       {
         id: 'deuda',
@@ -1666,7 +1674,7 @@ window.DATOS = (function () {
       pozuelo: 733,
       majadahonda: 518
     },
-    dineroNota: 'En impuestos directos, sobre todo el IBI, {ref} ingresa {impuestosRef} € por habitante y {aqui}, {impuestosAqui}. Con menos ingresos propios hay menos margen para gastar e invertir. Estas cifras no dicen cuánto de la inversión que falta se debe a la financiación y cuánto al pago de la deuda.'
+    dineroNota: 'En impuestos directos, sobre todo el IBI, {ref} ingresa {impuestosRef}\u00a0€ por habitante y {aqui}, {impuestosAqui}. Con menos ingresos propios hay menos margen para gastar e invertir. Estas cifras no dicen cuánto de la inversión que falta se debe a la financiación y cuánto al pago de la deuda.'
   };
 
   /* La deuda es contexto económico y nunca entra en indicadores ni en el

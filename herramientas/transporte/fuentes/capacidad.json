@@ -13,28 +13,28 @@
    },
    "metro10a": {
     "plazas": 1260,
-    "que": "Metro de Madrid, serie 7000 de seis coches (línea 10, tramo A)",
-    "fuente": "https://en.wikipedia.org/wiki/Line_10_(Madrid_Metro)"
+    "que": "Metro de Madrid, serie 7000 de seis coches (línea 10, tramo A), según su fabricante",
+    "fuente": "https://web.archive.org/web/20070308012348/http://www.ansaldobreda.it/files/prodotti/Madridserie7000.pdf"
    },
    "metro10b": {
-    "plazas": 630,
-    "que": "serie 9000 de tres coches (línea 10, tramo B): la mitad que la de seis",
-    "fuente": "https://en.wikipedia.org/wiki/Line_10_(Madrid_Metro)"
+    "plazas": 609,
+    "que": "serie 8000 de tres coches (línea 10, tramo B): 72 sentadas, 2 sillas de ruedas y 535 de pie",
+    "fuente": "https://vialibre-ffe.com/pdf/5536_27a31.pdf"
    },
    "metro11": {
-    "plazas": 840,
-    "que": "serie 8000 de cuatro coches (línea 11), a 210 plazas por coche como la serie 7000",
-    "fuente": "https://en.wikipedia.org/wiki/Line_11_(Madrid_Metro)"
+    "plazas": 637,
+    "que": "serie 9000 de tres coches (línea 11): la mitad de las 1.274 de la de seis",
+    "fuente": "https://vialibre-ffe.com/noticias.asp?not=512"
    },
    "ligero": {
-    "plazas": 200,
-    "que": "Metro Ligero, tranvía de unos 30 m",
-    "fuente": null
+    "plazas": 204,
+    "que": "Metro Ligero, Citadis 302 de 32 m: 54 sentadas, a 4 de pie por metro cuadrado",
+    "fuente": "https://www.metroligero-oeste.es/uploads/files/358.folleto-tecnico-espanol-v2.pdf"
    },
    "bus": {
-    "plazas": 80,
-    "que": "autobús interurbano de 12 m",
-    "fuente": null
+    "plazas": 79,
+    "que": "autobús interurbano, los últimos que ha incorporado el Consorcio (13 m)",
+    "fuente": "https://crtm.es/comunicacion/sala-de-prensa/noticias/noticias/11062024-la-comunidad-de-madrid-incorpora-73-autobuses-interurbanos-hibridos-a-su-flota/"
    }
   },
   "demanda": {
@@ -50,7 +50,7 @@
    },
    "autobús": {
     "vehiculos": 14.0,
-    "plazas": 1120
+    "plazas": 1106
    }
   },
   "vanMadrid": 4533
@@ -67,7 +67,7 @@
    },
    "autobús": {
     "vehiculos": 55.0,
-    "plazas": 4400
+    "plazas": 4345
    }
   },
   "vanMadrid": 10911
@@ -80,11 +80,11 @@
    },
    "autobús": {
     "vehiculos": 114.0,
-    "plazas": 9120
+    "plazas": 9006
    },
    "Metro 11": {
     "vehiculos": 10.0,
-    "plazas": 8400
+    "plazas": 6370
    }
   },
   "vanMadrid": 11098
@@ -97,7 +97,7 @@
    },
    "autobús": {
     "vehiculos": 42.5,
-    "plazas": 3400
+    "plazas": 3358
    }
   },
   "vanMadrid": 5884
@@ -110,7 +110,7 @@
    },
    "autobús": {
     "vehiculos": 102.5,
-    "plazas": 8200
+    "plazas": 8098
    }
   },
   "vanMadrid": 6294
@@ -127,11 +127,11 @@
    },
    "autobús": {
     "vehiculos": 106.5,
-    "plazas": 8520
+    "plazas": 8414
    },
    "Metro Ligero 3": {
     "vehiculos": 7.5,
-    "plazas": 1500
+    "plazas": 1530
    }
   },
   "vanMadrid": 9231
@@ -140,11 +140,11 @@
   "lineas": {
    "Metro 10": {
     "vehiculos": 15.0,
-    "plazas": 9450
+    "plazas": 9135
    },
    "autobús": {
     "vehiculos": 111.5,
-    "plazas": 8920
+    "plazas": 8808
    },
    "C-4": {
     "vehiculos": 5.0,
@@ -161,7 +161,7 @@
    },
    "autobús": {
     "vehiculos": 32.5,
-    "plazas": 2600
+    "plazas": 2568
    }
   },
   "vanMadrid": 2269
@@ -174,7 +174,7 @@
    },
    "autobús": {
     "vehiculos": 71.0,
-    "plazas": 5680
+    "plazas": 5609
    },
    "C-7": {
     "vehiculos": 2.5,
@@ -191,7 +191,7 @@
    },
    "autobús": {
     "vehiculos": 108.5,
-    "plazas": 8680
+    "plazas": 8572
    },
    "C-7": {
     "vehiculos": 4.0,
@@ -199,11 +199,11 @@
    },
    "Metro Ligero 2": {
     "vehiculos": 16.0,
-    "plazas": 3200
+    "plazas": 3264
    },
    "Metro Ligero 3": {
     "vehiculos": 8.0,
-    "plazas": 1600
+    "plazas": 1632
    }
   },
   "vanMadrid": 8008
@@ -212,7 +212,7 @@
   "lineas": {
    "autobús": {
     "vehiculos": 65.5,
-    "plazas": 5240
+    "plazas": 5174
    },
    "C-10": {
     "vehiculos": 4.0,

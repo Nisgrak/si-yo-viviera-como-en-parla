@@ -36,6 +36,8 @@
     return e;
   }
   function vaciar(n) { while (n.firstChild) n.removeChild(n.firstChild); }
+  /* Por debajo de media unidad, «prácticamente los mismos»: ni hueco en la tira ni «faltan». */
+  const UMBRAL = 0.5;
   const CIFRA_LETRA = ['cero', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis',
     'siete', 'ocho', 'nueve', 'diez', 'once', 'doce'];
   function letra(n) { return CIFRA_LETRA[n] || String(n); }
@@ -94,10 +96,7 @@
       const todas = IDS_TODAS();
       const tope = Math.max.apply(null, todas.map(tasa));
       const dec = function (v) { return num(v, v >= 100 ? 0 : v >= 10 ? 1 : 2); };
-      const cuenta = function (id) {
-        const n = ind.datos[id].n;
-        return ind.mide ? '' : ' · ' + entero(n) + ' en total';
-      };
+      const cuenta = function (id) { return ' · ' + entero(ind.datos[id].n) + ' en total'; };
       filasPar(cont, ind.titulo + ', por cada ' + entero(base.por) + ' ' + (base.etiqueta || 'habitantes'),
         [['Parla' + cuenta(REF), tasa(REF), 'referencia'], [NOMBRE[AQUI] + cuenta(AQUI), tasa(AQUI), 'aqui']], tope, dec,
         (window.SENTIDO && window.SENTIDO.de(ind.id)) || 'mas', 'hay-' + ind.id);
@@ -116,13 +115,9 @@
     const S = window.SANIDAD;
     const caja = $('#espera');
     if (!S || !S.ciudades[REF] || !S.ciudades[AQUI]) { if (caja) caja.hidden = true; return; }
+    if (caja) caja.hidden = false;
     const r = S.ciudades[REF], a = S.ciudades[AQUI];
     const dias = function (v) { return num(v, 1) + ' días'; };
-    const de = function (c, id) {
-      if (c.fuera) return c.corto + (c.corto.indexOf(c.fuera) >= 0 ? '' : ', en ' + c.fuera) + ', que es el que le toca a ' + NOMBRE[id];
-      /* «el Hospital de Getafe» ya dice de dónde es. */
-      return c.corto.indexOf(NOMBRE[id].split(' ')[0]) >= 0 ? c.corto : c.corto + ', el hospital de ' + NOMBRE[id];
-    };
     $('#espera-txt').textContent = 'Lo que llevan esperando de media los que siguen en lista en el hospital que ' +
       'le toca a cada ciudad: para operarse, para la primera consulta con el especialista y para una prueba.';
 
@@ -140,8 +135,9 @@
     });
     const ev = $('#espera-evol');
     vaciar(ev);
-    const misma0 = r.hid === a.hid;
-    const series = [[REF, r, 'referencia']].concat(misma0 ? [] : [[AQUI, a, 'aqui']]);
+    /* Parla no comparte hospital con ninguna, pero por si acaso. */
+    const misma = r.hid === a.hid;
+    const series = [[REF, r, 'referencia']].concat(misma ? [] : [[AQUI, a, 'aqui']]);
     const topeEv = Math.max.apply(null, series.reduce(function (t, g) {
       return t.concat(g[1].quirurgica.serie.filter(function (v) { return v != null; }));
     }, []));
@@ -173,15 +169,16 @@
       return fin - ini;
     };
     const sr = subida(r), sa = subida(a);
-    const cambio = function (v) { return v > 0 ? 'ha subido ' + dias(v) : 'ha bajado ' + dias(-v); };
+    const cambio = function (v) { return (v > 0 ? 'ha subido ' : 'ha bajado ') + num(Math.abs(v)) + ' días'; };
     $('#espera-evol-txt').textContent = sr == null ? '' : 'Desde ' + S.antes + ', la espera para operarse en ' +
-      r.corto + ' ' + cambio(sr) + (misma0 || sa == null ? '.' : '; en ' + a.corto + ', ' + cambio(sa) + '.');
+      r.corto + ' ' + cambio(sr) + (misma || sa == null ? '.' : '; en ' + a.corto + ' ' + cambio(sa) + '.');
 
     const LISTAS = [['consultas', 'Para la primera consulta con el especialista'],
       ['pruebas', 'Para una prueba: escáner, resonancia, ecografía, colonoscopia…']];
     const cont = $('#espera-listas');
     vaciar(cont);
-    let menos = 0, comparadas = 0;
+    let menos = 0, mas = 0, comparadas = 0;
+    const comparar = function (x, y) { comparadas++; if (x.dias < y.dias) menos++; else if (x.dias > y.dias) mas++; };
     LISTAS.forEach(function (L) {
       const k = L[0];
       /* La barra va contra la espera más larga de los hospitales de las once. */
@@ -207,21 +204,22 @@
         ul.appendChild(li);
       });
       cont.appendChild(ul);
-      if (r[k] && a[k]) { comparadas++; if (r[k].dias < a[k].dias) menos++; }
-      else if (!a[k]) {
-        cont.appendChild(el('p', 'salir__pie', a.corto.charAt(0).toUpperCase() + a.corto.slice(1) +
-          ' da esta lista a cero, sin pacientes ni días, desde julio de 2026. Se trata como sin dato.'));
+      if (r[k] && a[k]) comparar(r[k], a[k]);
+      else {
+        const sin = [r, a].filter(function (c) { return !c[k]; }).map(function (c) { return c.corto; });
+        cont.appendChild(el('p', 'salir__pie', mayuscula(listaY(sin)) + (sin.length > 1 ? ' no tienen' : ' no tiene') +
+          ' dato de esta lista en ' + S.mes + '.'));
       }
     });
 
     /* El balance de las tres listas, sin adornos. */
-    if (r.quirurgica && a.quirurgica) { comparadas++; if (r.quirurgica.dias < a.quirurgica.dias) menos++; }
-    const misma = r.hid === a.hid;
-    const cuantas = ['', 'una', 'dos', 'tres'];
-    let t = misma ? '' : comparadas === 1
-      ? 'En la única lista que publican los dos, la de operarse, se espera ' + (menos ? 'menos' : 'más') + ' en el hospital de Parla. '
+    if (r.quirurgica && a.quirurgica) comparar(r.quirurgica, a.quirurgica);
+    const cuantas = ['ninguna', 'una', 'dos', 'tres'];
+    /* Un empate no cuenta ni como menos ni como más. */
+    let t = misma || !comparadas ? '' : comparadas === 1
+      ? 'En la única lista que publican los dos, la de operarse, se espera ' + (menos ? 'menos' : mas ? 'más' : 'lo mismo') + ' en el hospital de Parla. '
       : menos === comparadas ? 'En las ' + cuantas[comparadas] + ' listas se espera menos en el hospital de Parla. '
-      : menos === 0 ? 'En las ' + cuantas[comparadas] + ' listas se espera más en el hospital de Parla. '
+      : mas === comparadas ? 'En las ' + cuantas[comparadas] + ' listas se espera más en el hospital de Parla. '
       : 'En ' + cuantas[menos] + ' de las ' + cuantas[comparadas] + ' listas se espera menos en el hospital de Parla. ';
     $('#espera-cuenta').textContent = t;
 
@@ -229,7 +227,7 @@
     vaciar(pie);
     pie.appendChild(document.createTextNode('Demora media, en días naturales, de los que seguían en lista en ' + S.mes +
       '. Con la libre elección, cualquiera puede pedir otro hospital, y cada hospital atiende también a gente de fuera de su zona, ' +
-      'así que la lista no es solo de los vecinos. Pacientes en lista para operarse por cada 1.000 personas que tiene asignadas: ' +
+      'así que en la lista hay también gente de fuera. Pacientes en lista para operarse por cada 1.000 personas que tiene asignadas: ' +
       num(r.quirurgica.por1000, 1) + ' en ' + r.corto + ' y ' + num(a.quirurgica.por1000, 1) + ' en ' + a.corto + '. '));
     const f1 = el('a', null, S.fuentes.consulta[0]);
     f1.href = S.fuentes.consulta[1];
@@ -295,6 +293,14 @@
   const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
   function fechaLarga(iso) { const f = iso.split('-'); return +f[2] + ' de ' + MESES[+f[1] - 1] + ' de ' + f[0]; }
   function IDS_TODAS() { return D.MUNICIPIOS.map(function (m) { return m.id; }); }
+  /* El padrón por edades de las bases (INE, tabla 68543): un solo título y su fecha. */
+  function fuenteEdades() {
+    return [D.fuentes.edades.t.replace(/(\d{1,2}) enero (\d{4})/, '$1 de enero de $2'), D.fuentes.edades.url];
+  }
+  function padronEdades() {
+    const m = fuenteEdades()[0].match(/(\d{1,2} de enero de \d{4})$/);
+    return m ? m[1] : '1 de enero';
+  }
   function pieFuentes(pie, texto, fuentes) {
     vaciar(pie);
     pie.appendChild(document.createTextNode(texto + ' '));
@@ -317,11 +323,27 @@
   function del_(t) { return t.replace(/^el /, 'del ').replace(/^la /, 'de la '); }
   function mayuscula(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
   function listaY(xs) { return xs.length > 1 ? xs.slice(0, -1).join(', ') + ' y ' + xs[xs.length - 1] : xs[0]; }
+  /* «31/12/2023» → «31 de diciembre de 2023». */
+  function fechaBarra(f) { const x = f.split('/'); return +x[0] + ' de ' + MESES[+x[1] - 1] + ' de ' + x[2]; }
+  /* La fecha de la población asignada: la de Parla, y aparte la de los hospitales
+     cuya memoria la da a otra fecha (la del Hospital de Torrejón es de 2023). */
+  function fechasPoblacion(S, hids) {
+    const base = S.ciudades[REF].pobFecha;
+    const vistos = {}, otras = [];
+    Object.keys(S.ciudades).forEach(function (id) {
+      const c = S.ciudades[id];
+      if (vistos[c.hid] || (hids && hids.indexOf(c.hid) < 0)) return;
+      vistos[c.hid] = true;
+      if (c.pobFecha && c.pobFecha !== base) otras.push('la ' + del_(c.corto) + ', a ' + fechaBarra(c.pobFecha));
+    });
+    return 'a ' + fechaBarra(base) + (otras.length ? ' (' + listaY(otras) + ')' : '');
+  }
 
   function hospital() {
     const S = window.SANIDAD;
     const caja = $('#hospital');
     if (!S || !S.ciudades[REF] || !S.ciudades[AQUI]) { if (caja) caja.hidden = true; return; }
+    if (caja) caja.hidden = false;
     const ic = D.indicadores.find(function (i) { return i.id === 'camas'; });
     const r = hospitalDe(REF), a = hospitalDe(AQUI);
     const misma = r === a;
@@ -363,15 +385,18 @@
     });
 
     const ultimo = puesto === lista.length;
-    $('#hospital-txt').textContent = (ultimo
-      ? 'De los ' + letra(lista.length) + ' hospitales que les tocan a las once ciudades, el de Parla es el que menos camas tiene por persona. '
-      : 'De los ' + letra(lista.length) + ' hospitales que les tocan a las once ciudades, el de Parla es el ' + puesto + '.º en camas por persona. ') +
+    /* Los que les tocan a las once son más que los que tienen cifra de camas. */
+    const total = Object.keys(HOSP.todos(D, S)).length;
+    const conCifra = total === lista.length ? '' : ' de los ' + letra(lista.length) + ' con cifra';
+    $('#hospital-txt').textContent = 'De los ' + letra(total) + ' hospitales que les tocan a las ' + letra(IDS_TODAS().length) +
+      ' ciudades, el de Parla es ' + (ultimo ? 'el que menos camas tiene por persona' : 'el ' + puesto + '.º en camas por persona') +
+      conCifra + '. ' +
       (misma ? ''
         : a.por1000 == null ? ''
         : 'Con las camas por persona ' + del_(a.corto) + ', el Infanta Cristina tendría ' +
           entero(Math.round(a.por1000 * r.pob / 1000)) + ' camas; tiene ' + entero(r.camas) + '.');
-    pieFuentes($('#hospital-pie'), 'Camas instaladas, del Catálogo Nacional de Hospitales; población asignada a 31 de ' +
-      'diciembre de 2024, de la memoria de cada hospital. Las personas asignadas incluyen ' +
+    pieFuentes($('#hospital-pie'), 'Camas instaladas, del Catálogo Nacional de Hospitales; población asignada ' +
+      fechasPoblacion(S) + ', de la memoria de cada hospital. Las personas asignadas incluyen ' +
       'a los pueblos de alrededor que les tocan. Del Infanta Sofía, el hospital de Alcobendas, el catálogo no da camas.',
       [[D.fuentes[ic.fuenteId].t, D.fuentes[ic.fuenteId].url],
         ['Población asignada: memoria de 2024 ' + del_(r.corto), S.memorias[r.hid]]].concat(misma ? []
@@ -400,16 +425,19 @@
     caja.hidden = false;
     const h = k.hospital, duena = k.duena, faltan = k.faltan, solo = k.soloParla, parla = k.parla;
     const graves = k.graves;
-    const de = duena === AQUI ? h.corto : h.corto + ', el que le toca a ' + NOMBRE[AQUI];
+    /* En Móstoles la cartera es la de sus dos hospitales juntos. */
+    const quien = k.varios > 1 ? 'los ' + letra(k.varios) + ' hospitales de ' + NOMBRE[duena] : h.corto;
+    const tiene = k.varios > 1 ? 'tienen' : 'tiene', declara = k.varios > 1 ? 'declaran' : 'declara';
+    const de = duena === AQUI ? quien : quien + ' (el que le toca a ' + NOMBRE[AQUI] + ')';
+    const unaN = function (n) { return n === 1 ? 'una' : letra(n); };
 
     $('#cartera-intro').textContent = 'Las especialidades y unidades que declara cada hospital en el registro de la ' +
-      'Comunidad de Madrid. Cada una es algo que se atiende en el hospital de la ciudad o hay que ir a buscar a otro.';
+      'Comunidad de Madrid. Lo que no tiene un hospital hay que ir a buscarlo a otro.';
     const cif = $('#cartera-cifra');
     vaciar(cif);
     cif.appendChild(el('p', 'cartera-cifra__v', String(faltan.length)));
-    cif.appendChild(el('p', 'cartera-cifra__que', faltan.length === 1
-      ? 'unidad que tiene ' + de + ' y el Infanta Cristina no'
-      : 'unidades que tiene ' + de + ' y el Infanta Cristina no'));
+    cif.appendChild(el('p', 'cartera-cifra__que', (faltan.length === 1 ? 'unidad que ' : 'unidades que ') +
+      tiene + ' ' + de + ' y el Infanta Cristina no'));
 
     const t = $('#cartera-tira');
     vaciar(t);
@@ -430,20 +458,21 @@
       ul.appendChild(li);
     });
 
-    $('#cartera-txt').textContent = (graves.length
+    const antes = graves.length
       ? 'En rojo, ' + (graves.length === 1 ? 'la más grave' : 'las ' + letra(graves.length) + ' más graves') +
         ': lo que atiende una urgencia vital o una cirugía compleja. '
       : faltan.length ? ''
-      : 'El Infanta Cristina declara todo lo que declara ' + h.corto + '. ') +
-      (solo.length ? 'Al revés, el Infanta Cristina declara ' + solo.length + ' que ' + h.corto + ' no: ' +
+      : 'El Infanta Cristina declara todo lo que ' + declara + ' ' + quien + '. ';
+    $('#cartera-txt').textContent = antes +
+      (solo.length ? (antes ? 'Al revés, el' : 'El') + ' Infanta Cristina declara ' + unaN(solo.length) + ' que ' + quien + ' no: ' +
         listaY(solo.map(function (u) { return u.toLowerCase(); })) + '.' : '') +
-      (duena === 'mostoles' ? ' En Móstoles se suman las carteras de sus dos hospitales.' : '');
+      (k.varios > 1 ? ' En ' + NOMBRE[duena] + ' se suman las carteras de sus ' + letra(k.varios) + ' hospitales.' : '');
     botones('#cartera-botones', 'cartera', 'Lo que le falta al hospital', function () {
       const muestra = (graves.length ? graves : faltan).slice(0, 3);
       return {
         pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · Lo que le falta al hospital',
-        cifra: String(faltan.length), que: 'servicios',
-        sub: 'que tiene ' + h.corto + ' y el de Parla no.',
+        cifra: String(faltan.length), que: faltan.length === 1 ? 'unidad' : 'unidades',
+        sub: 'que ' + tiene + ' ' + quien + ' y el de Parla no.',
         cajas: muestra.map(function (u) { return { q: 'Falta', v: u }; })
       };
     }, 'Lo que tiene el hospital que le toca a ' + NOMBRE[AQUI] + ' y el de Parla no');
@@ -478,6 +507,7 @@
     const P = window.PRIMARIA;
     const caja = $('#cabecera');
     if (!P || !P.ciudades[REF] || !P.ciudades[AQUI]) { if (caja) caja.hidden = true; return; }
+    if (caja) caja.hidden = false;
     const c = function (id) { return P.ciudades[id]; };
     $('#cabecera-txt').textContent = 'La gente que le toca a cada médico de familia en los centros de salud: las tarjetas ' +
       'sanitarias de 14 años o más por cada plaza. Cuantas más, menos tiempo para cada paciente.';
@@ -498,8 +528,9 @@
     m.dataset.quien = 'otro';
     m.appendChild(el('p', 'tp-cifra__quien', 'Toda la Comunidad'));
     m.appendChild(el('p', 'tp-cifra__v', entero(P.comunidad.familia)));
-    m.appendChild(el('p', 'tp-cifra__que', 'de media; Parla tiene ' + entero(Math.abs(c(REF).familia - P.comunidad.familia)) +
-      (c(REF).familia > P.comunidad.familia ? ' más por médico' : ' menos por médico')));
+    const dif = c(REF).familia - P.comunidad.familia;
+    m.appendChild(el('p', 'tp-cifra__que', 'de media; en Parla, ' + (dif === 0 ? 'las mismas tarjetas por médico'
+      : entero(Math.abs(dif)) + (dif > 0 ? ' tarjetas más por médico' : ' tarjetas menos por médico'))));
     cif.appendChild(m);
     /* Con las tarjetas por médico de la otra ciudad, cuántos médicos de
        familia tendría Parla: la misma cuenta que el recuento. */
@@ -507,15 +538,15 @@
     const faltan = tendria - c(REF).medicos;
     const tt = $('#cabecera-tira');
     vaciar(tt);
-    tt.appendChild(tira(c(REF).medicos, Math.max(0, faltan)));
+    tt.appendChild(tira(c(REF).medicos, faltan > UMBRAL ? faltan : 0));
     const ley = el('p', 'marcador__ley');
     ley.setAttribute('aria-hidden', 'true');
     ley.innerHTML = '<span class="ley ley--hay"></span>' + c(REF).medicos + ' plazas de médico de familia' +
-      (faltan > 0.04 ? ' <span class="ley ley--hueco"></span>' + num(faltan) + ' que faltan' : '');
+      (faltan > UMBRAL ? ' <span class="ley ley--hueco"></span>' + num(faltan) + ' que faltan' : '');
     tt.appendChild(ley);
     $('#cabecera-faltan-txt').textContent = 'Con la gente que tiene cada médico en ' + NOMBRE[AQUI] + ', Parla tendría ' +
-      num(tendria) + ' médicos de familia. Tiene ' + c(REF).medicos + (faltan > 0.5 ? ': le faltan ' + num(faltan) + '.'
-        : faltan < -0.5 ? ': tiene ' + num(-faltan) + ' de más.' : ': prácticamente los mismos.');
+      num(tendria) + ' médicos de familia. Tiene ' + c(REF).medicos + (faltan > UMBRAL ? ': le faltan ' + num(faltan) + '.'
+        : faltan < -UMBRAL ? ': tiene ' + num(-faltan) + ' de más.' : ': prácticamente los mismos.');
 
     const cont = $('#cabecera-listas');
     vaciar(cont);
@@ -531,7 +562,7 @@
     botones('#cabecera-botones', 'cabecera', 'El médico de cabecera', function () {
       return {
         pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · El médico de cabecera',
-        cifra: entero(c(REF).familia), que: 'pacientes por médico',
+        cifra: entero(c(REF).familia), que: 'tarjetas por médico',
         sub: 'de familia en Parla. En ' + NOMBRE[AQUI] + ', ' + entero(c(AQUI).familia) + '.',
         cajas: [{ q: 'Pediatría en Parla', v: entero(c(REF).pediatria) + ' tarjetas por plaza', ref: true },
           { q: 'Pediatría en ' + NOMBRE[AQUI], v: entero(c(AQUI).pediatria) + ' tarjetas por plaza' }]
@@ -619,12 +650,18 @@
     m.appendChild(tabla);
     const nUni = IDS_TODAS().filter(function (id) { return tiene(uni, id); }).length;
     const nCon = IDS_TODAS().filter(function (id) { return tiene(con, id); }).length;
+    /* «Getafe tiene uno: …», «Pinto tampoco» (si Parla no lo tiene) o «Pinto no». */
     const suyo = function (ind) {
-      return tiene(ind, AQUI) ? NOMBRE[AQUI] + ' tiene ' + ind.datos[AQUI].lista[0].replace(' · ', ', ') : NOMBRE[AQUI] + ' tampoco';
+      return tiene(ind, AQUI) ? NOMBRE[AQUI] + ' tiene uno: ' + ind.datos[AQUI].lista[0].replace(' · ', ', ') + '.'
+        : NOMBRE[AQUI] + (tiene(ind, REF) ? ' no.' : ' tampoco.');
     };
-    $('#despues-txt').textContent = 'Parla ' + (tiene(uni, REF) ? 'tiene' : 'no tiene') + ' campus universitario público: ' +
-      (tiene(uni, REF) ? '' : 'lo tienen ' + letra(nUni) + ' de las ' + letra(IDS_TODAS().length) + '. ') + suyo(uni) + '. ' +
-      'Ni conservatorio profesional de música: lo tienen ' + letra(nCon) + '. ' + suyo(con) + '.';
+    const once = letra(IDS_TODAS().length);
+    $('#despues-txt').textContent =
+      (tiene(uni, REF) ? 'Parla tiene campus universitario público, como otras ' + letra(nUni - 1) + '. '
+        : 'Parla no tiene campus universitario público: lo tienen ' + letra(nUni) + ' de las ' + once + '. ') + suyo(uni) + ' ' +
+      (tiene(con, REF) ? 'Tiene conservatorio profesional de música, como otras ' + letra(nCon - 1) + '. '
+        : (tiene(uni, REF) ? 'No tiene' : 'Tampoco tiene') + ' conservatorio profesional de música: lo tienen ' + letra(nCon) + '. ') +
+      suyo(con);
 
     /* La FP pública, por cada 100 jóvenes de 12 a 17 años. */
     const base = D.BASES[fp.base];
@@ -677,7 +714,7 @@
         cajas: [{ q: 'Parla', v: puestoDe(p, IDS_TODAS().length) + ' de las ' + letra(IDS_TODAS().length), ref: true }]
       };
     }, 'La música, los idiomas y las artes en Parla y en ' + NOMBRE[AQUI]);
-    pieFuentes($('#artes-pie'), 'Mide matrícula, no plazas, y suma lo autonómico (escuelas oficiales de idiomas, conservatorios) ' +
+    pieFuentes($('#artes-pie'), 'Mide alumnos matriculados y suma lo autonómico (escuelas oficiales de idiomas, conservatorios) ' +
       'con lo municipal (escuelas de música y danza).', [[D.fuentes[ind.fuenteId].t, D.fuentes[ind.fuenteId].url]]);
   }
 
@@ -694,15 +731,15 @@
       const h = el('h3', 'espera__h', ind.titulo);
       h.id = 'hay-' + k;
       cont.appendChild(h);
-      cont.appendChild(tira(hay, Math.max(0, falta)));
+      cont.appendChild(tira(hay, falta > UMBRAL ? falta : 0));
       const ley = el('p', 'marcador__ley');
       ley.setAttribute('aria-hidden', 'true');
       ley.innerHTML = '<span class="ley ley--hay"></span>' + hay + ' en Parla' +
-        (falta > 0.04 ? ' <span class="ley ley--hueco"></span>' + num(falta) + ' que faltan' : '');
+        (falta > UMBRAL ? ' <span class="ley ley--hueco"></span>' + num(falta) + ' que faltan' : '');
       cont.appendChild(ley);
       cont.appendChild(el('p', 'tp-nota tp-nota--corta', 'Con la proporción de ' + NOMBRE[AQUI] + ', Parla tendría ' +
         num(tendria) + ' para sus ' + entero(base.valores[REF]) + ' ' + base.etiqueta + '. Tiene ' + hay +
-        (falta > 0.5 ? ': le faltan ' + num(falta) + '.' : falta < -0.5 ? ': tiene ' + num(-falta) + ' de más.' : ': prácticamente los mismos.')));
+        (falta > UMBRAL ? ': le faltan ' + num(falta) + '.' : falta < -UMBRAL ? ': tiene ' + num(-falta) + ' de más.' : ': prácticamente los mismos.')));
       const ir = el('a', 'hay__ir', 'Ver los nombres en el recuento');
       ir.href = (RUTAS ? RAIZ_WEB : 'index.html') + '?ir=ind-' + k + '#' + AQUI;
       cont.appendChild(ir);
@@ -716,6 +753,7 @@
     const I = window.INFANTIL;
     const caja = $('#infantil');
     if (!I || !I.ciudades[REF] || !I.ciudades[AQUI]) { if (caja) caja.hidden = true; return; }
+    if (caja) caja.hidden = false;
     const c = function (id) { return I.ciudades[id]; };
     const frase = function (id) {
       return entero(c(id).solicitudes) + ' solicitudes y ' + entero(c(id).admitidos) + ' admitidos; sin plaza, unos ' +
@@ -742,19 +780,19 @@
       num(c(AQUI).solicitudesPor100, 0) + '.';
     botones('#infantil-botones', 'infantil', 'La escuela infantil', function () {
       return {
-        pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · La escuela infantil, curso ' + I.cursoMatricula,
+        pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · La escuela infantil',
         cifra: num(c(REF).matriculadosPor100, 0), que: 'de cada 100 niños',
-        sub: 'de 0 a 2 años van a una escuela infantil pública en Parla. En ' + NOMBRE[AQUI] + ', ' +
-          num(c(AQUI).matriculadosPor100, 0) + '.',
-        cajas: [{ q: 'Parla, sin plaza', v: num(c(REF).pctSinPlaza, 1) + ' de cada 100 solicitudes', ref: true },
-          { q: NOMBRE[AQUI] + ', sin plaza', v: num(c(AQUI).pctSinPlaza, 1) + ' de cada 100 solicitudes' }]
+        sub: 'de 0 a 2 años van a una escuela infantil pública en Parla (curso ' + I.cursoMatricula + '). En ' +
+          NOMBRE[AQUI] + ', ' + num(c(AQUI).matriculadosPor100, 0) + '.',
+        cajas: [{ q: 'Parla, sin plaza en la admisión ' + I.cursoAdmision, v: num(c(REF).pctSinPlaza, 1) + ' de cada 100 solicitudes', ref: true },
+          { q: NOMBRE[AQUI] + ', sin plaza en la admisión ' + I.cursoAdmision, v: num(c(AQUI).pctSinPlaza, 1) + ' de cada 100 solicitudes' }]
       };
     }, 'La escuela infantil en Parla y en ' + NOMBRE[AQUI]);
-    pieFuentes($('#infantil-pie'), 'Sin plaza es una estimación: las solicitudes no admitidas menos las que entraron desde la ' +
+    pieFuentes($('#infantil-pie'), 'Solicitudes y sin plaza: proceso ordinario de admisión del curso ' + I.cursoAdmision +
+      '. Sin plaza es una estimación: las solicitudes no admitidas menos las que entraron desde la ' +
       'lista de otra escuela de la ciudad. Solo cuenta el proceso ordinario: no están los niños que siguen del curso anterior ni ' +
       'las familias que no piden plaza. Niños en la escuela infantil pública: matriculados en el curso ' + I.cursoMatricula +
-      ', contra los niños de 0 a 2 años del padrón a 1 de enero de 2025.', [I.fuentes.buscador,
-      ['INE · Población por edad, 1 de enero de 2025', 'https://www.ine.es/jaxiT3/Tabla.htm?t=68543']]);
+      ', contra los niños de 0 a 2 años del padrón a ' + padronEdades() + '.', [I.fuentes.buscador, fuenteEdades()]);
   }
 
 
@@ -769,7 +807,7 @@
      recuento. */
   const X_ = function () { return window.DISCAPACIDAD.ciudades; };
   const INTEL = { base: function (id) { return X_()[id].intelectual; }, por: 100,
-    baseTxt: 'personas con discapacidad intelectual reconocida' };
+    baseTxt: 'personas con discapacidad intelectual reconocida', baseCorto: 'personas' };
   const PIE_INTEL = 'Personas con discapacidad intelectual o trastorno del desarrollo reconocida, de todas las edades.';
   const DIS = {
     residencia: Object.assign({ k: 'residencial', titulo: 'Dónde vivir',
@@ -777,40 +815,43 @@
       intro: 'Las residencias y las viviendas con apoyo para personas con discapacidad intelectual que no viven con su familia.' }, INTEL),
     dia: Object.assign({ k: 'dia', titulo: 'El centro de día',
       enlace: 'Los centros de día para la discapacidad intelectual en Parla y en ',
-      intro: 'Los centros de día atienden durante el día a personas con discapacidad intelectual que necesitan apoyo continuo, y que vuelven a dormir a casa.' }, INTEL),
+      intro: 'Los centros de día atienden durante el día a personas con discapacidad intelectual que necesitan apoyo continuo y duermen en casa.' }, INTEL),
     ocupacional: Object.assign({ k: 'ocupacional', titulo: 'El centro ocupacional',
       enlace: 'Los centros ocupacionales en Parla y en ',
       intro: 'Los centros ocupacionales dan talleres y formación a adultos con discapacidad intelectual que no tienen un empleo.' }, INTEL),
     temprana: { k: 'temprana', titulo: 'La atención temprana',
-      base: function (id) { return X_()[id].ninos0a5; }, por: 1000, baseTxt: 'niños de 0 a 5 años',
+      base: function (id) { return X_()[id].ninos0a5; }, por: 1000, baseTxt: 'niños de 0 a 5 años', baseCorto: 'niños',
       enlace: 'La atención temprana en Parla y en ',
       intro: 'Los centros de atención temprana tratan a niños de 0 a 5 años con un trastorno del desarrollo o con riesgo de tenerlo: estimulación, fisioterapia, logopedia.' },
-    mental: { k: 'mental', titulo: 'La salud mental', base: adultos, por: 10000, baseTxt: 'vecinos de 18 a 64 años',
+    mental: { k: 'mental', titulo: 'La salud mental', base: adultos, por: 10000, baseTxt: 'vecinos de 18 a 64 años', baseCorto: 'vecinos',
       enlace: 'La red de salud mental en Parla y en ',
       intro: 'La red de atención social a personas con enfermedad mental grave: residencias y pisos supervisados, centros de día y centros de rehabilitación psicosocial y laboral.' },
     especial: { k: 'especial', titulo: 'La educación especial', unidad: 'alumnos', m: true,
-      base: escolares, por: 1000, baseTxt: 'niños y jóvenes de 3 a 17 años', lista: 'Los colegios de educación especial de ',
+      ninguno: 'ningún alumno de educación especial',
+      base: escolares, por: 1000, baseTxt: 'niños y jóvenes de 3 a 17 años', baseCorto: 'niños y jóvenes',
+      lista: 'Los colegios de educación especial de ',
       enlace: 'La educación especial en Parla y en ',
       intro: 'Los alumnos que estudian en educación especial, en un colegio específico o en un aula de educación especial ' +
         'dentro de un colegio ordinario, porque necesitan más apoyo del que da una clase ordinaria. Debajo, los colegios específicos.',
       pie: function (X) {
         return ['Alumnos de educación especial en centros públicos y concertados, donde estudian, en el curso ' + X.cursoEspecial +
-          '. Los colegios, públicos y concertados, dados de alta. Escolarizan también a alumnos de otras ciudades, y llegan ' +
-          'hasta los 21 años. Niños y jóvenes de 3 a 17 años a 1 de enero de 2025.',
-          [X.fuentes.alumnos, X.fuentes.colegios, [D.fuentes.edades.t, D.fuentes.edades.url]]];
+          '. Los colegios, públicos y concertados, en alta. Tienen también alumnos de otras ciudades, y de hasta 21 años. ' +
+          'Niños y jóvenes de 3 a 17 años a ' + padronEdades() + '.',
+          [X.fuentes.alumnos, X.fuentes.colegios, fuenteEdades()]];
       } },
     tea: { k: 'tea', titulo: 'Las aulas TEA', unidad: 'aulas', pocos: true,
-      base: escolares, por: 10000, baseTxt: 'niños y jóvenes de 3 a 17 años',
+      base: escolares, por: 10000, baseTxt: 'niños y jóvenes de 3 a 17 años', baseCorto: 'niños y jóvenes',
       enlace: 'Las aulas TEA en Parla y en ',
       intro: 'Las aulas de apoyo para alumnos con trastorno del espectro autista dentro de colegios e institutos ordinarios: ' +
         'pasan parte del día en ellas y el resto en su clase.',
       pie: function (X) {
         return ['Aulas de apoyo de los centros de atención preferente para alumnado con TEA, públicos y concertados, en el ' +
-          'término de cada ciudad, según la lista de la Comunidad de Madrid. Niños y jóvenes de 3 a 17 años a 1 de enero de 2025.',
-          [X.fuentes.tea, [D.fuentes.edades.t, D.fuentes.edades.url]]];
+          'término de cada ciudad, según la lista de la Comunidad de Madrid. Niños y jóvenes de 3 a 17 años a ' + padronEdades() + '.',
+          [X.fuentes.tea, fuenteEdades()]];
       } },
     ppme: { k: 'ppme', titulo: 'La FP de modalidad especial', unidad: 'programas', m: true, pocos: true,
       base: function (id) { return D.BASES.secundaria.valores[id]; }, por: 10000, baseTxt: 'chicos y chicas de 12 a 17 años',
+      baseCorto: 'chicos y chicas',
       enlace: 'La FP de modalidad especial en Parla y en ',
       intro: 'Los programas profesionales de modalidad especial: dos cursos de formación para un oficio, para alumnos con ' +
         'discapacidad que no pueden seguir la FP Básica y no tienen el título de la ESO, desde los 16 años y hasta los 21. ' +
@@ -818,7 +859,7 @@
       pie: function (X) {
         return ['Programas de la oferta del curso ' + X.cursoPpme + ', la última que ha publicado la Comunidad de Madrid, en el ' +
           'término de cada ciudad; cada perfil cuenta como un programa. Se cuentan contra los chicos y chicas de 12 a 17 años, ' +
-          'que son quienes llegarán a ellos.', [X.fuentes.ppme, [D.fuentes.edades.t, D.fuentes.edades.url]]];
+          'que son quienes llegarán a ellos.', [X.fuentes.ppme, fuenteEdades()]];
       } }
   };
   /* Los niños y jóvenes de 3 a 17 años. */
@@ -840,12 +881,13 @@
     const dec = function (x) { return num(x, x === 0 ? 0 : 1); };
     /* Cuando son pocos, «tendría 2,6» dice más que redondear. */
     const n = function (x) { return cfg.pocos ? num(x) : entero(Math.round(x)); };
-    const ninguno = cfg.m ? 'ninguno' : 'ninguna';
+    /* «ninguna plaza», «ningún programa», «ningún alumno de educación especial». */
+    const ninguno = cfg.ninguno || (cfg.m ? 'ningún ' : 'ninguna ') + sing;
 
     $('#' + clave + '-txt').textContent = cfg.intro;
     cifrasPar($('#' + clave + '-cifras'), function (id) { return dec(v(id)); }, function (id) {
       return unidad + ' por cada ' + entero(por) + ' ' + cfg.baseTxt + ' · ' + de(cuantos(id)) + ' para ' +
-        entero(base(id));
+        entero(base(id)) + (cfg.baseCorto ? ' ' + cfg.baseCorto : '');
     });
     const tendria = v(AQUI) / por * base(REF);
     const igual = cuantos(REF) > 0 && Math.abs(tendria - cuantos(REF)) < 0.5;
@@ -864,9 +906,14 @@
       ? (ceros.length === 1 ? 'Parla es la única de las ' + letra(todas.length) + ' sin ' + ninguno + '.'
         : 'Parla es una de las ' + letra(ceros.length) + ' sin ' + ninguno + ', con ' +
           listaY(ceros.filter(function (id) { return id !== REF; }).map(function (id) { return NOMBRE[id]; })) + '.')
-      : 'Parla es ' + puestoDe(p, todas.length) + ' de las ' + letra(todas.length) + '.' +
-        (ceros.length ? ' ' + listaY(ceros.map(function (id) { return NOMBRE[id]; })) +
-          (ceros.length === 1 ? ' no tiene ' : ' no tienen ') + ninguno + '.' : '');
+      : 'Parla es ' + puestoDe(p, todas.length) + ' de las ' + letra(todas.length) + '.' + (function () {
+        /* La ciudad elegida ya va en la nota de arriba: aquí, las demás. */
+        const otras = ceros.filter(function (id) { return id !== AQUI; });
+        if (!otras.length) return '';
+        return ' ' + listaY(otras.map(function (id) { return NOMBRE[id]; })) +
+          (cuantos(AQUI) === 0 ? (otras.length === 1 ? ' tampoco tiene ' : ' tampoco tienen ')
+            : (otras.length === 1 ? ' no tiene ' : ' no tienen ')) + ninguno + '.';
+      })();
 
     /* Lo que hay en Parla, a la vista; lo de la otra ciudad, plegado. */
     const cont = $('#' + clave + '-centros');
@@ -898,7 +945,7 @@
     }
 
     const pies = {
-      mental: ['Vecinos de 18 a 64 años a 1 de enero de 2025.', [[D.fuentes.edades.t, D.fuentes.edades.url]]],
+      mental: ['Vecinos de 18 a 64 años a ' + padronEdades() + '.', [fuenteEdades()]],
       temprana: ['Niños de 0 a 5 años a 1 de enero de ' + X.anioPadron + '.', [X.fuentes.ninos]]
     };
     if (cfg.pie) {
@@ -993,13 +1040,19 @@
     const con = function (k) { return IDS_TODAS().filter(function (id) { return o(id)[k].length; }); };
     const ufil = con('ufil'), cepa = con('cepa');
     const tiene = function (id, k) { return o(id)[k].length > 0; };
+    const total = IDS_TODAS().length, once = letra(total);
+    const otras = function (n) { return n === 1 ? 'otra' : 'otras ' + letra(n); };
+    const sedes = [];
+    if (tiene(REF, 'eoep')) sedes.push('un equipo de orientación general');
+    if (tiene(REF, 'eoepTemprana')) sedes.push(sedes.length ? 'uno de atención temprana' : 'un equipo de atención temprana');
     $('#orientacion-txt').textContent = (tiene(REF, 'ufil')
-      ? 'Parla tiene una UFIL, ' + o(REF).ufil[0] + ': solo la tienen ' + letra(ufil.length) + ' de las ' + letra(IDS_TODAS().length) +
-        (tiene(AQUI, 'ufil') ? ', ' + NOMBRE[AQUI] + ' también. ' : ', y ' + NOMBRE[AQUI] + ' no. ')
+      ? 'Parla tiene una UFIL, ' + o(REF).ufil[0] + (ufil.length === 1 ? ': es la única de las ' + once
+        : ': ' + (ufil.length * 2 < total ? 'solo ' : '') + 'la tienen ' + letra(ufil.length) + ' de las ' + once) +
+        (tiene(AQUI, 'ufil') ? '; ' + NOMBRE[AQUI] + ', también. ' : '; ' + NOMBRE[AQUI] + ', no. ')
       : 'Parla no tiene UFIL. ') +
-      (tiene(REF, 'cepa') ? 'Tiene CEPA, como ' + letra(cepa.length - 1) + ' más' : 'No tiene CEPA') +
-      (tiene(REF, 'eoep') ? ', y en Parla tiene su sede un equipo de orientación general' +
-        (tiene(REF, 'eoepTemprana') ? ' y uno de atención temprana.' : '.') : '.');
+      (tiene(REF, 'cepa') ? (cepa.length === 1 ? 'Es la única con CEPA. ' : 'Tiene CEPA, como ' + otras(cepa.length - 1) + '. ')
+        : 'No tiene CEPA. ') +
+      (sedes.length ? 'En Parla ' + (sedes.length > 1 ? 'tienen' : 'tiene') + ' su sede ' + listaY(sedes) + '.' : '');
     pieFuentes($('#orientacion-pie'), 'Centros dados de alta en el directorio de la Comunidad de Madrid, en el término de cada ' +
       'ciudad. Las UFIL y los CEPA reciben también a gente de otras ciudades, y cada equipo de orientación atiende a los ' +
       'colegios de una zona que puede abarcar varias.', [window.DISCAPACIDAD.fuentes.colegios]);
@@ -1018,7 +1071,7 @@
     const n = $('#golpe');
     if (!n) return;
     vaciar(n);
-    if (PAGINA === 'sanidad' && window.SANIDAD) {
+    if (PAGINA === 'sanidad' && window.SANIDAD && window.SANIDAD.ciudades[REF] && window.SANIDAD.ciudades[AQUI]) {
       const r = hospitalDe(REF), a = hospitalDe(AQUI);
       /* En escritorio, la misma cifra en grande a la derecha del titular. */
       const dato = $('#portada-dato');
@@ -1053,8 +1106,12 @@
       }
     } else if (PAGINA === 'inclusion' && window.DISCAPACIDAD) {
       const X = window.DISCAPACIDAD.ciudades, r = X[REF], a = X[AQUI];
+      const plazas = function (n, conNombre) {
+        return n === 0 ? 'ninguna' + (conNombre ? ' plaza' : '') : entero(n) + (conNombre ? (n === 1 ? ' plaza' : ' plazas') : '');
+      };
       const enDos = function (x) {
-        return entero(x.residencial.plazas) + ' plazas en residencias y ' + entero(x.dia.plazas) + ' en centros de día';
+        return plazas(x.residencial.plazas, true) + ' en residencias y ' + plazas(x.dia.plazas, x.residencial.plazas === 0) +
+          ' en centros de día';
       };
       n.appendChild(document.createTextNode('En Parla hay ' + entero(r.intelectual) + ' personas con discapacidad intelectual reconocida, y '));
       n.appendChild(el('b', 'parla', r.residencial.plazas === 0 && r.dia.plazas === 0

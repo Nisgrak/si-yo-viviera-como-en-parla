@@ -44,7 +44,11 @@
     if (dec === undefined) dec = Math.abs(n - Math.round(n)) < 0.05 ? 0 : 1;
     return n.toLocaleString('es-ES',
       { useGrouping: true, minimumFractionDigits: dec, maximumFractionDigits: dec });
-  }
+  }  /* Euros por habitante: de 10 € para arriba, sin céntimos, que sobre 780 €
+     son ruido; por debajo, con ellos, para que 0,02 € no se lea 0. Los
+     recibos (lo que paga un vecino) van siempre con céntimos. */
+  function eurHab(v) { return num(v, Math.abs(v) >= 10 || v === 0 ? 0 : 2); }
+
 
   /* Dos decimales sobre 281 es ruido; sobre 1,45 es información. */
   function numTasa(v) {
@@ -53,10 +57,14 @@
 
   /* Una superficie, en la unidad que se lea: kilómetros cuadrados, hectáreas o
      metros, según el tamaño. `redonda` quita los decimales, para el cartel. */
-  function enSuperficie(m2, redonda) {
-    if (m2 >= 1000000) return num(m2 / 1000000, redonda ? 1 : 2) + ' km²';
-    if (m2 >= 10000) return num(m2 / 10000, redonda ? 0 : 1) + ' ha';
-    return entero(Math.round(m2)) + ' m²';
+  function unidadSuperficie(m2) { return m2 >= 1000000 ? 'km2' : m2 >= 10000 ? 'ha' : 'm2'; }
+  /* `unidad` fuerza una unidad, para que dos cifras de una misma frase vayan
+     en la misma. Entre cifra y unidad, espacio duro: no se parten de línea. */
+  function enSuperficie(m2, redonda, unidad) {
+    const u = unidad || unidadSuperficie(m2);
+    if (u === 'km2') return num(m2 / 1000000, redonda ? 1 : 2) + ' km²';
+    if (u === 'ha') return num(m2 / 10000, redonda ? 0 : 1) + ' ha';
+    return entero(Math.round(m2)) + ' m²';
   }
 
   /* Casi todos los indicadores cuentan cosas; el verde mide superficie. Estas
@@ -100,7 +108,7 @@
      cada 32.206 en Getafe.» Parla siempre delante. */
   function enCristiano(c) {
     if (esSuperficie(c)) {
-      return num(c.tasaParla, 1) + ' m² por habitante en ' + NOMBRE_REF + '; ' +
+      return num(c.tasaParla, 1) + '\u00a0m² por habitante en ' + NOMBRE_REF + '; ' +
         num(c.tasaOtra, 1) + ' en ' + NOMBRE[AQUI] + '.';
     }
     const g = c.ind.gen || 'm';
@@ -133,7 +141,7 @@
         : trozos.length === 0 ? 'Fuente: ' : (despues || 'Población de referencia: ');
       trozos.push(rot + '<a href="' + f.url + '" target="_blank" rel="noopener">' + f.t + '</a>');
     });
-    return el('p', 'ind__fuente', trozos.join('. '));
+    return el('p', 'ind__fuente', trozos.join('. ') + (trozos.length ? '.' : ''));
   }
 
 
@@ -353,7 +361,9 @@
     const det = el('details', 'plegable');
     det.appendChild(el('summary', null, titulo));
     const ul = el('ul', 'nombres');
-    nombres.forEach(function (n) { ul.appendChild(filaNombre(n, cls)); });
+    /* En orden alfabético de verdad: «Ángel González» va con la A, no al final. */
+    nombres.slice().sort(function (x, y) { return x.localeCompare(y, 'es'); })
+      .forEach(function (n) { ul.appendChild(filaNombre(n, cls)); });
     det.appendChild(ul);
     return det;
   }
@@ -391,7 +401,7 @@
       const o = ordinal(c.parla + enteros + 1, g);     /* «La 3.ª», «El 1.er» */
       ul.appendChild(filaNombre((enteros ? 'Y ' + o.charAt(0).toLowerCase() + o.slice(1) : o + ' ' + i.sing) +
         ', a medias', 'nombre--hueco nombre--parte',
-        'falta el ' + num(parte * 100, 0) + ' %'));
+        'falta el ' + num(parte * 100, 0) + '\u00a0%'));
     }
     cont.appendChild(ul);
 
@@ -440,15 +450,20 @@
         (c.otra === 0 ? 'donde ' + NOMBRE[AQUI] + ' no tiene ' + ninguno[g] : 'más de ' +
         (g === 'f' ? 'las' : 'los') + ' que le tocarían') + '</span>';
     } else if (esSuperficie(c)) {
-      titular = 'Le faltan <span class="cifra">' + enSuperficie(c.falta) + '</span> <span class="resto">' +
-        'a ' + (c.parla ? 'los ' + enSuperficie(c.parla) + ' que tiene' : 'lo que tiene') + '</span>';
+      /* Las dos cifras en la misma unidad, la de lo que falta. */
+      const u = unidadSuperficie(c.falta);
+      titular = 'Le faltan <span class="cifra">' + enSuperficie(c.falta, false, u) + '</span> <span class="resto">' +
+        'a ' + (c.parla ? (u === 'ha' ? 'las ' : 'los ') + enSuperficie(c.parla, false, u) + ' que tiene'
+          : 'lo que tiene') + '</span>';
     } else if (c.parla === 0) {
+      /* Singular solo con exactamente una: con decimales va en plural. */
       titular = 'No tiene <span class="cifra cifra--palabra">' + ninguno[g] + '</span> ' +
-        '<span class="resto">y le ' + (c.tendria < 1.5 ? 'correspondería' : 'corresponderían') + ' ' +
+        '<span class="resto">y le ' + (num(c.tendria) === '1' ? 'correspondería' : 'corresponderían') + ' ' +
         num(c.tendria) + '</span>';
     } else {
       titular = 'Le faltan <span class="cifra">' + num(c.falta) + '</span> <span class="resto">a ' +
-        (g === 'f' ? 'las ' : 'los ') + entero(c.parla) + ' que tiene</span>';
+        (c.parla === 1 ? (g === 'f' ? 'la única' : 'el único')
+          : (g === 'f' ? 'las ' : 'los ') + entero(c.parla)) + ' que tiene</span>';
     }
     art.appendChild(el('p', 'ind__titular', titular));
 
@@ -471,7 +486,8 @@
     /* La nota del giro solo es verdad donde el divisor le da la vuelta: con la
        población total Parla saldría bien, con la de su edad sale mal. */
     const gira = i.notaGiro && c.faltaTotal <= UMBRAL && c.falta > UMBRAL;
-    const nota = gira ? i.notaGiro : i.nota;
+    /* Y lo que solo vale para una ciudad (notaCiudad), detrás, si es la elegida. */
+    const nota = [gira ? i.notaGiro : i.nota, (i.notaCiudad || {})[AQUI]].filter(Boolean).join(' ');
     if (nota) art.appendChild(el('p', 'ind__nota', texto(nota)));
     art.appendChild(pieFuente([i.fuenteId, c.base.fuenteId].concat(
       i.limitesFuenteId ? [[i.limitesFuenteId, 'Límites municipales: ']] : [])));
@@ -488,17 +504,18 @@
     let titular;
     if (sobra) {
       titular = 'Tiene <span class="cifra">' + c.soloParla.length + '</span> <span class="resto">' +
-        (c.otra ? 'unidades que no tiene el ' + c.nombre : 'unidades donde ' + NOMBRE[AQUI] +
-        ' no tiene hospital público') + '</span>';
+        (c.otra ? 'unidades que no ' + (c.plural ? 'tienen ' : 'tiene ') + (c.frase || 'el ' + c.nombre)
+          : 'unidades donde ' + NOMBRE[AQUI] + ' no tiene hospital público') + '</span>';
     } else {
       titular = 'Le faltan <span class="cifra">' + c.lista.length + '</span> <span class="resto">' +
-        'unidades que sí tiene el ' + c.nombre + '</span>';
+        'unidades que sí ' + (c.plural ? 'tienen ' : 'tiene ') + (c.frase || 'el ' + c.nombre) + '</span>';
     }
     art.appendChild(el('p', 'ind__titular', titular));
 
-    /* Por ciudad y no por hospital: Móstoles tiene dos y se suman sus carteras. */
+    /* Por ciudad y no por hospital: Móstoles tiene dos y se suman sus carteras.
+       Sin las unidades que no se comparan, como dice la nota. */
     const cuenta = c.otra
-      ? 'Unidades asistenciales declaradas: ' + c.parla + ' en ' + NOMBRE_REF + ', ' + c.otra +
+      ? 'Unidades asistenciales que se comparan: ' + c.parla + ' en ' + NOMBRE_REF + ', ' + c.otra +
         ' en ' + NOMBRE[AQUI] + '.'
       : NOMBRE[AQUI] + ' no tiene hospital público. En ' + NOMBRE_REF + ', el ' +
         D.hospitales[REF].nombre + ' declara ' + c.parla + ' unidades asistenciales.';
@@ -754,9 +771,9 @@
     caja.appendChild(tabla);
 
     caja.appendChild(el('p', 'lee__txt',
-      'En ' + NOMBRE[AQUI] + ' hay <b>' + uno[g] + ' ' + c.ind.sing + ' por cada ' +
+      'En ' + NOMBRE[AQUI] + ' hay <b>' + UNO[g].toLowerCase() + ' ' + c.ind.sing + ' por cada ' +
       cadaCuantos(c.otra, c.baseOtra) + ' ' + c.base.etiqueta + '</b>. ' + NOMBRE_REF +
-      ' tiene ' + entero(c.baseParla) + ', así que con esa proporción le corresponderían <b>' +
+      ' tiene ' + entero(c.baseParla) + ' ' + c.base.etiqueta + ', así que con esa proporción le corresponderían <b>' +
       num(c.tendria, 1) + '</b>. Tiene <b>' + entero(c.parla) + '</b>. Le faltan ' +
       '<b class="lee__dif">' + num(c.falta) + '</b>, y así sale cada línea del recuento.'));
   }
@@ -845,7 +862,7 @@
       extra.push({
         ico: 'euro',
         q: (s.id === 'inversion' ? 'Inversión' : 'Gasto') + ' municipal al año',
-        n: a.igual ? '≈' : (a.dif < 0 ? '+' : '') + num(Math.abs(a.dif) / 1e6, 1) + ' M€',
+        n: a.igual ? '≈' : (a.dif < 0 ? '+' : '') + num(Math.abs(a.dif) / 1e6, 1) + '\u00a0M€',
         modo: a.dif < 0 && !a.igual ? 'sobra' : 'aparte',
         href: '#dinero-' + s.id
       });
@@ -895,9 +912,11 @@
        números ya redondeados, para que la cuenta cuadre a la vista. */
     const f = Math.round(TOTAL);
     const s = Math.round(SOBRA);
+    const neto = f > s ? 'En neto, le ' + (f - s === 1 ? 'falta ' : 'faltan ') + (f - s) + '.'
+      : f < s ? 'En neto, tiene ' + (s - f) + ' más.' : 'En neto, queda igual.';
     $('#resumen-total').innerHTML = s > 0
       ? 'A Parla le faltan <b>' + f + ' equipamientos</b> y tiene <b class="gana">' + s +
-        '</b> de más: ' + (f - s) + ' menos en neto.'
+        '</b> de más. ' + neto
       : 'A Parla le faltan <b>' + f + ' equipamientos</b> en total.';
   }
 
@@ -938,7 +957,7 @@
   /* Importes grandes en millones. En los flujos anuales, los pequeños se
      redondean al millar; los saldos pequeños se pueden conservar exactos. */
   function enEuros(e, redondearMiles) {
-    if (e >= 1e6) return num(e / 1e6, 1) + ' millones de euros';
+    if (e >= 1e6) return num(e / 1e6, 1) + '\u00a0millones de euros';
     return entero(redondearMiles === false ? e : Math.round(e / 1000) * 1000) + ' euros';
   }
 
@@ -989,13 +1008,10 @@
           enEuros(s.saldoEuros[REF], false) + '</span>. ' + NOMBRE[AQUI] + ' debe ' +
           enEuros(s.saldoEuros[AQUI], false) + '.'));
       }
-      /* Los decimales, los que trae la fuente; sin indicarlos, la cifra tal cual. */
-      const cifra = function (v) {
-        return s.decimales != null ? num(v, s.decimales) : s.saldoEuros ? num(v, 2) : entero(v);
-      };
+      const cifra = function (v) { return eurHab(v); };
       art.appendChild(filasDinero(s, s.unidad === '%'
-        ? function (v) { return num(v, s.decimales != null ? s.decimales : 2) + ' %'; }
-        : function (v) { return cifra(v) + ' €'; }));
+        ? function (v) { return num(v, s.decimales != null ? s.decimales : 2) + '\u00a0%'; }
+        : function (v) { return cifra(v) + '\u00a0€'; }));
       /* Cada serie de extra da a la nota {claveRef} y {claveAqui}. */
       const huecos = {};
       Object.keys(s.extra || {}).forEach(function (k) {
@@ -1012,6 +1028,13 @@
     $('#dinero-cierre').textContent = texto(D.contexto.dineroNota, {
       impuestosAqui: entero(imp[AQUI]), impuestosRef: entero(imp[REF])
     });
+    /* La cifra de impuestos también lleva su fuente. Se rehace en cada pintada. */
+    const viejo = $('#dinero-cierre-fuente');
+    if (viejo) viejo.parentNode.removeChild(viejo);
+    const pieImp = pieFuente([['conprel', 'Impuestos directos (capítulo 1 de ingresos) por habitante, ' +
+      'media de 2021 a 2024: '], [D.BASES.total.fuenteId, 'Población: ']]);
+    pieImp.id = 'dinero-cierre-fuente';
+    $('#dinero-cierre').insertAdjacentElement('afterend', pieImp);
     const ir = RUTAS ? RAIZ_WEB + AQUI + '/economia/' : 'economia.html#' + AQUI;
     $('#dinero-ir').href = ir;
     const atajo = $('#portada-economia');
@@ -1047,7 +1070,7 @@
         barra.style.setProperty('--v', (v / tope).toFixed(4));
         pista.appendChild(barra);
         fila.appendChild(pista);
-        fila.appendChild(el('span', 'tasa__valor', num(v, 1) + ' %'));
+        fila.appendChild(el('span', 'tasa__valor', num(v, 1) + '\u00a0%'));
         tramo.appendChild(fila);
       });
       graf.appendChild(tramo);
@@ -1070,8 +1093,8 @@
     const dens = function (m) { return pob[m] / s[m]; };
 
     let t = NOMBRE_REF + ' reparte sus ' + entero(pob[REF]) + ' habitantes en ' +
-      num(s[REF], 1) + ' km², ' + entero(Math.round(dens(REF))) + ' por kilómetro cuadrado; ' +
-      NOMBRE[AQUI] + ' reparte los suyos en ' + num(s[AQUI], 1) + ' km², ' +
+      num(s[REF], 1) + '\u00a0km², ' + entero(Math.round(dens(REF))) + ' por kilómetro cuadrado; ' +
+      NOMBRE[AQUI] + ' reparte los suyos en ' + num(s[AQUI], 1) + '\u00a0km², ' +
       entero(Math.round(dens(AQUI))) + '.';
     const cola = [];
     if (ids.every(function (m) { return s[REF] <= s[m]; })) cola.push('la de menos suelo');
@@ -1299,42 +1322,11 @@
 
   /* ── Cartel A4 ────────────────────────────────────────────────────────
      Un cartel por indicador, con formato de anuncio: la cifra, lo que le
-     falta a Parla y un QR a la web. El PDF lo hace el propio navegador desde el
-     diálogo de impresión, así que no hace falta ninguna librería. El QR va
-     ya trazado en assets/qr.js, generado por herramientas/qr.py. */
+     falta a Parla y un QR a la web. Las piezas, el diálogo y la impresión
+     son los de assets/cartel.js, los mismos de las demás páginas; aquí se
+     decide solo qué lleva cada cartel de la portada. */
 
-  function qrSvg() {
-    const q = (window.QR || {})[AQUI] || (window.QR || {})._;
-    if (!q) return null;
-    const caja = el('div', 'kqr');
-    const lado = q.n + 8;                       /* zona de silencio: 4 módulos */
-    caja.innerHTML =
-      '<svg viewBox="-4 -4 ' + lado + ' ' + lado + '" role="img" ' +
-      'aria-label="Código QR a ' + q.url + '">' +
-      '<rect x="-4" y="-4" width="' + lado + '" height="' + lado + '" fill="#fff"/>' +
-      '<path d="' + q.d + '" fill="#161616"/></svg>';
-    return caja;
-  }
-
-  /* La tira de unidades: un hueco por equipamiento que le falta a Parla. Es
-     lo que en la portada se ve aparecer, aquí ya terminado y en tamaño de
-     imprenta. El lado lo fija quien la monta, en --ku. */
-  function tiraUnidades(cuantos) {
-    const r = el('div', 'krejilla');
-    for (let i = 0; i < cuantos; i++) {
-      const u = el('span', 'ku');
-      u.innerHTML = HUECO;
-      r.appendChild(u);
-    }
-    return r;
-  }
-
-  /* El hueco, el mismo de la web: esquina corta y un trazo largo centrado en
-     cada lado, en rojo. Va en SVG para que imprima igual que se ve. */
-  const HUECO =
-    '<svg viewBox="0 0 15 15" fill="none" stroke="#c02719" stroke-width="1.5" aria-hidden="true" focusable="false">' +
-    '<path d="M.75 4.25V3.75a3 3 0 0 1 3-3H4.25M10.75 .75h0.5a3 3 0 0 1 3 3V4.25M14.25 10.75v0.5a3 3 0 0 1-3 3H10.75' +
-    'M4.25 14.25H3.75a3 3 0 0 1-3-3V10.75M5.5 .75H9.5M14.25 5.5V9.5M9.5 14.25H5.5M.75 9.5V5.5"/></svg>';
+  const K = window.CARTEL && window.CARTEL.piezas;
 
   /* Reparto entero de los subtotales de área, por resto mayor, para que las
      cifras de las cajas sumen exactamente los cuadrados del titular. Redondear
@@ -1355,189 +1347,98 @@
     return n;
   }
 
-  /* Los dos fondos (medio mega) se piden cuando alguien va a por un
-     cartel: al pasar por un botón o llegar a él con el teclado. Antes de
-     imprimir se espera a que estén, que a medio cargar saldrían en blanco. */
-  const FONDOS = ['papel', 'barrio'];
-  /* La ruta se resuelve ya, al cargar: luego la barra de direcciones pasa a
-     /getafe/ y una ruta relativa se iría a buscar a /getafe/assets/. */
-  const CARTEL = new URL('assets/cartel/', location.href).href;
-  let precargados = false;
-  function precargar(e) {
-    if (precargados || !e.target.closest || !e.target.closest('.compartir, .fondos')) return;
-    precargados = true;
-    FONDOS.forEach(function (f) { (new Image()).src = CARTEL + f + '.jpg'; });
-  }
-  ['pointerover', 'focusin', 'touchstart'].forEach(function (t) { document.addEventListener(t, precargar, { passive: true }); });
+  const PRE = function () { return NOMBRE_REF + ' frente a ' + NOMBRE[AQUI]; };
 
-  function fondoElegido() {
-    try {
-      const g = localStorage.getItem('fondo');
-      if (FONDOS.indexOf(g) >= 0) return g;
-    } catch (e) { /* sin almacenamiento: el de siempre */ }
-    return FONDOS[0];
-  }
-
-  /* Las tres piezas que comparten el cartel de un indicador y el general: el
-     fondo, el titular y la banda del pie. Se montan en este orden porque la
-     banda va después de la capa, y el titular lo mide ajustarTitular(). */
-  function montarCartel(raiz, fondo, pre) {
-    vaciar(raiz);
-    raiz.className = 'cartel cartel--afiche';
-    raiz.setAttribute('data-fondo', fondo);
-
-    const img = el('img', 'kfondo');
-    img.src = CARTEL + fondo + '.jpg';
-    img.alt = '';
-    raiz.appendChild(img);
-
-    const capa = el('div', 'kcapa');
-    capa.appendChild(el('p', 'kpre', pre || NOMBRE_REF + ' frente a ' + NOMBRE[AQUI]));
-    raiz.appendChild(capa);
-    return capa;
-  }
-
-  /* El titular se lee solo, pegado en una farola: quién («A Parla le
-     faltan»), la cifra, qué (en rojo, como los carteles de barrio) y, debajo,
-     una frase corta que dice contra qué se mide. */
-  function titularCartel(capa, antes, cifra, que, sub) {
-    const tit = el('h1', 'ktit');
-    if (antes) tit.appendChild(el('span', 'ktit__a', antes));
-    tit.appendChild(el('span', 'ktit__n', cifra));
-    tit.appendChild(el('span', 'ktit__q', que));
-    capa.appendChild(tit);
-    if (sub) capa.appendChild(el('p', 'ksub', sub));
-    return tit;
-  }
-
-  /* Banda inferior: el cuadro blanco de la referencia es el QR. */
-  function bandaCartel(raiz) {
-    const banda = el('div', 'kbanda');
-    const qr = qrSvg();
-    if (qr) banda.appendChild(qr);
-    const txt = el('div', 'kbanda__txt');
-    const marca = el('div', 'kbanda__marca');
-    const cola = document.querySelector('.marca__ballena');
-    if (cola) marca.appendChild(cola.cloneNode(true));
-    marca.appendChild(el('p', 'kbanda__h', D.NOMBRE_WEB.replace(', ', ',<br>')));
-    txt.appendChild(marca);
-    txt.appendChild(el('span', 'kbanda__raya'));
-    txt.appendChild(el('p', 'kbanda__url', 'siyovivieracomoenparla.netlify.app'));
-    banda.appendChild(txt);
-    raiz.appendChild(banda);
-  }
-
-  function cartelIndicador(c, modo) {
+  function cartelIndicador(c, modo, fondo) {
     const sobra = modo === 'sobra';
     const cuantos = Math.abs(c.falta);
-    const raiz = $('#cartel');
-    const fondo = fondoElegido();
-    const capa = montarCartel(raiz, fondo);
+    const raiz = K.hoja();
+    const capa = K.base(raiz, fondo, PRE());
     const i = c.ind;
-    const suyo = function (n) { return n.replace(/^Hospital Universitario /, 'el hospital '); };
+    const suyo = function (n) { return c.frase || n.replace(/^Hospital Universitario /, 'el hospital '); };
+    const tiene = c.plural ? 'tienen ' : 'tiene ';
     /* «137.471 vecinos», «14.212 niños y niñas de 3 a 11 años». */
     const gente = function (id) {
       const b = c.base;
       return entero(b.valores[id]) + ' ' + (b === D.BASES.total ? 'vecinos' : b.etiqueta);
     };
-    let tit;
+    let d;
     if (esCartera(c)) {
-      tit = sobra
-        ? titularCartel(capa, '', entero(cuantos), 'servicios',
-          c.otra ? 'que tiene el hospital de ' + NOMBRE_REF + ' y ' + suyo(c.nombre) + ' no.'
-            : 'tiene el hospital de ' + NOMBRE_REF + '. ' + NOMBRE[AQUI] + ' no tiene hospital público.')
-        : titularCartel(capa, '', entero(cuantos), 'servicios',
-          'que tiene ' + suyo(c.nombre) + ' y el de ' + NOMBRE_REF + ' no.');
+      d = sobra
+        ? { cifra: entero(cuantos), que: cuantos === 1 ? 'unidad' : 'unidades',
+          sub: c.otra ? 'que tiene el hospital de ' + NOMBRE_REF + ' y ' + suyo(c.nombre) + ' no.'
+            : 'en el hospital de ' + NOMBRE_REF + '. ' + NOMBRE[AQUI] + ' no tiene hospital público.' }
+        : { cifra: entero(cuantos), que: cuantos === 1 ? 'unidad' : 'unidades', sub: 'que ' + tiene + suyo(c.nombre) + ' y el de ' + NOMBRE_REF + ' no.' };
     } else if (esSuperficie(c)) {
-      tit = titularCartel(capa, NOMBRE_REF + ' tiene', num(c.tasaParla, 1) + ' m²', 'de verde por vecino',
-        NOMBRE[AQUI] + ' tiene ' + num(c.tasaOtra, 1) + ' m².');
+      d = { antes: NOMBRE_REF + ' tiene', cifra: num(c.tasaParla, 1) + ' m²', que: 'de verde por vecino',
+        sub: NOMBRE[AQUI] + ' tiene ' + num(c.tasaOtra, 1) + ' m².' };
     } else {
       /* Lo que hay en cada ciudad, en bruto, con su población al lado: sin
          proporciones, y justo aunque una ciudad sea mucho más grande. */
-      tit = titularCartel(capa, NOMBRE_REF + ' tiene', entero(c.parla),
-        c.parla === 1 && i.sing ? i.sing : i.titulo,
-        'para ' + gente(REF) + '. ' + NOMBRE[AQUI] + ' tiene ' + entero(c.otra) + ' para ' +
-        entero(c.base.valores[AQUI]) + '.');
+      d = { antes: NOMBRE_REF + ' tiene', cifra: entero(c.parla), que: c.parla === 1 && i.sing ? i.sing : i.titulo,
+        sub: 'para ' + gente(REF) + '. ' + NOMBRE[AQUI] + ' tiene ' + entero(c.otra) + ' para ' +
+          entero(c.base.valores[AQUI]) + '.' };
     }
+    const tit = K.titular(capa, d);
 
-    /* Fila de cajas: del hospital, las unidades que faltan, con su nombre y en
+    /* Las cajas: del hospital, las unidades que faltan, con su nombre y en
        hueco; de lo demás, las dos tasas, Parla primero. */
-    const fila = el('ul', 'kcajas');
+    let cajas;
     if (esCartera(c) && !sobra && c.lista.length) {
       const tope = fondo === 'barrio' ? 4 : 8;
-      c.lista.slice(0, tope).forEach(function (x) {
-        const li = el('li', 'kcaja kcaja--hueco');
-        const t = el('span', 'kcaja__t');
-        t.textContent = x;
-        li.appendChild(t);
-        fila.appendChild(li);
-      });
-      if (c.lista.length > tope) fila.appendChild(el('li', 'kcaja', 'y ' + (c.lista.length - tope) + ' más'));
+      cajas = c.lista.slice(0, tope).map(function (x) { return { hueco: x }; });
+      if (c.lista.length > tope) cajas.push({ v: 'y ' + (c.lista.length - tope) + ' más' });
     } else if (esCartera(c)) {
-      fila.appendChild(el('li', 'kcaja kcaja--ref', '<b>' + NOMBRE_REF + '</b>' +
-        c.parla + ' unidades asistenciales'));
-      fila.appendChild(el('li', 'kcaja', '<b>' + NOMBRE[AQUI] + '</b>' +
-        (c.otra ? c.otra + ' unidades asistenciales' : 'sin hospital público')));
+      cajas = [{ q: NOMBRE_REF, v: c.parla + ' unidades asistenciales', ref: true },
+        { q: NOMBRE[AQUI], v: c.otra ? c.otra + ' unidades asistenciales' : 'sin hospital público' }];
     } else if (esSuperficie(c)) {
-      fila.appendChild(el('li', 'kcaja kcaja--ref', '<b>' + NOMBRE_REF + '</b>' +
-        num(c.tasaParla, 1) + ' m² por habitante'));
-      fila.appendChild(el('li', 'kcaja', '<b>' + NOMBRE[AQUI] + '</b>' +
-        num(c.tasaOtra, 1) + ' m² por habitante'));
+      cajas = [{ q: NOMBRE_REF, v: num(c.tasaParla, 1) + ' m² por habitante', ref: true },
+        { q: NOMBRE[AQUI], v: num(c.tasaOtra, 1) + ' m² por habitante' }];
     } else {
       const u = entero(c.base.por) + ' ' + c.base.etiqueta;
-      fila.appendChild(el('li', 'kcaja kcaja--ref', '<b>' + NOMBRE_REF + '</b>' +
-        numTasa(c.tasaParla) + ' por cada ' + u));
-      fila.appendChild(el('li', 'kcaja', '<b>' + NOMBRE[AQUI] + '</b>' +
-        numTasa(c.tasaOtra) + ' por cada ' + u));
+      cajas = [{ q: NOMBRE_REF, v: numTasa(c.tasaParla) + ' por cada ' + u, ref: true },
+        { q: NOMBRE[AQUI], v: numTasa(c.tasaOtra) + ' por cada ' + u }];
     }
-    fila.dataset.n = String(fila.children.length);
-    capa.appendChild(fila);
-
-    bandaCartel(raiz);
-    ajustarTitular(raiz, tit, fondo);
+    K.cajas(capa, cajas);
+    K.banda(raiz, AQUI);
+    K.ajustar(raiz, tit, fondo);
   }
 
   /* El cartel del gasto o la inversión: la cifra en euros al año y, en las
-     cajas, lo que cada ayuntamiento pone por habitante. */
-  function cartelDinero(s) {
+     cajas, la media de la Comunidad, la referencia que no depende de la
+     ciudad elegida. */
+  function cartelDinero(s, fondo) {
     const a = alAnio(s);
-    const raiz = $('#cartel');
-    const fondo = fondoElegido();
-    const capa = montarCartel(raiz, fondo, NOMBRE_REF + ' frente a ' + NOMBRE[AQUI] + ' · ' + s.titulo);
-    const cifra = cifraElegida() === 'exacta' || a.dif < 1e7
+    const raiz = K.hoja();
+    const capa = K.base(raiz, fondo, PRE() + ' · ' + s.titulo);
+    const cifra = window.CARTEL.cifra() === 'exacta' || a.dif < 1e7
       ? num(Math.abs(a.dif) / 1e6, 1) : entero(Math.round(Math.abs(a.dif) / 1e6));
     const verbo = s.id === 'inversion' ? 'invierte' : 'gasta';
-    const tit = titularCartel(capa, 'El Ayuntamiento de ' + NOMBRE_REF + ' ' + verbo, entero(s.valores[REF]) + ' €',
-      'por vecino al año', 'El de ' + NOMBRE[AQUI] + ', ' + entero(s.valores[AQUI]) + ' €. ' + (a.dif > 0
-        ? 'Al mismo ritmo, Parla tendría ' + cifra + ' millones más cada año.'
-        : 'Parla pone ' + cifra + ' millones más cada año.'));
-    /* Debajo, la media de la Comunidad, si la hay: la referencia que no
-       depende de la ciudad elegida. */
-    const fila = el('ul', 'kcajas');
-    if (s.mediaRegional != null) {
-      fila.appendChild(el('li', 'kcaja', '<b>' + s.refNombre + '</b>' + entero(s.mediaRegional) + ' € por vecino'));
-    }
-    fila.dataset.n = String(fila.children.length);
-    capa.appendChild(fila);
-    bandaCartel(raiz);
-    ajustarTitular(raiz, tit, fondo);
+    const tit = K.titular(capa, {
+      antes: 'El Ayuntamiento de ' + NOMBRE_REF + ' ' + verbo, cifra: entero(s.valores[REF]) + ' €',
+      que: 'por vecino al año',
+      sub: 'El de ' + NOMBRE[AQUI] + ', ' + entero(s.valores[AQUI]) + ' €. ' + (a.dif > 0
+        ? 'Al mismo ritmo, Parla tendría ' + cifra + ' millones más cada año.'
+        : 'Parla pone ' + cifra + ' millones más cada año.')
+    });
+    K.cajas(capa, s.mediaRegional != null ? [{ q: s.refNombre, v: entero(s.mediaRegional) + ' € por vecino' }] : []);
+    K.banda(raiz, AQUI);
+    K.ajustar(raiz, tit, fondo);
   }
 
-  /* El cartel de la situación general: la misma composición, con el total del
-     recuento en el titular y, debajo, cada área con su cifra y su fila de
-     huecos —uno por equipamiento que falta—, para que se vea dónde. Las
-     cifras se reparten en enteros para que sumen el titular. */
-  function cartelGeneral() {
-    const raiz = $('#cartel');
-    const fondo = fondoElegido();
-    const capa = montarCartel(raiz, fondo);
+  /* El cartel de la situación general: el total del recuento en el titular
+     y, debajo, cada área con su cifra y su fila de huecos —uno por
+     equipamiento que falta—, para que se vea dónde. Las cifras se reparten
+     en enteros para que sumen el titular. */
+  function cartelGeneral(fondo) {
+    const raiz = K.hoja();
+    const capa = K.base(raiz, fondo, PRE());
     const total = Math.round(TOTAL);
-    const tit = titularCartel(capa, 'Si ' + NOMBRE_REF + ' estuviera como ' + NOMBRE[AQUI] + ', tendríamos', entero(total),
-      'equipamientos públicos más', '');
+    const tit = K.titular(capa, { antes: 'Si en ' + NOMBRE_REF + ' viviéramos como en ' + NOMBRE[AQUI] + ', tendríamos',
+      cifra: entero(total), que: 'equipamientos y servicios públicos más' });
 
     const g = porAreas();
-    const cuantos = repartoEntero(
-      g.areas.map(function (k) { return sumaFalta(g.mapa[k]); }), total);
+    const cuantos = repartoEntero(g.areas.map(function (k) { return sumaFalta(g.mapa[k]); }), total);
 
     /* Todos los cuadrados de un área caben en su fila: el lado se aprieta lo
        justo para que entre la que más tiene. Leganés llega a treinta. */
@@ -1554,198 +1455,32 @@
       cab.appendChild(el('b', 'karea__q', k));
       cab.appendChild(el('span', 'karea__n', entero(cuantos[i])));
       li.appendChild(cab);
-      li.appendChild(tiraUnidades(cuantos[i]));
+      li.appendChild(K.tira(cuantos[i]));
       lista.appendChild(li);
     });
     capa.appendChild(lista);
 
-    bandaCartel(raiz);
-    ajustarTitular(raiz, tit, fondo, lista);
-  }
-
-  /* El titular tiene que llenar el ancho sin desbordar ni pisar lo que hay
-     debajo. Lo que manda es la palabra más larga, no el número de caracteres,
-     y una palabra que envuelve no ensancha su bloque: hay que medirla suelta.
-     Se pinta fuera de pantalla, se busca el mayor cuerpo que cabe, y se apaga.
-
-     El suelo se mide desde el borde superior del A4, no desde el titular, y
-     cambia con el fondo. En «papel» manda la banda oscura del pie: el bloque
-     entero —titular y cajas— tiene que quedar por encima. En «barrio» manda el
-     tejado de la foto: el titular no puede pisarlo, pero las cajas sí, que
-     llevan su propio fondo claro y sobre la foto se leen igual. */
-  const SUELO = { papel: 231, barrio: 130 };
-  function ajustarTitular(raiz, tit, fondo, ultimo) {
-    raiz.classList.add('midiendo');
-    const capa = raiz.querySelector('.kcapa');
-    const cajas = raiz.querySelector('.kcajas');
-    const marco = raiz.getBoundingClientRect();
-    const mm = marco.height / 297;
-    /* El ancho que de verdad tiene el titular, no el de la capa: el de la capa
-       incluye los 11 mm de padding a cada lado y una palabra larga se saldría
-       de la hoja. */
-    const ancho = tit.clientWidth;
-    const manda = fondo === 'barrio' ? tit : (ultimo || cajas || tit);
-    const tope = marco.top + (SUELO[fondo] || SUELO.papel) * mm;
-
-    /* regla para medir palabras sueltas, con la misma tipografía */
-    const regla = el('span');
-    regla.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;' +
-      'font-weight:800;font-stretch:62%;letter-spacing:-.035em;text-transform:uppercase;';
-    regla.style.fontFamily = getComputedStyle(tit).fontFamily;
-    capa.appendChild(regla);
-
-    const palabras = [];
-    tit.querySelectorAll('span').forEach(function (sp) {
-      const escala = sp.classList.contains('ktit__n') ? 1.35 : sp.classList.contains('ktit__a') ? 0.42 : 1;
-      sp.textContent.split(/\s+/).forEach(function (w) {
-        if (w) palabras.push({ t: w, e: escala });
-      });
-    });
-
-    let pt = 160;
-    for (; pt > 28; pt -= 2) {
-      let cabe = true;
-      for (let k = 0; k < palabras.length; k++) {
-        regla.style.fontSize = (pt * palabras[k].e) + 'pt';
-        regla.textContent = palabras[k].t;
-        if (regla.offsetWidth > ancho) { cabe = false; break; }
-      }
-      if (!cabe) continue;
-      tit.style.fontSize = pt + 'pt';
-      if (manda.getBoundingClientRect().bottom <= tope) break;
-    }
-    tit.style.fontSize = pt + 'pt';
-    capa.removeChild(regla);
-    raiz.classList.remove('midiendo');
-  }
-
-  const ROTULO_FONDO = { papel: 'Papel', barrio: 'El barrio' };
-
-  /* El cartel es un anuncio, no una tabla: «21,6 oficinas de farmacia» chirría
-     dicha en la calle. Por defecto la cifra va redondeada y el decimal se queda
-     en la web, que sí puede explicarlo; quien quiera el número exacto lo elige
-     en el diálogo. Lo que no llega a uno se deja como está: redondear a cero
-     dejaría el titular sin cifra. */
-  const CIFRAS = ['redonda', 'exacta'];
-  function cifraElegida() {
-    try {
-      const g = localStorage.getItem('cifra');
-      if (CIFRAS.indexOf(g) >= 0) return g;
-    } catch (e) { /* sin almacenamiento: la de siempre */ }
-    return CIFRAS[0];
-  }
-  function cifraCartel(v) {
-    if (cifraElegida() === 'exacta') return num(v);
-    const r = Math.round(v);
-    return num(Math.abs(r) < 1 ? v : r);
-  }
-
-
-
-  let pendiente = null;
-
-  function dialogoFondo() {
-    let d = $('#elige-fondo');
-    if (d) return d;
-    d = el('dialog', 'fondos');
-    d.id = 'elige-fondo';
-    d.appendChild(el('h2', 'fondos__h', 'Elige el cartel'));
-    d.appendChild(el('p', 'fondos__p', 'Se abrirá el diálogo de impresión: elige ' +
-      '«Guardar como PDF» para quedártelo, o imprime directamente en A4.'));
-
-    /* Cómo sale la cifra del titular. Va antes de los fondos porque el fondo
-       es el botón que genera: se elige primero el número y luego el papel. */
-    const cif = el('div', 'cifra');
-    cif.appendChild(el('span', 'cifra__rot', 'La cifra'));
-    const seg = el('div', 'cifra__seg');
-    [{ v: 'redonda', t: 'Redondeada' }, { v: 'exacta', t: 'Con decimales' }]
-      .forEach(function (o) {
-        const b = el('button', 'cifra__op', o.t);
-        b.type = 'button';
-        b.dataset.cifra = o.v;
-        b.addEventListener('click', function () {
-          try { localStorage.setItem('cifra', o.v); } catch (e) { /* da igual */ }
-          marcarCifra(d);
-        });
-        seg.appendChild(b);
-      });
-    cif.appendChild(seg);
-    d.appendChild(cif);
-
-    const fila = el('div', 'fondos__fila');
-    FONDOS.forEach(function (f) {
-      const b = el('button', 'fondo');
-      b.type = 'button';
-      b.dataset.fondo = f;
-      const im = el('img');
-      im.src = CARTEL + f + '.jpg';
-      im.alt = '';
-      b.appendChild(im);
-      b.appendChild(el('span', 'fondo__n', ROTULO_FONDO[f] || f));
-      b.addEventListener('click', function () {
-        try { localStorage.setItem('fondo', f); } catch (e) { /* da igual */ }
-        d.close();
-        if (pendiente) generar(pendiente.c, pendiente.modo);
-      });
-      fila.appendChild(b);
-    });
-    d.appendChild(fila);
-    const cerrar = el('button', 'fondos__x', 'Cancelar');
-    cerrar.type = 'button';
-    cerrar.addEventListener('click', function () { d.close(); });
-    d.appendChild(cerrar);
-    document.body.appendChild(d);
-    return d;
-  }
-
-  function marcarCifra(d) {
-    const c = cifraElegida();
-    d.querySelectorAll('.cifra__op').forEach(function (b) {
-      const activa = b.dataset.cifra === c;
-      b.dataset.activo = activa ? '1' : '0';
-      b.setAttribute('aria-pressed', activa ? 'true' : 'false');
-    });
-  }
-
-  function compartir(c, modo) {
-    pendiente = { c: c, modo: modo };
-    const d = dialogoFondo();
-    const elegido = fondoElegido();
-    d.querySelectorAll('.fondo').forEach(function (b) {
-      b.dataset.activo = b.dataset.fondo === elegido ? '1' : '0';
-    });
-    marcarCifra(d);
-    if (d.showModal) d.showModal(); else generar(c, modo);
+    K.banda(raiz, AQUI);
+    K.ajustar(raiz, tit, fondo, lista);
   }
 
   /* `caso` es la comparación de un indicador o la cadena 'general' para el
      cartel del recuento entero. */
-  function generar(caso, modo) {
+  function compartir(caso, modo) {
     const general = caso === 'general';
-    if (general) cartelGeneral();
-    else if (caso.dinero) cartelDinero(caso.dinero);
-    else cartelIndicador(caso, modo);
-    const antes = document.title;
-    /* El título es el nombre que el navegador propone para el PDF. */
-    document.title = 'Parla como ' + NOMBRE[AQUI] + ' · ' +
-      (general ? 'La situación general' : caso.dinero ? caso.dinero.titulo : caso.ind.titulo);
-    document.documentElement.setAttribute('data-cartel',
-      general ? 'general' : caso.dinero ? 'dinero-' + caso.dinero.id : caso.ind.id);
-
-    let limpio = false;
-    function limpiar() {
-      if (limpio) return;
-      limpio = true;
-      document.documentElement.removeAttribute('data-cartel');
-      document.title = antes;
-      window.removeEventListener('afterprint', limpiar);
-    }
-    window.addEventListener('afterprint', limpiar);
-    const fondo = document.querySelector('.cartel--afiche .kfondo');
-    const listo = fondo && fondo.decode ? fondo.decode().catch(function () {}) : Promise.resolve();
-    listo.then(function () {
-      window.print();
-      setTimeout(limpiar, 1500);   /* Safari no siempre dispara afterprint */
+    window.CARTEL.abrir({
+      cifra: true,
+      /* El título es el nombre que el navegador propone para el PDF. */
+      titulo: function () {
+        return 'Parla como ' + NOMBRE[AQUI] + ' · ' +
+          (general ? 'La situación general' : caso.dinero ? caso.dinero.titulo : caso.ind.titulo);
+      },
+      id: function () { return general ? 'general' : caso.dinero ? 'dinero-' + caso.dinero.id : caso.ind.id; },
+      montar: function (fondo) {
+        if (general) cartelGeneral(fondo);
+        else if (caso.dinero) cartelDinero(caso.dinero, fondo);
+        else cartelIndicador(caso, modo, fondo);
+      }
     });
   }
 
@@ -1771,10 +1506,12 @@
     return b;
   }
 
-
   /* ── Salir de la ciudad: el resumen de infraestructura.html ──────────
      Los datos los escribe herramientas/infraestructura.py; aquí solo se
      enseña la puerta más usada de cada ciudad y se manda a la página. */
+  /* «A-42» no se parte por el guion: guion no separable en los códigos. */
+  function sinCorte(via) { return via.replace(/-/g, '\u2011'); }
+
   function salir() {
     const A = (window.ACCESOS || {}).ciudades;
     const caja = $('#salir');
@@ -1786,18 +1523,18 @@
     const r = primera(A[REF]), a = primera(A[AQUI]);
     $('#salir-txt').textContent =
       'Entre las 6 y las 10 de la mañana salen de Parla por carretera ' +
-      entero(Math.round(r.t)) + ' personas, y el ' + num(r.s * 100, 1) + ' % lo hace por la ' +
-      'misma carretera: la ' + r.p.via + ' ' + r.p.hacia + '. En ' + NOMBRE[AQUI] +
-      ', la salida más usada se lleva el ' + num(a.s * 100, 1) + ' %.';
+      entero(Math.round(r.t)) + ' personas, y el ' + num(r.s * 100, 1) + '\u00a0% lo hace por la ' +
+      'misma carretera: la ' + sinCorte(r.p.via) + ' ' + r.p.hacia + '. En ' + NOMBRE[AQUI] +
+      ', la salida más usada se lleva el ' + num(a.s * 100, 1) + '\u00a0%.';
     const ul = $('#salir-filas');
     vaciar(ul);
     [[REF, 'referencia', r], [AQUI, 'aqui', a]].forEach(function (g) {
       const li = el('li', 'mun__fila');
       li.setAttribute('data-quien', g[1]);
       const q = el('span', 'mun__q');
-      q.textContent = NOMBRE[g[0]] + ', por la ' + g[2].p.via;
+      q.textContent = NOMBRE[g[0]] + ', por la ' + sinCorte(g[2].p.via);
       li.appendChild(q);
-      li.appendChild(el('span', 'mun__v', num(g[2].s * 100, 1) + ' %'));
+      li.appendChild(el('span', 'mun__v', num(g[2].s * 100, 1) + '\u00a0%'));
       const b = el('span', 'mun__barra');
       const i = el('i');
       i.style.width = (g[2].s * 100).toFixed(1) + '%';
@@ -1829,7 +1566,7 @@
       const li = el('li', 'mun__fila');
       li.setAttribute('data-quien', g[1]);
       li.appendChild(el('span', 'mun__q', NOMBRE[g[0]]));
-      li.appendChild(el('span', 'mun__v', num(p(g[0]), 1) + ' %'));
+      li.appendChild(el('span', 'mun__v', num(p(g[0]), 1) + '\u00a0%'));
       const b = el('span', 'mun__barra');
       const i = el('i');
       i.style.width = p(g[0]).toFixed(1) + '%';
@@ -1908,12 +1645,20 @@
     cd.hidden = !X;
     if (X) {
       const r = X.ciudades[REF], a = X.ciudades[AQUI];
+      /* «70 plazas en residencias y ninguna en centros de día»: sin «0». */
+      const plazas = function (c) {
+        const n = function (v, sufijo) {
+          return v === 0 ? 'ninguna' + sufijo : entero(v) + (v === 1 ? ' plaza' : ' plazas') + sufijo;
+        };
+        return n(c.residencial.plazas, ' en residencias') + ' y ' +
+          (c.dia.plazas === 0 ? 'ninguna' : entero(c.dia.plazas)) + ' en centros de día.';
+      };
       $('#servicios-inclusion').textContent = 'En Parla hay ' + entero(r.intelectual) +
         ' personas con discapacidad intelectual reconocida, y ' + (r.residencial.plazas + r.dia.plazas === 0
           ? 'ninguna plaza para ellas en una residencia ni en un centro de día.'
-          : entero(r.residencial.plazas) + ' plazas en residencias y ' + entero(r.dia.plazas) + ' en centros de día.') +
-        ' ' + NOMBRE[AQUI] + ', con ' + entero(a.intelectual) + ', tiene ' + entero(a.residencial.plazas) +
-        ' plazas en residencias y ' + entero(a.dia.plazas) + ' en centros de día.';
+          : plazas(r)) +
+        ' ' + NOMBRE[AQUI] + ', con ' + entero(a.intelectual) + ', tiene ' + (a.residencial.plazas + a.dia.plazas === 0
+          ? 'ninguna plaza en residencias ni en centros de día.' : plazas(a));
       const gd = $('#servicios-inclusion-graf');
       vaciar(gd);
       [['resumen-residencia', 'Plazas en residencias por cada 100 personas con discapacidad intelectual reconocida', 'residencial'],

@@ -78,6 +78,22 @@ Parla es el único de los 11 cuyo valor de 2026T2 sigue por debajo de su máximo
 - **Tasación no es precio de venta.** Es el valor que fija una sociedad de tasación, casi siempre para una hipoteca. Suele ir por detrás del precio de mercado y solo cubre las viviendas que se tasan, no todas las que se venden.
 - **La muestra cambia cada trimestre.** Se tasan viviendas distintas en cada trimestre. MIVAU estratifica y pondera por el parque catastral, pero con 150-200 tasaciones (Pinto, Majadahonda) un trimestre aislado puede moverse por pura composición. Para comparar municipios conviene usar varios trimestres.
 - **El euro/m² es de superficie construida**, no útil.
+  La vivienda media lo multiplica por la superficie construida media: la útil del Censo 2021
+  entre 0,83, el factor con que el INE la sacó de la construida del Catastro
+  ([Metodología de los Censos 2021](https://ine.es/censos2021/censos2021_meto.pdf), pp. 84-85,
+  figura 37). El INE no escribe el número: se ha leído del gráfico (la recta pasa por 603 m²
+  construidos y 500 útiles). Con la útil, el valor quedaba un 17 % corto.
+  Para qué lo hizo el INE: el Catastro solo tiene superficie construida y Eurostat pide la útil;
+  la estimó con una muestra de portales inmobiliarios que dan las dos, con una recta de mínimos
+  cuadrados por el origen. Comprobación aparte, en noviembre de 2026: una muestra de 1.076
+  inmuebles residenciales de la ciudad de Madrid en la Sede Electrónica del Catastro (OVC) da que
+  el 82 % de su superficie construida es la propia vivienda (el resto, elementos comunes, garaje y
+  trastero); con la útil del Censo (68,44 m², IECM) sale k ≈ 0,81 (de 0,80 a 0,83). Los cocientes
+  directos entre la útil del Censo y la construida media del Catastro (0,65-0,70) no sirven: esa
+  construida incluye los comunes y los anejos. Normas: Canarias fija útil = 85 % de la construida
+  a falta de otro dato (Decreto-ley 24/2020, art. 3.3, BOE-A-2021-4399); el reglamento de
+  vivienda protegida de Madrid (Decreto 74/2009) no da ningún coeficiente. Se usa 0,83, el del
+  gráfico, que es además el que menos sube las cifras. El exacto se puede pedir al INE.
 - **La serie de compraventas cuenta escrituras**, no precio. Los picos de vivienda nueva corresponden a la entrega de promociones (por ejemplo Parla 2007: 3.757 nuevas de 4.587; Alcorcón 2009-2010; Getafe 2025: 652 nuevas). Un año puntual puede deberse a una sola promoción.
 - **2026T2 es provisional.** El salto de Parla (329 → 616, de ellas 608 de segunda mano) está sin revisar: hay que esperar a la próxima publicación antes de usarlo.
 - Compraventas por 1.000 habitantes mide actividad, no precio ni acceso.

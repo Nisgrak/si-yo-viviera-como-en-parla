@@ -84,7 +84,7 @@
       subida10: (t.ult.v / t.hace10.v - 1) * 100,
       frenteMax: (t.ult.v / t.max.v - 1) * 100,
       caida: (t.min.v / t.max.v - 1) * 100,
-      aniosRenta: t.ult.v * c.censo.superficie / c.renta.hogar,
+      aniosRenta: t.ult.v * c.censo.superficieConstruida / c.renta.hogar,
       compraventas: c.compraventas.por1000,
       alquilerMes: a.mes[a.mes.length - 1],
       alquilerM2: a.m2[a.m2.length - 1],
@@ -105,7 +105,7 @@
       lanzLau: pj.lau[ult] / pj.total[ult] * 100,
       dPob: c.crece.pob[c.crece.pob.length - 1] - c.crece.pob[0],
       dCasas: c.crece.casas[c.crece.casas.length - 1] - c.crece.casas[0],
-      pisoMedio: t.ult.v * c.censo.superficie,
+      pisoMedio: t.ult.v * c.censo.superficieConstruida,
       vacias: c.censo.pctVacias,
       antes81: c.censo.pctAntes1981,
       hog5: c.censo.pctHog5en60
@@ -201,7 +201,7 @@
     const rej = el('div', 'cien__rejilla');
     rej.setAttribute('role', 'img');
     rej.setAttribute('aria-label', NOMBRE[id] + ': de cada 100 viviendas, ' +
-      partes.filter(function (p) { return p.c; }).map(function (p) { return p.c + ' ' + p.n.toLowerCase(); }).join(', '));
+      partes.filter(function (p) { return p.c; }).map(function (p) { return p.c + ' de ' + p.n.toLowerCase(); }).join(', '));
     let k = 0;
     partes.forEach(function (p) {
       for (let i = 0; i < p.c; i++) {
@@ -352,8 +352,9 @@
     const cp = C[REF], ca = C[AQUI];
     pareja($('#comprar-cifras'), 'Valor de la vivienda media', function (v) { return euros(v); }, 'pisoMedio',
       function (id) {
-        return 'la vivienda media, ' + num(C[id].censo.superficie, 2) + ' m² a ' + euros(C[id].tasado.ult.v) +
-          ' el metro cuadrado (' + trimestre(C[id].tasado.ult.p, true) + ')';
+        return 'la vivienda media, ' + num(C[id].censo.superficieConstruida, 0) + '\u00a0m² construidos (' +
+          num(C[id].censo.superficie, 0) + ' útiles) a ' + euros(C[id].tasado.ult.v) +
+          ' el metro cuadrado construido (' + trimestre(C[id].tasado.ult.p, true) + ')';
       });
 
     /* Años de renta: una pieza por año, a la misma escala. */
@@ -527,13 +528,17 @@
       if (miraCien) miraCien.observe(c); else c.classList.add('cien--visto');
     });
     const cp = C[REF], ca = C[AQUI];
+    /* «403 viviendas de 1 sociedades» y «0 de 0» se dicen como se dicen. */
+    function socs(t, largo) {
+      if (!t.n) return 'ninguna sociedad con más de 100';
+      return entero(t.inm) + (largo ? ' viviendas' : '') + ' de ' + (t.n === 1 ? 'una sociedad' : t.n + ' sociedades');
+    }
     hechos('#duenos-hechos', [
       { id: 'grandes-tenedores', titulo: 'Viviendas de sociedades con más de 100 en la ciudad',
         v: function (id) { return m(id).pctSoc100; }, fmt: function (v) { return pct(v, 2); },
-        nota: 'Parla: ' + entero(cp.titular.soc100.inm) + ' viviendas de ' + cp.titular.soc100.n + ' sociedades. ' +
-          NOMBRE[AQUI] + ': ' + entero(ca.titular.soc100.inm) + ' de ' + ca.titular.soc100.n + '.' },
+        nota: 'Parla: ' + socs(cp.titular.soc100, true) + '. ' + NOMBRE[AQUI] + ': ' + socs(ca.titular.soc100) + '.' },
       { id: 'caseros', titulo: 'Vecinos que cobran un alquiler, por 1.000 habitantes',
-        pie: 'Declaraciones del IRPF de 2024 con rendimientos de inmuebles alquilados. Cuenta dónde vive el casero, no dónde está el piso.',
+        pie: 'Declaraciones del IRPF de 2024 con rendimientos de inmuebles alquilados. Cuenta a cada casero en la ciudad donde vive, esté donde esté el piso.',
         v: function (id) { return m(id).caseros; }, fmt: function (v) { return num(v, 1); } }
     ]);
   }
@@ -605,11 +610,15 @@
     const conc = function (x) { return x.ok / x.sol * 100; };
     const porHog = function (id, x) { return x.ok / C[id].censo.alquiler * 1000; };
     hechos('#publica-hechos', [
-      { id: 'avs-adjudicadas', titulo: 'Viviendas de la Agencia adjudicadas a nuevos inquilinos, 2023-2025', sentido: 'mas',
-        pie: 'Viviendas que ya eran de la Agencia y que quedan libres y se entregan a otro hogar.',
-        v: function (id) { return suma(C[id].publica.adj); }, fmt: function (v) { return entero(v); },
-        nota: 'Por años, 2023, 2024 y 2025: ' + cp.publica.adj.join(', ') + ' en Parla y ' + ca.publica.adj.join(', ') +
-          ' en ' + NOMBRE[AQUI] + '.' },
+      /* Por hogares de la ciudad: 66 en Móstoles no pesan como 27 en
+         Majadahonda. La Agencia no publica cuántos lo piden en cada ciudad. */
+      { id: 'avs-adjudicadas', titulo: 'Viviendas de la Agencia adjudicadas a nuevos inquilinos por cada 10.000 hogares, 2023-2025', sentido: 'mas',
+        pie: 'Viviendas que ya eran de la Agencia y que quedan libres y se entregan a otro hogar, entre los hogares del Censo de 2021.',
+        v: function (id) { return suma(C[id].publica.adj) / C[id].censo.hogares * 1e4; }, fmt: function (v) { return num(v, 1); },
+        nota: 'En total, ' + suma(cp.publica.adj) + ' en Parla (' + cp.publica.adj.join(', ') + ' en 2023, 2024 y 2025) y ' +
+          suma(ca.publica.adj) + ' en ' + NOMBRE[AQUI] + ' (' + ca.publica.adj.join(', ') + '). Las adjudica la Comunidad de Madrid ' +
+          'a quien lleva diez años empadronado o trabajando en la región, viva en la ciudad que viva: la cifra dice cuántas se ' +
+          'entregan en cada ciudad, y quien las recibe puede venir de cualquier parte de la región. La Agencia no publica cuántos hogares las piden en cada una.' },
       { id: 'plan-vive', titulo: 'El Plan Vive en agosto de 2026',
         pie: 'El programa de alquiler asequible de la Comunidad de Madrid.',
         v: function (id) { return C[id].publica.planVive ? 1 : 0; }, fmt: function (v) { return v ? 'Sí' : 'No'; }, barra: false,
@@ -634,20 +643,29 @@
     const pp = P[C[REF].partido], pa = P[C[AQUI].partido];
     const mismo = C[AQUI].partido === C[REF].partido;
     const ult = pp.total.length - 1;
-    function quienes(pj) { return pj.municipios.length === 1 ? 'solo ' + pj.municipios[0] : lista(pj.municipios); }
-    function lista(xs) { return xs.length === 1 ? xs[0] : xs.slice(0, -1).join(', ') + ' y ' + xs[xs.length - 1]; }
+    /* El CGPJ escribe los nombres como el INE, con el artículo detrás
+       («Rozas de Madrid, Las»): se ponen como se dicen. */
+    function dicho(x) { return x.replace(/^(.*), (El|La|Los|Las)$/, '$2 $1'); }
+    function quienes(pj) { return pj.municipios.length === 1 ? 'solo ' + dicho(pj.municipios[0]) : lista(pj.municipios); }
+    function lista(xs) { xs = xs.map(dicho); return xs.length === 1 ? xs[0] : xs.slice(0, -1).join(', ') + ' y ' + xs[xs.length - 1]; }
     $('#desahucios-intro').textContent = mismo
       ? 'Los juzgados cuentan por partido judicial, y Parla y ' + NOMBRE[AQUI] + ' comparten el mismo: las cifras de esta sección son las de las dos ciudades juntas.'
-      : 'Los juzgados cuentan por partido judicial, no por ciudad. El de Parla incluye Parla y Pinto; el de ' +
+      : 'Los juzgados cuentan por partido judicial, que puede juntar varias ciudades. El de Parla incluye Parla y Pinto; el de ' +
         NOMBRE[AQUI] + ', ' + quienes(pa) + '.';
 
     pareja($('#desahucios-cifras'), 'Demandas por alquiler', function (v) { return num(v, 1); }, 'demandas',
       function (id) {
         const pj = P[C[id].partido];
         return 'demandas por alquiler por cada 100.000 habitantes en 2025: ' + entero(pj.demandas[ult]) +
-          ' en el año, ' + num(pj.demandas[ult] / 52, 1) + ' a la semana';
+          ' en el año en el partido judicial, ' + num(pj.demandas[ult] / 52, 1) + ' a la semana';
       });
 
+    /* Lo que no es alquiler ni hipoteca también se dice, para que la suma cuadre. */
+    function reparto(pj) {
+      const otros = pj.total[ult] - pj.lau[ult] - pj.hipoteca[ult];
+      return entero(pj.lau[ult]) + ' por alquiler, ' + entero(pj.hipoteca[ult]) + ' por hipoteca' +
+        (otros > 0 ? ' y ' + entero(otros) + (otros === 1 ? ' por otra causa' : ' por otras causas') : '');
+    }
     const desde = V.lanzDesde;
     const etiquetas = pp.total.map(function (_, i) { return String(desde + i); });
     const tasa = function (xs, pj) { return xs.map(function (v, i) { return v / pj.pob[i] * 1e5; }); };
@@ -680,9 +698,8 @@
       marcasX: marcas,
       descripcion: 'Desahucios practicados por 100.000 habitantes de 2013 a 2025, por partido judicial.',
       leyenda: 'Desahucios practicados por cada 100.000 habitantes. Parla en 2025: ' + entero(pp.total[ult]) +
-        ' en el partido, ' + entero(pp.lau[ult]) + ' por alquiler y ' + entero(pp.hipoteca[ult]) + ' por hipoteca.' +
-        (mismo ? '' : ' ' + NOMBRE[AQUI] + ': ' + entero(pa.total[ult]) + ', ' + entero(pa.lau[ult]) +
-          ' por alquiler y ' + entero(pa.hipoteca[ult]) + ' por hipoteca.')
+        ' en el partido, de ellos ' + reparto(pp) + '.' +
+        (mismo ? '' : ' ' + NOMBRE[AQUI] + ': ' + entero(pa.total[ult]) + ', de ellos ' + reparto(pa) + '.')
     });
 
     hechos('#desahucios-hechos', [
@@ -694,7 +711,7 @@
     const part = function (id) {
       const pj = P[C[id].partido];
       return pj.municipios.length === 1 ? 'el de ' + NOMBRE[id] + ' es solo ' + NOMBRE[id]
-        : 'el de ' + pj.municipios[0] + ' suma ' + lista(pj.municipios) + ' (' + entero(pj.pob[ult]) + ' habitantes)';
+        : 'el de ' + dicho(pj.municipios[0]) + ' suma ' + lista(pj.municipios) + ' (' + entero(pj.pob[ult]) + ' habitantes)';
     };
     $('#metodo-partido').textContent =
       'Los desahucios y las demandas los cuenta el Consejo General del Poder Judicial por partido judicial. ' +
@@ -725,7 +742,7 @@
         v: function (id) { return C[id].hogares.pctSinAscensor; }, fmt: function (v) { return pct(v); },
         nota: 'Parla: ' + entero(cp.hogares.sinAscensor) + ' de ' + entero(cp.hogares.viv2011) + ' viviendas principales. ' +
           NOMBRE[AQUI] + ': ' + entero(ca.hogares.sinAscensor) + ' de ' + entero(ca.hogares.viv2011) + '.' },
-      { id: 'superficie', titulo: 'Superficie media de las viviendas',
+      { id: 'superficie', titulo: 'Superficie útil media de las viviendas',
         v: function (id) { return C[id].censo.superficie; }, fmt: function (v) { return num(v, 2) + ' m²'; } }
     ]);
   }

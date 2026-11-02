@@ -64,12 +64,21 @@
     const puesto = function (u) { const i = orden.indexOf(u); return i < 0 ? orden.length : i; };
     /* La cabeza de la lista de gravedad: lo que atiende una urgencia vital o
        una cirugía compleja, hasta Angiología. */
-    const graves = orden.slice(0, orden.indexOf('Angiología y Cirugía Vascular') + 1);
+    const CORTE = 'Angiología y Cirugía Vascular';
+    const hasta = orden.indexOf(CORTE);
+    if (hasta < 0 && typeof console !== 'undefined') {
+      console.warn('hospitales.js: «' + CORTE + '» no está en el orden de gravedad; no se marca ninguna en rojo.');
+    }
+    const graves = orden.slice(0, hasta + 1);
     const faltan = otro.faltanEnReferencia.filter(vale).sort(function (x, y) {
       return (puesto(x) - puesto(y)) || x.localeCompare(y, 'es');
     });
+    /* Cuántos hospitales suma esa cartera (en Móstoles, dos): los que tiene
+       la ciudad en el indicador de camas. */
+    const camas = D.indicadores.find(function (i) { return i.id === 'camas'; });
+    const varios = Math.max(1, ((camas && camas.datos[h.duena].lista) || []).length);
     return {
-      hospital: h, duena: h.duena, unidades: otro.unidades,
+      hospital: h, duena: h.duena, unidades: otro.unidades, varios: varios,
       parla: D.hospitales[D.REFERENCIA].unidades,
       faltan: faltan, soloParla: otro.faltanAqui.filter(vale),
       graves: faltan.filter(function (u) { return graves.indexOf(u) >= 0; }),
