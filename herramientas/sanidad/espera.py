@@ -5,7 +5,7 @@ del servicio de consulta del SERMAS, opción «Total» de cada hospital) y las
 memorias 2024 de los hospitales (PDF en /var/tmp/espera/memorias/, convertidas
 con pdftotext -layout) para la población de referencia. Escribe espera.json.
 
-Uso: python3 -I espera.py
+Uso: python3 -I espera.py [AAAA-MM]   (por defecto el de MES; compara con el mismo mes de uno y dos años antes)
 Requiere: pdftotext (poppler-utils).
 """
 import html
@@ -13,6 +13,7 @@ import json
 import os
 import re
 import subprocess
+import sys
 
 RAW = '/var/tmp/espera/leq/raw'
 MEMORIAS = '/var/tmp/espera/memorias'
@@ -25,7 +26,22 @@ def etiqueta_mes(aaaamm):
     return f'{NOMBRES_MES[int(aaaamm[4:]) - 1]} de {aaaamm[:4]}'
 
 
-ACTUAL, HACE1, HACE2 = '202608', '202508', '202408'
+MES = '2026-09'
+_a, _m = (sys.argv[1] if len(sys.argv) > 1 else MES).split('-')
+ACTUAL, HACE1, HACE2 = _a + _m, str(int(_a) - 1) + _m, str(int(_a) - 2) + _m
+NOMBRE_ACTUAL = NOMBRES_MES[int(_m) - 1]
+# La Comunidad publica los CSV de un mes en la carpeta del mes siguiente.
+CARPETA_CSV = f'{int(_a) + (_m == "12")}-{int(_m) % 12 + 1:02d}'
+
+# Totales regionales de cada mes, de esos CSV (se copian a mano: son tres cifras por lista).
+REGIONAL = {
+    '202608': {'quirurgica': {'totalRegionalLEQ': 120168, 'totalRegionalEstructural': 92525, 'demoraRegionalEstructural': 71.88},
+               'consultas': {'totalRegionalEstructural': 698522, 'demoraRegional': 76.62},
+               'pruebas': {'totalRegionalEstructural': 168443, 'demoraRegional': 66.51}},
+    '202609': {'quirurgica': {'totalRegionalLEQ': 126726, 'totalRegionalEstructural': 103378, 'demoraRegionalEstructural': 69.59},
+               'consultas': {'totalRegionalEstructural': 747337, 'demoraRegional': 73.78, 'tasaPublicada': 149.01},
+               'pruebas': {'totalRegionalEstructural': 182709, 'demoraRegional': 61.02}},
+}
 
 BASE_MEM = 'https://www.comunidad.madrid/docs/assets/2025/11/06/'
 
@@ -162,12 +178,12 @@ def main():
                             'url': 'https://www.comunidad.madrid/salud/lista-espera-consultas-externas'},
         'portalPruebas': {'titulo': 'Comunidad de Madrid. Lista de espera de pruebas diagnósticas y terapéuticas',
                           'url': 'https://www.comunidad.madrid/salud/lista-espera-pruebas-diagnosticas-terapeuticas'},
-        'globalQuirurgicaAgosto2026': {'titulo': 'Datos del Registro Unificado de LEQ, agosto 2026 (CSV)',
-                                       'url': 'https://www.comunidad.madrid/docs/2026-09/le_q_agosto_2026.csv'},
-        'globalConsultasAgosto2026': {'titulo': 'Datos de lista de espera de consultas externas, agosto 2026 (CSV)',
-                                      'url': 'https://www.comunidad.madrid/docs/2026-09/le_c_agosto_2026.csv'},
-        'globalPruebasAgosto2026': {'titulo': 'Datos de lista de espera de pruebas diagnósticas/terapéuticas, agosto 2026 (CSV)',
-                                    'url': 'https://www.comunidad.madrid/docs/2026-09/le_t_agosto_2026.csv'},
+        'globalQuirurgica': {'titulo': f'Datos del Registro Unificado de LEQ, {etiqueta_mes(ACTUAL)} (CSV)',
+                             'url': f'https://www.comunidad.madrid/docs/{CARPETA_CSV}/le_q_{NOMBRE_ACTUAL}_{ACTUAL[:4]}.csv'},
+        'globalConsultas': {'titulo': f'Datos de lista de espera de consultas externas, {etiqueta_mes(ACTUAL)} (CSV)',
+                            'url': f'https://www.comunidad.madrid/docs/{CARPETA_CSV}/le_c_{NOMBRE_ACTUAL}_{ACTUAL[:4]}.csv'},
+        'globalPruebas': {'titulo': f'Datos de lista de espera de pruebas diagnósticas/terapéuticas, {etiqueta_mes(ACTUAL)} (CSV)',
+                          'url': f'https://www.comunidad.madrid/docs/{CARPETA_CSV}/le_t_{NOMBRE_ACTUAL}_{ACTUAL[:4]}.csv'},
         'concesiones': {'titulo': 'Comunidad de Madrid. H.U. Rey Juan Carlos: hospitales «gestionados bajo la modalidad de concesión administrativa» (Infanta Elena, Rey Juan Carlos, Torrejón, Villalba)',
                         'url': 'https://www.comunidad.madrid/hospital/reyjuancarlos/node/276'},
         'datosAbiertosAnuales': {'titulo': 'datos.comunidad.madrid. Lista de espera quirúrgica / consultas / pruebas por hospitales (a 31 de diciembre; no usados aquí, solo referencia)',
@@ -239,17 +255,16 @@ def main():
                 pond += r['pacientes'] * r['demoraDias']
             else:
                 sin.append(nom)
-        comprobacion[tipo] = {'sumaHospitalesAgosto2026': tot, 'demoraMediaPonderada': round(pond / tot, 2),
+        comprobacion[tipo] = {'sumaHospitales': tot, 'demoraMediaPonderada': round(pond / tot, 2),
                               'hospitales': len(cods), 'hospitalesSinDato': sin}
-    comprobacion['quirurgica'].update({'totalRegionalLEQ': 120168, 'totalRegionalEstructural': 92525, 'demoraRegionalEstructural': 71.88})
-    comprobacion['consultas'].update({'totalRegionalEstructural': 698522, 'demoraRegional': 76.62})
-    comprobacion['pruebas'].update({'totalRegionalEstructural': 168443, 'demoraRegional': 66.51})
+    for tipo in TIPOS:
+        comprobacion[tipo].update(REGIONAL[ACTUAL][tipo])
 
     notas = [
-        'Último mes publicado: agosto de 2026 (actualización del 16/09/2026). Se da también agosto de 2025 y agosto de 2024, el mismo mes, para evitar el efecto estacional (agosto es un mes de poca actividad programada y las listas suelen crecer).',
+        f'Último mes publicado: {etiqueta_mes(ACTUAL)}. Se da también {etiqueta_mes(HACE1)} y {etiqueta_mes(HACE2)}, el mismo mes, para evitar el efecto estacional (las listas cambian con la época del año: en agosto, por ejemplo, hay poca actividad programada y suelen crecer).',
         'Las cifras por hospital son la opción «Total» del servicio de consulta del SERMAS: número de pacientes en lista y demora media en días naturales «a fecha de corte» (lo que llevan esperando los que siguen en lista, no lo que esperaron los ya atendidos). Consultas = primera consulta externa (no incluye Obstetricia); pruebas = TC, RM, ecografía, mamografía, hemodinámica, ecocardiografía, ergometría, electromiograma, densitometría, colonoscopia y gastroscopia.',
-        'Qué cuenta cada cifra por hospital (ver «comprobacion»). Consultas y pruebas: la suma de hospitales y la demora ponderada cuadran con el total regional de espera ESTRUCTURAL (698.522 pacientes, 76,62 días; 168.441 frente a 168.443 y 66,51 días en pruebas). Quirúrgica: la suma de hospitales da 120.168, que es el TOTAL de la lista (estructural + rechazo de derivación + transitoriamente no programables), no los 92.525 estructurales que la Comunidad destaca; y la demora ponderada (79,79 días) no coincide con la «demora media estructural» regional (71,88). Las cifras quirúrgicas por hospital son comparables entre sí, pero NO con el titular regional de 92.525 / 71,88.',
-        'Torrejón (concesión, Ribera Salud): el servicio publica 0 pacientes y 0 días en consultas y en pruebas en julio y agosto de 2026, lo que es ausencia de dato, no lista vacía. Se deja a null y se da el último mes con dato (junio de 2026) en «consultasUltimoDisponible» / «pruebasUltimoDisponible». El total regional de consultas de agosto de 2026 (698.522) no incluye, por tanto, a Torrejón (unos 21.000 pacientes en junio). La quirúrgica de Torrejón sí está publicada en agosto de 2026.',
+        'Qué cuenta cada cifra por hospital (ver «comprobacion»). Consultas y pruebas: la suma de hospitales y la demora ponderada cuadran con el total regional de espera ESTRUCTURAL de los CSV de la Comunidad. Quirúrgica: la suma de hospitales es el TOTAL de la lista (estructural + rechazo de derivación + transitoriamente no programables), no los «estructurales» que la Comunidad destaca, y la demora ponderada no coincide con la «demora media estructural» regional. Las cifras quirúrgicas por hospital son comparables entre sí, pero NO con ese titular regional.',
+        'Torrejón (concesión, Ribera Salud): el servicio publicó 0 pacientes y 0 días en consultas y en pruebas en julio y agosto de 2026, lo que es ausencia de dato, no lista vacía. Si vuelve a pasar en el mes que se use, se deja a null y se da el último mes con dato en «consultasUltimoDisponible» / «pruebasUltimoDisponible». En septiembre de 2026 vuelve a publicarlos.',
         'Rey Juan Carlos (concesión, Quirónsalud) muestra demoras mucho menores que el resto (19 días en quirúrgica frente a 50-120). Es el dato oficial; no se ha corregido.',
         'Libre elección (Decreto 51/2010): cualquier madrileño puede apuntarse en la lista de otro hospital, y los hospitales con servicios de referencia atienden a pacientes de fuera de su área. La lista de un hospital no son solo vecinos de su área ni todos los vecinos del área esperan en él. Los «por1000» (pacientes / población de referencia × 1.000) son por eso una aproximación de la presión sobre el hospital, no una tasa de vecinos en espera.',
         'Población de referencia: tabla «Población de referencia» de la Memoria 2024 de cada hospital (SIP-CIBELES, tarjetas sanitarias a 31/12/2024; Torrejón la da a 31/12/2023). Es de un año y medio antes que las listas. No hay cifra de 2025 publicada en las memorias consultadas.',
@@ -261,7 +276,7 @@ def main():
         'Móstoles tiene dos hospitales de referencia: el H.U. de Móstoles (gestión pública; centros de salud de Móstoles salvo tres, más Arroyomolinos) y el H.U. Rey Juan Carlos (concesión, Quirónsalud; C.S. Barcelona, La Princesa y Presentación Sabio de Móstoles, más Villaviciosa, Navalcarnero y la Sierra Oeste). Se toma como principal el H.U. de Móstoles, que cubre a la mayoría de la población del municipio (ver «repartoMunicipio»); el Rey Juan Carlos va en «hospitalSecundario».',
         'Gestión: Rey Juan Carlos y Torrejón son concesiones administrativas (la Comunidad lo dice así en la web del Rey Juan Carlos; la Memoria 2024 de Torrejón: «gestión de servicios públicos en la modalidad de concesión administrativa»). Infanta Cristina e Infanta Sofía son de gestión sanitaria pública, pero se construyeron por concesión de obra: una sociedad concesionaria explota el edificio y los servicios no sanitarios. Fundación Alcorcón es una fundación pública del sector público.',
         'Los datos abiertos de datos.comunidad.madrid por hospital son anuales (a 31 de diciembre) y llegan a 2025 en quirúrgica y a 2024 en consultas y pruebas; no se usan aquí, pero sirven para contrastar.',
-        'Datos globales de consultas de agosto 2026: la Comunidad publica «Tasa por 1000 habitantes 140,26» con 698.522 pacientes y 7.175.375 habitantes asignados, pero 698.522 / 7.175.375 × 1.000 = 97,3. No usamos esa tasa.',
+        'Datos globales de consultas: la Comunidad publica una «Tasa por 1000 habitantes» que no sale de sus propias cifras (agosto de 2026: 140,26 con 698.522 pacientes y 7.175.375 habitantes asignados, que dan 97,3; septiembre: 149,01, y la cuenta da 104,2). No usamos esa tasa.',
     ]
 
     salida = {

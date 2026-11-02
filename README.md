@@ -868,14 +868,18 @@ sanitarias a 31-12-2024; Torrejón, a 31-12-2023).
   pruebas, en el último mes publicado y el mismo mes de dos años antes. Y los pacientes por cada
   1.000 personas asignadas, solo en el pie: con la libre elección, la lista de un hospital no es
   solo de sus vecinos, así que eso mide la presión sobre el hospital, no cuántos vecinos esperan.
-- **Quirúrgica completa**: la suma de los hospitales (120.168 en agosto de 2026) es la lista
-  entera, no los 92.525 «estructurales» del titular de la Comunidad. Son comparables entre sí,
+- **Quirúrgica completa**: la suma de los hospitales (126.726 en septiembre de 2026) es la lista
+  entera, no los 103.378 «estructurales» del titular de la Comunidad. Son comparables entre sí,
   no con ese titular.
-- **Torrejón** publica consultas y pruebas a cero desde julio de 2026: se trata como sin dato.
+- **Torrejón** publicó consultas y pruebas a cero en julio y agosto de 2026: se trata como sin
+  dato (se da el último mes con dato). En septiembre de 2026 vuelve a publicarlas.
 - **Para actualizar**: `python3 -I herramientas/sanidad/descarga_espera.py AAAA-MM …` (el mes
-  nuevo y el mismo mes de uno y dos años antes; por defecto 2026-08 2025-08 2024-08),
+  nuevo y el mismo mes de uno y dos años antes; por defecto 2026-09 2025-09 2024-09); copiar a
+  `REGIONAL` de `espera.py` los totales de los tres CSV de la Comunidad para ese mes (están en
+  `docs/<mes siguiente>/le_q_<mes>_<año>.csv`, `le_c_…` y `le_t_…`) y poner el mes en `MES`;
   `python3 -I herramientas/sanidad/espera.py` (necesita `pdftotext` para las memorias) y
-  `python3 herramientas/sanidad.py`. El año de comparación es `ANTES` en `sanidad.py`.
+  `python3 herramientas/sanidad.py`. Se compara siempre con el mismo mes de dos años antes, y
+  el título de la evolución («cada septiembre») sale del mes.
 
 ### El médico de cabecera y la escuela infantil
 
@@ -889,7 +893,7 @@ sanitarias a 31-12-2024; Torrejón, a 31-12-2023).
   gente que tiene asignada, con la clasificación de los ocho hospitales; «Lo que le falta al
   hospital», las unidades que tiene el otro y el Infanta Cristina no, con las más graves en rojo
   (las dos con `assets/hospitales.js`); el médico de cabecera, con la tira de los médicos de
-  familia que le faltan y la media de la Comunidad; la espera, con su evolución cada agosto; y
+  familia que le faltan y la media de la Comunidad; la espera, con su evolución el mismo mes de cada año; y
   al final «Lo que hay», sin las camas, que ya van arriba.
 - **Educación**: «Después del instituto», la tabla de quién tiene campus y conservatorio y la FP
   pública con su clasificación; la música, los idiomas y las artes; las escuelas, colegios e

@@ -32,7 +32,9 @@ CORTO = {
 FUERA = {'pinto': 'Getafe', 'pozuelo': 'Majadahonda', 'alcobendas': 'San Sebastián de los Reyes'}
 
 LISTAS = ['quirurgica', 'consultas', 'pruebas']
-ANTES = '2024'
+# El mismo mes de dos años antes que el último publicado.
+MES_NOMBRE, ANIO = E['mes'].split(' de ')
+ANTES = str(int(ANIO) - 2)
 
 
 def lista(c, k):
@@ -67,7 +69,7 @@ for cid, c in E['ciudades'].items():
 f = E['fuentes']
 salida = {
     'mes': E['mes'],
-    'antes': 'agosto de ' + ANTES,
+    'antes': MES_NOMBRE + ' de ' + ANTES,
     # Los años de «serie», en el mismo orden.
     'anios': sorted({y for c in E['ciudades'].values() for k in LISTAS
                      for y in (c.get(k + 'Anterior') or {})}) + [E['mes'].split()[-1]],

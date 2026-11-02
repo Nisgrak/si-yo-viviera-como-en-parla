@@ -1,6 +1,6 @@
 {
  "generado": "herramientas/sanidad/espera.py",
- "mes": "agosto de 2026",
+ "mes": "septiembre de 2026",
  "ciudades": {
   "parla": {
    "hospital": "Hospital Universitario Infanta Cristina (Parla)",
@@ -14,57 +14,57 @@
     "fuente": "memoria2024_infanta_cristina"
    },
    "quirurgica": {
-    "pacientes": 2888,
-    "demoraDias": 98.6,
-    "mes": "agosto de 2026",
-    "por1000": 15.9
+    "pacientes": 2870,
+    "demoraDias": 98.66,
+    "mes": "septiembre de 2026",
+    "por1000": 15.8
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 2215,
-     "demoraDias": 83.62,
-     "mes": "agosto de 2025"
+     "pacientes": 2108,
+     "demoraDias": 55.47,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 2237,
-     "demoraDias": 79.65,
-     "mes": "agosto de 2024"
+     "pacientes": 2194,
+     "demoraDias": 75.71,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 15390,
-    "demoraDias": 58.97,
-    "mes": "agosto de 2026",
-    "por1000": 84.8
+    "pacientes": 15336,
+    "demoraDias": 55.08,
+    "mes": "septiembre de 2026",
+    "por1000": 84.5
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 13542,
-     "demoraDias": 55.92,
-     "mes": "agosto de 2025"
+     "pacientes": 13541,
+     "demoraDias": 57.25,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 11594,
-     "demoraDias": 52.08,
-     "mes": "agosto de 2024"
+     "pacientes": 11684,
+     "demoraDias": 49.08,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 1873,
-    "demoraDias": 31.86,
-    "mes": "agosto de 2026",
-    "por1000": 10.3
+    "pacientes": 2279,
+    "demoraDias": 26.04,
+    "mes": "septiembre de 2026",
+    "por1000": 12.6
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 4640,
-     "demoraDias": 107.81,
-     "mes": "agosto de 2025"
+     "pacientes": 4246,
+     "demoraDias": 111.01,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 4789,
-     "demoraDias": 153.17,
-     "mes": "agosto de 2024"
+     "pacientes": 4698,
+     "demoraDias": 155.93,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -80,57 +80,57 @@
     "fuente": "memoria2024_getafe"
    },
    "quirurgica": {
-    "pacientes": 5675,
-    "demoraDias": 119.08,
-    "mes": "agosto de 2026",
-    "por1000": 23.4
+    "pacientes": 5921,
+    "demoraDias": 123.21,
+    "mes": "septiembre de 2026",
+    "por1000": 24.4
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 4716,
-     "demoraDias": 91.12,
-     "mes": "agosto de 2025"
+     "pacientes": 4664,
+     "demoraDias": 54.11,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 4991,
-     "demoraDias": 82.04,
-     "mes": "agosto de 2024"
+     "pacientes": 5064,
+     "demoraDias": 81.07,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 27010,
-    "demoraDias": 87.97,
-    "mes": "agosto de 2026",
-    "por1000": 111.3
+    "pacientes": 26469,
+    "demoraDias": 86.73,
+    "mes": "septiembre de 2026",
+    "por1000": 109.1
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 25246,
-     "demoraDias": 78.94,
-     "mes": "agosto de 2025"
+     "pacientes": 25676,
+     "demoraDias": 78.17,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 30637,
-     "demoraDias": 82.8,
-     "mes": "agosto de 2024"
+     "pacientes": 31391,
+     "demoraDias": 85.57,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 6332,
-    "demoraDias": 76.52,
-    "mes": "agosto de 2026",
-    "por1000": 26.1
+    "pacientes": 5709,
+    "demoraDias": 83.67,
+    "mes": "septiembre de 2026",
+    "por1000": 23.5
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 8205,
-     "demoraDias": 92.77,
-     "mes": "agosto de 2025"
+     "pacientes": 7380,
+     "demoraDias": 83.82,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 11622,
-     "demoraDias": 77.92,
-     "mes": "agosto de 2024"
+     "pacientes": 12373,
+     "demoraDias": 76.94,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -146,57 +146,57 @@
     "fuente": "memoria2024_getafe"
    },
    "quirurgica": {
-    "pacientes": 5675,
-    "demoraDias": 119.08,
-    "mes": "agosto de 2026",
-    "por1000": 23.4
+    "pacientes": 5921,
+    "demoraDias": 123.21,
+    "mes": "septiembre de 2026",
+    "por1000": 24.4
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 4716,
-     "demoraDias": 91.12,
-     "mes": "agosto de 2025"
+     "pacientes": 4664,
+     "demoraDias": 54.11,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 4991,
-     "demoraDias": 82.04,
-     "mes": "agosto de 2024"
+     "pacientes": 5064,
+     "demoraDias": 81.07,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 27010,
-    "demoraDias": 87.97,
-    "mes": "agosto de 2026",
-    "por1000": 111.3
+    "pacientes": 26469,
+    "demoraDias": 86.73,
+    "mes": "septiembre de 2026",
+    "por1000": 109.1
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 25246,
-     "demoraDias": 78.94,
-     "mes": "agosto de 2025"
+     "pacientes": 25676,
+     "demoraDias": 78.17,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 30637,
-     "demoraDias": 82.8,
-     "mes": "agosto de 2024"
+     "pacientes": 31391,
+     "demoraDias": 85.57,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 6332,
-    "demoraDias": 76.52,
-    "mes": "agosto de 2026",
-    "por1000": 26.1
+    "pacientes": 5709,
+    "demoraDias": 83.67,
+    "mes": "septiembre de 2026",
+    "por1000": 23.5
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 8205,
-     "demoraDias": 92.77,
-     "mes": "agosto de 2025"
+     "pacientes": 7380,
+     "demoraDias": 83.82,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 11622,
-     "demoraDias": 77.92,
-     "mes": "agosto de 2024"
+     "pacientes": 12373,
+     "demoraDias": 76.94,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -212,57 +212,57 @@
     "fuente": "memoria2024_fuenlabrada"
    },
    "quirurgica": {
-    "pacientes": 2853,
-    "demoraDias": 52.95,
-    "mes": "agosto de 2026",
-    "por1000": 12.6
+    "pacientes": 2866,
+    "demoraDias": 51.53,
+    "mes": "septiembre de 2026",
+    "por1000": 12.7
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 2582,
-     "demoraDias": 60.67,
-     "mes": "agosto de 2025"
+     "pacientes": 2570,
+     "demoraDias": 54.8,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 2448,
-     "demoraDias": 55.3,
-     "mes": "agosto de 2024"
+     "pacientes": 2480,
+     "demoraDias": 49.18,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 32487,
-    "demoraDias": 81.46,
-    "mes": "agosto de 2026",
-    "por1000": 143.5
+    "pacientes": 32463,
+    "demoraDias": 82.2,
+    "mes": "septiembre de 2026",
+    "por1000": 143.4
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 33159,
-     "demoraDias": 81.17,
-     "mes": "agosto de 2025"
+     "pacientes": 32590,
+     "demoraDias": 83.36,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 34547,
-     "demoraDias": 78.42,
-     "mes": "agosto de 2024"
+     "pacientes": 35053,
+     "demoraDias": 76.31,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 9305,
-    "demoraDias": 77.51,
-    "mes": "agosto de 2026",
-    "por1000": 41.1
+    "pacientes": 9365,
+    "demoraDias": 81.56,
+    "mes": "septiembre de 2026",
+    "por1000": 41.4
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 8824,
-     "demoraDias": 71.35,
-     "mes": "agosto de 2025"
+     "pacientes": 8897,
+     "demoraDias": 73.15,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 12442,
-     "demoraDias": 100.81,
-     "mes": "agosto de 2024"
+     "pacientes": 11955,
+     "demoraDias": 103.18,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -278,57 +278,57 @@
     "fuente": "memoria2024_severo_ochoa"
    },
    "quirurgica": {
-    "pacientes": 2608,
-    "demoraDias": 67.06,
-    "mes": "agosto de 2026",
-    "por1000": 13.3
+    "pacientes": 3037,
+    "demoraDias": 62.93,
+    "mes": "septiembre de 2026",
+    "por1000": 15.4
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 1602,
-     "demoraDias": 43.06,
-     "mes": "agosto de 2025"
+     "pacientes": 1767,
+     "demoraDias": 32.7,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 1811,
-     "demoraDias": 43.29,
-     "mes": "agosto de 2024"
+     "pacientes": 2123,
+     "demoraDias": 39.01,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 22191,
-    "demoraDias": 61.62,
-    "mes": "agosto de 2026",
-    "por1000": 112.8
+    "pacientes": 23685,
+    "demoraDias": 60.62,
+    "mes": "septiembre de 2026",
+    "por1000": 120.4
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 21464,
-     "demoraDias": 66.4,
-     "mes": "agosto de 2025"
+     "pacientes": 22089,
+     "demoraDias": 65.09,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 21054,
-     "demoraDias": 65.35,
-     "mes": "agosto de 2024"
+     "pacientes": 22399,
+     "demoraDias": 60.44,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 2965,
-    "demoraDias": 82.59,
-    "mes": "agosto de 2026",
-    "por1000": 15.1
+    "pacientes": 2959,
+    "demoraDias": 53.01,
+    "mes": "septiembre de 2026",
+    "por1000": 15.0
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 2989,
-     "demoraDias": 69.4,
-     "mes": "agosto de 2025"
+     "pacientes": 3098,
+     "demoraDias": 70.75,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 2408,
-     "demoraDias": 65.53,
-     "mes": "agosto de 2024"
+     "pacientes": 2469,
+     "demoraDias": 60.51,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -344,57 +344,57 @@
     "fuente": "memoria2024_alcorcon"
    },
    "quirurgica": {
-    "pacientes": 3200,
-    "demoraDias": 80.37,
-    "mes": "agosto de 2026",
-    "por1000": 18.2
+    "pacientes": 3467,
+    "demoraDias": 83.84,
+    "mes": "septiembre de 2026",
+    "por1000": 19.7
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 2748,
-     "demoraDias": 72.42,
-     "mes": "agosto de 2025"
+     "pacientes": 2802,
+     "demoraDias": 58.14,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 3013,
-     "demoraDias": 70.34,
-     "mes": "agosto de 2024"
+     "pacientes": 3012,
+     "demoraDias": 72.29,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 24852,
-    "demoraDias": 82.01,
-    "mes": "agosto de 2026",
-    "por1000": 141.4
+    "pacientes": 24734,
+    "demoraDias": 83.73,
+    "mes": "septiembre de 2026",
+    "por1000": 140.7
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 24852,
-     "demoraDias": 80.73,
-     "mes": "agosto de 2025"
+     "pacientes": 24493,
+     "demoraDias": 80.64,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 23396,
-     "demoraDias": 69.15,
-     "mes": "agosto de 2024"
+     "pacientes": 23102,
+     "demoraDias": 70.06,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 1284,
-    "demoraDias": 65.81,
-    "mes": "agosto de 2026",
-    "por1000": 7.3
+    "pacientes": 1445,
+    "demoraDias": 62.87,
+    "mes": "septiembre de 2026",
+    "por1000": 8.2
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 1753,
-     "demoraDias": 56.69,
-     "mes": "agosto de 2025"
+     "pacientes": 1858,
+     "demoraDias": 55.52,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 1785,
-     "demoraDias": 51.3,
-     "mes": "agosto de 2024"
+     "pacientes": 1868,
+     "demoraDias": 54.05,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -410,57 +410,57 @@
     "fuente": "memoria2024_infanta_sofia"
    },
    "quirurgica": {
-    "pacientes": 3308,
-    "demoraDias": 78.11,
-    "mes": "agosto de 2026",
-    "por1000": 9.4
+    "pacientes": 3234,
+    "demoraDias": 74.61,
+    "mes": "septiembre de 2026",
+    "por1000": 9.1
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 2555,
-     "demoraDias": 73.84,
-     "mes": "agosto de 2025"
+     "pacientes": 2588,
+     "demoraDias": 50.75,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 3795,
-     "demoraDias": 93.32,
-     "mes": "agosto de 2024"
+     "pacientes": 3553,
+     "demoraDias": 91.6,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 39062,
-    "demoraDias": 91.69,
-    "mes": "agosto de 2026",
-    "por1000": 110.4
+    "pacientes": 38394,
+    "demoraDias": 88.15,
+    "mes": "septiembre de 2026",
+    "por1000": 108.5
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 40585,
-     "demoraDias": 90.42,
-     "mes": "agosto de 2025"
+     "pacientes": 39904,
+     "demoraDias": 87.96,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 42136,
-     "demoraDias": 91.09,
-     "mes": "agosto de 2024"
+     "pacientes": 42437,
+     "demoraDias": 91.01,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 10898,
-    "demoraDias": 70.41,
-    "mes": "agosto de 2026",
-    "por1000": 30.8
+    "pacientes": 12703,
+    "demoraDias": 57.37,
+    "mes": "septiembre de 2026",
+    "por1000": 35.9
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 9317,
-     "demoraDias": 67.64,
-     "mes": "agosto de 2025"
+     "pacientes": 9005,
+     "demoraDias": 61.0,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 10879,
-     "demoraDias": 129.61,
-     "mes": "agosto de 2024"
+     "pacientes": 10862,
+     "demoraDias": 124.15,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -476,57 +476,57 @@
     "fuente": "memoria2024_mostoles"
    },
    "quirurgica": {
-    "pacientes": 3376,
-    "demoraDias": 87.78,
-    "mes": "agosto de 2026",
-    "por1000": 18.5
+    "pacientes": 3763,
+    "demoraDias": 86.01,
+    "mes": "septiembre de 2026",
+    "por1000": 20.6
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 2622,
-     "demoraDias": 77.32,
-     "mes": "agosto de 2025"
+     "pacientes": 2735,
+     "demoraDias": 33.32,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 1948,
-     "demoraDias": 69.14,
-     "mes": "agosto de 2024"
+     "pacientes": 2061,
+     "demoraDias": 63.23,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 20026,
-    "demoraDias": 66.78,
-    "mes": "agosto de 2026",
-    "por1000": 109.9
+    "pacientes": 19915,
+    "demoraDias": 62.45,
+    "mes": "septiembre de 2026",
+    "por1000": 109.3
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 20377,
-     "demoraDias": 69.36,
-     "mes": "agosto de 2025"
+     "pacientes": 20559,
+     "demoraDias": 67.62,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 20191,
-     "demoraDias": 70.0,
-     "mes": "agosto de 2024"
+     "pacientes": 21109,
+     "demoraDias": 69.13,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 8285,
-    "demoraDias": 84.68,
-    "mes": "agosto de 2026",
-    "por1000": 45.5
+    "pacientes": 8362,
+    "demoraDias": 84.53,
+    "mes": "septiembre de 2026",
+    "por1000": 45.9
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 8583,
-     "demoraDias": 84.94,
-     "mes": "agosto de 2025"
+     "pacientes": 8185,
+     "demoraDias": 84.01,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 7468,
-     "demoraDias": 67.62,
-     "mes": "agosto de 2024"
+     "pacientes": 7401,
+     "demoraDias": 68.98,
+     "mes": "septiembre de 2024"
     }
    },
    "hospitalSecundario": {
@@ -540,57 +540,57 @@
      "fuente": "memoria2024_rey_juan_carlos"
     },
     "quirurgica": {
-     "pacientes": 3106,
-     "demoraDias": 19.11,
-     "mes": "agosto de 2026",
-     "por1000": 16.3
+     "pacientes": 3555,
+     "demoraDias": 18.58,
+     "mes": "septiembre de 2026",
+     "por1000": 18.7
     },
     "consultas": {
-     "pacientes": 18098,
-     "demoraDias": 27.25,
-     "mes": "agosto de 2026",
-     "por1000": 95.2
+     "pacientes": 19413,
+     "demoraDias": 27.14,
+     "mes": "septiembre de 2026",
+     "por1000": 102.1
     },
     "pruebas": {
-     "pacientes": 7169,
-     "demoraDias": 51.21,
-     "mes": "agosto de 2026",
-     "por1000": 37.7
+     "pacientes": 8068,
+     "demoraDias": 44.67,
+     "mes": "septiembre de 2026",
+     "por1000": 42.4
     },
     "quirurgicaAnterior": {
      "2025": {
-      "pacientes": 2448,
-      "demoraDias": 16.28,
-      "mes": "agosto de 2025"
+      "pacientes": 2734,
+      "demoraDias": 15.25,
+      "mes": "septiembre de 2025"
      },
      "2024": {
-      "pacientes": 3208,
-      "demoraDias": 28.29,
-      "mes": "agosto de 2024"
+      "pacientes": 3526,
+      "demoraDias": 25.0,
+      "mes": "septiembre de 2024"
      }
     },
     "consultasAnterior": {
      "2025": {
-      "pacientes": 18280,
-      "demoraDias": 28.96,
-      "mes": "agosto de 2025"
+      "pacientes": 21002,
+      "demoraDias": 30.05,
+      "mes": "septiembre de 2025"
      },
      "2024": {
-      "pacientes": 23067,
-      "demoraDias": 43.76,
-      "mes": "agosto de 2024"
+      "pacientes": 23451,
+      "demoraDias": 33.8,
+      "mes": "septiembre de 2024"
      }
     },
     "pruebasAnterior": {
      "2025": {
-      "pacientes": 6055,
-      "demoraDias": 63.48,
-      "mes": "agosto de 2025"
+      "pacientes": 7294,
+      "demoraDias": 52.94,
+      "mes": "septiembre de 2025"
      },
      "2024": {
-      "pacientes": 5501,
-      "demoraDias": 47.24,
-      "mes": "agosto de 2024"
+      "pacientes": 6157,
+      "demoraDias": 46.7,
+      "mes": "septiembre de 2024"
      }
     }
    },
@@ -613,65 +613,59 @@
     "fuente": "memoria2024_torrejon"
    },
    "quirurgica": {
-    "pacientes": 3915,
-    "demoraDias": 63.29,
-    "mes": "agosto de 2026",
-    "por1000": 23.8
+    "pacientes": 3621,
+    "demoraDias": 57.84,
+    "mes": "septiembre de 2026",
+    "por1000": 22.0
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 3599,
-     "demoraDias": 61.68,
-     "mes": "agosto de 2025"
+     "pacientes": 3622,
+     "demoraDias": 53.72,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 3822,
-     "demoraDias": 71.64,
-     "mes": "agosto de 2024"
+     "pacientes": 3695,
+     "demoraDias": 66.77,
+     "mes": "septiembre de 2024"
     }
    },
-   "consultas": null,
-   "consultasUltimoDisponible": {
-    "pacientes": 21125,
-    "demoraDias": 32.98,
-    "mes": "junio de 2026",
-    "por1000": 128.4
+   "consultas": {
+    "pacientes": 22383,
+    "demoraDias": 40.78,
+    "mes": "septiembre de 2026",
+    "por1000": 136.1
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 24185,
-     "demoraDias": 43.23,
-     "mes": "agosto de 2025"
+     "pacientes": 22385,
+     "demoraDias": 39.41,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 24129,
-     "demoraDias": 47.21,
-     "mes": "agosto de 2024"
+     "pacientes": 24533,
+     "demoraDias": 44.0,
+     "mes": "septiembre de 2024"
     }
    },
-   "pruebas": null,
-   "pruebasUltimoDisponible": {
-    "pacientes": 3673,
-    "demoraDias": 15.48,
-    "mes": "junio de 2026",
-    "por1000": 22.3
+   "pruebas": {
+    "pacientes": 4113,
+    "demoraDias": 13.93,
+    "mes": "septiembre de 2026",
+    "por1000": 25.0
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 3340,
-     "demoraDias": 14.85,
-     "mes": "agosto de 2025"
+     "pacientes": 3329,
+     "demoraDias": 13.94,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 3227,
-     "demoraDias": 14.33,
-     "mes": "agosto de 2024"
+     "pacientes": 3120,
+     "demoraDias": 14.21,
+     "mes": "septiembre de 2024"
     }
-   },
-   "sinDato": [
-    "consultas: agosto de 2026 publicado como 0 pacientes / 0 días",
-    "pruebas: agosto de 2026 publicado como 0 pacientes / 0 días"
-   ]
+   }
   },
   "pozuelo": {
    "hospital": "Hospital Universitario Puerta de Hierro Majadahonda",
@@ -685,57 +679,57 @@
     "fuente": "memoria2024_puerta_hierro"
    },
    "quirurgica": {
-    "pacientes": 6230,
-    "demoraDias": 97.02,
-    "mes": "agosto de 2026",
-    "por1000": 14.7
+    "pacientes": 6412,
+    "demoraDias": 103.56,
+    "mes": "septiembre de 2026",
+    "por1000": 15.1
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 5059,
-     "demoraDias": 84.76,
-     "mes": "agosto de 2025"
+     "pacientes": 4982,
+     "demoraDias": 46.49,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 4548,
-     "demoraDias": 78.31,
-     "mes": "agosto de 2024"
+     "pacientes": 4492,
+     "demoraDias": 73.44,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 44898,
-    "demoraDias": 79.45,
-    "mes": "agosto de 2026",
-    "por1000": 105.9
+    "pacientes": 45173,
+    "demoraDias": 80.88,
+    "mes": "septiembre de 2026",
+    "por1000": 106.5
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 47360,
-     "demoraDias": 89.94,
-     "mes": "agosto de 2025"
+     "pacientes": 47592,
+     "demoraDias": 92.92,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 47493,
-     "demoraDias": 86.86,
-     "mes": "agosto de 2024"
+     "pacientes": 48092,
+     "demoraDias": 91.69,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 5657,
-    "demoraDias": 55.35,
-    "mes": "agosto de 2026",
-    "por1000": 13.3
+    "pacientes": 6455,
+    "demoraDias": 51.03,
+    "mes": "septiembre de 2026",
+    "por1000": 15.2
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 5881,
-     "demoraDias": 75.8,
-     "mes": "agosto de 2025"
+     "pacientes": 5970,
+     "demoraDias": 81.96,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 5470,
-     "demoraDias": 46.04,
-     "mes": "agosto de 2024"
+     "pacientes": 5932,
+     "demoraDias": 49.88,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -751,57 +745,57 @@
     "fuente": "memoria2024_puerta_hierro"
    },
    "quirurgica": {
-    "pacientes": 6230,
-    "demoraDias": 97.02,
-    "mes": "agosto de 2026",
-    "por1000": 14.7
+    "pacientes": 6412,
+    "demoraDias": 103.56,
+    "mes": "septiembre de 2026",
+    "por1000": 15.1
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 5059,
-     "demoraDias": 84.76,
-     "mes": "agosto de 2025"
+     "pacientes": 4982,
+     "demoraDias": 46.49,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 4548,
-     "demoraDias": 78.31,
-     "mes": "agosto de 2024"
+     "pacientes": 4492,
+     "demoraDias": 73.44,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 44898,
-    "demoraDias": 79.45,
-    "mes": "agosto de 2026",
-    "por1000": 105.9
+    "pacientes": 45173,
+    "demoraDias": 80.88,
+    "mes": "septiembre de 2026",
+    "por1000": 106.5
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 47360,
-     "demoraDias": 89.94,
-     "mes": "agosto de 2025"
+     "pacientes": 47592,
+     "demoraDias": 92.92,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 47493,
-     "demoraDias": 86.86,
-     "mes": "agosto de 2024"
+     "pacientes": 48092,
+     "demoraDias": 91.69,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 5657,
-    "demoraDias": 55.35,
-    "mes": "agosto de 2026",
-    "por1000": 13.3
+    "pacientes": 6455,
+    "demoraDias": 51.03,
+    "mes": "septiembre de 2026",
+    "por1000": 15.2
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 5881,
-     "demoraDias": 75.8,
-     "mes": "agosto de 2025"
+     "pacientes": 5970,
+     "demoraDias": 81.96,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 5470,
-     "demoraDias": 46.04,
-     "mes": "agosto de 2024"
+     "pacientes": 5932,
+     "demoraDias": 49.88,
+     "mes": "septiembre de 2024"
     }
    }
   }
@@ -821,57 +815,57 @@
     "anio": 2024
    },
    "quirurgica": {
-    "pacientes": 2888,
-    "demoraDias": 98.6,
-    "mes": "agosto de 2026",
-    "por1000": 15.9
+    "pacientes": 2870,
+    "demoraDias": 98.66,
+    "mes": "septiembre de 2026",
+    "por1000": 15.8
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 2215,
-     "demoraDias": 83.62,
-     "mes": "agosto de 2025"
+     "pacientes": 2108,
+     "demoraDias": 55.47,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 2237,
-     "demoraDias": 79.65,
-     "mes": "agosto de 2024"
+     "pacientes": 2194,
+     "demoraDias": 75.71,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 15390,
-    "demoraDias": 58.97,
-    "mes": "agosto de 2026",
-    "por1000": 84.8
+    "pacientes": 15336,
+    "demoraDias": 55.08,
+    "mes": "septiembre de 2026",
+    "por1000": 84.5
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 13542,
-     "demoraDias": 55.92,
-     "mes": "agosto de 2025"
+     "pacientes": 13541,
+     "demoraDias": 57.25,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 11594,
-     "demoraDias": 52.08,
-     "mes": "agosto de 2024"
+     "pacientes": 11684,
+     "demoraDias": 49.08,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 1873,
-    "demoraDias": 31.86,
-    "mes": "agosto de 2026",
-    "por1000": 10.3
+    "pacientes": 2279,
+    "demoraDias": 26.04,
+    "mes": "septiembre de 2026",
+    "por1000": 12.6
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 4640,
-     "demoraDias": 107.81,
-     "mes": "agosto de 2025"
+     "pacientes": 4246,
+     "demoraDias": 111.01,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 4789,
-     "demoraDias": 153.17,
-     "mes": "agosto de 2024"
+     "pacientes": 4698,
+     "demoraDias": 155.93,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -888,57 +882,57 @@
     "anio": 2024
    },
    "quirurgica": {
-    "pacientes": 5675,
-    "demoraDias": 119.08,
-    "mes": "agosto de 2026",
-    "por1000": 23.4
+    "pacientes": 5921,
+    "demoraDias": 123.21,
+    "mes": "septiembre de 2026",
+    "por1000": 24.4
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 4716,
-     "demoraDias": 91.12,
-     "mes": "agosto de 2025"
+     "pacientes": 4664,
+     "demoraDias": 54.11,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 4991,
-     "demoraDias": 82.04,
-     "mes": "agosto de 2024"
+     "pacientes": 5064,
+     "demoraDias": 81.07,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 27010,
-    "demoraDias": 87.97,
-    "mes": "agosto de 2026",
-    "por1000": 111.3
+    "pacientes": 26469,
+    "demoraDias": 86.73,
+    "mes": "septiembre de 2026",
+    "por1000": 109.1
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 25246,
-     "demoraDias": 78.94,
-     "mes": "agosto de 2025"
+     "pacientes": 25676,
+     "demoraDias": 78.17,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 30637,
-     "demoraDias": 82.8,
-     "mes": "agosto de 2024"
+     "pacientes": 31391,
+     "demoraDias": 85.57,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 6332,
-    "demoraDias": 76.52,
-    "mes": "agosto de 2026",
-    "por1000": 26.1
+    "pacientes": 5709,
+    "demoraDias": 83.67,
+    "mes": "septiembre de 2026",
+    "por1000": 23.5
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 8205,
-     "demoraDias": 92.77,
-     "mes": "agosto de 2025"
+     "pacientes": 7380,
+     "demoraDias": 83.82,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 11622,
-     "demoraDias": 77.92,
-     "mes": "agosto de 2024"
+     "pacientes": 12373,
+     "demoraDias": 76.94,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -956,57 +950,57 @@
     "anio": 2024
    },
    "quirurgica": {
-    "pacientes": 2853,
-    "demoraDias": 52.95,
-    "mes": "agosto de 2026",
-    "por1000": 12.6
+    "pacientes": 2866,
+    "demoraDias": 51.53,
+    "mes": "septiembre de 2026",
+    "por1000": 12.7
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 2582,
-     "demoraDias": 60.67,
-     "mes": "agosto de 2025"
+     "pacientes": 2570,
+     "demoraDias": 54.8,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 2448,
-     "demoraDias": 55.3,
-     "mes": "agosto de 2024"
+     "pacientes": 2480,
+     "demoraDias": 49.18,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 32487,
-    "demoraDias": 81.46,
-    "mes": "agosto de 2026",
-    "por1000": 143.5
+    "pacientes": 32463,
+    "demoraDias": 82.2,
+    "mes": "septiembre de 2026",
+    "por1000": 143.4
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 33159,
-     "demoraDias": 81.17,
-     "mes": "agosto de 2025"
+     "pacientes": 32590,
+     "demoraDias": 83.36,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 34547,
-     "demoraDias": 78.42,
-     "mes": "agosto de 2024"
+     "pacientes": 35053,
+     "demoraDias": 76.31,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 9305,
-    "demoraDias": 77.51,
-    "mes": "agosto de 2026",
-    "por1000": 41.1
+    "pacientes": 9365,
+    "demoraDias": 81.56,
+    "mes": "septiembre de 2026",
+    "por1000": 41.4
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 8824,
-     "demoraDias": 71.35,
-     "mes": "agosto de 2025"
+     "pacientes": 8897,
+     "demoraDias": 73.15,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 12442,
-     "demoraDias": 100.81,
-     "mes": "agosto de 2024"
+     "pacientes": 11955,
+     "demoraDias": 103.18,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -1024,57 +1018,57 @@
     "anio": 2024
    },
    "quirurgica": {
-    "pacientes": 2608,
-    "demoraDias": 67.06,
-    "mes": "agosto de 2026",
-    "por1000": 13.3
+    "pacientes": 3037,
+    "demoraDias": 62.93,
+    "mes": "septiembre de 2026",
+    "por1000": 15.4
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 1602,
-     "demoraDias": 43.06,
-     "mes": "agosto de 2025"
+     "pacientes": 1767,
+     "demoraDias": 32.7,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 1811,
-     "demoraDias": 43.29,
-     "mes": "agosto de 2024"
+     "pacientes": 2123,
+     "demoraDias": 39.01,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 22191,
-    "demoraDias": 61.62,
-    "mes": "agosto de 2026",
-    "por1000": 112.8
+    "pacientes": 23685,
+    "demoraDias": 60.62,
+    "mes": "septiembre de 2026",
+    "por1000": 120.4
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 21464,
-     "demoraDias": 66.4,
-     "mes": "agosto de 2025"
+     "pacientes": 22089,
+     "demoraDias": 65.09,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 21054,
-     "demoraDias": 65.35,
-     "mes": "agosto de 2024"
+     "pacientes": 22399,
+     "demoraDias": 60.44,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 2965,
-    "demoraDias": 82.59,
-    "mes": "agosto de 2026",
-    "por1000": 15.1
+    "pacientes": 2959,
+    "demoraDias": 53.01,
+    "mes": "septiembre de 2026",
+    "por1000": 15.0
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 2989,
-     "demoraDias": 69.4,
-     "mes": "agosto de 2025"
+     "pacientes": 3098,
+     "demoraDias": 70.75,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 2408,
-     "demoraDias": 65.53,
-     "mes": "agosto de 2024"
+     "pacientes": 2469,
+     "demoraDias": 60.51,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -1092,57 +1086,57 @@
     "anio": 2024
    },
    "quirurgica": {
-    "pacientes": 3200,
-    "demoraDias": 80.37,
-    "mes": "agosto de 2026",
-    "por1000": 18.2
+    "pacientes": 3467,
+    "demoraDias": 83.84,
+    "mes": "septiembre de 2026",
+    "por1000": 19.7
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 2748,
-     "demoraDias": 72.42,
-     "mes": "agosto de 2025"
+     "pacientes": 2802,
+     "demoraDias": 58.14,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 3013,
-     "demoraDias": 70.34,
-     "mes": "agosto de 2024"
+     "pacientes": 3012,
+     "demoraDias": 72.29,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 24852,
-    "demoraDias": 82.01,
-    "mes": "agosto de 2026",
-    "por1000": 141.4
+    "pacientes": 24734,
+    "demoraDias": 83.73,
+    "mes": "septiembre de 2026",
+    "por1000": 140.7
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 24852,
-     "demoraDias": 80.73,
-     "mes": "agosto de 2025"
+     "pacientes": 24493,
+     "demoraDias": 80.64,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 23396,
-     "demoraDias": 69.15,
-     "mes": "agosto de 2024"
+     "pacientes": 23102,
+     "demoraDias": 70.06,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 1284,
-    "demoraDias": 65.81,
-    "mes": "agosto de 2026",
-    "por1000": 7.3
+    "pacientes": 1445,
+    "demoraDias": 62.87,
+    "mes": "septiembre de 2026",
+    "por1000": 8.2
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 1753,
-     "demoraDias": 56.69,
-     "mes": "agosto de 2025"
+     "pacientes": 1858,
+     "demoraDias": 55.52,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 1785,
-     "demoraDias": 51.3,
-     "mes": "agosto de 2024"
+     "pacientes": 1868,
+     "demoraDias": 54.05,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -1159,57 +1153,57 @@
     "anio": 2024
    },
    "quirurgica": {
-    "pacientes": 3308,
-    "demoraDias": 78.11,
-    "mes": "agosto de 2026",
-    "por1000": 9.4
+    "pacientes": 3234,
+    "demoraDias": 74.61,
+    "mes": "septiembre de 2026",
+    "por1000": 9.1
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 2555,
-     "demoraDias": 73.84,
-     "mes": "agosto de 2025"
+     "pacientes": 2588,
+     "demoraDias": 50.75,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 3795,
-     "demoraDias": 93.32,
-     "mes": "agosto de 2024"
+     "pacientes": 3553,
+     "demoraDias": 91.6,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 39062,
-    "demoraDias": 91.69,
-    "mes": "agosto de 2026",
-    "por1000": 110.4
+    "pacientes": 38394,
+    "demoraDias": 88.15,
+    "mes": "septiembre de 2026",
+    "por1000": 108.5
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 40585,
-     "demoraDias": 90.42,
-     "mes": "agosto de 2025"
+     "pacientes": 39904,
+     "demoraDias": 87.96,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 42136,
-     "demoraDias": 91.09,
-     "mes": "agosto de 2024"
+     "pacientes": 42437,
+     "demoraDias": 91.01,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 10898,
-    "demoraDias": 70.41,
-    "mes": "agosto de 2026",
-    "por1000": 30.8
+    "pacientes": 12703,
+    "demoraDias": 57.37,
+    "mes": "septiembre de 2026",
+    "por1000": 35.9
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 9317,
-     "demoraDias": 67.64,
-     "mes": "agosto de 2025"
+     "pacientes": 9005,
+     "demoraDias": 61.0,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 10879,
-     "demoraDias": 129.61,
-     "mes": "agosto de 2024"
+     "pacientes": 10862,
+     "demoraDias": 124.15,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -1227,57 +1221,57 @@
     "anio": 2024
    },
    "quirurgica": {
-    "pacientes": 3376,
-    "demoraDias": 87.78,
-    "mes": "agosto de 2026",
-    "por1000": 18.5
+    "pacientes": 3763,
+    "demoraDias": 86.01,
+    "mes": "septiembre de 2026",
+    "por1000": 20.6
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 2622,
-     "demoraDias": 77.32,
-     "mes": "agosto de 2025"
+     "pacientes": 2735,
+     "demoraDias": 33.32,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 1948,
-     "demoraDias": 69.14,
-     "mes": "agosto de 2024"
+     "pacientes": 2061,
+     "demoraDias": 63.23,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 20026,
-    "demoraDias": 66.78,
-    "mes": "agosto de 2026",
-    "por1000": 109.9
+    "pacientes": 19915,
+    "demoraDias": 62.45,
+    "mes": "septiembre de 2026",
+    "por1000": 109.3
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 20377,
-     "demoraDias": 69.36,
-     "mes": "agosto de 2025"
+     "pacientes": 20559,
+     "demoraDias": 67.62,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 20191,
-     "demoraDias": 70.0,
-     "mes": "agosto de 2024"
+     "pacientes": 21109,
+     "demoraDias": 69.13,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 8285,
-    "demoraDias": 84.68,
-    "mes": "agosto de 2026",
-    "por1000": 45.5
+    "pacientes": 8362,
+    "demoraDias": 84.53,
+    "mes": "septiembre de 2026",
+    "por1000": 45.9
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 8583,
-     "demoraDias": 84.94,
-     "mes": "agosto de 2025"
+     "pacientes": 8185,
+     "demoraDias": 84.01,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 7468,
-     "demoraDias": 67.62,
-     "mes": "agosto de 2024"
+     "pacientes": 7401,
+     "demoraDias": 68.98,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -1295,57 +1289,57 @@
     "anio": 2024
    },
    "quirurgica": {
-    "pacientes": 3106,
-    "demoraDias": 19.11,
-    "mes": "agosto de 2026",
-    "por1000": 16.3
+    "pacientes": 3555,
+    "demoraDias": 18.58,
+    "mes": "septiembre de 2026",
+    "por1000": 18.7
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 2448,
-     "demoraDias": 16.28,
-     "mes": "agosto de 2025"
+     "pacientes": 2734,
+     "demoraDias": 15.25,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 3208,
-     "demoraDias": 28.29,
-     "mes": "agosto de 2024"
+     "pacientes": 3526,
+     "demoraDias": 25.0,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 18098,
-    "demoraDias": 27.25,
-    "mes": "agosto de 2026",
-    "por1000": 95.2
+    "pacientes": 19413,
+    "demoraDias": 27.14,
+    "mes": "septiembre de 2026",
+    "por1000": 102.1
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 18280,
-     "demoraDias": 28.96,
-     "mes": "agosto de 2025"
+     "pacientes": 21002,
+     "demoraDias": 30.05,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 23067,
-     "demoraDias": 43.76,
-     "mes": "agosto de 2024"
+     "pacientes": 23451,
+     "demoraDias": 33.8,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 7169,
-    "demoraDias": 51.21,
-    "mes": "agosto de 2026",
-    "por1000": 37.7
+    "pacientes": 8068,
+    "demoraDias": 44.67,
+    "mes": "septiembre de 2026",
+    "por1000": 42.4
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 6055,
-     "demoraDias": 63.48,
-     "mes": "agosto de 2025"
+     "pacientes": 7294,
+     "demoraDias": 52.94,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 5501,
-     "demoraDias": 47.24,
-     "mes": "agosto de 2024"
+     "pacientes": 6157,
+     "demoraDias": 46.7,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -1363,63 +1357,57 @@
     "anio": 2023
    },
    "quirurgica": {
-    "pacientes": 3915,
-    "demoraDias": 63.29,
-    "mes": "agosto de 2026",
-    "por1000": 23.8
+    "pacientes": 3621,
+    "demoraDias": 57.84,
+    "mes": "septiembre de 2026",
+    "por1000": 22.0
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 3599,
-     "demoraDias": 61.68,
-     "mes": "agosto de 2025"
+     "pacientes": 3622,
+     "demoraDias": 53.72,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 3822,
-     "demoraDias": 71.64,
-     "mes": "agosto de 2024"
+     "pacientes": 3695,
+     "demoraDias": 66.77,
+     "mes": "septiembre de 2024"
     }
    },
-   "consultasUltimoDisponible": {
-    "pacientes": 21125,
-    "demoraDias": 32.98,
-    "mes": "junio de 2026",
-    "por1000": 128.4
+   "consultas": {
+    "pacientes": 22383,
+    "demoraDias": 40.78,
+    "mes": "septiembre de 2026",
+    "por1000": 136.1
    },
-   "sinDato": [
-    "consultas: agosto de 2026 publicado como 0 pacientes / 0 días",
-    "pruebas: agosto de 2026 publicado como 0 pacientes / 0 días"
-   ],
-   "consultas": null,
    "consultasAnterior": {
     "2025": {
-     "pacientes": 24185,
-     "demoraDias": 43.23,
-     "mes": "agosto de 2025"
+     "pacientes": 22385,
+     "demoraDias": 39.41,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 24129,
-     "demoraDias": 47.21,
-     "mes": "agosto de 2024"
+     "pacientes": 24533,
+     "demoraDias": 44.0,
+     "mes": "septiembre de 2024"
     }
    },
-   "pruebasUltimoDisponible": {
-    "pacientes": 3673,
-    "demoraDias": 15.48,
-    "mes": "junio de 2026",
-    "por1000": 22.3
+   "pruebas": {
+    "pacientes": 4113,
+    "demoraDias": 13.93,
+    "mes": "septiembre de 2026",
+    "por1000": 25.0
    },
-   "pruebas": null,
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 3340,
-     "demoraDias": 14.85,
-     "mes": "agosto de 2025"
+     "pacientes": 3329,
+     "demoraDias": 13.94,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 3227,
-     "demoraDias": 14.33,
-     "mes": "agosto de 2024"
+     "pacientes": 3120,
+     "demoraDias": 14.21,
+     "mes": "septiembre de 2024"
     }
    }
   },
@@ -1437,93 +1425,89 @@
     "anio": 2024
    },
    "quirurgica": {
-    "pacientes": 6230,
-    "demoraDias": 97.02,
-    "mes": "agosto de 2026",
-    "por1000": 14.7
+    "pacientes": 6412,
+    "demoraDias": 103.56,
+    "mes": "septiembre de 2026",
+    "por1000": 15.1
    },
    "quirurgicaAnterior": {
     "2025": {
-     "pacientes": 5059,
-     "demoraDias": 84.76,
-     "mes": "agosto de 2025"
+     "pacientes": 4982,
+     "demoraDias": 46.49,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 4548,
-     "demoraDias": 78.31,
-     "mes": "agosto de 2024"
+     "pacientes": 4492,
+     "demoraDias": 73.44,
+     "mes": "septiembre de 2024"
     }
    },
    "consultas": {
-    "pacientes": 44898,
-    "demoraDias": 79.45,
-    "mes": "agosto de 2026",
-    "por1000": 105.9
+    "pacientes": 45173,
+    "demoraDias": 80.88,
+    "mes": "septiembre de 2026",
+    "por1000": 106.5
    },
    "consultasAnterior": {
     "2025": {
-     "pacientes": 47360,
-     "demoraDias": 89.94,
-     "mes": "agosto de 2025"
+     "pacientes": 47592,
+     "demoraDias": 92.92,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 47493,
-     "demoraDias": 86.86,
-     "mes": "agosto de 2024"
+     "pacientes": 48092,
+     "demoraDias": 91.69,
+     "mes": "septiembre de 2024"
     }
    },
    "pruebas": {
-    "pacientes": 5657,
-    "demoraDias": 55.35,
-    "mes": "agosto de 2026",
-    "por1000": 13.3
+    "pacientes": 6455,
+    "demoraDias": 51.03,
+    "mes": "septiembre de 2026",
+    "por1000": 15.2
    },
    "pruebasAnterior": {
     "2025": {
-     "pacientes": 5881,
-     "demoraDias": 75.8,
-     "mes": "agosto de 2025"
+     "pacientes": 5970,
+     "demoraDias": 81.96,
+     "mes": "septiembre de 2025"
     },
     "2024": {
-     "pacientes": 5470,
-     "demoraDias": 46.04,
-     "mes": "agosto de 2024"
+     "pacientes": 5932,
+     "demoraDias": 49.88,
+     "mes": "septiembre de 2024"
     }
    }
   }
  },
  "comprobacion": {
   "quirurgica": {
-   "sumaHospitalesAgosto2026": 120168,
-   "demoraMediaPonderada": 79.79,
+   "sumaHospitales": 126726,
+   "demoraMediaPonderada": 79.55,
    "hospitales": 29,
    "hospitalesSinDato": [],
-   "totalRegionalLEQ": 120168,
-   "totalRegionalEstructural": 92525,
-   "demoraRegionalEstructural": 71.88
+   "totalRegionalLEQ": 126726,
+   "totalRegionalEstructural": 103378,
+   "demoraRegionalEstructural": 69.59
   },
   "consultas": {
-   "sumaHospitalesAgosto2026": 698522,
-   "demoraMediaPonderada": 76.62,
+   "sumaHospitales": 747337,
+   "demoraMediaPonderada": 73.78,
    "hospitales": 31,
    "hospitalesSinDato": [
-    "HOSPITAL CENTRAL DE LA DEFENSA GOMEZ ULLA",
-    "HOSPITAL DE GUADARRAMA",
-    "HOSPITAL UNIVERSITARIO DE TORREJON"
+    "HOSPITAL DE GUADARRAMA"
    ],
-   "totalRegionalEstructural": 698522,
-   "demoraRegional": 76.62
+   "totalRegionalEstructural": 747337,
+   "demoraRegional": 73.78,
+   "tasaPublicada": 149.01
   },
   "pruebas": {
-   "sumaHospitalesAgosto2026": 168441,
-   "demoraMediaPonderada": 66.51,
+   "sumaHospitales": 182706,
+   "demoraMediaPonderada": 61.02,
    "hospitales": 29,
-   "hospitalesSinDato": [
-    "HOSPITAL CENTRAL DE LA DEFENSA GOMEZ ULLA",
-    "HOSPITAL UNIVERSITARIO DE TORREJON"
-   ],
-   "totalRegionalEstructural": 168443,
-   "demoraRegional": 66.51
+   "hospitalesSinDato": [],
+   "totalRegionalEstructural": 182709,
+   "demoraRegional": 61.02
   }
  },
  "fuentes": {
@@ -1547,17 +1531,17 @@
    "titulo": "Comunidad de Madrid. Lista de espera de pruebas diagnósticas y terapéuticas",
    "url": "https://www.comunidad.madrid/salud/lista-espera-pruebas-diagnosticas-terapeuticas"
   },
-  "globalQuirurgicaAgosto2026": {
-   "titulo": "Datos del Registro Unificado de LEQ, agosto 2026 (CSV)",
-   "url": "https://www.comunidad.madrid/docs/2026-09/le_q_agosto_2026.csv"
+  "globalQuirurgica": {
+   "titulo": "Datos del Registro Unificado de LEQ, septiembre de 2026 (CSV)",
+   "url": "https://www.comunidad.madrid/docs/2026-10/le_q_septiembre_2026.csv"
   },
-  "globalConsultasAgosto2026": {
-   "titulo": "Datos de lista de espera de consultas externas, agosto 2026 (CSV)",
-   "url": "https://www.comunidad.madrid/docs/2026-09/le_c_agosto_2026.csv"
+  "globalConsultas": {
+   "titulo": "Datos de lista de espera de consultas externas, septiembre de 2026 (CSV)",
+   "url": "https://www.comunidad.madrid/docs/2026-10/le_c_septiembre_2026.csv"
   },
-  "globalPruebasAgosto2026": {
-   "titulo": "Datos de lista de espera de pruebas diagnósticas/terapéuticas, agosto 2026 (CSV)",
-   "url": "https://www.comunidad.madrid/docs/2026-09/le_t_agosto_2026.csv"
+  "globalPruebas": {
+   "titulo": "Datos de lista de espera de pruebas diagnósticas/terapéuticas, septiembre de 2026 (CSV)",
+   "url": "https://www.comunidad.madrid/docs/2026-10/le_t_septiembre_2026.csv"
   },
   "concesiones": {
    "titulo": "Comunidad de Madrid. H.U. Rey Juan Carlos: hospitales «gestionados bajo la modalidad de concesión administrativa» (Infanta Elena, Rey Juan Carlos, Torrejón, Villalba)",
@@ -1609,10 +1593,10 @@
   }
  },
  "notas": [
-  "Último mes publicado: agosto de 2026 (actualización del 16/09/2026). Se da también agosto de 2025 y agosto de 2024, el mismo mes, para evitar el efecto estacional (agosto es un mes de poca actividad programada y las listas suelen crecer).",
+  "Último mes publicado: septiembre de 2026. Se da también septiembre de 2025 y septiembre de 2024, el mismo mes, para evitar el efecto estacional (las listas cambian con la época del año: en agosto, por ejemplo, hay poca actividad programada y suelen crecer).",
   "Las cifras por hospital son la opción «Total» del servicio de consulta del SERMAS: número de pacientes en lista y demora media en días naturales «a fecha de corte» (lo que llevan esperando los que siguen en lista, no lo que esperaron los ya atendidos). Consultas = primera consulta externa (no incluye Obstetricia); pruebas = TC, RM, ecografía, mamografía, hemodinámica, ecocardiografía, ergometría, electromiograma, densitometría, colonoscopia y gastroscopia.",
-  "Qué cuenta cada cifra por hospital (ver «comprobacion»). Consultas y pruebas: la suma de hospitales y la demora ponderada cuadran con el total regional de espera ESTRUCTURAL (698.522 pacientes, 76,62 días; 168.441 frente a 168.443 y 66,51 días en pruebas). Quirúrgica: la suma de hospitales da 120.168, que es el TOTAL de la lista (estructural + rechazo de derivación + transitoriamente no programables), no los 92.525 estructurales que la Comunidad destaca; y la demora ponderada (79,79 días) no coincide con la «demora media estructural» regional (71,88). Las cifras quirúrgicas por hospital son comparables entre sí, pero NO con el titular regional de 92.525 / 71,88.",
-  "Torrejón (concesión, Ribera Salud): el servicio publica 0 pacientes y 0 días en consultas y en pruebas en julio y agosto de 2026, lo que es ausencia de dato, no lista vacía. Se deja a null y se da el último mes con dato (junio de 2026) en «consultasUltimoDisponible» / «pruebasUltimoDisponible». El total regional de consultas de agosto de 2026 (698.522) no incluye, por tanto, a Torrejón (unos 21.000 pacientes en junio). La quirúrgica de Torrejón sí está publicada en agosto de 2026.",
+  "Qué cuenta cada cifra por hospital (ver «comprobacion»). Consultas y pruebas: la suma de hospitales y la demora ponderada cuadran con el total regional de espera ESTRUCTURAL de los CSV de la Comunidad. Quirúrgica: la suma de hospitales es el TOTAL de la lista (estructural + rechazo de derivación + transitoriamente no programables), no los «estructurales» que la Comunidad destaca, y la demora ponderada no coincide con la «demora media estructural» regional. Las cifras quirúrgicas por hospital son comparables entre sí, pero NO con ese titular regional.",
+  "Torrejón (concesión, Ribera Salud): el servicio publicó 0 pacientes y 0 días en consultas y en pruebas en julio y agosto de 2026, lo que es ausencia de dato, no lista vacía. Si vuelve a pasar en el mes que se use, se deja a null y se da el último mes con dato en «consultasUltimoDisponible» / «pruebasUltimoDisponible». En septiembre de 2026 vuelve a publicarlos.",
   "Rey Juan Carlos (concesión, Quirónsalud) muestra demoras mucho menores que el resto (19 días en quirúrgica frente a 50-120). Es el dato oficial; no se ha corregido.",
   "Libre elección (Decreto 51/2010): cualquier madrileño puede apuntarse en la lista de otro hospital, y los hospitales con servicios de referencia atienden a pacientes de fuera de su área. La lista de un hospital no son solo vecinos de su área ni todos los vecinos del área esperan en él. Los «por1000» (pacientes / población de referencia × 1.000) son por eso una aproximación de la presión sobre el hospital, no una tasa de vecinos en espera.",
   "Población de referencia: tabla «Población de referencia» de la Memoria 2024 de cada hospital (SIP-CIBELES, tarjetas sanitarias a 31/12/2024; Torrejón la da a 31/12/2023). Es de un año y medio antes que las listas. No hay cifra de 2025 publicada en las memorias consultadas.",
@@ -1624,6 +1608,6 @@
   "Móstoles tiene dos hospitales de referencia: el H.U. de Móstoles (gestión pública; centros de salud de Móstoles salvo tres, más Arroyomolinos) y el H.U. Rey Juan Carlos (concesión, Quirónsalud; C.S. Barcelona, La Princesa y Presentación Sabio de Móstoles, más Villaviciosa, Navalcarnero y la Sierra Oeste). Se toma como principal el H.U. de Móstoles, que cubre a la mayoría de la población del municipio (ver «repartoMunicipio»); el Rey Juan Carlos va en «hospitalSecundario».",
   "Gestión: Rey Juan Carlos y Torrejón son concesiones administrativas (la Comunidad lo dice así en la web del Rey Juan Carlos; la Memoria 2024 de Torrejón: «gestión de servicios públicos en la modalidad de concesión administrativa»). Infanta Cristina e Infanta Sofía son de gestión sanitaria pública, pero se construyeron por concesión de obra: una sociedad concesionaria explota el edificio y los servicios no sanitarios. Fundación Alcorcón es una fundación pública del sector público.",
   "Los datos abiertos de datos.comunidad.madrid por hospital son anuales (a 31 de diciembre) y llegan a 2025 en quirúrgica y a 2024 en consultas y pruebas; no se usan aquí, pero sirven para contrastar.",
-  "Datos globales de consultas de agosto 2026: la Comunidad publica «Tasa por 1000 habitantes 140,26» con 698.522 pacientes y 7.175.375 habitantes asignados, pero 698.522 / 7.175.375 × 1.000 = 97,3. No usamos esa tasa."
+  "Datos globales de consultas: la Comunidad publica una «Tasa por 1000 habitantes» que no sale de sus propias cifras (agosto de 2026: 140,26 con 698.522 pacientes y 7.175.375 habitantes asignados, que dan 97,3; septiembre: 149,01, y la cuenta da 104,2). No usamos esa tasa."
  ]
 }

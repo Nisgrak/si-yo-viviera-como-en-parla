@@ -126,7 +126,8 @@
     $('#espera-txt').textContent = 'Lo que llevan esperando de media los que siguen en lista en el hospital que ' +
       'le toca a cada ciudad: para operarse, para la primera consulta con el especialista y para una prueba.';
 
-    /* La espera para operarse, en grande, y cómo ha cambiado cada agosto. */
+    /* La espera para operarse, en grande, y cómo ha cambiado el mismo mes de cada año. */
+    $('#espera-evolucion').textContent = 'Días de espera para operarse, cada ' + S.mes.split(' de ')[0];
     const cif = $('#espera-cifras');
     vaciar(cif);
     [[REF, r, 'referencia'], [AQUI, a, 'aqui']].forEach(function (g) {

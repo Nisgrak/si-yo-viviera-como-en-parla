@@ -11,7 +11,7 @@ envía. Cada respuesta HTML se guarda tal cual en /var/tmp/espera/leq/raw/ para
 que espera.py la lea. Se descargan todos los hospitales (no solo los once de
 referencia) para poder comprobar que la suma cuadra con el total regional.
 
-Uso: python3 -I descarga_espera.py [--hospital COD[,COD]] [AAAA-MM ...]   (por defecto 2026-08 2025-08 2024-08)
+Uso: python3 -I descarga_espera.py [--hospital COD[,COD]] [AAAA-MM ...]   (por defecto 2026-09 2025-09 2024-09)
 """
 import html
 import http.cookiejar
@@ -66,7 +66,7 @@ def main():
         i = args.index('--hospital')
         solo = set(args[i + 1].split(','))
         del args[i:i + 2]
-    meses = args or ['2026-08', '2025-08', '2024-08']
+    meses = args or ['2026-09', '2025-09', '2024-09']
     os.makedirs(DESTINO, exist_ok=True)
     for tipo, (pagina, total) in FORMULARIOS.items():
         url = BASE + pagina
