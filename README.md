@@ -401,10 +401,10 @@ las 6 y las 10 de la mañana, de dos maneras:
 - **Lo llena que va la A-42.** Un mapa con la autovía hacia Madrid, de salida en salida, dibujada
   con tantos carriles como tiene cada tramo y coloreada por lo llena que va de 7 a 8: la gente que
   la cruza (todos los viajes de España que la pisan, del estudio de rutas, cada 500 m) sobre lo que
-  cabe (2.350 vehículos por carril y hora, la capacidad que usa el estudio de tráfico de la
-  Comunidad para este tramo, y 1,65 personas por vehículo, de comparar el aforo M-133-0 del
+  cabe (2.350 vehículos por carril y hora, la capacidad que usa para este tramo el estudio de
+  tráfico del parque logístico Ergón A-42, publicado por la Comunidad, y 1,65 personas por vehículo, de comparar el aforo M-133-0 del
   Ministerio con el estudio en el mismo punto). Verde, amarillo, naranja y rojo (85 % o más); al
-  lado, en negro discontinuo, las retenciones de 7 a 9 que da el BOE-A-2023-2208, situadas por
+  lado, en una sombra gris detrás de la autovía, las retenciones de 7 a 9 que da el BOE-A-2023-2208, situadas por
   punto kilométrico. Carriles de OpenStreetMap. `herramientas/accesos/a42.py` (lee 1,5 GB de
   rutas la primera vez; `--web` rehace `datos/a42.js` de la caché).
 
@@ -553,7 +553,7 @@ están en la misma zona.
 
 ### Todos los datos: la página de consulta
 
-`consulta.html` junta casi todos los datos de la web (73: población, equipamientos, vecinos y
+`consulta.html` junta casi todos los datos de la web (104: población, equipamientos, vecinos y
 economía, cuentas del ayuntamiento, vivienda e infraestructuras) con las once ciudades a la vez.
 A la izquierda, la lista, con buscador; a la derecha, cada dato elegido con las once ordenadas en
 barras, Parla en azul, su fuente y un enlace a la página que lo explica; todos en una tabla,
@@ -1190,7 +1190,7 @@ python3 -m http.server 8000      # en local
 
 En GitHub Pages, Netlify, Cloudflare Pages o Vercel: subir la carpeta, sin configuración.
 
-**La prueba.** Antes de cada build de Netlify, `herramientas/comprobar.mjs` abre las cuatro
+**La prueba.** Antes de cada build de Netlify, `herramientas/comprobar.mjs` abre las ocho
 páginas con cada una de las diez ciudades en jsdom (JavaScript de verdad, sin pintar) y para el
 build si hay un error o si algo que tiene que salir sale vacío: la frase de arriba, el recuento,
 las fichas, los mapas de transporte. Tarda medio minuto. En local:

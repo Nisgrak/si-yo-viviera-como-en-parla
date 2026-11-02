@@ -3,7 +3,7 @@
    herramientas/accesos/a42.py). Un mapa: la autovía hacia Madrid, de salida
    en salida, con tantos carriles dibujados como tiene cada tramo, en el color
    de lo llena que va de 7 a 8 (la gente que pasa sobre lo que cabe), como en
-   los mapas de tráfico. Al este, en negro discontinuo, los tramos con
+   los mapas de tráfico. Detrás, en una sombra gris, los tramos con
    retenciones según el Ministerio.
    ═══════════════════════════════════════════════════════════════════════ */
 
@@ -288,8 +288,15 @@
     nota();
   }
 
-  let espera;
+  /* Solo si cambia el ancho: en el móvil, la barra del navegador que aparece y
+
+     desaparece al hacer scroll también lanza «resize», y no hay que rehacer nada. */
+
+  let espera, ancho = window.innerWidth;
+
   window.addEventListener('resize', function () {
+    if (window.innerWidth === ancho) return;
+    ancho = window.innerWidth;
     clearTimeout(espera);
     espera = setTimeout(mapa, 150);
   });

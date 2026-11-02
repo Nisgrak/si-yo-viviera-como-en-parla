@@ -102,7 +102,18 @@
   function titular(capa, d) {
     const tit = el('h1', 'ktit');
     if (d.antes) tit.appendChild(el('span', 'ktit__a', esc(d.antes)));
-    tit.appendChild(el('span', 'ktit__n', esc(d.cifra)));
+    /* Con `dos`, las dos ciudades frente a frente, cada una con su cifra:
+       [{ quien, cifra, rojo }]. La que se queda corta, en rojo. */
+    if (d.dos) {
+      const g = el('div', 'ktit__dos');
+      d.dos.forEach(function (x) {
+        const c = el('div', 'ktit__col');
+        c.appendChild(el('span', 'ktit__a', esc(x.quien)));
+        c.appendChild(el('span', 'ktit__n ktit__n--col' + (x.rojo ? ' ktit__n--rojo' : ''), esc(x.cifra)));
+        g.appendChild(c);
+      });
+      tit.appendChild(g);
+    } else tit.appendChild(el('span', 'ktit__n', esc(d.cifra)));
     tit.appendChild(el('span', 'ktit__q', esc(d.que)));
     if (d.fin) tit.appendChild(el('span', 'ktit__m', esc(d.fin)));
     capa.appendChild(tit);
@@ -199,7 +210,9 @@
     capa.appendChild(regla);
     const palabras = [];
     tit.querySelectorAll('span').forEach(function (sp) {
-      const e = sp.classList.contains('ktit__n') ? 1.35 : sp.classList.contains('ktit__a') ? 0.42 : 1;
+      /* Una cifra de columna tiene la mitad del ancho: se mide como si fuera el doble de grande. */
+      const e = sp.classList.contains('ktit__n--col') ? 2.85 : sp.classList.contains('ktit__n') ? 1.35 :
+        sp.classList.contains('ktit__a') ? 0.42 : 1;
       sp.textContent.split(/\s+/).forEach(function (w) { if (w) palabras.push({ t: w, e: e }); });
     });
     let pt = 160;

@@ -356,7 +356,7 @@
 /* La muestra: la tinta con tantas capas como lleva esa zona. */
 .tp__c {
   width: .9rem; height: .9rem; border-radius: 2px;
-  background: color-mix(in srgb, var(--ink) calc((1 - pow(.85, var(--capas, 1))) * 100%), var(--surface));
+  background: color-mix(in srgb, var(--tp-color, var(--ink)) calc((1 - pow(.85, var(--capas, 1))) * 100%), var(--surface));
 }
 .tp__c--nada { background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-alta); }
 .tp__c--linea { height: 2px; background: var(--ink); }
@@ -638,6 +638,50 @@
 
 .falla-juntos { margin-top: 1rem; }
 .falla-juntos__rejilla { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.25rem; }
-@media (max-width: 34rem) { .falla-juntos__rejilla { gap: .75rem .5rem; } }
+/* Parla y la otra ciudad frente a frente, y el scroll en dos pasos (un día
+   normal, sin la línea principal), con los mapas fijos mientras se recorre
+   el bloque (assets/infraestructura-tp.js, frente()). */
+.falla-juntos--scroll { height: calc(100vh + 26rem); }
+.falla-juntos--scroll .falla-juntos__rejilla { display: block; height: 100%; }
+.tp__fijo { position: sticky; top: .75rem; }
+.tp__fijo .tp__ley { margin-top: .75rem; }
+.tp__pasos { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0; padding: 0; list-style: none; counter-reset: paso; }
+.tp__paso {
+  counter-increment: paso;
+  padding: .35rem .75rem; border: 1px solid var(--line-alta); border-radius: 999px;
+  font-size: .8125rem; font-weight: 700; color: var(--ink-3); white-space: nowrap;
+  transition: background .25s, color .25s, border-color .25s;
+}
+.tp__paso::before { content: counter(paso) ' · '; }
+.tp__paso[data-activo='1'] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.tp__clave { margin: .6rem 0 .75rem; font-size: .8125rem; line-height: 1.4; color: var(--ink-3); }
+.tp__cols { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem clamp(.5rem, 2vw, 1.25rem); }
+.falla-juntos .tp__col-nombre { font-size: clamp(1.25rem, 5vw, 2rem); }
+.tp__col[data-quien='referencia'] .tp__col-nombre { color: var(--ref); }
+.tp__col-dato { min-height: 2.6em; margin: .3rem 0 .5rem; font-size: clamp(.75rem, 2.4vw, .875rem); line-height: 1.3; color: var(--ink-3); }
+.tp__col-dato b { color: var(--ink); }
+.tp__col-dato .tp__mas { color: var(--loss); }
+.tp__capas { display: grid; }
+.tp__capas > .tp { grid-area: 1 / 1; margin: 0; }
+.tp__capas .mapa__pie { display: none; }
+.tp__capas > .tp + .tp { opacity: 0; transition: opacity .45s ease; }
+.tp__cols[data-paso='2'] .tp__capas > .tp + .tp { opacity: 1; }
+.tp__cols[data-paso='2'] .tp__capas > .tp:first-child { visibility: hidden; transition: visibility 0s .45s; }
+@media (prefers-reduced-motion: reduce) {
+  .tp__capas > .tp + .tp, .tp__paso { transition: none; }
+}
+/* La leyenda de los minutos: una fila por ciudad, con su color. */
+.tp__escala { display: block; width: 100%; }
+.tp__tabla { border-collapse: collapse; width: 100%; max-width: 40rem; table-layout: fixed; }
+.tp__tabla th, .tp__tabla td { padding: .2rem .15rem; text-align: center; font-weight: 400; }
+.tp__tabla thead th { font-size: .6875rem; line-height: 1.15; color: var(--ink-3); vertical-align: bottom; }
+.tp__tabla tbody th { text-align: left; font-size: .75rem; line-height: 1.15; font-weight: 700; color: var(--ink); }
+.tp__tabla-nombre { width: 5.25rem; }
+.tp__tabla tr[data-quien='referencia'] th { color: var(--ref); }
+.tp__tabla tr[data-quien='referencia'] { --tp-color: var(--ref); }
+.tp__tabla .tp__c { display: block; width: 100%; height: .8rem; }
+@media (max-width: 34rem) { .tp__paso { font-size: .75rem; padding: .3rem .6rem; } }
+.tp__escala-pie { display: block; margin-top: .35rem; font-size: .75rem; color: var(--ink-3); }
+
 .falla-juntos .mapa__nombre { font-size: clamp(1rem, 3.2vw, 1.5rem); }
 .falla-juntos .mapa__dato { font-size: .75rem; line-height: 1.35; }

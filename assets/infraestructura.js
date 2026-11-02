@@ -207,7 +207,7 @@
     const c = A[id];
     const r = filas(c);
     const cab = el('div', 'colas__h');
-    cab.appendChild(el('h3', 'colas__nombre', NOMBRE[id]));
+    cab.appendChild(el('h4', 'colas__nombre', NOMBRE[id]));
     const res = el('p', 'colas__resumen');
     res.appendChild(el('b', null, String(r.n)));
     res.appendChild(document.createTextNode((r.n === 1 ? ' salida' : ' salidas') + ' con al menos el 1 %'));
@@ -251,7 +251,7 @@
       const c = g[2], sale = c.sale.h610, entra = c.entra.h610;
       const col = el('div', 'sent');
       col.setAttribute('data-quien', g[1]);
-      col.appendChild(el('h3', 'sent__nombre', NOMBRE[g[0]]));
+      col.appendChild(el('h4', 'sent__nombre', NOMBRE[g[0]]));
       const frase = el('p', 'sent__frase');
       const salenMas = sale >= entra;
       frase.appendChild(el('b', null, num(salenMas ? sale / entra : entra / sale, 1)));
@@ -302,8 +302,12 @@
   });
 
   /* Al cambiar el ancho o el tema se recoloca y se repinta sin animar. */
-  let espera;
+  /* Solo si cambia el ancho: en el móvil, la barra del navegador que aparece y
+     desaparece al hacer scroll también lanza «resize», y no hay que rehacer nada. */
+  let espera, ancho = window.innerWidth;
   window.addEventListener('resize', function () {
+    if (window.innerWidth === ancho) return;
+    ancho = window.innerWidth;
     clearTimeout(espera);
     espera = setTimeout(function () {
       colas.forEach(function (c) { colocar(c); if (c.hecha) dibujar(c, 0); else soloPuerta(c); });

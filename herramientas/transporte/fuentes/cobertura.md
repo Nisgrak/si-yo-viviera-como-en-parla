@@ -38,7 +38,7 @@ la nota, a 5 y a 10. Al principio la cifra grande era la de 10 minutos; se cambi
 | Torrejón de Ardoz | 53.437 | 5,5 | 18,5 | 36,3 |
 | Majadahonda | 26.191 | 0,7 | 4,7 | 7,7 |
 
-Parla es la 9.ª de 11 a 10 y a 15 minutos; la página nombra a las dos que quedan por debajo.
+Parla es la 9.ª de 11 a 10 y a 15 minutos; la página da su puesto, sin nombrar a las que quedan por debajo.
 
 ## Cautelas
 

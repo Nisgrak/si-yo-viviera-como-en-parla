@@ -1410,18 +1410,24 @@
   function cartelDinero(s, fondo) {
     const a = alAnio(s);
     const raiz = K.hoja();
-    const capa = K.base(raiz, fondo, PRE() + ' · ' + s.titulo);
+    const capa = K.base(raiz, fondo, PRE());
     const cifra = window.CARTEL.cifra() === 'exacta' || a.dif < 1e7
       ? num(Math.abs(a.dif) / 1e6, 1) : entero(Math.round(Math.abs(a.dif) / 1e6));
     const verbo = s.id === 'inversion' ? 'invierte' : 'gasta';
+    /* Las dos ciudades frente a frente; la que se queda corta, en rojo. */
     const tit = K.titular(capa, {
-      antes: 'El Ayuntamiento de ' + NOMBRE_REF + ' ' + verbo, cifra: entero(s.valores[REF]) + ' €',
+      antes: 'Lo que ' + verbo + ' cada ayuntamiento',
+      dos: [{ quien: NOMBRE_REF, cifra: entero(s.valores[REF]) + '\u00a0€', rojo: a.dif > 0 },
+        { quien: NOMBRE[AQUI], cifra: entero(s.valores[AQUI]) + '\u00a0€', rojo: a.dif < 0 }],
       que: 'por vecino al año',
-      sub: 'El de ' + NOMBRE[AQUI] + ', ' + entero(s.valores[AQUI]) + ' €. ' + (a.dif > 0
-        ? 'Al mismo ritmo, Parla tendría ' + cifra + ' millones más cada año.'
-        : 'Parla pone ' + cifra + ' millones más cada año.')
+      sub: a.dif > 0
+        ? 'Al ritmo de ' + NOMBRE[AQUI] + ', Parla tendría ' + cifra + '\u00a0millones de euros más cada año.'
+        : 'Parla pone ' + cifra + '\u00a0millones de euros más cada año que si ' + (s.id === 'inversion' ? 'invirtiera' : 'gastara') + ' como ' + NOMBRE[AQUI] + '.'
     });
-    K.cajas(capa, s.mediaRegional != null ? [{ q: s.refNombre, v: entero(s.mediaRegional) + ' € por vecino' }] : []);
+    const medias = [];
+    if (s.mediaRegional != null) medias.push({ q: s.refNombre, v: entero(s.mediaRegional) + '\u00a0€ por vecino' });
+    if (s.mediaSinCapital != null) medias.push({ q: 'Sin Madrid capital', v: entero(s.mediaSinCapital) + '\u00a0€ por vecino' });
+    K.cajas(capa, medias);
     K.banda(raiz, AQUI);
     K.ajustar(raiz, tit, fondo);
   }

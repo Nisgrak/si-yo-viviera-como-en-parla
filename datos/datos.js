@@ -1520,7 +1520,7 @@ window.DATOS = (function () {
           majadahonda: 1146
         },
         fuenteId: 'conprel',
-        nota: 'Obligaciones reconocidas netas de los nueve capítulos, consolidando el ayuntamiento con sus organismos autónomos para no contar dos veces lo que se transfiere entre ellos. Madrid capital gasta mucho más por habitante y empuja la media hacia arriba, así que se da también sin ella. Parla es la última de los {N} municipios comparados.'
+        nota: 'Obligaciones reconocidas netas de los nueve capítulos, consolidando el ayuntamiento con sus organismos autónomos para no contar dos veces lo que se transfiere entre ellos. Madrid capital gasta 1.662\u00a0€ por habitante, un 61\u00a0% más que el resto de la Comunidad, y empuja la media hacia arriba, así que se da también sin ella. Parla es la última de los {N} municipios comparados.'
       },
       {
         id: 'inversion',

@@ -83,7 +83,104 @@
 
   /* ── Lo fijo: destinos, casilla, fuentes ──────────────────────────── */
 
+  /* Parla y la otra ciudad, frente a frente en dos columnas, y el scroll
+     en dos pasos: 1, un día normal; 2, sin la línea principal de cada una.
+     Los mapas se quedan fijos mientras se baja por el bloque y pasan de un
+     paso al otro; encima de cada uno, los minutos desde su estación y, en el
+     segundo paso, cuántos se pierden sin la línea. */
+  let refrescarFrente = null;
+  function frente() {
+    const rej = document.querySelector('.falla-juntos__rejilla');
+    if (!rej || rej.querySelector('.tp__col')) return;
+    const caja = rej.closest('.falla-juntos');
+    caja.classList.add('falla-juntos--scroll');
+    const fijo = el('div', 'tp__fijo');
+
+    /* Los dos pasos, con el que se ve marcado. */
+    const pasos = el('ol', 'tp__pasos');
+    const p1 = el('li', 'tp__paso', 'Un día normal');
+    const p2 = el('li', 'tp__paso');
+    p2.appendChild(document.createTextNode('Sin su línea principal'));
+    pasos.appendChild(p1);
+    pasos.appendChild(p2);
+    fijo.appendChild(pasos);
+    fijo.appendChild(el('p', 'tp__clave', 'Sigue bajando para pasar de un paso al otro. ' +
+      'Cada mancha es lo que se tarda desde ese punto; cuanto más oscura, menos.'));
+
+    const cols = el('div', 'tp__cols');
+    fijo.appendChild(cols);
+    const columnas = [];
+    ['referencia', 'aqui'].forEach(function (q) {
+      const fs = rej.querySelectorAll('.tp[data-quien="' + q + '"]');
+      if (fs.length !== 2) return;
+      const quien = q === 'referencia' ? 'parla' : 'aqui';
+      const col = el('div', 'tp__col');
+      col.dataset.quien = q;
+      const nom = el('p', 'mapa__nombre tp__col-nombre', q === 'referencia' ? 'Parla' : NOMBRE[I.AQUI]);
+      if (q === 'aqui') nom.dataset.aqui = '';
+      col.appendChild(nom);
+      const dt = el('p', 'tp__col-dato');
+      col.appendChild(dt);
+      const c = el('div', 'tp__capas');
+      c.appendChild(fs[0]);
+      c.appendChild(fs[1]);
+      col.appendChild(c);
+      cols.appendChild(col);
+      columnas.push({ id: q === 'referencia' ? REF : I.AQUI, quien: quien, dt: dt, c: c });
+    });
+    rej.appendChild(fijo);
+    /* La leyenda va con los mapas, fija también. */
+    const ley = $('#tp-ley');
+    if (ley) fijo.appendChild(ley);
+
+    let paso = 1;
+    /* Lo de encima de cada mapa: en el paso 1, los minutos desde la
+       estación; en el 2, sin la línea, y cuánto más se tarda. */
+    function textos() {
+      columnas.forEach(function (x) {
+        const a = $('#tj-dato-' + x.quien + '-todo'), b = $('#tj-dato-' + x.quien + '-sin');
+        /* Hasta que llegan los mapas, el día normal sale de lo ya calculado
+           en datos/transporte.js; sin la línea, cuando lleguen. */
+        const pre = T.estacion && T.estacion[x.id] && T.estacion[x.id].todo[D().id];
+        const ta = a && a.dataset.t ? +a.dataset.t : pre != null ? pre : null;
+        const tb = b && b.dataset.t ? +b.dataset.t : null;
+        vaciar(x.dt);
+        if (ta == null) return;
+        if (paso === 1) {
+          x.dt.appendChild(el('b', null, ta + ' min'));
+          x.dt.appendChild(document.createTextNode(' desde la estación hasta ' + D().nombre));
+        } else if (tb != null) {
+          x.dt.appendChild(el('b', null, tb + ' min'));
+          x.dt.appendChild(document.createTextNode(' sin ' + laLinea(x.id) + ': '));
+          x.dt.appendChild(el('b', 'tp__mas', (tb - ta > 0 ? tb - ta + ' más' : 'los mismos')));
+        }
+      });
+      p1.dataset.activo = paso === 1 ? '1' : '0';
+      p2.dataset.activo = paso === 2 ? '1' : '0';
+      cols.dataset.paso = String(paso);
+    }
+    refrescarFrente = textos;
+
+    /* El paso, según cuánto se ha bajado por el bloque. Sin scroll que hacer
+       (la prueba en jsdom), se queda en un día normal. */
+    let pedido = false;
+    function medir() {
+      pedido = false;
+      const r = caja.getBoundingClientRect(), f = fijo.getBoundingClientRect();
+      const recorrido = r.height - f.height;
+      const p = recorrido > 0 ? (window.innerHeight * 0.1 - r.top) / recorrido : 0;
+      const nuevo = p >= 0.45 ? 2 : 1;
+      if (nuevo !== paso) { paso = nuevo; textos(); }
+    }
+    function pedir() { if (!pedido) { pedido = true; requestAnimationFrame(medir); } }
+    window.addEventListener('scroll', pedir, { passive: true });
+    window.addEventListener('resize', pedir);
+    textos();
+    medir();
+  }
+
   function fijo() {
+    frente();
     const cont = $('#tp-destinos');
     vaciar(cont);
     T.destinos.forEach(function (d, k) {
@@ -120,18 +217,43 @@
     const u = D().umbrales;
     const ley = $('#tp-ley');
     vaciar(ley);
-    u.forEach(function (v, k) {
-      const li = el('li', 'tp__l');
-      const i = el('i', 'tp__c');
-      i.style.setProperty('--capas', String(u.length - k));
-      li.appendChild(i);
-      li.appendChild(el('span', null, k ? 'De ' + u[k - 1] + ' a ' + v + ' min' : 'Hasta ' + v + ' min'));
-      ley.appendChild(li);
+    /* Los minutos, con el color de cada ciudad: Parla en azul y la otra en
+       gris, como en los mapas. */
+    const li = el('li', 'tp__escala');
+    const t = el('table', 'tp__tabla');
+    t.appendChild(el('caption', 'oculto', 'Minutos hasta ' + D().nombre + ' y color de cada tramo en cada ciudad'));
+    /* La primera columna, la del nombre, más ancha: «Torrejón de Ardoz». */
+    const cg = el('colgroup');
+    const c0 = el('col', 'tp__tabla-nombre');
+    cg.appendChild(c0);
+    t.appendChild(cg);
+    const cab = el('tr');
+    cab.appendChild(el('td'));
+    const rotulos = u.map(function (v, k) { return k ? u[k - 1] + ' a ' + v : 'Hasta ' + v; })
+      .concat(['Más de ' + u[u.length - 1]]);
+    rotulos.forEach(function (r) { const th = el('th', null, r); th.scope = 'col'; cab.appendChild(th); });
+    const th0 = el('thead'); th0.appendChild(cab); t.appendChild(th0);
+    const tb = el('tbody');
+    [[REF, 'referencia'], [I.AQUI, 'aqui']].forEach(function (g) {
+      const tr = el('tr');
+      tr.dataset.quien = g[1];
+      const n = el('th', null, NOMBRE[g[0]]);
+      n.scope = 'row';
+      tr.appendChild(n);
+      rotulos.forEach(function (_, k) {
+        const td = el('td');
+        const i = el('i', 'tp__c' + (k === u.length ? ' tp__c--nada' : ''));
+        if (k < u.length) i.style.setProperty('--capas', String(u.length - k));
+        td.appendChild(i);
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
     });
-    const mas = el('li', 'tp__l');
-    mas.appendChild(el('i', 'tp__c tp__c--nada'));
-    mas.appendChild(el('span', null, 'Más de ' + u[u.length - 1] + ' min o sin parada cerca'));
-    ley.appendChild(mas);
+    t.appendChild(tb);
+    li.appendChild(t);
+    li.appendChild(el('span', 'tp__escala-pie', 'Minutos, a pie y en transporte público. «Más de ' + u[u.length - 1] +
+      '»: también los puntos sin una parada cerca.'));
+    ley.appendChild(li);
     const tren = el('li', 'tp__l');
     tren.appendChild(el('i', 'tp__c tp__c--linea'));
     tren.appendChild(el('span', null, 'Cercanías'));
@@ -186,7 +308,7 @@
     }
 
     const d = svg('svg', { viewBox: '0 0 ' + ANCHO + ' ' + ALTO, class: 'tp__svg', role: 'img', overflow: 'hidden' });
-    const ancho = cont.getBoundingClientRect().width;
+    const ancho = anchoVisible(cont);
     const kRot = ancho ? Math.min(2, Math.max(1, ANCHO / ancho)) : 1;
     d.appendChild(svg('path', { d: trazo(m.limite), class: 'tp__termino' }));
     d.appendChild(svg('path', { d: trazo(c.manzanas), class: 'tp__manzanas', 'fill-rule': 'evenodd' }));
@@ -262,13 +384,23 @@
 
   /* El mapa se encoge con la pantalla, pero los rótulos no: --k es lo que
      hay que agrandarlos para que midan lo mismo que en el ancho de diseño. */
+  /* El ancho con que se verá: un mapa oculto tras el selector del móvil
+     mide 0, pero saldrá al ancho de la rejilla que lo contiene. */
+  function anchoVisible(n) {
+    while (n && !n.getBoundingClientRect().width) n = n.parentElement;
+    return n ? n.getBoundingClientRect().width : 0;
+  }
   function escala(d) {
-    const w = d.getBoundingClientRect().width;
+    const w = anchoVisible(d);
     const k = w ? Math.min(2, Math.max(1, ANCHO / w)) : 1;
     d.style.setProperty('--k', k.toFixed(2));
   }
-  let espera;
+  /* Solo si cambia el ancho: en el móvil, la barra del navegador que aparece y
+     desaparece al hacer scroll también lanza «resize», y no hay que rehacer nada. */
+  let espera, ancho = window.innerWidth;
   window.addEventListener('resize', function () {
+    if (window.innerWidth === ancho) return;
+    ancho = window.innerWidth;
     clearTimeout(espera);
     espera = setTimeout(function () { document.querySelectorAll('.tp__svg').forEach(escala); }, 150);
   });
@@ -356,6 +488,9 @@
     const n = $(sel);
     n.textContent = !r ? '' : (r.est && r.est.t != null ? r.est.t + ' min desde la estación de ' + r.est.nombre + ' · ' : '') +
       'de ' + r.mn + ' a ' + r.mx + ' min según el punto';
+    /* Los minutos desde la estación, para lo de encima de los mapas. */
+    n.dataset.t = r && r.est && r.est.t != null ? String(r.est.t) : '';
+    if (refrescarFrente) refrescarFrente();
   }
   /* Desde la estación de Cercanías de cada ciudad: un día normal y sin la
      línea principal. */
@@ -380,15 +515,11 @@
     if (!n) return;
     let s = $('#golpe-tren');
     if (!s) { s = el('span', null); s.id = 'golpe-tren'; n.appendChild(s); }
-    const ato = T.destinos.filter(function (d) { return d.id === 'atocha'; })[0];
+    /* Ya calculado en datos/transporte.js (indice.py): no hace falta
+       esperar al fichero grande de cada ciudad. */
     const tAto = function (id) {
-      const c = window.TRANSPORTE_CIUDAD && window.TRANSPORTE_CIUDAD[id];
-      if (!c || !ato) return null;
-      const m0 = modo, d0 = destino;
-      modo = 'tren'; destino = T.destinos.indexOf(ato);
-      const r = estacion(c);
-      modo = m0; destino = d0;
-      return r;
+      const e = T.estacion && T.estacion[id];
+      return e && e.tren.atocha != null ? { nombre: e.nombre, t: e.tren.atocha } : null;
     };
     const p = tAto(REF), a = tAto(I.AQUI);
     vaciar(s);
@@ -468,14 +599,9 @@
       return 'minutos hasta Atocha desde la vivienda mediana';
     });
     const ids = IDS.filter(function (id) { return v(id) != null; });
-    const c = function (id) { return window.TRANSPORTE_CIUDAD && window.TRANSPORTE_CIUDAD[id]; };
     const est = function (id) {
-      if (!c(id)) return null;
-      const d0 = destino;
-      destino = T.destinos.map(function (d) { return d.id; }).indexOf(ATOCHA);
-      const e = estacion(c(id), 'todo');
-      destino = d0;
-      return e && e.t != null ? e : null;
+      const e = T.estacion && T.estacion[id];
+      return e && e.todo[ATOCHA] != null ? { nombre: e.nombre, t: e.todo[ATOCHA] } : null;
     };
     const ep = est(REF), ea = est(I.AQUI);
     $('#casa-nota').textContent = 'Parla es ' + deLas(ids, v, false) + '. ' +
@@ -525,12 +651,13 @@
     const filas = [
       { q: 'Viviendas con una estación a 15 minutos andando', v: function (id) {
         return C && C[id] && C[id].pctSin ? [C[id].pct['15'], C[id].pctSin['15']] : null;
-      }, f: function (x) { return num(x, 0) + ' %'; } },
+      }, f: function (x) { return num(x, 0) + ' %'; }, puntos: true },
       { q: 'De la vivienda mediana a Atocha', v: function (id) {
         return K && K[id] && K[id].sin ? [K[id].todo[ATOCHA][0], K[id].sin[ATOCHA][0]] : null;
       }, f: function (x) { return x == null ? '—' : x + ' min'; } }
     ];
     const t = el('table', 'falla-t');
+    t.appendChild(el('caption', 'oculto', 'Un día normal y sin la línea principal, en Parla y en ' + NOMBRE[I.AQUI] + '.'));
     const th = el('thead');
     /* Cada dato, con su pregunta en una fila a todo el ancho y las cifras
        debajo: en el móvil no cabe una columna de preguntas al lado. */
@@ -539,19 +666,28 @@
       const h = el('th', null, NOMBRE[g[0]]);
       h.dataset.quien = g[1];
       h.colSpan = 3;
+      h.scope = 'colgroup';
       tr0.appendChild(h);
     });
     th.appendChild(tr0);
     const tr1 = el('tr', 'falla-t__sub');
     [REF, I.AQUI].forEach(function (id) {
-      tr1.appendChild(el('th', null, 'Un día normal'));
-      tr1.appendChild(el('th', 'falla-t__flecha', ''));
-      tr1.appendChild(el('th', null, 'Sin ' + laLinea(id)));
+      const a = el('th', null, 'Un día normal');
+      a.scope = 'col';
+      tr1.appendChild(a);
+      /* La flecha es un adorno: el lector de pantalla no la lee. */
+      const f = el('td', 'falla-t__flecha', '');
+      f.setAttribute('aria-hidden', 'true');
+      tr1.appendChild(f);
+      const b = el('th', null, 'Sin ' + laLinea(id));
+      b.scope = 'col';
+      tr1.appendChild(b);
     });
     th.appendChild(tr1);
     t.appendChild(th);
-    const tb = el('tbody');
+    /* Un grupo por dato: su pregunta encabeza las cifras de debajo. */
     filas.forEach(function (fi) {
+      const tb = el('tbody');
       const trq = el('tr', 'falla-t__fq');
       const q = el('th', 'falla-t__q', fi.q);
       q.colSpan = 6;
@@ -562,17 +698,22 @@
       [[REF, 'referencia'], [I.AQUI, 'aqui']].forEach(function (g) {
         const v = fi.v(g[0]);
         const sinC = el('td', 'falla-t__sin', v ? fi.f(v[1]) : '—');
-        /* Y cuánto cambia, en %: +89 % son 89 de cada 100 minutos más. */
+        /* Y cuánto cambia: en los minutos, en %, +89 % son 89 de cada 100
+           minutos más; en lo que ya es un %, en puntos: un −100 % sobre un
+           50 % se lee mal. */
         if (v && v[0]) {
-          const d = Math.round(100 * (v[1] - v[0]) / v[0]);
-          sinC.appendChild(el('span', 'falla-t__dif', (d > 0 ? '+' : d < 0 ? '−' : '') + Math.abs(d) + '\u00a0%'));
+          const d = fi.puntos ? Math.round(v[1] - v[0]) : Math.round(100 * (v[1] - v[0]) / v[0]);
+          sinC.appendChild(el('span', 'falla-t__dif', (d > 0 ? '+' : d < 0 ? '−' : '') + Math.abs(d) +
+            (fi.puntos ? (Math.abs(d) === 1 ? '\u00a0punto' : '\u00a0puntos') : '\u00a0%')));
         }
-        [el('td', 'falla-t__con', v ? fi.f(v[0]) : '—'), el('td', 'falla-t__flecha', '→'), sinC]
+        const flecha = el('td', 'falla-t__flecha', '→');
+        flecha.setAttribute('aria-hidden', 'true');
+        [el('td', 'falla-t__con', v ? fi.f(v[0]) : '—'), flecha, sinC]
           .forEach(function (n) { n.dataset.quien = g[1]; tr.appendChild(n); });
       });
       tb.appendChild(tr);
+      t.appendChild(tb);
     });
-    t.appendChild(tb);
     cont.appendChild(t);
   }
 
@@ -703,15 +844,32 @@
     plazasCifras();
     tabla();
     falla();
-    Promise.all([I.cargar(REF), I.cargar(AQUI), cargar(REF), cargar(AQUI)]).then(function (r) {
+    golpe();
+    casa();
+    /* Los tiempos de cada punto de la ciudad pesan cientos de kilobytes y
+       solo los usan los mapas, casi al final: se piden al acercarse a ellos. */
+    cerca($('#tj-parla-todo'), function () {
       if (yo !== pidiendo) return;
-      geo = r;
-      mapas();
-      golpe();
-      casa();
-    }).catch(function () {
-      $('#tj-parla-todo').textContent = 'No se pudo cargar el mapa.';
+      Promise.all([I.cargar(REF), I.cargar(AQUI), cargar(REF), cargar(AQUI)]).then(function (r) {
+        if (yo !== pidiendo) return;
+        geo = r;
+        mapas();
+      }).catch(function () {
+        $('#tj-parla-todo').textContent = 'No se pudo cargar el mapa.';
+      });
     });
+  }
+
+  /* fn cuando n está a menos de dos pantallas; sin IntersectionObserver
+     (la prueba en jsdom), en seguida. */
+  function cerca(n, fn) {
+    if (!n || !('IntersectionObserver' in window)) { fn(); return; }
+    const io = new IntersectionObserver(function (es) {
+      if (!es.some(function (e) { return e.isIntersecting; })) return;
+      io.disconnect();
+      fn();
+    }, { rootMargin: '1600px 0px' });
+    io.observe(n);
   }
 
   fijo();

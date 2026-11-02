@@ -119,7 +119,7 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3 { color: var(--ink); text-wrap: balance; margin: 0; }
+h1, h2, h3, h4 { color: var(--ink); text-wrap: balance; margin: 0; }
 p { margin: 0; text-wrap: pretty; }
 b, strong { color: var(--ink); font-weight: 700; }
 ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
@@ -703,6 +703,10 @@ a:hover { text-decoration-color: var(--ref); }
 .ktit span { display: block; }
 .ktit__n { font-size: 1.35em; line-height: .86; color: #161616; white-space: normal; }
 .ktit__q { color: #c02719; white-space: normal; }
+/* Dos ciudades frente a frente, cada una con su cifra (cartel.js, `dos`). */
+.ktit__dos { display: grid; grid-template-columns: 1fr 1fr; column-gap: 7mm; align-items: end; margin: .04em 0 .06em; }
+.ktit__col { min-width: 0; }
+.ktit__n--rojo { color: #c02719; }
 .ktit__m { color: #161616; }
 /* Quién: «A Parla le faltan», en tinta y a menos de la mitad del cuerpo, para
    que la cifra siga siendo lo primero que se ve. */

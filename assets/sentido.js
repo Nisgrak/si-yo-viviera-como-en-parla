@@ -34,8 +34,9 @@
     'renta-persona': MAS, 'renta-hogar': MAS, irpf: MAS, 'irpf-trabajo': MAS, gini: MENOS, empresas: MAS,
     /* Cuentas del ayuntamiento: lo que gasta e invierte por vecino, más;
        lo que debe y lo que tarda en pagar, menos. Lo que recauda, sin
-       línea: más recaudación es también más impuestos. */
-    'dinero-gasto': MAS, 'dinero-inversion': MAS, 'dinero-servicios-sociales': MAS, 'dinero-comunidad': MAS,
+       línea: más recaudación es también más impuestos. El gasto en servicios
+       sociales, tampoco: mide lo que se gasta, y más puede ser más necesidad. */
+    'dinero-gasto': MAS, 'dinero-inversion': MAS, 'dinero-comunidad': MAS,
     'dinero-deuda': MENOS, 'deuda-anual': MENOS, intereses: MENOS, demora: MENOS, pmp: MENOS, remanente: MAS,
     'paga-misma': MENOS, 'paga-suya': MENOS, 'ibi-tipo': MENOS, coche: MENOS,
     /* Vivienda: para quien busca casa. Lo que vale una casa, sin línea:

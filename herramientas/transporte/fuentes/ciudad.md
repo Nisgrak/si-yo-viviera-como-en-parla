@@ -43,7 +43,7 @@ rejilla de cuadros que tapaba la ciudad y un mapa de isócronas desde el ayuntam
    no tiene tiempo: el mapa la deja sin color y el recuadro lo dice.
 4. **Zonas**: para cada destino, cinco umbrales de 10 en 10 minutos que empiezan en la decena del
    mejor tiempo de todas las ciudades calculadas (Sol: 30 a 70; Atocha: 20 a 60; Nuevos
-   Ministerios: 30 a 70; Plaza de Castilla: 40 a 80). Cada zona es la unión de las celdas con
+   Ministerios: 30 a 70; Plaza de Castilla: 30 a 70). Cada zona es la unión de las celdas con
    mediana igual o menor, cerrada y abierta con un radio de 60 m para quitar la escalera,
    recortada por el término y simplificada a 6 m. En la página se pintan unas encima de otras con
    transparencia, así que el color se carga donde se tarda menos.

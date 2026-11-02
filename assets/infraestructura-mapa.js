@@ -305,8 +305,15 @@
     });
   }
 
-  let espera;
+  /* Solo si cambia el ancho: en el móvil, la barra del navegador que aparece y
+
+     desaparece al hacer scroll también lanza «resize», y no hay que rehacer nada. */
+
+  let espera, ancho = window.innerWidth;
+
   window.addEventListener('resize', function () {
+    if (window.innerWidth === ancho) return;
+    ancho = window.innerWidth;
     clearTimeout(espera);
     espera = setTimeout(pintar, 150);
   });

@@ -16,6 +16,27 @@ RAIZ = Path(__file__).resolve().parent.parent.parent
 F = Path(__file__).resolve().parent / 'fuentes'
 
 
+def estacion(ciudad, celda, destinos):
+    """Lo mismo que estacion() de assets/infraestructura-tp.js: la celda de
+    100 m más cercana a la estación de Cercanías más cercana al ayuntamiento."""
+    import math
+    t = (RAIZ / 'datos/transporte' / (ciudad + '.js')).read_text(encoding='utf-8')
+    c = json.loads(t[t.index('= {') + 2:t.rindex('}') + 1])
+    ay = c.get('ayuntamiento') or [0, 0]
+    es = sorted((e for e in c['estaciones'] if 'cercanias' in e['modos']),
+                key=lambda e: math.hypot(e['x'] - ay[0], e['y'] - ay[1]))
+    if not es:
+        return None
+    e = es[0]
+    k = min(range(len(c['celdas'])), key=lambda k: math.hypot(c['origen'][0] + c['celdas'][k][0] * celda - e['x'],
+                                                             c['origen'][1] + c['celdas'][k][1] * celda - e['y']))
+    def minutos(mo, dest):
+        v = c['modos'][mo][dest]['t'][2 * k:2 * k + 2]
+        return None if v == '--' else int(v, 36)
+    return {'nombre': e['nombre'].split(' / ')[0],
+            'tren': {x: minutos('tren', x) for x in destinos}, 'todo': {x: minutos('todo', x) for x in destinos}}
+
+
 def main():
     js = RAIZ / 'datos/transporte.js'
     t = js.read_text(encoding='utf-8')
@@ -52,6 +73,11 @@ def main():
             'ciudades': {c: {'lineas': [[k, v['vehiculos'], v['plazas']] for k, v in x['lineas'].items()],
                              'vanMadrid': x['vanMadrid']}
                          for c, x in ca.items() if c != '_meta'}}
+    # La estación de Cercanías de cada ciudad (la más cercana al ayuntamiento)
+    # y los minutos desde ella hasta cada destino, en tren y con todo: la
+    # cabecera y «Hasta el centro» los dicen sin tener que bajar el fichero
+    # grande de cada ciudad, que solo hace falta para los mapas.
+    d['estacion'] = {c: estacion(c, d['celda'], [x['id'] for x in d['destinos']]) for c in d['ciudades']}
     # Las estaciones en obras, en metros desde el centro del mapa de su ciudad.
     import sys
     sys.path.insert(0, str(Path(__file__).resolve().parent))
