@@ -209,8 +209,9 @@ herramientas/economia/fuentes/   lo extraído de cada fuente (.json) con sus URL
 datos/contexto.js     cuatro datos sueltos (estudios, esperanza de vida, pensión media, edad de los coches); los escribe herramientas/contexto.py
 assets/contexto.js    los pinta, cada uno en su página (educacion, sanidad, economia e infraestructura), con Parla y la otra ciudad en dos columnas
 herramientas/         lo que rehace lo que no se teclea: el QR, las zonas verdes, los accesos,
-                      la prueba de la web (comprobar.mjs) y el build que añade la vista
-                      previa de cada ciudad (compartir.mjs)
+                      la prueba de la web (comprobar.mjs, con sus piezas en comprobar/ y las
+                      excepciones en comprobar/excepciones.mjs), la revisión con navegador
+                      (revisar.mjs) y el build que añade la vista previa de cada ciudad (compartir.mjs)
 ```
 
 La web no necesita build, ni dependencias, ni framework: se abre `index.html` y funciona. El
@@ -604,10 +605,10 @@ Cómo se monta una pieza nueva:
    ese id de la página). Se calcula desde `datos/*.js`, con las mismas cuentas que el navegador. Si a
    una ciudad le falta el dato (`v` devuelve `null`) y la entrada tiene `sola`, la imagen enseña solo a
    Parla con el motivo, como en la esperanza de vida: pasa en `casas` con Fuenlabrada, que perdió
-   vecinos. Con `omitir`, no hay vista previa: lo usan `inversion` y `gasto` cuando Parla se quedaría
+   vecinos, y en `hospital` con Alcobendas, cuyo hospital (el Infanta Sofía) no tiene camas en el catálogo. Con `omitir`, no hay vista previa: lo usan `inversion` y `gasto` cuando Parla se quedaría
    prácticamente igual (menos de un 1 %), el mismo caso en que la web no ofrece cartel.
-4. En `herramientas/comprobar.mjs`, la prueba exige los dos botones
-   (`#<clave>-botones .compartir:nth-child(2)`).
+4. La prueba exige los dos botones sola: deriva las piezas de la página (ver «Las comprobaciones»). Solo hay
+   que tocar `herramientas/comprobar/excepciones.mjs` si la pieza nueva no debe llevarlos.
 
 La cifra de las imágenes se achica si es larga (`288.935 €`) para que quepa en su columna. Las piezas con
 líneas debajo de la cifra (`linea`), una línea bajo el nombre (`nota`) o una frase de puesto (`pos`) las
@@ -680,7 +681,7 @@ baja hasta su fila.
 
 ### Todos los datos: la página de consulta
 
-`consulta.html` junta casi todos los datos de la web (104: población, equipamientos, vecinos y
+`consulta.html` junta casi todos los datos de la web (108: población, equipamientos, vecinos y
 economía, cuentas del ayuntamiento, vivienda e infraestructuras) con las once ciudades a la vez.
 A la izquierda, la lista, con buscador; a la derecha, cada dato elegido con las once ordenadas en
 barras, Parla en azul, su fuente y un enlace a la página que lo explica; todos en una tabla,
@@ -688,6 +689,28 @@ ordenable por cualquier columna; o en gráfica, de dos formas: juntos, con los q
 (%, euros, «por cada 100.000»…) en líneas o columnas de colores sobre una misma escala, o uno frente a
 otro, en una gráfica de puntos con un dato en cada eje. La selección va en la dirección
 (`?d=dinero-renta,cobertura&vista=grafica&g=cruce&x=dinero-renta&y=cobertura`) para compartirla.
+
+**Compartir esta vista.** El botón de la barra de vistas (el mismo `CARTEL.enlace` que «Compartir esta
+sección», con otro rótulo) copia la dirección con lo elegido y, en el móvil, abre el menú de compartir
+del sistema. En la web publicada, con un solo dato y la vista «Uno a uno», el enlace es
+`/consulta/<dato>/`, con la vista previa de ese dato; con varios datos o en tabla o gráfica, la
+dirección completa con su `?d=…&vista=…`, y su vista previa es la genérica (`consulta.png`: «Todos los
+datos», cuántos datos y de cuántas ciudades hay, y los apartados del catálogo con cuántos datos tiene cada
+uno; sin cifras de ninguna ciudad. Todo sale del catálogo, `imagenConsultaGeneral()` en `compartir.mjs`; la
+línea «Uno a uno, en tabla o en gráfica, y para descargar» describe las tres vistas y el CSV de la página, y
+el build pone el número en `og:title` y `og:description`). `consulta.html` carga `cartel.js` y `qr.js` solo para ese botón.
+
+**Vista previa por dato.** El catálogo vive en `assets/consulta-catalogo.js` (`window.CONSULTA`: `CAT`,
+`cifra`, `filas`, `puesto`), que cargan la página y el build; `assets/consulta.js` solo pinta. El build
+(`herramientas/compartir.mjs`, `imagenConsulta(d)`) escribe, para cada dato del catálogo,
+`dist/consulta/<dato>/index.html` (etiquetas og y redirección a `consulta.html?d=<dato>`) e
+`assets/compartir/consulta-<dato>.png` (1200×630: nombre del dato, las once en barras en el orden de la
+página, con la cifra escrita como en su tabla, Parla en azul, y la unidad, el año y la fuente en el pie;
+las ciudades sin dato, fuera de las barras, en una línea «Sin dato: …»). La descripción lleva la cifra de
+Parla y su puesto entre las ciudades con dato. Añadir un dato al catálogo le da su vista previa sin tocar
+nada más; todos los datos del catálogo son numéricos, así que ninguno queda fuera. `/consulta/` (sin dato)
+manda a `consulta.html`. `CONSULTA_JSON=/ruta.json node herramientas/compartir.mjs` vuelca lo que se pintó
+en cada imagen para cotejarlo con la tabla de la página. `herramientas/comprobar.mjs` exige el botón.
 
 No calcula nada nuevo: el catálogo (`assets/consulta.js`) repite las cuentas de cada página sobre
 los mismos ficheros de `datos/`. Al añadir un dato a una página, añádelo también ahí. Se quedan
@@ -1352,6 +1375,73 @@ atiende también a los municipios de alrededor, y aun así el de Parla es el que
 por persona de los ocho: 1,0 por cada 1.000, frente a 2,2 en el de Getafe. La espera, en cambio,
 sigue saliendo mejor en Parla que en Getafe, y la página lo dice.
 
+## Las comprobaciones
+
+La calidad se mantiene sola en dos niveles. Lo que se decidió a mano en las revisiones (que toda pieza lleve
+sus dos botones, que cartel, imagen y pantalla digan la misma cifra, que las cuentas cuadren…) está en
+código, y falla con un mensaje que dice **página, ciudad y pieza**.
+
+### Nivel 1: `npm run comprobar` (jsdom y datos, en cada publicación)
+
+`herramientas/comprobar.mjs` abre las ocho páginas con las diez ciudades en jsdom (JavaScript de verdad, sin
+pintar), pulsa cada «Cartel para compartir» y cada «Compartir esta sección» y lee lo que montan, y corre
+`herramientas/compartir.mjs` en seco (`COMPARTIR_SECO=<carpeta>`: lo mismo que el build, sin pintar las
+imágenes; cada imagen queda como el HTML con que se pintaría), de modo que lee las mismas cifras y
+descripciones que se publican. Tarda en torno a 100 s (las 80 cargas de página ya
+tardaban unos 83; lo nuevo suma unos 18). Con `COMPROBAR_TIEMPOS=1` enseña dónde se va el tiempo, y con
+`COMPROBAR_COMPLETO=1` no corta la lista de fallos; con `COMPROBAR_PAGINA=economia.html COMPROBAR_CIUDAD=getafe`
+limita la prueba a una página o ciudad mientras se trabaja.
+
+| | Qué mira | Dónde |
+|---|---|---|
+| **a** | Toda pieza con cifra tiene «Cartel para compartir» y «Compartir esta sección». Las piezas se derivan de la página: cada `[data-indice]`, `[data-indice-sub]`, hueco `*-botones`, ficha del recuento y botón de cartel. Una sección nueva sin botones y sin excepción hace fallar. | `comprobar/piezas.mjs` |
+| **b** | La cifra grande del cartel, la de la vista previa (los datos con que `compartir.mjs` pinta la imagen y escribe su descripción og) y la de la pieza en pantalla coinciden, con el mismo redondeo. Fichas del recuento (cartel, tasa de la imagen, titular y ficha), piezas de `contexto.js`, y los 108 datos de «Todos los datos» (imagen frente a tabla). | `comprobar/cartel.mjs`, `comprobar.mjs` |
+| **c** | Carteles frente a frente (`dos`) salvo los de una cifra por naturaleza; el rojo solo en la columna de Parla, solo si el dato tiene sentido marcado (`assets/sentido.js`) y a Parla le va peor; ninguna línea «por ciento»; cada vista previa con su fuente. | `comprobar/cartel.mjs` |
+| **d** | Sin columna vacía ni «undefined», «NaN», «null», «Infinity» ni «—» suelto en cartel, vista previa o pieza; los «Parla sola» llevan su motivo. | `comprobar/cartel.mjs`, `comprobar.mjs` |
+| **e** | Recuento: cada subtotal de área es la suma de sus líneas visibles; «tendría − tiene = falta» cuadra en cada ficha con las cifras mostradas; el total de portada es el entero de la suma, y es el mismo en la frase, el índice y el título de la vista previa. | `comprobar/cuentas.mjs` |
+| **f** | Texto público (renderizado, carteles, imágenes, og, y las cadenas de `assets/*.js` y `datos/*.js` sin comentarios): ninguna antítesis («no es X: es Y», «no X, sino Y», «no se trata de»), ningún nombre de fichero ni extensión (`.csv`, `.xlsx`, `.json`, `.js`), ninguna «jubilación» en las pensiones. | `comprobar/texto.mjs` |
+| **g** | Todo `href="#…"`, todo `?ir=` (enlaces, botones de cadena, «Compartir esta sección», y las redirecciones de cada vista previa) apunta a un id que existe en esa página y ciudad; toda fuente de `datos/*.js` y del catálogo tiene URL `https`. | `comprobar/enlaces.mjs` |
+| **h** | Cada vista previa tiene `og:title`, `og:description` y `og:image`, y la imagen existe y no está vacía; ninguna clave de `CIFRAS` sin ruta; todo «Compartir esta sección» lleva a una página que el build escribe. En seco dentro de `comprobar`; sobre `dist/` con las `.png` de verdad, como último paso de `npm run build` (`herramientas/comprobar/dist.mjs`). | `comprobar/dist.mjs` |
+
+**Excepciones.** Están todas, cada una con su motivo, en `herramientas/comprobar/excepciones.mjs`:
+`SIN_BOTONES` (secciones sin cartel: los resúmenes de portada que enlazan a otra página, «Donde Parla tiene
+más», «Punto de partida», «Cómo está hecho», los mapas de «Por dónde sale la gente», la A-42, «Lo que hay» de
+sanidad y de educación, «Volver a estudiar»), `CARTEL_SIN_ENLACE`, `UNA_CIFRA` (el cartel general de portada y
+la cartera del hospital; los «Parla sola» no hacen falta aquí: se reconocen porque la vista previa de esa ciudad
+lo dice), `SENTIDO_DE_PIEZA` y `ANTITESIS_VALIDAS` (vacía). Una excepción que ya no hace falta se avisa para
+quitarla. Son **fallo**, sin excepción posible: un cartel sin caja «Fuente», una cifra que el cartel redondea y la
+página enseña con decimales, un «tendría − tiene = falta» que no cuadra con las cifras mostradas (en la misma
+unidad), la imagen de la cartera sin fuente y un «—» suelto. Lo que sigue como aviso (solo en `npm run revisar`)
+son las comparaciones que se apilan en el móvil, a la espera de una decisión de diseño.
+
+### Nivel 2: `npm run revisar` (Chromium, a mano antes de publicar)
+
+`herramientas/revisar.mjs` abre la web en Chromium de verdad, en un servidor local propio en un puerto libre que
+cierra al acabar. No se ejecuta en Netlify: Playwright no es dependencia del build. Lo busca en una instalación
+normal o en `herramientas/video/node_modules` (`cd herramientas/video && npm install`).
+
+| | Qué mira |
+|---|---|
+| **i** | Carteles: todos los del sitio × diez ciudades × fondos papel y barrio. Ningún texto fuera del cartel, de su columna o de su caja; nada se pisa; nada invade la banda del pie; contraste mínimo de 3:1 sobre el fondo del barrio. |
+| **j** | Las ocho páginas × diez ciudades en escritorio (1280) y móvil (390), claro y oscuro: sin errores de consola ni peticiones fallidas, sin desborde horizontal, y las comparaciones Parla \| otra ciudad que en escritorio van en dos columnas siguen en dos columnas en el móvil. |
+| **k** | Enlaces `?ir=`: a la última sección de cada página y a tres fichas del recuento, el título queda visible bajo la cabecera fija y la ficha llega abierta; con scroll del usuario (rueda, tecla, toque) el reintento no le devuelve. |
+| **l** | Recuento de portada: abrir y cerrar con clic y con teclado (Intro, Espacio), `aria-expanded`, fichas abiertas que se conservan al cambiar de ciudad. |
+| **m** | Con `dist/` (`npm run build`): tres rutas de vista previa de cada tipo (sección, ficha, dato de consulta) redirigen bien, en escritorio y móvil. |
+
+```bash
+npm run revisar                                        # todo
+npm run revisar -- --pagina economia --ciudad getafe   # una página o una ciudad
+npm run revisar -- --bloque i,k                        # solo algunos bloques
+```
+
+Da un resumen por bloque, la lista de fallos con página, ciudad y pieza, y sale con código 1 si algo falla.
+Completo tarda unos 9 minutos (los carteles son casi dos tercios); con `--pagina` o `--ciudad`, unos segundos por página y ciudad.
+
+### Antes de publicar
+
+1. `npm run build` (la prueba de nivel 1, las imágenes de vista previa y la revisión de `dist/`).
+2. `npm run revisar` (nivel 2, con navegador).
+
 ## Desplegar
 
 Es una web estática. Sirve la carpeta tal cual:
@@ -1362,17 +1452,14 @@ python3 -m http.server 8000      # en local
 
 En GitHub Pages, Netlify, Cloudflare Pages o Vercel: subir la carpeta, sin configuración.
 
-**La prueba.** Antes de cada build de Netlify, `herramientas/comprobar.mjs` abre las ocho
-páginas con cada una de las diez ciudades en jsdom (JavaScript de verdad, sin pintar) y para el
-build si hay un error o si algo que tiene que salir sale vacío: la frase de arriba, el recuento,
-las fichas, los mapas de transporte. Tarda medio minuto. En local:
+**La prueba.** Antes de cada build de Netlify corre `npm run comprobar` (jsdom, sin navegador; ver «Las
+comprobaciones»). Para el build si algo falla. En local:
 
 ```bash
 npm install && npm run comprobar
 ```
 
-Mira que cada página arranca y escribe sus cifras, no cómo se ve: eso sigue haciendo falta
-mirarlo en un navegador.
+Con un navegador de verdad, a mano antes de publicar: `npm run revisar`.
 
 Nota: el contenido se calcula en el navegador, así que un buscador sin JavaScript solo verá
 la estructura. Si en algún momento importa el posicionamiento, el siguiente paso sería un

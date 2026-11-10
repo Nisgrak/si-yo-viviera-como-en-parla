@@ -12,6 +12,8 @@
      dist/<id>/espera/, cabecera/    una página mínima con la vista previa de
        infantil/, residencia/…       cada sección con «Compartir esta
                                      sección», que manda a su página
+     dist/consulta/<dato>/           una por cada dato de «Todos los datos» (consulta.html),
+                                     con su imagen consulta-<dato>.png, que manda a consulta.html?d=<dato>
      dist/<id>/impuestos/            y la de «Lo que paga un vecino», que
                                      manda a la economía
      dist/<id>/ind-metro/…           una por cada ficha del recuento de la portada
@@ -37,7 +39,11 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const RAIZ = fileURLToPath(new URL('..', import.meta.url));
-const DIST = join(RAIZ, 'dist');
+/* Con COMPARTIR_SECO=<carpeta> (lo usa herramientas/comprobar.mjs) no se pinta ninguna imagen: cada una
+   queda como el HTML con que se habría pintado (<nombre>.html), y todo va a esa carpeta, no a dist/. Es
+   para comprobar las cifras y las rutas en segundos, sin lo que más tarda de la publicación. */
+const SECO = process.env.COMPARTIR_SECO || '';
+const DIST = SECO || join(RAIZ, 'dist');
 const BASE = 'https://siyovivieracomoenparla.netlify.app/';
 
 /* datos.js y calculo.js son los mismos que carga el navegador. */
@@ -55,6 +61,8 @@ require(join(RAIZ, 'datos/infantil.js'));
 require(join(RAIZ, 'datos/discapacidad.js'));
 require(join(RAIZ, 'datos/contexto.js'));
 require(join(RAIZ, 'datos/infraestructura.js'));
+/* El catálogo de «Todos los datos», el mismo que carga consulta.html. */
+require(join(RAIZ, 'assets/consulta-catalogo.js'));
 const CALCULO = require(join(RAIZ, 'assets/calculo.js'));
 const HOSPITALES = require(join(RAIZ, 'assets/hospitales.js'));
 const D = globalThis.DATOS;
@@ -62,9 +70,9 @@ const D = globalThis.DATOS;
 /* ── La web ─────────────────────────────────────────────────────────── */
 
 await rm(DIST, { recursive: true, force: true });
-await mkdir(DIST);
+await mkdir(DIST, { recursive: true });
 for (const x of ['index.html', 'infraestructura.html', 'vivienda.html', 'economia.html', 'sanidad.html', 'educacion.html',
-  'inclusion.html', 'consulta.html', 'assets', 'datos']) {
+  'inclusion.html', 'consulta.html'].concat(SECO ? [] : ['assets', 'datos'])) {
   await cp(join(RAIZ, x), join(DIST, x), { recursive: true });
 }
 /* La marca que le dice a app.js que aquí sí existen /getafe/ y compañía, así
@@ -260,6 +268,8 @@ const tasaDis = (k, base, por, campo = 'plazas') => (id) => {
 };
 const PIE_DIS = 'Registro de centros de atención social de la Comunidad de Madrid: centros públicos y concertados.';
 const ultimo = (xs) => xs[xs.length - 1];
+const mayusc = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+const delHosp = (t) => (t.startsWith('el ') ? 'del' + t.slice(2) : 'de ' + t);
 /* Miles con punto siempre, también en cuatro cifras, como la web. */
 const miles = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 /* Entre qué cifras, redondeadas a la decena, están los turismos por 1.000 de las ciudades que se comparan. */
@@ -410,7 +420,7 @@ const CIFRAS = {
   infraestructura: {
     titulo: 'De cada 100 viviendas, las que tienen una estación de Cercanías, Metro o Metro Ligero a 15 minutos andando',
     seccion: 'Infraestructuras', unidad: '',
-    v: (id) => num(TP.cobertura.ciudades[id].pct['15'], 0),
+    v: (id) => num(TP.cobertura.ciudades[id].pct['15'], 1),
     pie: 'Edificios del Catastro y horarios del Consorcio Regional de Transportes de Madrid, 2026.',
     desc: (n, a, b) => `De cada 100 viviendas de Parla, ${a} tienen una estación a 15 minutos andando; en ${n}, ${b}. Por dónde sale la gente en coche, lo llena que va la A-42 y qué pasa si falla el tren.`
   },
@@ -435,7 +445,14 @@ const CIFRAS = {
     seccion: 'El hospital', unidad: '',
     v: (id) => { const h = HOSPITALES.de(D, SA, id); return h && h.por1000 != null ? num(h.por1000, 1) : null; },
     pie: 'Camas: Catálogo Nacional de Hospitales 2025. Población asignada: memoria de 2024 de cada hospital del SERMAS.',
-    desc: (n, a, b) => `El hospital de Parla tiene ${a} camas por cada 1.000 personas que atiende; el que le toca a ${n}, ${b}. Lo que le falta al hospital, el médico de cabecera y la espera, con datos oficiales.`
+    desc: (n, a, b) => `El hospital de Parla tiene ${a} camas por cada 1.000 personas que atiende; el que le toca a ${n}, ${b}. Lo que le falta al hospital, el médico de cabecera y la espera, con datos oficiales.`,
+    /* Sin camas del hospital de la otra ciudad (el Infanta Sofía, de Alcobendas, no las da en el catálogo): Parla sola. */
+    sola: (n, id) => {
+      const r = HOSPITALES.de(D, SA, D.REFERENCIA);
+      return `${mayusc(r.corto)} tiene ${enteroG(r.camas)} camas para ${enteroG(r.pob)} personas. ${mayusc(delHosp(HOSPITALES.de(D, SA, id).corto))}, el hospital que le toca a ${n}, no da las camas en el catálogo.`;
+    },
+    descSola: (n, a, id) =>
+      `El hospital de Parla tiene ${a} camas por cada 1.000 personas que atiende. ${mayusc(delHosp(HOSPITALES.de(D, SA, id).corto))}, el que le toca a ${n}, no da las camas en el catálogo.`
   },
   fp: {
     titulo: 'Alumnos de FP pública por cada 100 chicos y chicas de 12 a 17 años',
@@ -451,14 +468,16 @@ const CIFRAS = {
     }
   },
   residencia: {
-    titulo: 'Plazas en residencias y viviendas con apoyo para personas con discapacidad intelectual',
+    titulo: 'Plazas en residencias y viviendas con apoyo por cada 100 personas con discapacidad intelectual reconocida',
     seccion: 'Inclusión', unidad: '',
-    v: (id) => DI.ciudades[id].residencial.plazas.toLocaleString('es-ES', { useGrouping: true }),
+    v: tasaDis('residencial', (id) => DI.ciudades[id].intelectual, 100),
+    linea: (id) => `${miles(DI.ciudades[id].residencial.plazas)} plazas para ${miles(DI.ciudades[id].intelectual)} personas`,
     pie: 'Registro de centros de atención social de la Comunidad de Madrid: centros públicos y concertados.',
-    desc: (n, a, b) => {
+    desc: (n, a, b, id) => {
       const sin = D.MUNICIPIOS.filter((m) => DI.ciudades[m.id].residencial.plazas === 0);
       const unica = sin.length === 1 && sin[0].id === D.REFERENCIA ? ' Es la única de las once sin ninguna.' : '';
-      return `Parla ${a === '0' ? 'no tiene ninguna plaza' : 'tiene ' + a + ' plazas'} de residencia para personas con discapacidad intelectual; ${n}, ${b}.${unica} Los centros de día, los ocupacionales y la atención temprana, con datos oficiales.`;
+      const R = DI.ciudades[D.REFERENCIA].residencial.plazas;
+      return `En Parla ${R === 0 ? 'no hay ninguna plaza' : 'hay ' + a + ' plazas'} en residencias y viviendas con apoyo por cada 100 personas con discapacidad intelectual reconocida; en ${n}, ${b}.${unica} Los centros de día, los ocupacionales y la atención temprana, con datos oficiales.`;
     }
   },
   dia: {
@@ -523,8 +542,8 @@ const CIFRAS = {
   impuestos: {
     titulo: 'IBI y coche al año con la vivienda media de cada ciudad, ' + IM.anio,
     seccion: 'Lo que paga un vecino', unidad: ' €',
-    v: (id) => IM.ciudades[id] ? num(IM.ciudades[id].ibi + IM.ciudades[id].coche, 0) : null,
-    linea: (id) => 'Con la misma casa en las dos: ' + num(IM.ciudades[id].comunIbi + IM.ciudades[id].coche, 0) + ' €',
+    v: (id) => IM.ciudades[id] ? num(IM.ciudades[id].ibi + IM.ciudades[id].coche, 2) : null,
+    linea: (id) => 'Con la misma casa en las dos: ' + num(IM.ciudades[id].comunIbi + IM.ciudades[id].coche, 2) + ' €',
     pie: 'Tipos del Ministerio de Hacienda y valor catastral del Catastro, ' + IM.anio + '.',
     desc: (n, a, b) => `Con su casa media y un coche, un vecino de Parla paga ${a} € al año de IBI e impuesto de vehículos; uno de ${n}, ${b} €. Y con la misma casa en las dos, lo que cobra cada ayuntamiento.`
   },
@@ -692,8 +711,8 @@ const CIFRAS = {
     desc: (n, a, b) => `Cada hora, de 7 a 9, salen hacia Madrid ${a} plazas de tren, Metro y autobús por cada 1.000 vecinos de Parla; de ${n}, ${b}. Con datos oficiales.`
   },
   falla: {
-    titulo: 'Si falla la línea principal, de las plazas hacia Madrid que salen cada hora de 7 a 9, las que quedan, por ciento',
-    seccion: 'Infraestructuras', unidad: '',
+    titulo: 'Si falla la línea principal, de las plazas hacia Madrid que salen cada hora de 7 a 9, las que quedan',
+    seccion: 'Infraestructuras', unidad: ' %',
     v: (id) => (RED(id) ? num(pctQuedan(id), 0) : null),
     nota: (id) => sinLinea(id),
     linea: (id) => miles(quedanTp(id)) + ' de ' + miles(plazasTp(id)) + ' cada hora',
@@ -799,6 +818,7 @@ CIFRAS.pruebas = listaEspera('pruebas',
 CIFRAS.trabajo = CIFRAS.economia;
 
 async function pintar(html, destino) {
+  if (SECO) { await writeFile(destino.replace(/\.png$/, '.html'), html); return; }
   const png = await renderer.render(fromHtml(html).node, { width: 1200, height: 630, fonts: fuentes });
   await writeFile(destino, png);
 }
@@ -915,6 +935,7 @@ const paginaEducacion = (id, nombre, previa) => paginaCiudad(id, 'La educación 
 
 /* Lo que le falta al hospital: la cifra en rojo y las unidades más graves,
    cada una con su hueco. */
+const pieCartera = 'Fuente: ' + D.fuentes.sanitarios.t.replace(' · ', ', ') + '.';
 function imagenCartera(nombre, k) {
   const muestra = (k.graves.length ? k.graves : k.faltan).slice(0, 6);
   const chip = (u) => `<div style="display:flex;align-items:center;gap:12px;padding:10px 18px 10px 14px;border:2px solid #c02719;border-radius:10px;background:#fbeceb;font-size:28px;font-weight:700;color:#c02719"><img src="${HUECO}" style="width:22px;height:22px">${esc(u)}</div>`;
@@ -926,11 +947,14 @@ function imagenCartera(nombre, k) {
       <div style="display:flex;font-size:42px;font-weight:700;line-height:1.12;width:760px">unidades que tiene ${esc(k.hospital.corto)}${k.duena === nombre.id ? '' : ', el que le toca a ' + esc(nombre.nombre) + ','} y el hospital de Parla no</div>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:12px;width:1056px">${muestra.map(chip).join('')}</div>
+    <div style="font-size:22px;line-height:1.25;color:#525252">${esc(pieCartera)}</div>
   </div>`;
 }
 
 /* La imagen y el texto de la vista previa de una página para una ciudad. */
+const USADAS = new Set();
 async function previa(clave, m) {
+  USADAS.add(clave);
   const c = CIFRAS[clave];
   if (c.omitir && c.omitir(m.id)) return null;
   const a = c.v(D.REFERENCIA), b = c.fuera && c.fuera(m.id) ? null : c.v(m.id);
@@ -943,7 +967,7 @@ async function previa(clave, m) {
   const R = D.REFERENCIA;
   const par = (f) => (f ? [f(R, 'Parla'), f(m.id, m.nombre)] : null);
   const x = c.nota || c.linea || c.pos ? { nota: par(c.nota), linea: par(c.linea), pos: c.pos ? c.pos(m.id, m.nombre) : null } : null;
-  if (process.env.PIEZAS_JSON) (PIEZAS[clave] = PIEZAS[clave] || {})[m.id] = { a, b, x };
+  if (process.env.PIEZAS_JSON) (PIEZAS[clave] = PIEZAS[clave] || {})[m.id] = { a, b, x, pie };
   await pintar(imagenPareja(c.seccion, titulo, m.nombre, a, b, c.unidad, pie, b == null ? c.sola(m.nombre, m.id) : null, x), join(DIST, 'assets/compartir', imagen));
   return { imagen, desc: b == null ? c.descSola(m.nombre, a, m.id) : c.desc(m.nombre, a, b, m.id) };
 }
@@ -953,42 +977,133 @@ const FICHAS = [];
 const PIEZAS = {};
 await pintar(imagenGeneral(), join(DIST, 'assets/compartir/general.png'));
 
-/* «Todos los datos»: el título y las once en barras con un dato de verdad,
-   la renta neta por persona, como se ven en la página. */
-function imagenConsulta() {
-  const filas = D.MUNICIPIOS.map((m) => ({ id: m.id, n: m.nombre, v: ultimo(E.ciudades[m.id].renta.persona) }))
-    .sort((a, b) => b.v - a.v);
-  const tope = filas[0].v;
-  const barras = filas.map((f) => {
-    const ref = f.id === D.REFERENCIA, color = ref ? '#1a67c2' : '#717171';
-    return `<div style="display:flex;align-items:center;gap:14px;height:24px">
-      <span style="width:170px;font-size:21px;font-weight:${ref ? 800 : 400};color:${ref ? '#1a67c2' : '#3a3a3a'}">${esc(f.n.replace(' de Alarcón', '').replace(' de Ardoz', ''))}</span>
-      <span style="width:${Math.round(f.v / tope * 240)}px;height:12px;border-radius:6px;background:${color}"></span>
+/* «Todos los datos»: el título y las once en barras, para un dato del catálogo de
+   la página (assets/consulta-catalogo.js, el mismo que carga el navegador: la
+   cifra se escribe con la misma función que la tabla y las barras van en el
+   orden que la página usa por defecto). Parla en azul; las ciudades sin dato,
+   fuera de las barras, en una línea. La de la página entera (sin dato elegido)
+   es imagenConsultaGeneral, más abajo. */
+const CONSULTA = globalThis.CONSULTA;
+function imagenConsulta(d) {
+  const fs = CONSULTA.filas(d);
+  const con = fs.filter((f) => f.v != null);
+  const sin = fs.filter((f) => f.v == null).map((f) => CONSULTA.NOMBRE[f.id]);
+  const tope = con.reduce((t, f) => Math.max(t, f.v), 0);
+  const etiqueta = d.etiqueta && con.length;
+  const AZUL = '#1a67c2';
+  const barras = con.map((f) => {
+    const ref = f.id === D.REFERENCIA, color = ref ? AZUL : '#717171';
+    const ancho = tope && f.v > 0 ? Math.max(3, Math.round(f.v / tope * 100)) : 0;
+    return `<div style="display:flex;align-items:center;gap:14px;height:28px">
+      <span style="width:${etiqueta ? 192 : 200}px;flex:none;font-size:21px;font-weight:${ref ? 800 : 400};color:${ref ? AZUL : '#3a3a3a'}">${esc(CONSULTA.NOMBRE[f.id])}</span>
+      <span style="display:flex;flex:1"><span style="width:${ancho}%;height:12px;border-radius:6px;background:${color}"></span></span>
+      <span style="width:${etiqueta ? 120 : 150}px;flex:none;text-align:right;font-size:21px;font-weight:${ref ? 800 : 700};color:${ref ? AZUL : '#161616'}">${esc(CONSULTA.cifra(d, f.v))}</span>
+      ${etiqueta ? `<span style="width:178px;flex:none;font-size:15px;white-space:nowrap;color:#717171">${esc(d.etiqueta(f.id))}</span>` : ''}
     </div>`;
   }).join('');
-  return `<div style="${LIENZO};flex-direction:row;align-items:stretch;gap:56px">
-    <div style="display:flex;flex-direction:column;justify-content:space-between;flex:0 0 500px;width:500px">
-      <div style="display:flex;flex-direction:column;text-transform:uppercase;font-weight:800;font-stretch:62%;line-height:.9">
-        <span style="font-size:96px;color:#161616">Todos los datos</span>
-        <span style="font-size:48px;font-weight:700;color:#525252;margin-top:10px">de las once ciudades</span>
+  /* El cuerpo de la letra, el mayor con que el título cabe en su columna y la altura que le queda.
+     Con etiqueta (el hospital, la zona) la columna es más estrecha, para que las barras respiren. */
+  const col = etiqueta ? 330 : 400;
+  const n = d.titulo.length;
+  let pt = 78;
+  while (pt > 30 && Math.ceil(n * 0.4 * pt / col) * pt * 0.95 > 232) pt -= 2;
+  const titulo = `<span style="font-size:20px;font-weight:800;font-stretch:100%;letter-spacing:.06em;color:#717171;margin-bottom:14px">Todos los datos</span>
+       <span style="font-size:${pt}px;color:#161616">${esc(d.titulo)}</span>`;
+  const unidad = d.unidad;
+  const fuente = d.fuente ? 'Fuente: ' + d.fuente[0].replace(' · ', ', ') + '.' : '';
+  return `<div style="${LIENZO};gap:18px">
+    <div style="display:flex;flex-direction:row;gap:44px;flex:1">
+      <div style="display:flex;flex-direction:column;justify-content:space-between;flex:0 0 ${col}px;width:${col}px">
+        <div style="display:flex;flex-direction:column;text-transform:uppercase;font-weight:800;font-stretch:62%;line-height:.92">${titulo}</div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <img src="${ballena('#161616', '#8c8c8c')}" style="width:${Math.round(34 * PROPORCION)}px;height:34px">
+          <span style="font-size:22px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#161616">${esc(D.NOMBRE_WEB)}</span>
+        </div>
       </div>
-      <div style="font-size:26px;line-height:1.3;color:#525252">Equipamientos, renta, trabajo, vivienda y transporte, con sus fuentes oficiales.</div>
-      <div style="display:flex;align-items:center;gap:16px">
-        <img src="${ballena('#161616', '#8c8c8c')}" style="width:${Math.round(34 * PROPORCION)}px;height:34px">
-        <span style="font-size:24px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#161616">${esc(D.NOMBRE_WEB)}</span>
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:3px;flex:1;border-left:2px solid #161616;padding-left:36px">
+        ${barras}
+        ${sin.length ? `<span style="font-size:18px;color:#525252;margin-top:8px">Sin dato: ${esc(sin.join(', '))}</span>` : ''}
       </div>
     </div>
-    <div style="display:flex;flex-direction:column;justify-content:center;gap:11px;flex:1;border-left:2px solid #161616;padding-left:40px">
-      <span style="font-size:20px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#717171">Renta neta por persona, 2024</span>
-      ${barras}
+    <div style="display:flex;flex-direction:column;gap:3px;border-top:1px solid #c9c9c9;padding-top:12px;font-size:17px;line-height:1.25;color:#525252">
+      <span>${esc(unidad.charAt(0).toUpperCase() + unidad.slice(1))}</span>
+      <span>${esc(fuente)}</span>
     </div>
   </div>`;
 }
-await pintar(imagenConsulta(), join(DIST, 'assets/compartir/consulta.png'));
+/* La de la página entera, cuando no hay un dato elegido: qué es (cuántos datos, de
+   cuántas ciudades) y los apartados del catálogo con cuántos datos tiene cada uno.
+   Todo sale del catálogo; ninguna cifra de ninguna ciudad. */
+const NUMEROS = ['cero', 'una', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez', 'once', 'doce', 'trece', 'catorce', 'quince'];
+const CIUDADES_EN_LETRA = NUMEROS[D.MUNICIPIOS.length] || String(D.MUNICIPIOS.length);
+const RESUMEN_CONSULTA = `${CONSULTA.CAT.length} datos de ${CIUDADES_EN_LETRA} ciudades`;
+const DESC_CONSULTA = `${RESUMEN_CONSULTA}, de Población a Inclusión, cada uno con su fuente oficial. Uno a uno, en tabla o en gráfica, y para descargar.`;
+const APARTADOS_CONSULTA = CONSULTA.GRUPOS.map((g) => [g, CONSULTA.CAT.filter((d) => d.grupo === g).length]);
+function imagenConsultaGeneral() {
+  const mayor = Math.max(...APARTADOS_CONSULTA.map((x) => x[1]));
+  const filas = APARTADOS_CONSULTA.map(([g, n]) => `<div style="display:flex;align-items:center;gap:16px;height:44px">
+      <span style="width:350px;flex:none;white-space:nowrap;font-size:27px;font-weight:700;color:#161616">${esc(g)}</span>
+      <span style="display:flex;flex:1"><span style="width:${Math.max(4, Math.round(n / mayor * 100))}%;height:12px;border-radius:6px;background:#717171"></span></span>
+      <span style="width:60px;flex:none;text-align:right;font-size:27px;font-weight:800;color:#161616">${n}</span>
+    </div>`).join('');
+  return `<div style="${LIENZO};gap:18px">
+    <div style="display:flex;flex-direction:row;gap:44px;flex:1">
+      <div style="display:flex;flex-direction:column;justify-content:space-between;flex:0 0 420px;width:420px">
+        <div style="display:flex;flex-direction:column;text-transform:uppercase;font-weight:800;font-stretch:62%;line-height:.92">
+          <span style="font-size:106px;color:#161616">Todos los datos</span>
+          <span style="font-size:48px;font-weight:700;color:#1a67c2;margin-top:14px">${esc(RESUMEN_CONSULTA)}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <img src="${ballena('#161616', '#8c8c8c')}" style="width:${Math.round(34 * PROPORCION)}px;height:34px">
+          <span style="font-size:22px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#161616">${esc(D.NOMBRE_WEB)}</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;flex:1;border-left:2px solid #161616;padding-left:36px">
+        ${filas}
+      </div>
+    </div>
+    <div style="display:flex;border-top:1px solid #c9c9c9;padding-top:12px;font-size:20px;line-height:1.25;color:#525252">
+      <span>Uno a uno, en tabla o en gráfica, y para descargar. Con sus fuentes oficiales.</span>
+    </div>
+  </div>`;
+}
+{
+  /* La imagen de cada dato, y la página que la lleva: /consulta/<dato>/ manda a
+     consulta.html?d=<dato>. La descripción: la cifra de Parla y su puesto entre las
+     ciudades con dato. */
+  const datos = {};
+  await mkdir(join(DIST, 'consulta'), { recursive: true });
+  await pintar(imagenConsultaGeneral(), join(DIST, 'assets/compartir/consulta.png'));
+  for (const d of CONSULTA.CAT) {
+    const fs = CONSULTA.filas(d);
+    const con = fs.filter((f) => f.v != null);
+    const parla = fs.find((f) => f.id === D.REFERENCIA);
+    const desc = parla.v == null
+      ? `Parla no tiene este dato. ${con.length} de las once ciudades sí: ${d.unidad}.`
+      : `Parla, ${CONSULTA.cifra(d, parla.v)}: puesto ${CONSULTA.puesto(d, fs, parla)} de ${con.length} ciudades con dato (${d.unidad}).`;
+    const imagen = `consulta-${d.id}.png`;
+    await pintar(imagenConsulta(d), join(DIST, 'assets/compartir', imagen));
+    await mkdir(join(DIST, 'consulta', d.id), { recursive: true });
+    await writeFile(join(DIST, 'consulta', d.id, 'index.html'),
+      paginaSeccion('consulta', d.id + '/', `../../consulta.html?d=${d.id}`, d.titulo, { desc, imagen }));
+    datos[d.id] = { titulo: d.titulo, desc, filas: fs.map((f) => [f.id, CONSULTA.cifra(d, f.v)]) };
+  }
+  /* /consulta (sin barra, sin .html) no se queda en un 404. */
+  await writeFile(join(DIST, 'consulta/index.html'),
+    paginaSeccion('consulta', '', '../consulta.html', 'Todos los datos de las once ciudades',
+      { desc: DESC_CONSULTA, imagen: 'consulta.png' }));
+  /* Para la prueba de las cifras: lo que se pintó en cada imagen. */
+  if (process.env.CONSULTA_JSON) await writeFile(process.env.CONSULTA_JSON, JSON.stringify(datos));
+}
 {
   const f = join(DIST, 'consulta.html');
   const h = await readFile(f, 'utf8');
-  await writeFile(f, h.replace(/(<meta property="og:image" content="[^"]*)general\.png"/, '$1consulta.png"'));
+  if (!h.includes('<html lang="es">')) throw new Error('consulta.html: no encuentro <html lang="es">');
+  /* El número de datos va calculado del catálogo, no escrito en el HTML. */
+  await writeFile(f, h.replace('<html lang="es">', '<html lang="es" data-rutas>')
+    .replace(/(<meta property="og:image" content="[^"]*)general\.png"/, '$1consulta.png"')
+    .replace(/(<meta property="og:title" content=")[^"]*"/, `$1Todos los datos: ${RESUMEN_CONSULTA}"`)
+    .replace(/(<meta property="og:description" content=")[^"]*"/, `$1${DESC_CONSULTA}"`));
 }
 
 for (const m of D.MUNICIPIOS) {
@@ -1115,3 +1230,5 @@ for (const m of D.MUNICIPIOS) {
 if (process.env.FICHAS_JSON) await writeFile(process.env.FICHAS_JSON, JSON.stringify(FICHAS));
 /* Para la prueba de las piezas con dos botones: cifras, líneas y puesto de cada imagen. */
 if (process.env.PIEZAS_JSON) await writeFile(process.env.PIEZAS_JSON, JSON.stringify(PIEZAS));
+/* Para la prueba de las rutas: qué claves de CIFRAS se han usado y cuáles no. */
+if (process.env.RUTAS_JSON) await writeFile(process.env.RUTAS_JSON, JSON.stringify({ cifras: Object.keys(CIFRAS), usadas: [...USADAS] }));

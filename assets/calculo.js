@@ -219,6 +219,18 @@
     if (u === 'ha') return num(m2 / 10000, redonda ? 0 : 1) + ' ha';
     return entero(Math.round(m2)) + ' m²';
   }
+  /* La cuenta de una ficha de superficie, con las tres cifras en la unidad de lo que falta (o sobra) y la
+     diferencia hecha con las cifras ya redondeadas: «tendría 3,76 − tiene 1,51 = 2,25», no 2,24. */
+  function cuentaSuperficie(c) {
+    const u = unidadSuperficie(Math.abs(c.falta));
+    const f = u === 'km2' ? 1000000 : u === 'ha' ? 10000 : 1, dec = u === 'km2' ? 2 : u === 'ha' ? 1 : 0, e = Math.pow(10, dec);
+    const t = Math.round(c.tendria / f * e), p = Math.round(c.parla / f * e);
+    const texto = function (n) {
+      const x = Math.abs(n) / e;
+      return (u === 'm2' ? entero(x) : num(x, dec)) + ' ' + (u === 'km2' ? 'km²' : u === 'ha' ? 'ha' : 'm²');
+    };
+    return { unidad: u, tendria: texto(t), parla: texto(p), falta: texto(t - p) };
+  }
   function cantidad(c, v, dec) { return esSuperficie(c) ? enSuperficie(v) : num(v, dec); }
   const NINGUNO = { f: 'ninguna', m: 'ninguno' };
 
@@ -239,16 +251,16 @@
     }
     const g = i.gen || 'm';
     if (sobra) {
-      return 'Tiene <span class="cifra">' + cantidad(c, -c.falta) + '</span> <span class="resto">' +
+      return 'Tiene <span class="cifra">' + (esSuperficie(c) ? cuentaSuperficie(c).falta : cantidad(c, -c.falta)) + '</span> <span class="resto">' +
         (c.otra === 0 ? (i.id === 'camas' && ctx.deFuera ? 'en su término, ' : '') +
           'donde ' + ctx.nombre + ' no tiene ' + NINGUNO[g] : 'más de ' +
         (g === 'f' ? 'las' : 'los') + ' que le tocarían') + '</span>';
     }
     if (esSuperficie(c)) {
       /* Las dos cifras en la misma unidad, la de lo que falta. */
-      const u = unidadSuperficie(c.falta);
-      return 'Le faltan <span class="cifra">' + enSuperficie(c.falta, false, u) + '</span> <span class="resto">' +
-        'a ' + (c.parla ? (u === 'ha' ? 'las ' : 'los ') + enSuperficie(c.parla, false, u) + ' que tiene'
+      const cu = cuentaSuperficie(c), u = cu.unidad;
+      return 'Le faltan <span class="cifra">' + cu.falta + '</span> <span class="resto">' +
+        'a ' + (c.parla ? (u === 'ha' ? 'las ' : 'los ') + cu.parla + ' que tiene'
           : 'lo que tiene') + '</span>';
     }
     if (c.parla === 0) {
@@ -288,7 +300,7 @@
   const CALCULO = {
     comparar: comparar, faltan: faltan, UMBRAL: UMBRAL, esSuperficie: esSuperficie, umbral: umbral,
     fichas: fichas, titularFicha: titularFicha, tasasFicha: tasasFicha,
-    formato: { entero: entero, num: num, numTasa: numTasa, enSuperficie: enSuperficie, unidadSuperficie: unidadSuperficie, cantidad: cantidad }
+    formato: { entero: entero, num: num, numTasa: numTasa, enSuperficie: enSuperficie, unidadSuperficie: unidadSuperficie, cuentaSuperficie: cuentaSuperficie, cantidad: cantidad }
   };
   if (typeof module === 'object' && module.exports) module.exports = CALCULO;
   else raiz.CALCULO = CALCULO;

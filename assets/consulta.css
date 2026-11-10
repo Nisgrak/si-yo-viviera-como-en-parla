@@ -75,6 +75,8 @@
 .vista { display: flex; flex-wrap: wrap; gap: .5rem; }
 .con__barra { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 1rem; margin-bottom: 1.25rem; }
 .con__herr { display: flex; flex-wrap: wrap; gap: .5rem; }
+.con__herr .compartir { margin-top: 0; }
+.con__herr .compartir:disabled { opacity: .45; cursor: default; }
 .con__boton {
   padding: .4rem .8rem;
   border: 1px solid var(--line-alta); border-radius: 6px;

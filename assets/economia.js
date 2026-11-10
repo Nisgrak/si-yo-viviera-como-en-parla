@@ -279,12 +279,12 @@
   function cartelSerie(f, o) {
     const s = f.serie;
     f.cartel = { id: o.clave, enlace: o.enlace, datos: function () {
-      const cifra = cifraDe(s);
+      const cifra = cifraDe(s), signo = s.unidad === '%' ? ' %' : '';
       return {
         pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · ' + o.seccion,
         antes: s.pie,
-        dos: [{ quien: NOMBRE[REF], cifra: cifra(s.valores[REF]), rojo: o.peor(s.valores[REF], s.valores[AQUI]) },
-          { quien: NOMBRE[AQUI], cifra: cifra(s.valores[AQUI]) }],
+        dos: [{ quien: NOMBRE[REF], cifra: cifra(s.valores[REF]) + signo, rojo: o.peor(s.valores[REF], s.valores[AQUI]) },
+          { quien: NOMBRE[AQUI], cifra: cifra(s.valores[AQUI]) + signo }],
         que: o.que,
         sub: puesto(function (id) { return s.valores[id]; }),
         cajas: [{ q: 'Fuente', v: fuenteLinea(s.fuenteId) }]
@@ -569,7 +569,7 @@
         entero(t(AQUI).ultimoMes.n) + ' en ' + NOMBRE[AQUI] + '.'
     });
     fichas('#paro-fichas', [
-      cartelSerie(desdeDinero('paro'), { clave: 'paro', seccion: 'Quien no encuentra trabajo', que: 'por ciento',
+      cartelSerie(desdeDinero('paro'), { clave: 'paro', seccion: 'Quien no encuentra trabajo',
         peor: function (a, b) { return a > b; },
         enlace: function (n) { return 'El paro en Parla y en ' + n; } }),
       { id: 'paro-registrado', titulo: 'Apuntados al paro', sentido: 'menos',
@@ -880,11 +880,12 @@
       return {
         pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · Lo que paga un vecino, ' + P.anio,
         antes: 'IBI y coche de la vivienda media de cada ciudad',
-        dos: [{ quien: NOMBRE[REF], cifra: euros(suya(REF)), rojo: euros(suya(REF)) !== euros(suya(AQUI)) && suya(REF) > suya(AQUI) },
-          { quien: NOMBRE[AQUI], cifra: euros(suya(AQUI)) }],
-        que: 'al año',
+        dos: [{ quien: NOMBRE[REF], cifra: num(suya(REF), 2), rojo: num(suya(REF), 2) !== num(suya(AQUI), 2) && suya(REF) > suya(AQUI) },
+          { quien: NOMBRE[AQUI], cifra: num(suya(AQUI), 2) }],
+        que: 'euros al año',
         sub: 'Un vecino con su casa media y un coche de 12 a 15,99 caballos fiscales.',
-        cajas: [{ q: 'Con la misma casa en las dos', v: 'Parla ' + entero(misma(REF)) + ' €; ' + NOMBRE[AQUI] + ' ' + entero(misma(AQUI)) + ' €' }]
+        cajas: [{ q: 'Con la misma casa en las dos', v: 'Parla ' + eur(misma(REF)) + '; ' + NOMBRE[AQUI] + ' ' + eur(misma(AQUI)) },
+          window.CARTEL.fuente([P.fuentes.tipos[0], P.fuentes.valor[0]])]
       };
     }));
     bot.appendChild(window.CARTEL.enlace({

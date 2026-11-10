@@ -13,7 +13,7 @@
      } })
    devuelve el botón «Cartel para compartir»; el dato se calcula al pulsar,
    con la ciudad elegida en ese momento. Y CARTEL.enlace({ url, titulo }),
-   el de «Compartir esta sección».
+   el de «Compartir esta sección» (con `rotulo`, otro texto).
 
    La portada monta sus carteles con las piezas (CARTEL.piezas: base,
    titular, banda, ajustar, tira) y los abre con CARTEL.abrir({ titulo, id,
@@ -29,6 +29,18 @@
     if (cls) e.className = cls;
     if (html !== undefined) e.innerHTML = html;
     return e;
+  }
+  /* Una cifra con signo de porcentaje («10 %») es una sola unidad: el número y, pegado a él, el «%» a
+     menos cuerpo (SIGNO, en proporción) y con el espacio duro por delante. Devuelve { num, sig } o,
+     sin signo, { num: la cifra }. El cartel la pinta en un solo bloque y `ajustar` la mide igual. */
+  const SIGNO = 0.6;
+  function partir(t) {
+    const m = /^(.*?)[\s\u00a0\u202f]*%$/.exec(String(t));
+    return m ? { num: m[1], sig: '\u00a0%' } : { num: String(t) };
+  }
+  function cifraHtml(t) {
+    const c = partir(t);
+    return esc(c.num) + (c.sig ? '<span class="ktit__sig">' + c.sig + '</span>' : '');
   }
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return '&#' + c.charCodeAt(0) + ';'; }); }
 
@@ -111,14 +123,14 @@
         c.appendChild(el('span', 'ktit__a', esc(x.quien)));
         /* `nota`: una línea corta bajo el nombre (el hospital, la salida). */
         if (x.nota) c.appendChild(el('span', 'ktit__h ktit__h--nota', esc(x.nota)));
-        c.appendChild(el('span', 'ktit__n ktit__n--col' + (x.rojo ? ' ktit__n--rojo' : ''), esc(x.cifra)));
+        c.appendChild(el('span', 'ktit__n ktit__n--col' + (x.rojo ? ' ktit__n--rojo' : ''), cifraHtml(x.cifra)));
         /* `pie`: lo que dice la cifra, pegado a ella («salen por cada una que entra»). */
         if (x.pie) c.appendChild(el('span', 'ktit__h ktit__h--pie', esc(x.pie)));
         g.appendChild(c);
       });
       tit.appendChild(g);
-    } else tit.appendChild(el('span', 'ktit__n', esc(d.cifra)));
-    tit.appendChild(el('span', 'ktit__q', esc(d.que)));
+    } else tit.appendChild(el('span', 'ktit__n', cifraHtml(d.cifra)));
+    if (d.que) tit.appendChild(el('span', 'ktit__q', esc(d.que)));
     if (d.fin) tit.appendChild(el('span', 'ktit__m', esc(d.fin)));
     capa.appendChild(tit);
     if (d.sub) capa.appendChild(el('p', 'ksub', esc(d.sub)));
@@ -218,6 +230,7 @@
     const col = tit.querySelector('.ktit__col');
     const anchoCol = col ? col.clientWidth : ancho;
     tit.querySelectorAll('span').forEach(function (sp) {
+      if (sp.classList.contains('ktit__sig')) return;      /* va con su número */
       /* El nombre y las líneas pequeñas llevan menos cierre de letras que el titular (que es lo que mide la regla): se les da un poco de aire. */
       const e = sp.classList.contains('ktit__n') ? 1.35 :
         sp.classList.contains('ktit__a') ? 0.42 * 1.1 : sp.classList.contains('ktit__h') ? 0.3 * 1.1 : 1;
@@ -225,6 +238,9 @@
       /* La cifra (.ktit__n) hereda el cierre de letras del titular en puntos, no en em de su propio
          cuerpo (1,35 veces mayor): la regla lo copia, o se queda corta y la cifra se sale de su columna. */
       const cifra = sp.classList.contains('ktit__n');
+      /* Número y signo, una sola unidad: no se parte por el espacio. */
+      const c = cifra ? partir(sp.textContent) : null;
+      if (c && c.sig) { palabras.push({ t: c.num, sig: c.sig, e: e, lim: lim, cifra: true }); return; }
       sp.textContent.split(/\s+/).forEach(function (w) { if (w) palabras.push({ t: w, e: e, lim: lim, cifra: cifra }); });
     });
     let pt = 160;
@@ -233,7 +249,8 @@
       for (let k = 0; k < palabras.length; k++) {
         regla.style.fontSize = (pt * palabras[k].e) + 'pt';
         regla.style.letterSpacing = palabras[k].cifra ? (-0.035 * pt) + 'pt' : '-.035em';
-        regla.textContent = palabras[k].t;
+        if (palabras[k].sig) regla.innerHTML = esc(palabras[k].t) + '<span style="font-size:' + SIGNO + 'em">' + palabras[k].sig + '</span>';
+        else regla.textContent = palabras[k].t;
         if (regla.offsetWidth > palabras[k].lim) { cabe = false; break; }
       }
       if (!cabe) continue;
@@ -405,12 +422,13 @@
     '<path d="M10 14a4.5 4.5 0 0 0 6.4 0l3.2-3.2a4.5 4.5 0 0 0-6.4-6.4L11.8 5.8"/>' +
     '<path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3.2 3.2a4.5 4.5 0 0 0 6.4 6.4l1.4-1.4"/></svg></span>';
   function enlace(op) {
-    const b = el('button', 'compartir', ENLACE + '<span>Compartir esta sección</span>');
+    const texto = op.rotulo || 'Compartir esta sección';
+    const b = el('button', 'compartir', ENLACE + '<span>' + esc(texto) + '</span>');
     b.type = 'button';
     const rotulo = b.lastChild;
     function avisar(t) {
       rotulo.textContent = t;
-      setTimeout(function () { rotulo.textContent = 'Compartir esta sección'; }, 1800);
+      setTimeout(function () { rotulo.textContent = texto; }, 1800);
     }
     b.addEventListener('click', function () {
       const url = new URL(op.url(), location.href).href;
@@ -427,8 +445,17 @@
     return b;
   }
 
+  /* La caja «Fuente» de un cartel: el texto de cada fuente tal como la lista el mecanismo de fuentes de la página
+     (título · fecha), sin el tipo de fichero, una detrás de otra. `union` es lo que las separa (por defecto «; »). */
+  function fuente(textos, union) {
+    const t = textos.filter(Boolean).map(function (x) {
+      return String(x).replace(' · ', ', ').replace(/\s*\((?:XLSX|XLS|CSV|PDF|JSON|Excel)\)/, '').replace(/\.$/, '');
+    });
+    return { q: 'Fuente', v: t.join(union || '; ') + '.' };
+  }
+
   window.CARTEL = {
-    boton: boton, enlace: enlace, abrir: abrir, cifra: cifraElegida, frente: frente, puesto: puesto,
+    boton: boton, enlace: enlace, abrir: abrir, cifra: cifraElegida, frente: frente, puesto: puesto, fuente: fuente,
     montar: montarDatos,
     piezas: { hoja: hoja, base: base, titular: titular, cajas: cajas, banda: banda, tira: tira, ajustar: ajustar }
   };

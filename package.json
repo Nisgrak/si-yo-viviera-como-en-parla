@@ -4,7 +4,8 @@
   "description": "La web no necesita nada de esto: se abre index.html y funciona. Esto es la prueba de la web y el build de Netlify, que añade la vista previa de cada ciudad.",
   "scripts": {
     "comprobar": "node herramientas/comprobar.mjs",
-    "build": "node herramientas/comprobar.mjs && node herramientas/compartir.mjs"
+    "build": "node herramientas/comprobar.mjs && node herramientas/compartir.mjs && node herramientas/comprobar/dist.mjs",
+    "revisar": "node herramientas/revisar.mjs"
   },
   "engines": {
     "node": ">=20"

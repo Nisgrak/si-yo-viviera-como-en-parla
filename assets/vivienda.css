@@ -121,6 +121,7 @@
 .anios__v { text-align: right; font-size: .9375rem; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--ink); }
 [data-quien='referencia'] > .anios__q,
 [data-quien='referencia'] > .anios__v { color: var(--ref); }
+.anios__v.anios__v--sin { font-size: .75rem; font-weight: 600; line-height: 1.2; }
 .anios__piezas { display: flex; gap: 4px; }
 .anios__u {
   flex: 0 0 auto;

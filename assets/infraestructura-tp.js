@@ -896,9 +896,8 @@
       return {
         pre: I.pre('Si falla el tren'),
         antes: 'Si falla la línea principal, de las plazas hacia Madrid quedan',
-        dos: window.CARTEL.frente(NOMBRE, REF, I.AQUI, function (id) { return num(pct(id), 0); },
+        dos: window.CARTEL.frente(NOMBRE, REF, I.AQUI, function (id) { return num(pct(id), 0) + ' %'; },
           peorQue(pct(REF), pct(I.AQUI), 0, true), { nota: sinLaLinea }),
-        que: 'por ciento',
         sub: 'Las plazas de tren, Metro y autobús que salen cada hora de 7 a 9, con todo lo demás funcionando. ' +
           entreLas(valores(ids, pct), 'plazas que quedan sin su línea principal'),
         cajas: [dir(REF), dir(I.AQUI), { q: 'Fuente', v: fuenteTp(true) }]

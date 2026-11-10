@@ -373,7 +373,8 @@
 <script src="assets/qr.js"></script>
 <script src="assets/cartel.js"></script>
 <script src="assets/indice.js"></script>
-<script src="assets/app.js"></script>
+<!-- plegar.js va antes de app.js: app.js cambia la dirección a /<ciudad>/ y un script que se pida después se buscaría en /<ciudad>/assets/ (404). -->
 <script src="assets/plegar.js"></script>
+<script src="assets/app.js"></script>
 </body>
 </html>

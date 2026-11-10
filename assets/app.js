@@ -59,6 +59,7 @@
 
   const numTasa = F.numTasa;
   const enSuperficie = F.enSuperficie;
+  const cuentaSuperficie = F.cuentaSuperficie;
 
   /* Casi todos los indicadores cuentan cosas; el verde mide superficie. Estas
      dos funciones son el único sitio donde eso importa al escribir la cifra. */
@@ -358,8 +359,8 @@
 
     /* Un decimal, como el titular: es la misma cifra vista desde el otro lado. */
     cont.appendChild(el('p', 'tasas__pie', 'Con la proporción de ' + NOMBRE[AQUI] +
-      ', Parla tendría ' + (esSuperficie(c) ? enSuperficie(c.tendria) : num(c.tendria)) +
-      '. Tiene ' + (esSuperficie(c) ? enSuperficie(c.parla) : entero(c.parla)) + '.'));
+      ', Parla tendría ' + (esSuperficie(c) ? cuentaSuperficie(c).tendria : num(c.tendria)) +
+      '. Tiene ' + (esSuperficie(c) ? cuentaSuperficie(c).parla : entero(c.parla)) + '.'));
     return cont;
   }
 
@@ -783,7 +784,8 @@
     b.appendChild(icono(ICONO[i.id], 'rec__ico'));
     b.appendChild(el('span', 'rec__q', i.titulo));
     b.appendChild(el('span', 'rec__n', modo === 'sobra'
-      ? '+' + cantidad(c, -c.falta) : esCartera(c) ? String(c.falta) : cantidad(c, c.falta)));
+      ? '+' + (esSuperficie(c) ? cuentaSuperficie(c).falta : cantidad(c, -c.falta))
+      : esCartera(c) ? String(c.falta) : esSuperficie(c) ? cuentaSuperficie(c).falta : cantidad(c, c.falta)));
     b.appendChild(el('span', 'rec__v'));
     h.appendChild(b);
     li.appendChild(h);
@@ -1382,6 +1384,10 @@
       cajas = [{ q: NOMBRE_REF, v: numTasa(c.tasaParla) + ' por cada ' + u, ref: true },
         { q: NOMBRE[AQUI], v: numTasa(c.tasaOtra) + ' por cada ' + u }];
     }
+    /* La fuente, la misma que lleva la ficha en su pie y su vista previa: el dato y, salvo el hospital, la población de referencia. */
+    cajas.push(window.CARTEL.fuente([i.fuenteId].concat(esCartera(c) ? [] : [c.base.fuenteId])
+      .filter(function (x, n, xs) { return xs.indexOf(x) === n; })
+      .map(function (x) { return D.fuentes[x].t; }), '. Población de referencia: '));
     K.cajas(capa, cajas);
     K.banda(raiz, AQUI);
     K.ajustar(raiz, tit, fondo);
@@ -1448,9 +1454,12 @@
       lista.appendChild(li);
     });
     capa.appendChild(lista);
+    /* Suma muchos indicadores: una línea corta, la que ya dice la página (index.html, «Lo que calculamos nosotros»). */
+    const fuentes = K.cajas(capa, [{ q: 'Fuente', v: 'Todas las cifras parten de fuentes oficiales.' }]);
+    fuentes.style.marginTop = '3mm';
 
     K.banda(raiz, AQUI);
-    K.ajustar(raiz, tit, fondo, lista);
+    K.ajustar(raiz, tit, fondo, fuentes);
   }
 
   /* `caso` es la comparación de un indicador o la cadena 'general' para el

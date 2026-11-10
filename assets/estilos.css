@@ -682,6 +682,8 @@ a:hover { text-decoration-color: var(--ref); }
 .ktit span { display: block; }
 .ktit__n { font-size: 1.35em; line-height: .86; color: #161616; white-space: normal; }
 .ktit__q { color: #c02719; white-space: normal; }
+/* El «%» de la cifra: en línea con el número, a menos cuerpo y sobre su línea base (cartel.js, `partir`). */
+.ktit .ktit__sig { display: inline; font-size: .6em; white-space: nowrap; }
 /* Dos ciudades frente a frente, cada una con su cifra (cartel.js, `dos`). */
 .ktit__dos { display: grid; grid-template-columns: 1fr 1fr; column-gap: 7mm; align-items: end; margin: .04em 0 .06em; }
 .ktit__col { min-width: 0; }
@@ -770,6 +772,8 @@ a:hover { text-decoration-color: var(--ref); }
   padding: 4mm 4mm 4.5mm;
   background: rgba(243, 241, 236, .9);
 }
+/* Con la caja de la fuente debajo, las filas se juntan un poco para que el bloque no llegue a la banda. */
+.cartel[data-fondo='barrio'] .karea + .karea { margin-top: 2mm; }
 
 /* la tira de unidades: un hueco por equipamiento que falta */
 .krejilla {

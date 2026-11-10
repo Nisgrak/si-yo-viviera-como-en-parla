@@ -566,6 +566,7 @@
       const art = el('article', 'rango');
       art.id = g.id;
       art.appendChild(el('h3', 'hecho__h', g.h));
+      const sinRazon = [];
       let lo = Infinity, hi = 0;
       [REF, AQUI].forEach(function (id) { const r = C[id].barrios[g.k]; lo = Math.min(lo, r[0]); hi = Math.max(hi, r[1]); });
       const pad = (hi - lo) * 0.04;
@@ -593,11 +594,13 @@
           pista.appendChild(t);
         });
         fila.appendChild(pista);
-        fila.appendChild(el('span', 'anios__v', tope ? '—' : '×' + num(r[1] / r[0], 2)));
+        fila.appendChild(el('span', 'anios__v' + (tope ? ' anios__v--sin' : ''), tope ? 'sin dato' : '×' + num(r[1] / r[0], 2)));
+        if (tope) sinRazon.push('de ' + g.fmt(r[1]) + ' en ' + NOMBRE[c[0]]);
         art.appendChild(fila);
       });
       art.appendChild(el('p', 'anios__pie', 'A la derecha, cuántas veces el extremo alto es el bajo. Parla: ' +
-        g.pie(C[REF].barrios) + '. ' + NOMBRE[AQUI] + ': ' + g.pie(C[AQUI].barrios) + '.'));
+        g.pie(C[REF].barrios) + '. ' + NOMBRE[AQUI] + ': ' + g.pie(C[AQUI].barrios) + '.' +
+        (sinRazon.length ? ' Sin dato: la fuente no da la renta por encima ' + sinRazon.join(' ni por encima ') + ', así que no hay razón entre extremos.' : '')));
       /* El cartel es el del alquiler: la renta tiene tope del INE en tres ciudades y no siempre da cifra. */
       if (g.k === 'alq') {
         const b = el('div', 'seccion__botones');
