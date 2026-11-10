@@ -321,6 +321,9 @@
 .tp__manzanas { fill: var(--surface-2); stroke: var(--line-alta); stroke-width: .3; }
 .tp__zona { fill: var(--tp-color); fill-opacity: .15; stroke: var(--tp-color); stroke-opacity: .5; stroke-width: .7; }
 @media (prefers-color-scheme: dark) { .tp__zona { fill-opacity: .19; } }
+/* A más del último tramo: las manzanas, rayadas con el color de la ciudad. */
+.tp__raya { stroke: var(--tp-color); stroke-opacity: .55; }
+.tp__lejos { pointer-events: none; }
 .tp__limite { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; }
 .tp[data-quien='referencia'] .tp__limite { stroke: var(--ref); stroke-width: 2; }
 .tp__linea { fill: none; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
@@ -358,7 +361,11 @@
   width: .9rem; height: .9rem; border-radius: 2px;
   background: color-mix(in srgb, var(--tp-color, var(--ink)) calc((1 - pow(.85, var(--capas, 1))) * 100%), var(--surface));
 }
-.tp__c--nada { background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-alta); }
+.tp__c--nada {
+  background: repeating-linear-gradient(135deg,
+    color-mix(in srgb, var(--tp-color, var(--ink)) 55%, var(--surface)) 0 1.3px, var(--surface) 1.3px 5px);
+  box-shadow: inset 0 0 0 1px var(--line-alta);
+}
 .tp__c--linea { height: 2px; background: var(--ink); }
 .tp__c--metro { height: 0; border-top: 1.2px dashed var(--ink-3); background: none; }
 .tp__c--obra { border-radius: 50%; background: var(--obra); box-shadow: inset 0 0 0 2px var(--ink); }
@@ -482,10 +489,13 @@
 /* Cómo ha cambiado la espera: una columna por agosto, la última más marcada.
    Un panel por hospital, con la misma escala en los dos. */
 .evol {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  align-items: end;
   gap: clamp(1.25rem, 5vw, 3rem);
   max-width: 44rem; margin-top: .8rem;
 }
+/* Los años cuelgan por debajo del eje: el panel les guarda el sitio. */
+.evol__panel { padding-bottom: 1.5rem; }
 .evol__quien { font-size: .8125rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--ink); }
 .evol__panel[data-quien='referencia'] .evol__quien { color: var(--ref); }
 .evol__cols {
@@ -500,7 +510,7 @@
 .evol__col--ultimo .evol__v { color: var(--ink); font-size: .9375rem; }
 .evol__panel[data-quien='referencia'] .evol__col--ultimo .evol__barra { background: var(--ref); }
 .evol__panel[data-quien='aqui'] .evol__col--ultimo .evol__barra { background: var(--ink-3); }
-.evol + .tp-nota { margin-top: 2.25rem; }
+.evol + .tp-nota { margin-top: .75rem; }
 
 /* Una tercera cifra, la media de referencia: más pequeña y apagada. */
 .tp-cifras--tres { grid-template-columns: 1fr 1fr .8fr; max-width: 52rem; }

@@ -175,30 +175,6 @@ a:hover { text-decoration-color: var(--ref); }
   text-transform: uppercase;
 }
 
-/* ── Contador pegajoso ────────────────────────────────────────────────── */
-
-.contador {
-  position: fixed; z-index: var(--z-sticky);
-  top: 0; left: 50%;
-  display: flex; align-items: center; gap: .5rem;
-  padding: .5rem .95rem .55rem;
-  border: 1px solid var(--loss-deep);
-  border-top: 0;
-  border-radius: 0 0 10px 10px;
-  background: var(--velo);
-  backdrop-filter: blur(10px);
-  color: var(--ink-2);
-  font-size: .8125rem;
-  line-height: 1;
-  white-space: nowrap;
-  transform: translate(-50%, -120%);
-  transition: transform .45s var(--sal);
-  pointer-events: none;
-}
-.contador[data-visible='1'] { transform: translate(-50%, 0); }
-.contador__x { width: 10px; height: 10px; flex: none; }
-.contador b { color: var(--loss); font-weight: 800; font-variant-numeric: tabular-nums; }
-
 /* ── La marca: la cola de la ballena y el nombre ─────────────────────────
    La cola de la escultura del Parque de la Ballena, en dos tonos, como al
    sol: la cara iluminada más clara que la que queda en sombra. En oscuro se
@@ -914,19 +890,46 @@ a:hover { text-decoration-color: var(--ref); }
 
 .area__filas { display: block; }
 
-.rec { border-bottom: 1px solid var(--line); }
+.rec { border-bottom: 1px solid var(--line); scroll-margin-top: 5rem; }
+.rec__h { margin: 0; font: inherit; }
 
 .rec__a {
   display: grid;
-  grid-template-columns: 1.375rem 1fr auto;
+  grid-template-columns: 1.375rem 1fr auto 1rem;
   align-items: center;
   column-gap: .75rem;
+  min-height: 2.75rem;
   padding: .7rem .25rem;
   color: inherit; text-decoration: none;
   transition: background .16s var(--sal-corta);
 }
+/* Las filas que no se abren (enlaces al dinero, empates) reservan la misma
+   columna del chevron, para que su cifra caiga bajo las demás. */
+a.rec__a::after, div.rec__a::after { content: ''; grid-column: 4; width: 1rem; }
+button.rec__a {
+  width: 100%; margin: 0; border: 0; background: none;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+  -webkit-appearance: none; appearance: none;
+}
+button.rec__a:focus-visible { outline: 2px solid var(--ref); outline-offset: -2px; }
 .rec__a:hover { background: var(--surface); }
-.rec__a:hover .rec__q { color: var(--loss); }
+a.rec__a:hover .rec__q, button.rec__a:hover .rec__q { color: var(--loss); }
+div.rec__a:hover { background: none; }
+
+/* El chevron: un trazo que mira a la derecha y gira hacia abajo al abrir. */
+.rec__v {
+  justify-self: end;
+  width: .5rem; height: .5rem; margin-right: .25rem;
+  border-right: 2px solid var(--ink-3); border-bottom: 2px solid var(--ink-3);
+  transform: rotate(-45deg);
+  transition: transform .2s var(--sal-corta);
+}
+.rec[data-abierta="1"] .rec__v { transform: rotate(45deg); }
+.rec[data-abierta="1"] > .rec__h .rec__a { background: var(--surface); }
+.rec[data-abierta="1"] > .rec__h .rec__q { font-weight: 800; }
+.rec__sub { display: block; margin-top: .15rem; font-size: .8125rem; font-weight: 400; color: var(--ink-3); }
+
+.area__nota { margin: .6rem 0 .25rem; font-size: .8125rem; line-height: 1.55; color: var(--ink-3); max-width: 36rem; }
 
 .rec__ico { color: var(--ink-3); }
 .rec__q {
@@ -945,7 +948,7 @@ a:hover { text-decoration-color: var(--ref); }
 .rec--aparte .rec__n { color: var(--ink-3); }
 .rec--sobra .rec__n { color: var(--gain); }
 .rec--sobra .rec__ico { color: var(--gain); }
-.rec--sobra .rec__a:hover .rec__q { color: var(--gain); }
+.rec--sobra a.rec__a:hover .rec__q, .rec--sobra button.rec__a:hover .rec__q { color: var(--gain); }
 
 /* La columna del recuento: lo que le falta a Parla. */
 .rec__columnas {
@@ -994,46 +997,11 @@ a:hover { text-decoration-color: var(--ref); }
   border-top: 1px solid var(--line);
 }
 .ind:first-child { border-top: 0; }
-
-.ind__grupo {
-  display: flex; align-items: center; gap: .5rem;
-  font-size: .6875rem; font-weight: 700;
-  letter-spacing: .13em; text-transform: uppercase;
-  color: var(--ref);
-}
-.ind__ico { width: 1.25rem; height: 1.25rem; }
-.ind__ico svg { display: block; width: 100%; height: 100%; }
-.ind--sobra .ind__grupo { color: var(--gain-ink); }
-
-/* El separador de «fuera del recuento»: corta la lista como un título de
-   sección, a sangre, para que se vea que lo de debajo es otra cuenta. */
-.separador {
-  margin-top: clamp(2rem, 7vw, 3rem);
-  margin-inline: calc(50% - 50vw);
-  padding: clamp(2.5rem, 9vw, 3.75rem) calc(50vw - 50%);
-  background: var(--surface);
-  border-block: 1px solid var(--line);
-}
-.separador__h {
-  font-weight: 800; font-stretch: 80%;
-  font-size: clamp(1.5rem, 6.5vw, 2.25rem);
-  line-height: .96; letter-spacing: -.03em;
-  text-transform: uppercase;
-  color: var(--ink-2);
-}
-.separador__p {
-  margin-top: 1rem; max-width: 34rem;
-  font-size: 1rem;
-  color: var(--ink-3);
-}
-.separador + .ind { border-top: 0; }
-
-.ind__h {
-  margin-top: .5rem;
-  font-size: 1.0625rem; font-weight: 600;
-  letter-spacing: -.005em; line-height: 1.3;
-  color: var(--ink-2);
-}
+/* La ficha desplegada bajo su línea del recuento: a todo el ancho de la fila. */
+.rec > .ind { padding-block: .5rem 1.5rem; border-top: 0; scroll-margin-top: 5rem; }
+.rec > .ind[hidden] { display: none; }
+.ind__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; margin-top: 1.25rem; }
+.ind__acciones .cadena { margin: 0; }
 
 .ind__titular {
   margin-top: .85rem;
@@ -1077,7 +1045,6 @@ a:hover { text-decoration-color: var(--ref); }
 .u--hueco,
 .u--hueco-parte::after,
 .nombre.nombre--hueco .nombre__m,
-.contador__x,
 .ley--hueco {
   border-radius: 0;
   background: var(--loss);
@@ -1223,7 +1190,7 @@ details.plegable[open] > summary { margin-bottom: .2rem; }
 
 /* ── Donde Parla tiene más ─────────────────────────────────────────────── */
 
-.bloque--sobran .ind__titular .resto { color: var(--ink-3); }
+.area--sobra .ind__titular .resto { color: var(--ink-3); }
 
 /* ── Método ───────────────────────────────────────────────────────────── */
 
@@ -1386,7 +1353,6 @@ code {
 @media (min-width: 46rem) {
   :root { --env: 46rem; }
   body { font-size: 1.125rem; }
-  .ind__h { font-size: 1.125rem; }
   .u { width: 17px; height: 17px; }
   .tira--densa .u { width: 14px; height: 14px; }
   .tira--microscopica .u { width: 11px; height: 11px; }
@@ -1610,7 +1576,6 @@ html[data-indice='barra'] .pie { padding-bottom: calc(clamp(3.5rem, 11vw, 6rem) 
   }
   .u--hueco { opacity: 1; transform: none; }
   .tasa__pista i { transform: scaleX(var(--v, 0)); }
-  .contador { transition: none; }
   .indice-hoja[open] { animation: none; }
 }
 
@@ -1640,8 +1605,13 @@ html[data-indice='barra'] .pie { padding-bottom: calc(clamp(3.5rem, 11vw, 6rem) 
   color: var(--bg); background: var(--ink);
   pointer-events: none;
 }
+.cadena--texto {
+  width: auto; height: auto; min-height: 2.75rem; gap: .45rem; padding: .35rem .6rem;
+  font: inherit; font-size: .875rem; font-weight: 600; opacity: .85;
+}
+.cadena--texto.cadena--ok::after { content: none; }
 /* Quien llega por el enlace ve el título con aire encima. */
-:is(.bloque__h3, .plata__h, .ind__h, .espera__h, .hecho__h, .plata, .ind, .hecho, .rango)[id] { scroll-margin-top: 1.5rem; }
+:is(.bloque__h3, .plata__h, .espera__h, .hecho__h, .plata, .ind, .hecho, .rango)[id] { scroll-margin-top: 1.5rem; }
 @media print { .cadena { display: none; } }
 
 /* ── El selector de ciudad, propio (assets/selector.js) ───────────────────

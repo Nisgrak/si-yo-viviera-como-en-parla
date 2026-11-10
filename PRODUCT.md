@@ -90,8 +90,8 @@ La credibilidad es el producto; sin ella esto es un cartel más.
   que queda en sombra (en oscuro se invierten). Va junto al nombre en todas las cabeceras, de
   icono de la web y, entera y muy clara, de fondo en la portada saliendo del borde inferior. Se
   usa siempre entera: recortada a la aleta se confunde con otras siluetas.
-- **Movimiento:** los huecos aparecen escalonados cuando la sección se ve, y el contador de
-  cabecera suma lo que falta según bajas. Nada más. Todo se apaga con `prefers-reduced-motion`.
+- **Movimiento:** los huecos aparecen escalonados cuando la sección se ve, y las fichas del recuento se despliegan
+  bajo su línea con un giro del chevron. Nada más. Todo se apaga con `prefers-reduced-motion`.
 
 ## Lo que no es
 

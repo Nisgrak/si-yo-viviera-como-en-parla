@@ -11,7 +11,6 @@
    "conprel_consulta": "https://serviciostelematicosext.hacienda.gob.es/SGFAL/CONPREL",
    "pmp_consulta": "https://serviciostelematicosext.hacienda.gob.es/SGCIEF/PMP_NET/aspx/consulta/consulta.aspx?tipoPublicacion=2",
    "pmp_ficheros": [
-    "https://serviciostelematicosext.hacienda.gob.es/SGCIEF/PMP_NET/aspx/consulta/descarga.aspx?ejercicio=2025&periodo=Agosto&tipoPublicacion=2&fichero=fichero1",
     "https://serviciostelematicosext.hacienda.gob.es/SGCIEF/PMP_NET/aspx/consulta/descarga.aspx?ejercicio=2025&periodo=Septiembre&tipoPublicacion=2&fichero=fichero2",
     "https://serviciostelematicosext.hacienda.gob.es/SGCIEF/PMP_NET/aspx/consulta/descarga.aspx?ejercicio=2025&periodo=Octubre&tipoPublicacion=2&fichero=fichero1",
     "https://serviciostelematicosext.hacienda.gob.es/SGCIEF/PMP_NET/aspx/consulta/descarga.aspx?ejercicio=2025&periodo=Noviembre&tipoPublicacion=2&fichero=fichero1",
@@ -22,7 +21,8 @@
     "https://serviciostelematicosext.hacienda.gob.es/SGCIEF/PMP_NET/aspx/consulta/descarga.aspx?ejercicio=2026&periodo=Abril&tipoPublicacion=2&fichero=fichero1",
     "https://serviciostelematicosext.hacienda.gob.es/SGCIEF/PMP_NET/aspx/consulta/descarga.aspx?ejercicio=2026&periodo=Mayo&tipoPublicacion=2&fichero=fichero1",
     "https://serviciostelematicosext.hacienda.gob.es/SGCIEF/PMP_NET/aspx/consulta/descarga.aspx?ejercicio=2026&periodo=Junio&tipoPublicacion=2&fichero=fichero2",
-    "https://serviciostelematicosext.hacienda.gob.es/SGCIEF/PMP_NET/aspx/consulta/descarga.aspx?ejercicio=2026&periodo=Julio&tipoPublicacion=2&fichero=fichero1"
+    "https://serviciostelematicosext.hacienda.gob.es/SGCIEF/PMP_NET/aspx/consulta/descarga.aspx?ejercicio=2026&periodo=Julio&tipoPublicacion=2&fichero=fichero1",
+    "https://serviciostelematicosext.hacienda.gob.es/SGCIEF/PMP_NET/aspx/consulta/descarga.aspx?ejercicio=2026&periodo=Agosto&tipoPublicacion=2&fichero=fichero1"
    ],
    "poblacion": "datos/datos.js, BASES.total (INE, cifras oficiales del Padrón a 1-1-2025)"
   },
@@ -650,17 +650,12 @@
    "pct_amortizacion_sobre_gasto": 3.18
   },
   "pmp": {
-   "ultimo_periodo": "2026-07",
-   "ultimo_pmp_dias": 155.49,
+   "ultimo_periodo": "2026-08",
+   "ultimo_pmp_dias": 179.26,
    "modelo": "Cesión",
    "n_periodos": 12,
-   "media_12_meses_dias": 155.77,
+   "media_12_meses_dias": 157.33,
    "serie": [
-    {
-     "periodo": "2025-08",
-     "modelo": "Cesión",
-     "pmp_dias": 160.51
-    },
     {
      "periodo": "2025-09",
      "modelo": "Cesión",
@@ -715,6 +710,11 @@
      "periodo": "2026-07",
      "modelo": "Cesión",
      "pmp_dias": 155.49
+    },
+    {
+     "periodo": "2026-08",
+     "modelo": "Cesión",
+     "pmp_dias": 179.26
     }
    ]
   }
@@ -1014,17 +1014,12 @@
    "pct_amortizacion_sobre_gasto": 0.0
   },
   "pmp": {
-   "ultimo_periodo": "2026-07",
-   "ultimo_pmp_dias": 24.05,
+   "ultimo_periodo": "2026-08",
+   "ultimo_pmp_dias": 23.41,
    "modelo": "Cesión",
    "n_periodos": 12,
-   "media_12_meses_dias": 49.09,
+   "media_12_meses_dias": 47.82,
    "serie": [
-    {
-     "periodo": "2025-08",
-     "modelo": "Cesión",
-     "pmp_dias": 38.61
-    },
     {
      "periodo": "2025-09",
      "modelo": "Cesión",
@@ -1079,6 +1074,11 @@
      "periodo": "2026-07",
      "modelo": "Cesión",
      "pmp_dias": 24.05
+    },
+    {
+     "periodo": "2026-08",
+     "modelo": "Cesión",
+     "pmp_dias": 23.41
     }
    ]
   }
@@ -1378,17 +1378,12 @@
    "pct_amortizacion_sobre_gasto": 5.54
   },
   "pmp": {
-   "ultimo_periodo": "2026-07",
-   "ultimo_pmp_dias": 43.35,
+   "ultimo_periodo": "2026-08",
+   "ultimo_pmp_dias": 67.41,
    "modelo": "Cesión",
    "n_periodos": 12,
-   "media_12_meses_dias": 54.2,
+   "media_12_meses_dias": 54.48,
    "serie": [
-    {
-     "periodo": "2025-08",
-     "modelo": "Cesión",
-     "pmp_dias": 64.14
-    },
     {
      "periodo": "2025-09",
      "modelo": "Cesión",
@@ -1443,6 +1438,11 @@
      "periodo": "2026-07",
      "modelo": "Cesión",
      "pmp_dias": 43.35
+    },
+    {
+     "periodo": "2026-08",
+     "modelo": "Cesión",
+     "pmp_dias": 67.41
     }
    ]
   }
@@ -1742,17 +1742,12 @@
    "pct_amortizacion_sobre_gasto": 3.77
   },
   "pmp": {
-   "ultimo_periodo": "2026-07",
-   "ultimo_pmp_dias": 12.68,
+   "ultimo_periodo": "2026-08",
+   "ultimo_pmp_dias": 11.15,
    "modelo": "Cesión",
    "n_periodos": 12,
-   "media_12_meses_dias": 12.77,
+   "media_12_meses_dias": 12.84,
    "serie": [
-    {
-     "periodo": "2025-08",
-     "modelo": "Cesión",
-     "pmp_dias": 10.26
-    },
     {
      "periodo": "2025-09",
      "modelo": "Cesión",
@@ -1807,6 +1802,11 @@
      "periodo": "2026-07",
      "modelo": "Cesión",
      "pmp_dias": 12.68
+    },
+    {
+     "periodo": "2026-08",
+     "modelo": "Cesión",
+     "pmp_dias": 11.15
     }
    ]
   }
@@ -2106,17 +2106,12 @@
    "pct_amortizacion_sobre_gasto": 13.27
   },
   "pmp": {
-   "ultimo_periodo": "2026-07",
-   "ultimo_pmp_dias": 25.76,
+   "ultimo_periodo": "2026-08",
+   "ultimo_pmp_dias": 26.25,
    "modelo": "Cesión",
    "n_periodos": 12,
-   "media_12_meses_dias": 28.93,
+   "media_12_meses_dias": 28.54,
    "serie": [
-    {
-     "periodo": "2025-08",
-     "modelo": "Cesión",
-     "pmp_dias": 30.97
-    },
     {
      "periodo": "2025-09",
      "modelo": "Cesión",
@@ -2171,6 +2166,11 @@
      "periodo": "2026-07",
      "modelo": "Cesión",
      "pmp_dias": 25.76
+    },
+    {
+     "periodo": "2026-08",
+     "modelo": "Cesión",
+     "pmp_dias": 26.25
     }
    ]
   }
@@ -2470,17 +2470,12 @@
    "pct_amortizacion_sobre_gasto": 7.66
   },
   "pmp": {
-   "ultimo_periodo": "2026-07",
-   "ultimo_pmp_dias": 8.34,
+   "ultimo_periodo": "2026-08",
+   "ultimo_pmp_dias": 10.28,
    "modelo": "Cesión",
    "n_periodos": 12,
-   "media_12_meses_dias": 9.03,
+   "media_12_meses_dias": 9.29,
    "serie": [
-    {
-     "periodo": "2025-08",
-     "modelo": "Cesión",
-     "pmp_dias": 7.08
-    },
     {
      "periodo": "2025-09",
      "modelo": "Cesión",
@@ -2535,6 +2530,11 @@
      "periodo": "2026-07",
      "modelo": "Cesión",
      "pmp_dias": 8.34
+    },
+    {
+     "periodo": "2026-08",
+     "modelo": "Cesión",
+     "pmp_dias": 10.28
     }
    ]
   }
@@ -2834,17 +2834,12 @@
    "pct_amortizacion_sobre_gasto": 4.83
   },
   "pmp": {
-   "ultimo_periodo": "2026-07",
-   "ultimo_pmp_dias": 33.15,
+   "ultimo_periodo": "2026-08",
+   "ultimo_pmp_dias": 41.04,
    "modelo": "Cesión",
    "n_periodos": 12,
-   "media_12_meses_dias": 31.98,
+   "media_12_meses_dias": 32.53,
    "serie": [
-    {
-     "periodo": "2025-08",
-     "modelo": "Cesión",
-     "pmp_dias": 34.47
-    },
     {
      "periodo": "2025-09",
      "modelo": "Cesión",
@@ -2899,6 +2894,11 @@
      "periodo": "2026-07",
      "modelo": "Cesión",
      "pmp_dias": 33.15
+    },
+    {
+     "periodo": "2026-08",
+     "modelo": "Cesión",
+     "pmp_dias": 41.04
     }
    ]
   }
@@ -3522,17 +3522,12 @@
    "pct_amortizacion_sobre_gasto": 5.5
   },
   "pmp": {
-   "ultimo_periodo": "2026-07",
-   "ultimo_pmp_dias": 32.29,
+   "ultimo_periodo": "2026-08",
+   "ultimo_pmp_dias": 13.54,
    "modelo": "Cesión",
    "n_periodos": 12,
-   "media_12_meses_dias": 26.67,
+   "media_12_meses_dias": 25.64,
    "serie": [
-    {
-     "periodo": "2025-08",
-     "modelo": "Cesión",
-     "pmp_dias": 25.87
-    },
     {
      "periodo": "2025-09",
      "modelo": "Cesión",
@@ -3587,6 +3582,11 @@
      "periodo": "2026-07",
      "modelo": "Cesión",
      "pmp_dias": 32.29
+    },
+    {
+     "periodo": "2026-08",
+     "modelo": "Cesión",
+     "pmp_dias": 13.54
     }
    ]
   }
@@ -3758,17 +3758,12 @@
    "pct_amortizacion_sobre_gasto": 0.0
   },
   "pmp": {
-   "ultimo_periodo": "2026-07",
-   "ultimo_pmp_dias": 8.78,
+   "ultimo_periodo": "2026-08",
+   "ultimo_pmp_dias": 8.86,
    "modelo": "Cesión",
    "n_periodos": 12,
-   "media_12_meses_dias": 10.59,
+   "media_12_meses_dias": 10.21,
    "serie": [
-    {
-     "periodo": "2025-08",
-     "modelo": "Cesión",
-     "pmp_dias": 13.5
-    },
     {
      "periodo": "2025-09",
      "modelo": "Cesión",
@@ -3823,6 +3818,11 @@
      "periodo": "2026-07",
      "modelo": "Cesión",
      "pmp_dias": 8.78
+    },
+    {
+     "periodo": "2026-08",
+     "modelo": "Cesión",
+     "pmp_dias": 8.86
     }
    ]
   }

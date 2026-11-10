@@ -385,10 +385,10 @@
     });
 
     const ultimo = puesto === lista.length;
-    /* Los que les tocan a las once son más que los que tienen cifra de camas. */
-    const total = Object.keys(HOSP.todos(D, S)).length;
+    /* Los de las once son más que los que tienen cifra de camas por persona. */
+    const total = HOSP.cuantos(D, S);
     const conCifra = total === lista.length ? '' : ' de los ' + letra(lista.length) + ' con cifra';
-    $('#hospital-txt').textContent = 'De los ' + letra(total) + ' hospitales que les tocan a las ' + letra(IDS_TODAS().length) +
+    $('#hospital-txt').textContent = 'De los ' + letra(total) + ' hospitales públicos de las ' + letra(IDS_TODAS().length) +
       ' ciudades, el de Parla es ' + (ultimo ? 'el que menos camas tiene por persona' : 'el ' + puesto + '.º en camas por persona') +
       conCifra + '. ' +
       (misma ? ''
@@ -397,7 +397,8 @@
           entero(Math.round(a.por1000 * r.pob / 1000)) + ' camas; tiene ' + entero(r.camas) + '.');
     pieFuentes($('#hospital-pie'), 'Camas instaladas, del Catálogo Nacional de Hospitales; población asignada ' +
       fechasPoblacion(S) + ', de la memoria de cada hospital. Las personas asignadas incluyen ' +
-      'a los pueblos de alrededor que les tocan. Del Infanta Sofía, el hospital de Alcobendas, el catálogo no da camas.',
+      'a los pueblos de alrededor que les tocan. Del Infanta Sofía, el hospital de Alcobendas, el catálogo no da camas; del Rey Juan Carlos, el segundo de Móstoles, ' +
+      'no se cuenta la población asignada.',
       [[D.fuentes[ic.fuenteId].t, D.fuentes[ic.fuenteId].url],
         ['Población asignada: memoria de 2024 ' + del_(r.corto), S.memorias[r.hid]]].concat(misma ? []
         : [['memoria de 2024 ' + del_(a.corto), S.memorias[a.hid]]]));

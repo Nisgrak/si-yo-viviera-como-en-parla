@@ -118,7 +118,7 @@
       ['demora', C, 'Intereses de demora', 'los que se pagan por pagar tarde, por habitante, media de 2021 a 2024', '€', 2, function (id) { return k(id).demora; }, null, 'economia.html#ayuntamiento'],
       ['ingresos-propios', C, 'Lo que recauda', 'impuestos, tasas y otros ingresos propios por habitante, media de 2021 a 2024', '€', 2, function (id) { return k(id).propios; }, null, 'economia.html#ayuntamiento'],
       ['estado', C, 'Lo que llega del Estado', 'transferencias corrientes por habitante, media de 2021 a 2024', '€', 2, function (id) { return k(id).estado; }, null, 'economia.html#ayuntamiento'],
-      ['pmp', C, 'Lo que tarda en pagar', 'periodo medio de pago a proveedores, agosto de 2025 a julio de 2026', 'días', 0, function (id) { return k(id).pmp; }, 'pmp', 'economia.html#ayuntamiento'],
+      ['pmp', C, 'Lo que tarda en pagar', 'periodo medio de pago a proveedores, septiembre de 2025 a agosto de 2026', 'días', 0, function (id) { return k(id).pmp; }, 'pmp', 'economia.html#ayuntamiento'],
       ['remanente', C, 'Lo que le queda en caja', 'remanente de tesorería ajustado por habitante, 31-12-2024', '€', 2, function (id) { return k(id).remanenteAjustado; }, null, 'economia.html#ayuntamiento']
     ].forEach(function (x) {
       dato({ id: x[0], grupo: x[1], titulo: x[2], unidad: x[3], sim: x[4], dec: x[5], v: x[6],
@@ -1200,7 +1200,7 @@
      nueva. Al actualizar un fichero de datos/, cámbiese aquí también. */
   const AL_DIA = [
     ['Padrón (INE): habitantes y edades', '1 de enero de 2025', 'Cada año'],
-    ['Equipamientos: estaciones, farmacias, bibliotecas, centros de salud, colegios, residencias, oficinas', '2025', 'Se revisa a mano'],
+    ['Equipamientos: estaciones, farmacias, bibliotecas, centros de salud, colegios, residencias, oficinas', '2025 y 2026', 'Se revisa a mano'],
     ['Camas de hospital (Catálogo Nacional de Hospitales)', '2025', 'Cada año'],
     ['Listas de espera de los hospitales (SERMAS)', (window.SANIDAD || {}).mes || '—', 'Cada mes'],
     ['Población asignada a cada hospital (memorias de los hospitales)', '31 de diciembre de 2024', 'Cada año'],
@@ -1211,7 +1211,7 @@
     ['Personas con discapacidad reconocida (Comunidad de Madrid)', '31 de diciembre de ' + ((window.DISCAPACIDAD || {}).anio || '—'), 'Cada año'],
     ['Colegios de educación especial (directorio de centros educativos)', ((window.DISCAPACIDAD || {}).fuentes || { colegios: ['—'] }).colegios[0].replace(/^.*, a /, ''), 'Cada año'],
     ['Zonas verdes (Copernicus, Urban Atlas)', '2018', 'Cada seis años'],
-    ['Paro registrado (SEPE)', 'Media de 2025', 'Cada mes'],
+    ['Paro registrado (SEPE)', 'Media de 2025; último mes, septiembre de 2026', 'Cada mes'],
     ['Contratos (SEPE)', '2025', 'Cada mes'],
     ['Puestos de trabajo (afiliados por centro de trabajo)', 'Finales de 2025', 'Cada trimestre'],
     ['Dónde trabajan los vecinos (Censo anual, INE)', '2023', 'Cada año'],
@@ -1222,7 +1222,7 @@
     ['PIB municipal (Comunidad de Madrid)', '2023', 'Cada año'],
     ['Cuentas del ayuntamiento (liquidaciones, Hacienda)', '2021 a 2024', 'Cada año'],
     ['Deuda viva (Hacienda)', '31 de diciembre de 2025', 'Cada año'],
-    ['Periodo medio de pago (Hacienda)', 'Julio de 2026', 'Cada mes'],
+    ['Periodo medio de pago (Hacienda)', 'Agosto de 2026', 'Cada mes'],
     ['Valor tasado de la vivienda (Ministerio de Vivienda)', 'Último trimestre publicado', 'Cada trimestre'],
     ['Alquiler (SERPAVI, Ministerio de Vivienda)', '2024', 'Cada año'],
     ['Compraventas (Ministerio de Vivienda)', '2025', 'Cada trimestre'],

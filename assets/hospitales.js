@@ -38,6 +38,21 @@
     return H;
   }
 
+  /* Cuántos hospitales públicos hay entre todas: los que les tocan más los
+     que una ciudad tiene además del suyo (en Móstoles, el Rey Juan Carlos). */
+  function cuantos(D, S) {
+    const H = todos(D, S);
+    const nombres = Object.keys(H).map(function (k) { return H[k].nombre; });
+    const camas = D.indicadores.find(function (i) { return i.id === 'camas'; });
+    D.MUNICIPIOS.forEach(function (m) {
+      (camas.datos[m.id].lista || []).forEach(function (x) {
+        const n = x.split('·')[0].trim();
+        if (nombres.indexOf(n) < 0) nombres.push(n);
+      });
+    });
+    return nombres.length;
+  }
+
   /* El hospital que le toca a una ciudad. */
   function de(D, S, id) {
     return todos(D, S)[S.ciudades[id].hid];
@@ -86,7 +101,7 @@
     };
   }
 
-  const HOSPITALES = { todos: todos, de: de, clasificacion: clasificacion, cartera: cartera };
+  const HOSPITALES = { todos: todos, cuantos: cuantos, de: de, clasificacion: clasificacion, cartera: cartera };
   if (typeof module === 'object' && module.exports) module.exports = HOSPITALES;
   else raiz.HOSPITALES = HOSPITALES;
 })(typeof window !== 'undefined' ? window : globalThis);

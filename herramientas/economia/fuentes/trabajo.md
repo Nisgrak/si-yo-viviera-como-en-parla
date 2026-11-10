@@ -7,7 +7,7 @@ Extraído el **19-10-2026**. Datos en `trabajo.json` (mismo directorio). Descarg
 |---|---|---|---|
 | Puestos de trabajo por cada 100 residentes que trabajan | Comunidad de Madrid (explotación de ficheros de la TGSS) | [afiliados por ubicación del centro de trabajo](https://datos.comunidad.madrid/dataset/afiliados_por_ubicacion_y_regimen) ÷ [afiliados por lugar de residencia](https://datos.comunidad.madrid/dataset/afiliados_por_residencia_y_sexo) | 31-12-2025 / 1-1-2026 |
 | % de ocupados que trabaja en su propio municipio | INE, Censo anual de población | [tabla 69986](https://www.ine.es/jaxiT3/Tabla.htm?t=69986) | 2021, 2022, 2023 |
-| Paro registrado | SEPE, datos abiertos | [Paro registrado por municipio](https://datos.gob.es/es/catalogo/ea0041513-paro-registrado-por-municipio) | media mensual 2015-2025; agosto de 2026 |
+| Paro registrado | SEPE, datos abiertos | [Paro registrado por municipio](https://datos.gob.es/es/catalogo/ea0041513-paro-registrado-por-municipio) | media mensual 2015-2025; septiembre de 2026 |
 | Población de 16 a 64 años (denominador del paro) | INE, Padrón continuo 2015-2019 y Censo anual 2021-2025 | [padrón, fichero 00028006](https://www.ine.es/jaxi/Tabla.htm?path=/t20/e245/p05/a2015/l0/&file=00028006.px); [tabla 68543](https://www.ine.es/jaxiT3/Tabla.htm?t=68543) | 1 de enero de cada año |
 | Contratos y % de indefinidos | SEPE, datos abiertos | [Contratos registrados por municipio](https://datos.gob.es/es/catalogo/ea0041513-contratos-registrados-por-municipio) | año 2025 completo |
 | Temporalidad de los vecinos afiliados | Comunidad de Madrid | [afiliados por residencia y tipo de contrato](https://datos.comunidad.madrid/dataset/afiliados_por_residencia_y_contrato) | 1-1-2026 |
@@ -56,8 +56,8 @@ por cada 100 personas en edad de trabajar.
 Parla tiene el mayor cociente general y el mayor entre mujeres de los once. En menores de 25 la primera es Fuenlabrada.
 En Parla el 64 % de los parados son mujeres.
 
-Último mes publicado (agosto de 2026; denominador: población a 1-1-2025): Parla 6.732 parados (7,23 por
-cada 100 hab. de 16-64), 567 menores de 25, 4.198 mujeres. El resto está en `detalle.paro_ultimo_mes`.
+Último mes publicado (septiembre de 2026; denominador: población a 1-1-2025): Parla 6.864 parados (7,37 por
+cada 100 hab. de 16-64), 642 menores de 25, 4.293 mujeres. El resto está en `detalle.paro_ultimo_mes`.
 
 **Serie: parados (media anual) por cada 100 habitantes de 16 a 64 años**
 
@@ -140,7 +140,7 @@ tiene pocos puestos de trabajo. La temporalidad de los vecinos con empleo apenas
 2. **Falta diciembre de 2020** en el CSV de 2020. Se tomó del [PDF mensual del SEPE de municipios de Madrid, diciembre de 2020](https://www.sepe.es/HomeSepe/dam/jcr:2fe83352-24ee-4052-99e1-e53d72c7ef2b/MUNI_MADRID_1220.pdf)
    (el XLS gemelo está corrupto) y se comprobó que el total es la suma de los seis grupos de sexo y edad.
 3. Media anual = media de los 12 meses. Menores de 25 = hombres <25 + mujeres <25. Mujeres = suma de los tres tramos de mujeres.
-   Comprobado: hombres + mujeres = total en agosto de 2026 en los 11.
+   Comprobado: hombres + mujeres = total en septiembre de 2026 en los 11.
 4. Denominador, población a 1 de enero del mismo año, edad año a año, sumando las edades de 16 a 64:
    - 2015-2019: INE, Estadística del Padrón Continuo, «Población por sexo, municipios y edad (año a año)», Madrid, fichero `00028006.px`
      ([2015](https://www.ine.es/jaxi/Tabla.htm?path=/t20/e245/p05/a2015/l0/&file=00028006.px); PX en
@@ -189,5 +189,5 @@ tiene pocos puestos de trabajo. La temporalidad de los vecinos con empleo apenas
   Desde 2021 el INE (y la propia Comunidad de Madrid) publican la edad municipal con el Censo anual. No hay una fuente del INE con edad simple a 1-1-2020 para estos municipios,
   así que 2020 queda sin cociente.
 - **XLS de diciembre de 2020 del SEPE**: corrupto (no se puede leer). Se usó el PDF.
-- **Paro de septiembre de 2026**: el SEPE aún no lo ha subido a los CSV de datos abiertos. El último mes es agosto de 2026.
+- **Paro de octubre de 2026**: a 9-11-2026 el SEPE aún no lo ha subido a los CSV de datos abiertos. El último mes es septiembre de 2026.
 - **Nota metodológica del SEPE** que diga expresamente a qué municipio se asigna cada contrato: no se encontró.

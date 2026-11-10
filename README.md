@@ -114,14 +114,14 @@ tener 28 farmacias de 43.
 ## Lo que no suma al total de portada
 
 Varios indicadores se muestran aparte porque no se miden en equipamientos y sumarlos sería
-mezclar peras con manzanas. En la lista de la web van al final de «Lo que le falta a Parla» (y
-de «Donde Parla tiene más»), detrás de un separador, «Fuera del recuento», cuyo texto dice en qué se mide lo de
-debajo con las unidades que de verdad aparecen para esa ciudad:
+mezclar peras con manzanas. En el recuento de la web van en su propio bloque, «Fuera del recuento»
+(y, si es el caso, en «Donde Parla tiene más»), cuya nota dice en qué se mide lo de debajo con las
+unidades que de verdad aparecen para esa ciudad:
 
 - **Oficinas de farmacia.** Se cuentan, pero no suman: una farmacia es un negocio privado con
   licencia que planifica la Comunidad por módulos de población, y no pesa lo que un centro de
   salud o un colegio. Con ellas dentro eran casi la mitad de lo que le faltaba a Parla frente a
-  algunas ciudades. Llevan `porQueFuera` en `datos.js`, que el separador dice tal cual.
+  algunas ciudades. Llevan `porQueFuera` en `datos.js`, que la nota del bloque dice tal cual.
 - **Plazas en residencias públicas de mayores.** Se cuentan camas, no centros: es lo que de
   verdad se ocupa. Solo titularidad pública.
 - **Camas de hospital público.** Instaladas, según el Catálogo Nacional de Hospitales.
@@ -226,7 +226,7 @@ No hay nada escrito a mano en él:
 - **Una sección nueva** entra sola si lleva `data-indice="Título corto"` y un `id`. Con
   `data-indice-dato` saca una cifra al lado (`data-indice-tono="loss"` o `"gain"` para el color).
 - **Un apartado** dentro de una sección es cualquier elemento con `data-indice-sub="Nombre"` y un
-  `id`. Las áreas de «Lo que le falta a Parla» y «Donde Parla tiene más» las marca `app.js` al
+  `id`. Las áreas del recuento y sus bloques «Fuera del recuento» y «Donde Parla tiene más» las marca `app.js` al
   pintarlas.
 - **Algo que ocupe también los márgenes** (como los mapas) lleva `data-indice-ancho`: mientras está
   en pantalla, el índice lateral se aparta.
@@ -235,7 +235,7 @@ No hay nada escrito a mano en él:
   que se pinta, y su ruta por ciudad en `herramientas/compartir.mjs`.
 
 **La cadena.** `indice.js` pone también, junto a cada título de sección, de apartado y de dato
-(`.bloque__h`, `.bloque__h3`, `.plata__h`, `.ind__h`, `.espera__h`, `.hecho__h`), un botón con
+(`.bloque__h`, `.bloque__h3`, `.plata__h`, `.espera__h`, `.hecho__h`), un botón con
 una cadena que copia el enlace a ese sitio con la ciudad elegida: `/getafe/economia/?ir=paro`
 publicado, `economia.html?ir=paro#getafe` desde la carpeta. Lleva a la sección o a la ficha si el
 título es el primero de ella y tiene `id`; si no, al propio título. Todos llevan un `id` puesto a
@@ -284,11 +284,13 @@ En `datos/datos.js`:
    `dinero` y `zonasVerdes`, que imprime `herramientas/zonas-verdes.py`.
 5. Rehaz el QR (`python3 herramientas/qr.py`). La vista previa se genera sola al publicar.
 
-El recuento de arriba y la lista con nombres de abajo van **en el mismo orden**: por áreas, la
-que más le falta a Parla primero, y dentro de cada una por la parte que falta de lo que le
-correspondería: no tener ninguna estación de Metro pesa más que tener 28 farmacias de 43. Lo calcula `porAreas()` una sola vez y lo
-usan las dos, para que no puedan separarse al tocar cualquiera de las dos. Lo que no suma va al
-final de la lista, tras el separador, agrupado por área.
+El recuento va por áreas, la que más le falta a Parla primero, y dentro de cada una por la parte
+que falta de lo que le correspondería: no tener ninguna estación de Metro pesa más que tener 28
+farmacias de 43. Lo calcula `porAreas()`. Cada línea es un botón que despliega debajo su ficha
+(la cuenta, los nombres y la fuente); las fichas abiertas se mantienen al cambiar de ciudad, y el
+enlace a una (`?ir=ind-metro`) llega con ella abierta. Lo que no suma va en un bloque propio,
+«Fuera del recuento»; «Donde Parla tiene más» y «Donde están igual» son otros dos. Las áreas y los
+bloques figuran en el índice como apartados.
 
 La web decide sola si cada indicador es pérdida, ganancia o empate (umbral: 0,15 unidades; en
 superficie, un 2 % de lo que hay), lo ordena por gravedad y recalcula el total de la portada.
@@ -1160,18 +1162,19 @@ Es una web pública, así que la copia sigue estas reglas:
 6. **Nada de antítesis.** La construcción «no es X: es Y» estaba doce veces y es lo que hacía
    que la web sonara a texto generado. Los datos se enuncian y punto.
 
-**La población de referencia de cada hospital** se descartó como indicador, pero la búsqueda dio
-fruto por otro lado: el Catálogo Nacional de Hospitales sí publica camas instaladas por centro,
-y eso sí entró. El motivo de descartar la población de referencia es que el dato existe pero
-desmonta la hipótesis de partida. El SERMAS publica que el Infanta Cristina de Parla
-cubre ocho municipios (Parla, Torrejón de Velasco, Torrejón de la Calzada, Batres, Cubas de la
-Sagra, Casarrubuelos, Serranillos del Valle y Griñón), que suman 182.030 habitantes, mientras
-que el de Getafe cubre Getafe y Pinto, 249.889. El hospital de Parla atiende a más municipios
-pero a 68.000 personas menos. La lista de espera quirúrgica de la Comunidad de Madrid lo
-confirma: en 2025, 88 días de demora media en Getafe frente a 64 en Parla. Esa lista sí entró
-después, en su propia sección («La espera», más arriba), y ahí se dice cuando Parla espera
-menos. La población que tiene asignada cada hospital sale de su memoria de 2024, que también
-la publican Fuenlabrada y el Severo Ochoa.
+**La población de referencia de cada hospital** se descartó al principio como indicador y
+entró después, de otra manera. La primera búsqueda dio las camas instaladas por centro (Catálogo
+Nacional de Hospitales), que entraron, y la población que el SERMAS atribuía a cada hospital: el
+Infanta Cristina cubre ocho municipios (Parla, Torrejón de Velasco, Torrejón de la Calzada,
+Batres, Cubas de la Sagra, Casarrubuelos, Serranillos del Valle y Griñón) y el de Getafe, Getafe
+y Pinto. El de Parla atiende a más municipios pero a menos personas, así que la población sola
+no decía nada. Hoy la web cruza las dos cosas: camas por cada 1.000 personas asignadas, con la
+población de la memoria de 2024 de cada hospital (181.404 el Infanta Cristina, 242.715 el de
+Getafe; las cifras están en `datos/sanidad.js`) y la cuenta en `assets/hospitales.js`, que usan
+la portada, `sanidad.html` y el build. Entre las once ciudades hay diez hospitales públicos;
+ocho tienen cifra de camas por persona: del Infanta Sofía el catálogo no da camas y del Rey
+Juan Carlos, el segundo de Móstoles, no se cuenta población asignada. La lista de espera está en
+su propia sección («La espera», más arriba), y ahí se dice cuando Parla espera menos.
 
 Con el rediseño de sanidad.html esa población volvió, pero como divisor y no como indicador:
 **las camas de cada hospital entre toda la gente que tiene asignada** («El hospital»,

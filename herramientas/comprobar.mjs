@@ -35,7 +35,7 @@ const PAGINAS = {
 };
 /* Y lo que tiene que existir, aunque no lleve texto. */
 const PIEZAS = {
-  'index.html': ['.sentido', '#portada-inclusion'],
+  'index.html': ['.sentido', '#portada-inclusion', '#recuento .rec > .ind'],
   'vivienda.html': ['.sentido'],
   'infraestructura.html': ['.sentido', '#tj-parla-todo svg .tp__zona', '#tj-aqui-todo svg .tp__zona', '#tp-ley li'],
   'sanidad.html': ['.sentido', '#espera-botones .compartir', '#cabecera-botones .compartir', '#mental-botones .compartir'],

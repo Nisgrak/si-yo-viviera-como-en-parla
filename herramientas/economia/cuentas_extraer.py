@@ -63,7 +63,7 @@ AREAS = {
 }
 TABLAS = ['tb_inventario', 'tb_economica_cons', 'tb_funcional_cons', 'tb_remanente']
 
-# PMP: últimos 12 meses publicados (agosto 2025 - julio 2026). Los meses de fin de
+# PMP: últimos 12 meses publicados (septiembre 2025 - agosto 2026). Los meses de fin de
 # trimestre solo vienen en el fichero «Cesión y variables» (fichero2).
 MESES = ['Enero', 'febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto',
          'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
@@ -304,8 +304,8 @@ def pmp_fichero(bruto, anio, mes, fichero):
 
 
 def pmp(bruto):
-    # Agosto 2025 - julio 2026: los 12 últimos meses publicados a 19-10-2026.
-    periodos = [(2025, m) for m in range(8, 13)] + [(2026, m) for m in range(1, 8)]
+    # Septiembre 2025 - agosto 2026: los 12 últimos meses publicados a 9-11-2026.
+    periodos = [(2025, m) for m in range(9, 13)] + [(2026, m) for m in range(1, 9)]
     urls, serie = [], {k: [] for k in MUNICIPIOS}
     for anio, m in periodos:
         trimestral = m in (3, 6, 9, 12)

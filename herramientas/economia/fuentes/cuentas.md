@@ -134,20 +134,20 @@ Conclusión: no recomendable como serie de la web; sirve para leer un ayuntamien
 
 ## 4. Periodo medio de pago a proveedores (días)
 
-Último mes publicado a 19-10-2026: **julio de 2026**. Media simple de agosto 2025 - julio 2026.
+Último mes publicado a 9-11-2026: **agosto de 2026**. Media simple de septiembre 2025 - agosto 2026.
 
 | Municipio | Último mes | PMP último (días) | Media 12 meses (días) |
 |---|---|---:|---:|
-| Parla | 2026-07 | 155,49 | 155,77 |
-| Leganés | 2026-07 | 43,35 | 54,20 |
-| Getafe | 2026-07 | 24,05 | 49,09 |
+| Parla | 2026-08 | 179,26 | 157,33 |
+| Leganés | 2026-08 | 67,41 | 54,48 |
+| Getafe | 2026-08 | 23,41 | 47,82 |
 | Pinto | 2026-06 (T2, trimestral) | 75,87 | 40,01 (4 trimestres) |
-| Alcobendas | 2026-07 | 33,15 | 31,98 |
-| Móstoles | 2026-07 | 25,76 | 28,93 |
-| Torrejón de Ardoz | 2026-07 | 32,29 | 26,67 |
-| Fuenlabrada | 2026-07 | 12,68 | 12,77 |
-| Pozuelo de Alarcón | 2026-07 | 8,78 | 10,59 |
-| Alcorcón | 2026-07 | 8,34 | 9,03 |
+| Alcobendas | 2026-08 | 41,04 | 32,53 |
+| Móstoles | 2026-08 | 26,25 | 28,54 |
+| Torrejón de Ardoz | 2026-08 | 13,54 | 25,64 |
+| Fuenlabrada | 2026-08 | 11,15 | 12,84 |
+| Pozuelo de Alarcón | 2026-08 | 8,86 | 10,21 |
+| Alcorcón | 2026-08 | 10,28 | 9,29 |
 | Majadahonda | 2026-06 (T2, trimestral) | 7,29 | 7,13 (4 trimestres) |
 
 - Fila del ayuntamiento (código `12-28-XXX-A-A-000`) del informe ejecutivo, columna «Periodo

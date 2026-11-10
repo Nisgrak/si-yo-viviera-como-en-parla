@@ -361,6 +361,7 @@
     const an = $('#comprar-anios');
     vaciar(an);
     an.appendChild(el('p', 'anios__h', 'Años de renta de un hogar para pagarla entera'));
+    an.style.setProperty('--n', Math.ceil(Math.max(m(REF).aniosRenta, m(AQUI).aniosRenta)));
     [[REF, 'referencia'], [AQUI, 'aqui']].forEach(function (g) {
       const v = m(g[0]).aniosRenta;
       const fila = el('div', 'anios__fila');

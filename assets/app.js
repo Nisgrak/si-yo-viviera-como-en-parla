@@ -22,6 +22,17 @@
   const $ = function (s, r) { return (r || document).querySelector(s); };
 
   let AQUI = arranque();
+  /* Las fichas van dentro del recuento, plegadas (filaRecuento). Las que
+     están abiertas se recuerdan por su id, para que sigan abiertas al cambiar
+     de ciudad. Quien llega con el enlace a una (?ir=ind-metro, o #ind-metro
+     desde «Todos los datos») la encuentra abierta: assets/indice.js baja
+     hasta ella al cargar. */
+  const ABIERTAS = {};
+  (function () {
+    const ir = new URLSearchParams(location.search).get('ir') ||
+      decodeURIComponent((location.hash || '').replace('#', ''));
+    if (/^ind-/.test(ir)) ABIERTAS[ir] = true;
+  })();
   let faltan, sobran, empates, TOTAL, SOBRA, TIENE;
 
   function arranque() {
@@ -286,6 +297,28 @@
 
   function esCartera(c) { return c.ind.medida === 'cartera'; }
 
+  /* A la ciudad que no tiene hospital en su término le toca uno de fuera: las
+     fichas de camas y de unidades lo dicen, con la misma cifra que Sanidad,
+     para que la portada no cuente como ventaja lo que allí sale al revés.
+     que: 'camas' o 'unidades'. Vacío si el hospital está en su término. */
+  function hospitalDeFuera(que) {
+    const S = window.SANIDAD, H = window.HOSPITALES;
+    const s = S && S.ciudades[AQUI];
+    if (!s || !s.fuera || !H) return '';
+    const a = H.de(D, S, AQUI), r = H.de(D, S, REF);
+    const cab = 'A ' + NOMBRE[AQUI] + ' le toca ' + s.corto + ', en ' + s.fuera;
+    if (que === 'camas') {
+      return a.por1000 != null
+        ? cab + ', con ' + num(a.por1000, 1) + ' camas por cada 1.000 personas asignadas; ' + r.corto +
+          ' tiene ' + num(r.por1000, 1) + '.'
+        : cab + '; el catálogo no da sus camas.';
+    }
+    const k = H.cartera(D, S, AQUI);
+    return k && k.faltan.length
+      ? cab + ', con ' + k.faltan.length + ' unidades que ' + r.corto + ' no tiene.'
+      : cab + '.';
+  }
+
   /* ── Piezas ───────────────────────────────────────────────────────── */
 
   /* Lo que hay, en negro, y detrás un hueco por cada cosa que falta. El hueco
@@ -431,23 +464,19 @@
     const sobra = modo === 'sobra';
     const art = el('article', 'ind' + (sobra ? ' ind--sobra' : ''));
     art.id = 'ind-' + i.id;
-    if (i.enTotal !== false && !sobra) art.dataset.falta = c.falta.toFixed(4);
+    /* El icono, el área y el título los lleva la línea del recuento que la
+       abre. La línea de «Cuanto más, mejor» (assets/sentido.js) se cuelga del
+       titular. */
+    const sentido = (window.SENTIDO && window.SENTIDO.de(i.id)) || 'mas';
 
-    const cab = el('p', 'ind__grupo');
-    cab.appendChild(icono(ICONO[i.id], 'ind__ico'));
-    cab.appendChild(el('span', null, i.grupo));
-    art.appendChild(cab);
-    const hi = el('h3', 'ind__h', i.titulo);
-    hi.dataset.sentido = (window.SENTIDO && window.SENTIDO.de(i.id)) || 'mas';
-    art.appendChild(hi);
-
-    if (esCartera(c)) return fichaCartera(art, c, modo);
+    if (esCartera(c)) return fichaCartera(art, c, modo, sentido);
 
     const g = i.gen || 'm';
     let titular;
     if (sobra) {
       titular = 'Tiene <span class="cifra">' + cantidad(c, -c.falta) + '</span> <span class="resto">' +
-        (c.otra === 0 ? 'donde ' + NOMBRE[AQUI] + ' no tiene ' + ninguno[g] : 'más de ' +
+        (c.otra === 0 ? (i.id === 'camas' && hospitalDeFuera('camas') ? 'en su término, ' : '') +
+          'donde ' + NOMBRE[AQUI] + ' no tiene ' + ninguno[g] : 'más de ' +
         (g === 'f' ? 'las' : 'los') + ' que le tocarían') + '</span>';
     } else if (esSuperficie(c)) {
       /* Las dos cifras en la misma unidad, la de lo que falta. */
@@ -465,7 +494,9 @@
         (c.parla === 1 ? (g === 'f' ? 'la única' : 'el único')
           : (g === 'f' ? 'las ' : 'los ') + entero(c.parla)) + ' que tiene</span>';
     }
-    art.appendChild(el('p', 'ind__titular', titular));
+    const tit = el('p', 'ind__titular', titular);
+    tit.dataset.sentido = sentido;
+    art.appendChild(tit);
 
     const sr = el('p', 'oculto');
     sr.textContent = NOMBRE_REF + ' tiene ' + cantidad(c, c.parla) + ' y ' + NOMBRE[AQUI] +
@@ -487,44 +518,51 @@
        población total Parla saldría bien, con la de su edad sale mal. */
     const gira = i.notaGiro && c.faltaTotal <= UMBRAL && c.falta > UMBRAL;
     /* Y lo que solo vale para una ciudad (notaCiudad), detrás, si es la elegida. */
-    const nota = [gira ? i.notaGiro : i.nota, (i.notaCiudad || {})[AQUI]].filter(Boolean).join(' ');
+    const nota = [i.id === 'camas' && c.otra === 0 ? hospitalDeFuera('camas') : '',
+      gira ? i.notaGiro : i.nota, (i.notaCiudad || {})[AQUI]].filter(Boolean).join(' ');
     if (nota) art.appendChild(el('p', 'ind__nota', texto(nota)));
     art.appendChild(pieFuente([i.fuenteId, c.base.fuenteId].concat(
       i.limitesFuenteId ? [[i.limitesFuenteId, 'Límites municipales: ']] : [])));
-    art.appendChild(botonCartel(c, modo));
+    art.appendChild(acciones(c, modo, art.id));
     return art;
   }
 
   /* La ficha del hospital: sin tasa, porque un hospital no se reparte. Aquí
      los huecos sí tienen nombre: son unidades que el otro hospital declara y
      el de Parla no. */
-  function fichaCartera(art, c, modo) {
+  function fichaCartera(art, c, modo, sentido) {
     const i = c.ind;
     const sobra = modo === 'sobra';
     let titular;
     if (sobra) {
       titular = 'Tiene <span class="cifra">' + c.soloParla.length + '</span> <span class="resto">' +
         (c.otra ? 'unidades que no ' + (c.plural ? 'tienen ' : 'tiene ') + (c.frase || 'el ' + c.nombre)
-          : 'unidades donde ' + NOMBRE[AQUI] + ' no tiene hospital público') + '</span>';
+          : 'unidades ' + (hospitalDeFuera('unidades') ? 'en su término, ' : '') + 'donde ' + NOMBRE[AQUI] +
+            ' no tiene hospital público') + '</span>';
     } else {
       titular = 'Le faltan <span class="cifra">' + c.lista.length + '</span> <span class="resto">' +
         'unidades que sí ' + (c.plural ? 'tienen ' : 'tiene ') + (c.frase || 'el ' + c.nombre) + '</span>';
     }
-    art.appendChild(el('p', 'ind__titular', titular));
+    const tit = el('p', 'ind__titular', titular);
+    tit.dataset.sentido = sentido;
+    art.appendChild(tit);
 
     /* Por ciudad y no por hospital: Móstoles tiene dos y se suman sus carteras.
        Sin las unidades que no se comparan, como dice la nota. */
     const cuenta = c.otra
       ? 'Unidades asistenciales que se comparan: ' + c.parla + ' en ' + NOMBRE_REF + ', ' + c.otra +
         ' en ' + NOMBRE[AQUI] + '.'
-      : NOMBRE[AQUI] + ' no tiene hospital público. En ' + NOMBRE_REF + ', el ' +
+      : (hospitalDeFuera('unidades') || NOMBRE[AQUI] + ' no tiene hospital público.') + ' En ' + NOMBRE_REF + ', el ' +
         D.hospitales[REF].nombre + ' declara ' + c.parla + ' unidades asistenciales.';
     const sr = el('p', 'oculto');
     sr.textContent = cuenta + (c.lista.length ? ' ' + c.lista.length + ' no están en ' + NOMBRE_REF + '.' : '');
     art.appendChild(sr);
 
     if (!sobra) art.appendChild(tira(c.parla, c.lista.length));
-    art.appendChild(el('p', 'ind__nota', cuenta));
+    /* La misma cuenta ya va arriba, entera, para el lector de pantalla. */
+    const vista = el('p', 'ind__nota', cuenta);
+    vista.setAttribute('aria-hidden', 'true');
+    art.appendChild(vista);
 
     const cont = el('div', 'nombres-bloque');
     if (c.lista.length) {
@@ -553,7 +591,7 @@
 
     art.appendChild(el('p', 'ind__nota', texto(i.nota)));
     art.appendChild(pieFuente([i.fuenteId]));
-    art.appendChild(botonCartel(c, modo));
+    art.appendChild(acciones(c, modo, art.id));
     return art;
   }
 
@@ -648,6 +686,8 @@
        no los servicios uno a uno, porque en la portada no cabe una lista. */
     const gana = $('#gana-portada');
     const sobra = Math.round(SOBRA);
+    /* Sin nada de más no queda un enlace vacío al que llegar con el teclado. */
+    gana.hidden = !(sobra > 0);
     if (sobra > 0) {
       const areas = [];
       sobranEnTotal().forEach(function (c) {
@@ -778,17 +818,63 @@
       '<b class="lee__dif">' + num(c.falta) + '</b>, y así sale cada línea del recuento.'));
   }
 
-  function filaRecuento(c, modo) {
+  /* Una línea del recuento y, plegada debajo, su ficha: la cuenta, los
+     nombres y la fuente. La línea es el botón que la abre, dentro de un
+     título para quien navega por títulos. modo: 'falta' o 'sobra', el de la
+     ficha; clase: 'aparte' (fuera del recuento) o 'sobra', el color. */
+  function filaRecuento(c, modo, clase) {
     const i = c.ind;
-    const li = el('li', 'rec' + (modo ? ' rec--' + modo : ''));
-    const a = el('a', 'rec__a');
-    a.href = '#ind-' + i.id;
-    a.appendChild(icono(ICONO[i.id], 'rec__ico'));
-    a.appendChild(el('span', 'rec__q', i.titulo));
-    a.appendChild(el('span', 'rec__n', modo === 'sobra'
+    const id = 'ind-' + i.id;
+    const li = el('li', 'rec rec--abre' + (clase ? ' rec--' + clase : ''));
+    const h = el('h4', 'rec__h');
+    const b = el('button', 'rec__a');
+    b.type = 'button';
+    b.setAttribute('aria-controls', id);
+    b.appendChild(icono(ICONO[i.id], 'rec__ico'));
+    b.appendChild(el('span', 'rec__q', i.titulo));
+    b.appendChild(el('span', 'rec__n', modo === 'sobra'
       ? '+' + cantidad(c, -c.falta) : esCartera(c) ? String(c.falta) : cantidad(c, c.falta)));
-    li.appendChild(a);
+    b.appendChild(el('span', 'rec__v'));
+    h.appendChild(b);
+    li.appendChild(h);
+
+    const art = bloqueIndicador(c, modo);
+    function poner(abierta) {
+      art.hidden = !abierta;
+      if (abierta) art.classList.add('visto');   /* sin esperar al observador */
+      b.setAttribute('aria-expanded', abierta ? 'true' : 'false');
+      li.dataset.abierta = abierta ? '1' : '0';
+      if (abierta) ABIERTAS[id] = true; else delete ABIERTAS[id];
+    }
+    poner(!!ABIERTAS[id]);
+    b.addEventListener('click', function () { poner(art.hidden); });
+    li.appendChild(art);
     return li;
+  }
+
+  /* Bajo «Fuera del recuento», en qué se mide lo que no suma, con las
+     unidades que de verdad aparecen para esta ciudad, y lo que va aparte por
+     otro motivo, que lo dice su propia frase (las farmacias). */
+  function notaFuera(lista, arranque, mas) {
+    const unidades = [];
+    const porQue = [];
+    lista.forEach(function (c) {
+      if (c.ind.enTotal !== false) return;
+      if (c.ind.porQueFuera) { if (porQue.indexOf(c.ind.porQueFuera) < 0) porQue.push(c.ind.porQueFuera); return; }
+      if (unidades.indexOf(c.ind.mide) < 0) unidades.push(c.ind.mide);
+    });
+    (mas || []).forEach(function (u) { if (unidades.indexOf(u) < 0) unidades.push(u); });
+    if (!unidades.length && !porQue.length) return '';
+    const en = unidades.length > 1
+      ? unidades.slice(0, -1).join(', ') + ' o ' + unidades[unidades.length - 1]
+      : unidades[0];
+    return (unidades.length ? arranque + ': se mide en ' + en + '.' : arranque + '.') +
+      (porQue.length ? ' ' + porQue.join(' ') : '');
+  }
+
+  /* El id de un área, para el índice: «Medio ambiente» → area-medio-ambiente. */
+  function idArea(k) {
+    return 'area-' + k.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
   }
 
   function sumaFalta(lista) {
@@ -798,9 +884,7 @@
   }
 
   /* El orden en que se lee lo que falta: por áreas, primero la que más le
-     falta, y dentro de cada una como vengan ordenadas. Lo calcula una sola
-     función para que el recuento de arriba y las fichas de abajo no puedan
-     acabar contando lo mismo en distinto orden. */
+     falta, y dentro de cada una como vengan ordenadas. */
   function porAreas() {
     const areas = [];
     const mapa = {};
@@ -837,73 +921,101 @@
     g.areas.forEach(function (k) {
       const lista = g.mapa[k];
       const bloque = el('div', 'area');
+      /* Cada área es un apartado del índice (assets/indice.js). */
+      bloque.id = idArea(k);
+      bloque.dataset.indiceSub = k;
       const cab = el('div', 'area__cab');
       cab.appendChild(el('h3', 'area__q', k));
       cab.appendChild(el('span', 'area__n', num(sumaFalta(lista))));
       bloque.appendChild(cab);
       const ul = el('ul', 'area__filas');
-      lista.forEach(function (c) { ul.appendChild(filaRecuento(c, null)); });
+      lista.forEach(function (c) { ul.appendChild(filaRecuento(c, 'falta')); });
       bloque.appendChild(ul);
       cont.appendChild(bloque);
     });
 
     /* Lo que no suma: lo que falta en su propia unidad, y el dinero. */
-    const extra = [];
-    g.orden.forEach(function (c) {
-      if (c.ind.enTotal !== false) return;
-      extra.push({ ico: ICONO[c.ind.id], q: c.ind.titulo,
-        n: esCartera(c) ? String(c.falta) : cantidad(c, c.falta), modo: 'aparte', href: '#ind-' + c.ind.id });
-    });
-
-    /* Lo que el ayuntamiento invierte y gasta, en euros al año: la misma cuenta
-       que todo lo demás, y en su ficha de «Detrás de todo, el dinero». */
-    D.contexto.dinero.filter(function (s) { return s.alAnio; }).reverse().forEach(function (s) {
-      const a = alAnio(s);
-      extra.push({
-        ico: 'euro',
-        q: (s.id === 'inversion' ? 'Inversión' : 'Gasto') + ' municipal al año',
-        n: a.igual ? '≈' : (a.dif < 0 ? '+' : '') + num(Math.abs(a.dif) / 1e6, 1) + '\u00a0M€',
-        modo: a.dif < 0 && !a.igual ? 'sobra' : 'aparte',
-        href: '#dinero-' + s.id
-      });
-    });
-    /* Un empate fuera del recuento también se enseña: que no salga nada daría
-       a entender que no se ha medido. */
-    empates.forEach(function (c) {
-      if (c.ind.enTotal !== false) return;
-      extra.push({ ico: ICONO[c.ind.id], q: c.ind.titulo, n: '≈', modo: 'aparte',
-        href: '#lista-faltan' });
-    });
-
-    if (extra.length) {
+    const fuera = g.orden.filter(function (c) { return c.ind.enTotal === false; });
+    {
       const bloque = el('div', 'area area--extra');
+      bloque.id = 'fuera-falta';
+      bloque.dataset.indiceSub = 'Fuera del recuento';
       const cab = el('div', 'area__cab');
       cab.appendChild(el('h3', 'area__q', 'Fuera del recuento'));
       bloque.appendChild(cab);
+      bloque.appendChild(el('p', 'area__nota', notaFuera(fuera,
+        'No suma a los ' + Math.round(TOTAL) + ' de la portada', ['euros'])));
       const ul = el('ul', 'area__filas');
-      extra.forEach(function (x) {
-        const li = el('li', 'rec rec--' + x.modo);
-        const a = el('a', 'rec__a');
-        a.href = x.href;
-        a.appendChild(icono(x.ico, 'rec__ico'));
-        a.appendChild(el('span', 'rec__q', x.q));
-        a.appendChild(el('span', 'rec__n', x.n));
-        li.appendChild(a);
+      fuera.forEach(function (c) { ul.appendChild(filaRecuento(c, 'falta', 'aparte')); });
+
+      /* Lo que el ayuntamiento invierte y gasta, en euros al año: la misma cuenta
+         que todo lo demás, y en su ficha de «Detrás de todo, el dinero». */
+      D.contexto.dinero.filter(function (s) { return s.alAnio; }).reverse().forEach(function (s) {
+        const a = alAnio(s);
+        const li = el('li', 'rec rec--' + (a.dif < 0 && !a.igual ? 'sobra' : 'aparte'));
+        const e = el('a', 'rec__a');
+        e.href = '#dinero-' + s.id;
+        e.appendChild(icono('euro', 'rec__ico'));
+        e.appendChild(el('span', 'rec__q', (s.id === 'inversion' ? 'Inversión' : 'Gasto') + ' municipal al año'));
+        e.appendChild(el('span', 'rec__n', a.igual ? '≈' : (a.dif < 0 ? '+' : '') + num(Math.abs(a.dif) / 1e6, 1) + '\u00a0M€'));
+        li.appendChild(e);
         ul.appendChild(li);
       });
       bloque.appendChild(ul);
       cont.appendChild(bloque);
     }
 
-    /* Y donde Parla tiene más, también en el recuento, en verde y con signo. */
-    if (sobran.length) {
+    /* Y donde Parla tiene más, también en el recuento, en verde y con signo.
+       Si no hay nada, se dice: que no salga el bloque daría a entender que no
+       se ha mirado. */
+    {
       const bloque = el('div', 'area area--sobra');
+      bloque.id = 'sobran';
+      bloque.dataset.indiceSub = 'Donde Parla tiene más';
       const cab = el('div', 'area__cab');
       cab.appendChild(el('h3', 'area__q', 'Donde Parla tiene más'));
       if (Math.round(SOBRA) > 0) cab.appendChild(el('span', 'area__n', '+' + num(SOBRA)));
       bloque.appendChild(cab);
+      const aparte = notaFuera(sobran, Math.round(SOBRA) > 0
+        ? 'No suma a los ' + Math.round(SOBRA) + ' que tiene de más' : 'No suma al recuento');
+      bloque.appendChild(el('p', 'area__nota', sobran.length
+        ? 'Servicios en los que ' + NOMBRE_REF + ' está por encima de ' + NOMBRE[AQUI] +
+          ' una vez ajustada la población de referencia. Con la proporción de ' + NOMBRE[AQUI] +
+          ', Parla tendría menos de esto.' + (aparte ? ' Lo que no es un equipamiento ' +
+          aparte.charAt(0).toLowerCase() + aparte.slice(1) : '')
+        : 'De los servicios que se miden en esta página, en ninguno está ' + NOMBRE_REF +
+          ' por encima de ' + NOMBRE[AQUI] + '. Los de Sanidad, Educación e Inclusión se cuentan en sus páginas, ' +
+          'también cuando ' + NOMBRE_REF + ' sale mejor.'));
+      if (sobran.length) {
+        const ul = el('ul', 'area__filas');
+        sobran.forEach(function (c) { ul.appendChild(filaRecuento(c, 'sobra', 'sobra')); });
+        bloque.appendChild(ul);
+      }
+      cont.appendChild(bloque);
+    }
+
+    /* Los empates también se enseñan: que no salgan daría a entender que no
+       se han medido. Sin ficha: la línea ya lo dice todo. */
+    if (empates.length) {
+      const bloque = el('div', 'area area--extra');
+      bloque.id = 'ind-empates';
+      const cab = el('div', 'area__cab');
+      cab.appendChild(el('h3', 'area__q', 'Donde están igual'));
+      bloque.appendChild(cab);
       const ul = el('ul', 'area__filas');
-      sobran.forEach(function (c) { ul.appendChild(filaRecuento(c, 'sobra')); });
+      empates.forEach(function (c) {
+        const li = el('li', 'rec rec--aparte');
+        const fila = el('div', 'rec__a');
+        fila.appendChild(icono(ICONO[c.ind.id], 'rec__ico'));
+        const q = el('span', 'rec__q', c.ind.titulo);
+        q.appendChild(el('span', 'rec__sub', NOMBRE_REF + ' ' + cantidad(c, c.parla) + ', ' + NOMBRE[AQUI] + ' ' +
+          cantidad(c, c.otra) + '. Diferencia: ' +
+          (esSuperficie(c) ? enSuperficie(Math.abs(c.falta)) : num(Math.abs(c.falta), 2)) + '.'));
+        fila.appendChild(q);
+        fila.appendChild(el('span', 'rec__n', '≈'));
+        li.appendChild(fila);
+        ul.appendChild(li);
+      });
       bloque.appendChild(ul);
       cont.appendChild(bloque);
     }
@@ -1108,80 +1220,6 @@
 
   /* ── Listas ───────────────────────────────────────────────────────── */
 
-  /* Las fichas en orden y, antes de la primera que no suma, un corte con
-     título propio. El texto dice en qué se mide lo de debajo, con las unidades
-     que de verdad aparecen para esta ciudad. Si no hay nada encima que sí sume,
-     no hay nada que separar y el corte no se pone. */
-  function fichasConSeparador(env, lista, modo, arranque) {
-    const fuera = lista.filter(function (c) { return c.ind.enTotal === false; });
-    /* Lo que va aparte por su unidad (camas, alumnos…) y lo que va aparte por
-       otro motivo, que lo dice su propia frase (las farmacias). */
-    const unidades = [];
-    const porQue = [];
-    fuera.forEach(function (c) {
-      if (c.ind.porQueFuera) { if (porQue.indexOf(c.ind.porQueFuera) < 0) porQue.push(c.ind.porQueFuera); return; }
-      if (unidades.indexOf(c.ind.mide) < 0) unidades.push(c.ind.mide);
-    });
-    const en = unidades.length > 1
-      ? unidades.slice(0, -1).join(', ') + ' o ' + unidades[unidades.length - 1]
-      : unidades[0];
-    let cortado = false, area = null;
-    lista.forEach(function (c, n) {
-      if (!cortado && c.ind.enTotal === false && n > 0) {
-        cortado = true;
-        const sep = el('div', 'separador');
-        sep.id = 'fuera-' + modo;
-        sep.dataset.indiceSub = 'Fuera del recuento';
-        sep.appendChild(el('h3', 'separador__h', 'Fuera del recuento'));
-        sep.appendChild(el('p', 'separador__p', (unidades.length
-          ? arranque + ': se mide en ' + en + '.' + (porQue.length ? ' ' : '')
-          : arranque + '. ') + porQue.join(' ')));
-        env.appendChild(sep);
-      }
-      const art = bloqueIndicador(c, modo);
-      /* La primera ficha de cada área es un apartado del índice (assets/indice.js) */
-      if (!cortado && c.ind.grupo !== area) { area = c.ind.grupo; art.dataset.indiceSub = area; }
-      env.appendChild(art);
-    });
-  }
-
-  function listas() {
-    const lf = $('#lista-faltan');
-    vaciar(lf);
-    const env = el('div', 'env');
-    fichasConSeparador(env, porAreas().orden, 'falta',
-      'No suma a los ' + Math.round(TOTAL) + ' de la portada');
-    if (empates.length) {
-      const art = el('article', 'ind');
-      art.id = 'ind-empates';
-      art.appendChild(el('p', 'ind__grupo', 'Empate técnico'));
-      art.appendChild(el('h3', 'ind__h', 'Y en esto las dos ciudades están igual'));
-      const ul = el('ul', 'pendientes');
-      empates.forEach(function (c) {
-        ul.appendChild(el('li', null, c.ind.titulo + ' — ' + NOMBRE_REF + ' ' +
-          cantidad(c, c.parla) + ', ' + NOMBRE[AQUI] + ' ' + cantidad(c, c.otra) + ' (diferencia: ' +
-          (esSuperficie(c) ? enSuperficie(Math.abs(c.falta)) : num(Math.abs(c.falta), 2)) + ')'));
-      });
-      art.appendChild(ul);
-      env.appendChild(art);
-    }
-    lf.appendChild(env);
-
-    const ls = $('#lista-sobran');
-    vaciar(ls);
-    const env2 = el('div', 'env');
-    $('#sobran-intro').textContent = sobran.length
-      ? 'Hay servicios en los que ' + NOMBRE_REF + ' está por encima de ' + NOMBRE[AQUI] +
-        ' una vez ajustada la población de referencia. También se dicen. Con la proporción de ' +
-        NOMBRE[AQUI] + ', Parla tendría menos de esto.'
-      : 'Ninguno. De todos los servicios medidos, no hay uno solo en el que ' + NOMBRE_REF +
-        ' esté por encima de ' + NOMBRE[AQUI] + '.';
-    fichasConSeparador(env2, sobran, 'sobra', Math.round(SOBRA) > 0
-      ? 'No suma a los ' + Math.round(SOBRA) + ' que tiene de más'
-      : 'No suma al recuento');
-    ls.appendChild(env2);
-  }
-
   /* ── Método ───────────────────────────────────────────────────────── */
 
   function metodo() {
@@ -1230,37 +1268,6 @@
     } else {
       bloques.forEach(function (b) { b.classList.add('visto'); });
     }
-  }
-
-  function contador() {
-    const chip = $('#contador');
-    const salida = $('#contador-n');
-
-    let pedido = false, ultimo = -1;
-
-    function medir() {
-      pedido = false;
-      const corte = window.innerHeight * 0.55;
-      let suma = 0;
-      const nodos = document.querySelectorAll('#lista-faltan .ind[data-falta]');
-      for (let i = 0; i < nodos.length; i++) {
-        if (nodos[i].getBoundingClientRect().top < corte) suma += parseFloat(nodos[i].dataset.falta);
-      }
-      /* Se apaga donde deja de sumar: en el separador, o donde Parla tiene más
-         si no hay nada fuera del recuento. Se busca cada vez porque cambiar de
-         ciudad vuelve a pintar la lista. */
-      const fin = document.querySelector('#lista-faltan .separador') || $('#sobran');
-      const visible = suma >= 1 && fin.getBoundingClientRect().top > 120;
-      chip.dataset.visible = visible ? '1' : '0';
-      chip.setAttribute('aria-hidden', visible ? 'false' : 'true');
-      const v = Math.round(suma);
-      if (v !== ultimo) { ultimo = v; salida.textContent = v; }
-    }
-    function alScroll() { if (!pedido) { pedido = true; requestAnimationFrame(medir); } }
-
-    window.addEventListener('scroll', alScroll, { passive: true });
-    window.addEventListener('resize', alScroll, { passive: true });
-    medir();
   }
 
   /* ── Selector ─────────────────────────────────────────────────────── */
@@ -1498,6 +1505,15 @@
     b.appendChild(el('span', null, 'Cartel para compartir'));
     b.addEventListener('click', function () { compartir(c, modo); });
     return b;
+  }
+
+  /* Al pie de cada ficha: el cartel y el enlace a esa ficha, que copia el
+     botón de la cadena (assets/indice.js). */
+  function acciones(c, modo, id) {
+    const caja = el('div', 'ind__acciones');
+    caja.appendChild(botonCartel(c, modo));
+    if (window.INDICE && window.INDICE.enlace) caja.appendChild(window.INDICE.enlace(id));
+    return caja;
   }
 
   /* El botón de la portada: el mismo cartel, con el total. Lleva el hueco
@@ -1868,27 +1884,23 @@
     salir();
     servicios();
     vivienda();
-    listas();
     metodo();
     movimiento();
     document.title = '¿Y si en Parla viviéramos como en ' + NOMBRE[AQUI] + '? · ' + D.NOMBRE_WEB;
     indice();
   }
 
-  /* El índice lee la página; aquí solo se le dan las cifras de las dos
-     listas y la ciudad, para los enlaces a las otras páginas. */
+  /* El índice lee la página; aquí solo se le dan la cifra del recuento y la
+     ciudad, para los enlaces a las otras páginas. */
   function indice() {
     if (!window.INDICE) return;
-    const p = $('#faltan'), g = $('#sobran');
+    const p = $('#resumen');
     p.dataset.indiceDato = Math.round(TOTAL) > 0 ? String(Math.round(TOTAL)) : '';
     p.dataset.indiceTono = 'loss';
-    g.dataset.indiceDato = Math.round(SOBRA) > 0 ? String(Math.round(SOBRA)) : '';
-    g.dataset.indiceTono = 'gain';
     window.INDICE.refrescar({ ciudad: AQUI, nombre: NOMBRE[AQUI] });
   }
 
   selector();
   pintar();
   enlace();
-  contador();
 })();

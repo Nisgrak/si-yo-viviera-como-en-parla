@@ -291,7 +291,17 @@ def nombre_propio(t):
         anterior = p.lower().strip(',"()')
     t = ' '.join(salida).replace(' - ', ', ').replace(',,', ',')
     t = re.sub(r'^([A-Z]+)\. ', r'\1, ', t if t.endswith('S.L.') else t.rstrip('.'))
+    # El registro escribe el mismo nombre de dos maneras; vale la de la entidad.
+    t = t.replace('García Gúdal', 'García de Gúdal')
     return re.sub(r'"([^"]*)"', r'«\1»', t)
+
+
+def nombre_tea(t):
+    """Los nombres de la lista de aulas TEA, como los escribe el directorio de
+    centros: «CP INF-PRI» siempre igual y los nombres propios con su grafía."""
+    t = re.sub(r'\bCP INF-? ?PRI\b', 'CP INF-PRI', t)
+    t = re.sub(r'\bIsabel La\b', 'Isabel la', t)
+    return t.replace('Rosa de Luxemburgo', 'Rosa Luxemburgo').replace('IES Altair', 'IES Altaír')
 
 
 MESES = 'enero febrero marzo abril mayo junio julio agosto septiembre octubre noviembre diciembre'.split()
@@ -342,7 +352,7 @@ def escribir(g):
     for c in g['tea']['centros']:
         x = ciudades[CIUDADES[c['municipio']]]['tea']
         x['aulas'] += c['aulas']
-        nombre = re.sub(r'\bIsabel La\b', 'Isabel la', c['nombre'])
+        nombre = nombre_tea(c['nombre'])
         x['centros'].append([nombre, c['aulas'], 'concertado' if c['nombre'].startswith('CPR') else 'público'])
     # Los programas profesionales de modalidad especial: uno por perfil.
     for cid in CIUDADES.values():

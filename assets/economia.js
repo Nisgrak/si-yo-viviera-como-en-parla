@@ -799,7 +799,7 @@
           '. ' + puesto(function (id) { return k(id).estado; }),
         fuentes: ['conprel'] },
       { id: 'pmp', titulo: 'Lo que tarda en pagar', sentido: 'menos',
-        pie: 'Periodo medio de pago a proveedores en días, media de agosto de 2025 a julio de 2026',
+        pie: 'Periodo medio de pago a proveedores en días, media de septiembre de 2025 a agosto de 2026',
         medias: [['Máximo legal', 30]],
         v: function (id) { return k(id).pmp; }, fmt: function (v) { return entero(v) + ' días'; },
         nota: 'Los días que pasan de media desde que el ayuntamiento da por buena una factura hasta que la paga. En ' + mes(k(REF).pmpPeriodo) +

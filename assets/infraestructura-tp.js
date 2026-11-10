@@ -316,6 +316,28 @@
     /* Las zonas, de la de más minutos a la de menos: cada una pinta encima
        de la anterior, así que el color se carga donde se tarda menos. */
     const u = D().umbrales, z = c.modos[mo][D().id].zonas;
+
+    /* Las manzanas a más del último tramo, rayadas: sin esto, una ciudad
+       entera a más de una hora se queda en blanco y parece que el mapa no ha
+       cargado. La máscara deja las manzanas y quita la zona más ancha; el
+       rayado se mide en píxeles de pantalla, como los rótulos. */
+    const lejos = z[String(u[u.length - 1])];
+    const kRaya = ancho ? ANCHO / ancho : 1, lado = 5 * kRaya;
+    const defs = svg('defs');
+    const raya = svg('pattern', { id: 'tp-raya-' + id + '-' + mo, width: lado.toFixed(2), height: lado.toFixed(2),
+      patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' });
+    raya.appendChild(svg('path', { d: 'M0 0V' + lado.toFixed(2), class: 'tp__raya',
+      'stroke-width': (1.3 * kRaya).toFixed(2) }));
+    defs.appendChild(raya);
+    const mascara = svg('mask', { id: 'tp-lejos-' + id + '-' + mo, maskUnits: 'userSpaceOnUse',
+      x: 0, y: 0, width: ANCHO, height: ALTO });
+    mascara.appendChild(svg('path', { d: trazo(c.manzanas), 'fill-rule': 'evenodd', fill: '#fff' }));
+    if (lejos && lejos.length) mascara.appendChild(svg('path', { d: trazo(lejos), 'fill-rule': 'evenodd', fill: '#000' }));
+    defs.appendChild(mascara);
+    d.appendChild(defs);
+    d.appendChild(svg('rect', { x: 0, y: 0, width: ANCHO, height: ALTO, class: 'tp__lejos',
+      fill: 'url(#tp-raya-' + id + '-' + mo + ')', mask: 'url(#tp-lejos-' + id + '-' + mo + ')' }));
+
     const capas = svg('g', { class: 'tp__zonas' });
     for (let k = u.length - 1; k >= 0; k--) {
       const r = z[String(u[k])];

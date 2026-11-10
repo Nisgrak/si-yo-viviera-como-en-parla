@@ -12,7 +12,7 @@
    ───────────────────────────────────────────────────────────────────────── */
 
 window.DATOS = (function () {
-  const ACTUALIZADO = 'octubre de 2026';
+  const ACTUALIZADO = 'noviembre de 2026';
   const REFERENCIA = 'parla';
   /* El nombre de la web. Lo que se escribe con JavaScript (títulos, carteles,
      vistas previas) sale de aquí; en los HTML va escrito tal cual. */

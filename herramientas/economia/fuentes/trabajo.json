@@ -231,13 +231,13 @@
     "paro_mujeres_pct_mujeres_16_64": 9.73
    },
    "paro_ultimo_mes": {
-    "mes": "2026-08",
-    "total": 6732,
-    "menores_25": 567,
-    "mujeres": 4198,
-    "paro_pct_16_64": 7.23,
-    "paro_menores25_pct_16_24": 3.77,
-    "paro_mujeres_pct_mujeres_16_64": 9.06,
+    "mes": "2026-09",
+    "total": 6864,
+    "menores_25": 642,
+    "mujeres": 4293,
+    "paro_pct_16_64": 7.37,
+    "paro_menores25_pct_16_24": 4.27,
+    "paro_mujeres_pct_mujeres_16_64": 9.26,
     "denominador": "población a 1-1-2025 (Censo anual)"
    },
    "contratos_2025": {
@@ -482,13 +482,13 @@
     "paro_mujeres_pct_mujeres_16_64": 7.93
    },
    "paro_ultimo_mes": {
-    "mes": "2026-08",
-    "total": 8305,
-    "menores_25": 680,
-    "mujeres": 5118,
-    "paro_pct_16_64": 6.55,
-    "paro_menores25_pct_16_24": 3.59,
-    "paro_mujeres_pct_mujeres_16_64": 8.01,
+    "mes": "2026-09",
+    "total": 8456,
+    "menores_25": 744,
+    "mujeres": 5216,
+    "paro_pct_16_64": 6.67,
+    "paro_menores25_pct_16_24": 3.93,
+    "paro_mujeres_pct_mujeres_16_64": 8.17,
     "denominador": "población a 1-1-2025 (Censo anual)"
    },
    "contratos_2025": {
@@ -733,13 +733,13 @@
     "paro_mujeres_pct_mujeres_16_64": 8.11
    },
    "paro_ultimo_mes": {
-    "mes": "2026-08",
-    "total": 8119,
-    "menores_25": 657,
-    "mujeres": 4974,
-    "paro_pct_16_64": 6.51,
-    "paro_menores25_pct_16_24": 3.38,
-    "paro_mujeres_pct_mujeres_16_64": 7.9,
+    "mes": "2026-09",
+    "total": 8210,
+    "menores_25": 767,
+    "mujeres": 5021,
+    "paro_pct_16_64": 6.59,
+    "paro_menores25_pct_16_24": 3.94,
+    "paro_mujeres_pct_mujeres_16_64": 7.98,
     "denominador": "población a 1-1-2025 (Censo anual)"
    },
    "contratos_2025": {
@@ -984,13 +984,13 @@
     "paro_mujeres_pct_mujeres_16_64": 8.93
    },
    "paro_ultimo_mes": {
-    "mes": "2026-08",
-    "total": 8914,
-    "menores_25": 779,
-    "mujeres": 5538,
-    "paro_pct_16_64": 7.03,
-    "paro_menores25_pct_16_24": 3.77,
-    "paro_mujeres_pct_mujeres_16_64": 8.58,
+    "mes": "2026-09",
+    "total": 8995,
+    "menores_25": 858,
+    "mujeres": 5530,
+    "paro_pct_16_64": 7.09,
+    "paro_menores25_pct_16_24": 4.15,
+    "paro_mujeres_pct_mujeres_16_64": 8.57,
     "denominador": "población a 1-1-2025 (Censo anual)"
    },
    "contratos_2025": {
@@ -1235,13 +1235,13 @@
     "paro_mujeres_pct_mujeres_16_64": 8.38
    },
    "paro_ultimo_mes": {
-    "mes": "2026-08",
-    "total": 9154,
-    "menores_25": 625,
-    "mujeres": 5523,
-    "paro_pct_16_64": 6.81,
-    "paro_menores25_pct_16_24": 3.21,
-    "paro_mujeres_pct_mujeres_16_64": 8.13,
+    "mes": "2026-09",
+    "total": 9195,
+    "menores_25": 714,
+    "mujeres": 5529,
+    "paro_pct_16_64": 6.84,
+    "paro_menores25_pct_16_24": 3.67,
+    "paro_mujeres_pct_mujeres_16_64": 8.14,
     "denominador": "población a 1-1-2025 (Censo anual)"
    },
    "contratos_2025": {
@@ -1486,13 +1486,13 @@
     "paro_mujeres_pct_mujeres_16_64": 7.6
    },
    "paro_ultimo_mes": {
-    "mes": "2026-08",
-    "total": 7056,
-    "menores_25": 515,
-    "mujeres": 4255,
-    "paro_pct_16_64": 6.25,
-    "paro_menores25_pct_16_24": 2.86,
-    "paro_mujeres_pct_mujeres_16_64": 7.47,
+    "mes": "2026-09",
+    "total": 7107,
+    "menores_25": 580,
+    "mujeres": 4263,
+    "paro_pct_16_64": 6.3,
+    "paro_menores25_pct_16_24": 3.22,
+    "paro_mujeres_pct_mujeres_16_64": 7.48,
     "denominador": "población a 1-1-2025 (Censo anual)"
    },
    "contratos_2025": {
@@ -1737,13 +1737,13 @@
     "paro_mujeres_pct_mujeres_16_64": 5.36
    },
    "paro_ultimo_mes": {
-    "mes": "2026-08",
-    "total": 3864,
-    "menores_25": 209,
-    "mujeres": 2300,
-    "paro_pct_16_64": 4.74,
-    "paro_menores25_pct_16_24": 1.56,
-    "paro_mujeres_pct_mujeres_16_64": 5.44,
+    "mes": "2026-09",
+    "total": 3841,
+    "menores_25": 229,
+    "mujeres": 2278,
+    "paro_pct_16_64": 4.71,
+    "paro_menores25_pct_16_24": 1.71,
+    "paro_mujeres_pct_mujeres_16_64": 5.39,
     "denominador": "población a 1-1-2025 (Censo anual)"
    },
    "contratos_2025": {
@@ -1988,13 +1988,13 @@
     "paro_mujeres_pct_mujeres_16_64": 8.07
    },
    "paro_ultimo_mes": {
-    "mes": "2026-08",
-    "total": 2429,
-    "menores_25": 198,
-    "mujeres": 1559,
-    "paro_pct_16_64": 6.25,
-    "paro_menores25_pct_16_24": 3.25,
-    "paro_mujeres_pct_mujeres_16_64": 7.96,
+    "mes": "2026-09",
+    "total": 2446,
+    "menores_25": 213,
+    "mujeres": 1571,
+    "paro_pct_16_64": 6.29,
+    "paro_menores25_pct_16_24": 3.49,
+    "paro_mujeres_pct_mujeres_16_64": 8.02,
     "denominador": "población a 1-1-2025 (Censo anual)"
    },
    "contratos_2025": {
@@ -2239,13 +2239,13 @@
     "paro_mujeres_pct_mujeres_16_64": 8.05
    },
    "paro_ultimo_mes": {
-    "mes": "2026-08",
-    "total": 6318,
-    "menores_25": 477,
-    "mujeres": 3913,
-    "paro_pct_16_64": 6.46,
-    "paro_menores25_pct_16_24": 3.31,
-    "paro_mujeres_pct_mujeres_16_64": 7.98,
+    "mes": "2026-09",
+    "total": 6414,
+    "menores_25": 527,
+    "mujeres": 3958,
+    "paro_pct_16_64": 6.56,
+    "paro_menores25_pct_16_24": 3.66,
+    "paro_mujeres_pct_mujeres_16_64": 8.08,
     "denominador": "población a 1-1-2025 (Censo anual)"
    },
    "contratos_2025": {
@@ -2490,13 +2490,13 @@
     "paro_mujeres_pct_mujeres_16_64": 3.63
    },
    "paro_ultimo_mes": {
-    "mes": "2026-08",
-    "total": 1965,
-    "menores_25": 82,
-    "mujeres": 1139,
-    "paro_pct_16_64": 3.43,
-    "paro_menores25_pct_16_24": 0.71,
-    "paro_mujeres_pct_mujeres_16_64": 3.81,
+    "mes": "2026-09",
+    "total": 1927,
+    "menores_25": 87,
+    "mujeres": 1108,
+    "paro_pct_16_64": 3.36,
+    "paro_menores25_pct_16_24": 0.76,
+    "paro_mujeres_pct_mujeres_16_64": 3.71,
     "denominador": "población a 1-1-2025 (Censo anual)"
    },
    "contratos_2025": {
@@ -2741,13 +2741,13 @@
     "paro_mujeres_pct_mujeres_16_64": 4.14
    },
    "paro_ultimo_mes": {
-    "mes": "2026-08",
-    "total": 1849,
-    "menores_25": 74,
-    "mujeres": 1086,
-    "paro_pct_16_64": 3.89,
-    "paro_menores25_pct_16_24": 0.81,
-    "paro_mujeres_pct_mujeres_16_64": 4.37,
+    "mes": "2026-09",
+    "total": 1821,
+    "menores_25": 81,
+    "mujeres": 1060,
+    "paro_pct_16_64": 3.83,
+    "paro_menores25_pct_16_24": 0.89,
+    "paro_mujeres_pct_mujeres_16_64": 4.26,
     "denominador": "población a 1-1-2025 (Censo anual)"
    },
    "contratos_2025": {

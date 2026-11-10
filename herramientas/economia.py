@@ -138,7 +138,10 @@ def cuentas(c):
         'demora': m['g3_art35_intereses_demora_otros'],
         'amortizacion': m['g9_amortizacion'],
         'deuda': m['deuda_3_mas_9'],
-        'pctDeuda': m['pct_deuda_sobre_gasto'],
+        # Sobre las dos medias que salen en la página (deuda y gasto por habitante),
+        # para que la cuenta se pueda rehacer con las cifras a la vista; la media
+        # de los porcentajes de cada año da otra cosa.
+        'pctDeuda': round(100 * m['deuda_3_mas_9'] / m['gasto_total'], 2),
         'propios': m['i123_propios'],
         'directos': m['i1_directos'],
         'tasas': m['i3_tasas'],
@@ -201,7 +204,7 @@ def main():
     }
     if cu:
         fuentes['pmp'] = ['Ministerio de Hacienda · Periodo medio de pago a proveedores de las entidades locales, '
-                          'agosto de 2025 a julio de 2026', cu['_meta']['fuentes']['pmp_consulta']]
+                          'septiembre de 2025 a agosto de 2026', cu['_meta']['fuentes']['pmp_consulta']]
 
     salida = {
         'fuentes': fuentes,

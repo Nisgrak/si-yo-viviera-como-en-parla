@@ -269,8 +269,12 @@
     if (!h || ciudades.indexOf(h) >= 0) return;
     function bajar() {
       cadenas();   /* los títulos sin id lo reciben aquí */
-      const e = document.getElementById(h);
+      let e = document.getElementById(h);
       if (!e) return null;
+      /* Una ficha del recuento: se baja a su fila, que está siempre a la
+         vista aunque la ficha esté plegada (el margen de arriba lo da el CSS). */
+      const fila = e.closest && e.closest('.rec');
+      if (fila) e = fila;
       e.scrollIntoView({ block: 'start' });
       return window.scrollY;
     }
@@ -289,7 +293,7 @@
      el primero de ella y tiene id; si no, el propio título, con un id
      sacado de su texto, que se pone al cargar para que el enlace lo
      encuentre. Lo que se pinta después lo coge un MutationObserver. */
-  const TITULOS = '.bloque__h, .bloque__h3, .plata__h, .ind__h, .espera__h, .hecho__h';
+  const TITULOS = '.bloque__h, .bloque__h3, .plata__h, .espera__h, .hecho__h';
   const CADENA = '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6.6 9.4a3 3 0 0 0 4.2 0l2.3-2.3a3 3 0 0 0-4.2-4.2L7.8 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
     '<path d="M9.4 6.6a3 3 0 0 0-4.2 0L2.9 8.9a3 3 0 0 0 4.2 4.2L8.2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
   const HECHO = '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -334,37 +338,51 @@
       bien ? ok() : mal(new Error('copiar'));
     });
   }
-  function cadena(h) {
-    if (h.querySelector(':scope > .cadena')) return;
-    const b = el('button', 'cadena');
+  /* El botón: copia el enlace al destino que dé idDe() al pulsarlo. Con
+     texto, lleva «Copiar el enlace» junto al icono. */
+  function botonCadena(idDe, texto) {
+    const b = el('button', 'cadena' + (texto ? ' cadena--texto' : ''));
     b.type = 'button';
-    b.title = 'Copiar el enlace';
-    b.setAttribute('aria-label', 'Copiar el enlace');
-    b.innerHTML = CADENA;
+    if (!texto) {
+      b.title = 'Copiar el enlace';
+      b.setAttribute('aria-label', 'Copiar el enlace');
+    }
+    const pon = function (hecho) {
+      b.innerHTML = (hecho ? HECHO : CADENA) + (texto ? '<span>' + (hecho ? 'Enlace copiado' : 'Copiar el enlace') + '</span>' : '');
+    };
+    pon(false);
     b.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
-      const url = enlaceA(destino(h));
+      const url = enlaceA(idDe());
       copiar(url).then(function () {
-        b.innerHTML = HECHO;
+        pon(true);
         b.classList.add('cadena--ok');
-        if (aviso) aviso.textContent = 'Enlace copiado';
+        avisar('Enlace copiado');
         clearTimeout(b._t);
         b._t = setTimeout(function () {
-          b.innerHTML = CADENA;
+          pon(false);
           b.classList.remove('cadena--ok');
-          if (aviso) aviso.textContent = '';
+          avisar('');
         }, 1800);
       }).catch(function () { window.prompt('Copia el enlace:', url); });
     });
-    h.appendChild(b);
+    return b;
   }
-  function cadenas() {
+  function avisar(t) {
     if (!aviso) {
       aviso = el('p', 'oculto');
       aviso.setAttribute('aria-live', 'polite');
       document.body.appendChild(aviso);
     }
+    aviso.textContent = t;
+  }
+  function cadena(h) {
+    if (h.querySelector(':scope > .cadena')) return;
+    h.appendChild(botonCadena(function () { return destino(h); }));
+  }
+  function cadenas() {
+    if (!aviso) avisar('');
     /* El id, ya al cargar: quien llega con ?ir= lo busca antes de pulsar nada. */
     document.querySelectorAll(TITULOS).forEach(function (h) { destino(h); cadena(h); });
   }
@@ -382,6 +400,8 @@
 
   window.INDICE = {
     /* ciudad: el id de la ciudad elegida; nombre: cómo se escribe */
+    /* Un botón «Copiar el enlace» a la ficha o sección con ese id. */
+    enlace: function (id) { return botonCadena(function () { return id; }, true); },
     refrescar: function (o) {
       if (o && o.ciudad) { ciudad = o.ciudad; nombre = o.nombre || o.ciudad; }
       pintar();
