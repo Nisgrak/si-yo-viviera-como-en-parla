@@ -877,6 +877,26 @@
     return 'area-' + k.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
   }
 
+  /* El subtotal de un área, como se enseña: la suma de las cifras de sus
+     líneas tal como se ven, cada una con su decimal, para que quien sume a
+     ojo llegue al mismo número. Con más de una línea lleva «~»: es una suma
+     de cifras ya redondeadas. */
+  function subtotal(lista, signo) {
+    const cuentan = lista.filter(function (c) { return c.ind.enTotal !== false; });
+    const t = cuentan.reduce(function (s, c) { return s + Math.round(Math.abs(c.falta) * 10) / 10; }, 0);
+    return (cuentan.length > 1 ? '~' : '') + (signo || '') + num(t);
+  }
+
+  /* La cifra del subtotal, con la exacta al pasar el ratón por encima. */
+  function cifraSubtotal(lista, signo, exacta) {
+    const n = el('span', 'area__n', subtotal(lista, signo));
+    if (n.textContent.charAt(0) === '~') {
+      n.classList.add('area__n--aprox');
+      n.title = 'Sin redondear cada línea: ' + (signo || '') + num(exacta, 2);
+    }
+    return n;
+  }
+
   function sumaFalta(lista) {
     return lista.reduce(function (t, c) {
       return t + (c.ind.enTotal === false ? 0 : c.falta);
@@ -926,7 +946,7 @@
       bloque.dataset.indiceSub = k;
       const cab = el('div', 'area__cab');
       cab.appendChild(el('h3', 'area__q', k));
-      cab.appendChild(el('span', 'area__n', num(sumaFalta(lista))));
+      cab.appendChild(cifraSubtotal(lista, '', sumaFalta(lista)));
       bloque.appendChild(cab);
       const ul = el('ul', 'area__filas');
       lista.forEach(function (c) { ul.appendChild(filaRecuento(c, 'falta')); });
@@ -974,7 +994,7 @@
       bloque.dataset.indiceSub = 'Donde Parla tiene más';
       const cab = el('div', 'area__cab');
       cab.appendChild(el('h3', 'area__q', 'Donde Parla tiene más'));
-      if (Math.round(SOBRA) > 0) cab.appendChild(el('span', 'area__n', '+' + num(SOBRA)));
+      if (Math.round(SOBRA) > 0) cab.appendChild(cifraSubtotal(sobran, '+', SOBRA));
       bloque.appendChild(cab);
       const aparte = notaFuera(sobran, Math.round(SOBRA) > 0
         ? 'No suma a los ' + Math.round(SOBRA) + ' que tiene de más' : 'No suma al recuento');

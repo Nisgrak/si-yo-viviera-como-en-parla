@@ -982,7 +982,7 @@ window.DATOS = (function () {
       grupo: 'Administración',
       titulo: 'Oficinas de la Agencia Tributaria',
       fuenteId: 'aeat',
-      nota: 'La Agencia Tributaria tiene trece administraciones en la Comunidad de Madrid fuera de la capital, y Parla es el municipio más poblado de la región sin ninguna. La de El Escorial atiende a 17.171 vecinos. La Oficina Nacional de Gestión Tributaria, que comparte edificio con la de Alcorcón, no se cuenta: es una unidad estatal.',
+      nota: 'La Agencia Tributaria tiene trece administraciones en la Comunidad de Madrid fuera de la capital, y Parla es el municipio más poblado de la región sin ninguna. La de El Escorial atiende a 17.171 vecinos. La Oficina Nacional de Gestión Tributaria, que comparte edificio con la de Alcorcón, es una unidad estatal y queda fuera de la cuenta.',
       datos: {
         getafe: { n: 1, lista: ['Administración de Getafe'] },
         parla: { n: 0, lista: [] },
@@ -1704,7 +1704,7 @@ window.DATOS = (function () {
     titulo: 'Zonas verdes e instalaciones deportivas',
     fuenteId: 'urbanAtlas',
     limitesFuenteId: 'limites',
-    nota: 'Parques, jardines e instalaciones deportivas, medidos sobre el mapa europeo de usos del suelo. Ninguna estadística oficial lo publica por municipio, así que la cuenta es nuestra y está en el repositorio. El mapa no distingue quién es el dueño: un club privado con césped cuenta como un parque.',
+    nota: 'Parques, jardines e instalaciones deportivas, medidos sobre el mapa europeo de usos del suelo. Ninguna estadística oficial lo publica por municipio, así que la cuenta es nuestra y está en el repositorio. El mapa cuenta como parque cualquier zona verde, también un club privado con césped.',
     datos: verdeDatos
   });
 

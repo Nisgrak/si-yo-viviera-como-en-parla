@@ -937,7 +937,10 @@
       detP.appendChild(el('summary', null, (cfg.lista || 'Los centros de ') + 'Parla'));
       detP.appendChild(nombres(REF));
       cont.appendChild(detP);
-    } else if (lista(REF).length) cont.appendChild(nombres(REF));
+    } else if (lista(REF).length) {
+      cont.appendChild(el('p', 'nombres__rot', (cfg.lista || 'Los centros de ') + 'Parla'));
+      cont.appendChild(nombres(REF));
+    }
     if (lista(AQUI).length) {
       const det = el('details', 'plegable');
       det.appendChild(el('summary', null, (cfg.lista || 'Los centros de ') + NOMBRE[AQUI]));

@@ -525,7 +525,9 @@
       t('parlatodo') + ' minutos un día normal y '));
     n.appendChild(el('b', 'parla', t('parlasin') + ' sin ' + laLinea(REF)));
     n.appendChild(document.createTextNode(t('aquitodo') != null && t('aquisin') != null
-      ? '. Desde la de ' + r.aquitodo.est.nombre + ', ' + t('aquitodo') + ' y ' + t('aquisin') + ' sin ' + laLinea(I.AQUI) + '.'
+      ? '. Desde la de ' + r.aquitodo.est.nombre + ', ' + (t('aquitodo') === t('aquisin')
+        ? t('aquitodo') + ', con o sin ' + laLinea(I.AQUI)
+        : t('aquitodo') + ' y ' + t('aquisin') + ' sin ' + laLinea(I.AQUI)) + '.'
       : '.'));
   }
 

@@ -885,6 +885,7 @@ a:hover { text-decoration-color: var(--ref); }
   font-variant-numeric: tabular-nums;
 }
 .area--sobra .area__n { color: var(--gain); }
+.area__n--aprox { cursor: help; text-decoration: underline dotted; text-decoration-thickness: 1px; text-underline-offset: .2em; }
 .area--extra .area__cab { border-bottom-color: var(--line-alta); }
 .area--extra .area__q { color: var(--ink-3); }
 
