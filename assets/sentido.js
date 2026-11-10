@@ -30,6 +30,7 @@
     'infantil-sin-plaza': MENOS, 'casa-atocha': MENOS, 'casa-atocha-hora': MENOS, 'trabajo-km': MENOS, 'trabajo-lejos': MENOS, 'infantil-matriculados': MAS,
     /* Vecinos y economía */
     'dinero-paro': MENOS, 'dinero-renta': MAS, 'dinero-pobreza': MENOS, 'dinero-pib': MAS,
+    'estudios-eso': MENOS, 'pension-media': MAS,
     puestos: MAS, 'paro-registrado': MENOS, 'paro-mujeres': MENOS, 'paro-jovenes': MENOS, indefinidos: MAS,
     'renta-persona': MAS, 'renta-hogar': MAS, irpf: MAS, 'irpf-trabajo': MAS, gini: MENOS, empresas: MAS,
     /* Cuentas del ayuntamiento: lo que gasta e invierte por vecino, más;
@@ -47,7 +48,7 @@
     cobertura: MAS, 'cobertura-10': MAS, 'cobertura-5': MAS, abono: MENOS,
     /* Sanidad */
     'espera-operarse': MENOS, 'espera-consulta': MENOS, 'espera-prueba': MENOS, 'lista-operarse': MENOS,
-    'tarjetas-medico': MENOS, 'tarjetas-pediatra': MENOS, 'salud-mental': MAS,
+    'esperanza-vida': MAS, 'tarjetas-medico': MENOS, 'tarjetas-pediatra': MENOS, 'salud-mental': MAS,
     /* Discapacidad: las plazas y los colegios, más. Cuánta gente tiene una
        discapacidad reconocida, sin línea: no es mejor ni peor. */
     'dis-residencia': MAS, 'dis-dia': MAS, 'dis-ocupacional': MAS, 'dis-temprana': MAS,

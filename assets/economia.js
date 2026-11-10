@@ -142,7 +142,7 @@
       ul.appendChild(li);
     });
     art.appendChild(ul);
-    if (f.cartel && window.CARTEL) art.appendChild(cartel(f.cartel.id, f.titulo, f.cartel.datos));
+    if (f.cartel && window.CARTEL) art.appendChild(botonesFicha(f));
     if (f.nota) art.appendChild(el('p', 'renta__nota', f.nota));
     if (f.fuentes) art.appendChild(pieFuente(f.fuentes));
     cont.appendChild(art);
@@ -155,6 +155,22 @@
       ciudad: function () { return AQUI; },
       titulo: function () { return 'Parla y ' + NOMBRE[AQUI] + ' · ' + titulo; }
     });
+  }
+
+  /* El cartel y «Compartir esta sección» de una ficha, bajo sus barras. El
+     enlace lleva a la ficha: /getafe/inversion/ publicado, economia.html?ir=
+     desde la carpeta (la vista previa la escribe herramientas/compartir.mjs). */
+  function botonesFicha(f) {
+    const caja = el('div', 'seccion__botones');
+    caja.id = f.cartel.id + '-botones';
+    caja.appendChild(cartel(f.cartel.id, f.titulo, f.cartel.datos));
+    if (f.cartel.enlace) {
+      caja.appendChild(window.CARTEL.enlace({
+        url: function () { return RUTAS ? RAIZ_WEB + AQUI + '/' + f.cartel.id + '/' : 'economia.html?ir=' + f.id + '#' + AQUI; },
+        titulo: function () { return f.cartel.enlace(NOMBRE[AQUI]); }
+      }));
+    }
+    return caja;
   }
 
   function fichas(sel, lista) {
@@ -171,11 +187,52 @@
     if (e >= 1e6) return num(e / 1e6, 1) + ' millones de euros';
     return entero(redondearMiles === false ? e : Math.round(e / 1000) * 1000) + ' euros';
   }
+  /* La cifra de una serie, con los decimales de la ficha y sin la unidad. */
+  function cifraDe(s) {
+    return function (v) { return s.unidad === '%' ? num(v, s.decimales != null ? s.decimales : 2) : eurHab(v); };
+  }
+  /* Lo que Parla pondría al año al ritmo de la otra ciudad (la misma cuenta
+     de la portada): dif > 0, le falta a Parla; igual, por debajo de un 1 %. */
+  function anual(s) {
+    const pob = D.BASES.total.valores[REF];
+    const dif = (s.valores[AQUI] - s.valores[REF]) * pob;
+    return { dif: dif, igual: Math.abs(dif) < s.valores[REF] * pob * 0.01 };
+  }
+  function fraseAnual(s) {
+    const a = anual(s);
+    return a.igual
+      ? 'Con ' + s.alAnio.con + ' de ' + NOMBRE[AQUI] + ', Parla se quedaría prácticamente igual.'
+      : 'Con ' + s.alAnio.con + ' de ' + NOMBRE[AQUI] + ', Parla ' + s.alAnio.verbo + ' ' + enEuros(Math.abs(a.dif)) + ' ' +
+        (a.dif > 0 ? 'más' : 'menos') + ' al año.';
+  }
+  /* La fuente de una serie para el pie del cartel, como la lista del método. */
+  function fuenteLinea(id) {
+    const f = fuente(id);
+    return f.t.replace(' · ', ', ').replace(/\s*\(XLSX\)/, '') + '.';
+  }
+  /* A Parla le va peor, con la cifra tal como se ve (el mismo redondeo que eurHab). */
+  function mostrado(x) { return Math.abs(x) >= 10 || x === 0 ? Math.round(x) : Math.round(x * 100) / 100; }
+  function peorQue(v, mejor) {
+    if (!mejor) return false;
+    const a = mostrado(v(REF)), b = mostrado(v(AQUI));
+    return mejor === 'mas' ? a < b : a > b;
+  }
+  /* Las dos ciudades frente a frente en una cuenta del ayuntamiento por habitante.
+     El rojo, en la columna de Parla, solo si el dato tiene sentido marcado
+     (mejor: 'mas' o 'menos', el mismo de la ficha) y a Parla le va peor. */
+  function datosCuenta(o) {
+    return {
+      pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · ' + o.seccion,
+      antes: o.antes,
+      dos: window.CARTEL.frente(NOMBRE, REF, AQUI, function (id) { return eurHab(o.v(id)); }, peorQue(o.v, o.mejor)),
+      que: o.que || 'euros por habitante al año',
+      sub: o.sub,
+      cajas: o.cajas
+    };
+  }
   function desdeDinero(id) {
     const s = serieDinero(id);
-    const cifra = function (v) {
-      return s.unidad === '%' ? num(v, s.decimales != null ? s.decimales : 2) : eurHab(v);
-    };
+    const cifra = cifraDe(s);
     const huecos = {};
     Object.keys(s.extra || {}).forEach(function (k) {
       huecos[k + 'Aqui'] = cifra(s.extra[k][AQUI]);
@@ -188,18 +245,18 @@
     if (s.alAnio) {
       /* Lo de la otra ciudad por habitante, por los vecinos de Parla: lo que
          Parla tendría al año a ese ritmo. La misma cuenta que la portada. */
-      const pob = D.BASES.total.valores[REF];
-      const dif = (s.valores[AQUI] - s.valores[REF]) * pob;
-      titular = Math.abs(dif) < s.valores[REF] * pob * 0.01
+      const a = anual(s);
+      titular = a.igual
         ? 'Con ' + s.alAnio.con + ' de ' + NOMBRE[AQUI] + ', Parla se quedaría prácticamente igual.'
         : 'Con ' + s.alAnio.con + ' de ' + NOMBRE[AQUI] + ', Parla ' + s.alAnio.verbo +
-          ' <span class="cifra">' + enEuros(Math.abs(dif)) + '</span> ' + (dif > 0 ? 'más' : 'menos') + ' al año.';
+          ' <span class="cifra">' + enEuros(Math.abs(a.dif)) + '</span> ' + (a.dif > 0 ? 'más' : 'menos') + ' al año.';
     } else if (s.saldoEuros) {
       titular = 'Parla debe <span class="cifra">' + enEuros(s.saldoEuros[REF], false) + '</span>. ' +
         NOMBRE[AQUI] + ' debe ' + enEuros(s.saldoEuros[AQUI], false) + '.';
     }
     return {
       id: 'dinero-' + s.id,
+      serie: s,
       titulo: s.titulo,
       pie: (s.pieCiudad && s.pieCiudad[AQUI]) || s.pie,
       titular: titular,
@@ -213,6 +270,27 @@
       fuentes: [s.fuenteId].concat((s.masFuentes || []).map(function (x) { return x[0]; }),
         s.saldoEuros ? ['deudaMetodo'] : [])
     };
+  }
+
+  /* El cartel de una serie de dinero (paro, renta, PIB): Parla y la otra
+     ciudad frente a frente, con la cifra de la ficha y el puesto de Parla.
+     `o`: clave, seccion (el título de la sección), que (lo que mide) y
+     peor(a, b) (si Parla va peor), más el texto del enlace. */
+  function cartelSerie(f, o) {
+    const s = f.serie;
+    f.cartel = { id: o.clave, enlace: o.enlace, datos: function () {
+      const cifra = cifraDe(s);
+      return {
+        pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · ' + o.seccion,
+        antes: s.pie,
+        dos: [{ quien: NOMBRE[REF], cifra: cifra(s.valores[REF]), rojo: o.peor(s.valores[REF], s.valores[AQUI]) },
+          { quien: NOMBRE[AQUI], cifra: cifra(s.valores[AQUI]) }],
+        que: o.que,
+        sub: puesto(function (id) { return s.valores[id]; }),
+        cajas: [{ q: 'Fuente', v: fuenteLinea(s.fuenteId) }]
+      };
+    } };
+    return f;
   }
 
   /* Dos cifras grandes, una por ciudad. */
@@ -379,8 +457,8 @@
         return 'puestos de trabajo en la ciudad por cada 100 vecinos que trabajan: ' +
           entero(t(id).enCentro) + ' puestos y ' + entero(t(id).residentes) + ' vecinos afiliados, a finales de 2025';
       });
-    const viejo = $('#trabajo-cartel');
-    if (viejo) viejo.remove();
+    const bot = $('#trabajo-botones');
+    vaciar(bot);
     /* «3 de cada 10»: los puestos por cada 100 vecinos que trabajan, dichos
        como se dicen. Con «1 de cada N», de 67 a 89 salía «1 de cada 1». */
     function deCada(v) { return v >= 100 ? 'todos' : Math.round(v / 10) + ' de cada 10'; }
@@ -388,17 +466,27 @@
       return v >= 100 ? 'para todos y sobra' : v >= 95 ? 'para casi todos' : 'para ' + deCada(v);
     }
     if (window.CARTEL) {
-      const b = cartel('trabajo', 'Dónde se trabaja', function () {
+      bot.appendChild(cartel('trabajo', 'Dónde se trabaja', function () {
+        const pu = function (id) { return ultimo(t(id).puestos); };
+        const caja = function (id) {
+          return { q: NOMBRE[id], v: entero(t(id).enCentro) + ' puestos para ' + entero(t(id).residentes) + ' vecinos afiliados', ref: id === REF };
+        };
+        /* «Para 6 de cada 10 vecinos que trabajan»: lo que decía el cartel de una sola cifra. */
+        const paraTodos = function (v) { return paraQuien(v) + (v >= 95 ? '' : ' vecinos que trabajan'); };
         return {
           pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · Dónde se trabaja',
-          antes: 'Parla tiene trabajo para', cifra: deCada(ultimo(t(REF).puestos)), que: 'vecinos',
-          sub: 'que trabajan. ' + NOMBRE[AQUI] + ', ' + paraQuien(ultimo(t(AQUI).puestos)) + '.',
-          cajas: [
-            { q: 'Parla', v: entero(t(REF).enCentro) + ' puestos para ' + entero(t(REF).residentes) + ' vecinos afiliados', ref: true }]
+          antes: 'Por cada 100 vecinos que trabajan',
+          dos: window.CARTEL.frente(NOMBRE, REF, AQUI, function (id) { return num(pu(id), 1); },
+            num(pu(REF), 1) !== num(pu(AQUI), 1) && pu(REF) < pu(AQUI)),
+          que: 'puestos de trabajo en la ciudad',
+          sub: 'Parla tiene trabajo ' + paraTodos(pu(REF)) + '; ' + NOMBRE[AQUI] + ', ' + paraTodos(pu(AQUI)) + '.',
+          cajas: [caja(REF), caja(AQUI), { q: 'Fuente', v: 'Afiliados a la Seguridad Social por centro de trabajo y por residencia, a finales de 2025. Comunidad de Madrid.' }]
         };
-      });
-      b.id = 'trabajo-cartel';
-      $('#trabajo-cifras').after(b);
+      }));
+      bot.appendChild(window.CARTEL.enlace({
+        url: function () { return RUTAS ? RAIZ_WEB + AQUI + '/trabajo/' : 'economia.html?ir=trabajo#' + AQUI; },
+        titulo: function () { return 'Dónde se trabaja en Parla y en ' + NOMBRE[AQUI]; }
+      }));
     }
     const pp = t(REF).puestos, pa = t(AQUI).puestos;
     linea($('#trabajo-graf'), {
@@ -481,7 +569,9 @@
         entero(t(AQUI).ultimoMes.n) + ' en ' + NOMBRE[AQUI] + '.'
     });
     fichas('#paro-fichas', [
-      desdeDinero('paro'),
+      cartelSerie(desdeDinero('paro'), { clave: 'paro', seccion: 'Quien no encuentra trabajo', que: 'por ciento',
+        peor: function (a, b) { return a > b; },
+        enlace: function (n) { return 'El paro en Parla y en ' + n; } }),
       { id: 'paro-registrado', titulo: 'Apuntados al paro', sentido: 'menos',
         pie: 'Parados registrados por cada 100 habitantes de 16 a 64 años, media de 2025',
         v: function (id) { return ultimo(t(id).paro); }, fmt: function (v) { return num(v, 2); },
@@ -546,7 +636,9 @@
         num(ultimo(pp) / ultimo(pa) * 100, 0) + ' %.'
     });
     fichas('#renta-fichas', [
-      desdeDinero('renta'),
+      cartelSerie(desdeDinero('renta'), { clave: 'renta', seccion: 'Lo que entra en casa', que: 'euros por persona',
+        peor: function (a, b) { return a < b; },
+        enlace: function (n) { return 'Lo que gana quien vive en Parla y en ' + n; } }),
       { id: 'renta-hogar', titulo: 'Lo que entra en un hogar', sentido: 'mas',
         pie: 'Renta neta media por hogar, 2024',
         v: function (id) { return r(id).hogar; }, fmt: euros,
@@ -580,7 +672,9 @@
   function produce() {
     const e = function (id) { return C[id].empresas; };
     fichas('#produce-fichas', [
-      desdeDinero('pib'),
+      cartelSerie(desdeDinero('pib'), { clave: 'produce', seccion: 'Lo que se produce', que: 'euros por habitante',
+        peor: function (a, b) { return a < b; },
+        enlace: function (n) { return 'Lo que se produce en Parla y en ' + n; } }),
       { id: 'empresas', titulo: 'Las empresas que hay', sentido: 'mas',
         pie: 'Empresas activas con sede en la ciudad por cada 1.000 habitantes, 1 de enero de 2025',
         v: function (id) { return e(id).por1000; }, fmt: function (v) { return num(v, 1); },
@@ -606,14 +700,56 @@
   function ayuntamiento() {
     const fs = ['inversion', 'gasto', 'servicios-sociales', 'comunidad', 'deuda'].map(desdeDinero);
     const deuda = serieDinero('deuda');
-    fs[4].cartel = { id: 'deuda', datos: function () {
-      return {
-        pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · La deuda del ayuntamiento',
-        antes: 'El Ayuntamiento de Parla debe', cifra: entero(deuda.valores[REF]) + ' €', que: 'por vecino',
-        sub: 'El de ' + NOMBRE[AQUI] + ', ' + entero(deuda.valores[AQUI]) + ' €.',
-        cajas: [{ q: 'Parla', v: enEuros(deuda.saldoEuros[REF], false) + ' en total, a finales de 2025', ref: true }]
-      };
+    /* Lo que construye y lo que gasta: como en la portada, sin cartel si
+       Parla se quedaría prácticamente igual. */
+    [[0, 'inversion', 'Lo que construye', 'Lo que invierte cada ayuntamiento',
+      function (n) { return 'Lo que construye el ayuntamiento en Parla y en ' + n; }],
+    [1, 'gasto', 'Lo que gasta', 'Lo que gasta cada ayuntamiento',
+      function (n) { return 'Lo que gasta el ayuntamiento en Parla y en ' + n; }]].forEach(function (x) {
+      const f = fs[x[0]], s = f.serie;
+      if (anual(s).igual) return;
+      f.cartel = { id: x[1], enlace: x[4], datos: function () {
+        const cifra = cifraDe(s);
+        const medias = [];
+        if (s.mediaRegional != null) medias.push({ q: s.refNombre, v: cifra(s.mediaRegional) + '\u00a0€ por vecino' });
+        if (s.mediaSinCapital != null) medias.push({ q: 'Sin Madrid capital', v: cifra(s.mediaSinCapital) + '\u00a0€ por vecino' });
+        return {
+          pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · ' + x[2],
+          antes: x[3],
+          dos: window.CARTEL.frente(NOMBRE, REF, AQUI, function (id) { return cifra(s.valores[id]); }, anual(s).dif > 0),
+          que: 'euros por vecino al año',
+          sub: fraseAnual(s),
+          cajas: medias.concat([{ q: 'Fuente', v: ((s.pieCiudad && s.pieCiudad[AQUI]) || s.pie) + '. ' + fuenteLinea(s.fuenteId) }])
+        };
+      } };
+    });
+    fs[4].cartel = { id: 'deuda', enlace: function (n) { return 'La deuda del ayuntamiento de Parla y la del de ' + n; }, datos: function () {
+      const total = function (id) { return { q: NOMBRE[id], v: enEuros(deuda.saldoEuros[id], false) + ' en total', ref: id === REF }; };
+      return datosCuenta({
+        seccion: 'La deuda del ayuntamiento', antes: 'Deuda viva de cada ayuntamiento', mejor: 'menos',
+        v: function (id) { return deuda.valores[id]; }, que: 'euros por vecino',
+        sub: deuda.pie + '.',
+        cajas: [total(REF), total(AQUI), { q: 'Fuente', v: fuenteLinea(deuda.fuenteId) }]
+      });
     } };
+    /* Lo que pone la Comunidad para invertir: Parla y la otra ciudad, y en la
+       línea de debajo lo que ya dice la nota de la ficha, contando también los
+       fondos del Estado y de la Unión Europea. */
+    {
+      const f = fs[3], s = f.serie;
+      f.cartel = { id: 'comunidad', enlace: function (n) { return 'Lo que pone la Comunidad para invertir en Parla y en ' + n; },
+        datos: function () {
+          const cifra = cifraDe(s);
+          const v = function (id) { return s.valores[id]; };
+          return datosCuenta({
+            seccion: 'Lo que pone la Comunidad para invertir', mejor: 'mas', v: v,
+            antes: 'Transferencias de capital de la Comunidad de Madrid',
+            sub: 'Contando también los fondos del Estado y de la Unión Europea, ' + NOMBRE[REF] + ' recibe ' + cifra(s.extra.capital[REF]) +
+              '\u00a0€ por habitante y ' + NOMBRE[AQUI] + ', ' + cifra(s.extra.capital[AQUI]) + '\u00a0€.',
+            cajas: [{ q: 'Fuente', v: ((s.pieCiudad && s.pieCiudad[AQUI]) || s.pie) + '. ' + fuenteLinea(s.fuenteId) }]
+          });
+        } };
+    }
     fichas('#ayto-fichas', fs);
     const imp = D.contexto.impuestosDirectos;
     $('#ayto-cierre').textContent = texto(D.contexto.dineroNota, {
@@ -743,8 +879,11 @@
     bot.appendChild(cartel('impuestos', 'Lo que paga un vecino', function () {
       return {
         pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · Lo que paga un vecino, ' + P.anio,
-        antes: 'Un vecino de Parla paga', cifra: entero(suya(REF)) + ' €', que: 'al año',
-        sub: 'de IBI y coche. Uno de ' + NOMBRE[AQUI] + ', ' + entero(suya(AQUI)) + ' €.',
+        antes: 'IBI y coche de la vivienda media de cada ciudad',
+        dos: [{ quien: NOMBRE[REF], cifra: euros(suya(REF)), rojo: euros(suya(REF)) !== euros(suya(AQUI)) && suya(REF) > suya(AQUI) },
+          { quien: NOMBRE[AQUI], cifra: euros(suya(AQUI)) }],
+        que: 'al año',
+        sub: 'Un vecino con su casa media y un coche de 12 a 15,99 caballos fiscales.',
         cajas: [{ q: 'Con la misma casa en las dos', v: 'Parla ' + entero(misma(REF)) + ' €; ' + NOMBRE[AQUI] + ' ' + entero(misma(AQUI)) + ' €' }]
       };
     }));
@@ -769,6 +908,11 @@
     const pie = function (t) {
       return AQUI === 'pozuelo' ? t + ' (Pozuelo de Alarcón, media de 2021 y 2024)' : t;
     };
+    /* Cartel y enlace de una ficha: id de los botones, texto del enlace y datos. */
+    const conCartel = function (id, enlace, datos) {
+      return { id: id, enlace: function (n) { return enlace + n; }, datos: datos };
+    };
+    const fuenteCuenta = function (texto) { return { q: 'Fuente', v: texto + '. ' + fuenteLinea('conprel') }; };
     fichas('#ayto-mas', [
       { id: 'dinero-deuda-anual',
         titulo: 'Lo que se va en la deuda cada año', sentido: 'menos',
@@ -781,14 +925,35 @@
           (IDS.every(function (id) { return k(id).intereses <= k(REF).intereses; }) ? 'Parla paga más que ninguna de las ' + N + ', y de ellos ' : 'de los de Parla, ') +
           eur(k(REF).demora) + ' son intereses de demora, los que se pagan por pagar tarde. En devolución de préstamos, Parla pone ' +
           eur(k(REF).amortizacion) + ' al año; en 2022 y 2023 recibió ' + num(k(REF).prestamos2223 / 1e6, 0) + ' millones de euros en préstamos nuevos.',
-        fuentes: ['conprel'] },
+        fuentes: ['conprel'],
+        cartel: conCartel('deuda-anual', 'Lo que se va en la deuda cada año en Parla y en ', function () {
+          const v = function (id) { return k(id).deuda; };
+          const caja = function (id) {
+            return { q: NOMBRE[id], v: num(k(id).pctDeuda, 1) + ' de cada 100 euros que gasta', ref: id === REF };
+          };
+          return datosCuenta({
+            seccion: 'Lo que se va en la deuda', mejor: 'menos', v: v,
+            antes: 'Intereses y devolución de préstamos',
+            sub: puesto(v) + ' Son los capítulos 3 y 9 del gasto.',
+            cajas: [caja(REF), caja(AQUI), fuenteCuenta(pie('Intereses y devolución de préstamos por habitante, media de 2021 a 2024'))]
+          });
+        }) },
       { id: 'ingresos-propios', titulo: 'Lo que recauda',
         pie: pie('Impuestos, tasas y otros ingresos propios por habitante, media de 2021 a 2024'),
         medias: medias('i123_propios'),
         v: function (id) { return k(id).propios; }, fmt: eur,
         nota: puesto(function (id) { return k(id).propios; }) + ' Son los capítulos 1, 2 y 3 de ingresos. En tasas y precios públicos, ' +
           eur(k(REF).tasas) + ' por habitante en Parla y ' + eur(k(AQUI).tasas) + ' en ' + NOMBRE[AQUI] + '.',
-        fuentes: ['conprel'] },
+        fuentes: ['conprel'],
+        cartel: conCartel('ingresos-propios', 'Lo que recauda el ayuntamiento de Parla y el de ', function () {
+          const v = function (id) { return k(id).propios; };
+          return datosCuenta({
+            seccion: 'Lo que recauda', v: v,
+            antes: 'Impuestos, tasas y otros ingresos propios',
+            sub: puesto(v) + ' Son los capítulos 1, 2 y 3 de ingresos.',
+            cajas: [fuenteCuenta(pie('Impuestos, tasas y otros ingresos propios por habitante, media de 2021 a 2024'))]
+          });
+        }) },
       { id: 'estado', titulo: 'Lo que llega del Estado',
         pie: pie('Transferencias corrientes del Estado por habitante, media de 2021 a 2024'),
         medias: medias('i4_art42_estado'),
@@ -806,12 +971,15 @@
           ', ' + entero(k(REF).pmpUltimo) + ' días en Parla. ' + puesto(function (id) { return k(id).pmp; }) +
           (k(AQUI).pmpN < 12 ? ' ' + NOMBRE[AQUI] + ' lo publica por trimestres: es la media de cuatro.' : ''),
         fuentes: ['pmp'],
-        cartel: { id: 'pmp', datos: function () {
+        cartel: { id: 'pmp', enlace: function (n) { return 'Lo que tarda en pagar el ayuntamiento de Parla y el de ' + n; }, datos: function () {
+          const pmp = function (id) { return k(id).pmp; };
           return {
             pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · Lo que tarda en pagar',
-            antes: 'El Ayuntamiento de Parla tarda en pagar', cifra: entero(k(REF).pmp), que: 'días',
-            sub: 'de media a sus proveedores. La ley pide 30.',
-            cajas: [{ q: 'Máximo legal', v: '30 días' }, { q: NOMBRE[AQUI], v: entero(k(AQUI).pmp) + ' días' }]
+            antes: 'Lo que tarda cada ayuntamiento en pagar',
+            dos: window.CARTEL.frente(NOMBRE, REF, AQUI, function (id) { return entero(pmp(id)); }, entero(pmp(REF)) !== entero(pmp(AQUI)) && Math.round(pmp(REF)) > Math.round(pmp(AQUI))),
+            que: 'días',
+            sub: 'De media a sus proveedores. La ley pide 30.',
+            cajas: [{ q: 'Máximo legal', v: '30 días' }, { q: 'Fuente', v: 'Periodo medio de pago a proveedores, media de septiembre de 2025 a agosto de 2026. ' + fuenteLinea('pmp') }]
           };
         } } },
       { id: 'remanente', titulo: 'Lo que le queda en caja', sentido: 'mas',
@@ -822,7 +990,18 @@
           ' millones de euros, después de llegar a ' + num(-k(REF).remanenteEuros['2021'] / 1e6, 0) + ' millones ' +
           'en 2021. Sin descontar las facturas pendientes, ' + eur(k(REF).remanente) + ' por habitante. Solo cuenta el ' +
           'ayuntamiento, sin sus organismos autónomos.',
-        fuentes: ['conprel'] }
+        fuentes: ['conprel'],
+        cartel: conCartel('remanente', 'Lo que le queda en caja al ayuntamiento de Parla y al de ', function () {
+          const v = function (id) { return k(id).remanenteAjustado; };
+          const hayNegativo = mostrado(v(REF)) < 0 || mostrado(v(AQUI)) < 0;
+          return datosCuenta({
+            seccion: 'Lo que queda en caja', mejor: 'mas', v: v,
+            antes: 'Remanente de tesorería a 31 de diciembre de 2024', que: 'euros por habitante',
+            sub: 'Lo que tendría el ayuntamiento si cobrara lo que le deben y pagara lo que debe a corto plazo' +
+              (hayNegativo ? '; el signo menos es un saldo en contra. ' : '. ') + puesto(v) + ' ' + enNegativo(),
+            cajas: [fuenteCuenta('Remanente de tesorería por habitante, descontadas las facturas pendientes de aplicar, 31 de diciembre de 2024')]
+          });
+        }) }
     ]);
   }
 

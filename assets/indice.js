@@ -275,13 +275,29 @@
          vista aunque la ficha esté plegada (el margen de arriba lo da el CSS). */
       const fila = e.closest && e.closest('.rec');
       if (fila) e = fila;
-      e.scrollIntoView({ block: 'start' });
+      /* De golpe, no con el scroll suave de la página: con la animación en marcha, lo que pliega
+         plegar.js al terminar de cargar mueve el apartado y se llega pasado de largo. */
+      e.scrollIntoView({ block: 'start', behavior: 'instant' });
       return window.scrollY;
     }
+    /* Quien hace scroll por su cuenta (rueda, dedo, teclas, barra) cancela los reintentos y no vuelve a la
+       sección. Se escucha desde el principio, antes de que acabe de cargar. */
+    let tocada = false;
+    const AVISOS = ['wheel', 'touchstart', 'touchmove', 'pointerdown', 'keydown'];
+    const TECLAS = ['PageUp', 'PageDown', 'Home', 'End', 'ArrowUp', 'ArrowDown', ' ', 'Spacebar'];
+    function alTocar(e) {
+      if (e.type === 'keydown' && TECLAS.indexOf(e.key) < 0) return;
+      tocada = true;
+      AVISOS.forEach(function (t) { window.removeEventListener(t, alTocar); });
+    }
+    AVISOS.forEach(function (t) { window.addEventListener(t, alTocar, { passive: true }); });
     window.addEventListener('load', function () {
-      const y = bajar();
-      if (y === null) return;
-      setTimeout(function () { if (Math.abs(window.scrollY - y) < 2) bajar(); }, 700);
+      if (bajar() === null) return;
+      /* Otra vez un poco después y un poco más tarde, si nadie ha tocado la página. No se compara el
+         scroll con el de antes: lo que pliega plegar.js lo mueve sin que nadie toque nada. */
+      [700, 1800].forEach(function (t) {
+        setTimeout(function () { if (!tocada) bajar(); }, t);
+      });
     });
   })();
 
@@ -338,18 +354,13 @@
       bien ? ok() : mal(new Error('copiar'));
     });
   }
-  /* El botón: copia el enlace al destino que dé idDe() al pulsarlo. Con
-     texto, lleva «Copiar el enlace» junto al icono. */
-  function botonCadena(idDe, texto) {
-    const b = el('button', 'cadena' + (texto ? ' cadena--texto' : ''));
+  /* El botón: copia el enlace al destino que dé idDe() al pulsarlo. */
+  function botonCadena(idDe) {
+    const b = el('button', 'cadena');
     b.type = 'button';
-    if (!texto) {
-      b.title = 'Copiar el enlace';
-      b.setAttribute('aria-label', 'Copiar el enlace');
-    }
-    const pon = function (hecho) {
-      b.innerHTML = (hecho ? HECHO : CADENA) + (texto ? '<span>' + (hecho ? 'Enlace copiado' : 'Copiar el enlace') + '</span>' : '');
-    };
+    b.title = 'Copiar el enlace';
+    b.setAttribute('aria-label', 'Copiar el enlace');
+    const pon = function (hecho) { b.innerHTML = hecho ? HECHO : CADENA; };
     pon(false);
     b.addEventListener('click', function (e) {
       e.preventDefault();
@@ -400,8 +411,6 @@
 
   window.INDICE = {
     /* ciudad: el id de la ciudad elegida; nombre: cómo se escribe */
-    /* Un botón «Copiar el enlace» a la ficha o sección con ese id. */
-    enlace: function (id) { return botonCadena(function () { return id; }, true); },
     refrescar: function (o) {
       if (o && o.ciudad) { ciudad = o.ciudad; nombre = o.nombre || o.ciudad; }
       pintar();

@@ -206,6 +206,8 @@ assets/economia.css/.js   su diseño y su render: fichas del dinero, líneas y e
 assets/linea.js       el gráfico de líneas, compartido por vivienda.html y economia.html
 datos/economia.js     sus cifras; las escribe herramientas/economia.py
 herramientas/economia/fuentes/   lo extraído de cada fuente (.json) con sus URL y cautelas (.md)
+datos/contexto.js     cuatro datos sueltos (estudios, esperanza de vida, pensión media, edad de los coches); los escribe herramientas/contexto.py
+assets/contexto.js    los pinta, cada uno en su página (educacion, sanidad, economia e infraestructura), con Parla y la otra ciudad en dos columnas
 herramientas/         lo que rehace lo que no se teclea: el QR, las zonas verdes, los accesos,
                       la prueba de la web (comprobar.mjs) y el build que añade la vista
                       previa de cada ciudad (compartir.mjs)
@@ -545,13 +547,136 @@ la sección. Abierta desde la carpeta, sin build, el enlace es `index.html?ir=es
 
 ### Los carteles de economía e infraestructuras
 
-Además del cartel de la portada (en `app.js`, que sabe del recuento), cinco datos de las otras
-páginas tienen su botón «Cartel para compartir»: los puestos de trabajo por cada 100 vecinos que
-trabajan, el plazo de pago a proveedores y la deuda por vecino, en economía; el tren a mano y el
-abono, en infraestructuras. Los monta `assets/cartel.js` con la misma maqueta, los mismos fondos y
+Además del cartel de la portada (en `app.js`, que sabe del recuento), tres datos de economía
+tienen su botón «Cartel para compartir» con Parla y la otra ciudad en dos columnas, cada una con la
+cifra de su ficha: los puestos de trabajo por cada 100 vecinos que trabajan (debajo, para cuántos
+vecinos que trabajan hay puesto), el plazo de pago a proveedores (debajo, «La ley pide 30») y la
+deuda por vecino (debajo, la deuda total de cada ayuntamiento). Las cuatro piezas de `assets/contexto.js` (nivel de estudios, esperanza de vida,
+pensión media y edad de los coches) llevan también el suyo, con Parla y la otra ciudad
+frente a frente; sin dato de la otra ciudad (esperanza de vida en Pinto, Pozuelo y Majadahonda; coches
+en Alcobendas y Majadahonda) el cartel enseña solo a Parla, con su puesto entre las que tienen dato y
+por qué no hay comparación. Las cuatro llevan además «Compartir esta sección»,
+con su vista previa por ciudad (`/<ciudad>/estudios/`, `/vida/`, `/pensiones/` y `/coches/`, con imagen `<ciudad>-<clave>.png`,
+que escribe `herramientas/compartir.mjs` desde `datos/contexto.js`; en las tres ciudades sin dato de
+esperanza de vida y en Alcobendas y Majadahonda para los coches, la imagen enseña solo a Parla, con su
+puesto y el motivo). Los monta `assets/cartel.js` con la misma maqueta, los mismos fondos y
 el mismo QR que el de la portada; cada página le pasa la frase de entrada, la cifra, lo que mide y
-las cajas, calculados al pulsar con la ciudad elegida. El del abono no sale si las dos ciudades
-están en la misma zona.
+las cajas, calculados al pulsar con la ciudad elegida. El cartel de inversión y gasto de la portada
+(`app.js`, `cartelDinero`) monta los mismos datos que el de economía con `CARTEL.montar`.
+
+En `dos`, cada columna admite `nota` (una línea corta bajo el nombre de la ciudad: el hospital, la salida
+de la carretera, «sin la C-4») y `pie` (lo que dice la cifra, pegado a ella: «salen por cada una que
+entra»). `CARTEL.frente` arma las dos columnas y pone el rojo solo en la de Parla, y `CARTEL.puesto` da el
+puesto de Parla entre las ciudades con dato («la 4.ª más alta de las once»). El rojo va solo donde el título
+de la pieza marca un sentido (`assets/sentido.js`) y a Parla le va peor, con la cifra tal como se ve: si
+Parla va mejor, el cartel lo enseña igual, sin color.
+
+### Una pieza, dos botones
+
+Toda pieza con una cifra que la encabeza lleva los dos botones juntos: «Cartel para compartir» y
+«Compartir esta sección», con su vista previa (`/<ciudad>/<clave>/`, imagen `<ciudad>-<clave>.png`).
+Cuando una sección reúne varias cifras sin que una la encabece, se queda sin ellos. Las piezas con los
+dos botones además de las de arriba:
+
+| Página | Claves | Qué enseña |
+|---|---|---|
+| `vivienda.html` | `casas`, `comprar`, `alquilar`, `publica`, `desahucios` | viviendas nuevas por cada 100 vecinos nuevos; valor de la vivienda media; alquiler mediano al mes; viviendas de la Agencia de Vivienda Social por 1.000 habitantes; demandas de alquiler por 100.000 habitantes |
+| `economia.html` | `trabajo`, `paro`, `renta`, `produce`, `inversion`, `gasto`, `deuda`, `pmp` | puestos por cada 100 vecinos que trabajan; tasa de paro; renta bruta por persona; PIB por habitante; inversión y gasto del ayuntamiento por vecino; deuda viva por vecino; días de pago a proveedores |
+| `sanidad.html` | `pediatras` | tarjetas de 0 a 13 años por plaza de pediatra |
+| `inclusion.html` | `personas` | personas con discapacidad reconocida por 1.000 vecinos |
+| `index.html` (dinero) | `inversion`, `gasto` | los mismos del dinero de economía, con las mismas claves y la misma vista previa |
+| `infraestructura.html` | `tren`, `atocha`, `plazas`, `falla`, `colas`, `sentidos` | viviendas con estación a 15 minutos andando; minutos hasta Atocha desde la vivienda mediana; plazas hacia Madrid por hora por cada 1.000 vecinos; plazas que quedan sin la línea principal; parte de las salidas por carretera que se lleva la salida más usada; cuántos salen por cada uno que entra |
+| `vivienda.html` | `barrios`, `sociedades`, `hacinamiento` | por cuánto se multiplica el alquiler del metro cuadrado entre la zona más barata y la más cara; viviendas de sociedades con más de 100 en la ciudad; hogares de 5 o más personas en 60 m² o menos |
+| `economia.html` | `remanente`, `deuda-anual`, `ingresos-propios`, `comunidad` | remanente de tesorería, intereses y devolución de préstamos, ingresos propios y transferencias de capital de la Comunidad, por habitante (en `comunidad`, también la línea con los fondos del Estado y de la Unión Europea) |
+| `sanidad.html` | `consultas`, `pruebas` | días de media en lista para la primera consulta con el especialista y para una prueba, con el hospital de cada ciudad |
+
+Cómo se monta una pieza nueva:
+
+1. En el HTML, un hueco `<div class="seccion__botones" id="<clave>-botones"></div>` al final de la
+   sección, donde lo llevan las piezas vecinas. Las fichas del dinero (`economia.js`) y de la portada
+   (`app.js`) lo crean ellas mismas dentro de la ficha, con el mismo id.
+2. En el JavaScript de la página, `CARTEL.boton({ id, datos, ciudad, titulo })` y `CARTEL.enlace({ url,
+   titulo })` con las cifras de la propia pieza, con su redondeo. El cartel enseña Parla y la otra ciudad
+   en dos columnas (`dos`). Las cifras grandes van sin «%» ni «€» pegados: la unidad va en el texto
+   («euros al mes», «por ciento»).
+3. En `herramientas/compartir.mjs`, la entrada de `CIFRAS` (título, cifra de cada ciudad, pie con la fuente y
+   la fecha, descripción) y la línea de la lista de secciones con su destino (`?ir=` lleva al elemento con
+   ese id de la página). Se calcula desde `datos/*.js`, con las mismas cuentas que el navegador. Si a
+   una ciudad le falta el dato (`v` devuelve `null`) y la entrada tiene `sola`, la imagen enseña solo a
+   Parla con el motivo, como en la esperanza de vida: pasa en `casas` con Fuenlabrada, que perdió
+   vecinos. Con `omitir`, no hay vista previa: lo usan `inversion` y `gasto` cuando Parla se quedaría
+   prácticamente igual (menos de un 1 %), el mismo caso en que la web no ofrece cartel.
+4. En `herramientas/comprobar.mjs`, la prueba exige los dos botones
+   (`#<clave>-botones .compartir:nth-child(2)`).
+
+La cifra de las imágenes se achica si es larga (`288.935 €`) para que quepa en su columna. Las piezas con
+líneas debajo de la cifra (`linea`), una línea bajo el nombre (`nota`) o una frase de puesto (`pos`) las
+declaran en su entrada de `CIFRAS`, y `imagenPareja` las pinta. `PIEZAS_JSON=/ruta.json node
+herramientas/compartir.mjs` vuelca las cifras y las líneas de cada imagen para cotejarlas con el cartel.
+
+De las piezas de arriba, estas llevan cuenta propia:
+
+- **`falla`** nombra la línea principal de cada ciudad. En Majadahonda la C-10 y la C-7 llevan las
+  mismas plazas (3.988), y la página elige la primera de su lista, la C-10; quitar una u otra deja el
+  mismo porcentaje, así que el cartel y la imagen dicen «sin la C-10 o la C-7» y lo explican. La página
+  dice lo mismo allí donde habla de plazas (`sinLaLinea`, calculado del empate); los mapas y los minutos,
+  que quitan una línea concreta, nombran solo esa.
+- **`colas`** añade, en una caja, lo llena que va el tramo más cargado de la A-42 de 7 a 8 (de
+  `datos/a42.js`, la misma cuenta que el mapa: la gente que pasa sobre lo que cabe).
+- **`sentidos`** pone en cada columna la cifra junto a su verbo, porque una dice «salen por cada una que
+  entra» y otra puede decir «entran por cada una que sale».
+- **`sociedades`** dice «ninguna sociedad con más de 100» donde no hay (Fuenlabrada).
+- **`remanente`** lleva el signo menos y, solo si sale de los datos, que Parla es la única en negativo.
+- **`pruebas`**: la demora de Parla baja de 155,9 días (septiembre de 2024) a 111 y 26 (2025 y 2026). Es
+  el dato que publica el servicio de listas de espera del SERMAS (opción «Total», hospital Infanta
+  Cristina, volcado de nuevo el 10-11-2026), y la baja es gradual mes a mes y viene sobre todo de las
+  ecografías, las mamografías y los TC. La fuente no explica el cambio.
+
+Quedan sin ellos, porque no tienen una cifra que las encabece: en `vivienda.html`, el resto de «Cómo son las casas»
+(seis datos sin jerarquía) y las rentas de «De un barrio a otro»; en `economia.html`, las cuentas del
+ayuntamiento que no están en la tabla de arriba y las fichas de paro, renta y producción; en `sanidad.html` y
+`educacion.html`, «Lo que hay» (varios indicadores del recuento, que ya tienen su cartel en la portada).
+
+Todos los carteles de las páginas enseñan Parla y la otra ciudad en dos columnas (`dos`); solo llevan una
+cifra el cartel general de la portada («le faltan N»), la cartera del hospital (las unidades que faltan) y los
+casos «Parla sola» por falta de dato de la otra ciudad.
+
+Los enlaces con `?ir=` bajan a la sección de golpe, sin el scroll suave de la página (`indice.js`): con la
+animación en marcha, lo que pliega `plegar.js` al terminar de cargar movía el apartado y se llegaba pasado
+de largo.
+
+### La vista previa de cada ficha del recuento
+
+Cada ficha del recuento de la portada (`article.ind#ind-<id>`, plegada bajo su línea) lleva al pie
+los mismos dos botones que el resto de la web: «Cartel para compartir» y «Compartir esta sección»
+(`CARTEL.enlace`, en `acciones()` de `assets/app.js`). El enlace publicado es `/<ciudad>/ind-<id>/`
+(`/getafe/ind-metro/`) y, desde la carpeta, `index.html?ir=ind-metro#getafe`. La página que escribe
+`herramientas/compartir.mjs` manda a `/?ir=ind-<id>#<ciudad>`: `app.js` abre la ficha y `indice.js`
+baja hasta su fila.
+
+- **Una plantilla, no una entrada por indicador.** El bucle de `compartir.mjs` recorre
+  `CALCULO.fichas(D, ciudad)` (en `assets/calculo.js`): las fichas que pinta la portada para esa
+  ciudad, las que le faltan (dentro y fuera del recuento) y «Donde Parla tiene más». Las filas de
+  «Donde están igual» no tienen ficha y no tienen vista previa; inversión y gasto siguen con sus
+  claves `inversion` y `gasto`. Añadir un indicador a `datos/datos.js` le da su vista previa sin tocar
+  nada más.
+- **Las cifras salen de la misma cuenta que la ficha.** `calculo.js` guarda el formato (`num`,
+  `numTasa`, `enSuperficie`…), el titular (`titularFicha`) y las dos cifras de las columnas
+  (`tasasFicha`); `app.js` los usa para pintar y `compartir.mjs` para la imagen, así que el redondeo y
+  la frase del hueco son los mismos. La imagen enseña el título, la ley («Por cada 100.000
+  habitantes»), Parla y la otra ciudad frente a frente con la cifra de las columnas de la ficha, el
+  hueco tal como lo dice el titular y el pie con la fuente del indicador y la de su población de
+  referencia. La descripción de la vista previa lleva las mismas cifras y el titular.
+- **Imágenes** `<ciudad>-ind-<id>.png` (1200×630). La ficha del hospital, cuando a Parla le faltan
+  unidades, usa la imagen `<ciudad>-cartera.png` (la de `/<ciudad>/cartera/`), que dice la misma
+  cifra; el build falla si no coinciden. Cuando Parla tiene más, o la otra ciudad no tiene hospital,
+  tiene la suya, con las unidades que se comparan de cada una. Ninguna otra ficha reutiliza una
+  imagen de otra página: las de `fp`, `artes` o las camas miden otra cosa (otro divisor) y no
+  dirían lo mismo que la ficha.
+- **Prueba de las cifras.** `FICHAS_JSON=/ruta.json node herramientas/compartir.mjs` vuelca lo que se
+  pintó en cada imagen (clave, titular, las dos cifras, ley, pie) para cotejarlo con el texto de
+  cada ficha en un navegador. `herramientas/comprobar.mjs` exige que cada ficha tenga sus dos
+  botones.
 
 ### Todos los datos: la página de consulta
 
@@ -885,6 +1010,50 @@ sanitarias a 31-12-2024; Torrejón, a 31-12-2023).
   `python3 -I herramientas/sanidad/espera.py` (necesita `pdftotext` para las memorias) y
   `python3 herramientas/sanidad.py`. Se compara siempre con el mismo mes de dos años antes, y
   el título de la evolución («cada septiembre») sale del mes.
+
+### Cuatro datos sueltos: estudios, esperanza de vida, pensión media y edad de los coches
+
+Piezas pequeñas, cada una en la página de su tema, que no suman al recuento ni son equipamientos.
+Las escribe `assets/contexto.js` desde `datos/contexto.js`, que genera `herramientas/contexto.py`
+(`python3 -I herramientas/contexto.py [carpeta-de-caché]`): descarga a `herramientas/.cache/contexto/`
+lo que falta, sin ejecutar nada de lo descargado, y borrar esa carpeta fuerza la descarga de nuevo.
+Parla y la otra ciudad van en dos columnas, y la posición de Parla («la más baja de las once») se
+calcula de los datos al pintar. Para actualizar un año nuevo, cambiar el año en las funciones de
+`contexto.py` (`2024`, `2025`) y volver a ejecutarlo. En la pieza de los coches, la fuente es el Instituto de Estadística de la Comunidad de Madrid, que publica lo de la
+DGT; el enlace de cada pie va a la página de su conjunto.
+
+- **Nivel de estudios** (`#estudios` de `educacion.html`). INE, Indicadores Urbanos (tabla 69332),
+  2024: población de 25 a 64 años con la ESO como máximo (en la fuente, nivel de educación ISCED
+  0, 1 o 2), porcentaje, total de ambos sexos. Las once ciudades tienen dato (los códigos
+  de serie, como `UA119509` para Parla, van en `datos/contexto.js`). Cuanto menos, mejor.
+- **Esperanza de vida** (`#vida` de `sanidad.html`). Instituto de Estadística de la Comunidad de
+  Madrid, 2024: ambos sexos, hombres y mujeres. La fuente solo la publica para municipios de más
+  de 100.000 habitantes: **Pinto, Pozuelo de Alarcón y Majadahonda no tienen dato**, y si el lector
+  elige una, la pieza lo dice y enseña Parla sola. Es un dato de un solo año y oscila (Parla,
+  desde 2010, de 81,56 en 2011 a 84,31 en 2023: los extremos salen de la serie al ejecutar el
+  script). La fuente no publica el método. Cuanto más, mejor.
+- **Pensión contributiva media** (`#pensiones` de `economia.html`). Instituto de Estadística de la
+  Comunidad de Madrid a partir del Registro de Prestaciones Sociales Públicas (INSS), a 1 de
+  enero de 2025: importe medio mensual por pensionista, total, mujeres y hombres, en euros
+  (redondeados al euro en pantalla). Se dice «pensión contributiva media por pensionista», sin
+  más: la fuente no detalla qué clases de pensión incluye ni si el importe es bruto, y no dice
+  cuántas pagas. La fuente avisa de que desde 2024, por el secreto estadístico, los datos
+  distintos del total van redondeados al múltiplo de 5. Cuanto más, mejor.
+- **Edad de los coches** (`#coches` de `infraestructura.html`, tras la A-42). Dirección General
+  de Tráfico, publicado por el Instituto de Estadística, a 31 de diciembre de 2025: antigüedad
+  media de los turismos, que solo cuenta los de menos de 25 años. **Alcobendas (3,02) y
+  Majadahonda (4,04) no se comparan**: tienen matriculados unos 2.600 turismos por cada 1.000
+  habitantes, contra entre 400 y 570 en las demás, y la propia fuente lo atribuye a exenciones o
+  importes reducidos del impuesto de vehículos de tracción mecánica. Los turismos por 1.000
+  habitantes son cuenta nuestra: turismos matriculados (fuente de la DGT) entre los habitantes de
+  `datos.js` (INE, 1 de enero de 2025). Si el lector elige una de las dos, la pieza lo explica y
+  enseña Parla sola. Sin línea de «cuanto más, mejor»: la edad del parque depende de quién mire.
+  Parla tiene la cifra más alta de las nueve comparables, por una décima sobre Móstoles
+  (12,33 y 12,22), y el texto no dice más que eso.
+
+En «Todos los datos» están los cuatro (`CONTEXTO` en `assets/consulta.js`), con «sin dato» donde
+la fuente no lo publica y en Alcobendas y Majadahonda para la edad de los coches. Las líneas de
+«cuanto más, mejor» están en `assets/sentido.js`.
 
 ### El médico de cabecera y la escuela infantil
 
@@ -1220,3 +1389,6 @@ Sin cookies, sin analítica y **sin una sola petición a servidores de terceros*
 Archivo se sirve desde el propio dominio (`assets/fuentes/`, bajo SIL Open Font License 1.1, con
 su licencia incluida). Eso significa que abrir la web no manda la IP de nadie a Google ni a nadie
 más.
+Los reintentos (a los 0,7 y 1,8 s) se cancelan si el lector hace scroll por su cuenta (rueda, dedo, teclas de
+scroll, clic o arrastre); no se comparan con la posición anterior, porque lo que pliega `plegar.js` la mueve
+sin que nadie toque nada. `consulta.html` no carga `indice.js` y no entiende `?ir=`.

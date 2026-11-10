@@ -315,7 +315,9 @@
     if (window.innerWidth === ancho) return;
     ancho = window.innerWidth;
     clearTimeout(espera);
-    espera = setTimeout(pintar, 150);
+    /* Con el cartel montado (al imprimir) la página está oculta y los marcos miden 0: repintar
+       dejaría los lienzos en 0 de ancho y drawImage fallaría. Se queda como estaba. */
+    espera = setTimeout(function () { if ($('#mapa-parla').parentNode.clientWidth) pintar(); }, 150);
   });
 
   /* si cambia el tema, las bandas se vuelven a pintar con el color nuevo */

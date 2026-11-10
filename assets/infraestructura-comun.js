@@ -45,6 +45,29 @@
     pintores: []
   };
   I.alPintar = function (fn) { I.pintores.push(fn); };
+
+  /* El cartel A4 y «Compartir esta sección» de una pieza: el hueco es
+     <div class="seccion__botones" id="<clave>-botones">, y el enlace es
+     /getafe/<clave>/ (la vista previa que escribe herramientas/compartir.mjs)
+     o infraestructura.html?ir=<id>#getafe desde la carpeta. El cartel se monta
+     al pulsar, con la ciudad elegida en ese momento. */
+  I.pre = function (t) { return NOMBRE[REF] + ' frente a ' + NOMBRE[I.AQUI] + ' · ' + t; };
+  I.botones = function (clave, titulo, datos, tituloEnlace, ir) {
+    const bot = $('#' + clave + '-botones');
+    if (!bot) return;
+    while (bot.firstChild) bot.removeChild(bot.firstChild);
+    if (!window.CARTEL) return;
+    bot.appendChild(window.CARTEL.boton({
+      id: clave, datos: datos, ciudad: function () { return I.AQUI; },
+      titulo: function () { return 'Parla y ' + NOMBRE[I.AQUI] + ' · ' + titulo; }
+    }));
+    bot.appendChild(window.CARTEL.enlace({
+      url: function () {
+        return RUTAS ? RAIZ_WEB + I.AQUI + '/' + clave + '/' : 'infraestructura.html?ir=' + (ir || clave) + '#' + I.AQUI;
+      },
+      titulo: function () { return tituloEnlace(NOMBRE[I.AQUI]); }
+    }));
+  };
   function pintar() {
     I.pintores.forEach(function (fn) { fn(); });
     if (window.INDICE) window.INDICE.refrescar({ ciudad: I.AQUI, nombre: NOMBRE[I.AQUI] });

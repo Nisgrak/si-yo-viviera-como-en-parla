@@ -164,6 +164,12 @@
     });
     art.appendChild(ul);
     if (h.nota) art.appendChild(el('p', 'hecho__nota', h.nota));
+    /* El hueco del cartel y de «Compartir esta sección» de este hecho (carteles()). */
+    if (h.botones) {
+      const b = el('div', 'seccion__botones');
+      b.id = h.botones;
+      art.appendChild(b);
+    }
     cont.appendChild(art);
   }
   function hechos(sel, lista) {
@@ -592,6 +598,12 @@
       });
       art.appendChild(el('p', 'anios__pie', 'A la derecha, cuántas veces el extremo alto es el bajo. Parla: ' +
         g.pie(C[REF].barrios) + '. ' + NOMBRE[AQUI] + ': ' + g.pie(C[AQUI].barrios) + '.'));
+      /* El cartel es el del alquiler: la renta tiene tope del INE en tres ciudades y no siempre da cifra. */
+      if (g.k === 'alq') {
+        const b = el('div', 'seccion__botones');
+        b.id = 'barrios-botones';
+        art.appendChild(b);
+      }
       cont.appendChild(art);
     });
   }
@@ -732,7 +744,7 @@
           NOMBRE[AQUI] + ': ' + entero(ca.censo.vacias) + ' de ' + entero(ca.censo.viviendas) + '.' },
       { id: 'antiguas', titulo: 'Viviendas en edificios de 1980 o antes',
         v: function (id) { return m(id).antes81; }, fmt: function (v) { return pct(v, 2); } },
-      { id: 'hacinamiento', titulo: 'Hogares de 5 o más personas en 60 m² o menos', sentido: 'menos',
+      { id: 'hacinamiento', titulo: 'Hogares de 5 o más personas en 60 m² o menos', sentido: 'menos', botones: 'hacinamiento-botones',
         v: function (id) { return m(id).hog5; }, fmt: function (v) { return pct(v, 2); },
         nota: 'Parla: ' + entero(cp.censo.hog5en60) + ' hogares. ' + NOMBRE[AQUI] + ': ' + entero(ca.censo.hog5en60) + '.' },
       { id: 'jovenes-padres', titulo: 'Jóvenes de 25 a 34 años que viven con sus padres, 2021', sentido: 'menos',
@@ -746,6 +758,192 @@
       { id: 'superficie', titulo: 'Superficie útil media de las viviendas',
         v: function (id) { return C[id].censo.superficie; }, fmt: function (v) { return num(v, 2) + ' m²'; } }
     ]);
+  }
+
+  /* ── Carteles y vistas previas ────────────────────────────────────
+     Cada sección con una cifra que la encabeza lleva al final su cartel A4
+     (assets/cartel.js) y «Compartir esta sección», con su vista previa
+     (/getafe/comprar/, que escribe herramientas/compartir.mjs). Las cifras
+     son las de la propia sección, con su redondeo: el cartel se monta al
+     pulsar, con la ciudad elegida. Parla y la otra ciudad, frente a frente. */
+
+  function pre(t) { return 'Parla frente a ' + NOMBRE[AQUI] + ' · ' + t; }
+  function frente(f, parlaPeor) {
+    return [{ quien: NOMBRE[REF], cifra: f(REF), rojo: !!parlaPeor }, { quien: NOMBRE[AQUI], cifra: f(AQUI) }];
+  }
+  function botones(sel, clave, titulo, datos, tituloEnlace, ir) {
+    const bot = $(sel);
+    if (!bot) return;
+    vaciar(bot);
+    if (!window.CARTEL) return;
+    bot.appendChild(window.CARTEL.boton({
+      id: clave, datos: datos, ciudad: function () { return AQUI; },
+      titulo: function () { return 'Parla y ' + NOMBRE[AQUI] + ' · ' + titulo; }
+    }));
+    bot.appendChild(window.CARTEL.enlace({
+      url: function () { return RUTAS ? RAIZ_WEB + AQUI + '/' + clave + '/' : 'vivienda.html?ir=' + (ir || clave) + '#' + AQUI; },
+      titulo: function () { return tituloEnlace(NOMBRE[AQUI]); }
+    }));
+  }
+  const fuente = function (t) { return { q: 'Fuente', v: t }; };
+  /* La fecha del pie de «Vivienda pública»: la misma que lee quien llega a la sección. */
+  function fechaAvs() {
+    const pie = $('#publica .colas__pie');
+    const f = pie && pie.textContent.match(/viviendas en propiedad por municipio,\s*(a \d{1,2} de [a-zé]+ de \d{4})/);
+    return f ? ', ' + f[1] : '';
+  }
+
+  function carteles() {
+    const cp = C[REF];
+    const desde = cp.crece.desde, hasta = desde + cp.crece.pob.length - 1;
+
+    botones('#casas-botones', 'casas', 'Vecinos nuevos, casas nuevas', function () {
+      const p = m(REF), a = m(AQUI);
+      const f = fuente('Catastro, unidades urbanas de uso residencial; INE, padrón a 1 de enero, ' + desde + ' a ' + hasta + '.');
+      const caja = function (x, id) {
+        return { q: NOMBRE[id], v: entero(x.dPob) + ' vecinos y ' + entero(x.dCasas) + ' viviendas más', ref: id === REF };
+      };
+      if (casasPor100(a) == null) {
+        /* Sin vecinos nuevos no hay cifra por cada 100: Parla sola, con el motivo. */
+        return {
+          pre: pre('Vecinos nuevos, casas nuevas'),
+          antes: 'Por cada 100 vecinos nuevos en Parla, de ' + desde + ' a ' + hasta, cifra: num(casasPor100(p), 1), que: 'viviendas nuevas',
+          sub: NOMBRE[AQUI] + ' perdió ' + entero(-a.dPob) + ' vecinos y ganó ' + entero(a.dCasas) + ' viviendas: no hay cifra por cada 100 vecinos nuevos.',
+          cajas: [caja(p, REF), f]
+        };
+      }
+      return {
+        pre: pre('Vecinos nuevos, casas nuevas'),
+        antes: 'Por cada 100 vecinos nuevos, de ' + desde + ' a ' + hasta,
+        dos: frente(function (id) { return num(casasPor100(m(id)), 1); }, casasPor100(p) < casasPor100(a)),
+        que: 'viviendas nuevas',
+        sub: 'Altas de viviendas registradas por el Catastro y vecinos nuevos del padrón.',
+        cajas: [caja(p, REF), caja(a, AQUI), f]
+      };
+    }, function (n) { return 'Vecinos nuevos y casas nuevas en Parla y en ' + n; });
+
+    botones('#comprar-botones', 'comprar', 'Lo que cuesta comprar', function () {
+      const p = m(REF), a = m(AQUI);
+      const caja = function (id) {
+        return { q: NOMBRE[id], v: num(C[id].censo.superficieConstruida, 0) + ' m² construidos a ' + euros(C[id].tasado.ult.v) +
+          ' el metro cuadrado', ref: id === REF };
+      };
+      return {
+        pre: pre('Lo que cuesta comprar'),
+        antes: 'La vivienda media vale',
+        dos: frente(function (id) { return entero(m(id).pisoMedio); }, false),
+        que: 'euros',
+        sub: 'Años de la renta de un hogar para pagarla entera: ' + num(p.aniosRenta, 1) + ' en Parla y ' + num(a.aniosRenta, 1) +
+          ' en ' + NOMBRE[AQUI] + '.',
+        cajas: [caja(REF), caja(AQUI), fuente('Ministerio de Vivienda, valor tasado de la vivienda libre, ' + trimestre(cp.tasado.ult.p) + '.')]
+      };
+    }, function (n) { return 'Lo que cuesta comprar en Parla y en ' + n; });
+
+    botones('#alquilar-botones', 'alquilar', 'Lo que cuesta alquilar', function () {
+      const p = m(REF), a = m(AQUI);
+      const caja = function (id) { return { q: NOMBRE[id], v: 'piso de ' + num(C[id].alquiler.sup, 0) + ' m²', ref: id === REF }; };
+      return {
+        pre: pre('Lo que cuesta alquilar'),
+        antes: 'El alquiler mediano de un piso',
+        dos: frente(function (id) { return entero(m(id).alquilerMes); }, p.alquilerMes > a.alquilerMes),
+        que: 'euros al mes',
+        sub: 'De cada 100 € que entran en un hogar medio, el alquiler se llevaría ' + num(p.esfuerzo, 1) + ' en Parla y ' +
+          num(a.esfuerzo, 1) + ' en ' + NOMBRE[AQUI] + '.',
+        cajas: [caja(REF), caja(AQUI), fuente('Ministerio de Vivienda, Sistema Estatal de Referencia del Precio del Alquiler, ' +
+          (cp.alquiler.desde + cp.alquiler.m2.length - 1) + '.')]
+      };
+    }, function (n) { return 'Lo que cuesta alquilar en Parla y en ' + n; });
+
+    botones('#publica-botones', 'publica', 'Vivienda pública', function () {
+      const p = m(REF), a = m(AQUI);
+      return {
+        pre: pre('Vivienda pública'),
+        antes: 'Viviendas de la Agencia de Vivienda Social',
+        dos: frente(function (id) { return num(m(id).avs, 2); }, p.avs < a.avs),
+        que: 'por cada 1.000 habitantes',
+        sub: 'En total, ' + entero(C[REF].avs.viv) + ' en Parla y ' + entero(C[AQUI].avs.viv) + ' en ' + NOMBRE[AQUI] + '.',
+        cajas: [fuente('Agencia de Vivienda Social, viviendas en propiedad por municipio' + fechaAvs() + '.')]
+      };
+    }, function (n) { return 'La vivienda pública en Parla y en ' + n; });
+
+    /* El rojo, en la columna de Parla, solo donde el título de la pieza marca un
+       sentido y a Parla le va peor (con la cifra tal como se ve). */
+    const nombres = NOMBRE;
+    const entre = function (vals, queMide) {
+      const p = window.CARTEL.puesto(vals, REF);
+      return 'Parla es ' + p.texto + ' de las ' + p.letra + ' en ' + queMide + '.';
+    };
+    const todas = function (f) {
+      const o = {};
+      Object.keys(C).forEach(function (id) { o[id] = f(id); });
+      return o;
+    };
+
+    botones('#barrios-botones', 'barrios', 'De un barrio a otro', function () {
+      const r = function (id) { return C[id].barrios.alq; };
+      const veces = function (id) { return r(id)[1] / r(id)[0]; };
+      const caja = function (id) {
+        return { q: NOMBRE[id], v: 'de ' + num(r(id)[0], 2) + ' € a ' + num(r(id)[1], 2) + ' €', ref: id === REF };
+      };
+      return {
+        pre: pre('De un barrio a otro'),
+        antes: 'De la zona más barata a la más cara',
+        dos: window.CARTEL.frente(nombres, REF, AQUI, function (id) { return '×' + num(veces(id), 2); }, false),
+        que: 'el alquiler del metro cuadrado',
+        sub: 'Zonas de unos pocos miles de vecinos, con 30 o más alquileres declarados.',
+        cajas: [caja(REF), caja(AQUI), fuente('Ministerio de Vivienda, SERPAVI, ' + (cp.alquiler.desde + cp.alquiler.m2.length - 1) + '.')]
+      };
+    }, function (n) { return 'De un barrio a otro en Parla y en ' + n; }, 'barrios-alquiler');
+
+    botones('#sociedades-botones', 'sociedades', 'De quién son las casas', function () {
+      const t = function (id) { return C[id].titular.soc100; };
+      const socs = function (id) {
+        return t(id).n ? entero(t(id).inm) + ' viviendas de ' + (t(id).n === 1 ? 'una sociedad' : t(id).n + ' sociedades')
+          : 'ninguna sociedad con más de 100';
+      };
+      const caja = function (id) { return { q: NOMBRE[id], v: socs(id), ref: id === REF }; };
+      return {
+        pre: pre('De quién son las casas'),
+        antes: 'Viviendas de sociedades con más de 100 en la ciudad',
+        dos: window.CARTEL.frente(nombres, REF, AQUI, function (id) { return num(m(id).pctSoc100, 2); }, false),
+        que: 'de cada 100 viviendas',
+        sub: 'Según el nombre del recibo del IBI. El Catastro no da el nombre de las sociedades.',
+        cajas: [caja(REF), caja(AQUI), fuente('Dirección General del Catastro, padrón del IBI de 2026, uso residencial por tipo de titular.')]
+      };
+    }, function (n) { return 'De quién son las casas en Parla y en ' + n; }, 'duenos');
+
+    botones('#hacinamiento-botones', 'hacinamiento', 'Cómo son las casas', function () {
+      const caja = function (id) {
+        return { q: NOMBRE[id], v: entero(C[id].censo.hog5en60) + ' de ' + entero(C[id].censo.hogares) + ' hogares', ref: id === REF };
+      };
+      return {
+        pre: pre('Cómo son las casas'),
+        antes: 'Hogares de 5 o más personas en viviendas de 60 m² o menos',
+        dos: window.CARTEL.frente(nombres, REF, AQUI, function (id) { return num(m(id).hog5, 2); },
+          num(m(REF).hog5, 2) !== num(m(AQUI).hog5, 2) && m(REF).hog5 > m(AQUI).hog5),
+        que: 'de cada 100 hogares',
+        sub: entre(todas(function (id) { return Math.round(m(id).hog5 * 100); }), 'hogares de 5 o más personas en viviendas de 60 m² o menos') +
+          ' Censo de 2021.',
+        cajas: [caja(REF), caja(AQUI), fuente('INE, Censo de Población y Viviendas 2021, hogares por tamaño y superficie.')]
+      };
+    }, function (n) { return 'Las familias grandes en pisos pequeños en Parla y en ' + n; }, 'hacinamiento');
+
+    botones('#desahucios-botones', 'desahucios', 'Cuando no se puede pagar', function () {
+      const P = V.partidos, pp = P[cp.partido], pa = P[C[AQUI].partido];
+      const ult = pp.total.length - 1, anio = V.lanzDesde + ult;
+      const p = m(REF), a = m(AQUI);
+      const mismo = C[AQUI].partido === cp.partido;
+      return {
+        pre: pre('Cuando no se puede pagar'),
+        antes: 'Demandas por alquiler en los juzgados, ' + anio,
+        dos: frente(function (id) { return num(m(id).demandas, 1); }, p.demandas > a.demandas),
+        que: 'por cada 100.000 habitantes',
+        sub: mismo
+          ? 'Parla y ' + NOMBRE[AQUI] + ' comparten partido judicial: ' + entero(pp.demandas[ult]) + ' demandas en el año.'
+          : entero(pp.demandas[ult]) + ' demandas en el partido judicial de Parla y ' + entero(pa.demandas[ult]) + ' en el de ' + NOMBRE[AQUI] + '.',
+        cajas: [fuente('CGPJ, base de datos de la estadística judicial, ' + anio + '; INE, padrón.')]
+      };
+    }, function (n) { return 'Las demandas de alquiler en Parla y en ' + n; });
   }
 
   /* ── Pintar ───────────────────────────────────────────────────────── */
@@ -772,6 +970,7 @@
     publica();
     desahucios();
     parque();
+    carteles();
     if (window.INDICE) window.INDICE.refrescar({ ciudad: AQUI, nombre: NOMBRE[AQUI] });
   }
 

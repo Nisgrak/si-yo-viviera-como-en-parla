@@ -109,7 +109,11 @@
       d.dos.forEach(function (x) {
         const c = el('div', 'ktit__col');
         c.appendChild(el('span', 'ktit__a', esc(x.quien)));
+        /* `nota`: una línea corta bajo el nombre (el hospital, la salida). */
+        if (x.nota) c.appendChild(el('span', 'ktit__h ktit__h--nota', esc(x.nota)));
         c.appendChild(el('span', 'ktit__n ktit__n--col' + (x.rojo ? ' ktit__n--rojo' : ''), esc(x.cifra)));
+        /* `pie`: lo que dice la cifra, pegado a ella («salen por cada una que entra»). */
+        if (x.pie) c.appendChild(el('span', 'ktit__h ktit__h--pie', esc(x.pie)));
         g.appendChild(c);
       });
       tit.appendChild(g);
@@ -209,19 +213,28 @@
     regla.style.fontFamily = getComputedStyle(tit).fontFamily;
     capa.appendChild(regla);
     const palabras = [];
+    /* Con dos columnas, lo que va dentro de una (el nombre, la línea bajo él, la cifra, lo que va pegado
+       a ella) tiene que caber en el ancho de la columna, que es la mitad. */
+    const col = tit.querySelector('.ktit__col');
+    const anchoCol = col ? col.clientWidth : ancho;
     tit.querySelectorAll('span').forEach(function (sp) {
-      /* Una cifra de columna tiene la mitad del ancho: se mide como si fuera el doble de grande. */
-      const e = sp.classList.contains('ktit__n--col') ? 2.85 : sp.classList.contains('ktit__n') ? 1.35 :
-        sp.classList.contains('ktit__a') ? 0.42 : 1;
-      sp.textContent.split(/\s+/).forEach(function (w) { if (w) palabras.push({ t: w, e: e }); });
+      /* El nombre y las líneas pequeñas llevan menos cierre de letras que el titular (que es lo que mide la regla): se les da un poco de aire. */
+      const e = sp.classList.contains('ktit__n') ? 1.35 :
+        sp.classList.contains('ktit__a') ? 0.42 * 1.1 : sp.classList.contains('ktit__h') ? 0.3 * 1.1 : 1;
+      const lim = sp.closest('.ktit__col') ? anchoCol : ancho;
+      /* La cifra (.ktit__n) hereda el cierre de letras del titular en puntos, no en em de su propio
+         cuerpo (1,35 veces mayor): la regla lo copia, o se queda corta y la cifra se sale de su columna. */
+      const cifra = sp.classList.contains('ktit__n');
+      sp.textContent.split(/\s+/).forEach(function (w) { if (w) palabras.push({ t: w, e: e, lim: lim, cifra: cifra }); });
     });
     let pt = 160;
     for (; pt > 28; pt -= 2) {
       let cabe = true;
       for (let k = 0; k < palabras.length; k++) {
         regla.style.fontSize = (pt * palabras[k].e) + 'pt';
+        regla.style.letterSpacing = palabras[k].cifra ? (-0.035 * pt) + 'pt' : '-.035em';
         regla.textContent = palabras[k].t;
-        if (regla.offsetWidth > ancho) { cabe = false; break; }
+        if (regla.offsetWidth > palabras[k].lim) { cabe = false; break; }
       }
       if (!cabe) continue;
       tit.style.fontSize = pt + 'pt';
@@ -240,6 +253,32 @@
     cajas(capa, d.cajas || []);
     banda(raiz, ciudad);
     ajustar(raiz, tit, fondo);
+  }
+
+  /* Las dos ciudades frente a frente, para `dos`: Parla en rojo solo si va peor
+     y el dato tiene sentido marcado (peor). nombres: { id: nombre }; f(id) da la
+     cifra; extra.nota(id) y extra.pie(id), si hay, van bajo el nombre y bajo la cifra. */
+  function frente(nombres, ref, aqui, f, peor, extra) {
+    return [ref, aqui].map(function (id) {
+      const x = { quien: nombres[id], cifra: f(id), rojo: id === ref && !!peor };
+      if (extra && extra.nota) x.nota = extra.nota(id);
+      if (extra && extra.pie) x.pie = extra.pie(id);
+      return x;
+    });
+  }
+
+  /* El puesto de Parla entre las ciudades con dato, desde el lado más
+     cercano: «la más alta», «la segunda más baja», «la 4.ª más alta». */
+  const LETRA = ['cero', 'una', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez', 'once', 'doce'];
+  function puesto(vals, ref) {
+    const ids = Object.keys(vals).filter(function (i) { return vals[i] != null; });
+    const mayores = ids.filter(function (i) { return vals[i] > vals[ref]; }).length;
+    const menores = ids.filter(function (i) { return vals[i] < vals[ref]; }).length;
+    const alta = mayores <= menores;
+    const p = (alta ? mayores : menores) + 1;
+    const lado = alta ? 'alta' : 'baja';
+    return { texto: p === 1 ? 'la más ' + lado : p === 2 ? 'la segunda más ' + lado : 'la ' + p + '.ª más ' + lado,
+      n: ids.length, letra: LETRA[ids.length] || String(ids.length) };
   }
 
   /* ── Imprimir ───────────────────────────────────────────────────────── */
@@ -389,7 +428,8 @@
   }
 
   window.CARTEL = {
-    boton: boton, enlace: enlace, abrir: abrir, cifra: cifraElegida,
+    boton: boton, enlace: enlace, abrir: abrir, cifra: cifraElegida, frente: frente, puesto: puesto,
+    montar: montarDatos,
     piezas: { hoja: hoja, base: base, titular: titular, cajas: cajas, banda: banda, tira: tira, ajustar: ajustar }
   };
 })();

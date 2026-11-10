@@ -47,41 +47,23 @@
 
   /* ── Formato ──────────────────────────────────────────────────────── */
 
-  /* useGrouping explícito: el formato es-ES por defecto deja los cuatro
-     dígitos sin punto («1345») y aquí conviven cifras de tres y de seis. */
-  function entero(n) { return n.toLocaleString('es-ES', { useGrouping: true }); }
-
-  function num(n, dec) {
-    if (dec === undefined) dec = Math.abs(n - Math.round(n)) < 0.05 ? 0 : 1;
-    return n.toLocaleString('es-ES',
-      { useGrouping: true, minimumFractionDigits: dec, maximumFractionDigits: dec });
-  }  /* Euros por habitante: de 10 € para arriba, sin céntimos, que sobre 780 €
+  /* Las cifras se escriben en calculo.js, igual que en la vista previa de cada ficha. */
+  const F = window.CALCULO.formato;
+  const entero = F.entero;
+  const num = F.num;
+    /* Euros por habitante: de 10 € para arriba, sin céntimos, que sobre 780 €
      son ruido; por debajo, con ellos, para que 0,02 € no se lea 0. Los
      recibos (lo que paga un vecino) van siempre con céntimos. */
   function eurHab(v) { return num(v, Math.abs(v) >= 10 || v === 0 ? 0 : 2); }
 
 
-  /* Dos decimales sobre 281 es ruido; sobre 1,45 es información. */
-  function numTasa(v) {
-    return num(v, v >= 100 ? 0 : v >= 10 ? 1 : 2);
-  }
-
-  /* Una superficie, en la unidad que se lea: kilómetros cuadrados, hectáreas o
-     metros, según el tamaño. `redonda` quita los decimales, para el cartel. */
-  function unidadSuperficie(m2) { return m2 >= 1000000 ? 'km2' : m2 >= 10000 ? 'ha' : 'm2'; }
-  /* `unidad` fuerza una unidad, para que dos cifras de una misma frase vayan
-     en la misma. Entre cifra y unidad, espacio duro: no se parten de línea. */
-  function enSuperficie(m2, redonda, unidad) {
-    const u = unidad || unidadSuperficie(m2);
-    if (u === 'km2') return num(m2 / 1000000, redonda ? 1 : 2) + ' km²';
-    if (u === 'ha') return num(m2 / 10000, redonda ? 0 : 1) + ' ha';
-    return entero(Math.round(m2)) + ' m²';
-  }
+  const numTasa = F.numTasa;
+  const enSuperficie = F.enSuperficie;
 
   /* Casi todos los indicadores cuentan cosas; el verde mide superficie. Estas
      dos funciones son el único sitio donde eso importa al escribir la cifra. */
   const esSuperficie = window.CALCULO.esSuperficie;
-  function cantidad(c, v, dec) { return esSuperficie(c) ? enSuperficie(v) : num(v, dec); }
+  const cantidad = F.cantidad;
 
 
   function el(tag, cls, html) {
@@ -350,9 +332,8 @@
 
     /* Las dos barras son dos números sueltos si no se dice de qué. El titular
        del bloque ya dice qué se cuenta, así que aquí basta el divisor. */
-    cont.appendChild(el('p', 'tasas__ley', esSuperficie(c)
-      ? 'Metros cuadrados por habitante'
-      : 'Por cada ' + entero(c.por) + ' ' + c.base.etiqueta));
+    const texto = window.CALCULO.tasasFicha(c);
+    cont.appendChild(el('p', 'tasas__ley', texto.ley));
 
     if (c.ind.base && c.ind.base !== 'total') {
       cont.appendChild(el('p', 'tasas__base',
@@ -369,7 +350,7 @@
       barra.style.setProperty('--v', (f.v / max).toFixed(4));
       pista.appendChild(barra);
       fila.appendChild(pista);
-      fila.appendChild(el('span', 'tasa__valor', esSuperficie(c) ? num(f.v, 1) : numTasa(f.v)));
+      fila.appendChild(el('span', 'tasa__valor', f.id === REF ? texto.parla : texto.otra));
       cont.appendChild(fila);
     });
 
@@ -471,29 +452,7 @@
 
     if (esCartera(c)) return fichaCartera(art, c, modo, sentido);
 
-    const g = i.gen || 'm';
-    let titular;
-    if (sobra) {
-      titular = 'Tiene <span class="cifra">' + cantidad(c, -c.falta) + '</span> <span class="resto">' +
-        (c.otra === 0 ? (i.id === 'camas' && hospitalDeFuera('camas') ? 'en su término, ' : '') +
-          'donde ' + NOMBRE[AQUI] + ' no tiene ' + ninguno[g] : 'más de ' +
-        (g === 'f' ? 'las' : 'los') + ' que le tocarían') + '</span>';
-    } else if (esSuperficie(c)) {
-      /* Las dos cifras en la misma unidad, la de lo que falta. */
-      const u = unidadSuperficie(c.falta);
-      titular = 'Le faltan <span class="cifra">' + enSuperficie(c.falta, false, u) + '</span> <span class="resto">' +
-        'a ' + (c.parla ? (u === 'ha' ? 'las ' : 'los ') + enSuperficie(c.parla, false, u) + ' que tiene'
-          : 'lo que tiene') + '</span>';
-    } else if (c.parla === 0) {
-      /* Singular solo con exactamente una: con decimales va en plural. */
-      titular = 'No tiene <span class="cifra cifra--palabra">' + ninguno[g] + '</span> ' +
-        '<span class="resto">y le ' + (num(c.tendria) === '1' ? 'correspondería' : 'corresponderían') + ' ' +
-        num(c.tendria) + '</span>';
-    } else {
-      titular = 'Le faltan <span class="cifra">' + num(c.falta) + '</span> <span class="resto">a ' +
-        (c.parla === 1 ? (g === 'f' ? 'la única' : 'el único')
-          : (g === 'f' ? 'las ' : 'los ') + entero(c.parla)) + ' que tiene</span>';
-    }
+    const titular = window.CALCULO.titularFicha(c, modo, { nombre: NOMBRE[AQUI], deFuera: !!hospitalDeFuera('camas') });
     const tit = el('p', 'ind__titular', titular);
     tit.dataset.sentido = sentido;
     art.appendChild(tit);
@@ -533,16 +492,7 @@
   function fichaCartera(art, c, modo, sentido) {
     const i = c.ind;
     const sobra = modo === 'sobra';
-    let titular;
-    if (sobra) {
-      titular = 'Tiene <span class="cifra">' + c.soloParla.length + '</span> <span class="resto">' +
-        (c.otra ? 'unidades que no ' + (c.plural ? 'tienen ' : 'tiene ') + (c.frase || 'el ' + c.nombre)
-          : 'unidades ' + (hospitalDeFuera('unidades') ? 'en su término, ' : '') + 'donde ' + NOMBRE[AQUI] +
-            ' no tiene hospital público') + '</span>';
-    } else {
-      titular = 'Le faltan <span class="cifra">' + c.lista.length + '</span> <span class="resto">' +
-        'unidades que sí ' + (c.plural ? 'tienen ' : 'tiene ') + (c.frase || 'el ' + c.nombre) + '</span>';
-    }
+    const titular = window.CALCULO.titularFicha(c, modo, { nombre: NOMBRE[AQUI], deFuera: !!hospitalDeFuera('unidades') });
     const tit = el('p', 'ind__titular', titular);
     tit.dataset.sentido = sentido;
     art.appendChild(tit);
@@ -1153,7 +1103,7 @@
       art.appendChild(el('p', 'renta__nota', texto(s.nota, huecos)));
       art.appendChild(pieFuente([s.fuenteId].concat(s.masFuentes || [], s.saldoEuros
         ? [D.BASES.total.fuenteId, ['deudaMetodo', 'Definición: ']] : [])));
-      if (s.alAnio && !alAnio(s).igual) art.appendChild(botonCartel({ dinero: s }, null));
+      if (s.alAnio && !alAnio(s).igual) art.appendChild(botonesDinero(s));
       cont.appendChild(art);
     });
     const imp = D.contexto.impuestosDirectos;
@@ -1389,6 +1339,9 @@
       const b = c.base;
       return entero(b.valores[id]) + ' ' + (b === D.BASES.total ? 'vecinos' : b.etiqueta);
     };
+    /* El rojo, solo en la columna de Parla, si el dato tiene sentido marcado y a Parla le va peor. */
+    const sentido = window.SENTIDO && window.SENTIDO.de(i.id);
+    const peor = function (distinto, p, o) { return distinto && (sentido === 'mas' ? p < o : sentido === 'menos' ? p > o : false); };
     let d;
     if (esCartera(c)) {
       d = sobra
@@ -1397,14 +1350,17 @@
             : 'en el hospital de ' + NOMBRE_REF + '. ' + NOMBRE[AQUI] + ' no tiene hospital público.' }
         : { cifra: entero(cuantos), que: cuantos === 1 ? 'unidad' : 'unidades', sub: 'que ' + tiene + suyo(c.nombre) + ' y el de ' + NOMBRE_REF + ' no.' };
     } else if (esSuperficie(c)) {
-      d = { antes: NOMBRE_REF + ' tiene', cifra: num(c.tasaParla, 1) + ' m²', que: 'de verde por vecino',
-        sub: NOMBRE[AQUI] + ' tiene ' + num(c.tasaOtra, 1) + ' m².' };
+      d = { antes: 'Zonas verdes de cada ciudad',
+        dos: window.CARTEL.frente(NOMBRE, REF, AQUI, function (id) { return num(id === REF ? c.tasaParla : c.tasaOtra, 1) + ' m²'; },
+          peor(num(c.tasaParla, 1) !== num(c.tasaOtra, 1), c.tasaParla, c.tasaOtra)),
+        que: 'de verde por vecino' };
     } else {
       /* Lo que hay en cada ciudad, en bruto, con su población al lado: sin
          proporciones, y justo aunque una ciudad sea mucho más grande. */
-      d = { antes: NOMBRE_REF + ' tiene', cifra: entero(c.parla), que: c.parla === 1 && i.sing ? i.sing : i.titulo,
-        sub: 'para ' + gente(REF) + '. ' + NOMBRE[AQUI] + ' tiene ' + entero(c.otra) + ' para ' +
-          entero(c.base.valores[AQUI]) + '.' };
+      d = { antes: 'Lo que tiene cada ciudad',
+        dos: window.CARTEL.frente(NOMBRE, REF, AQUI, function (id) { return entero(id === REF ? c.parla : c.otra); },
+          peor(entero(c.parla) !== entero(c.otra), c.parla, c.otra), { nota: function (id) { return 'para ' + gente(id); } }),
+        que: i.titulo };
     }
     const tit = K.titular(capa, d);
 
@@ -1431,32 +1387,32 @@
     K.ajustar(raiz, tit, fondo);
   }
 
-  /* El cartel del gasto o la inversión: la cifra en euros al año y, en las
-     cajas, la media de la Comunidad, la referencia que no depende de la
-     ciudad elegida. */
+  /* El cartel del gasto o la inversión: el mismo que el de economia.html. Las
+     dos ciudades frente a frente con su cifra por vecino al año (la de la
+     ficha, con su redondeo y sin «€» pegado), la frase de lo que cambiaría
+     para Parla y, en las cajas, la media de la Comunidad, la referencia que
+     no depende de la ciudad elegida, y la fuente. El rojo, en la columna de
+     Parla, solo si a Parla le va peor. */
   function cartelDinero(s, fondo) {
     const a = alAnio(s);
-    const raiz = K.hoja();
-    const capa = K.base(raiz, fondo, PRE());
-    const cifra = window.CARTEL.cifra() === 'exacta' || a.dif < 1e7
-      ? num(Math.abs(a.dif) / 1e6, 1) : entero(Math.round(Math.abs(a.dif) / 1e6));
-    const verbo = s.id === 'inversion' ? 'invierte' : 'gasta';
-    /* Las dos ciudades frente a frente; la que se queda corta, en rojo. */
-    const tit = K.titular(capa, {
-      antes: 'Lo que ' + verbo + ' cada ayuntamiento',
-      dos: [{ quien: NOMBRE_REF, cifra: entero(s.valores[REF]) + '\u00a0€', rojo: a.dif > 0 },
-        { quien: NOMBRE[AQUI], cifra: entero(s.valores[AQUI]) + '\u00a0€', rojo: a.dif < 0 }],
-      que: 'por vecino al año',
-      sub: a.dif > 0
-        ? 'Al ritmo de ' + NOMBRE[AQUI] + ', Parla tendría ' + cifra + '\u00a0millones de euros más cada año.'
-        : 'Parla pone ' + cifra + '\u00a0millones de euros más cada año que si ' + (s.id === 'inversion' ? 'invirtiera' : 'gastara') + ' como ' + NOMBRE[AQUI] + '.'
-    });
+    const f = D.fuentes[s.fuenteId];
+    const fuente = f.t.replace(' · ', ', ').replace(/\s*\(XLSX\)/, '') + '.';
     const medias = [];
-    if (s.mediaRegional != null) medias.push({ q: s.refNombre, v: entero(s.mediaRegional) + '\u00a0€ por vecino' });
-    if (s.mediaSinCapital != null) medias.push({ q: 'Sin Madrid capital', v: entero(s.mediaSinCapital) + '\u00a0€ por vecino' });
-    K.cajas(capa, medias);
-    K.banda(raiz, AQUI);
-    K.ajustar(raiz, tit, fondo);
+    if (s.mediaRegional != null) medias.push({ q: s.refNombre, v: eurHab(s.mediaRegional) + '\u00a0€ por vecino' });
+    if (s.mediaSinCapital != null) medias.push({ q: 'Sin Madrid capital', v: eurHab(s.mediaSinCapital) + '\u00a0€ por vecino' });
+    const grupo = s.id === 'inversion' ? ['Lo que construye', 'Lo que invierte cada ayuntamiento'] : ['Lo que gasta', 'Lo que gasta cada ayuntamiento'];
+    const frase = a.igual
+      ? 'Con ' + s.alAnio.con + ' de ' + NOMBRE[AQUI] + ', Parla se quedaría prácticamente igual.'
+      : 'Con ' + s.alAnio.con + ' de ' + NOMBRE[AQUI] + ', Parla ' + s.alAnio.verbo + ' ' + enEuros(Math.abs(a.dif)) + ' ' +
+        (a.dif > 0 ? 'más' : 'menos') + ' al año.';
+    window.CARTEL.montar({
+      pre: NOMBRE_REF + ' frente a ' + NOMBRE[AQUI] + ' · ' + grupo[0],
+      antes: grupo[1],
+      dos: window.CARTEL.frente(NOMBRE, REF, AQUI, function (id) { return eurHab(s.valores[id]); }, a.dif > 0),
+      que: 'euros por vecino al año',
+      sub: frase,
+      cajas: medias.concat([{ q: 'Fuente', v: ((s.pieCiudad && s.pieCiudad[AQUI]) || s.pie) + '. ' + fuente }])
+    }, AQUI, fondo);
   }
 
   /* El cartel de la situación general: el total del recuento en el titular
@@ -1502,7 +1458,7 @@
   function compartir(caso, modo) {
     const general = caso === 'general';
     window.CARTEL.abrir({
-      cifra: true,
+      cifra: !(caso && caso.dinero),
       /* El título es el nombre que el navegador propone para el PDF. */
       titulo: function () {
         return 'Parla como ' + NOMBRE[AQUI] + ' · ' +
@@ -1527,12 +1483,33 @@
     return b;
   }
 
-  /* Al pie de cada ficha: el cartel y el enlace a esa ficha, que copia el
-     botón de la cadena (assets/indice.js). */
+  /* El cartel de inversión o gasto y «Compartir esta sección», con la misma
+     vista previa que en economia.html (/getafe/inversion/, /getafe/gasto/,
+     que escribe herramientas/compartir.mjs). */
+  function botonesDinero(s) {
+    const caja = el('div', 'seccion__botones');
+    caja.id = s.id + '-botones';
+    caja.appendChild(botonCartel({ dinero: s }, null));
+    caja.appendChild(window.CARTEL.enlace({
+      url: function () { return RUTAS ? RAIZ_WEB + AQUI + '/' + s.id + '/' : 'index.html?ir=dinero-' + s.id + '#' + AQUI; },
+      titulo: function () {
+        return (s.id === 'inversion' ? 'Lo que construye el ayuntamiento en Parla y en ' : 'Lo que gasta el ayuntamiento en Parla y en ') + NOMBRE[AQUI];
+      }
+    }));
+    return caja;
+  }
+
+  /* Al pie de cada ficha: el cartel y «Compartir esta sección», con la vista
+     previa de esa ficha para la ciudad elegida (/getafe/ind-metro/, que
+     escribe herramientas/compartir.mjs). Desde la carpeta, el enlace es
+     index.html?ir=ind-metro#getafe. */
   function acciones(c, modo, id) {
     const caja = el('div', 'ind__acciones');
     caja.appendChild(botonCartel(c, modo));
-    if (window.INDICE && window.INDICE.enlace) caja.appendChild(window.INDICE.enlace(id));
+    caja.appendChild(window.CARTEL.enlace({
+      url: function () { return RUTAS ? RAIZ_WEB + AQUI + '/' + id + '/' : 'index.html?ir=' + id + '#' + AQUI; },
+      titulo: function () { return c.ind.titulo + ' en Parla y en ' + NOMBRE[AQUI]; }
+    }));
     return caja;
   }
 

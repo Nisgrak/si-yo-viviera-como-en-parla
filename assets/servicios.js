@@ -41,6 +41,12 @@
   const CIFRA_LETRA = ['cero', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis',
     'siete', 'ocho', 'nueve', 'diez', 'once', 'doce'];
   function letra(n) { return CIFRA_LETRA[n] || String(n); }
+  /* El rojo del cartel, solo en la columna de Parla: si el dato tiene sentido marcado en la página
+     (data-sentido de sus cifras), la cifra se ve distinta y a Parla le va peor. */
+  function parlaPeor(sel, fmt, p, o) {
+    const e = $(sel), sen = e && e.dataset.sentido;
+    return fmt(p) !== fmt(o) && (sen === 'mas' ? p < o : sen === 'menos' ? p > o : false);
+  }
 
   /* ── Qué ciudad ───────────────────────────────────────────────────── */
 
@@ -65,7 +71,7 @@
 
   /* El cartel A4 y «Compartir esta sección» al final de una sección. La
      vista previa de /<ciudad>/<clave>/ la escribe herramientas/compartir.mjs. */
-  function botones(sel, clave, titulo, datos, tituloEnlace) {
+  function botones(sel, clave, titulo, datos, tituloEnlace, ir) {
     const bot = $(sel);
     if (!bot) return;
     vaciar(bot);
@@ -75,7 +81,7 @@
       titulo: function () { return 'Parla y ' + NOMBRE[AQUI] + ' · ' + titulo; }
     }));
     bot.appendChild(window.CARTEL.enlace({
-      url: function () { return RUTAS ? RAIZ_WEB + AQUI + '/' + clave + '/' : PAGINA + '.html?ir=' + clave + '#' + AQUI; },
+      url: function () { return RUTAS ? RAIZ_WEB + AQUI + '/' + clave + '/' : PAGINA + '.html?ir=' + (ir || clave) + '#' + AQUI; },
       titulo: function () { return tituloEnlace; }
     }));
   }
@@ -111,6 +117,34 @@
      que le corresponde a cada ciudad (Pinto no tiene: le toca el de
      Getafe), con la demora media de los que siguen en lista. Si en alguna
      lista Parla espera menos, se dice. */
+  /* Las dos listas con su propio cartel: la primera consulta con el especialista y
+     las pruebas. Parla y la otra ciudad frente a frente, cada una con el hospital
+     que le toca; el rojo, en la columna de Parla, si espera más (menos días es mejor). */
+  const TEXTO_LISTA = {
+    consultas: { seccion: 'La primera consulta', antes: 'Para la primera consulta con el especialista',
+      sub: 'Días que llevan de media en lista los que siguen esperando', enlace: 'La primera consulta con el especialista en Parla y en ' },
+    pruebas: { seccion: 'Las pruebas', antes: 'Para una prueba diagnóstica',
+      sub: 'Escáner, resonancia, ecografía, colonoscopia… Días que llevan de media en lista los que siguen esperando',
+      enlace: 'La espera para una prueba en Parla y en ' }
+  };
+  function cartelLista(k, r, a, S) {
+    const T = TEXTO_LISTA[k];
+    const hospital = function (c) { return c.corto.replace(/^(el|la) /, ''); };
+    botones('#' + k + '-botones', k, T.seccion, function () {
+      const c = function (id) { return id === REF ? r : a; };
+      const d = function (id) { return c(id)[k].dias; };
+      return {
+        pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · ' + T.seccion + ', ' + S.mes,
+        antes: T.antes,
+        dos: window.CARTEL.frente(NOMBRE, REF, AQUI, function (id) { return num(d(id), 1); },
+          num(d(REF), 1) !== num(d(AQUI), 1) && d(REF) > d(AQUI), { nota: function (id) { return hospital(c(id)); } }),
+        que: 'días de media en lista',
+        sub: T.sub + ' en ' + S.mes + ', en el hospital que le toca a cada ciudad.',
+        cajas: [{ q: 'Fuente', v: S.fuentes.consulta[0].replace(' · ', ', ') + '.' }]
+      };
+    }, T.enlace + NOMBRE[AQUI], 'espera-' + k);
+  }
+
   function espera() {
     const S = window.SANIDAD;
     const caja = $('#espera');
@@ -204,8 +238,16 @@
         ul.appendChild(li);
       });
       cont.appendChild(ul);
-      if (r[k] && a[k]) comparar(r[k], a[k]);
-      else {
+      if (r[k] && a[k]) {
+        comparar(r[k], a[k]);
+        if (TEXTO_LISTA[k]) {
+          /* El cartel de la lista y «Compartir esta sección» (/getafe/consultas/, /getafe/pruebas/). */
+          const bl = el('div', 'seccion__botones');
+          bl.id = k + '-botones';
+          cont.appendChild(bl);
+          cartelLista(k, r, a, S);
+        }
+      } else {
         const sin = [r, a].filter(function (c) { return !c[k]; }).map(function (c) { return c.corto; });
         cont.appendChild(el('p', 'salir__pie', mayuscula(listaY(sin)) + (sin.length > 1 ? ' no tienen' : ' no tiene') +
           ' dato de esta lista en ' + S.mes + '.'));
@@ -252,8 +294,12 @@
       datos: function () {
         return {
           pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · La espera, ' + S.mes,
-          antes: 'Para operarse en Parla se esperan', cifra: num(r.quirurgica.dias, 0), que: 'días',
-          sub: 'En ' + a.corto + ', ' + num(a.quirurgica.dias, 0) + '.',
+          antes: 'Días de espera media para operarse',
+          dos: window.CARTEL.frente(NOMBRE, REF, AQUI, function (id) { return num((id === REF ? r : a).quirurgica.dias, 1); },
+            num(r.quirurgica.dias, 1) !== num(a.quirurgica.dias, 1) && r.quirurgica.dias > a.quirurgica.dias,
+            { nota: function (id) { return sinArticulo(id === REF ? r : a); } }),
+          que: 'días',
+          sub: 'En lista, en el hospital que le toca a cada ciudad, en ' + S.mes + '.',
           cajas: [{ q: 'Parla, primera consulta', v: dias(r.consultas.dias), ref: true },
             { q: NOMBRE[AQUI] + ', primera consulta', v: a.consultas ? dias(a.consultas.dias) : 'sin dato' }]
         };
@@ -404,6 +450,20 @@
         : [['memoria de 2024 ' + del_(a.corto), S.memorias[a.hid]]]));
 
     botones('#hospital-botones', 'hospital', 'El hospital', function () {
+      /* Con camas por persona de los dos hospitales, frente a frente; si falta el de la otra ciudad, Parla sola. */
+      if (!misma && a.por1000 != null) {
+        return {
+          pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · El hospital',
+          antes: 'Camas del hospital público por cada 1.000 personas que atiende',
+          dos: window.CARTEL.frente(NOMBRE, REF, AQUI, function (id) { return num((id === REF ? r : a).por1000, 1); },
+            parlaPeor('#hospital-cifras', function (x) { return num(x, 1); }, r.por1000, a.por1000),
+            { nota: function (id) { return mayuscula((id === REF ? r : a).corto); } }),
+          que: 'camas',
+          sub: 'El hospital de Parla tiene ' + entero(r.camas) + ' camas para ' + entero(r.pob) + ' personas; ' + a.corto + ', ' +
+            entero(a.camas) + ' para ' + entero(a.pob) + '.',
+          cajas: [{ q: 'El Infanta Cristina', v: entero(r.camas) + ' camas para ' + entero(r.pob) + ' personas', ref: true }]
+        };
+      }
       return {
         pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · El hospital',
         antes: 'El hospital de Parla tiene', cifra: entero(r.camas), que: 'camas',
@@ -557,14 +617,31 @@
       filasPar(cont, L[1], [['Parla', c(REF)[k], 'referencia'], [NOMBRE[AQUI], c(AQUI)[k], 'aqui'],
         ['Toda la Comunidad de Madrid', P.comunidad[k], 'otro']], tope, entero, 'menos', 'cabecera-' + k);
     });
+    /* Pediatría, con su cartel y su vista previa (/getafe/pediatras/). */
+    botones('#pediatras-botones', 'pediatras', 'Los pediatras', function () {
+      const pu = deMenos(function (id) { return c(id).pediatria; });
+      return {
+        pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · Los pediatras',
+        antes: 'Tarjetas de 0 a 13 años por cada plaza de pediatra',
+        dos: [{ quien: NOMBRE[REF], cifra: entero(c(REF).pediatria), rojo: c(REF).pediatria > c(AQUI).pediatria },
+          { quien: NOMBRE[AQUI], cifra: entero(c(AQUI).pediatria) }],
+        que: 'tarjetas por plaza',
+        sub: 'Ordenadas de menos a más tarjetas por plaza, Parla es la ' + pu + '.ª de las ' + letra(IDS_TODAS().length) +
+          ' en pediatría.',
+        cajas: [{ q: 'Toda la Comunidad de Madrid', v: entero(P.comunidad.pediatria) + ' tarjetas por plaza' },
+          { q: 'Fuente', v: P.fuentes.plantilla[0].replace(' · ', ', ') + '; ' + P.fuentes.tarjetas[0].replace(' · ', ', ') + '.' }]
+      };
+    }, 'Los pediatras en Parla y en ' + NOMBRE[AQUI], 'cabecera-pediatria');
     $('#cabecera-cuenta').textContent = 'Ordenadas de menos a más tarjetas por plaza, Parla es la ' +
       deMenos(function (id) { return c(id).familia; }) + '.ª de las ' + letra(IDS_TODAS().length) + ' en medicina de familia y la ' +
       deMenos(function (id) { return c(id).pediatria; }) + '.ª en pediatría.';
     botones('#cabecera-botones', 'cabecera', 'El médico de cabecera', function () {
       return {
         pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · El médico de cabecera',
-        cifra: entero(c(REF).familia), que: 'tarjetas por médico',
-        sub: 'de familia en Parla. En ' + NOMBRE[AQUI] + ', ' + entero(c(AQUI).familia) + '.',
+        antes: 'Tarjetas sanitarias de 14 años o más por cada plaza de médico de familia',
+        dos: window.CARTEL.frente(NOMBRE, REF, AQUI, function (id) { return entero(c(id).familia); },
+          parlaPeor('#cabecera-cifras', entero, c(REF).familia, c(AQUI).familia)),
+        que: 'tarjetas por médico',
         cajas: [{ q: 'Pediatría en Parla', v: entero(c(REF).pediatria) + ' tarjetas por plaza', ref: true },
           { q: 'Pediatría en ' + NOMBRE[AQUI], v: entero(c(AQUI).pediatria) + ' tarjetas por plaza' }]
       };
@@ -680,8 +757,11 @@
     botones('#fp-botones', 'fp', 'La FP pública', function () {
       return {
         pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · La FP pública',
-        antes: 'Parla tiene', cifra: entero(fp.datos[REF].n), que: 'alumnos de FP',
-        sub: 'pública para ' + entero(base.valores[REF]) + ' jóvenes. ' + NOMBRE[AQUI] + ' tiene ' +
+        antes: 'Alumnos de FP pública por cada 100 chicos y chicas de 12 a 17 años',
+        dos: window.CARTEL.frente(NOMBRE, REF, AQUI, function (id) { return num(v(id), 1); },
+          parlaPeor('#fp-cifras', function (x) { return num(x, 1); }, v(REF), v(AQUI))),
+        que: 'alumnos de FP',
+        sub: 'Parla tiene ' + entero(fp.datos[REF].n) + ' para ' + entero(base.valores[REF]) + ' jóvenes. ' + NOMBRE[AQUI] + ' tiene ' +
           entero(fp.datos[AQUI].n) + ' para ' + entero(base.valores[AQUI]) + '.',
         cajas: [{ q: 'Parla', v: puestoDe(p, IDS_TODAS().length) + ' de las ' + letra(IDS_TODAS().length), ref: true },
           { q: 'Y en Parla', v: (uni.datos[REF].n ? 'con' : 'sin') + ' campus universitario público' }]
@@ -709,9 +789,12 @@
     botones('#artes-botones', 'artes', 'Música, idiomas y artes', function () {
       return {
         pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · Música, idiomas y artes',
-        antes: 'En Parla estudian música, idiomas o artes', cifra: entero(ind.datos[REF].n), que: 'personas',
-        sub: 'de ' + entero(D.BASES.total.valores[REF]) + ' vecinos. En ' + NOMBRE[AQUI] + ', ' + entero(ind.datos[AQUI].n) +
-          ' de ' + entero(D.BASES.total.valores[AQUI]) + '.',
+        antes: 'Alumnos de música, idiomas y artes',
+        dos: window.CARTEL.frente(NOMBRE, REF, AQUI, function (id) { return num(v(id), 1); },
+          parlaPeor('#artes-cifras', function (x) { return num(x, 1); }, v(REF), v(AQUI))),
+        que: 'por cada 1.000 vecinos',
+        sub: 'En Parla estudian ' + entero(ind.datos[REF].n) + ' de ' + entero(D.BASES.total.valores[REF]) + ' vecinos. En ' +
+          NOMBRE[AQUI] + ', ' + entero(ind.datos[AQUI].n) + ' de ' + entero(D.BASES.total.valores[AQUI]) + '.',
         cajas: [{ q: 'Parla', v: puestoDe(p, IDS_TODAS().length) + ' de las ' + letra(IDS_TODAS().length), ref: true }]
       };
     }, 'La música, los idiomas y las artes en Parla y en ' + NOMBRE[AQUI]);
@@ -782,9 +865,10 @@
     botones('#infantil-botones', 'infantil', 'La escuela infantil', function () {
       return {
         pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · La escuela infantil',
-        cifra: num(c(REF).matriculadosPor100, 0), que: 'de cada 100 niños',
-        sub: 'de 0 a 2 años van a una escuela infantil pública en Parla (curso ' + I.cursoMatricula + '). En ' +
-          NOMBRE[AQUI] + ', ' + num(c(AQUI).matriculadosPor100, 0) + '.',
+        antes: 'Niños de 0 a 2 años que van a una escuela infantil pública, curso ' + I.cursoMatricula,
+        dos: window.CARTEL.frente(NOMBRE, REF, AQUI, function (id) { return num(c(id).matriculadosPor100, 1); },
+          parlaPeor('#infantil-cifras', function (x) { return num(x, 1); }, c(REF).matriculadosPor100, c(AQUI).matriculadosPor100)),
+        que: 'de cada 100 niños',
         cajas: [{ q: 'Parla, sin plaza en la admisión ' + I.cursoAdmision, v: num(c(REF).pctSinPlaza, 1) + ' de cada 100 solicitudes', ref: true },
           { q: NOMBRE[AQUI] + ', sin plaza en la admisión ' + I.cursoAdmision, v: num(c(AQUI).pctSinPlaza, 1) + ' de cada 100 solicitudes' }]
       };
@@ -965,8 +1049,12 @@
     botones('#' + clave + '-botones', clave, cfg.titulo, function () {
       return {
         pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · ' + cfg.titulo,
-        antes: 'Parla tiene', cifra: dec(v(REF)), que: unidad,
-        sub: 'por cada ' + entero(por) + ' ' + cfg.baseTxt + '. ' + NOMBRE[AQUI] + ' tiene ' + dec(v(AQUI)) + '.',
+        antes: mayuscula(unidad) + ' por cada ' + entero(por) + ' ' + cfg.baseTxt,
+        dos: window.CARTEL.frente(NOMBRE, REF, AQUI, function (id) { return dec(v(id)); },
+          parlaPeor('#' + clave + '-cifras', dec, v(REF), v(AQUI))),
+        que: unidad,
+        sub: 'Parla tiene ' + de(cuantos(REF)) + ' para ' + entero(base(REF)) + (cfg.baseCorto ? ' ' + cfg.baseCorto : '') + '; ' +
+          NOMBRE[AQUI] + ', ' + de(cuantos(AQUI)) + ' para ' + entero(base(AQUI)) + '.',
         cajas: [{ q: 'Parla', v: cuantos(REF) === 0 && ceros.length === 1 ? 'la única de las ' + letra(todas.length) + ' sin ' + ninguno
           : puestoDe(p, todas.length) + ' de las ' + letra(todas.length), ref: true }]
       };
@@ -999,6 +1087,17 @@
       NOMBRE[AQUI] + ', ' + num(jov(AQUI), 0) + '. Ordenadas de más a menos personas con discapacidad intelectual ' +
       'reconocida por vecino, Parla es ' + puestoDe(deMenos(function (id) { return -vi(id); }), IDS_TODAS().length) +
       ' de las ' + letra(IDS_TODAS().length) + '.';
+    botones('#personas-botones', 'personas', 'Cuánta gente', function () {
+      return {
+        pre: 'Parla frente a ' + NOMBRE[AQUI] + ' · Cuánta gente',
+        antes: 'Personas con discapacidad reconocida',
+        dos: [{ quien: NOMBRE[REF], cifra: num(v(REF), 1) }, { quien: NOMBRE[AQUI], cifra: num(v(AQUI), 1) }],
+        que: 'por cada 1.000 vecinos',
+        sub: 'En total, ' + entero(c(REF).total) + ' personas en Parla y ' + entero(c(AQUI).total) + ' en ' + NOMBRE[AQUI] + '.',
+        cajas: [{ q: 'Fuente', v: X.fuentes.reconocidas[0].replace(' · ', ', ') + '; ' +
+          D.fuentes[D.BASES.total.fuenteId].t.replace(' · ', ', ') + '.' }]
+      };
+    }, 'Cuánta gente tiene una discapacidad reconocida en Parla y en ' + NOMBRE[AQUI]);
     pieFuentes($('#personas-pie'), 'Personas valoradas por los Centros Base de la Comunidad de Madrid, a 31 de diciembre de ' +
       X.anio + ', contra los vecinos del padrón.',
       [X.fuentes.reconocidasEdad, X.fuentes.reconocidas, [D.fuentes[D.BASES.total.fuenteId].t, D.fuentes[D.BASES.total.fuenteId].url]]);

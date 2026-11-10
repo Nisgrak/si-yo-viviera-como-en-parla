@@ -194,7 +194,102 @@
     };
   }
 
-  const CALCULO = { comparar: comparar, faltan: faltan, UMBRAL: UMBRAL, esSuperficie: esSuperficie, umbral: umbral };
+  /* ── Cómo se escribe una ficha ───────────────────────────────────────
+     Las cifras y el titular de cada ficha del recuento. Los usan app.js, que
+     las pinta, y compartir.mjs, que las escribe en la vista previa de cada
+     ficha: una sola forma de redondear y de decir el hueco. */
+  function entero(n) { return n.toLocaleString('es-ES', { useGrouping: true }); }
+  /* useGrouping explícito: el formato es-ES por defecto deja los cuatro
+     dígitos sin punto («1345») y aquí conviven cifras de tres y de seis. */
+  function num(n, dec) {
+    if (dec === undefined) dec = Math.abs(n - Math.round(n)) < 0.05 ? 0 : 1;
+    return n.toLocaleString('es-ES',
+      { useGrouping: true, minimumFractionDigits: dec, maximumFractionDigits: dec });
+  }
+  /* Dos decimales sobre 281 es ruido; sobre 1,45 es información. */
+  function numTasa(v) { return num(v, v >= 100 ? 0 : v >= 10 ? 1 : 2); }
+  /* Una superficie, en la unidad que se lea: kilómetros cuadrados, hectáreas o
+     metros, según el tamaño. `redonda` quita los decimales, para el cartel. */
+  function unidadSuperficie(m2) { return m2 >= 1000000 ? 'km2' : m2 >= 10000 ? 'ha' : 'm2'; }
+  /* `unidad` fuerza una unidad, para que dos cifras de una misma frase vayan
+     en la misma. Entre cifra y unidad, espacio duro: no se parten de línea. */
+  function enSuperficie(m2, redonda, unidad) {
+    const u = unidad || unidadSuperficie(m2);
+    if (u === 'km2') return num(m2 / 1000000, redonda ? 1 : 2) + ' km²';
+    if (u === 'ha') return num(m2 / 10000, redonda ? 0 : 1) + ' ha';
+    return entero(Math.round(m2)) + ' m²';
+  }
+  function cantidad(c, v, dec) { return esSuperficie(c) ? enSuperficie(v) : num(v, dec); }
+  const NINGUNO = { f: 'ninguna', m: 'ninguno' };
+
+  /* El titular de una ficha, en HTML (la cifra en su <span class="cifra">).
+     c: una ficha de faltan(); modo: 'falta' o 'sobra'; ctx: { nombre: la otra
+     ciudad, deFuera: su hospital no está en su término }. */
+  function titularFicha(c, modo, ctx) {
+    const i = c.ind;
+    const sobra = modo === 'sobra';
+    if (i.medida === 'cartera') {
+      return sobra
+        ? 'Tiene <span class="cifra">' + c.soloParla.length + '</span> <span class="resto">' +
+          (c.otra ? 'unidades que no ' + (c.plural ? 'tienen ' : 'tiene ') + (c.frase || 'el ' + c.nombre)
+            : 'unidades ' + (ctx.deFuera ? 'en su término, ' : '') + 'donde ' + ctx.nombre +
+              ' no tiene hospital público') + '</span>'
+        : 'Le faltan <span class="cifra">' + c.lista.length + '</span> <span class="resto">' +
+          'unidades que sí ' + (c.plural ? 'tienen ' : 'tiene ') + (c.frase || 'el ' + c.nombre) + '</span>';
+    }
+    const g = i.gen || 'm';
+    if (sobra) {
+      return 'Tiene <span class="cifra">' + cantidad(c, -c.falta) + '</span> <span class="resto">' +
+        (c.otra === 0 ? (i.id === 'camas' && ctx.deFuera ? 'en su término, ' : '') +
+          'donde ' + ctx.nombre + ' no tiene ' + NINGUNO[g] : 'más de ' +
+        (g === 'f' ? 'las' : 'los') + ' que le tocarían') + '</span>';
+    }
+    if (esSuperficie(c)) {
+      /* Las dos cifras en la misma unidad, la de lo que falta. */
+      const u = unidadSuperficie(c.falta);
+      return 'Le faltan <span class="cifra">' + enSuperficie(c.falta, false, u) + '</span> <span class="resto">' +
+        'a ' + (c.parla ? (u === 'ha' ? 'las ' : 'los ') + enSuperficie(c.parla, false, u) + ' que tiene'
+          : 'lo que tiene') + '</span>';
+    }
+    if (c.parla === 0) {
+      /* Singular solo con exactamente una: con decimales va en plural. */
+      return 'No tiene <span class="cifra cifra--palabra">' + NINGUNO[g] + '</span> ' +
+        '<span class="resto">y le ' + (num(c.tendria) === '1' ? 'correspondería' : 'corresponderían') + ' ' +
+        num(c.tendria) + '</span>';
+    }
+    return 'Le faltan <span class="cifra">' + num(c.falta) + '</span> <span class="resto">a ' +
+      (c.parla === 1 ? (g === 'f' ? 'la única' : 'el único')
+        : (g === 'f' ? 'las ' : 'los ') + entero(c.parla)) + ' que tiene</span>';
+  }
+
+  /* Lo que enseñan las dos columnas de la ficha: la ley («Por cada 100.000
+     habitantes») y la tasa de cada ciudad con su redondeo. La cartera del
+     hospital no tiene tasa: se comparan unidades. */
+  function tasasFicha(c) {
+    if (c.ind.medida === 'cartera') {
+      return { ley: 'Unidades asistenciales que se comparan', parla: String(c.parla), otra: String(c.otra) };
+    }
+    const sup = esSuperficie(c);
+    return {
+      ley: sup ? 'Metros cuadrados por habitante' : 'Por cada ' + entero(c.por) + ' ' + c.base.etiqueta,
+      parla: sup ? num(c.tasaParla, 1) : numTasa(c.tasaParla),
+      otra: sup ? num(c.tasaOtra, 1) : numTasa(c.tasaOtra)
+    };
+  }
+
+  /* Las fichas que pinta la portada para una ciudad, en su orden: las que le
+     faltan (las del recuento y las de fuera) y donde Parla tiene más. */
+  function fichas(D, OTRA) {
+    const r = faltan(D, OTRA);
+    return r.falta.map(function (c) { return { c: c, modo: 'falta' }; })
+      .concat(r.sobra.map(function (c) { return { c: c, modo: 'sobra' }; }));
+  }
+
+  const CALCULO = {
+    comparar: comparar, faltan: faltan, UMBRAL: UMBRAL, esSuperficie: esSuperficie, umbral: umbral,
+    fichas: fichas, titularFicha: titularFicha, tasasFicha: tasasFicha,
+    formato: { entero: entero, num: num, numTasa: numTasa, enSuperficie: enSuperficie, unidadSuperficie: unidadSuperficie, cantidad: cantidad }
+  };
   if (typeof module === 'object' && module.exports) module.exports = CALCULO;
   else raiz.CALCULO = CALCULO;
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -319,6 +319,29 @@
       fuente: fR, pagina: 'sanidad.html#mental' });
   }
 
+  /* Cinco datos sueltos de datos/contexto.js (herramientas/contexto.py). Donde la
+     fuente no tiene dato (la esperanza de vida, en las ciudades de menos de
+     100.000 habitantes) o la cifra no se compara (la antigüedad de los
+     coches en Alcobendas y Majadahonda), «sin dato». */
+  const CX = window.CONTEXTO;
+  if (CX) {
+    const ci = function (k) { return function (id) { return CX[k].valores[id] != null ? CX[k].valores[id] : null; }; };
+    dato({ id: 'estudios-eso', grupo: 'Vecinos y economía', titulo: 'Vecinos con la ESO como máximo',
+      unidad: 'de cada 100 de 25 a 64 años, ' + CX.estudios.anio, sim: '%', dec: 1, v: ci('estudios'),
+      fuente: CX.estudios.fuente, pagina: 'educacion.html#estudios' });
+    dato({ id: 'esperanza-vida', grupo: 'Sanidad', titulo: 'Esperanza de vida al nacer',
+      unidad: 'años, ' + CX.esperanza.anio + '; solo ciudades de más de 100.000 habitantes', sim: 'años', dec: 2,
+      v: function (id) { return CX.esperanza.total[id] != null ? CX.esperanza.total[id] : null; },
+      fuente: CX.esperanza.fuente, pagina: 'sanidad.html#vida' });
+    dato({ id: 'pension-media', grupo: 'Vecinos y economía', titulo: 'Pensión contributiva media por pensionista',
+      unidad: 'euros al mes, a ' + CX.pension.fecha, sim: '€', dec: 0,
+      v: function (id) { return CX.pension.total[id]; }, fuente: CX.pension.fuente, pagina: 'economia.html#pensiones' });
+    dato({ id: 'edad-coches', grupo: 'Infraestructuras', titulo: 'Antigüedad media de los turismos',
+      unidad: 'años, solo turismos de menos de 25 años, a ' + CX.coches.fecha + '; sin Alcobendas ni Majadahonda, que no se comparan', sim: 'años', dec: 2,
+      v: function (id) { return CX.coches.fuera.indexOf(id) >= 0 ? null : CX.coches.anios[id]; },
+      fuente: CX.coches.fuente, pagina: 'infraestructura.html#coches' });
+  }
+
   const POR_ID = {};
   CAT.forEach(function (d) { POR_ID[d.id] = d; });
   const GRUPOS = [];
@@ -1233,7 +1256,11 @@
     ['Tasa de basuras (ordenanzas en el BOCM)', '2026', 'Cada año'],
     ['Viajes en coche (Ministerio de Transportes)', '16 de octubre de 2024', 'Sin fecha fija'],
     ['Horarios del transporte público (Consorcio Regional de Transportes)', 'Los de octubre de 2026', 'Cuando cambian los horarios'],
-    ['Precio del abono (BOCM)', '2026', 'Cada año']
+    ['Precio del abono (BOCM)', '2026', 'Cada año'],
+    ['Nivel de estudios (Indicadores Urbanos, INE)', '2024', 'Cada año'],
+    ['Esperanza de vida (Instituto de Estadística de la Comunidad de Madrid)', '2024', 'Cada año'],
+    ['Pensiones contributivas (Instituto de Estadística de la Comunidad de Madrid, a partir del INSS)', '1 de enero de 2025', 'Cada año'],
+    ['Antigüedad de los turismos (DGT, vía Instituto de Estadística)', '31 de diciembre de 2025', 'Cada año']
   ];
   (function () {
     const t = $('#al-dia-tabla');

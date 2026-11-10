@@ -513,6 +513,9 @@ a:hover { text-decoration-color: var(--ref); }
   white-space: nowrap;
 }
 .plata .compartir { margin-top: 1.25rem; }
+/* Los dos botones de una ficha (cartel y vista previa) juntos, con el mismo aire. */
+.plata .seccion__botones { margin-top: 1.25rem; }
+.plata .seccion__botones .compartir { margin-top: 0; }
 .plata .renta__nota { margin-top: 1.1rem; }
 
 /* El saldo queda separado de los flujos anuales, a todo el ancho. */
@@ -683,6 +686,13 @@ a:hover { text-decoration-color: var(--ref); }
 .ktit__dos { display: grid; grid-template-columns: 1fr 1fr; column-gap: 7mm; align-items: end; margin: .04em 0 .06em; }
 .ktit__col { min-width: 0; }
 .ktit__n--rojo { color: #c02719; }
+/* Una línea corta bajo el nombre de la ciudad o pegada a su cifra (cartel.js, `nota` y `pie`). */
+.ktit__h {
+  font-size: .3em; line-height: 1.02; letter-spacing: -.015em; white-space: normal;
+  color: #161616;
+}
+.ktit__h--nota { margin: -.02em 0 .14em; }
+.ktit__h--pie { margin: .12em 0 0; }
 .ktit__m { color: #161616; }
 /* Quién: «A Parla le faltan», en tinta y a menos de la mitad del cuerpo, para
    que la cifra siga siendo lo primero que se ve. */
@@ -723,6 +733,8 @@ a:hover { text-decoration-color: var(--ref); }
   border-style: dashed; background: transparent;
   color: #c02719;
 }
+/* Sobre la foto, la caja en hueco cae a veces en un edificio rojo y el rojo se pierde: lleva el mismo velo claro. */
+.cartel[data-fondo='barrio'] .kcaja--hueco { background: rgba(243, 241, 236, .92); }
 .kcaja__ico { display: inline-flex; flex: none; width: 4mm; height: 4mm; }
 .kcaja__ico svg { display: block; width: 100%; height: 100%; }
 .kcaja b {
@@ -1002,7 +1014,6 @@ div.rec__a:hover { background: none; }
 .rec > .ind { padding-block: .5rem 1.5rem; border-top: 0; scroll-margin-top: 5rem; }
 .rec > .ind[hidden] { display: none; }
 .ind__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; margin-top: 1.25rem; }
-.ind__acciones .cadena { margin: 0; }
 
 .ind__titular {
   margin-top: .85rem;
@@ -1606,11 +1617,6 @@ html[data-indice='barra'] .pie { padding-bottom: calc(clamp(3.5rem, 11vw, 6rem) 
   color: var(--bg); background: var(--ink);
   pointer-events: none;
 }
-.cadena--texto {
-  width: auto; height: auto; min-height: 2.75rem; gap: .45rem; padding: .35rem .6rem;
-  font: inherit; font-size: .875rem; font-weight: 600; opacity: .85;
-}
-.cadena--texto.cadena--ok::after { content: none; }
 /* Quien llega por el enlace ve el título con aire encima. */
 :is(.bloque__h3, .plata__h, .espera__h, .hecho__h, .plata, .ind, .hecho, .rango)[id] { scroll-margin-top: 1.5rem; }
 @media print { .cadena { display: none; } }

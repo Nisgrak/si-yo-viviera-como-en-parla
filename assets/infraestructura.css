@@ -695,3 +695,6 @@
 
 .falla-juntos .mapa__nombre { font-size: clamp(1rem, 3.2vw, 1.5rem); }
 .falla-juntos .mapa__dato { font-size: .75rem; line-height: 1.35; }
+
+/* Una columna sin dato (esperanza de vida, antigüedad de los coches): misma forma, cifra apagada. */
+.tp-cifra--sin .tp-cifra__v { font-size: clamp(1.5rem, 6.5vw, 2.25rem); color: var(--ink-3); margin-top: .55rem; }

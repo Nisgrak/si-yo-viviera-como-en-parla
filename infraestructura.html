@@ -130,6 +130,7 @@
     <p class="colas__pie">
       Fuente: <a href="https://www.transportes.gob.es/ministerio/proyectos-singulares/estudios-de-movilidad-con-big-data/rutas-por-carretera">Ministerio de Transportes, rutas por carretera</a>, 16-10-2024.
     </p>
+    <div class="seccion__botones" id="colas-botones"></div>
   </div>
 </section>
 
@@ -178,6 +179,21 @@
   </div>
 </section>
 
+<!-- ── La edad de los coches ──────────────────────────────────────────
+     datos/contexto.js, herramientas/contexto.py. -->
+<section class="bloque" id="coches" data-indice-sub="La edad de los coches">
+  <div class="env">
+    <h3 class="bloque__h">Cuántos años tienen los coches</h3>
+    <p class="bloque__intro" id="coches-txt"></p>
+    <div class="tp-cifras" id="coches-cifras"></div>
+    <p class="tp-nota" id="coches-pos"></p>
+    <p class="tp-nota" id="coches-aviso" hidden></p>
+    <p class="cautela" id="coches-notas"></p>
+    <p class="colas__pie" id="coches-pie"></p>
+    <div class="seccion__botones" id="coches-botones"></div>
+  </div>
+</section>
+
 <!-- ── Salen y entran ────────────────────────────────────────────────── -->
 <section class="bloque" id="sentidos" data-indice-sub="Salen y entran por carretera">
   <div class="env">
@@ -189,6 +205,7 @@
       <a href="https://movilidad-opendata.mitma.es/">Ministerio de Transportes, Open Data Movilidad</a>,
       16-10-2024.
     </p>
+    <div class="seccion__botones" id="sentidos-botones"></div>
   </div>
 </section>
 
@@ -223,6 +240,7 @@
       Fuentes: <a href="https://www.catastro.hacienda.gob.es/webinspire/index.html">Dirección General del Catastro, edificios (INSPIRE)</a>,
       con el número de viviendas de cada uno; estaciones: <a href="https://datos.crtm.es/">Consorcio Regional de Transportes de Madrid, GTFS de Cercanías, Metro y Metro Ligero</a>.
     </p>
+    <div class="seccion__botones" id="tren-botones"></div>
   </div>
 </section>
 
@@ -238,6 +256,7 @@
     </p>
     <div class="tp-cifras" id="casa-cifras"></div>
     <p class="tp-nota" id="casa-nota"></p>
+    <div class="seccion__botones" id="atocha-botones"></div>
   </div>
 </section>
 
@@ -252,6 +271,7 @@
     </p>
     <div class="tp-cifras" id="plazas-cifras"></div>
     <p class="tp-nota" id="plazas-nota"></p>
+    <div class="seccion__botones" id="plazas-botones"></div>
   </div>
 </section>
 
@@ -272,6 +292,7 @@
     <div class="tp-cifras" id="falla-cifras"></div>
     <ol class="mun falla" id="falla-filas" aria-label="Lo que queda de las plazas hacia Madrid, ciudad por ciudad"></ol>
     <p class="tp-nota" id="falla-nota"></p>
+    <div class="seccion__botones" id="falla-botones"></div>
 
     <h4 class="bloque__h3" id="linea-principal">Lo demás, sin la línea principal</h4>
     <div class="falla-tabla" id="falla-tabla"></div>
@@ -456,6 +477,8 @@
 <script src="assets/sentido.js"></script>
 <script src="datos/infraestructura.js"></script>
 <script src="assets/indice.js"></script>
+<script src="assets/qr.js"></script>
+<script src="assets/cartel.js"></script>
 <script src="assets/infraestructura-comun.js"></script>
 <script src="assets/infraestructura-mapa.js"></script>
 <script src="assets/infraestructura.js"></script>
@@ -463,6 +486,8 @@
 <script src="assets/infraestructura-a42.js"></script>
 <script src="datos/transporte.js"></script>
 <script src="assets/infraestructura-tp.js"></script>
+<script src="datos/contexto.js"></script>
+<script src="assets/contexto.js"></script>
 <script src="assets/plegar.js"></script>
 </body>
 </html>

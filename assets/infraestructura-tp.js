@@ -600,6 +600,55 @@
   }
   const ATOCHA = 'atocha';
 
+  /* ── Carteles ─────────────────────────────────────────────────────────
+     Cada pieza lleva su cartel y «Compartir esta sección» (I.botones, de
+     infraestructura-comun.js). Las cifras son las de la propia pieza, con su
+     redondeo; el puesto de Parla se calcula de los datos. El rojo, en la
+     columna de Parla y solo si el título de la pieza marca un sentido y a
+     Parla le va peor. */
+  function fuenteTp(demanda) {
+    return (demanda ? '' : 'Dirección General del Catastro, edificios (INSPIRE); ') +
+      'Consorcio Regional de Transportes de Madrid, GTFS, horarios del martes ' + fecha(T.fecha) +
+      (demanda ? '; Ministerio de Transportes, estudio básico de movilidad, 16 de octubre de 2024.' : '.');
+  }
+  /* «7:30 a 8:30», la hora de salida de la que se cuenta el tiempo. */
+  function ventana() {
+    return T.ventana.map(function (h) { return h.replace(/^0/, ''); }).join(' a ');
+  }
+  /* Cada ciudad con su valor; el puesto de Parla entre las que tienen dato. */
+  function valores(ids, v) {
+    const o = {};
+    ids.forEach(function (id) { o[id] = v(id); });
+    return o;
+  }
+  function entreLas(vals, queMide) {
+    const p = window.CARTEL.puesto(vals, REF);
+    return 'Parla es ' + p.texto + ' de las ' + p.letra + ' en ' + queMide + '.';
+  }
+  /* A Parla le va peor, con la cifra tal como se ve (el mismo redondeo). */
+  function peorQue(a, b, dec, masEsMejor) {
+    const k = Math.pow(10, dec);
+    const x = Math.round(a * k), y = Math.round(b * k);
+    return masEsMejor ? x < y : x > y;
+  }
+  /* «la C-4», «el Metro 10» a partir del nombre de una línea. */
+  function articuloDe(nombre) {
+    return (/^C-/.test(nombre) ? 'la\u00a0' : 'el\u00a0') + nombre.replace('-', '\u2011').replace(' ', '\u00a0');
+  }
+  /* Las líneas de tren o Metro que llevan las plazas máximas hacia Madrid. Si hay
+     empate (Majadahonda: la C-10 y la C-7 llevan lo mismo), quitar una u otra deja
+     las mismas plazas: el cartel las nombra a las dos. */
+  function principales(id) {
+    const R = T.redundancia && T.redundancia.ciudades;
+    if (!R || !R[id]) return [];
+    const ls = R[id].lineas.filter(function (l) { return l[0] !== 'autobús'; });
+    const mx = Math.max.apply(null, ls.map(function (l) { return l[2]; }));
+    return ls.filter(function (l) { return l[2] === mx; });
+  }
+  function sinLaLinea(id) {
+    return 'sin ' + principales(id).map(function (l) { return articuloDe(l[0]); }).join(' o ');
+  }
+
   function cobertura() {
     const C = T.cobertura && T.cobertura.ciudades;
     if (!C || !C[REF] || !C[I.AQUI]) return;
@@ -613,6 +662,20 @@
       'cuarto de hora andando del tren. A 10 minutos, el ' + num(C[REF].pct['10'], 1) + ' % en Parla y el ' +
       num(C[I.AQUI].pct['10'], 1) + ' % en ' + NOMBRE[I.AQUI] + '; a 5, el ' + num(C[REF].pct['5'], 1) +
       ' % y el ' + num(C[I.AQUI].pct['5'], 1) + ' %.';
+
+    I.botones('tren', 'El tren a mano', function () {
+      const dir = function (id) {
+        return { q: NOMBRE[id], v: I.entero(C[id].cerca['15']) + ' de ' + I.entero(C[id].viviendas) + ' viviendas', ref: id === REF };
+      };
+      return {
+        pre: I.pre('El tren a mano'),
+        antes: 'Viviendas con una estación a 15 minutos andando',
+        dos: window.CARTEL.frente(NOMBRE, REF, I.AQUI, function (id) { return num(p(id), 1); }, peorQue(p(REF), p(I.AQUI), 1, true)),
+        que: 'de cada 100 viviendas',
+        sub: 'Estación de Cercanías, Metro o Metro Ligero. ' + entreLas(valores(ids, p), 'viviendas con una estación a 15 minutos andando'),
+        cajas: [dir(REF), dir(I.AQUI), { q: 'Fuente', v: fuenteTp() }]
+      };
+    }, function (n) { return 'El tren a mano en Parla y en ' + n; }, 'tren-a-mano');
   }
 
   function casa() {
@@ -645,6 +708,18 @@
       return 'A más de una hora de Atocha están ' + num(a, 0) + ' de cada 100 viviendas de Parla y ' + num(b, 0) + ' de ' +
         NOMBRE[I.AQUI] + '.';
     }
+
+    I.botones('atocha', 'Hasta el centro', function () {
+      return {
+        pre: I.pre('Hasta el centro'),
+        antes: 'Desde la vivienda mediana, hasta Atocha',
+        dos: window.CARTEL.frente(NOMBRE, REF, I.AQUI, function (id) { return String(v(id)); }, peorQue(v(REF), v(I.AQUI), 0, false)),
+        que: 'minutos',
+        sub: 'Andando hasta la parada y en tren, Metro o autobús, saliendo un martes de ' + ventana() + '. ' +
+          entreLas(valores(ids, v), 'minutos hasta Atocha'),
+        cajas: [{ q: 'Fuente', v: fuenteTp() }]
+      };
+    }, function (n) { return 'Cuánto se tarda hasta el centro desde Parla y desde ' + n; }, 'casa');
   }
 
   function plazasCifras() {
@@ -663,6 +738,21 @@
       (deC4 === 'una' ? ' es de ' : ' son de ') + laLinea(REF) + '. Cada hora, de 7 a 9, van a Madrid unas ' + unas(R[REF].vanMadrid) + ' personas de Parla y ' + unas(R[I.AQUI].vanMadrid) +
       ' de ' + NOMBRE[I.AQUI] + ', en cualquier medio: ' + pp(REF) + ' plazas por persona en Parla y ' + pp(I.AQUI) +
       ' en ' + NOMBRE[I.AQUI] + '.';
+
+    I.botones('plazas', 'Las plazas hacia Madrid', function () {
+      const dir = function (id) {
+        return { q: NOMBRE[id], v: I.entero(plazas(id)[0]) + ' plazas en total cada hora', ref: id === REF };
+      };
+      return {
+        pre: I.pre('Las plazas hacia Madrid'),
+        antes: 'Plazas hacia Madrid, de 7 a 9 de la mañana',
+        dos: window.CARTEL.frente(NOMBRE, REF, I.AQUI, function (id) { return num(v(id), 0); }, peorQue(v(REF), v(I.AQUI), 0, true)),
+        que: 'plazas por hora, por cada 1.000 vecinos',
+        sub: 'Tren, Metro y autobús que salen cada hora hacia Madrid. ' +
+          entreLas(valores(ids, v), 'plazas por cada 1.000 vecinos'),
+        cajas: [dir(REF), dir(I.AQUI), { q: 'Fuente', v: fuenteTp(true) }]
+      };
+    }, function (n) { return 'Las plazas hacia Madrid desde Parla y desde ' + n; }, 'plazas');
   }
 
   /* ── Si falla el tren: lo demás sin la línea principal, en una tabla ─ */
@@ -760,7 +850,8 @@
     const del = function (l) {
       return (/^C-/.test(l) ? 'la\u00a0' : 'el\u00a0') + l.replace('-', '\u2011').replace(' ', '\u00a0');
     };
-    const sin = function (id) { return 'sin ' + del(principal(id)[0]); };
+    /* Si dos líneas llevan las mismas plazas (Majadahonda: la C-10 y la C-7), quitar una u otra deja lo mismo. */
+    const sin = sinLaLinea;
 
     pareja('#falla-cifras', pct, function (v) { return num(v, 0) + '\u00a0%'; }, function (id) {
       return 'de las plazas hacia Madrid quedan ' + sin(id) + ': ' + ent(queda(id)) + ' de ' + ent(total(id)) + ' cada hora';
@@ -794,6 +885,25 @@
     $('#falla-nota').textContent = lugar + 'Cada hora salen hacia Madrid, de Parla, ' + lista(REF) + '; de ' +
       NOMBRE[I.AQUI] + ', ' + lista(I.AQUI) + '. Por cada persona que va a Madrid a esa hora quedan ' + porPersona(REF) +
       ' plazas en Parla ' + sin(REF) + ' y ' + porPersona(I.AQUI) + ' en ' + NOMBRE[I.AQUI] + ' ' + sin(I.AQUI) + '.';
+
+    I.botones('falla', 'Si falla el tren', function () {
+      const dir = function (id) {
+        const emp = principales(id).length > 1;
+        return { q: NOMBRE[id], v: ent(queda(id)) + ' de ' + ent(total(id)) + ' cada hora' +
+          (emp ? '. ' + principales(id).map(function (l) { return articuloDe(l[0]); }).join(' y ').replace(/^l/, 'L') +
+            ' llevan las mismas plazas: queda lo mismo con cualquiera de las dos' : ''), ref: id === REF };
+      };
+      return {
+        pre: I.pre('Si falla el tren'),
+        antes: 'Si falla la línea principal, de las plazas hacia Madrid quedan',
+        dos: window.CARTEL.frente(NOMBRE, REF, I.AQUI, function (id) { return num(pct(id), 0); },
+          peorQue(pct(REF), pct(I.AQUI), 0, true), { nota: sinLaLinea }),
+        que: 'por ciento',
+        sub: 'Las plazas de tren, Metro y autobús que salen cada hora de 7 a 9, con todo lo demás funcionando. ' +
+          entreLas(valores(ids, pct), 'plazas que quedan sin su línea principal'),
+        cajas: [dir(REF), dir(I.AQUI), { q: 'Fuente', v: fuenteTp(true) }]
+      };
+    }, function (n) { return 'Si falla el tren en Parla y en ' + n; }, 'falla');
 
     const pie = $('#falla-fuentes');
     vaciar(pie);

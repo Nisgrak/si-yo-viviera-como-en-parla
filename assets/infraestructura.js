@@ -291,6 +291,67 @@
       NOMBRE[I.AQUI] + ' el ' + pct(A[I.AQUI].primera2023) + '.';
   }
 
+  /* ── Carteles ─────────────────────────────────────────────────────────
+     Las dos piezas de carretera, con su cartel y «Compartir esta sección»
+     (I.botones, de infraestructura-comun.js). Sin rojo: no hay un sentido
+     marcado para ninguna de las dos. */
+
+  const FUENTE_CARRETERA = 'Ministerio de Transportes, Open Data Movilidad, rutas por carretera y estudio básico, 16-10-2024.';
+  const IDS = Object.keys(NOMBRE);
+  /* La parte de las salidas de 6 a 10 que se lleva la salida más usada, como la fila de arriba de la cola. */
+  function primera(id) { return A[id].puertas[0].v / total(A[id]); }
+  /* Lo lleno que va el tramo más cargado de la A-42 de 7 a 8, como lo cuenta
+     infraestructura-a42.js: la gente que pasa sobre lo que cabe. */
+  function tramoMasLleno() {
+    const X = window.A42;
+    if (!X || !X.tramos || !X.tramos.length) return null;
+    const lleno = function (t) { return t.total / (t.carriles * X.capacidad * X.personas); };
+    const t = X.tramos.reduce(function (m, x) { return lleno(x) > lleno(m) ? x : m; }, X.tramos[0]);
+    return { pct: Math.round(100 * lleno(t)), sur: t.sur, ventana: X.ventana.map(function (h) { return h.replace(/^0/, '').replace(/:00$/, ''); }).join(' a ') };
+  }
+
+  function carteles() {
+    I.botones('colas', 'La salida más usada', function () {
+      const vals = {};
+      IDS.forEach(function (id) { if (A[id]) vals[id] = Math.round(primera(id) * 1000); });
+      const p = window.CARTEL.puesto(vals, REF);
+      const dir = function (id) { return A[id].puertas[0].via + ' ' + A[id].puertas[0].hacia; };
+      const cajas = [];
+      const a42 = tramoMasLleno();
+      if (a42) {
+        cajas.push({ q: 'La A‑42 hacia Madrid, de ' + a42.ventana, ref: true,
+          v: a42.pct + ' % de lo que cabe en el tramo más lleno, el que sale de ' + a42.sur });
+      }
+      cajas.push({ q: 'Fuente', v: FUENTE_CARRETERA });
+      return {
+        pre: I.pre('La salida más usada'),
+        antes: 'De cada 100 personas que salen por carretera',
+        dos: window.CARTEL.frente(NOMBRE, REF, I.AQUI, function (id) { return num(primera(id) * 100, 1); }, false, { nota: dir }),
+        que: 'salen por la salida más usada',
+        sub: 'Entre las 6 y las 10 de la mañana. Parla es ' + p.texto + ' de las ' + p.letra + ' en la parte que se lleva la salida más usada.',
+        cajas: cajas
+      };
+    }, function (n) { return 'La salida más usada en Parla y en ' + n; }, 'colas');
+
+    I.botones('sentidos', 'Salen y entran', function () {
+      const sale = function (id) { return A[id].sale.h610; }, entra = function (id) { return A[id].entra.h610; };
+      const mas = function (id) { return sale(id) >= entra(id); };
+      const caja = function (id) {
+        return { q: NOMBRE[id], v: 'Salen ' + entero(sale(id)) + ' · entran ' + entero(entra(id)), ref: id === REF };
+      };
+      return {
+        pre: I.pre('Salen y entran por carretera'),
+        antes: 'De 6 a 10 de la mañana, personas que salen y entran',
+        dos: window.CARTEL.frente(NOMBRE, REF, I.AQUI, function (id) {
+          return num(mas(id) ? sale(id) / entra(id) : entra(id) / sale(id), 1);
+        }, false, { pie: function (id) { return mas(id) ? 'salen por cada una que entra' : 'entran por cada una que sale'; } }),
+        que: 'por carretera',
+        sub: 'En coche o en autobús, un día laborable.',
+        cajas: [caja(REF), caja(I.AQUI), { q: 'Fuente', v: FUENTE_CARRETERA }]
+      };
+    }, function (n) { return 'Quién sale y quién entra por carretera en Parla y en ' + n; }, 'sentidos');
+  }
+
   /* ── Pintar ───────────────────────────────────────────────────────── */
 
   I.alPintar(function () {
@@ -299,6 +360,7 @@
     grupo(I.AQUI, $('#colas-aqui'), 'aqui');
     sentidos();
     metodo2023();
+    carteles();
   });
 
   /* Al cambiar el ancho o el tema se recoloca y se repinta sin animar. */
