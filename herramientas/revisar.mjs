@@ -27,7 +27,7 @@ import { readFile } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { crearInforme } from './comprobar/comun.mjs';
-import { PAREJAS_EN_DOS_COLUMNAS } from './comprobar/parejas.mjs';
+import { PAREJAS_EN_DOS_COLUMNAS, PAREJAS_APILADAS_A_PROPOSITO } from './comprobar/parejas.mjs';
 
 const RAIZ = fileURLToPath(new URL('..', import.meta.url));
 const require = createRequire(import.meta.url);
@@ -260,7 +260,7 @@ function leerParejas() {
 }
 
 async function bloquePaginas(browser, base) {
-  const juntasMovil = new Set(), apiladas = new Map();
+  const juntasMovil = new Set();
   const unidades = [];
   for (const pag of PAGINAS) for (const c of CIUDADES) unidades.push([pag, c]);
   const perfiles = [
@@ -305,8 +305,10 @@ async function bloquePaginas(browser, base) {
             if (!x.juntas && PAREJAS_EN_DOS_COLUMNAS.includes(clave)) {
               informe.fallo('j', donde, `Parla y ${ciudad} iban en dos columnas en el móvil y ahora van una debajo de otra: ${clave}`);
             }
-            /* Las que van en dos columnas en escritorio y se apilan en el móvil son diseño actual: se cuentan, no fallan. */
-            if (!x.juntas && !PAREJAS_EN_DOS_COLUMNAS.includes(clave) && enEscritorio && enEscritorio.juntas) apiladas.set(clave, (apiladas.get(clave) || new Set()).add(pag));
+            /* Las que van en dos columnas en escritorio y se apilan en el móvil, sin ser una excepción decidida: error. */
+            if (!x.juntas && !PAREJAS_EN_DOS_COLUMNAS.includes(clave) && !PAREJAS_APILADAS_A_PROPOSITO[clave] && enEscritorio && enEscritorio.juntas) {
+              informe.fallo('j', donde, `Parla y ${ciudad} van en dos columnas en escritorio y una debajo de otra en el móvil: ${clave}. La regla es frente a frente también en el móvil; si es a propósito, va en PAREJAS_APILADAS_A_PROPOSITO (herramientas/comprobar/parejas.mjs) con su motivo`);
+            }
           }
         }
       } catch (e) {
@@ -314,9 +316,6 @@ async function bloquePaginas(browser, base) {
       } finally { await ctx.close(); }
     }
   });
-  for (const [clave, paginas] of apiladas) {
-    informe.aviso('j', { pagina: [...paginas].join(', '), pieza: clave }, 'va en dos columnas en escritorio y una debajo de otra en el móvil (diseño actual de la comparación; si debe ir en dos columnas, es una decisión de diseño, y al arreglarla se añade a herramientas/comprobar/parejas.mjs)');
-  }
   if (args.includes('--parejas')) console.log('\nParejas en dos columnas en el móvil (para parejas.mjs):\n' + JSON.stringify([...juntasMovil].sort(), null, 2));
 }
 

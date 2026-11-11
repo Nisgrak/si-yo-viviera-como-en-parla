@@ -1323,6 +1323,19 @@ code {
 .hogm__lleno { fill: var(--ink-3); }
 .hogm[data-quien='referencia'] .hogm__borde { stroke: var(--ref); }
 .hogm[data-quien='referencia'] .hogm__lleno { fill: var(--ref); }
+/* En el móvil, las dos ciudades en dos columnas; con subgrid, nombre, cifra, texto y rejilla a la misma altura. */
+@media (max-width: 39.99rem) {
+  .hogm-pareja { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: .875rem; row-gap: 0; }
+  .hogm-pareja .hogm { display: grid; align-content: start; grid-row: span 4; }
+  .hogm__nombre { font-size: clamp(1.05rem, 5vw, 1.25rem); line-height: 1.05; align-self: end; }
+  .hogm__v { font-size: clamp(2.25rem, 10.5vw, 3rem); }
+  .hogm__que { font-size: .8125rem; }
+  .hogm__fila { gap: 2px; max-width: none; margin-top: .7rem; align-self: start; }
+  .hogm__borde { stroke-width: 1.8; }
+}
+@supports (grid-template-rows: subgrid) {
+  @media (max-width: 39.99rem) { .hogm-pareja .hogm { grid-template-rows: subgrid; } }
+}
 
 /* ── Pantallas anchas ─────────────────────────────────────────────────── */
 

@@ -69,11 +69,13 @@
      puerta. */
 
   const colas = [];   /* { lienzo, n, quien, tipo, hecha, t0 } */
-  const FONDO = 6;    /* personas por fila de cola */
+  /* personas por fila de cola: seis; en el móvil, donde cada puerta tiene media columna,
+     ocho más pequeñas y juntas (la misma escala, un punto por cada 100 personas) */
 
   function medidas() {
     const ancho = window.innerWidth >= 736;
-    return { d: ancho ? 7 : 6, paso: ancho ? 10 : 9, dintel: 3, jamba: 9, hueco: 8 };
+    return ancho ? { fondo: 6, d: 7, paso: 10, dintel: 3, jamba: 9, hueco: 8 }
+      : { fondo: 8, d: 5, paso: 8, dintel: 3, jamba: 9, hueco: 8 };
   }
 
   function colorDe(quien) {
@@ -87,8 +89,8 @@
 
   function colocar(c) {
     const m = medidas();
-    const ancho = FONDO * m.paso + 6;
-    const filasN = Math.max(1, Math.ceil(c.n / FONDO));
+    const ancho = m.fondo * m.paso + 6;
+    const filasN = Math.max(1, Math.ceil(c.n / m.fondo));
     const alto = m.dintel + m.hueco + filasN * m.paso;
     const r = window.devicePixelRatio || 1;
     c.lienzo.width = Math.round(ancho * r);
@@ -126,7 +128,7 @@
     const viaje = 1000;        /* ms que tarda cada uno en llegar */
     let quedan = false;
     for (let i = 0; i < c.n; i++) {
-      const fila = Math.floor(i / FONDO), colN = i % FONDO;
+      const fila = Math.floor(i / m.fondo), colN = i % m.fondo;
       const tx = 3 + colN * m.paso + m.paso / 2;
       const ty = m.dintel + m.hueco + fila * m.paso + m.paso / 2;
       let x = tx, y = ty;

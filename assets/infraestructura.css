@@ -121,6 +121,42 @@
   .colas-pareja .cola__rotulo { min-height: 4.75rem; }
 }
 
+/* En el móvil, las dos ciudades también van en dos columnas, con dos puertas por fila. Con
+   subgrid, la cabecera y cada fila de puertas de las dos ciudades comparten altura: los
+   dinteles quedan en la misma línea. Hasta 6 filas de puertas (12 salidas). Sin subgrid cada
+   ciudad se apila por su cuenta, en dos columnas, y los dinteles no se alinean entre ellas. */
+@media (max-width: 45.99rem) {
+  .colas-pareja {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: .875rem;
+    align-items: start;
+    margin-top: clamp(1.5rem, 5vw, 2rem);
+  }
+  .colas-pareja .colas { min-width: 0; margin-top: 0; }
+  .colas-pareja .colas + .colas { padding-top: 0; border-top: 0; }
+  .colas-pareja .colas__h { display: block; min-height: 4.4rem; }
+  .colas-pareja .colas__nombre { display: block; font-size: clamp(1.15rem, 5.4vw, 1.5rem); line-height: 1; }
+  .colas-pareja .colas__resumen { margin-top: .3rem; font-size: .8125rem; line-height: 1.3; }
+  .colas-pareja .colas__puertas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 .5rem;
+    margin-top: .5rem; padding-top: .9rem;
+  }
+  .colas-pareja .cola { padding-bottom: 1.25rem; row-gap: .35rem; }
+  .colas-pareja .cola__rotulo { min-height: 3.6rem; }
+  /* la matrícula más larga («M-502 y M-511») no cabe en media columna: se encoge y, si aún no cabe, se parte */
+  .colas-pareja .rotulo { font-size: .6875rem; letter-spacing: -.01em; padding-inline: .3em; white-space: normal; max-width: 100%; }
+  @media (max-width: 23.5rem) { .colas-pareja .rotulo { font-size: .625rem; } }
+}
+@supports (grid-template-rows: subgrid) {
+  @media (max-width: 45.99rem) {
+    .colas-pareja .colas { display: grid; grid-row: span 7; grid-template-rows: subgrid; }
+    .colas-pareja .colas__h { align-self: start; }
+    .colas-pareja .colas__puertas { grid-row: 2 / span 6; display: grid; grid-template-rows: subgrid; }
+  }
+}
+
 /* Rótulo de carretera: la matrícula enmarcada, como en un panel de salida,
    pero en la tinta de la web. */
 .rotulo {
@@ -490,9 +526,15 @@
    Un panel por hospital, con la misma escala en los dos. */
 .evol {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-  align-items: end;
-  gap: clamp(1.25rem, 5vw, 3rem);
+  align-items: start;
+  gap: 0 clamp(1.25rem, 5vw, 3rem);
   max-width: 44rem; margin-top: .8rem;
+}
+/* El nombre del hospital puede ocupar dos líneas: con subgrid, el nombre de cada panel y sus
+   columnas comparten fila, y las columnas empiezan a la misma altura. */
+@supports (grid-template-rows: subgrid) {
+  .evol__panel { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; }
+  .evol__quien { align-self: end; }
 }
 /* Los años cuelgan por debajo del eje: el panel les guarda el sitio. */
 .evol__panel { padding-bottom: 1.5rem; }

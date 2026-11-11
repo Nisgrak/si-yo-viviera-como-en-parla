@@ -1411,8 +1411,10 @@ la cartera del hospital; los «Parla sola» no hacen falta aquí: se reconocen p
 lo dice), `SENTIDO_DE_PIEZA` y `ANTITESIS_VALIDAS` (vacía). Una excepción que ya no hace falta se avisa para
 quitarla. Son **fallo**, sin excepción posible: un cartel sin caja «Fuente», una cifra que el cartel redondea y la
 página enseña con decimales, un «tendría − tiene = falta» que no cuadra con las cifras mostradas (en la misma
-unidad), la imagen de la cartera sin fuente y un «—» suelto. Lo que sigue como aviso (solo en `npm run revisar`)
-son las comparaciones que se apilan en el móvil, a la espera de una decisión de diseño.
+unidad), la imagen de la cartera sin fuente y un «—» suelto. En `npm run revisar` es también **fallo** que una
+comparación Parla | otra ciudad vaya en dos columnas en escritorio y una debajo de otra en el móvil, salvo las
+de `PAREJAS_APILADAS_A_PROPOSITO` (`herramientas/comprobar/parejas.mjs`), cada una con su motivo: hoy solo los
+mapas de «Por dónde sale la gente» («a media anchura los mapas no se leen», decisión del dueño). Ya no hay avisos.
 
 ### Nivel 2: `npm run revisar` (Chromium, a mano antes de publicar)
 
@@ -1423,7 +1425,7 @@ normal o en `herramientas/video/node_modules` (`cd herramientas/video && npm ins
 | | Qué mira |
 |---|---|
 | **i** | Carteles: todos los del sitio × diez ciudades × fondos papel y barrio. Ningún texto fuera del cartel, de su columna o de su caja; nada se pisa; nada invade la banda del pie; contraste mínimo de 3:1 sobre el fondo del barrio. |
-| **j** | Las ocho páginas × diez ciudades en escritorio (1280) y móvil (390), claro y oscuro: sin errores de consola ni peticiones fallidas, sin desborde horizontal, y las comparaciones Parla \| otra ciudad que en escritorio van en dos columnas siguen en dos columnas en el móvil. |
+| **j** | Las ocho páginas × diez ciudades en escritorio (1280) y móvil (390), claro y oscuro: sin errores de consola ni peticiones fallidas, sin desborde horizontal, y las comparaciones Parla \| otra ciudad que en escritorio van en dos columnas (`PAREJAS_EN_DOS_COLUMNAS`) siguen en dos columnas en el móvil; las que se apilan sin estar en `PAREJAS_APILADAS_A_PROPOSITO` son error. Las columnas de las parejas se miden por su arranque: las cabeceras de dos líneas se alinean con subgrid. |
 | **k** | Enlaces `?ir=`: a la última sección de cada página y a tres fichas del recuento, el título queda visible bajo la cabecera fija y la ficha llega abierta; con scroll del usuario (rueda, tecla, toque) el reintento no le devuelve. |
 | **l** | Recuento de portada: abrir y cerrar con clic y con teclado (Intro, Espacio), `aria-expanded`, fichas abiertas que se conservan al cambiar de ciudad. |
 | **m** | Con `dist/` (`npm run build`): tres rutas de vista previa de cada tipo (sección, ficha, dato de consulta) redirigen bien, en escritorio y móvil. |
