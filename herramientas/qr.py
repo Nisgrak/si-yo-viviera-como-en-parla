@@ -8,7 +8,7 @@ nada a un servidor de terceros.
 import json, re, subprocess, sys
 import segno
 
-BASE = 'https://siyovivieracomoenparla.netlify.app/'
+BASE = 'https://parlaalacola.com/'
 
 def trazo(qr):
     """Un solo <path>, fusionando cada fila de módulos contiguos."""

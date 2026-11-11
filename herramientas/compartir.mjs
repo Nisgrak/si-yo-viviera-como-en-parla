@@ -44,7 +44,7 @@ const RAIZ = fileURLToPath(new URL('..', import.meta.url));
    para comprobar las cifras y las rutas en segundos, sin lo que más tarda de la publicación. */
 const SECO = process.env.COMPARTIR_SECO || '';
 const DIST = SECO || join(RAIZ, 'dist');
-const BASE = 'https://siyovivieracomoenparla.netlify.app/';
+const BASE = 'https://parlaalacola.com/';
 
 /* datos.js y calculo.js son los mismos que carga el navegador. */
 globalThis.window = globalThis;

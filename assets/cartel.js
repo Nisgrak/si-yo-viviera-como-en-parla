@@ -179,7 +179,7 @@
     marca.appendChild(el('p', 'kbanda__h', window.DATOS.NOMBRE_WEB.replace(', ', ',<br>')));
     txt.appendChild(marca);
     txt.appendChild(el('span', 'kbanda__raya'));
-    txt.appendChild(el('p', 'kbanda__url', 'siyovivieracomoenparla.netlify.app'));
+    txt.appendChild(el('p', 'kbanda__url', 'parlaalacola.com'));
     b.appendChild(txt);
     raiz.appendChild(b);
   }
@@ -423,15 +423,17 @@
     '<path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3.2 3.2a4.5 4.5 0 0 0 6.4 6.4l1.4-1.4"/></svg></span>';
   function enlace(op) {
     const texto = op.rotulo || 'Compartir esta sección';
-    const b = el('button', 'compartir', ENLACE + '<span>' + esc(texto) + '</span>');
+    const b = el('button', 'compartir compartir--enlace', ENLACE + '<span>' + esc(texto) + '</span>');
     b.type = 'button';
+    /* La cadena del título de la sección copia este mismo enlace (assets/indice.js). */
+    b._url = function () { return new URL(op.url(), location.href).href; };
     const rotulo = b.lastChild;
     function avisar(t) {
       rotulo.textContent = t;
       setTimeout(function () { rotulo.textContent = texto; }, 1800);
     }
     b.addEventListener('click', function () {
-      const url = new URL(op.url(), location.href).href;
+      const url = b._url();
       const tactil = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
       if (tactil && navigator.share) {
         navigator.share({ title: op.titulo(), url: url }).catch(function () { /* cancelado */ });

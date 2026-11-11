@@ -331,6 +331,18 @@
     }
     return h.id;
   }
+  /* Si el título abre una sección con «Compartir esta sección», la cadena copia
+     ese mismo enlace, el de la vista previa con su cifra (/getafe/espera/), y no
+     el de la página. Si la sección tiene varios, el de su #<id>-botones. */
+  function previa(h) {
+    const caja = h.closest('article[id], section[id]');
+    if (!caja || caja.querySelector(TITULOS) !== h) return null;
+    const bs = Array.prototype.filter.call(caja.querySelectorAll('.compartir--enlace'), function (b) {
+      return b._url && b.closest('article[id], section[id]') === caja;
+    });
+    const b = bs.length === 1 ? bs[0] : bs.filter(function (x) { return x.closest('#' + CSS.escape(caja.id + '-botones')); })[0];
+    return b ? b._url() : null;
+  }
   function enlaceA(id) {
     const p = PAGINAS.filter(function (x) { return x.id === PAGINA; })[0];
     /* Si la página aún no ha dicho su ciudad, la de la dirección. */
@@ -355,7 +367,7 @@
     });
   }
   /* El botón: copia el enlace al destino que dé idDe() al pulsarlo. */
-  function botonCadena(idDe) {
+  function botonCadena(idDe, previaDe) {
     const b = el('button', 'cadena');
     b.type = 'button';
     b.title = 'Copiar el enlace';
@@ -365,7 +377,7 @@
     b.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
-      const url = enlaceA(idDe());
+      const url = (previaDe && previaDe()) || enlaceA(idDe());
       copiar(url).then(function () {
         pon(true);
         b.classList.add('cadena--ok');
@@ -390,7 +402,7 @@
   }
   function cadena(h) {
     if (h.querySelector(':scope > .cadena')) return;
-    h.appendChild(botonCadena(function () { return destino(h); }));
+    h.appendChild(botonCadena(function () { return destino(h); }, function () { return previa(h); }));
   }
   function cadenas() {
     if (!aviso) avisar('');
