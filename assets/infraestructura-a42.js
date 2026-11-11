@@ -70,8 +70,6 @@
   function mapa() {
     const cont = $('#a42-mapa');
     vaciar(cont);
-    const W = cont.clientWidth || 360;
-    const estrecho = W < 520;
     const P = A.perfil, TR = A.tramos;
     /* El encuadre: la autovía y un margen; a los lados, sitio para rótulos. */
     let bx0 = Infinity, by0 = Infinity, bx1 = -Infinity, by1 = -Infinity;
@@ -79,6 +77,14 @@
       bx0 = Math.min(bx0, c.p[0]); bx1 = Math.max(bx1, c.p[0]);
       by0 = Math.min(by0, c.p[1]); by1 = Math.max(by1, c.p[1]);
     });
+    let W = cont.clientWidth || 360;
+    /* En una ventana baja (un portátil), el mapa se dibuja más estrecho para que quepa con su leyenda;
+       nunca por debajo de 520, donde el dibujo cambia al del móvil. El css acaba de ajustar el resto. */
+    if (W >= 520) {
+      const r = (by1 - by0 + MARGEN * 1.2) / ((bx1 - bx0) + 2 * MARGEN * 2.2);
+      W = Math.max(520, Math.min(W, Math.round((window.innerHeight - 128) / r)));
+    }
+    const estrecho = W < 520;
     const ancho = (bx1 - bx0) + 2 * MARGEN * (estrecho ? 1.6 : 2.2);
     const x0 = (bx0 + bx1) / 2 - ancho / 2, y1 = by1 + MARGEN * 0.6, y0 = by0 - MARGEN * 0.6;
     const s = W / ancho;

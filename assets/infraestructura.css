@@ -645,7 +645,8 @@
 .a42__ley-i i { width: 1.1rem; height: .6rem; border-radius: 2px; }
 .a42__ley [data-k='reten'] i { width: 1.4rem; height: .75rem; border-radius: 999px; background: var(--a42-reten); }
 .a42-mapa { max-width: 40rem; margin-top: 1rem; }
-.a42-mapa__svg { display: block; width: 100%; height: auto; }
+/* En una ventana baja el mapa no pasa del alto que deja la leyenda: el ancho sigue al alto, sin deformarlo. */
+.a42-mapa__svg { display: block; width: auto; max-width: 100%; height: auto; max-height: max(24rem, calc(100svh - 8rem)); }
 .a42-mapa__terminos path { fill: var(--surface); stroke: var(--line-alta); stroke-width: .75; }
 .a42-mapa__terminos path[data-quien='referencia'] { fill: var(--aura-ref); stroke: var(--ref); stroke-width: 1.25; }
 .a42-mapa__terminos path[data-quien='aqui'] { stroke: var(--ink-3); stroke-width: 1.25; }
@@ -696,7 +697,48 @@
 .falla-juntos--scroll { height: calc(100vh + 26rem); }
 .falla-juntos--scroll .falla-juntos__rejilla { display: block; height: 100%; }
 .tp__fijo { position: sticky; top: .75rem; }
+/* Fijo, el bloque entero (pasos, nombres, mapas y leyenda) tiene que caber en la ventana: los mapas no
+   pasan del alto que queda tras lo demás (--tp-resto) y la barra del índice de abajo, y siguen cuadrados. */
+.tp__fijo { --tp-resto: 20rem; --tp-lado: max(13rem, calc(100svh - var(--tp-resto) - .75rem - 4.5rem)); }
+.tp__capas { max-width: var(--tp-lado); }
+.tp__cols { max-width: calc(2 * var(--tp-lado) + clamp(.5rem, 2vw, 1.25rem)); }
 .tp__fijo .tp__ley { margin-top: .75rem; }
+/* Ventana ancha y baja: la leyenda pasa a una columna a la derecha de los dos mapas, que así pueden ser más
+   grandes (pasos y texto arriba, a todo el ancho). Los minutos van en vertical: una fila por tramo, con
+   Parla y la otra ciudad en dos columnas. --tp-resto es lo que ocupan, sobre los mapas, pasos, texto y nombres. */
+@media (min-width: 60rem) and (max-height: 50rem) {
+  .tp__fijo {
+    --tp-resto: 10rem; --tp-ley: 15rem; --tp-gap: clamp(.5rem, 2vw, 1.25rem);
+    --tp-lado: max(13rem, min(calc(100svh - var(--tp-resto) - .75rem - 4.5rem),
+      calc((100vw - 3rem - var(--tp-ley) - 1.5rem - var(--tp-gap)) / 2)));
+    display: grid; grid-template-columns: minmax(0, calc(2 * var(--tp-lado) + var(--tp-gap))) var(--tp-ley);
+    column-gap: 1.5rem; width: fit-content; max-width: 100%; margin-inline: auto; align-items: start;
+  }
+  .tp__fijo > .tp__pasos, .tp__fijo > .tp__clave { grid-column: 1 / -1; }
+  .tp__fijo > .tp__cols { grid-column: 1; }
+  .tp__fijo .tp__ley { grid-column: 2; grid-row: 3; margin-top: 0; flex-direction: column; flex-wrap: nowrap; gap: .6rem; }
+  /* La leyenda empieza donde empiezan los mapas, no en los nombres: nombre, dato y mapa de cada ciudad
+     pasan a ser filas de la rejilla del bloque, y la leyenda se pone en la del mapa. Sin subgrid se queda
+     arriba, a la altura de los nombres. */
+  @supports (grid-template-rows: subgrid) {
+    .tp__fijo > .tp__cols { grid-row: 3 / span 3; grid-template-rows: subgrid; row-gap: 0; }
+    .tp__fijo > .tp__cols > .tp__col { display: grid; grid-row: span 3; grid-template-rows: subgrid; }
+    .tp__fijo .tp__ley { grid-row: 5; }
+    /* En una ventana muy baja la leyenda mide más que el mapa: se apoya abajo y sube lo que le sobra,
+       para que el bloque no crezca y no lo tape la barra del índice. */
+    @media (max-height: 34rem) {
+      .tp__fijo .tp__ley { grid-row: 3 / span 3; align-self: end; }
+    }
+  }
+  /* La tabla, girada: sus filas (Parla, la otra) pasan a columnas y los tramos a filas. */
+  .tp__tabla { display: grid; grid-auto-flow: column; grid-template-rows: repeat(var(--filas, 8), auto); grid-template-columns: auto 1fr 1fr; column-gap: .35rem; max-width: none; }
+  .tp__tabla colgroup { display: none; }
+  .tp__tabla thead, .tp__tabla tbody, .tp__tabla tr { display: contents; }
+  .tp__tabla thead th { align-self: center; text-align: left; font-size: .75rem; }
+  .tp__tabla thead th, .tp__tabla td { padding: .15rem 0; }
+  .tp__tabla tbody th { text-align: center; align-self: end; font-size: .6875rem; }
+  .tp__tabla .tp__c { height: .9rem; }
+}
 .tp__pasos { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0; padding: 0; list-style: none; counter-reset: paso; }
 .tp__paso {
   counter-increment: paso;

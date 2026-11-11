@@ -13,6 +13,8 @@
         no le devuelve.
      l  el recuento de portada: abrir y cerrar con clic y con teclado, aria-expanded, y las fichas abiertas
         se conservan al cambiar de ciudad.
+     n  los mapas de infraestructura.html en ventanas de portátil bajo (1366×650, 1280×600): cada mapa se ve
+        entero a la vez que su leyenda, Parla y la otra ciudad del mismo tamaño, y nada en blanco.
      m  si existe dist/ (`npm run build`): tres rutas de vista previa por tipo (sección, ficha, dato de
         «Todos los datos») redirigen bien.
 
@@ -36,12 +38,12 @@ const require = createRequire(import.meta.url);
 const args = process.argv.slice(2);
 const opcion = (n, defecto = null) => { const i = args.indexOf('--' + n); return i >= 0 ? args[i + 1] : defecto; };
 if (args.includes('--ayuda') || args.includes('-h')) {
-  console.log('npm run revisar -- [--pagina economia] [--ciudad getafe] [--bloque i,j,k,l,m] [--concurrencia 3]');
+  console.log('npm run revisar -- [--pagina economia] [--ciudad getafe] [--bloque i,j,k,l,m,n] [--concurrencia 3]');
   process.exit(0);
 }
 const SOLO_PAGINA = opcion('pagina');
 const SOLO_CIUDAD = opcion('ciudad');
-const BLOQUES = (opcion('bloque') || 'i,j,k,l,m').split(',').map((x) => x.trim());
+const BLOQUES = (opcion('bloque') || 'i,j,k,l,m,n').split(',').map((x) => x.trim());
 const N = Number(opcion('concurrencia', Math.max(2, Math.min(4, (require('node:os').cpus().length || 4) - 1))));
 
 /* ── Playwright: de una instalación normal o de herramientas/video ───── */
@@ -544,9 +546,105 @@ async function bloqueDist(browser) {
   } finally { await srv.cerrar(); }
 }
 
+/* ═══ n · los mapas en un portátil bajo ═══════════════════════════════ */
+
+/* Alto útil de un portátil con la barra del navegador y ventanas pequeñas. En cada una, cada mapa de
+   infraestructura.html tiene que verse entero a la vez que su leyenda (el de salidas, con su rótulo; la A-42,
+   con su leyenda de arriba; los de transporte público, que van fijos mientras se baja, con sus pasos, nombres y
+   leyenda, sin la barra del índice encima de la leyenda). Frente a frente, del mismo tamaño. En ventanas anchas y
+   bajas (≥ 60rem de ancho, ≤ 50rem de alto) la leyenda de transporte público va a la derecha de los mapas, a la
+   vez a la vista y sin pisarlos; 1093×520 es un portátil de 1366×650 con el zoom al 125 %. */
+const VENTANAS_PORTATIL = [[1366, 650], [1280, 600], [1093, 520], [1024, 600]];
+
+/* Se ejecuta en la página. Devuelve, por mapa, lo que ocupa respecto a la ventana. */
+async function medirMapas(p) {
+  return p.evaluate(async () => {
+    const q = (s) => document.querySelector(s), vh = innerHeight;
+    const caja = (e) => { const r = e.getBoundingClientRect(); return { t: r.top, b: r.bottom, l: r.left, r: r.right, w: r.width, h: r.height }; };
+    const espera = (ms) => new Promise((r) => setTimeout(r, ms));
+    const ir = (y) => scrollTo({ top: y, behavior: 'instant' });   /* la página hace scroll suave */
+    const a = (e, arriba) => { ir(scrollY + e.getBoundingClientRect().top - arriba); };
+    const sal = [...document.querySelectorAll('#mapas .mapa__lienzo')];
+    const out = {};
+    /* el lienzo pintado: algún píxel con color */
+    const pintado = (c) => { try { const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; for (let i = 3; i < d.length; i += 4000) if (d[i]) return true; } catch (e) { return false; } return false; };
+
+    if (sal.length === 2) {
+      a(sal[0].closest('.mapa'), 8); await espera(300);
+      const f = sal.map((c) => caja(c)), top = caja(sal[0].closest('.mapa')).t;
+      out.salidas = { arriba: top, abajo: Math.max(...f.map((x) => x.b)), ancho: f.map((x) => Math.round(x.w)), alto: f.map((x) => Math.round(x.h)), pintado: sal.every(pintado), mapa: Math.max(...f.map((x) => x.h)) };
+    }
+    const ley = q('#a42-ley'), m42 = q('#a42-mapa svg');
+    if (ley && m42) {
+      a(ley, 8); await espera(300);
+      const l = caja(ley), m = caja(m42);
+      out.a42 = { arriba: l.t, abajo: m.b, leyenda: l.h > 0, mapa: m.h, ancho: [Math.round(m.w)], alto: [Math.round(m.h)] };
+    }
+    const fijo = q('.tp__fijo');
+    if (fijo) {
+      const c = fijo.closest('.falla-juntos');
+      ir(scrollY + c.getBoundingClientRect().top + 60);   /* ya fijo, en su sitio de arriba */
+      for (let i = 0; i < 40 && !q('.tp__capas .tp__svg path'); i++) await espera(250);
+      await espera(600);
+      const svgs = [...document.querySelectorAll('.tp__capas .tp__svg')];
+      const f = caja(fijo), l = q('#tp-ley') ? caja(q('#tp-ley')) : null, bar = q('.indice-barra[data-visible="1"]');
+      const barra = bar && getComputedStyle(bar).position === 'fixed' ? Math.max(0, vh - bar.getBoundingClientRect().top) : 0;
+      const vis = svgs.filter((s) => s.getBoundingClientRect().width > 0).map(caja);
+      if (!vis.length) return out;
+      out.tp = { arriba: f.t, leyArriba: l ? l.t : 0, leyIzq: l ? l.l : 0, mapasDer: Math.max(...vis.map((x) => x.r)), mapasAbajo: Math.max(...vis.map((x) => x.b)),
+        lateral: matchMedia('(min-width: 60rem) and (max-height: 50rem)').matches,
+         abajo: Math.max(f.b, l ? l.b : 0), leyendaAbajo: l ? l.b : 0, barra, leyenda: !!l && l.h > 0,
+        mapa: Math.max(...vis.map((x) => x.h)), ancho: vis.map((x) => Math.round(x.w)), alto: vis.map((x) => Math.round(x.h)),
+        pintado: svgs.every((s) => s.querySelectorAll('path').length > 3) };
+    }
+    out.vh = vh;
+    return out;
+  });
+}
+
+async function bloqueMapas(browser, base) {
+  const ciudades = SOLO_CIUDAD ? [SOLO_CIUDAD] : CIUDADES;
+  if (SOLO_PAGINA && SOLO_PAGINA !== 'infraestructura') return;
+  const tareas = [];
+  for (const ciudad of ciudades) for (const v of VENTANAS_PORTATIL) tareas.push([ciudad, v]);
+  await enParalelo(tareas, N, async ([ciudad, [w, h]]) => {
+    const donde = (pieza) => ({ pagina: 'infraestructura.html', ciudad, pieza: `${pieza}, ventana ${w}×${h}` });
+    const ctx = await browser.newContext({ viewport: { width: w, height: h } });
+    const errores = [];
+    try {
+      const p = await pagina(ctx, errores);
+      await ir(p, base, 'infraestructura', ciudad);
+      await p.waitForTimeout(1500);
+      const m = await medirMapas(p);
+      const nombres = { salidas: 'mapas de salida por carretera', a42: 'mapa de la A-42', tp: 'mapas de transporte público' };
+      for (const k of ['salidas', 'a42', 'tp']) {
+        informe.caso('n');
+        const x = m[k];
+        if (!x) { informe.fallo('n', donde(nombres[k]), 'no se encuentra el mapa'); continue; }
+        const lim = k === 'tp' ? h - x.barra : h;
+        if (x.arriba < -1) informe.fallo('n', donde(nombres[k]), `el bloque empieza a ${Math.round(x.arriba)} px: se sale por arriba`);
+        if (x.abajo > lim + 1) informe.fallo('n', donde(nombres[k]), `mapa y leyenda no caben a la vez: el bloque llega a ${Math.round(x.abajo)} px y la ventana deja ${Math.round(lim)}${k === 'tp' && x.barra ? ' (con la barra del índice)' : ''}`);
+        if (x.mapa > h * 0.85) informe.fallo('n', donde(nombres[k]), `el mapa mide ${Math.round(x.mapa)} px, ${Math.round(100 * x.mapa / h)} % del alto de la ventana (máximo 85 %)`);
+        if (k !== 'salidas' && !x.leyenda) informe.fallo('n', donde(nombres[k]), 'la leyenda no se ve');
+        if (k === 'tp' && x.leyenda) {
+          if (x.leyArriba < -1) informe.fallo('n', donde(nombres[k]), `la leyenda empieza a ${Math.round(x.leyArriba)} px: se sale por arriba`);
+          if (x.lateral && x.leyIzq < x.mapasDer - 1) informe.fallo('n', donde(nombres[k]), 'la leyenda debería ir a la derecha de los mapas y los pisa');
+          if (!x.lateral && x.leyArriba < x.mapasAbajo - 1) informe.fallo('n', donde(nombres[k]), 'la leyenda debería ir debajo de los mapas y los pisa');
+        }
+        if (x.pintado === false) informe.fallo('n', donde(nombres[k]), 'el mapa está en blanco');
+        if (Math.max(...x.ancho) - Math.min(...x.ancho) > 1 || Math.max(...x.alto) - Math.min(...x.alto) > 1) informe.fallo('n', donde(nombres[k]), `los mapas de Parla y ${ciudad} no miden lo mismo (anchos ${x.ancho.join('/')}, altos ${x.alto.join('/')})`);
+      }
+      for (const e of [...new Set(errores)]) informe.fallo('n', donde('consola'), e);
+    } catch (e) {
+      informe.fallo('n', donde('revisión'), 'la revisión de mapas se ha parado: ' + String(e.message).split('\n')[0]);
+    }
+    await ctx.close();
+  });
+}
+
 /* ═══ Todo junto ═════════════════════════════════════════════════════ */
 
-const NOMBRES = { i: 'i  carteles (papel y barrio)', j: 'j  páginas: escritorio, móvil, claro, oscuro', k: 'k  enlaces ?ir=', l: 'l  recuento de portada', m: 'm  rutas de vista previa (dist/)' };
+const NOMBRES = { i: 'i  carteles (papel y barrio)', j: 'j  páginas: escritorio, móvil, claro, oscuro', k: 'k  enlaces ?ir=', l: 'l  recuento de portada', m: 'm  rutas de vista previa (dist/)', n: 'n  mapas en un portátil bajo' };
 const T0 = Date.now();
 const servidor = await servir(RAIZ);
 let navegador;
@@ -560,7 +658,7 @@ try {
 console.log(`Revisión con Chromium: ${PAGINAS.length} páginas × ${CIUDADES.length} ciudades, bloques ${BLOQUES.join(', ')}, ${N} a la vez.`);
 try {
   const hacer = { i: () => bloqueCarteles(navegador, servidor.base), j: () => bloquePaginas(navegador, servidor.base),
-    k: () => bloqueEnlaces(navegador, servidor.base), l: () => bloqueRecuento(navegador, servidor.base), m: () => bloqueDist(navegador) };
+    k: () => bloqueEnlaces(navegador, servidor.base), l: () => bloqueRecuento(navegador, servidor.base), m: () => bloqueDist(navegador), n: () => bloqueMapas(navegador, servidor.base) };
   for (const b of BLOQUES) {
     if (!hacer[b]) { console.error('Bloque desconocido: ' + b); continue; }
     const t = Date.now();

@@ -281,7 +281,10 @@
     /* píxeles de ancho por persona: la vía más cargada de las dos, a
        ANCHO_MAX; en pantallas estrechas, algo menos */
     const max = ancho < 500 ? ANCHO_MAX * 0.7 : ANCHO_MAX;
-    return { alto: Math.round(ancho * 0.8), ppp: max / Math.max(tope, 1) };
+    /* el alto del marco: 0,8 del ancho, pero sin pasar de los dos tercios de la ventana, para que en un
+       portátil bajo el mapa y su rótulo quepan a la vez en la pantalla (nunca menos de la mitad del ancho) */
+    const alto = Math.max(Math.round(ancho * 0.5), Math.min(Math.round(ancho * 0.8), Math.round(window.innerHeight * 0.66)));
+    return { alto: alto, ppp: max / Math.max(tope, 1) };
   }
 
   function pintar() {

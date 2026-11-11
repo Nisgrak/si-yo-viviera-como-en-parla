@@ -221,6 +221,7 @@
        gris, como en los mapas. */
     const li = el('li', 'tp__escala');
     const t = el('table', 'tp__tabla');
+    t.style.setProperty('--filas', String(u.length + 2));
     t.appendChild(el('caption', 'oculto', 'Minutos hasta ' + D().nombre + ' y color de cada tramo en cada ciudad'));
     /* La primera columna, la del nombre, más ancha: «Torrejón de Ardoz». */
     const cg = el('colgroup');
