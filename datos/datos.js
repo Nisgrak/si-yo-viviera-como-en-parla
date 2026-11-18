@@ -1308,7 +1308,7 @@ window.DATOS = (function () {
       ],
       nota: 'Parla es el municipio más joven de los {N} comparados. De ahí que los colegios, los institutos y las escuelas infantiles se midan contra los niños de esa edad.'
     },
-    /* Cuánto suelo hay que repartir. Va con las edades, en el punto de partida. */
+    /* Cuánto suelo hay que repartir. Va con las edades, en la base de la cuenta. */
     superficie: {
       fuenteId: 'superficie',
       valores: {

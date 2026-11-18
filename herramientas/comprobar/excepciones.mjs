@@ -14,7 +14,7 @@ export const SIN_BOTONES = {
   'index.html#sanidad': RESUMEN,
   'index.html#educacion': RESUMEN,
   'index.html#inclusion': RESUMEN,
-  'index.html#partida': 'Punto de partida: habitantes y edades de cada ciudad, la base de la cuenta; no es un dato que se compare.',
+  'index.html#partida': 'La base de la cuenta: habitantes y edades de cada ciudad, la base de la cuenta; no es un dato que se compare.',
   'index.html#metodo': METODO,
   'economia.html#metodo': METODO,
   'vivienda.html#metodo': METODO,

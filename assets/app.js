@@ -799,9 +799,38 @@
       if (abierta) ABIERTAS[id] = true; else delete ABIERTAS[id];
     }
     poner(!!ABIERTAS[id]);
-    b.addEventListener('click', function () { poner(art.hidden); });
+    b.addEventListener('click', function () {
+      poner(art.hidden);
+      if (!art.hidden) sinPista();
+    });
     li.appendChild(art);
     return li;
+  }
+
+  /* La pista de la primera vez: la primera línea que se abre lleva un
+     «Toca para ver la cuenta» y su chevron late. En cuanto se abre una
+     línea, cualquiera, se va y no vuelve (se recuerda en el navegador). */
+  const PISTA = 'recuento-pista-vista';
+  function pistaVista() {
+    try { return localStorage.getItem(PISTA) === '1'; } catch (e) { return false; }
+  }
+  function sinPista() {
+    try { localStorage.setItem(PISTA, '1'); } catch (e) { /* sin almacenamiento */ }
+    document.querySelectorAll('.rec__pista').forEach(function (p) { p.remove(); });
+    document.querySelectorAll('.rec--pista').forEach(function (r) { r.classList.remove('rec--pista'); });
+    const cont = $('#recuento');
+    if (cont) cont.classList.remove('recuento--pista');
+  }
+  function ponerPista(cont) {
+    if (pistaVista() || cont.querySelector('.rec[data-abierta="1"]')) return;
+    const b = cont.querySelector('.rec--abre button.rec__a');
+    if (!b) return;
+    cont.classList.add('recuento--pista');
+    const p = el('span', 'rec__pista', 'Toca para ver la cuenta');
+    p.setAttribute('aria-hidden', 'true');
+    const li = b.closest('.rec');
+    li.classList.add('rec--pista');
+    li.appendChild(p);
   }
 
   /* Bajo «Fuera del recuento», en qué se mide lo que no suma, con las
@@ -1002,9 +1031,10 @@
       ? 'A Parla le faltan <b>' + f + ' equipamientos</b> y tiene <b class="gana">' + s +
         '</b> de más. ' + neto
       : 'A Parla le faltan <b>' + f + ' equipamientos</b> en total.';
+    ponerPista(cont);
   }
 
-  /* ── El punto de partida ──────────────────────────────────────────── */
+  /* ── La base de la cuenta ──────────────────────────────────────────── */
 
   function serieDinero(id) {
     return D.contexto.dinero.find(function (s) { return s.id === id; });

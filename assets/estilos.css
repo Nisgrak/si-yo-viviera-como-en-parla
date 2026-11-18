@@ -433,7 +433,7 @@ a:hover { text-decoration-color: var(--ref); }
   color: var(--ink-2);
 }
 
-/* El suelo que hay que repartir, en el punto de partida. */
+/* El suelo que hay que repartir, en la base de la cuenta. */
 .tamano { margin-top: clamp(1.5rem, 5vw, 2rem); }
 .tamano__txt {
   max-width: 32rem;
@@ -912,7 +912,7 @@ a:hover { text-decoration-color: var(--ref); }
 
 .rec__a {
   display: grid;
-  grid-template-columns: 1.375rem 1fr auto 1rem;
+  grid-template-columns: 1.375rem 1fr auto 1.625rem;
   align-items: center;
   column-gap: .75rem;
   min-height: 2.75rem;
@@ -922,7 +922,7 @@ a:hover { text-decoration-color: var(--ref); }
 }
 /* Las filas que no se abren (enlaces al dinero, empates) reservan la misma
    columna del chevron, para que su cifra caiga bajo las demás. */
-a.rec__a::after, div.rec__a::after { content: ''; grid-column: 4; width: 1rem; }
+a.rec__a::after, div.rec__a::after { content: ''; grid-column: 4; width: 1.625rem; }
 button.rec__a {
   width: 100%; margin: 0; border: 0; background: none;
   font: inherit; color: inherit; text-align: left; cursor: pointer;
@@ -933,15 +933,47 @@ button.rec__a:focus-visible { outline: 2px solid var(--ref); outline-offset: -2p
 a.rec__a:hover .rec__q, button.rec__a:hover .rec__q { color: var(--loss); }
 div.rec__a:hover { background: none; }
 
-/* El chevron: un trazo que mira a la derecha y gira hacia abajo al abrir. */
+/* El chevron: un círculo con un trazo que mira abajo y gira hacia arriba al
+   abrir. Antes era solo el trazo, gris y pequeño, y no se veía que la línea
+   se abre. */
 .rec__v {
   justify-self: end;
-  width: .5rem; height: .5rem; margin-right: .25rem;
-  border-right: 2px solid var(--ink-3); border-bottom: 2px solid var(--ink-3);
-  transform: rotate(-45deg);
-  transition: transform .2s var(--sal-corta);
+  position: relative;
+  width: 1.625rem; height: 1.625rem;
+  border: 1.5px solid var(--line-alta); border-radius: 50%;
+  transition: border-color .16s var(--sal-corta), background .16s var(--sal-corta);
 }
-.rec[data-abierta="1"] .rec__v { transform: rotate(45deg); }
+.rec__v::before {
+  content: ''; position: absolute; left: 50%; top: 50%;
+  width: .4rem; height: .4rem; margin: -.3rem 0 0 -.2rem;
+  border-right: 2px solid var(--ink-2); border-bottom: 2px solid var(--ink-2);
+  transform: rotate(45deg);
+  transition: transform .2s var(--sal-corta), margin .2s var(--sal-corta);
+}
+button.rec__a:hover .rec__v { border-color: var(--ink); background: var(--bg); }
+.rec[data-abierta="1"] .rec__v { border-color: var(--ink); }
+.rec[data-abierta="1"] .rec__v::before { transform: rotate(225deg); margin-top: -.1rem; }
+
+/* La pista de la primera vez (filaRecuento, ponerPista): una etiqueta bajo
+   la primera línea y el círculo de su chevron latiendo. */
+.rec__pista {
+  display: block;
+  margin: -.3rem .25rem .6rem auto; width: max-content;
+  padding: .2rem .55rem;
+  border-radius: 999px;
+  background: var(--ink); color: var(--bg);
+  font-size: .75rem; font-weight: 700; letter-spacing: .01em;
+  pointer-events: none;
+  animation: pista-entra .4s var(--sal-corta) both .6s;
+}
+.rec--pista .rec__v {
+  animation: pista-late 1.6s ease-in-out infinite 1s;
+}
+@keyframes pista-entra { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@keyframes pista-late {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ink) 35%, transparent); border-color: var(--ink); }
+  60% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--ink) 0%, transparent); }
+}
 .rec[data-abierta="1"] > .rec__h .rec__a { background: var(--surface); }
 .rec[data-abierta="1"] > .rec__h .rec__q { font-weight: 800; }
 .rec__sub { display: block; margin-top: .15rem; font-size: .8125rem; font-weight: 400; color: var(--ink-3); }

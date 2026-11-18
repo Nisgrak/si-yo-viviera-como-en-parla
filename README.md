@@ -92,7 +92,7 @@ Poblaciones totales: cifras oficiales del INE a 1 de enero de 2025.
 Tramos de edad: INE, población por edad año a año, misma fecha (tabla 68543). Los totales de
 las dos operaciones difieren en unos miles; ningún cálculo mezcla las dos.
 
-La **superficie** (INE Indicadores Urbanos, 2024) se enseña al final del punto de partida: Parla
+La **superficie** (INE Indicadores Urbanos, 2024) se enseña al final de «La base de la cuenta»: Parla
 es la más pequeña de las once y la más densa, y eso se lee mejor con el dato delante.
 
 La web abre el recuento con un ejemplo resuelto con números reales de la ciudad elegida («En
@@ -1405,7 +1405,7 @@ limita la prueba a una página o ciudad mientras se trabaja.
 
 **Excepciones.** Están todas, cada una con su motivo, en `herramientas/comprobar/excepciones.mjs`:
 `SIN_BOTONES` (secciones sin cartel: los resúmenes de portada que enlazan a otra página, «Donde Parla tiene
-más», «Punto de partida», «Cómo está hecho», los mapas de «Por dónde sale la gente», la A-42, «Lo que hay» de
+más», «La base de la cuenta», «Cómo está hecho», los mapas de «Por dónde sale la gente», la A-42, «Lo que hay» de
 sanidad y de educación, «Volver a estudiar»), `CARTEL_SIN_ENLACE`, `UNA_CIFRA` (el cartel general de portada y
 la cartera del hospital; los «Parla sola» no hacen falta aquí: se reconocen porque la vista previa de esa ciudad
 lo dice), `SENTIDO_DE_PIEZA` y `ANTITESIS_VALIDAS` (vacía). Una excepción que ya no hace falta se avisa para
