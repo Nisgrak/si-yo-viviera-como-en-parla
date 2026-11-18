@@ -101,6 +101,16 @@ for (const [f, h] of [['sanidad.html', san], ['educacion.html', edu], ['inclusio
   await writeFile(join(DIST, f), h.replace('<html lang="es">', '<html lang="es" data-rutas>'));
 }
 
+/* Lo que lee Google: solo las páginas de la raíz. Las de cada ciudad y cada
+   ficha llevan noindex (son vistas previas para compartir), así que en los
+   resultados sale la web una vez, con sus secciones. */
+const PAGINAS = ['', 'infraestructura.html', 'vivienda.html', 'economia.html', 'sanidad.html',
+  'educacion.html', 'inclusion.html', 'consulta.html'];
+await writeFile(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${BASE}sitemap.xml\n`);
+await writeFile(join(DIST, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n' +
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+  PAGINAS.map((p) => `  <url><loc>${BASE}${p}</loc></url>\n`).join('') + '</urlset>\n');
+
 /* ── Las imágenes ───────────────────────────────────────────────────── */
 
 const fuentes = await Promise.all(['archivo-latin.woff2', 'archivo-latin-ext.woff2']
@@ -840,7 +850,7 @@ function pagina(id, nombre, total) {
 <meta charset="utf-8">
 <title>${esc(titulo)}</title>
 <meta name="description" content="${esc(desc)}">
-<link rel="canonical" href="${url}">
+<meta name="robots" content="noindex, follow">
 <meta property="og:type" content="website">
 <meta property="og:title" content="${esc(titulo)}">
 <meta property="og:description" content="${esc(desc)}">
@@ -874,7 +884,7 @@ function paginaSeccion(id, ruta, destino, titulo, previa) {
 <meta charset="utf-8">
 <title>${esc(titulo)} · ${esc(D.NOMBRE_WEB)}</title>
 <meta name="description" content="${esc(previa.desc)}">
-<link rel="canonical" href="${url}">
+<meta name="robots" content="noindex, follow">
 <meta property="og:type" content="website">
 <meta property="og:title" content="${esc(titulo)}">
 <meta property="og:description" content="${esc(previa.desc)}">
@@ -906,7 +916,7 @@ function paginaCiudad(id, titulo, fuente, archivo, ruta, base = '../../', previa
     .replace('<head>', `<head>\n<base href="${base}">`)
     .replace(/<title>[^<]*<\/title>/, `<title>${esc(titulo)} · ${esc(D.NOMBRE_WEB)}</title>`)
     .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${esc(titulo)}">`)
-    .replace(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${url}">\n<link rel="canonical" href="${url}">`);
+    .replace(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${url}">\n<meta name="robots" content="noindex, follow">`);
   /* La vista previa con la cifra de la ciudad, si la hay. */
   if (previa) {
     h = h.replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${esc(previa.desc)}">`)
@@ -915,7 +925,9 @@ function paginaCiudad(id, titulo, fuente, archivo, ruta, base = '../../', previa
       .replace(/(<meta property="og:image" content="[^"]*">)/, `$1\n<meta property="og:image:alt" content="${esc(titulo)}">`);
     if (!h.includes(previa.imagen)) throw new Error(archivo + ': no se pudo poner la imagen de ' + id);
   }
-  for (const a of ['data-ciudad', '<base', url]) {
+  /* La copia por ciudad no se indexa: en Google sale la sección una vez. */
+  h = h.replace(/<link rel="canonical" href="[^"]*">\n?/, '');
+  for (const a of ['data-ciudad', '<base', url, 'noindex']) {
     if (!h.includes(a)) throw new Error(archivo + ': no se pudo marcar ' + a);
   }
   return h;
